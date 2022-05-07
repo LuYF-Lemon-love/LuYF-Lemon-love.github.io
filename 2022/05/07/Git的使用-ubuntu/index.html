@@ -16,7 +16,7 @@
 <meta property="og:description" content="前言Git 是一个免费、开源的版本控制软件。 版本控制通过记录一个或若干个文件内容变化，来实现查询特定版本修改详情，具有以下特点：  记录文件的所有历史变化 随时可恢复到任何一个历史状态 多人协作开发或修改  Github 是全球最大的社交编程及代码托管网站（ https:&#x2F;&#x2F;github.com&#x2F; ）。 Git 是版本控制软件，Github 是项目代码托管平台，借助 git 来管理项目代码。 操">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-05-06T20:53:32.000Z">
-<meta property="article:modified_time" content="2022-05-06T23:52:33.128Z">
+<meta property="article:modified_time" content="2022-05-07T11:15:43.070Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="github">
 <meta name="twitter:card" content="summary">
@@ -175,24 +175,52 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Git 是一个免费、开源的版本控制软件。</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Git 是一个<strong>免费、开源</strong>的版本控制软件。</p>
 <p>版本控制通过记录一个或若干个文件内容变化，来实现查询特定版本修改详情，具有以下特点：</p>
 <ul>
-<li>记录文件的所有历史变化</li>
-<li>随时可恢复到任何一个历史状态</li>
-<li>多人协作开发或修改</li>
+<li><strong>记录文件的所有历史变化</strong></li>
+<li><strong>随时可恢复到任何一个历史状态</strong></li>
+<li><strong>多人协作开发或修改</strong></li>
 </ul>
 <p>Github 是全球最大的社交编程及代码托管网站（ <a target="_blank" rel="noopener" href="https://github.com/">https://github.com/</a> ）。</p>
 <p>Git 是版本控制软件，Github 是项目代码托管平台，借助 git 来管理项目代码。</p>
-<p>操作系统：Ubuntu 20.04.4 LTS</p>
+<p>操作系统：<strong>Ubuntu 20.04.4 LTS</strong></p>
 <h3 id="Github的基本概念"><a href="#Github的基本概念" class="headerlink" title="Github的基本概念"></a>Github的基本概念</h3><p>仓库（ Repository ）</p>
 <p>收藏（ Star ）</p>
 <p>克隆项目（ Fork ）：克隆后的仓库会声明源仓库，但是是单独存在的。</p>
 <p>发起请求（ Pull Request ）</p>
 <p>关注（ Watch ）</p>
-<p>事务（ Issue ）：发现代码 BUG，但是目前没有解决代码，需要讨论。在讨论过程中要保持谦逊和礼貌。</p>
-<p>创建开源仓库时尽量使用 MIT 许可证（The MIT License），有利于仓库的传播。</p>
-<p>在仓库中按 t 键可以快速 find 文件</p>
+<p>事务（ Issue ）：发现代码 BUG，但是目前没有解决代码，需要讨论。在讨论过程中要保持<strong>谦逊</strong>和<strong>礼貌</strong>。</p>
+<p>创建开源仓库时尽量使用 <strong>MIT 许可证</strong>（The MIT License），有利于仓库的传播。</p>
+<p>在仓库中按 <strong>t</strong> 键可以快速 find 文件。</p>
+<h3 id="开源项目贡献流程"><a href="#开源项目贡献流程" class="headerlink" title="开源项目贡献流程"></a>开源项目贡献流程</h3><h4 id="提出Issue"><a href="#提出Issue" class="headerlink" title="提出Issue"></a>提出Issue</h4><p>提交bug或者idea</p>
+<h4 id="Pull-Request"><a href="#Pull-Request" class="headerlink" title="Pull Request"></a>Pull Request</h4><ul>
+<li>fork 项目</li>
+<li>修改 fork 项目仓库的代码</li>
+<li>新建 pull request</li>
+<li>等待原作者审核</li>
+</ul>
+<h3 id="Git-管理项目"><a href="#Git-管理项目" class="headerlink" title="Git 管理项目"></a>Git 管理项目</h3><h4 id="Git-基本工作流程"><a href="#Git-基本工作流程" class="headerlink" title="Git 基本工作流程"></a>Git 基本工作流程</h4><p>Git 工作区域：</p>
+<ul>
+<li>工作区（ Working Directory ）：添加、编辑和修改文件等动作</li>
+<li>暂存区：暂存已经修改的文件，最后统一提交到仓库中</li>
+<li>仓库（ Repository ）：最终确定的文件保存到仓库，成为一个新的版本，并对他人可见</li>
+</ul>
+<p>向仓库中提交代码的流程：</p>
+<ul>
+<li><p>将工作区中的内容提交到暂存区：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line"></span><br><span class="line">git add a.c</span><br><span class="line">git add b.cpp</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将暂存区的内容提交到仓库中：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line"></span><br><span class="line">git commit -m &quot;提交描述&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看状态：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Git-初始化"><a href="#Git-初始化" class="headerlink" title="Git 初始化"></a>Git 初始化</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email &quot;3555028709@qq.com&quot;</span><br><span class="line"></span><br><span class="line">git config --global user.name &quot;LuYF-Lemon-love&quot;</span><br><span class="line"></span><br><span class="line">git config --global core.autocrlf false</span><br></pre></td></tr></table></figure>
+
+<h4 id="本地创建一个新的仓库"><a href="#本地创建一个新的仓库" class="headerlink" title="本地创建一个新的仓库"></a>本地创建一个新的仓库</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir my_repository</span><br><span class="line"></span><br><span class="line">cd my_repository</span><br><span class="line">git </span><br></pre></td></tr></table></figure>
+
 
       
 
