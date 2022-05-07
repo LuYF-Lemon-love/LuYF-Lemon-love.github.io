@@ -172,7 +172,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Git 是一个<strong>免费、开源</strong>的版本控制软件。</p>
+        <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>受到<strong>冯乐乐</strong>的影响，想要搭建个人博客</p>
+<p>冯乐乐个人介绍：</p>
+<blockquote>
+<p>Hi，我是冯乐乐，上海交通大学软件学院研究生，数字媒体实验室，师从杨旭波教授，目前投身于游戏行业，就职于上海米哈游，欢迎找我投简历。我喜欢一切用计算机绘画的技术！</p>
+<p>爱好写shader、计算机图形学、写博客；经常在Shadertoy上学习和分享shader；之前一直在CSDN上分享技术博客。个人编写的技术书籍《Unity Shader入门精要》（异步社区、亚马逊、京东、当当）于2016年由人民邮电出版社出版发售。</p>
+<p>想要自己建博客的想法萌生于一两年前，有个IBM的管理人员来交大做讲座，他提到面试的时候如果有个个人博客是很好的事情，但千万不要使用CSDN这种，显得很low（这话不是我说的，不要拍我……）。作为一个使用CDSN博客多年的人来说，我受到了1t的伤害&gt;_&lt;。最近又来了兴趣，所幸花一天时间搞起来吧。</p>
+</blockquote>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Git 是一个<strong>免费、开源</strong>的版本控制软件。</p>
 <p>版本控制通过记录一个或若干个文件内容变化，来实现查询特定版本修改详情，具有以下特点：</p>
 <ul>
 <li><strong>记录文件的所有历史变化</strong></li>
@@ -216,8 +223,37 @@
 </ul>
 <h4 id="Git-初始化"><a href="#Git-初始化" class="headerlink" title="Git 初始化"></a>Git 初始化</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email &quot;3555028709@qq.com&quot;</span><br><span class="line"></span><br><span class="line">git config --global user.name &quot;LuYF-Lemon-love&quot;</span><br><span class="line"></span><br><span class="line">git config --global core.autocrlf false</span><br></pre></td></tr></table></figure>
 
-<h4 id="本地创建一个新的仓库"><a href="#本地创建一个新的仓库" class="headerlink" title="本地创建一个新的仓库"></a>本地创建一个新的仓库</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir my_repository</span><br><span class="line"></span><br><span class="line">cd my_repository</span><br><span class="line">git </span><br></pre></td></tr></table></figure>
+<h4 id="本地创建一个新的仓库"><a href="#本地创建一个新的仓库" class="headerlink" title="本地创建一个新的仓库"></a>本地创建一个新的仓库</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mkdir my_repository</span><br><span class="line"></span><br><span class="line">cd my_repository</span><br><span class="line">git init</span><br><span class="line"></span><br><span class="line">touch a.c</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line">git add a.c</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line">git commit -m &#x27;新增 a.c 文件&#x27;</span><br><span class="line"></span><br><span class="line">git status</span><br></pre></td></tr></table></figure>
 
+<h4 id="修改仓库代码"><a href="#修改仓库代码" class="headerlink" title="修改仓库代码"></a>修改仓库代码</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vi a.c</span><br><span class="line"></span><br><span class="line">cat a.c</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line">git add a.c</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line">git commit -m &#x27;修改 a.c 文件&#x27;</span><br><span class="line"></span><br><span class="line">git status</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除仓库文件"><a href="#删除仓库文件" class="headerlink" title="删除仓库文件"></a>删除仓库文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rm -rf a.c</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line">git rm a.c</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line">git commit -m &#x27;删除 a.c 文件&#x27;</span><br><span class="line"></span><br><span class="line">git status</span><br></pre></td></tr></table></figure>
+
+<h3 id="Git-管理远程仓库"><a href="#Git-管理远程仓库" class="headerlink" title="Git 管理远程仓库"></a>Git 管理远程仓库</h3><p>好处：备份，实现代码共享，集中化管理，<strong>逼格高</strong>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push # 将本地仓库提交到远程仓库</span><br></pre></td></tr></table></figure>
+
+<h4 id="Personal-access-tokens"><a href="#Personal-access-tokens" class="headerlink" title="Personal access tokens"></a>Personal access tokens</h4><ol>
+<li>登录 Github</li>
+<li>进入 Settings</li>
+<li>进入 Developer settings</li>
+<li>点击 Personal access tokens</li>
+<li>点击 Generate new token</li>
+<li>选择生成的个人令牌的访问权限和期限</li>
+<li>点击 Generate token</li>
+<li>保存生成的token</li>
+</ol>
+<p>token使用方法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin https://&lt;your_token&gt;@github.com/&lt;username&gt;/&lt;repo&gt;.git</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">&lt;your_token&gt;: 生成的 token</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">&lt;username&gt;: 用户名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">&lt;repo&gt;: 仓库名</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Git-克隆"><a href="#Git-克隆" class="headerlink" title="Git 克隆"></a>Git 克隆</h4><p>加远程仓库复制到本地</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/LuYF-Lemon-love/picture.git # 密码是生成的 token</span><br><span class="line"></span><br><span class="line">cd picture</span><br><span class="line"></span><br><span class="line">ls -a</span><br></pre></td></tr></table></figure>
+
+<h4 id="将本地仓库同步到远程仓库中"><a href="#将本地仓库同步到远程仓库中" class="headerlink" title="将本地仓库同步到远程仓库中"></a>将本地仓库同步到远程仓库中</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">mv 苏苏1.jpeg 苏苏-001.jpeg # 修改图片的名字</span><br><span class="line">ls</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line">git add 苏苏-001.jpeg</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line">git commit -m &#x27;修改苏苏图片的名字&#x27;</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line">git remote set-url origin https://&lt;your_token&gt;@github.com/LuYF-Lemon-love/picture.git # 防止每次push都需要输入token</span><br><span class="line">git push</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">由于我们是修改了文件名，因此我们需要将附带产生的删除操作也提交到远程仓库</span></span><br><span class="line">git rm 苏苏1.jpeg</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line">git commit -m &#x27;删除 苏苏1.jpeg 文件&#x27;</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line">git push</span><br><span class="line"></span><br><span class="line">git status</span><br></pre></td></tr></table></figure>
+
+<h3 id="Github-Pages"><a href="#Github-Pages" class="headerlink" title="Github Pages"></a>Github Pages</h3><p>个人站点：<a target="_blank" rel="noopener" href="https://luyf-lemon-love.github.io/">https://LuYF-Lemon-love.github.io</a> </p>
+<p>格式：https:&#x2F;&#x2F;用户名.github.io</p>
 
       
 
