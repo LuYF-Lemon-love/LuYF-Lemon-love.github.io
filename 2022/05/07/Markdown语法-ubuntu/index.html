@@ -15,14 +15,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="前言Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的 XHTML 或者 HTML 文档。 Markdown 语法是程序员的必备技能。 环境本文使用 VScode 编写的。 VScode 配置 Markdown 环境只需安装 Markdown 插件即可。 我选择的插件为 markdownlint。 Ctrl + K V 即可实现分屏预览效果，Ctr">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/home/lyfubuntu/my_computer_language/my_markdown/practice/%E5%9B%BE%E7%89%87%E5%9C%B0%E5%9D%80">
-<meta property="og:image" content="https://github.com/LuYF-Lemon-love/picture/blob/main/%E8%8B%8F%E8%8B%8F-001.jpeg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LuYF-Lemon-love/picture@main/%E8%8B%8F%E8%8B%8F-001.jpeg">
 <meta property="article:published_time" content="2022-05-07T14:53:26.000Z">
-<meta property="article:modified_time" content="2022-05-07T15:16:38.403Z">
+<meta property="article:modified_time" content="2022-05-08T07:30:05.704Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Markdown">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/home/lyfubuntu/my_computer_language/my_markdown/practice/%E5%9B%BE%E7%89%87%E5%9C%B0%E5%9D%80">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LuYF-Lemon-love/picture@main/%E8%8B%8F%E8%8B%8F-001.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -184,105 +183,131 @@
 <p>VScode 配置 Markdown 环境只需安装 Markdown 插件即可。</p>
 <p>我选择的插件为 markdownlint。</p>
 <p>Ctrl + K V 即可实现分屏预览效果，Ctrl + Shift + V 也可以产生预览效果。</p>
-<h3 id="Markdown-的基本语法"><a href="#Markdown-的基本语法" class="headerlink" title="Markdown 的基本语法"></a>Markdown 的基本语法</h3><p>跳转链接(说明文字)](#my_jump)</p>
-<h1 id="h1"><a href="#h1" class="headerlink" title="h1"></a>h1</h1><h2 id="h2"><a href="#h2" class="headerlink" title="h2"></a>h2</h2><h3 id="h3"><a href="#h3" class="headerlink" title="h3"></a>h3</h3><h4 id="h4"><a href="#h4" class="headerlink" title="h4"></a>h4</h4><h5 id="h5"><a href="#h5" class="headerlink" title="h5"></a>h5</h5><h6 id="h6"><a href="#h6" class="headerlink" title="h6"></a>h6</h6><blockquote>
-<p>这里是引用代码</p>
-<blockquote>
-<p>可以多级嵌套<br><strong>加粗效果代码</strong></p>
-</blockquote>
-</blockquote>
-<hr>
-<p><em>倾斜效果代码</em></p>
-<hr>
-<p><em><strong>倾斜加粗效果代码</strong></em></p>
-<hr>
-<p><del>加删除线效果代码</del></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(&quot;hello world&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="Markdown-的基本语法"><a href="#Markdown-的基本语法" class="headerlink" title="Markdown 的基本语法"></a>Markdown 的基本语法</h3><h4 id="Heading"><a href="#Heading" class="headerlink" title="Heading"></a>Heading</h4><p>一共有6个级别的标题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># H1</span><br><span class="line">## H2</span><br><span class="line">### H3</span><br><span class="line">#### H4</span><br><span class="line">##### H5</span><br><span class="line">###### H6</span><br></pre></td></tr></table></figure>
 
+<h4 id="Blockquote"><a href="#Blockquote" class="headerlink" title="Blockquote"></a>Blockquote</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;blokquote</span><br><span class="line">&gt;&gt;nest blockquote</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
+<blockquote>
+<p>blockquote</p>
+<blockquote>
+<p>nest blockquote</p>
+</blockquote>
+</blockquote>
+<h4 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">**bold text**</span><br><span class="line">*italicized text*</span><br><span class="line">***blod &amp;&amp; italicized text***</span><br><span class="line">~~strikethrough~~</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
+<p><strong>blod text</strong></p>
+<p><em>italicized text</em></p>
+<p><em><strong>blod &amp;&amp; italicized text</strong></em></p>
+<p><del>strikethrough</del></p>
+<h4 id="Horizontal-Rule"><a href="#Horizontal-Rule" class="headerlink" title="Horizontal Rule"></a>Horizontal Rule</h4><p>三个或者三个以上的-或者*</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">***</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
 <hr>
-<p><code>print(&quot;hello world!)</code></p>
 <hr>
-<p><a href="%E8%B6%85%E9%93%BE%E6%8E%A5%E5%9C%B0%E5%9D%80" title="超链接title">超链接名</a></p>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(```)</span><br><span class="line"># 代码块语法：使用一对```将代码块包围起来。（这里加了括号是为了防止转义，因为这篇博文是使用 Markdown 写的）</span><br><span class="line">print(&quot;hello world!)</span><br><span class="line">(```)</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 代码块语法：使用一对```将代码块包围起来。（这里加了括号是为了防止转义，因为这篇博文是使用 Markdown 写的</span><br><span class="line">print(&quot;hello world!)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[百度](https://www.baidu.com &quot;百度一下&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
 <p><a target="_blank" rel="noopener" href="https://www.baidu.com/" title="百度一下">百度</a></p>
-<p><img src="/home/lyfubuntu/my_computer_language/my_markdown/practice/%E5%9B%BE%E7%89%87%E5%9C%B0%E5%9D%80" alt="图片alt" title="图片title"></p>
-<p>注：图片alt就是显示在图片下面的文字，相当于对图片内容的解释。图片title是图片的标题，当鼠标移动图片上显示的内容。title可加可不加</p>
-<p><img src="https://github.com/LuYF-Lemon-love/picture/blob/main/%E8%8B%8F%E8%8B%8F-001.jpeg" alt="苏苏真可爱" title="苏苏惊呆图"></p>
-<ul>
-<li>无序列表内容</li>
-</ul>
-<ul>
-<li>无序列表内容</li>
-</ul>
-<ul>
-<li>无序类表内容</li>
-</ul>
+<h4 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![苏苏真可爱](https://cdn.jsdelivr.net/gh/LuYF-Lemon-love/picture@main/苏苏-001.jpeg &quot;苏苏惊呆图&quot;)</span><br></pre></td></tr></table></figure>
+<p>效果</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LuYF-Lemon-love/picture@main/%E8%8B%8F%E8%8B%8F-001.jpeg" alt="苏苏真可爱" title="苏苏惊呆图"></p>
+<h4 id="Ordered-List"><a href="#Ordered-List" class="headerlink" title="Ordered List"></a>Ordered List</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. First item</span><br><span class="line">2. Second item</span><br><span class="line">3. Third item</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
 <ol>
-<li>有序列表内容</li>
-<li>有序列表内容</li>
-<li>有序列表内容</li>
+<li>Fist item</li>
+<li>Second item</li>
+<li>Third item</li>
 </ol>
-<p>列表嵌套：上一级和下一级之间敲三个空格即可</p>
+<h4 id="Unordered-List"><a href="#Unordered-List" class="headerlink" title="Unordered List"></a>Unordered List</h4><p>无序列表：- + * 任何一种都可以</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- First item</span><br><span class="line">- Second item</span><br><span class="line">- Third item</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">+ First item</span><br><span class="line">+ Second item</span><br><span class="line">+ Third item</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">* First item</span><br><span class="line">* Second item</span><br><span class="line">* Third item</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
 <ul>
-<li>外层无序列表<ol>
-<li>内层有序列表</li>
-<li>内层有序列表</li>
+<li>First item</li>
+<li>Second item</li>
+<li>Third item</li>
+</ul>
+<hr>
+<ul>
+<li>First item</li>
+<li>Second item</li>
+<li>Third item</li>
+</ul>
+<hr>
+<ul>
+<li>First item</li>
+<li>Second item</li>
+<li>Third item</li>
+</ul>
+<h4 id="Nest-List"><a href="#Nest-List" class="headerlink" title="Nest List"></a>Nest List</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- Unordered List</span><br><span class="line">  1. First item</span><br><span class="line">  2. Second item</span><br><span class="line">- Unordered List</span><br><span class="line">  1. First item</span><br><span class="line">  2. Second item</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
+<ul>
+<li>Unordered List<ol>
+<li>First item</li>
+<li>Second item</li>
+</ol>
+</li>
+<li>Unordered List<ol>
+<li>First item</li>
+<li>Second item</li>
 </ol>
 </li>
 </ul>
+<h4 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| 左对齐 | 右对齐 | 居中对齐 |</span><br><span class="line">|   :-  |   -:  |   :-:   |</span><br><span class="line">|   c   |   c   |    c    |</span><br><span class="line">|   c   |   c   |    c    |</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
 <table>
 <thead>
 <tr>
-<th>表头</th>
-<th align="center">表头</th>
-<th align="right">表头</th>
+<th align="left">左对齐</th>
+<th align="right">右对齐</th>
+<th align="center">居中对齐</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>内容</td>
-<td align="center">内容</td>
-<td align="right">内容</td>
+<td align="left">c</td>
+<td align="right">c</td>
+<td align="center">c</td>
 </tr>
 <tr>
-<td>内容</td>
-<td align="center">内容</td>
-<td align="right">内容</td>
+<td align="left">c</td>
+<td align="right">c</td>
+<td align="center">c</td>
 </tr>
 </tbody></table>
-<p>注：<br>  第二行分割表头和内容</p>
-<ul>
-<li>-有一个就行，为了对齐，多加了几个<br>文字默认居左</li>
-<li>两边加：表示文字居中</li>
-<li>右边加：表示文字居右</li>
-</ul>
-<p>注：原生的语法两边都要用|包起来</p>
-<table>
-<thead>
-<tr>
-<th align="center">a</th>
-<th align="left">b</th>
-<th align="right">c</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">居中</td>
-<td align="left">左对齐</td>
-<td align="right">右对齐</td>
-</tr>
-<tr>
-<td align="center">&#x3D;</td>
-<td align="left">&#x3D;</td>
-<td align="right">&#x3D;</td>
-</tr>
-</tbody></table>
-<p>表情包网站<br><a target="_blank" rel="noopener" href="https://www.emojidaquan.com/">https://www.emojidaquan.com/</a></p>
-<p>😀</p>
+<h4 id="表情包"><a href="#表情包" class="headerlink" title="表情包"></a>表情包</h4><p>表情包网站 <a target="_blank" rel="noopener" href="https://www.emojidaquan.com/">https://www.emojidaquan.com/</a><br>直接从上面网站中复制即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">🤪</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
 <p>🤪</p>
-<p>😣</p>
-<p>空格字符&amp;emsp;&amp;emsp;&amp;emsp;空格字符</p>
-<p><span id = "my_jump">跳转位置(说明文字)</span></p>
-<p>上、下标</p>
+<h4 id="空格字符"><a href="#空格字符" class="headerlink" title="空格字符"></a>空格字符</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">中间有个空格字符&amp;emsp;中间有个空格字符</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
+<p>中间有个空格字符&amp;emsp;中间有个空格字符</p>
+<h4 id="锚点"><a href="#锚点" class="headerlink" title="锚点"></a>锚点</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[跳转链接 (说明文字)](#id)</span><br><span class="line"></span><br><span class="line">&lt;span id = &quot;id&quot;&gt; 跳转位置（说明位置) &lt;/span&gt;</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
+<p><a href="#id">跳转链接 (说明文字)</a></p>
+<p><span id = "id"> 跳转位置（说明位置) </span></p>
+<h4 id="Subscript"><a href="#Subscript" class="headerlink" title="Subscript"></a>Subscript</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">H&lt;sub&gt;2&lt;/sub&gt;O</span><br></pre></td></tr></table></figure>
+
 <p>H<sub>2</sub>O</p>
-<p>2x10<sup>8</sup></p>
+<h4 id="Superscript"><a href="#Superscript" class="headerlink" title="Superscript"></a>Superscript</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2x10&lt;sup&gt;10&lt;sup&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2x10<sup>10<sup></p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>第二篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
 
       
 
