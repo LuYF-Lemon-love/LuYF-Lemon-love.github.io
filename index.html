@@ -199,7 +199,7 @@
 <li>which 命令只能查看非内建的 shell 指令所在的实际路径</li>
 <li>有些命令是直接写到内核中的，无法查看</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 查看 pwd 命令所在的实际位置</span><br><span class="line">which pwd</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 查看 pwd 命令所在的实际位置</span><br><span class="line">which pwd</span><br></pre></td></tr></table></figure>
 
 <h4 id="输出环境变量-PATH"><a href="#输出环境变量-PATH" class="headerlink" title="输出环境变量 PATH"></a>输出环境变量 PATH</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $APTH</span><br></pre></td></tr></table></figure>
 
@@ -258,7 +258,63 @@
 <ul>
 <li>默认显示文件的后10行</li>
 </ul>
-<h4 id="ubuntu-中打开和关闭控制台"><a href="#ubuntu-中打开和关闭控制台" class="headerlink" title="ubuntu 中打开和关闭控制台"></a>ubuntu 中打开和关闭控制台</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 打开控制台</span><br><span class="line">Ctrl + Alt + T</span><br><span class="line"></span><br><span class="line"># 关闭控制台</span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">Ctrl + D</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tail 文件名</span><br><span class="line"></span><br><span class="line"># 指定显示尾部的后多少行</span><br><span class="line">tail -行数 文件名</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建软链接"><a href="#创建软链接" class="headerlink" title="创建软链接"></a>创建软链接</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s 源文件路径(建议绝对路径，这样软链接移动位置后依旧能够实现链接) 软链接文件的名字(可以带路径)</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建硬链接"><a href="#创建硬链接" class="headerlink" title="创建硬链接"></a>创建硬链接</h4><ul>
+<li>目录是不允许创建硬链接的</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln 源文件 硬链接的名字（可以带路径）</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改文件权限"><a href="#修改文件权限" class="headerlink" title="修改文件权限"></a>修改文件权限</h4><h5 id="文字设定法"><a href="#文字设定法" class="headerlink" title="文字设定法"></a>文字设定法</h5><ul>
+<li>who:<ul>
+<li>u: user -&gt; 文件所有者</li>
+<li>g: group -&gt; 文件所属组用户</li>
+<li>o: other -&gt; 其他</li>
+<li>a: all -&gt; u + g + o</li>
+</ul>
+</li>
+<li>权限操作:<ul>
+<li>+: 添加权限</li>
+<li>-: 去除权限</li>
+<li>&#x3D;: 权限的覆盖</li>
+</ul>
+</li>
+<li>mod -&gt; 权限:<ul>
+<li>r: read</li>
+<li>w: write</li>
+<li>x: execute</li>
+<li>-: 没有权限</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chmod who [+|-|=] mod 文件名</span><br><span class="line"></span><br><span class="line"># 将文件所有者权限设置为读和执行</span><br><span class="line">chmod u=rx b.txt</span><br></pre></td></tr></table></figure>
+
+<h5 id="数字设定法"><a href="#数字设定法" class="headerlink" title="数字设定法"></a>数字设定法</h5><ul>
+<li>权限操作:<ul>
+<li>+: 添加权限</li>
+<li>-: 去除权限</li>
+<li>&#x3D;: 权限的覆盖，可以省略</li>
+</ul>
+</li>
+<li>mod -&gt; 权限:<ul>
+<li>0：没有权限</li>
+<li>1: execute, x</li>
+<li>2: write, w</li>
+<li>3: w + x</li>
+<li>4: read, r</li>
+<li>5: r + x</li>
+<li>6: r + w</li>
+<li>7: r + w + x</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 权限：user -&gt; r + x, group -&gt; r + w, ohter -&gt; r + w + x</span><br><span class="line">chmod 567 a.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改文件所有者和所属组"><a href="#修改文件所有者和所属组" class="headerlink" title="修改文件所有者和所属组"></a>修改文件所有者和所属组</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 修改所有者</span><br><span class="line">sudo chown 新的所有者 文件名</span><br><span class="line"></span><br><span class="line">sudo chown li4 a.c</span><br><span class="line"></span><br><span class="line"># 修改所有者和所属组</span><br><span class="line">sudo chown 新的所有者:新的所属组 文件名</span><br><span class="line"></span><br><span class="line">sudo chown li4:zhang3 a.c</span><br><span class="line"></span><br><span class="line"># 修改所属组</span><br><span class="line">sudo chgrp 新的所属组 文件名</span><br><span class="line"></span><br><span class="line">sudo chgrp li4 a.c</span><br></pre></td></tr></table></figure>
+
+<h4 id="创键一个空文件"><a href="#创键一个空文件" class="headerlink" title="创键一个空文件"></a>创键一个空文件</h4><h4 id="ubuntu-中打开和关闭控制台"><a href="#ubuntu-中打开和关闭控制台" class="headerlink" title="ubuntu 中打开和关闭控制台"></a>ubuntu 中打开和关闭控制台</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 打开控制台</span><br><span class="line">Ctrl + Alt + T</span><br><span class="line"></span><br><span class="line"># 关闭控制台</span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">Ctrl + D</span><br></pre></td></tr></table></figure>
 
 
       
