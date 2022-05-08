@@ -175,7 +175,7 @@
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Linux 命令是对 Linux 系统进行管理的命令。对于 Linux 系统来说，无论是中央处理器、内存、磁盘驱动器、键盘、鼠标，还是用户等都是文件，Linux 系统管理的命令是它正常运行的核心。Linux 命令在系统中有两种类型：内置 Shell 命令和 Linux 命令。</p>
 <p>Linux 命令是程序员必备技能。</p>
 <p>操作系统：Ubuntu 20.04.4 LTS</p>
-<h4 id="Linux-常用命令"><a href="#Linux-常用命令" class="headerlink" title="Linux 常用命令"></a>Linux 常用命令</h4><h4 id="清空控制台命令"><a href="#清空控制台命令" class="headerlink" title="清空控制台命令"></a>清空控制台命令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Ctrl + l</span><br><span class="line"></span><br><span class="line">clear</span><br><span class="line"></span><br><span class="line">reset</span><br></pre></td></tr></table></figure>
+<h4 id="Linux-常用命令"><a href="#Linux-常用命令" class="headerlink" title="Linux 常用命令"></a>Linux 常用命令</h4><h4 id="清空终端"><a href="#清空终端" class="headerlink" title="清空终端"></a>清空终端</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Ctrl + l</span><br><span class="line"></span><br><span class="line">clear</span><br><span class="line"></span><br><span class="line">reset</span><br></pre></td></tr></table></figure>
 
 <h4 id="任务管理器"><a href="#任务管理器" class="headerlink" title="任务管理器"></a>任务管理器</h4><p>top 命令</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
@@ -187,7 +187,7 @@
 
 <h4 id="用户当前的工作目录"><a href="#用户当前的工作目录" class="headerlink" title="用户当前的工作目录"></a>用户当前的工作目录</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
 
-<h4 id="amp-amp"><a href="#amp-amp" class="headerlink" title=". &amp;&amp; .."></a>. &amp;&amp; ..</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 当前目录</span><br><span class="line">.</span><br><span class="line"></span><br><span class="line">./</span><br><span class="line"></span><br><span class="line"># 上一级目录</span><br><span class="line">..</span><br><span class="line"></span><br><span class="line">../</span><br></pre></td></tr></table></figure>
+<h4 id=""><a href="#" class="headerlink" title=". || .."></a>. || ..</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 当前目录</span><br><span class="line">.</span><br><span class="line"></span><br><span class="line">./</span><br><span class="line"></span><br><span class="line"># 上一级目录</span><br><span class="line">..</span><br><span class="line"></span><br><span class="line">../</span><br></pre></td></tr></table></figure>
 
 <h4 id="切换到用户的-home-目录"><a href="#切换到用户的-home-目录" class="headerlink" title="切换到用户的 home 目录"></a>切换到用户的 home 目录</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd </span><br><span class="line"></span><br><span class="line">cd ~</span><br></pre></td></tr></table></figure>
 
@@ -314,7 +314,37 @@
 
 <h4 id="修改文件所有者和所属组"><a href="#修改文件所有者和所属组" class="headerlink" title="修改文件所有者和所属组"></a>修改文件所有者和所属组</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 修改所有者</span><br><span class="line">sudo chown 新的所有者 文件名</span><br><span class="line"></span><br><span class="line">sudo chown li4 a.c</span><br><span class="line"></span><br><span class="line"># 修改所有者和所属组</span><br><span class="line">sudo chown 新的所有者:新的所属组 文件名</span><br><span class="line"></span><br><span class="line">sudo chown li4:zhang3 a.c</span><br><span class="line"></span><br><span class="line"># 修改所属组</span><br><span class="line">sudo chgrp 新的所属组 文件名</span><br><span class="line"></span><br><span class="line">sudo chgrp li4 a.c</span><br></pre></td></tr></table></figure>
 
-<h4 id="创键一个空文件"><a href="#创键一个空文件" class="headerlink" title="创键一个空文件"></a>创键一个空文件</h4><h4 id="ubuntu-中打开和关闭控制台"><a href="#ubuntu-中打开和关闭控制台" class="headerlink" title="ubuntu 中打开和关闭控制台"></a>ubuntu 中打开和关闭控制台</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 打开控制台</span><br><span class="line">Ctrl + Alt + T</span><br><span class="line"></span><br><span class="line"># 关闭控制台</span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">Ctrl + D</span><br></pre></td></tr></table></figure>
+<h4 id="创键一个空文件"><a href="#创键一个空文件" class="headerlink" title="创键一个空文件"></a>创键一个空文件</h4><ul>
+<li>如果文件已经存在，只会更改文件的修改日期，对内容没有影响</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch 文件名</span><br></pre></td></tr></table></figure>
+
+<h4 id="打印字符串"><a href="#打印字符串" class="headerlink" title="打印字符串"></a>打印字符串</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo 字符串</span><br><span class="line"></span><br><span class="line">echo hello, world</span><br></pre></td></tr></table></figure>
+
+<h4 id="输出日期"><a href="#输出日期" class="headerlink" title="输出日期"></a>输出日期</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date</span><br></pre></td></tr></table></figure>
+
+<h4 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h4><ul>
+<li>“&gt;” 将文件内容写入到指定文件中，如果文件中已有数据，则会使用新数据覆盖原数据</li>
+<li>“&gt;&gt;” 追加在文件的尾部</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 日期信息被写到文件 a.txt 中</span><br><span class="line">date &gt; a.txt</span><br><span class="line"></span><br><span class="line"># 日期信息被追加到 a.txt 中</span><br><span class="line">date &gt;&gt; a.txt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="切换用户"><a href="#切换用户" class="headerlink" title="切换用户"></a>切换用户</h4><ul>
+<li>su 只切换用户，当前的工作目录不会发生变化</li>
+<li>su - 不仅会切换用户也会切换工作目录，工作目录切换为新用户的 home 目录</li>
+<li>从用户 A 切换到用户 B，如果还想再切换回用户 A，可以直接使用 exit</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">su 用户名</span><br><span class="line"></span><br><span class="line">su - 用户名</span><br><span class="line"></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加新用户"><a href="#添加新用户" class="headerlink" title="添加新用户"></a>添加新用户</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 所有 linux 版本</span><br><span class="line">sudo adduser 用户名</span><br><span class="line"></span><br><span class="line"># ubuntu -m: 创建用户 home 目录 -s: 设置命令解析器</span><br><span class="line">sudo useradd -m -s /bin/bash 用户名</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 所有 linux 版本</span><br><span class="line"># 删除用户，添加参数 -r 可以一并删除用户的 home 目录</span><br><span class="line">sudo userdel 用户名 -r</span><br><span class="line"></span><br><span class="line"># ubuntu 也支持 deluser</span><br><span class="line"># deluser 不能添加参数 -r，home 目录不能被删除，需要使用 rm 命令删除用户的 home 目录</span><br><span class="line">sudo rm /home/用户名 -r</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加-删除用户组"><a href="#添加-删除用户组" class="headerlink" title="添加 || 删除用户组"></a>添加 || 删除用户组</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 基于普通用户添加新的用户组</span><br><span class="line">sudo groupadd 组名</span><br><span class="line"></span><br><span class="line"># 基于普通用户删除用户组</span><br><span class="line">sudo groupdel 组名</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 修改当前用户的密码</span><br><span class="line">passwd</span><br><span class="line"></span><br><span class="line"># 修改非当前用户的密码</span><br><span class="line">sudo passwd 用户名</span><br><span class="line"></span><br><span class="line"># 修改 root 用户的密码</span><br><span class="line">sudo passwd root</span><br></pre></td></tr></table></figure>
+
+<h4 id="ubuntu-中打开和关闭终端"><a href="#ubuntu-中打开和关闭终端" class="headerlink" title="ubuntu 中打开和关闭终端"></a>ubuntu 中打开和关闭终端</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 打开终端</span><br><span class="line">Ctrl + Alt + T</span><br><span class="line"></span><br><span class="line"># 关闭终端</span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">Ctrl + D</span><br></pre></td></tr></table></figure>
 
 
       
@@ -857,11 +887,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color2">Github</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Github</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
