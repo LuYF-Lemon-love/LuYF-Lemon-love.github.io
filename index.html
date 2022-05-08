@@ -152,6 +152,80 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Hexo快速搭建一个博客-ubuntu" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/05/08/Hexo%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2-ubuntu/">Hexo快速搭建一个博客-ubuntu</a>
+    </h1>
+  
+
+        
+        <a href="/2022/05/08/Hexo%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2-ubuntu/" class="archive-article-date">
+  	<time datetime="2022-05-08T15:22:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>个人博客对于每个程序员相当重要</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">博客</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/05/08/Hexo%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2-ubuntu/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Linux命令-ubuntu" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -371,8 +445,94 @@
 
 <h4 id="文件压缩和解压缩（-tar-xz"><a href="#文件压缩和解压缩（-tar-xz" class="headerlink" title="文件压缩和解压缩（.tar.xz)"></a>文件压缩和解压缩（.tar.xz)</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 压缩</span><br><span class="line"># 第一步</span><br><span class="line">tar cvf xxx.tar 要压缩的文件</span><br><span class="line"></span><br><span class="line"># 第二步，.tar 文件变为 .tar.xz</span><br><span class="line">xz -z xxx.tar</span><br><span class="line"></span><br><span class="line">tar cvf all.tar a.c b.c</span><br><span class="line">xz -z all.tar</span><br><span class="line"></span><br><span class="line"># 解压缩</span><br><span class="line">#第一步</span><br><span class="line">xz -d xxx.tar.xz</span><br><span class="line"></span><br><span class="line">#第二步：将 xxx.tar 中的文件释放到当前目录</span><br><span class="line">tar xvf xxx.tar</span><br><span class="line"></span><br><span class="line">xz -d all.tar.xz</span><br><span class="line">tar xvf all.tar</span><br></pre></td></tr></table></figure>
 
+<h4 id="查找文件"><a href="#查找文件" class="headerlink" title="查找文件"></a>查找文件</h4><h5 id="通过文件名查找"><a href="#通过文件名查找" class="headerlink" title="通过文件名查找"></a>通过文件名查找</h5><ul>
+<li>精确查找</li>
+<li>模糊查询：* 可以匹配0个或者多个字符，? 用于匹配单个任意键字符</li>
+<li>模糊查询：建议（非必须）将带有通配符的文件名写到引号中（单引号或者双引号都可以）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 根据文件名搜索</span><br><span class="line">find 搜索路径 -name 要搜索的文件名</span><br><span class="line"></span><br><span class="line">find /root -name &quot;a.c&quot;</span><br><span class="line">find /root -name &quot;*.txt&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="通过文件类型查找"><a href="#通过文件类型查找" class="headerlink" title="通过文件类型查找"></a>通过文件类型查找</h5><table>
+<thead>
+<tr>
+<th align="center">文件类型</th>
+<th align="center">普通文件</th>
+<th align="center">目录</th>
+<th align="center">软链接</th>
+<th align="center">字符设备</th>
+<th align="center">块设备</th>
+<th align="center">管道</th>
+<th align="center">本地套接字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">符号</td>
+<td align="center">f</td>
+<td align="center">d</td>
+<td align="center">l</td>
+<td align="center">c</td>
+<td align="center">b</td>
+<td align="center">p</td>
+<td align="center">s</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find 搜索路径 -type 文件类型</span><br><span class="line"></span><br><span class="line">find /root -type l</span><br></pre></td></tr></table></figure>
+
+<h5 id="通过文件大小查找"><a href="#通过文件大小查找" class="headerlink" title="通过文件大小查找"></a>通过文件大小查找</h5><ul>
+<li>k(小写)，M(大写)，G(大写)</li>
+<li>-size 4k: 表示的区间为(4-1k，4k]</li>
+<li>-size -4k: [0k，4-1k]</li>
+<li>-size +4k: (4k，正无穷)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">find 搜索路径 -size [+|-]文件大小</span><br><span class="line"></span><br><span class="line">find ./ -size -3M</span><br><span class="line"></span><br><span class="line"># 搜索当前目录下大于 1M 并且小于等于 3M 的文件</span><br><span class="line">find ./ -size +1M -size -4M</span><br></pre></td></tr></table></figure>
+
+<h6 id="通过目录层级查找"><a href="#通过目录层级查找" class="headerlink" title="通过目录层级查找"></a>通过目录层级查找</h6><ul>
+<li>-maxdepth: 最多搜索到第多少层目录</li>
+<li>-mindepth: 至少从第多少层开始搜索</li>
+<li>这两个参数不能单独使用，而且必须写在其他参数前面</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 查找文件，从根目录开始，最多搜索 5 层</span><br><span class="line">sudo find / -maxdepth 5 -name &quot;*.c&quot;</span><br><span class="line"></span><br><span class="line"># 查找文件，从根目录开始，至少从第 5 层开始搜索</span><br><span class="line">sudo find / -mindepth 5 -name &quot;*.c&quot;</span><br></pre></td></tr></table></figure>
+
+<h6 id="同时执行多个操作"><a href="#同时执行多个操作" class="headerlink" title="同时执行多个操作"></a>同时执行多个操作</h6><p>exec 参数</p>
+<ul>
+<li>在 exec 参数后添加其他需要执行的 shell 命令</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find 搜索路径 参数 参数值 -exec shell命令 &#123;&#125; \;</span><br><span class="line"></span><br><span class="line">find ./ -maxdepth 2 -name &quot;*.c&quot; -exec ls -l &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<p>ok 参数</p>
+<ul>
+<li>与 exec 使用方式类似，但是提供交互式操作</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">find 搜索路径 参数 参数值 -ok shell命令 &#123;&#125; \;</span><br><span class="line"></span><br><span class="line">find ./ -maxdepth 1 -name &quot;*.c&quot; -ok ls -l &#123;&#125; \;</span><br><span class="line">find ./ -maxdepth 1 -name &quot;*.c&quot; -ok rm -rf &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<p>xargs 参数</p>
+<ul>
+<li>xargs 的效率比使用 exec 效率高</li>
+<li>exec: 将 find 查询的结果逐条传递给后边的 shell 命令</li>
+<li>xargs: 将 find 查询的结果一次性传递给后边的 shell 命令</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find 搜索路径 参数 参数值 | xargs shell命令</span><br><span class="line"></span><br><span class="line">find ./ -maxdepth 1 -name &quot;*.c&quot; | xargs ls -l</span><br></pre></td></tr></table></figure>
+
+<h4 id="查询文件的内容"><a href="#查询文件的内容" class="headerlink" title="查询文件的内容"></a>查询文件的内容</h4><p>grep 命名</p>
+<ul>
+<li>-r: 如果需要搜索目录中的文件内容，需要进行递归操作，必须指定该参数</li>
+<li>-i: 对应搜索的关键字，忽略字符大小写的差别</li>
+<li>-n: 显示结果在文件中的行号</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 建议将搜索内容放到引号中（单引号双引号都可以）</span><br><span class="line">grep &quot;搜索的内容&quot; 搜索的路径/文件 参数</span><br><span class="line"></span><br><span class="line">grep &quot;include&quot; ./ -rn</span><br></pre></td></tr></table></figure>
+
+<h4 id="轻量版-find-命令"><a href="#轻量版-find-命令" class="headerlink" title="轻量版 find 命令"></a>轻量版 find 命令</h4><ul>
+<li>在使用 locate 命令之前，先使用 updatedb 命令手动更新数据库</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 安装</span><br><span class="line">sudo apt install mlocate</span><br><span class="line"></span><br><span class="line">sudo updatedb</span><br><span class="line"></span><br><span class="line"># 搜索所有目录以 test 开头的文件</span><br><span class="line">locate test</span><br><span class="line"></span><br><span class="line"># 指定的目录必须使用绝对路径</span><br><span class="line">locate /home/zhang3/test</span><br><span class="line"></span><br><span class="line"># -i 参数忽略文件名的大小写</span><br><span class="line">locate TEST -i</span><br><span class="line"></span><br><span class="line"># -n 显示前 n 个结果</span><br><span class="line">locate test -n 5</span><br><span class="line"></span><br><span class="line"># -r 参数基于正则表达式匹配匹配文件名</span><br><span class="line">locate -r &quot;\.cpp$&quot;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">命令 --help</span><br><span class="line"></span><br><span class="line">grep --help</span><br><span class="line">ls --help</span><br></pre></td></tr></table></figure>
+
 <h4 id="ubuntu-中打开和关闭终端"><a href="#ubuntu-中打开和关闭终端" class="headerlink" title="ubuntu 中打开和关闭终端"></a>ubuntu 中打开和关闭终端</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 打开终端</span><br><span class="line">Ctrl + Alt + T</span><br><span class="line"></span><br><span class="line"># 关闭终端</span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">Ctrl + D</span><br></pre></td></tr></table></figure>
 
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>第三篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
 
       
 
@@ -913,6 +1073,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">博客</a>
               </li>
              
               <li class="article-tag-list-item">
