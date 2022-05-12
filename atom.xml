@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>LuYF-Lemon-love の Blog</title>
+  <icon>https://luyf-lemon-love.github.io/icon.png</icon>
+  
+  <link href="https://luyf-lemon-love.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://luyf-lemon-love.github.io/"/>
+  <updated>2022-05-10T10:49:41.366Z</updated>
+  <id>https://luyf-lemon-love.github.io/</id>
+  
+  <author>
+    <name>LuYF-Lemon-love</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Github+PicGo搭建Markdown图床</title>
+    <link href="https://luyf-lemon-love.github.io/2022/05/10/Github-PicGo%E6%90%AD%E5%BB%BAMarkdown%E5%9B%BE%E5%BA%8A/"/>
+    <id>https://luyf-lemon-love.github.io/2022/05/10/Github-PicGo%E6%90%AD%E5%BB%BAMarkdown%E5%9B%BE%E5%BA%8A/</id>
+    <published>2022-05-10T09:34:51.000Z</published>
+    <updated>2022-05-10T10:49:41.366Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;VSCode 通过 Markdown 插件可以很方便的书写 Markdown 文本，并且 VSCode 提供的预览功能能够快速看到</summary>
+        
+      
+    
+    
+    
+    
+    <category term="VSCode" scheme="https://luyf-lemon-love.github.io/tags/VSCode/"/>
+    
+    <category term="Markdown" scheme="https://luyf-lemon-love.github.io/tags/Markdown/"/>
+    
+    <category term="Github" scheme="https://luyf-lemon-love.github.io/tags/Github/"/>
+    
+    <category term="PicGo" scheme="https://luyf-lemon-love.github.io/tags/PicGo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo快速搭建一个博客-ubuntu</title>
+    <link href="https://luyf-lemon-love.github.io/2022/05/08/Hexo%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2-ubuntu/"/>
+    <id>https://luyf-lemon-love.github.io/2022/05/08/Hexo%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2-ubuntu/</id>
+    <published>2022-05-08T15:22:38.000Z</published>
+    <updated>2022-05-12T14:56:15.359Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;个人博客对于每个程序员都相当重要。&lt;/p&gt;
+&lt;p&gt;这里选择 &lt;a href=&quot;https://hexo.io/&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="博客" scheme="https://luyf-lemon-love.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux命令-ubuntu</title>
+    <link href="https://luyf-lemon-love.github.io/2022/05/08/Linux%E5%91%BD%E4%BB%A4-ubuntu/"/>
+    <id>https://luyf-lemon-love.github.io/2022/05/08/Linux%E5%91%BD%E4%BB%A4-ubuntu/</id>
+    <published>2022-05-08T08:14:51.000Z</published>
+    <updated>2022-05-09T14:47:41.251Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;Linux 命令是对 Linux 系统进行管理的命令。对于 Linux</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Linux" scheme="https://luyf-lemon-love.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Markdown语法-ubuntu</title>
+    <link href="https://luyf-lemon-love.github.io/2022/05/07/Markdown%E8%AF%AD%E6%B3%95-ubuntu/"/>
+    <id>https://luyf-lemon-love.github.io/2022/05/07/Markdown%E8%AF%AD%E6%B3%95-ubuntu/</id>
+    <published>2022-05-07T14:53:26.000Z</published>
+    <updated>2022-05-10T08:01:47.520Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的 XHTML 或者 HTML</summary>
+        
+      
+    
+    
+    
+    
+    <category term="VSCode" scheme="https://luyf-lemon-love.github.io/tags/VSCode/"/>
+    
+    <category term="Markdown" scheme="https://luyf-lemon-love.github.io/tags/Markdown/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git的使用-ubuntu</title>
+    <link href="https://luyf-lemon-love.github.io/2022/05/07/Git%E7%9A%84%E4%BD%BF%E7%94%A8-ubuntu/"/>
+    <id>https://luyf-lemon-love.github.io/2022/05/07/Git%E7%9A%84%E4%BD%BF%E7%94%A8-ubuntu/</id>
+    <published>2022-05-06T20:53:32.000Z</published>
+    <updated>2022-05-09T14:40:48.379Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;写在前面&quot;&gt;&lt;a href=&quot;#写在前面&quot; class=&quot;headerlink&quot; title=&quot;写在前面&quot;&gt;&lt;/a&gt;写在前面&lt;/h3&gt;&lt;p&gt;受到&lt;strong&gt;冯乐乐&lt;/strong&gt;的影响，想要搭建个人博客&lt;/p&gt;
+&lt;p&gt;冯乐乐（ &lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Github" scheme="https://luyf-lemon-love.github.io/tags/Github/"/>
+    
+    <category term="Git" scheme="https://luyf-lemon-love.github.io/tags/Git/"/>
+    
+  </entry>
+  
+</feed>
