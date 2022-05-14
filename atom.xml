@@ -6,7 +6,7 @@
   <link href="https://luyf-lemon-love.github.io/atom.xml" rel="self"/>
   
   <link href="https://luyf-lemon-love.github.io/"/>
-  <updated>2022-05-13T06:18:04.386Z</updated>
+  <updated>2022-05-14T13:08:18.350Z</updated>
   <id>https://luyf-lemon-love.github.io/</id>
   
   <author>
@@ -21,18 +21,14 @@
     <link href="https://luyf-lemon-love.github.io/2568080348/"/>
     <id>https://luyf-lemon-love.github.io/2568080348/</id>
     <published>2022-05-10T09:34:51.000Z</published>
-    <updated>2022-05-13T06:18:04.386Z</updated>
+    <updated>2022-05-14T13:08:18.350Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;VSCode 通过 Markdown 插件可以很方便的书写 Markdown 文本，并且 VSCode 提供的预览功能能够快速看到</summary>
-        
-      
+    <summary type="html">利用 Github 和 PicGo 搭建 Markdown 图床。</summary>
     
     
+    
+    <category term="实用技巧" scheme="https://luyf-lemon-love.github.io/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
     
     
     <category term="VSCode" scheme="https://luyf-lemon-love.github.io/tags/VSCode/"/>
@@ -50,22 +46,17 @@
     <link href="https://luyf-lemon-love.github.io/1500512943/"/>
     <id>https://luyf-lemon-love.github.io/1500512943/</id>
     <published>2022-05-08T15:22:38.000Z</published>
-    <updated>2022-05-14T12:53:41.340Z</updated>
+    <updated>2022-05-14T13:11:52.440Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;个人博客对于每个程序员都相当重要。&lt;/p&gt;
-&lt;p&gt;这里选择 &lt;a href=&quot;https://hexo.io/&quot;</summary>
-        
-      
+    <summary type="html">搭建一个 Hexo 博客，并进行 Butterfly 魔改。</summary>
     
     
     
+    <category term="博客" scheme="https://luyf-lemon-love.github.io/categories/%E5%8D%9A%E5%AE%A2/"/>
     
-    <category term="博客" scheme="https://luyf-lemon-love.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+    <category term="Hexo" scheme="https://luyf-lemon-love.github.io/tags/Hexo/"/>
     
     <category term="Butterfly" scheme="https://luyf-lemon-love.github.io/tags/Butterfly/"/>
     
@@ -76,18 +67,14 @@
     <link href="https://luyf-lemon-love.github.io/1327326170/"/>
     <id>https://luyf-lemon-love.github.io/1327326170/</id>
     <published>2022-05-08T08:14:51.000Z</published>
-    <updated>2022-05-13T06:18:04.390Z</updated>
+    <updated>2022-05-14T13:13:36.668Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;Linux 命令是对 Linux 系统进行管理的命令。对于 Linux</summary>
-        
-      
+    <summary type="html">介绍一些 Linux 常用命令</summary>
     
     
+    
+    <category term="计算机基础" scheme="https://luyf-lemon-love.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
     
     
     <category term="Linux" scheme="https://luyf-lemon-love.github.io/tags/Linux/"/>
@@ -99,18 +86,14 @@
     <link href="https://luyf-lemon-love.github.io/2817253591/"/>
     <id>https://luyf-lemon-love.github.io/2817253591/</id>
     <published>2022-05-07T14:53:26.000Z</published>
-    <updated>2022-05-13T06:18:04.390Z</updated>
+    <updated>2022-05-14T13:14:44.176Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的 XHTML 或者 HTML</summary>
-        
-      
+    <summary type="html">介绍一些 Markdown 常用语法</summary>
     
     
+    
+    <category term="计算机基础" scheme="https://luyf-lemon-love.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
     
     
     <category term="VSCode" scheme="https://luyf-lemon-love.github.io/tags/VSCode/"/>
@@ -124,19 +107,14 @@
     <link href="https://luyf-lemon-love.github.io/2854530117/"/>
     <id>https://luyf-lemon-love.github.io/2854530117/</id>
     <published>2022-05-06T20:53:32.000Z</published>
-    <updated>2022-05-13T06:18:04.386Z</updated>
+    <updated>2022-05-14T13:08:52.386Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;写在前面&quot;&gt;&lt;a href=&quot;#写在前面&quot; class=&quot;headerlink&quot; title=&quot;写在前面&quot;&gt;&lt;/a&gt;写在前面&lt;/h3&gt;&lt;p&gt;受到&lt;strong&gt;冯乐乐&lt;/strong&gt;的影响，想要搭建个人博客&lt;/p&gt;
-&lt;p&gt;冯乐乐（ &lt;a</summary>
-        
-      
+    <summary type="html">介绍 Git 和 Github。</summary>
     
     
+    
+    <category term="计算机基础" scheme="https://luyf-lemon-love.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
     
     
     <category term="Github" scheme="https://luyf-lemon-love.github.io/tags/Github/"/>
