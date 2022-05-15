@@ -31,11 +31,11 @@
     <category term="实用技巧" scheme="https://luyf-lemon-love.github.io/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
     
     
+    <category term="Github" scheme="https://luyf-lemon-love.github.io/tags/Github/"/>
+    
     <category term="VSCode" scheme="https://luyf-lemon-love.github.io/tags/VSCode/"/>
     
     <category term="Markdown" scheme="https://luyf-lemon-love.github.io/tags/Markdown/"/>
-    
-    <category term="Github" scheme="https://luyf-lemon-love.github.io/tags/Github/"/>
     
     <category term="PicGo" scheme="https://luyf-lemon-love.github.io/tags/PicGo/"/>
     
@@ -46,7 +46,7 @@
     <link href="https://luyf-lemon-love.github.io/1500512943/"/>
     <id>https://luyf-lemon-love.github.io/1500512943/</id>
     <published>2022-05-08T15:22:38.000Z</published>
-    <updated>2022-05-15T07:16:32.877Z</updated>
+    <updated>2022-05-15T07:41:12.013Z</updated>
     
     
     <summary type="html">搭建一个 Hexo 博客，并进行 Butterfly 魔改。</summary>
@@ -117,9 +117,9 @@
     <category term="计算机基础" scheme="https://luyf-lemon-love.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
     
     
-    <category term="Github" scheme="https://luyf-lemon-love.github.io/tags/Github/"/>
-    
     <category term="Git" scheme="https://luyf-lemon-love.github.io/tags/Git/"/>
+    
+    <category term="Github" scheme="https://luyf-lemon-love.github.io/tags/Github/"/>
     
   </entry>
   
