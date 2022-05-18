@@ -6425,7 +6425,7 @@ blockquote.pullquote.right {
     .bilibili {height: 30em;max-width: 40em;}
 }
 @media only screen and (min-width: 1200px) {
-    .bilibili {height: 40em;max-width: 50em;}
+    .bilibili {height: 80em;max-width: 100em;}
 }
 
 
