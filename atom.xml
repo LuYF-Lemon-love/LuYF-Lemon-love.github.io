@@ -46,7 +46,7 @@
     <link href="https://luyf-lemon-love.github.io/1500512943/"/>
     <id>https://luyf-lemon-love.github.io/1500512943/</id>
     <published>2022-05-08T15:22:38.000Z</published>
-    <updated>2022-05-18T05:06:14.420Z</updated>
+    <updated>2022-05-18T05:23:09.872Z</updated>
     
     
     <summary type="html">搭建一个 Hexo 博客，并进行 Butterfly 魔改。</summary>
@@ -56,9 +56,13 @@
     <category term="博客" scheme="https://luyf-lemon-love.github.io/categories/%E5%8D%9A%E5%AE%A2/"/>
     
     
+    <category term="Github" scheme="https://luyf-lemon-love.github.io/tags/Github/"/>
+    
     <category term="Hexo" scheme="https://luyf-lemon-love.github.io/tags/Hexo/"/>
     
     <category term="Butterfly" scheme="https://luyf-lemon-love.github.io/tags/Butterfly/"/>
+    
+    <category term="Gitee" scheme="https://luyf-lemon-love.github.io/tags/Gitee/"/>
     
   </entry>
   
