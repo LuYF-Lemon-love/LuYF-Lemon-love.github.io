@@ -6,7 +6,7 @@
   <link href="https://luyf-lemon-love.github.io/atom.xml" rel="self"/>
   
   <link href="https://luyf-lemon-love.github.io/"/>
-  <updated>2022-05-18T14:59:53.768Z</updated>
+  <updated>2022-05-19T03:20:43.972Z</updated>
   <id>https://luyf-lemon-love.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Github+PicGo搭建Markdown图床</title>
+    <title>Github+PicGo搭建Markdown图床-ubuntu</title>
     <link href="https://luyf-lemon-love.github.io/2568080348/"/>
     <id>https://luyf-lemon-love.github.io/2568080348/</id>
     <published>2022-05-10T09:34:51.000Z</published>
-    <updated>2022-05-18T14:59:53.768Z</updated>
+    <updated>2022-05-19T03:20:43.972Z</updated>
     
     
     <summary type="html">利用 Github 和 PicGo 搭建 Markdown 图床。</summary>
@@ -46,7 +46,7 @@
     <link href="https://luyf-lemon-love.github.io/1500512943/"/>
     <id>https://luyf-lemon-love.github.io/1500512943/</id>
     <published>2022-05-08T15:22:38.000Z</published>
-    <updated>2022-05-18T15:07:11.489Z</updated>
+    <updated>2022-05-19T08:45:22.953Z</updated>
     
     
     <summary type="html">搭建一个 Hexo 博客，并进行 Butterfly 魔改。</summary>
@@ -68,7 +68,7 @@
     
     <category term="腾讯云" scheme="https://luyf-lemon-love.github.io/tags/%E8%85%BE%E8%AE%AF%E4%BA%91/"/>
     
-    <category term="轻量云服务器配置" scheme="https://luyf-lemon-love.github.io/tags/%E8%BD%BB%E9%87%8F%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/"/>
+    <category term="轻量应用服务器" scheme="https://luyf-lemon-love.github.io/tags/%E8%BD%BB%E9%87%8F%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
     <category term="宝塔Linux面板" scheme="https://luyf-lemon-love.github.io/tags/%E5%AE%9D%E5%A1%94Linux%E9%9D%A2%E6%9D%BF/"/>
     
