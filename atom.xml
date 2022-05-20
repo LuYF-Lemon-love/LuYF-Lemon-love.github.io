@@ -6,7 +6,7 @@
   <link href="https://luyf-lemon-love.github.io/atom.xml" rel="self"/>
   
   <link href="https://luyf-lemon-love.github.io/"/>
-  <updated>2022-05-20T15:14:41.643Z</updated>
+  <updated>2022-05-20T15:21:05.601Z</updated>
   <id>https://luyf-lemon-love.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://luyf-lemon-love.github.io/2127066589/"/>
     <id>https://luyf-lemon-love.github.io/2127066589/</id>
     <published>2022-05-20T13:45:38.000Z</published>
-    <updated>2022-05-20T15:14:41.643Z</updated>
+    <updated>2022-05-20T15:21:05.601Z</updated>
     
     
     <summary type="html">利用腾讯云的对象存储（Cloud Object Storage，COS）和 PicGo 搭建 Markdown 图床。</summary>
@@ -37,9 +37,9 @@
     
     <category term="腾讯云" scheme="https://luyf-lemon-love.github.io/tags/%E8%85%BE%E8%AE%AF%E4%BA%91/"/>
     
-    <category term="jsdelivr" scheme="https://luyf-lemon-love.github.io/tags/jsdelivr/"/>
-    
     <category term="对象存储" scheme="https://luyf-lemon-love.github.io/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/"/>
+    
+    <category term="jsdelivr" scheme="https://luyf-lemon-love.github.io/tags/jsdelivr/"/>
     
   </entry>
   
@@ -64,6 +64,8 @@
     
     <category term="腾讯云" scheme="https://luyf-lemon-love.github.io/tags/%E8%85%BE%E8%AE%AF%E4%BA%91/"/>
     
+    <category term="jsdelivr" scheme="https://luyf-lemon-love.github.io/tags/jsdelivr/"/>
+    
     <category term="轻量应用服务器" scheme="https://luyf-lemon-love.github.io/tags/%E8%BD%BB%E9%87%8F%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
     <category term="宝塔Linux面板" scheme="https://luyf-lemon-love.github.io/tags/%E5%AE%9D%E5%A1%94Linux%E9%9D%A2%E6%9D%BF/"/>
@@ -71,8 +73,6 @@
     <category term="LskyPro" scheme="https://luyf-lemon-love.github.io/tags/LskyPro/"/>
     
     <category term="SCP" scheme="https://luyf-lemon-love.github.io/tags/SCP/"/>
-    
-    <category term="jsdelivr" scheme="https://luyf-lemon-love.github.io/tags/jsdelivr/"/>
     
   </entry>
   
@@ -120,11 +120,11 @@
     
     <category term="腾讯云" scheme="https://luyf-lemon-love.github.io/tags/%E8%85%BE%E8%AE%AF%E4%BA%91/"/>
     
+    <category term="jsdelivr" scheme="https://luyf-lemon-love.github.io/tags/jsdelivr/"/>
+    
     <category term="轻量应用服务器" scheme="https://luyf-lemon-love.github.io/tags/%E8%BD%BB%E9%87%8F%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
     <category term="宝塔Linux面板" scheme="https://luyf-lemon-love.github.io/tags/%E5%AE%9D%E5%A1%94Linux%E9%9D%A2%E6%9D%BF/"/>
-    
-    <category term="jsdelivr" scheme="https://luyf-lemon-love.github.io/tags/jsdelivr/"/>
     
     <category term="Hexo" scheme="https://luyf-lemon-love.github.io/tags/Hexo/"/>
     
