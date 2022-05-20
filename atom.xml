@@ -6,7 +6,7 @@
   <link href="https://luyf-lemon-love.github.io/atom.xml" rel="self"/>
   
   <link href="https://luyf-lemon-love.github.io/"/>
-  <updated>2022-05-20T10:06:33.247Z</updated>
+  <updated>2022-05-20T11:05:44.387Z</updated>
   <id>https://luyf-lemon-love.github.io/</id>
   
   <author>
@@ -17,11 +17,44 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>腾讯云轻量应用服务器搭建图床-ubuntu</title>
+    <link href="https://luyf-lemon-love.github.io/3910128244/"/>
+    <id>https://luyf-lemon-love.github.io/3910128244/</id>
+    <published>2022-05-20T10:32:11.000Z</published>
+    <updated>2022-05-20T11:05:44.387Z</updated>
+    
+    
+    <summary type="html">利用 腾讯云轻量应用服务器、LskyPro 和 PicGo 搭建 Markdown 图床。</summary>
+    
+    
+    
+    <category term="实用技巧" scheme="https://luyf-lemon-love.github.io/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="Markdown" scheme="https://luyf-lemon-love.github.io/tags/Markdown/"/>
+    
+    <category term="PicGo" scheme="https://luyf-lemon-love.github.io/tags/PicGo/"/>
+    
+    <category term="腾讯云" scheme="https://luyf-lemon-love.github.io/tags/%E8%85%BE%E8%AE%AF%E4%BA%91/"/>
+    
+    <category term="轻量应用服务器" scheme="https://luyf-lemon-love.github.io/tags/%E8%BD%BB%E9%87%8F%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    <category term="宝塔Linux面板" scheme="https://luyf-lemon-love.github.io/tags/%E5%AE%9D%E5%A1%94Linux%E9%9D%A2%E6%9D%BF/"/>
+    
+    <category term="LskyPro" scheme="https://luyf-lemon-love.github.io/tags/LskyPro/"/>
+    
+    <category term="SCP" scheme="https://luyf-lemon-love.github.io/tags/SCP/"/>
+    
+    <category term="jsdelivr" scheme="https://luyf-lemon-love.github.io/tags/jsdelivr/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Github+PicGo搭建Markdown图床-ubuntu</title>
     <link href="https://luyf-lemon-love.github.io/2568080348/"/>
     <id>https://luyf-lemon-love.github.io/2568080348/</id>
     <published>2022-05-10T09:34:51.000Z</published>
-    <updated>2022-05-20T10:06:33.247Z</updated>
+    <updated>2022-05-20T10:31:17.269Z</updated>
     
     
     <summary type="html">利用 Github 和 PicGo 搭建 Markdown 图床。</summary>
@@ -58,14 +91,6 @@
     
     <category term="Github" scheme="https://luyf-lemon-love.github.io/tags/Github/"/>
     
-    <category term="Hexo" scheme="https://luyf-lemon-love.github.io/tags/Hexo/"/>
-    
-    <category term="Butterfly" scheme="https://luyf-lemon-love.github.io/tags/Butterfly/"/>
-    
-    <category term="Gitee" scheme="https://luyf-lemon-love.github.io/tags/Gitee/"/>
-    
-    <category term="Coding" scheme="https://luyf-lemon-love.github.io/tags/Coding/"/>
-    
     <category term="腾讯云" scheme="https://luyf-lemon-love.github.io/tags/%E8%85%BE%E8%AE%AF%E4%BA%91/"/>
     
     <category term="轻量应用服务器" scheme="https://luyf-lemon-love.github.io/tags/%E8%BD%BB%E9%87%8F%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
@@ -73,6 +98,14 @@
     <category term="宝塔Linux面板" scheme="https://luyf-lemon-love.github.io/tags/%E5%AE%9D%E5%A1%94Linux%E9%9D%A2%E6%9D%BF/"/>
     
     <category term="jsdelivr" scheme="https://luyf-lemon-love.github.io/tags/jsdelivr/"/>
+    
+    <category term="Hexo" scheme="https://luyf-lemon-love.github.io/tags/Hexo/"/>
+    
+    <category term="Butterfly" scheme="https://luyf-lemon-love.github.io/tags/Butterfly/"/>
+    
+    <category term="Gitee" scheme="https://luyf-lemon-love.github.io/tags/Gitee/"/>
+    
+    <category term="Coding" scheme="https://luyf-lemon-love.github.io/tags/Coding/"/>
     
   </entry>
   
