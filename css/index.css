@@ -6409,12 +6409,12 @@ blockquote.pullquote.right {
   color: var(--font-color);
 }
 body {
-    cursor: url(./default.cur),
+    cursor: url(/img/default.cur),
         default;
 }
 a,
 img {
-    cursor: url(./pointer.cur),
+    cursor: url(/img/pointer.cur),
         default;
 }
 
