@@ -1,0 +1,73 @@
+- class_name: 友情链接
+  class_desc: 那些人，那些事
+  link_list:
+    - name: Hexo
+      link: https://hexo.io/zh-tw/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520165659.png
+      descr: A fast, simple & powerful blog framework
+    - name: Butterfly
+      link: https://butterfly.js.org/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511153142.png
+      descr: A Simple and Card UI Design theme for Hexo
+    - name:  Volantis
+      link: https://volantis.js.org/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511210949.png
+      descr: 一个功能丰富、高度模块化的 Hexo 博客主题
+      siteshot: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511212752.png
+    - name: Vercel
+      link: https://vercel.com/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/vercel-icon-dark.png
+      descr: Vercel combines the best developer experience with an obsessive focus on end-user performance.
+    - name: 冯乐乐
+      link: http://candycat1992.github.io/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220514181622.png
+      descr: 一只喜欢计算机图形的程序媛，爱好写shader、写博客，喜欢用计算机来绘制各种五彩缤纷的画面
+    - name: 花猪
+      link: https://cnhuazhu.top/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520170012.png
+      descr: 佛系青年
+      siteshot: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520170240.png # 站点缩略图
+    - name: Akilarの糖果屋
+      link: https://akilar.top/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520170333.png
+      descr: 期待您的光临！
+      siteshot: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520170357.png
+    - name: 卓越科技
+      link: https://zykj.js.org/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511181044.png
+      descr: Remarkable life,for science and technology.
+    - name: DreamyTZK
+      link: https://www.antmoe.com/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511210739.png
+      descr: 一个收藏回忆与分享技术的地方！
+    - name: Ln
+      link: https://weilining.github.io/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220512165053.png
+      descr: 有朋自远方来，不亦乐乎
+    - name: John Doe
+      link: https://uuuuu.cf/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220512170535.png
+      descr: 回首金陵岸，依依向北风。
+    - name: 天泽岁月
+      link: https://surpsec.cn/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220513162709.png
+      descr: 宁静以致远！
+    - name: 爱编程的大丙
+      link: https://subingwen.cn/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220518220940.png
+      descr: 合抱之木，生于毫末；九层之台，起于垒土；千里之行，始于足下。
+    
+     
+    
+
+- class_name: 网站
+  class_desc: 值得推荐的网站
+  link_list:
+    - name: 哔哩哔哩
+      link: https://www.bilibili.com/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511134022.png
+      descr: 中国优秀的学习网站
+    - name: Github
+      link: https://github.com/
+      avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511134710.png
+      descr: 全球最大的社交编程及代码托管网站
