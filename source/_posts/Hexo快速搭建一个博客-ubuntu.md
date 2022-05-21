@@ -10639,6 +10639,50 @@ git push
 
 #### 更换电脑
 
+```shell
+# 安装 git 
+sudo apt-get install git
+
+# 设置 git
+git config --global user.name "yourgithubname"
+git config --global user.email "yourgithubemail"
+
+# 设置 ssh key
+ssh-keygen -t rsa -C "youremail"
+#生成后填到 github上，由于我还有 gitee，coding 和 轻量应用服务器，因此我需要为上面四个平台都填上 ssh 的公钥，并验证每一个平台的公钥是否上传成功
+#验证 github
+ssh -T git@github.com
+
+# 安装 nodejs
+sudo apt-get install nodejs
+sudo apt-get install npm
+
+# 安装 hexo，不需要运行 hexo init
+sudo npm install hexo-cli -g
+
+# 克隆 
+git clone git@github.com:LuYF-Lemon-love/LuYF-Lemon-love.github.io.git
+
+cd LuYF-Lemon-love.github.io/
+npm install
+npm install hexo-deployer-git --save
+
+# 撰写博客
+
+# 部署
+hexo cl
+hexo g
+hexo d
+
+# 上传源文件
+git add .
+git commit -m "新电脑测试"
+git push
+
+# 每次编写的时候获取新版本
+# git pull 命令用于从远程获取代码并合并本地的版本
+git pull
+```
 
 ### 结语
 
