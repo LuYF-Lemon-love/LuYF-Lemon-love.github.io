@@ -10603,6 +10603,43 @@ hexo g
 hexo d
 ```
 
+### Git 分支进行多终端工作 | 更换电脑
+
+默认情况下 hexo d上传部署到github的其实是hexo编译后的文件，是用来生成网页的，不包含源文件。
+
+可以利用 Git 分支实现快速的切换工作环境（不同的电脑撰写博客）和备份源文件。
+
+#### Git 分支进行多终端工作
+
+1. 在 LuYF-Lemon-love.github.io 仓库的主页新建一个 hexo 分支。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220521221948.png)
+
+2. 在 LuYF-Lemon-love.github.io 仓库的设置页面 > Branches > Default branch 处修改默认分支为 hexo 。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220521222202.png)
+
+3. 在本地任意目录下运行下面命令，将你的仓库克隆到本地
+
+```shell
+git clone git@github.com:LuYF-Lemon-love/LuYF-Lemon-love.github.io.git
+```
+
+4. 进入到 LuYF-Lemon-love.github.io 目录里面，把除了 .git 目录以外，其他所有文件都删掉。
+
+5. 将之前的 blog 目录里面的文件都复制到 LuYF-Lemon-love.github.io 目录中，由于 Git 不能嵌套上传，你应该把各个主题目录里面的 .git 目录删掉（由于之前用过 yilia 主题，因此我需要删掉 butterfly 和 yilia 两个主题目录里的 .git 文件）。由于之前进阶版看板娘的克隆过一个 live2d-widget 目录，因此您应该删掉 LuYF-Lemon-love.github.io/themes/butterfly/source/live2d-widget 目录里面的 .git 目录。
+
+6. 然后在 LuYF-Lemon-love.github.io 目录下运行下面的命令将博客的源文件上传到 Github 上。
+
+```shell
+git add .
+git commit -m "add branch"
+git push
+```
+
+#### 更换电脑
+
+
 ### 结语
 
 第四篇博文写完，开心！！！！
