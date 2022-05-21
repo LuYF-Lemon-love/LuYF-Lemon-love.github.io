@@ -106,10 +106,10 @@
     <link href="https://luyf-lemon-love.github.io/1500512943/"/>
     <id>https://luyf-lemon-love.github.io/1500512943/</id>
     <published>2022-05-08T15:22:38.000Z</published>
-    <updated>2022-05-21T10:46:28.119Z</updated>
+    <updated>2022-05-21T13:13:17.410Z</updated>
     
     
-    <summary type="html">搭建一个 Hexo 博客，并进行 Butterfly 魔改。</summary>
+    <summary type="html">搭建一个 Hexo 博客，进行 Butterfly 主题魔改，且解决遇到的各种各样的部署问题。</summary>
     
     
     
@@ -135,6 +135,8 @@
     <category term="Coding" scheme="https://luyf-lemon-love.github.io/tags/Coding/"/>
     
     <category term="Vercel" scheme="https://luyf-lemon-love.github.io/tags/Vercel/"/>
+    
+    <category term="域名" scheme="https://luyf-lemon-love.github.io/tags/%E5%9F%9F%E5%90%8D/"/>
     
   </entry>
   
