@@ -6408,6 +6408,8 @@ blockquote.pullquote.right {
 .read-mode #article-container .note .note-icon {
   color: var(--font-color);
 }
+#article-container figure.highlight,#article-container pre{color:#f8f8f2;background:#696969}#article-container figure.highlight .highlight-tools{background:#3f3f3f;color:#fff}#article-container figure.highlight .gutter pre{color:#d3d3d3;background:grey}#article-container figure.highlight figcaption a{color:#a9a9a9!important}
+
 body {
     cursor: url(/img/default.cur),
         default;
@@ -7647,7 +7649,6 @@ div.timenode:hover .meta:after {
     background: var(--light_bg_color)
 }
 
-@import 'https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/macblack.css';
 .search-dialog {
   position: fixed;
   top: 10%;
