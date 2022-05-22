@@ -13,7 +13,13 @@ timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://luyf-lemon-love.github.io/
+url: https://lu-yf-lemon-love-github-io.vercel.app/
+# 通用站点地图
+sitemap:
+  path: sitemap.xml
+# 百度站点地图
+baidusitemap:
+  path: baidusitemap.xml
 permalink: :abbrlink/ #:year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -29,6 +35,7 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+  - baidu_verify_code-BpOQH6T9DQ.html
 
 # Writing
 new_post_name: :title.md # File name of new posts
