@@ -6,7 +6,7 @@ tags:
   - RTL8812BU
   - 驱动
 categories: 硬件
-description: Ubuntu 20.04.4 LTS 安装 CF-812AC 无限网卡
+description: Ubuntu 20.04.4 LTS 安装 CF-812AC 无线网卡
 cover: >-
   https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520214839.png
 abbrlink: 1158755992
@@ -15,7 +15,7 @@ date: 2022-05-23 12:45:51
 
 ### 前言
 
-由于学校的宽带最近一段时间不稳定，经常断网，严重影响学习和工作。因此打算买一个无限网卡让实验室的台式机能够连接 WIFI。
+由于学校的宽带最近一段时间不稳定，经常断网，严重影响学习和工作。因此打算买一个无线网卡让实验室的台式机能够连接 WIFI。
 
 操作系统：Ubuntu 20.04.4 LTS
 
@@ -33,7 +33,7 @@ date: 2022-05-23 12:45:51
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220523130344.png)
 
-2. 查看 USB 无限网卡 的芯片型号
+2. 查看 USB 无线网卡 的芯片型号
 
 ```shell
 sudo apt install usbutils
@@ -48,7 +48,7 @@ Bus 001 Device 007: ID 0bda:b812 Realtek Semiconductor Corp. 802.11ac NIC
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220523130920.png)
 
-4. 点击 [USB devices](https://usb-ids.gowdy.us/read/UD/)，通过 0bda 找到无限网卡 Name。如图
+4. 点击 [USB devices](https://usb-ids.gowdy.us/read/UD/)，通过 0bda 找到无线网卡 Name。如图
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220523131209.png)
 
