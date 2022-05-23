@@ -10,6 +10,7 @@ tags:
   - virtual-environment
   - GCC
   - Linux
+  - 动态链接库
 categories: C/C++和Python混合编程
 description: 利用 C/C++ 的多线程实现 Python 的真正的多线程
 cover: >-

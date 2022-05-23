@@ -3791,7 +3791,7 @@ aside:
       enable: true
       icon: fa fa-rss
       text: 订阅RSS
-      link: atom.xml
+      link: https://luyf-lemon-love.space/atom.xml #atom.xml
 ```
 
 #### 简繁 - 阅读 - 夜间

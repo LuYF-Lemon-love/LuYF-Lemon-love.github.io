@@ -677,7 +677,7 @@ aside:
       enable: true
       icon: fa fa-rss
       text: 订阅RSS
-      link: atom.xml
+      link: https://luyf-lemon-love.space/atom.xml #atom.xml
   card_announcement:
     enable: true
     content: 本站部署到了几个地方，对应的域名请看顶部的 Domains 页
