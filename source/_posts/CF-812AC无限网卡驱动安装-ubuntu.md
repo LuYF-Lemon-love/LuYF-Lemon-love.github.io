@@ -5,6 +5,7 @@ tags:
   - 无线网卡
   - RTL8812BU
   - 驱动
+  - Ubuntu
 categories: 硬件
 description: Ubuntu 20.04.4 LTS 安装 CF-812AC 无线网卡
 cover: >-
@@ -80,7 +81,6 @@ Linux version 5.13.0-41-generic (buildd@lcy02-amd64-017) (gcc (Ubuntu 9.4.0-1ubu
 4. 我们根据内核选择 the v5.8.7 branch，安装命令如下
 
 ```shell
-clone the new branch:
 sudo apt update
 sudo apt install -y dkms git bc
 git clone -b v5.8.7 https://github.com/fastoe/RTL8812BU.git
