@@ -1,8 +1,8 @@
 ---
-title: CF-812AC无限网卡驱动安装-ubuntu
+title: CF-812AC无线网卡驱动安装-ubuntu
 tags:
   - CF-812AC
-  - 无限网卡
+  - 无线网卡
   - RTL8812BU
   - 驱动
 categories: 硬件
