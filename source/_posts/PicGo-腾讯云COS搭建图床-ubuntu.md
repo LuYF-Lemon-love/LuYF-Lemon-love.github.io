@@ -41,6 +41,10 @@ date: 2022-05-20 21:45:38
 
 6. [Typora+PicGo+腾讯云COS搭建图床](https://blog.csdn.net/xk1835217729/article/details/123958269?spm=1001.2014.3001.5506)
 
+7. [稳定且高性价比！腾讯云图床服务来了！](https://cloud.tencent.com/developer/article/1966294)
+
+8. [开启自定义 CDN 加速域名](https://cloud.tencent.com/document/product/436/36637)
+
 ### 搭建 Markdown 图床
 
 #### 腾讯云对象存储
@@ -114,6 +118,30 @@ PicGo 的安装请参考我的另一篇博文 Github+PicGo搭建Markdowm图床-u
       2. 支持带端口的域名和 IP，例如 `www.example.com:8080、10.10.10.10:8080等地址`。
 
       3. 配置 `*.example.com`：可限制 `a.b.example.com/123、a.example.com等地址`。
+
+#### 合理购买
+
+使用 COS 做图床使用，会涉及外网下行流量、存储容量、请求数，三个收费项。
+
+- 存储容量价格：标准存储容量费 0.118 元/GB/每月
+
+- 外网下行流量：外网下行流量费 0.5 元/GB（可以使用 CDN 加速节省流量费用）
+
+- 读写请求数：每 1 万次，只收取 0.01 元请求费用。
+
+- CDN 回源流量 0.15 元/GB。COS 存储桶支持绑定自定义域名并开启 CDN 加速，可以有效提高网站访问图片的质量，下载的流量费用也会更低。[开启自定义 CDN 加速域名](https://cloud.tencent.com/document/product/436/36637)。但是域名需要备案。对于 COS + CDN 场景，会省去 COS 下行流量费用，换成价格更便宜的 CDN 下行流量费用和 CDN 回源流量费用，CDN 加速方案比直接访问 COS 流量成本低很多
+
+其中，外网下行流量费用是最高的。我用了 4 天的截图。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220524122009.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220524122103.png)
+
+由于我们用 Github Pages 次数较多，所以外网下行流量费用占比较高。可以购买流量包缓解。流量包是 7.2 折，平均 0.36 元 / GB。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220524122254.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220524122648.png)
 
 ### 结语
 
