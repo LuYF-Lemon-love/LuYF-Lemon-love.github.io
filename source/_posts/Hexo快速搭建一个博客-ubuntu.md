@@ -10834,9 +10834,11 @@ https://lu-yf-lemon-love-github-io.vercel.app/baidusitemap.xml
 https://lu-yf-lemon-love-github-io.vercel.app/sitemap.xml
 ```
 
-7. 第二天结果
+7. 第二天和第三天的结果
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220523141148.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220524141249.png)
 
 8. 百度收录很慢，一般至少要半个月，你可以半个月后到百度搜索引擎中输入 site:<域名>（site:lu-yf-lemon-love-github-io.vercel.app)看看又没有收录。
 
