@@ -137,7 +137,7 @@ PicGo 的安装请参考我的另一篇博文 Github+PicGo搭建Markdowm图床-u
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220524122103.png)
 
-由于我们用 Github Pages 次数较多，所以外网下行流量费用占比较高。可以购买流量包缓解。流量包是 7.2 折，平均 0.36 元 / GB。
+可以购买外网下行流量包缓解。流量包是 7.2 折，平均 0.36 元 / GB。
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220524122254.png)
 
