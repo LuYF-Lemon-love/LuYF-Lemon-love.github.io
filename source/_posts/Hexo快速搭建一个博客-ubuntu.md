@@ -3693,7 +3693,7 @@ comments:
   # If you set it to true, the comment count will be invalid
   lazyload: true
   count: true # Display comment count in post's top_img
-  card_post_count: false # Display comment count in Home Page
+  card_post_count: true # Display comment count in Home Page
 ```
 
 在 [valine](https://valine.js.org/) 注册，并获取 appid 和 appkey 的值，在 _config.butterfly.yml 文件设置 valine 的属性
