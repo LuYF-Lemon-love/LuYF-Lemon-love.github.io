@@ -8111,6 +8111,21 @@ ClickShowText:
   mobile: false
 ```
 
+#### 页面美化
+
+会改变ol、ul、h1-h5的样式
+
+修改 _config.butterfly.yml 文件
+
+```yaml
+# Beautify (美化頁面顯示)
+beautify:
+  enable: true
+  field: site # site/post
+  title-prefix-icon: '\f0c1' # '\f863'
+  title-prefix-icon-color: '#F47466'
+```
+
 #### Snackbar 弹窗
 
 修改 _config.butterfly.yml 文件

@@ -556,7 +556,7 @@ sudo ./install_to_user.sh username1 username2 //替换为真实用户名
 
 | 插件                                | 说明                                                                           |
 | -------                             | -----                                                                          |
-| cpp-mode]                     | 提供生成函数实现、函数声明/实现跳转、.h .cpp切换等功能(I'm author:smile:)      |
+| cpp-mode                    | 提供生成函数实现、函数声明/实现跳转、.h .cpp切换等功能(I'm author:smile:)      |
 | vim-edit                      | 方便的文本编辑插件(I'm author:smile:)                                          |
 | change-colorscheme           | 随心所欲切换主题(I'm author:smile:)                                            |
 | prepare-code                | 新建文件时，生成预定义代码片段(I'm author:smile:)                              |
