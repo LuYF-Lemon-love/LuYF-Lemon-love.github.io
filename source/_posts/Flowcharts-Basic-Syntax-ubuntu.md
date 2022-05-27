@@ -7,7 +7,8 @@ tags:
   - Hexo
   - Butterfly
 categories:
-  - [博客, 计算机基础]
+  - 计算机基础
+  - 博客
 description: 基于 Mermaid 介绍在 Markdown 中绘制流程图的方法。
 cover: >-
   https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520214810.png
@@ -177,6 +178,149 @@ flowchart LR
 flowchart LR
     id1([This is the text in the box])
 {% endmermaid %}
+
+#### A node in a subroutine shape
+
+```markdown
+{% mermaid %}
+flowchart LR
+    id1[[This is the text in the box]]
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    id1[[This is the text in the box]]
+{% endmermaid %}
+
+#### A node in a cylindrical shape
+
+```markdown
+{% mermaid %}
+flowchart LR
+    id1[(Database)]
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    id1[(Database)]
+{% endmermaid %}
+
+#### A node in the form of a circle
+
+```markdown
+{% mermaid %}
+flowchart LR
+    id1((This is the text in the circle))
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    id1((This is the text in the circle))
+{% endmermaid %}
+
+#### A node in an asymmetric shape
+
+```markdown
+{% mermaid %}
+flowchart LR
+    id1>This is the text in the box]
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    id1>This is the text in the box]
+{% endmermaid %}
+
+#### A node (rhombus)
+
+```markdown
+{% mermaid %}
+flowchart LR
+    id1{This is the text in the box}
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    id1{This is the text in the box}
+{% endmermaid %}
+
+#### Parallelogram
+
+```markdown
+{% mermaid %}
+flowchart TD
+    id1[/This is the text in the box/]
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart TD
+    id1[/This is the text in the box/]
+{% endmermaid %}
+
+#### Parallelogram alt
+
+```markdown
+{% mermaid %}
+flowchart TD
+    id1[\This is the text in the box/]
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart TD
+    id1[\This is the text in the box/]
+{% endmermaid %}
+
+#### Trapezoid
+
+```markdown
+{% mermaid %}
+flowchart TD
+    A[/Christmas\]
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart TD
+    A[/Christmas\]
+{% endmermaid %}
+
+#### Trapezoid alt
+
+```markdown
+{% mermaid %}
+flowchart TD
+    B[\Go shopping/]
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart TD
+    B[\Go shopping/]
+{% endmermaid %}
+
+#### Double circle
+
+```markdown
+{% mermaid %}
+flowchart TD
+    id1(((This is the text in the circle)))
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart TD
+    id1(((This is the text in the circle)))
+{% endmermaid %}
+
+#### A link with arrow head
+
 
 ### 结语
 
