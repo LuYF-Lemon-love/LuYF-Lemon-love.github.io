@@ -756,74 +756,45 @@ flowchart LR
     B1 --> B2
 {% endmermaid %}
 
-#### Interaction
-
-```html
-<body>
-  <div class="mermaid">
-    flowchart LR
-        A-->B
-        B-->C
-        C-->D
-        click A callback "Tooltip"
-        click B "http://www.github.com" "This is a link"
-        click C call callback() "Tooltip"
-        click D href "http://www.github.com" "This is a link"
-  </div>
-
-  <script>
-    var callback = function(){
-        alert('A callback was triggered');
-    }
-    var config = {
-        startOnLoad:true,
-        flowchart:{
-            useMaxWidth:true,
-            htmlLabels:true,
-            curve:'cardinal',
-        },
-        securityLevel:'loose',
-    };
-
-    mermaid.initialize(config);
-  </script>
-</body>
-```
-
-Markdown 兼容 html
-
-<body>
-  <div class="mermaid">
-    flowchart LR
-        A-->B
-        B-->C
-        C-->D
-        click A callback "Tooltip"
-        click B "http://www.github.com" "This is a link"
-        click C call callback() "Tooltip"
-        click D href "http://www.github.com" "This is a link"
-  </div>
-
-  <script>
-    var callback = function(){
-        alert('A callback was triggered');
-    }
-    var config = {
-        startOnLoad:true,
-        flowchart:{
-            useMaxWidth:true,
-            htmlLabels:true,
-            curve:'cardinal',
-        },
-        securityLevel:'loose',
-    };
-
-    mermaid.initialize(config);
-  </script>
-</body>
-
 #### Comments
 
+```markdown
+{% mermaid %}
+flowchart LR
+%% this is a comment A -- text --> B{node}
+    A -- text --> B -- text2 --> C
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+%% this is a comment A -- text --> B{node}
+    A -- text --> B -- text2 --> C
+{% endmermaid %}
+
+#### Styling links
+
+```markdown
+{% mermaid %}
+flowchart TB
+    A --> C
+    A --> D
+    B --> C
+    B --> D
+    linkStyle 3 stroke:#ff3,stroke-width:4px,color:red;
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart TB
+    A --> C
+    A --> D
+    B --> C
+    B --> D
+    linkStyle 3 stroke:#ff3,stroke-width:4px,color:red;
+{% endmermaid %}
+
+#### Styling a node
 
 ### 结语
 
