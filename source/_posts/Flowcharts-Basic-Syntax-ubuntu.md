@@ -7,8 +7,7 @@ tags:
   - Hexo
   - Butterfly
 categories:
-  - 博客
-  - 计算机基础
+  - [博客, 计算机基础]
 description: 基于 Mermaid 介绍在 Markdown 中绘制流程图的方法。
 cover: >-
   https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520214810.png
@@ -83,11 +82,11 @@ pie
     "Iron" :  5
 {% endmermaid %}
 
-### 流程图 - 基本语法
+### Flowcharts
 
 流程图是由节点、几何形状、边、箭头和线条组成。注：不要将小写单词 end 作为流程图的节点。
 
-#### 节点（默认）
+#### A node (default)
 
 ```markdown
 {% mermaid %}
@@ -99,6 +98,84 @@ flowchart LR
 {% mermaid %}
 flowchart LR
     id
+{% endmermaid %}
+
+#### A node with text
+
+```markdown
+{% mermaid %}
+flowchart LR
+    id1[This is the text in the box]
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    id1[This is the text in the box]
+{% endmermaid %}
+
+#### Graph
+
+```markdown
+{% mermaid %}
+flowchart TD
+    Start --> Stop
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart TD
+    Start --> Stop
+{% endmermaid %}
+
+```markdown
+{% mermaid %}
+flowchart LR
+    Start --> Stop
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    Start --> Stop
+{% endmermaid %}
+
+#### Flowchart Orientation
+
+- TB | TD: 从上到下
+
+- BT: 从下到上
+
+- RL: 从右到左
+
+- LR: 从左到右
+
+#### A node with round edges
+
+```markdown
+{% mermaid %}
+flowchart LR
+    id1(This is the text in the box)
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    id1(This is the text in the box)
+{% endmermaid %}
+
+#### A stadium-shaped node
+
+```markdown
+{% mermaid %}
+flowchart LR
+    id1([This is the text in the box])
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    id1([This is the text in the box])
 {% endmermaid %}
 
 ### 结语
