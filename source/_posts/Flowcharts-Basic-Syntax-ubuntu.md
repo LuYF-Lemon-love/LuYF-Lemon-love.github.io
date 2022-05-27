@@ -321,6 +321,145 @@ flowchart TD
 
 #### A link with arrow head
 
+```markdown
+{% mermaid %}
+flowchart LR
+    A-->B
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    A-->B
+{% endmermaid %}
+
+#### An open link
+
+```markdown
+{% mermaid %}
+flowchart LR
+    A --- B
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    A --- B
+{% endmermaid %}
+
+#### Text on links
+
+```markdown
+{% mermaid %}
+flowchart LR
+    A-- This is the text! ---B
+{% endmermaid %}
+
+or
+
+{% mermaid %}
+flowchart LR
+    A---|This is the text!|B
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    A-- This is the text! ---B
+{% endmermaid %}
+
+or
+
+{% mermaid %}
+flowchart LR
+    A---|This is the text!|B
+{% endmermaid %}
+
+#### A link with arrow head and text
+
+```markdown
+{% mermaid %}
+flowchart LR
+    A-->|text|B
+{% endmermaid %}
+
+or 
+
+{% mermaid %}
+flowchart LR
+    A-- text -->B
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    A-->|text|B
+{% endmermaid %}
+
+or
+
+{% mermaid %}
+flowchart LR
+    A-- text -->B
+{% endmermaid %}
+
+#### Dotted link
+
+```markdown
+{% mermaid %}
+flowchart LR;
+    A-.->B;
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR;
+    A-.->B;
+{% endmermaid %}
+
+#### Dotted link with text
+
+```markdown
+{% mermaid %}
+flowchart LR
+    A-. text .-> B
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    A-. text .-> B
+{% endmermaid %}
+
+#### Thick link
+
+```markdown
+{% mermaid %}
+flowchart LR
+    A ==> B
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    A ==> B
+{% endmermaid %}
+
+#### Thick link with text
+
+```markdown
+{% mermaid %}
+flowchart LR
+    A == text ==> B
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    A == text ==> B
+{% endmermaid %}
+
+#### Chaining of links
 
 ### 结语
 
