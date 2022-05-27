@@ -853,6 +853,38 @@ gcc -o test string.o main.o
 
 #### GCC 与 G++
 
+1. 在编译阶段（第二个阶段）：
+  
+   - 后缀为 .c 的文件，gcc 把它当作是 C 程序，g++ 把它当作是 C++ 程序。
+
+   - 后缀为 .cpp 的文件，两者都会认为是 C++ 程序。
+
+   - g++ 会调用 gcc，对于 C++ 程序，两者是等价的。
+
+2. 在链接阶段（最后一个阶段）：
+ 
+   - gcc 和 g++ 都可以自动链接到标准 C 库。
+
+   - g++ 可以自动链接到标准 C++ 库，gcc 需要加参数 -lstdc++
+
+3. __cplusplus 宏的定义
+
+   - g++ 会自动定义 __cplusplus 宏，但不影响编译 C 程序。
+
+   - gcc 会根据文件后缀名判断是否定义 __cplusplus 宏
+
+
+```shell
+# 编译 C 程序
+gcc test.c -o test
+g++ test.c -o test
+
+# 编译 C++ 程序
+gcc test.cpp -lstdc++ -o test
+g++ test.cpp -o test
+```
+
+### 静态链接库和动态链接库
 
 ### 结语
 
