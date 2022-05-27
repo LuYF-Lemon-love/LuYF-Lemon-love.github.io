@@ -470,34 +470,6 @@ vim -O 文件1,文件2,文件3
 
 [vimplus](https://github.com/chxuan/vimplus): An automatic configuration program for vim.
 
-Linux 64-bit
-
-##### Linux 64-bit 支持以下发行版
-
-<table>
-<tr>
-<td><a href="https://distrowatch.com/table.php?distribution=ubuntu"><img src="https://distrowatch.com/images/yvzhuwbpy/ubuntu.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=ubuntukylin"><img src="https://distrowatch.com/images/yvzhuwbpy/ubuntukylin.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=debian"><img src="https://distrowatch.com/images/yvzhuwbpy/debian.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=kali"><img src="https://distrowatch.com/images/yvzhuwbpy/kali.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=deepin"><img src="https://distrowatch.com/images/yvzhuwbpy/deepin.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=mint"><img src="https://distrowatch.com/images/yvzhuwbpy/mint.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=elementary"><img src="https://distrowatch.com/images/yvzhuwbpy/elementary.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=centos"><img src="https://distrowatch.com/images/yvzhuwbpy/centos.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=fedora"><img src="https://distrowatch.com/images/yvzhuwbpy/fedora.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=arch"><img src="https://distrowatch.com/images/yvzhuwbpy/arch.png"/></a><p align="center"></p></td>
-</tr>
-<tr>
-<td><a href="https://distrowatch.com/table.php?distribution=manjaro"><img src="https://distrowatch.com/images/yvzhuwbpy/manjaro.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=opensuse"><img src="https://distrowatch.com/images/yvzhuwbpy/opensuse.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=gentoo"><img src="https://distrowatch.com/images/yvzhuwbpy/gentoo.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=parrot"><img src="https://distrowatch.com/images/yvzhuwbpy/parrot.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=raspios"><img src="https://distrowatch.com/images/yvzhuwbpy/raspios.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=freebsd"><img src="https://distrowatch.com/images/yvzhuwbpy/freebsd.png"/></a><p align="center"></p></td>
-<td><a href="https://distrowatch.com/table.php?distribution=alpine"><img src="https://distrowatch.com/images/yvzhuwbpy/alpine.png"/></a><p align="center"></p></td>
-</tr>
-</table>
-
 ##### 安装vimplus
 
 ```shell
@@ -761,6 +733,126 @@ gcc test.c -o app
 |-std|指定 C 方言，如: -std=c99, gcc 默认的方言是 GNU C|
 
 #### 指定生成的文件名（ -o )
+
+```shell
+# test.c 写在 -o 之前
+gcc test.c -o app
+
+# test.c 写在 -o 之后
+gcc -o app test.c
+```
+
+#### 搜索头文件（ -I ）
+
+```shell
+# 假设头文件 head.h 在 include 目录中
+# 通过 -I 重新指定头文件的位置
+gcc *.c -o calc -I ./include
+```
+
+#### 指定一个宏（ -D ）
+
+```c
+// test.c
+#include <stdio.h>
+#define NUMBER  3
+
+int main()
+{
+    int a = 10;
+#ifdef DEBUG
+    printf("我是一个程序猿, 我不会爬树...\n");
+#endif
+    for(int i=0; i<NUMBER; ++i)
+    {
+        printf("hello, GCC!!!\n");
+    }
+    return 0;
+}
+```
+
+```shell
+# 在编译命令中定义这个 DEBUG 宏, 
+$ gcc test.c -o app -D DEBUG
+
+# 执行生成的程序， 可以看到程序第 9 行的输出
+$ ./app 
+我是一个程序猿, 我不会爬树...
+hello, GCC!!!
+hello, GCC!!!
+hello, GCC!!!
+```
+
+-D 参数控制是否打印 log。
+
+#### 多文件编译
+
+- 头文件
+
+```c
+#ifndef _STRING_H_
+#define _STRING_H_
+int strLength(char*string);
+#endif//_STRING_H_
+```
+
+- 源文件 string.c
+
+```c
+#include "string.h"
+
+int strLength(char*string)
+{
+  int len = 0;
+  while(*string++ != '\0') // 当 *string 的值为 '\0' 时，停止计算
+  {
+    len++;
+  }
+  return len; //返回字符串长度
+}
+```
+
+- 源文件 main.c
+
+```c
+#include <stdio.h>
+#include "string.h"
+
+int main(void)
+{
+  char *src = "Hello, I'am Monkey!!!";
+  printf("string length is: %d\n", strLength(src));
+  return 0;
+}
+```
+
+因为头文件是包含在源文件中的，因此在使用 gcc 编译程序的时候不需要指定头文件的名字。
+
+- 直接链接生成可执行程序
+
+```shell
+# 直接生成可执行程序 test
+gcc -o test string.c main.c
+
+# 运行可执行程序
+./test
+```
+
+- 先将源文件汇编成目标文件，然后链接得到可执行程序
+
+```shell
+# 汇编生成二进制目标文件，指定了 -c 参数之后，源文件会自动生成 string.o 和 main.o
+gcc -c string.c main.c
+
+# 链接目标文件，生成可执行程序 test
+gcc -o test string.o main.o
+
+# 运行可执行程序
+./test
+```
+
+#### GCC 与 G++
+
 
 ### 结语
 
