@@ -83,7 +83,7 @@ pie
     "Iron" :  5
 {% endmermaid %}
 
-### Flowcharts
+### Flowcharts - Basic Syntax
 
 流程图是由节点、几何形状、边、箭头和线条组成。注：不要将小写单词 end 作为流程图的节点。
 
@@ -835,7 +835,7 @@ flowchart LR
 flowchart TD
     B["fa:fa-twitter for peace"]
     B-->C[fa:fa-ban forbidden]
-    B-->D(fa:-spinner);
+    B-->D(fa:fa-spinner);
     B-->E(A fa:fa-camera-retro perhaps?)
 {% endmermaid %}
 ```
@@ -844,7 +844,7 @@ flowchart TD
 flowchart TD
     B["fa:fa-twitter for peace"]
     B-->C[fa:fa-ban forbidden]
-    B-->D(fa:-spinner);
+    B-->D(fa:fa-spinner);
     B-->E(A fa:fa-camera-retro perhaps?)
 {% endmermaid %}
 
