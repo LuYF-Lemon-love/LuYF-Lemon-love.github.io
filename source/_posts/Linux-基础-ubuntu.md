@@ -696,6 +696,72 @@ flowchart LR
     classDef someclass fill:#f9f,stroke:#333,stroke-width:4px;
 {% endmermaid %}
 
+```c
+// 假设程序对应的源文件名为 test.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+
+int main()
+{
+    int array[5] = {1,2,3,4,5};
+    for(int i=0; i<5; ++i)
+    {
+        printf("array[%d] = %d\n", i, array[i]);
+    }
+    return 0;
+}
+```
+
+```shell
+# 1. 预处理，-o 指定生成的文件名
+gcc -E test.c -o test.i
+
+# 2. 编译，得到汇编文件
+gcc -S test.i -o test.s
+
+# 3. 汇编
+gcc -c test.s -o test.o
+
+# 4. 链接
+gcc test.o -o test
+```
+
+注：在使用 gcc 编译程序的时候可以通过参数控制内部自动执行几个步骤
+
+```shell
+# 参数 -c 是进行文件的汇编，汇编之前的两步会自动执行
+gcc test.c -c -o app.o
+
+# 该命令是直接进行链接生成可执行程序，链接之前的三步会自动执行
+gcc test.c -o app
+```
+
+#### GCC 常用参数
+
+注：下面的参数在 gcc 命令中没有位置要求
+
+|gcc 编译选项|选项的意义|
+|:-:|:-:|
+|-E|预处理指定的源文件，不进行编译|
+|-S|编译指定的源文件，不进行汇编|
+|-c|汇编指定的源文件，不进行链接|
+|-o file1 file2 / file2 -o file1|将 file2 编译成 file1|
+|-I directory|指定 include 包含文件的搜索目录|
+|-g|在编译的时候，生成调试信息，该程序可以被调试器调试|
+|-D|编译程序的时候，指定一个宏|
+|-w|不生成任何警告信息|
+|-Wall|生成所有的警告信息|
+|-On|n的取值范围：0～3。编译器的优化选项一共有 4 个级别，-O0 表示没有优化，-O1 为缺省值，-O3 优化级别最高
+|-l|在编译程序的时候，指定使用的库|
+|-L|在编译程序的时候，搜索的库的路径|
+|-fPIC/fpic|生成与位置无关的代码|
+|shared|生成共享目标文件，通常用在建立共享库的时候|
+|-std|指定 C 方言，如: -std=c99, gcc 默认的方言是 GNU C|
+
+#### 指定生成的文件名（ -o )
+
 ### 结语
 
 第十篇博文写完，开心！！！！
