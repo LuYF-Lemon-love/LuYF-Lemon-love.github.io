@@ -268,13 +268,13 @@ flowchart TD
 ```markdown
 {% mermaid %}
 flowchart TD
-    id1[\This is the text in the box/]
+    id1[\This is the text in the box\]
 {% endmermaid %}
 ```
 
 {% mermaid %}
 flowchart TD
-    id1[\This is the text in the box/]
+    id1[\This is the text in the box\]
 {% endmermaid %}
 
 #### Trapezoid
