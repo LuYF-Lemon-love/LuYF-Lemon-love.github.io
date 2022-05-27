@@ -461,6 +461,70 @@ flowchart LR
 
 #### Chaining of links
 
+```markdown
+{% mermaid %}
+flowchart LR
+    A -- text --> B -- text2 --> C
+{% endmermaid %}
+
+{% mermaid %}
+flowchart LR
+    a --> b & c --> d
+{% endmermaid %}
+
+{% mermaid %}
+flowchart TB
+    A & B--> C & D
+{% endmermaid %}
+
+{% mermaid %}
+flowchart TB
+    A --> C
+    A --> D
+    B --> C
+    B --> D
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    A -- text --> B -- text2 --> C
+{% endmermaid %}
+
+{% mermaid %}
+flowchart LR
+    a --> b & c --> d
+{% endmermaid %}
+
+{% mermaid %}
+flowchart TB
+    A & B--> C & D
+{% endmermaid %}
+
+{% mermaid %}
+flowchart TB
+    A --> C
+    A --> D
+    B --> C
+    B --> D
+{% endmermaid %}
+
+#### New arrow types
+
+```markdown
+{% mermaid %}
+flowchart LR
+    A --o B
+    B --x C
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    A --o B
+    B --x C
+{% endmermaid %}
+
 ### 结语
 
 第十一篇博文写完，开心！！！！
