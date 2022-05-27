@@ -525,6 +525,93 @@ flowchart LR
     B --x C
 {% endmermaid %}
 
+#### Multi directional arrows
+
+```markdown
+{% mermaid %}
+flowchart LR
+    A o--o B
+    B <--> C
+    C x--x D
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    A o--o B
+    B <--> C
+    C x--x D
+{% endmermaid %}
+
+#### Minimum length of a link
+
+you can ask for any link to be longer than the others by adding extra dashes in the link definition.
+
+```markdown
+{% mermaid %}
+flowchart TD
+    A[Start] --> B{Is it?}
+    B -->|Yes| C[OK]
+    C --> D[Rethink]
+    D --> B
+    B ---->|No| E[End]
+{% endmermaid %}
+
+{% mermaid %}
+flowchart TD
+    A[Start] --> B{Is it?}
+    B -- Yes --> C[Ok]
+    C --> D[Rethink]
+    D --> B
+    B -- No ----> E[End]
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart TD
+    A[Start] --> B{Is it?}
+    B -->|Yes| C[OK]
+    C --> D[Rethink]
+    D --> B
+    B ---->|No| E[End]
+{% endmermaid %}
+
+{% mermaid %}
+flowchart TD
+    A[Start] --> B{Is it?}
+    B -- Yes --> C[Ok]
+    C --> D[Rethink]
+    D --> B
+    B -- No ----> E[End]
+{% endmermaid %}
+
+|Length|1|2|3|
+|:-:|:-:|:-:|:-:|
+|Normal|---|----|-----|
+|Normal with arrow|-->|--->|---->|
+|Thick|===|====|=====|
+|Thick with arrow|==>|===>|====>|
+|Dotted|-.-|-..-|-...-|
+|Dotted with arrow|-.->|-..->|-...->|
+
+#### Special characters that break syntax
+
+It is possible to put text within quotes in order to render more troublesome characters.
+
+```markdown
+{% mermaid %}
+flowchart LR
+    id1["This is the (text) in the box"]
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    id1["This is the (text) in the box"]
+{% endmermaid %}
+
+#### Entity codes to escape characters
+
 ### 结语
 
 第十一篇博文写完，开心！！！！
