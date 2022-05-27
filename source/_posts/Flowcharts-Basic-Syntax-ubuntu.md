@@ -612,6 +612,76 @@ flowchart LR
 
 #### Entity codes to escape characters
 
+```markdown
+{% mermaid %}
+flowchart LR
+    A["A double quote:#quot;"] -->B["A dec char:#9829;"]
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart LR
+    A["A double quote:#quot;"] -->B["A dec char:#9829;"]
+{% endmermaid %}
+
+#### Subgraphs
+
+```markdown
+subgraph title
+    graph definition
+end
+```
+
+```markdown
+{% mermaid %}
+flowchart TB
+    c1-->a2
+    subgraph one
+    a1-->a2
+    end
+    subgraph two
+    b1-->b2
+    end
+    subgraph three
+    c1-->c2
+    end
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart TB
+    c1-->a2
+    subgraph one
+    a1-->a2
+    end
+    subgraph two
+    b1-->b2
+    end
+    subgraph three
+    c1-->c2
+    end
+{% endmermaid %}
+
+```markdown
+{% mermaid %}
+flowchart TB
+    c1-->a2
+    subgraph ide1 [one]
+    a1-->a2
+    end
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart TB
+    c1-->a2
+    subgraph ide1 [one]
+    a1-->a2
+    end
+{% endmermaid %}
+
+#### flowcharts
+
 ### 结语
 
 第十一篇博文写完，开心！！！！
