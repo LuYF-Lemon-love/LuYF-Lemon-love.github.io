@@ -817,18 +817,36 @@ flowchart LR
 ```markdown
 {% mermaid %}
 flowchart LR
-    A:::someclasses --> B
+    A:::someclass --> B
     classDef someclass fill:#f96,stroke:#333,stroke-width:4px;
 {% endmermaid %}
 ```
 
 {% mermaid %}
 flowchart LR
-    A:::someclasses --> B
+    A:::someclass --> B
     classDef someclass fill:#f96,stroke:#333,stroke-width:4px;
 {% endmermaid %}
 
-#### Css classes
+#### Basic support for fontawesome
+
+```markdown
+{% mermaid %}
+flowchart TD
+    B["fa:fa-twitter for peace"]
+    B-->C[fa:fa-ban forbidden]
+    B-->D(fa:-spinner);
+    B-->E(A fa:fa-camera-retro perhaps?)
+{% endmermaid %}
+```
+
+{% mermaid %}
+flowchart TD
+    B["fa:fa-twitter for peace"]
+    B-->C[fa:fa-ban forbidden]
+    B-->D(fa:-spinner);
+    B-->E(A fa:fa-camera-retro perhaps?)
+{% endmermaid %}
 
 ### 结语
 
