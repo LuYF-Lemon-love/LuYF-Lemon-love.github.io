@@ -21,7 +21,7 @@ date: 2022-05-20 21:45:38
 
 2021 年 12 月 20 日 , jsDelivr 的中国大陆的 CDN 被关闭，几个小时后 ICP 备案号被注销。2022 年 4 月 28 日 和 2022 年 5 月 17 日 遭到 DNS 污染，无法使用。
 
-因此，不能利用 Github 的图床为个人博客服务了，而且由于中国大陆的网站域名需要备案，无法通过域名快速获得免费的 SSL 证书，因此上一篇博客（腾讯云轻量应用服务器搭建图床-ubuntu）中搭建的 Lsky Pro 的图床站点无法提供 HTTPS = HTTP + SSL/TLS 服务，只能提供 HTTP 服务，但像 Github 等提供的 Pages 服务是 HTTPS 的，而且很多博客中的第三方 API 都是 HTTPS服务。HTTPS 服务不可以访问 HTTP 服务，HTTP 服务也不可以访问 HTTPS 服务。
+因此，不能利用 Github 的图床为个人博客服务了，而且由于中国大陆的网站域名需要备案，无法通过域名快速获得免费的 SSL 证书，因此上一篇博客（腾讯云轻量应用服务器搭建图床-ubuntu）中搭建的 Lsky Pro 的图床站点无法提供 HTTPS = HTTP + SSL/TLS 服务，只能提供 HTTP 服务，但像 Github 等提供的 Pages 服务是 HTTPS 的，而且很多博客中的第三方 API 都是 HTTPS服务。HTTPS 服务不可以访问 HTTP 服务。
 
 因此，本文介绍利用 腾讯云的对象存储（Cloud Object Storage，COS）和 PicGo 搭建 Markdown 图床的过程。
 

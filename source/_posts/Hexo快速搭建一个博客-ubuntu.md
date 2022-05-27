@@ -7630,7 +7630,7 @@ git clone -b dev https://github.com/jerryc127/hexo-theme-butterfly.git themes/Bu
 
 #### mermaid
 
-使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图）。
+使用 mermaid 标签可以绘制 Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图）。
 
 [mermaid 文档](https://mermaid-js.github.io/mermaid/)
 

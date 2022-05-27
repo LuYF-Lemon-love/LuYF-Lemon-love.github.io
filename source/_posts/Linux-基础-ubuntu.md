@@ -3,6 +3,9 @@ title: Linux 基础-ubuntu
 tags:
   - Linux
   - Vim
+  - C/C++
+  - GCC
+  - G++
 categories: 计算机基础
 description: 介绍一些 Linux 基础知识，包括 Linux 操作系统、 Vim 的使用、GCC、静态链接库、动态链接库、Makefile 和 GDB 调试。
 cover: >-
@@ -648,6 +651,46 @@ sudo ./install_to_user.sh username1 username2 //替换为真实用户名
 | `<leader><leader>c` | 删除插件                                  |
 
 ### GCC
+
+GCC 是 Linux 操作系统的编译工具集，是 GNU Compiler Collection 的缩写，包含 gcc，g++ 等编译器。这个工具集不仅包含编译器，还包含其他工具集，如 ar、nm 等。支持 X86、ARM、PowerPC、mips 等硬件平台，还支持 Linux、Windows 等软件平台。
+
+#### 安装 GCC 
+
+```shell
+#ubuntu
+sudo apt update
+sudo apt install gcc g++
+
+gcc -v
+gcc --version
+
+g++ -v
+g++ --version
+```
+
+#### GCC 工作流程
+
+GCC 编译程序分为 4 个阶段：预处理（预编译）、编译和优化、汇编和链接。
+
+1. 预处理：GCC 调用预处理器来完成，包括：展开头文件、宏替换和去掉注释行。
+
+2. 编译：GCC 调用编译器对文件进行编译，得到一个汇编文件。
+
+3. 汇编：GCC 调用汇编器对文件进行汇编，最终得到一个二进制文件。
+
+4. 链接：GCC 调用链接器对程序需要调用的库进行链接，最终得到一个可执行的二进制文件。
+
+各个阶段的的文件
+
+- 源文件，后缀为 .c
+
+- 预处理后的 C 文件，后缀为 .i，预处理参数为 -E
+
+- 编译得到汇编语言的源文件，后缀为 .s，编译参数为 -S
+
+- 汇编得到的二进制文件，后缀为 .o，汇编参数 -c
+
+C 语言源文件 > 
 
 ### 结语
 
