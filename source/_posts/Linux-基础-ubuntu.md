@@ -1555,6 +1555,120 @@ obj=$(patsubst %.cpp, %.o, $(src))
 
 #### makefile 的编写
 
+当前目录中有下面一些文件：`add.c`, `div.c`, `head.h`, `main.c`, `mult.c`, `sub.c`。
+
+**version 1**
+
+```makefile
+calc:add.c div.c main.c mult.c sub.c
+  gcc add.c div.c main.c mult.c sub.c -o calc
+```
+
+缺点：某一个源文件被修改，所有的源文件都需要重新编译。
+
+**version 2**
+
+```makefile
+calc:add.o div.o main.o mult.o sub.o
+  gcc add.o div.o main.o mult.o sub.o -o calc
+
+add.o:add.c
+  gcc add.c -c
+
+div.o:div.c
+  gcc div.c -c
+
+main.o:main.c
+  gcc main.c -c
+
+sub.o:sub.c
+  gcc sub.c -c
+
+mult.o:mult.c
+  gcc mult.c -c
+```
+
+缺点：规则冗余，需要精简。
+
+**version 3**
+
+```makefile
+obj=add.o div.o main.o mult.o sub.o
+target=calc
+
+$(target):$(obj)
+  gcc $(obj) -o $(target)
+
+%.o:%.c
+  gcc $< -c
+```
+
+缺点：obj 值需要手动写出来。
+
+**version 4**
+
+```makefile
+src=$(wildcard *.c)
+obj=$(patsubst %.c, %.o, $(src))
+target=calc
+
+$(target):$(obj)
+  gcc $(obj) -o $(target)
+
+%.o:%.c
+  gcc $< -c
+```
+
+缺点：没有删除功能。
+
+**version 5**
+
+```makefile
+src=$(wildcard *.c)
+obj=$(patsubst %.c, %.o, $(src))
+target=calc
+
+$(target):$(obj)
+  gcc $(obj) -o $(target)
+
+%.o:%.c
+  gcc $< -c
+
+clean:
+  rm $(obj) $(target)
+```
+
+```shell
+# 删除 .o 文件和可执行程序
+make clean
+```
+
+缺点：当执行完 make 命令后，向目录中新建一个 clean 文件，这时根据 make 关于文件时间戳的更新规则，无法通过 make clean 命令删除 .o 文件和可执行程序文件文件。
+
+**version 6**
+
+make 命令不会对伪目标进行文件时间戳检测，相应规则中的命令每次都会被执行。
+
+伪目标的语法：`.PHONY:伪文件名称`。
+
+```makefile
+src=$(wildcard *.c)
+obj=$(patsubst %.c, %.o, $(src))
+target=calc
+
+$(target):$(obj)
+  gcc $(obj) -o $(target)
+
+%.o:%.c
+  gcc $< -c
+
+.PHONY:clean
+clean:
+  # - 表示强制执行这个指令，如果执行失败也不会终止
+  -rm $(obj) $(target)
+```
+
+#### 练习
 
 
 ### 结语
