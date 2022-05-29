@@ -1342,6 +1342,221 @@ c.o:c.c
 
 #### 文件的时间辍
 
+make 命令会根据文件的时间戳判定是否执行 makefile 中相关规则的命令。
+
+- 当目标时间戳 > 所有依赖的时间戳，这时 make 命令将不会执行这条规则。
+
+- 当目标时间戳 < 某些依赖的时间戳，这时 make 命令将会执行这条规则。
+
+- 当规则中目标文件不存在，那么 make 会执行这条规则。
+
+```makefile
+# 规则之间的嵌套
+# 规则 1 
+app:a.o b.o c.o
+  gcc a.o b.o c.o -o app
+
+# 规则 2
+a.o:a.c
+  gcc -c a.c
+
+# 规则 3
+b.o:b.c
+  gcc -c b.c
+
+# 规则 4
+c.o:c.c
+  gcc -c c.c
+```
+
+上面例子中，当执行过一次 make 命令后，修改 a.c 文件，这时再通过 make 命令编译项目，会先执行规则 2 更新目标文件 a.o，然后执行规则 1 更新目标文件 app，其余规则是不会被执行。
+
+#### 自动推导
+
+make 是一个功能强大的构建工具，它有自动推导的能力，不会完全依赖 makefile。如果 makefile 没有指出编译规则，make 会自动使用 cc -c 命令来编译 .c 源文件。makefile 只需要给出需要构建的目标文件名（.o 文件），make 会自动为这个 .o 文件寻找合适的依赖文件（对应的 .c 文件），使用 cc -c 命令来构建这个目标文件。
+
+```makefile
+# 目录中有 add.c div.c head.h main.c makefile mult.c sub.c 这几个文件
+
+# makefile 中只有下面一个规则
+calc:add.o div.o main.o mult.o sub.o
+  gcc add.o div.o main.o mult.o sub.o -o calc
+```
+
+```shell
+make
+```
+
+上面中的例子中，目录中并没有 .o 文件，也不存在其他规则生成 .o 文件。但是 make 会使用默认的构造规则生成这些依赖文件，最终生成目标文件 calc。
+
+#### 自定义变量
+
+makefile 用户可以自定义变量，这些变量是没有类型的。创建一个变量的时候一定要给它赋值。
+
+```makefile
+# 创建一个变量名并且给其赋值
+变量名=变量值
+
+# 取出变量的值
+$(变量名)
+
+# example
+obj=add.o div.o main.o mult.o sub.o
+$(obj)
+```
+
+```makefile
+# 普通写法
+calc:add.o div.o main.o mult.o sub.o
+  gcc add.o div.o main.o mult.o sub.o -o calc
+
+# 新写法
+obj=add.o div.o main.o mult.o sub.o
+target=calc
+$(target):$(obj)
+  gcc $(obj) -o $(target)
+```
+
+#### 预定义变量
+
+makefile 中有一些预定义变量，用户可以直接使用这些变量。
+
+常用的预定义变量
+
+|变量名|含义|默认值|
+|:-:|:-:|:-:|
+|AR|生成静态链接库的程序名称|ar|
+|AS|汇编编译器的名称|as|
+|CC|C 语言编译器的名称|cc|
+|CPP|C 语言预编译器的名称|$(CC) -E|
+|CXX|C++ 语言编译器的名称|g++|
+|FC|FORTRAN 语言编译器的名称|f77|
+|RM|删除文件程序的名称|rm -f|
+|ARFLAGS|生成静态链接库的选项|无|
+|ASFLAGS|汇编语言编译器的编译选项|无|
+|CFLAGS|C 语言编译器的编译选项|无|
+|CPPFLAGS|C 语言预编译器的编译选项|无|
+|CXXFLAGS|C++ 语言编译器的编译选项|无|
+|FFLAGS|FORTRAN 语言编译器的编译选项|无|
+
+```makefile
+# 普通写法
+calc:add.o div.o main.o mult.o sub.o
+  gcc add.o div.o main.o mult.o sub.o -o calc
+
+# 新写法
+obj=add.o div.o main.o mult.o sub.o
+target=calc
+# 代码优化
+CFLAGS=-O3
+$(target):$(obj)
+  $(CC) $(obj) -o $(target) $(CFLAGS)
+```
+
+#### 自动变量
+
+自动变量用来代表规则中的目标文件和依赖文件，只能再规则的命令中使用。
+
+常见的自动变量
+
+|变量|含义|
+|:-:|:-:|
+|$*|表示目标文件的名称，不包含目标文件的扩展名|
+|$+|表示所有的依赖文件，依赖文件之间以空格分开，按照出现的先后顺序，可能包含重复的依赖文件|
+|$<|依赖项中第一个依赖文件的名称|
+|$?|依赖项中，所有比目标文件时间戳晚的依赖文件，依赖文件之间以空格分开|
+|$@|表示目标文件的名称，包含文件扩展名|
+|$^|依赖项中，所有不重复的依赖文件，以空格分开|
+
+```makefile
+# 普通写法
+calc:add.o div.o main.o mult.o sub.o
+  gcc add.o div.o main.o mult.o sub.o -o calc
+
+# 新写法
+calc:add.o div.o main.o mult.o sub.o
+  gcc $^ -o $@
+```
+
+#### 模式匹配
+
+```makefile
+calc:add.o div.o main.o mult.o sub.o
+  gcc add.o div.o main.o mult.o sub.o -o calc
+
+add.o:add.c
+  gcc add.c -c
+
+div.o:div.c
+  gcc div.c -c
+
+main.o:main.c
+  gcc main.c -c
+
+sub.o:sub.c
+  gcc sub.c -c
+
+mult.o:mult.c
+  gcc mult.c -c
+```
+
+可以将上面例子中第二条规则到第六条规则改写成模板，使得 makefile 变得精简。
+
+```makefile
+# % 是一个通配符，匹配的是文件名
+# 由于 % 对应的文件名实时变化，因此命令中的依赖必须使用自动变量
+%.o:%.c
+  gcc $< -c
+```
+
+#### wildcard 函数
+
+makefile 有很多函数，并且所有的函数都是有返回值的。函数的格式为 `$(函数名 参数1,参数2,参数3,...)。
+
+wildcard 函数：获取指定目录下指定类型的文件名，返回值：以空格分隔、指定目录下的所有符合条件的文件名列表。
+
+```makefile
+# 该函数的参数只有一个，但是这个参数可以包含若干部分，以空格分隔
+# 参数：指定目录下指定类型的文件，如当前目录下的 .c 文件：*.c
+$(wildcard PATTERN...)
+```
+
+- PATTERN: 某个或多个目录下的某种类型的文件，如当前目录下的 .c 文件可以写成 *.c。
+
+- 可以指定多个路径，每个路径之间以空格分隔。
+
+- 返回值：得到若干个文件的文件列表，文件名使用空格分隔
+
+```makefile
+src=$(wildcard *.c ./sub/*.c)
+```
+
+#### patsubst
+
+作用：按照指定的模式替换指定的文件名的后缀。
+
+```makefile
+$(patsubst pattern,replacement,text)
+```
+
+- pattern:指定要被替换的文件名中的后缀，文件名和路径不需要设置，使用 % 表示，需要指定出要被替换的后缀，如 %.c。
+
+- replacement:指定出替换成的后缀，依旧使用 % 表示，需要指定出替换成的后缀，如 %.o。
+
+- text:被替换的原始文件名。
+
+- 返回值：替换完成的文件名字符串。
+
+```makefile
+src=a.cpp b.cpp c.cpp d.cpp
+# 把变量 src 中的文件名的后缀从 .cpp 替换为 .o
+obj=$(patsubst %.cpp, %.o, $(src))
+```
+
+#### makefile 的编写
+
+
+
 ### 结语
 
 第十篇博文写完，开心！！！！
