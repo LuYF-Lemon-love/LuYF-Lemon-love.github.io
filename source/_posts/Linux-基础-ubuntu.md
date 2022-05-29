@@ -12,6 +12,7 @@ tags:
   - cc
   - make
   - Makefile
+  - GDB
 categories: 计算机基础
 description: 介绍一些 Linux 基础知识，包括 Linux 操作系统、 Vim 的使用、GCC、静态链接库、动态链接库、Makefile 和 GDB 调试。
 cover: >-
@@ -1664,12 +1665,46 @@ $(target):$(obj)
 
 .PHONY:clean
 clean:
-  # - 表示强制执行这个指令，如果执行失败也不会终止
+  # - 表示强制执行这个指令，如果执行失败也不会终止，还会执行下面的命令
   -rm $(obj) $(target)
 ```
 
 #### 练习
 
+```shell
+# 目录结构
+tree
+
+# 输出结果
+.
+├── include
+│   └── head.h	==> 头文件, 声明了加减乘除四个函数
+├── main.c		==> 测试程序, 调用了 head.h 中的函数
+└── src
+    ├── add.c	==> 加法运算
+    ├── div.c	==> 除法运算
+    ├── mult.c  ==> 乘法运算
+    └── sub.c   ==> 减法运算
+```
+
+```makefile
+target=app
+src=$(wildcard *.c ./src/*.c)
+obj=$(patsubst %.c, %.o, $(src))
+include=./include
+
+$(target):$(obj)
+  gcc $^ -o $@
+
+%.o:%.c
+  gcc $< -c -I $(include) -o $@
+
+.PHONY:clean
+clean:
+  -rm $(obj) $(target) -f
+```
+
+### GDB 调试
 
 ### 结语
 
