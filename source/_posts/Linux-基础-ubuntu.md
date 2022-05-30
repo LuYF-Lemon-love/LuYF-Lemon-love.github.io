@@ -1895,11 +1895,9 @@ Num     Type           Disp Enb Address            What
 1       breakpoint     keep y   0x0000000000400cb5 in main() at test.cpp:12
 2       breakpoint     keep y   0x0000000000400cbd in main() at test.cpp:13
 3       breakpoint     keep y   0x0000000000400cec in main() at test.cpp:18
-4       breakpoint     keep y   0x00000000004009a5 in insertionSort(int*, int) 
-                                                   at insert.cpp:8
+4       breakpoint     keep y   0x00000000004009a5 in insertionSort(int*, int) at insert.cpp:8
 5       breakpoint     keep y   0x0000000000400cdd in main() at test.cpp:16
-6       breakpoint     keep y   0x00000000004009e5 in insertionSort(int*, int) 
-                                                   at insert.cpp:16
+6       breakpoint     keep y   0x00000000004009e5 in insertionSort(int*, int) at insert.cpp:16
 ```
 
 - Num: 断点的编号，删除断点和设置断点状态的时候需要使用。
@@ -1954,6 +1952,145 @@ Num     Type           Disp Enb Address            What
 ```
 
 #### 继续运行 gdb
+
+```shell
+# continue = c
+# 程序会继续运行，直到遇到下一个有效的断点
+(gdb) continue
+```
+
+#### 打印变量值
+
+打印命令为 `print`，格式化输出字符如下表：
+
+|格式化字符（/fmt）|说明|
+|:-:|:-:|
+|/x|十六进制形式打印整数|
+|/d|有符号、十进制形式打印整数|
+|/u|无符号、十进制形式打印整数|
+|/o|八进制打印整数|
+|/t|二进制打印整数|
+|/f|浮点数形式打印变量或者表达式的值|
+|/c|字符形式打印变量或者表达式的值|
+
+```shell
+# print = p
+(gdb) p 变量名
+
+# 整型默认是十进制格式输出
+(gdb) p/fmt 变量名
+
+# example
+(gdb) p i
+(gdb) p/x i
+(gdb) p/o i
+```
+
+#### 打印变量类型
+
+```shell
+(gdb) ptype 变量名
+
+# example
+(gdb) ptype i
+(gdb) ptype array[i]
+(gdb) ptype array
+```
+
+#### 设置变量名的自动显示
+
+```shell
+(gdb) display 变量名
+
+# fmt 同 print
+(gdb) display/fmt 变量名
+```
+
+#### 查看自动显示列表
+
+```shell
+# info == i
+(gdb) info display
+Auto-display expressions now in effect:
+Num Enb Expression
+1:   y  i
+2:   y  array[i]
+3:   y  /x array[i]
+```
+
+- Num: 变量或表达式的编号。
+
+- Enb: 表示当前变量或表达式的状态。y 表示值会被打印，n 表示值不会被打印。
+
+- Expression: 被自动打印值的变量或表达式的名字。
+
+#### 取消自动显示
+
+```shell
+# 删除自动显示列表中的变量或表达式
+
+(gdb) undisplay num1 [num2] ...
+(gdb) undisplay num1-numN
+
+# or
+(gdb) delete display num1 [num2] ...
+(gdb) delete display num1-numN
+
+# example
+(gdb) undisplay 1 2
+
+# 禁用自动显示列表中处于激活状态的变量或者表达式
+(gdb) disable display num1 [num2] ...
+(gdb) disable display num1-numN
+
+# 启用自动显示列表中被禁用的变量或表达式
+(gdb) enable display num1 [num2] ...
+(gdb) enable display num1-numN
+```
+
+#### step
+
+step 命令每次执行一次，程序将执行一行，如果这一行是一个函数调用，程序将会进入到函数内部。
+
+```shell
+# step = s
+(gdb) step
+```
+
+#### finish
+
+跳出函数体，前提：函数体内不能有有效断点。
+
+```shell
+(gdb) finish
+```
+
+#### next
+
+next 命令和 step 命令功能相似，next 命令不会进入到函数内部。
+
+```shell
+# next = n
+(gdb) next
+```
+
+#### until
+
+跳出循环体，前提：
+
+- 循环体内不能有有效断点。
+
+- 必须在循环体的开始/结束行执行 until 命令。
+
+```shell
+(gdb) until
+```
+
+#### 设置变量值
+
+```shell
+(gdb) set var 变量名=值
+```
 
 ### 结语
 
