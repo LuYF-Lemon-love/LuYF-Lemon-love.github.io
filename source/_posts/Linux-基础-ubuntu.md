@@ -1706,6 +1706,255 @@ clean:
 
 ### GDB 调试
 
+gdb 是由 GNU 软件系统社区提供的调试器，和 gcc 配套组成了一套完整的开发环境，支持并移植到各种类 Unix 系统与 Windows 系统里的 MinGW 和 Cygwin。gcc/gdb 是 Linux 操作系统和许多类 Unix 操作系统的标准开发环境。
+
+gdb 的吉祥物是射手鱼。
+
+>For a fish, the archer fish is known to shoot down bugs from low hanging plants by spitting water at them.
+
+GDB 是一套字符界面的程序集，可以使用命令 gdb 加载要调试的程序。
+
+#### 调试准备
+
+C 程序用 gcc 编译，C++ 程序用 g++ 编译。
+
+- -g: 在可执行文件中加入源代码的信息，但并不是把源文件嵌入到可执行程序中，因此调试时，需要保证 gdb 能找到源文件。
+
+- -O0: 可选，关闭编译器的优化选项。
+
+- -Wall: 打印所有 warning。
+
+```shell
+# 源文件 main.c 
+gcc -g main.c -o app
+```
+
+#### 启动 gdb
+
+gdb 是一个用于应用程序调试的进程，gdb 启动后，被调试的应用程序是没有执行的。
+
+```shell
+gdb 可执行程序的名字
+
+# example
+gdb app
+(gdb) # gdb 等待输入调试的相关命令
+```
+
+#### 命令行传参
+
+```c
+// main.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+
+#define NUM 10
+
+// argc, argv 是命令行参数
+// 启动应用程序的时候
+int main(int argc, char* argv[])
+{
+    printf("参数个数: %d\n", argc);
+    for(int i=0; i<argc; ++i)
+    {
+        printf("%d\n", NUM);
+        printf("参数 %d: %s\n", i, argv[i]);
+    }
+    return 0;
+}
+```
+
+```shell
+gcc main.c -o app -g
+
+gdb app
+
+# 设置命令行参数：启动 gdb 之后，应用程序启动之前
+(gdb) set args 参数1 参数2 ...
+# 查看设置的命令行参数
+(gdb) show args
+
+# example
+# 非 gdb 调试命令行传参
+# argc 参数总数，argv[0] = ./app，argv[1] = "11", argv[2] = "22" ...
+./app 11 22 33 44 55
+
+# gdb 调试
+(gdb) set args 11 22 33 44 55
+(gdb) show args
+```
+
+#### gdb 中启动程序
+
+在整个 gdb 调试过程中，启动应用程序的命令只能使用一次。
+
+- run: 启动程序，缩写为 r，如果程序中设置了断点，会停在第一个断点的位置，如果没有设置断点，程序将执行完毕。
+
+- start:启动程序，会阻塞在 main 函数的第一行。
+
+```shell
+# 方式 1
+# run = r
+(gdb) run
+
+# 方式 2
+(gdb) start
+```
+
+```shell
+# 继续运行
+# continue = c
+(gdb) continue
+```
+
+#### 退出 gdb
+
+```shell
+# quit = q
+(gdb) quit
+```
+
+#### 当前文件查看代码
+
+默认 main 函数所在的文件为当前文件。
+
+```shell
+# 查看代码
+# list = l
+
+# 从第一行开始显示
+(gdb) list
+
+# 行号对应上下文代码，默认情况下只显示 10 行内容
+(gdb) list 行号
+
+# 显示这个函数的上下文内容，默认显示 10 行
+(gdb) list 函数名
+```
+
+可以继续执行 list 命令来继续查看后边的内容，也可以直接按 Enter 键（等价于执行上一次执行的那个 gdb 命令）。
+
+#### 切换文件查看代码
+
+执行完切换命令之后，相应的文件就变成了当前文件。
+
+```shell
+# 切换到指定的文件，并显示这行号对应的上下文代码，默认情况下只显示 10 行内容
+(gdb) l 文件名:行号
+
+# 切换到指定的文件，并显示这个函数的上下文内容，默认显示 10 行
+(gdb) l 文件名:函数名
+```
+
+#### 设置显示的行数
+
+```shell
+# listsize 缩写: list
+(gdb) set listsize 行数
+
+# 查看当前 list 一次显示的行数
+(gdb) show listsize
+```
+
+#### 设置断点
+
+- 常规断点：程序运行到断点位置会被阻塞。
+
+- 条件断点：只有指定的条件被满足了程序才会在断点处阻塞。
+
+```shell
+# 设置普通断点在当前文件
+
+# break = b
+(gdb) b 行号
+
+# 停止在函数的第一行
+(gdb) b 函数名
+
+
+# 设置普通断点到某个非当前文件上
+(gdb) b 文件名:行号
+(gdb) b 文件名:函数名
+
+# 设置条件断点
+(gdb) b 行数 if 变量名==某个值
+```
+
+#### 查看断点
+
+```shell
+# info = i
+# 查看断点信息
+(gdb) i b
+
+# 举例
+(gdb) i b
+Num     Type           Disp Enb Address            What
+1       breakpoint     keep y   0x0000000000400cb5 in main() at test.cpp:12
+2       breakpoint     keep y   0x0000000000400cbd in main() at test.cpp:13
+3       breakpoint     keep y   0x0000000000400cec in main() at test.cpp:18
+4       breakpoint     keep y   0x00000000004009a5 in insertionSort(int*, int) 
+                                                   at insert.cpp:8
+5       breakpoint     keep y   0x0000000000400cdd in main() at test.cpp:16
+6       breakpoint     keep y   0x00000000004009e5 in insertionSort(int*, int) 
+                                                   at insert.cpp:16
+```
+
+- Num: 断点的编号，删除断点和设置断点状态的时候需要使用。
+
+- Enb: 当前断点的状态，y 表示断点可用，n 表示断点不可用。
+
+- What: 描述断点被设置在哪个文件的哪行或者哪个函数上。
+
+#### 删除断点
+
+```shell
+# delete = del = d
+# [] 表示可选
+(gdb) d 断点1的编号 [断点2的编号] ...
+
+# example
+(gdb) d 1 # 删除第一个断点
+(gdb) d 2 4 6
+
+# 删除一个断点区间，全闭
+(gdb) d num1-numN
+
+# example
+(gdb) d 1-5
+```
+
+#### 设置断点状态
+
+```shell
+# 断点失效后，gdb 调试过程中程序是不会停在这个位置的
+# disable = dis
+# 设置某一个或者某几个断点无效
+(gdb) dis 断点1的编号 [断点2的编号] ...
+
+# 设置某个区间断点无效
+(gdb) dis 断点1的编号-断点n的编号
+
+# example
+(gdb) dis 2 4
+(gdb) dis 5-8
+
+# enable = ena
+# 设置某一个或者某几个断点有效
+(gdb) ena 断点1的编号 [断点2的编号] ...
+
+# 设置某个区间断点有效
+(gdb) ena 断点1的编号-断点n的编号
+
+# example
+(gdb) ena 2 4
+(gdb) ena 5-8
+```
+
+#### 继续运行 gdb
+
 ### 结语
 
 第十篇博文写完，开心！！！！
