@@ -84,7 +84,7 @@ nghttp3: 0.1.0-DEV
 预装应用软件              宝塔Linux面板 7.8.0 腾讯云专享版
 ```
 
-### 雪花飘落效果进阶
+### 雪花动态效果背景进阶
 
 在 blog/themes/butterfly/source/js 目录下新建 snow2.js，并粘贴下面代码
 
