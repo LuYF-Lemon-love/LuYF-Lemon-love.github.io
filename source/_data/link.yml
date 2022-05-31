@@ -19,7 +19,7 @@
       avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/vercel-icon-dark.png
       descr: Vercel combines the best developer experience with an obsessive focus on end-user performance.
     - name: 冯乐乐
-      link: http://candycat1992.github.io/
+      link: https://candycat1992.github.io/
       avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220514181622.png
       descr: 一只喜欢计算机图形的程序媛，爱好写shader、写博客，喜欢用计算机来绘制各种五彩缤纷的画面
     - name: 花猪
@@ -72,6 +72,6 @@
       avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511134710.png
       descr: 全球最大的社交编程及代码托管网站
     - name: cplusplus
-      link: http://www.cplusplus.com/
+      link: https://www.cplusplus.com/
       avatar: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220528151426.png
       descr: C++ 学习网站
