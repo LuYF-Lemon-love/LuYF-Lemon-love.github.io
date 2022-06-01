@@ -9,7 +9,7 @@ tags:
 categories: 实用技巧
 description: 利用腾讯云的对象存储（Cloud Object Storage，COS）和 PicGo 搭建 Markdown 图床。
 cover: >-
-  https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520215128.png
+  https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220601155912.png
 abbrlink: 2127066589
 date: 2022-05-20 21:45:38
 ---

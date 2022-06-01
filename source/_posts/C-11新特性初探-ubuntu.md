@@ -196,6 +196,69 @@ void func(int p)
 
 结果表明 nullptr 不会隐式转换为整型，但可以隐式转换为指针类型。
 
+### constexpr
+
+const 关键字有双重语义：变量只读和修饰常量。
+
+**const**
+
+```c++
+void func(const int num)
+{
+    const int count = 24;
+    int array[num];            // error，num是一个只读变量，不是常量
+    int array1[count];         // ok，count是一个常量
+
+    int a1 = 520;
+    int a2 = 250;
+    const int& b = a1;         // 常量引用，b 引用的变量是不能被修改的。引用 b 是只读的，因为它的值可以改变，所以常量引用不是常量
+    b = a2;                         // error
+    a1 = 1314;
+    cout << "b: " << b << endl;     // 输出结果为1314
+}
+```
+
+在 C++11 中添加了一个新的关键字 constexpr 用于修饰常量表达式。常量表达式：由一个或多个常量组成并且在编译过程中计算结果的表达式。常量表达式由于在编译过程中求值，因此可以极大提高程序的执行效率。
+
+因此，建议：在只读场景下使用 const，常量场景下使用 constexpr。
+
+```c++
+//非常量表达式
+const int m = f();
+
+//常量表达式
+const int i = 520;
+const int j = i + 1;
+
+constexpr int i = 520;
+constexpr int j = i + 1;
+```
+
+**自定义数据类型**
+
+```c++
+struct Test
+{
+    int id;
+    int num;
+};
+
+int main()
+{
+    constexpr Test t{ 1, 2 };
+    constexpr int id = t.id;
+    constexpr int num = t.num;
+    // error，因为 t 是一个常量，它的成员也是常量
+    t.num += 100;
+    cout << "id: " << id << ", num: " << num << endl;
+
+    return 0;
+}
+```
+
+### 常量表达式函数
+
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
