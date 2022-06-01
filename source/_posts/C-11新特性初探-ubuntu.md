@@ -303,6 +303,65 @@ int main()
 
 **模板函数**
 
+如果 {% label constexpr pink %} 修饰的模板函数实例化结果不满足常量表达式函数的要求，则 {% label constexpr purple %} 会自动被忽略，即该函数就等同于一个普通函数。
+
+```c++
+#include <iostream>
+using namespace std;
+
+struct Person {
+    const char* name;
+    int age;
+};
+
+// 定义函数模板
+template<typename T>
+constexpr T display(T t){
+    return t;
+}
+
+int main()
+{
+    struct Person p {"lyf", 18};
+
+    // 普通函数
+    struct Person ret = display(p);
+
+    // 常量表达式函数
+    constexpr int ret1 = display(250);
+
+    constexpr struct Person p1 {"lyf", 18};
+    constexpr struct Person p2 = display(p1);
+
+    return 0;
+}
+```
+
+**模板函数**
+
+{% label constexpr read %} 修饰的构造函数被称为常量构造函数，要求：构造函数的函数体必须为空，并且采用初始化列表的方式为各个成员赋值。
+
+```c++
+#include <iostream>
+using namespace std;
+
+struct Person {
+    constexpr Person(const char* p, int age):name(p),age(age)
+    {
+
+    }
+
+    const char* name;
+    int age;
+};
+
+int main()
+{
+    constexpr struct Person p("lyf", 18);
+
+    reutn 0;
+}
+```
 
 ### 结语
 
