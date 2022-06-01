@@ -267,7 +267,7 @@ snow.start();
 - <script defer src="/js/snow2.js"></script>
 ```
 
-### 修改网站图表
+### 修改网站图标
 
 修改 _config.butterfly.yml 文件
 
