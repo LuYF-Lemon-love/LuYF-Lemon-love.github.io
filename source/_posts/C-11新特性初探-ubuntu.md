@@ -105,6 +105,97 @@ int main()
 
 注：在 `R"xxx(raw string)xxx"` 中，括号前后可以追加其他字符串，但会被忽略，一般不用指定。并且括号前后加的字符串必须相同。
 
+### 指针空值类型 - nullptr
+
+C++11 以前，为定义的指针进行初始化时，如果指针目前没有明确的指向，都会给指针初始化为 NULL。
+
+**C++98/03**
+
+```c++
+char *ptr = 0;
+char *ptr = NULL;
+```
+
+C++ 程序的 NULL 其实是 0，C 程序的 NULL 表示 (void*)0。在 C++ 中 void* 类型无法隐式转换为其他类型的指针。0（0x0000 0000）表示的是虚拟地址空间的 0 地址，这个地址是只读的。
+
+这样初始化空指针有时会出现问题。
+
+**C++98/03** 
+
+```c++
+#include <iostream>
+using namespace std;
+
+void func(char *p)
+{
+    cout << "void func(char *p)" << endl;
+}
+
+void func(int p)
+{
+    cout << "void func(int p)" << endl;
+}
+
+int main()
+{
+    func(NULL);
+    func(250);
+
+    return 0;
+}
+```
+
+**输出**
+
+```shell
+void func(int p)
+void func(int p)
+```
+
+C++11 中新引入了 nullptr 专门用于初始化空类型指针，不同类型的指针变量都可以用 nullptr 初始化。
+
+```c++
+int* ptr1 = nullptr;
+char* ptr2 = nullptr;
+double* ptr3 = nullptr;
+```
+
+上面代码中的 nullptr 会隐式转换成 int*、char* 和 double* 指针类型。
+
+**C++11**
+
+```c++
+#include <iostream>
+using namespace std;
+
+void func(char *p)
+{
+    cout << "void func(char *p)" << endl;
+}
+
+void func(int p)
+{
+    cout << "void func(int p)" << endl;
+}
+
+int main()
+{
+    func(nullptr);
+    func(250);
+
+    return 0;
+}
+```
+
+**输出**
+
+```shell
+void func(char *p)
+void func(int p)
+```
+
+结果表明 nullptr 不会隐式转换为整型，但可以隐式转换为指针类型。
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
