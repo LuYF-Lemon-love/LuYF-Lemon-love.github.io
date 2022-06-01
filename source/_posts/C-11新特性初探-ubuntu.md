@@ -363,6 +363,71 @@ int main()
 }
 ```
 
+### auto
+
+C++11 之前 auto 是和 static 对应的，表示变量是自动存储的，但是非 static 的局部变量默认都是自动存储的。因此，auto 没什么用。
+
+#### auto 推导规则
+
+C++11 中，auto 能够自动推导出变量的实际类型，前提：使用 auto 声明的变量必须要进行初始化。
+
+{% label 语法 blue %}
+
+```c++
+auto 变量名 = 变量值;
+```
+
+```c++
+// double
+auto x = 3.14;
+
+// int
+auto y = 520;
+
+// char
+auto z = "a";
+```
+
+{% label 指针和引用 orange %}
+
+- 当变量是指针或引用类型时，推导的结果中会保留 const、volatile 关键字。
+
+- 其他类型时，推导的结果中不会保留 const、volatile 关键字。
+
+```c++
+int temp = 110;
+
+// a: int*, auto: int
+auto *a = &temp;
+
+// b: int*, auto: int*
+auto b = &temp;
+
+// c: int&, auto: int
+auto &c = temp;
+
+// d: int, auto: int
+auto d = temp;
+```
+
+```c++
+int temp = 250;
+
+// a: const int, auto: int
+const auto a = temp;
+
+// b: int, auto: int
+auto b = a;
+
+// c: const int&, auto: int
+const auto &c = temp;
+
+// d: const int&, auto: const int
+auto &d = c;
+```
+
+#### auto 的限制
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
