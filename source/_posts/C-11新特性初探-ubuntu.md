@@ -26,7 +26,7 @@ C++11 标准是 ISO/IEC 14882：2011 - Information technology -- Programming lan
 
 原始字面量能够直接表示字符串的实际含义，比如打印路径。
 
-定义方式：`R"xxx(原始字符串)xxx` ，其中 `()` 两边的字符串可以省略。
+定义方式：`R"xxx(原始字符串)xxx"` ，其中 `()` 两边的字符串可以省略。
 
 ```c++
 #include<iostream>
