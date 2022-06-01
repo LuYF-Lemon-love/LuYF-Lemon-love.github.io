@@ -267,6 +267,19 @@ snow.start();
 - <script defer src="/js/snow2.js"></script>
 ```
 
+### 修改网站图表
+
+修改 _config.butterfly.yml 文件
+
+```yaml
+# Favicon（網站圖標）
+favicon: /img/favicon.png
+```
+
+效果
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220601162101.png)
+
 ### 结语
 
 第十二篇博文写完，开心！！！！
