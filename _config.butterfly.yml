@@ -115,7 +115,7 @@ katex:
 # --------------------------------------
 
 # Favicon（網站圖標）
-favicon: /img/favicon.png
+favicon: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220601160712.png #/img/favicon.png
 
 # Avatar (頭像)
 avatar:
