@@ -198,7 +198,7 @@ void func(int p)
 
 ### constexpr
 
-const 关键字有双重语义：变量只读和修饰常量。
+const 关键字有双重含义：变量只读和修饰常量。
 
 **const**
 
@@ -257,6 +257,51 @@ int main()
 ```
 
 ### 常量表达式函数
+
+用 constexpr 关键字修饰返回值的函数被称为常量表达式函数。
+
+**需要满足的条件**
+
+1. 函数必须有返回值，并且 return 返回的表达式必须是常量表达式。
+
+2. 函数在使用之前，必须已经定义了。也就是要把定义放到 main 函数上边。
+
+3. 函数体中，不能出现非常量表达式之外的语句。using 语句、typedef 语句、static_assert 断言语句和 return 语句除外。
+
+```c++
+// example
+constexpr int func()
+{
+    using mytype = int;
+    constexpr mytype a = 100;
+    constexpr mytype b = 10;
+    constexpr mytype c = a * b;
+    return c - (a + b);
+}
+```
+
+```c++
+class Test
+{
+public:
+    constexpr int func()
+    {
+        constexpr int var = 100;
+        return 5 * var;
+    }
+};
+
+int main()
+{
+    Test t;
+    constexpr int num = t.func();
+    cout << "num: " << num << endl;
+
+    return 0;
+}
+```
+
+**模板函数**
 
 
 ### 结语
