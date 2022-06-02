@@ -24,6 +24,8 @@ date: 2022-05-31 12:03:52
 
 2. [Butterfly 安装文档(三) 主题配置-1](https://butterfly.js.org/posts/4aa8abbe/)
 
+3. [解决 Hexo ButterFly 主题中最新评论功能模块出现无法获取评论的问题](https://dreamhomes.top/posts/202106171704/)
+
 ### 环境版本
 
 ```
@@ -301,6 +303,32 @@ newest_comments:
   storage: 10 # unit: mins, save data to localStorage
   avatar: true
 ```
+
+本人选择的是 [valine](https://valine.js.org) 评论，Valine 诞生于2017年8月7日，是一款基于LeanCloud的快速、简洁且高效的无后端评论系统。
+
+登录 [LeanCloud](https://console.leancloud.cn/) 进入设置 Valine 那个应用。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220602221758.png)
+
+点击 设置 > 应用凭证 > 服务器地址 > REST API 服务器地址，复制 `REST APT 服务器地址`。将 `REST APT 服务器地址`填入到 _config.butterfly.yml 文件的 valine 的 serverURL。
+
+```yaml
+# valine
+# https://valine.js.org
+valine:
+  appId:
+  appKey:
+  avatar: monsterid # gravatar style https://valine.js.org/#/avatar
+  serverURLs: # This configuration is suitable for domestic custom domain name users, overseas version will be automatically detected (no need to manually fill in)
+  bg: # valine background
+  visitor: false
+  option:
+  lang: zh_CN
+```
+
+效果
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220602223237.png)
 
 ### 结语
 
