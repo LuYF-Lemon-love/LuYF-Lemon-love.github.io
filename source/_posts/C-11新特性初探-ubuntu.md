@@ -428,6 +428,136 @@ auto &d = c;
 
 #### auto 的限制
 
+1. 不能做为函数参数使用。
+
+```c++
+// error
+int func(auto a, auto b)
+{
+    cout << "a: " << a << ", b: " << b << endl;
+}
+```
+
+2. 不能用于类的非静态成员变量的初始化。
+
+```c++
+class Test
+{
+    // error
+    auto v1 = 0;
+
+    // error, 类的静态非常量成员不允许在类内部直接初始化
+    static auto v2 = 0;
+
+    // ok
+    static const auto v3 = 10;
+};
+```
+
+3. 不能使用 auto 关键字定义数组
+
+```c++
+int func()
+{
+    // define array
+    int array[] = {1, 2, 3, 4, 5};
+
+    // ok, ti: int*
+    auto t1 = array;
+
+    // error, auto can not define array
+    auto t2[] = array;
+
+    // error, auto can not define array
+    auto t3[] = {1, 2, 3, 4, 5};
+}
+
+4. 无法使用 auto 推导出模板类型
+
+```c++
+template <typename T>
+struct Test{};
+
+int func()
+{
+    Test<double> t;
+
+    // error, 无法推导出模板类型
+    Test<auto> t1 = t;
+    
+    return 0;
+}
+```
+
+#### auto 的应用
+
+{% label STL的容器的遍历 green %}
+
+{% label C++11以前 pink %}
+
+```c++
+#include <map>
+
+int main()
+{
+    map<int, string> person;
+    map<int, string>::iterator it = person.begin();
+    for (; it != person.end(); ++it)
+    {
+        // do something
+    }
+
+    return 0;
+}
+```
+
+{% label C++11以后 pink %}
+
+```c++
+#include <map>
+
+int main()
+{
+    map<int, string> person;
+
+    // 代码简化
+    for(auto it = person.begin(); it != person.end(); ++it)
+    {
+        // do something
+    }
+
+    return 0;
+}
+```
+
+{% label 泛型编程 blue %}
+
+{% label C++11以后 pink %}
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+class T1
+{
+public:
+    static int get()
+    {
+        return 10;
+    }
+};
+
+class T2
+{
+public:
+    static string get()
+    {
+        return "hello, world";
+    }
+};
+```
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
