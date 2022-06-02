@@ -22,6 +22,8 @@ date: 2022-05-31 12:03:52
 
 1. [给hexo-theme-hiero添加雪花飘落效果（2020-07-05）](https://www.jianshu.com/p/b726f356e118)
 
+2. [Butterfly 安装文档(三) 主题配置-1](https://butterfly.js.org/posts/4aa8abbe/)
+
 ### 环境版本
 
 ```
@@ -279,6 +281,26 @@ favicon: /img/favicon.png
 效果
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220601162101.png)
+
+### 最新评论
+
+最新评论只会在刷新时才会去读取，并不会实时变化。
+
+由于 API 有 访问次数限制，为了避免调用太多，主题默认存取期限为 10 分鐘。也就是説，调用后资料会存在 localStorage 里，10分钟内刷新网站只会去 localStorage 读取资料。 10 分钟期限一过，刷新页面时才会去调取 API 读取新的数据。
+
+在侧边栏显示最新评论板块。
+
+修改 _config.butterfly.yml 文件
+
+```yaml
+# Aside widget - Newest Comments
+newest_comments:
+  enable: true
+  sort_order: # Don't modify the setting unless you know how it works
+  limit: 6
+  storage: 10 # unit: mins, save data to localStorage
+  avatar: true
+```
 
 ### 结语
 
