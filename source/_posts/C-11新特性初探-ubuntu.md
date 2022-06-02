@@ -471,6 +471,7 @@ int func()
     // error, auto can not define array
     auto t3[] = {1, 2, 3, 4, 5};
 }
+```
 
 4. 无法使用 auto 推导出模板类型
 
@@ -492,6 +493,8 @@ int func()
 #### auto 的应用
 
 {% label STL的容器的遍历 green %}
+
+---
 
 {% label C++11以前 pink %}
 
@@ -530,7 +533,11 @@ int main()
 }
 ```
 
+---
+
 {% label 泛型编程 blue %}
+
+---
 
 {% label C++11以后 pink %}
 
