@@ -625,7 +625,7 @@ int main()
 
 ### decltype
 
-{% label decltype %} 在编译阶段推导出一个表达式的类型，它只是用于表达式类型的推导，并不会计算表达式的值。
+{% label decltype pink %} 在编译阶段推导出一个表达式的类型，它只是用于表达式类型的推导，并不会计算表达式的值。
 
 ```c++
 decltype(表达式)
@@ -793,6 +793,80 @@ int main()
 ```
 
 ### 返回值类型后置
+
+在{% label 泛型编程 purple %}中，需要通过参数的运算获得返回值的类型。
+
+在 C++11 增加了 {% span cyan, 返回值类型后置 %}，通过 decltype 和 auto 来完成返回值类型的推导。 
+
+```c++
+auto func(参数1, 参数2, ...) -> decltype(参数表达式)
+```
+
+auto 会追踪 decltype() 推导出的类型。
+
+```c++
+#include <iostream>
+using namespace std;
+
+template <typename T, typename U>
+auto add(T t, U u) -> decltype(t+u)
+{
+    return t + u;
+}
+
+int main()
+{
+    int x = 520;
+    double y = 13.14;
+
+    // auto z = add<int, double>(x, y);
+    // 简化
+    auto z = add(x, y);
+    cout << "z: " << z << endl;
+
+    return 0;
+}
+```
+
+```c++
+#include <iostream>
+using namespace std;
+
+int& test(int &i)
+{
+    return i;
+}
+
+double test(double &d)
+{
+    d = d + 100;
+    return d;
+}
+
+template <typename T>
+auto myFunc(T& t) -> decltype(test(t))
+{
+    return test(t);
+}
+
+int main()
+{
+    int x = 520;
+    double y = 13.14;
+
+    // auto z = myFunc<int>(x);
+    // 简化
+    auto z = myFunc(x);
+    cout << "z: " << z << endl;
+
+    // auto a = myFunc<double>(y);
+    // 简化
+    auto a = myFunc(y);
+    cout << "a: " << a << endl;
+
+    return 0;
+}
+```
 
 ### 结语
 
