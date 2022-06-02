@@ -870,7 +870,7 @@ int main()
 
 ### final
 
-C++11 增加了 {% span red, final %} 关键字来{% span blue, 限制某个类不能被继承，或者某个虚函数不能被重写}。
+C++11 增加了 {% span red, final %} 关键字来{% span blue, 限制某个类不能被继承，或者某个虚函数不能被重写 %}。
 
 #### final 修饰函数
 
