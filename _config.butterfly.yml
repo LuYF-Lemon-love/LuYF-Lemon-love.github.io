@@ -674,7 +674,7 @@ aside:
   card_ip: true
   hide: false
   button: true
-  mobile: false # display on mobile
+  mobile: true # display on mobile
   position: right # left or right
   archives: true
   card_author:
