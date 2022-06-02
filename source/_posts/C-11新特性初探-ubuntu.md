@@ -492,6 +492,8 @@ int func()
 
 #### auto 的应用
 
+---
+
 {% label STL的容器的遍历 green %}
 
 ---
@@ -538,6 +540,45 @@ int main()
 {% label 泛型编程 blue %}
 
 ---
+{% label C++11以前 pink %}
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+class T1
+{
+public:
+    static int get()
+    {
+        return 0;
+    }
+};
+
+class T2
+{
+public:
+    static string get()
+    {
+        return "hello world";
+    }
+};
+
+template <class A, typename B>
+void func(void)
+{
+    B val = A::get();
+    cout << "val: " << val << endl;
+}
+
+int main()
+{
+    func<T1, int>();
+    func<T2, string>();
+    return 0;
+}
+```
 
 {% label C++11以后 pink %}
 
@@ -563,7 +604,195 @@ public:
         return "hello, world";
     }
 };
+
+template <class A>
+void func(void)
+{
+    auto val = A::get();
+    cout << "val: " << val << endl;
+}
+
+int main()
+{
+    func<T1>();
+    func<T2>();
+
+    return 0;
+}
 ```
+
+---
+
+### decltype
+
+{% label decltype %} 在编译阶段推导出一个表达式的类型，它只是用于表达式类型的推导，并不会计算表达式的值。
+
+```c++
+decltype(表达式)
+```
+
+```c++
+int a = 10;
+
+// b: int
+decltype(a) b = 99;
+
+// c: double
+decltype(a + 3.14) c = 52.13;
+
+// d: double
+decltype(a + b * c) d = 520.1314;
+```
+
+#### decltype 推导规则
+
+1. 表达式为普通变量、普通表达式或者类表达式时，推导出的类型与表达式的类型相同。
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Test
+{
+public:
+    string text;
+    static const int value = 110;
+};
+
+int main()
+{
+    int x = 99;
+    const int &y = x;
+
+    // a: int
+    decltype(x) a = x;
+
+    // b: const int &
+    decltype(y) b = x;
+
+    // c: const int
+    decltype(Test::value) c = 0;
+
+    Test t;
+
+    // d: string
+    decltype(t.text) d = "hello, world";
+
+    return 0;
+}
+```
+
+2. 表达式是函数调用，推导出的类型与函数返回值相同。
+
+```c++
+class Test{};
+
+// 函数声明
+int func_int();
+int& func_int_r();
+int&& func_int_rr();
+
+const int func_cint();
+const int& func_cint_r();
+const int&& func_cint_rr();
+
+const Test func_ctest();
+
+int n = 100;
+
+// a: int
+decltype(func_int()) a = 0;
+
+// b: int&
+decltype(func_int_r()) b = n;
+
+// c: int&&
+decltype(func_int_rr()) c = 0;
+
+// d: int
+decltype(func_cint()) d = 0;
+
+// e: const int &
+decltype(func_cint_r()) e = n;
+
+// f: const int &&
+decltype(func_cint_rr()) f = 0;
+
+// g: const Test
+decltype(func_ctest()) g = Test();
+```
+
+   {% label func_cint() pink %} 返回的是一个纯右值（在表达式执行结束后不再存在的数据，也就是临时性数据），{% span cyan, 对于纯右值而言，只有类类型可以携带 const、volatile 限定符，除此之外需要忽略掉这两个限定符。%}因此 d 的类型为 int。
+
+3. 表达式是一个左值，或者被括号 () 包围，推导出的类型是表达式类型的引用（如果有 const、volatile，不能被忽略）
+
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Test
+{
+public:
+    int num;
+};
+
+int main() {
+    const Test obj;
+
+    // 带有括号的表达式
+    // a: int
+    decltype(obj.num) a = 0;
+    // b: const int &
+    decltype((obj.num)) b = a;
+
+    int n = 0, m = 0;
+    
+    // 加法表达式
+    // c: int
+    decltype(n + m) c = 0;
+    // n: int&, n 是一个左值
+    decltype(n = n + m) d = n;
+    
+    return 0;
+}
+```
+
+#### decltype 的应用
+
+```c++
+#include <iostream>
+#include <list>
+using namespace std;
+
+template <class T>
+class Container
+{
+public:
+    void func(T& c)
+    {
+        for (m_it = c.begin(); m_it != c.end(); ++m_it)
+        {
+            cout << *m_it << " ";
+        }
+        cout << endl;
+    }
+private:
+    decltype(T().begin()) m_it;
+};
+
+int main()
+{
+    const list<int> lst{1,2,3,4,5,6,7,8,9};
+    Container<const list<int>> obj;
+    obj.func(lst);
+
+    return 0;
+}
+```
+
+### 返回值类型后置
 
 ### 结语
 
