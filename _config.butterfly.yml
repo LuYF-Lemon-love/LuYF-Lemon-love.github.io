@@ -343,7 +343,7 @@ valine:
   appId: v1YKGalUrOsBhhofpDfAwmRc-gzGzoHsz
   appKey: PwWFj3djjMuuOyF9MJOdL7KU
   avatar: monsterid # gravatar style https://valine.js.org/#/avatar
-  serverURLs: # This configuration is suitable for domestic custom domain name users, overseas version will be automatically detected (no need to manually fill in)
+  serverURLs: https://v1ykgalu.lc-cn-n1-shared.com # This configuration is suitable for domestic custom domain name users, overseas version will be automatically detected (no need to manually fill in)
   bg: # valine background
   visitor: false
   option:

@@ -3698,7 +3698,7 @@ comments:
 
 在 [valine](https://valine.js.org/) 注册，并获取 appid 和 appkey 的值，在 _config.butterfly.yml 文件设置 valine 的属性
 
-```yml
+```yaml
 appId: 
 appKey: 
 lang: zh_CN 
