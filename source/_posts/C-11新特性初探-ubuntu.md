@@ -868,6 +868,76 @@ int main()
 }
 ```
 
+### final
+
+C++11 增加了 {% span red, final %} 关键字来{% span blue, 限制某个类不能被继承，或者某个虚函数不能被重写}。
+
+#### final 修饰函数
+
+只能修{% span yellow, 修函数 %}，阻止子类重写父类的该函数。
+
+```c++
+class Base
+{
+public:
+    virtual void test()
+    {
+        cout << "Base class" << endl;
+    }
+};
+
+class Child: public Base
+{
+public:
+    void test() final
+    {
+        cout << "Child class" << endl;
+    }
+};
+
+class GrandChild: public Child
+{
+public:
+    // error, 不允许重写
+    void test()
+    {
+        cout << "GrandChild class" << endl;
+    }
+};
+```
+
+#### final 修饰类
+
+使用 {% span green, final %} 关键字修饰过的类是不允许有派生类的。
+
+```c++
+class Base
+{
+public:
+    virtual void test()
+    {
+        cout << "Base class" << endl;
+    }
+};
+
+class Child final: public Base
+{
+public:
+    void test()
+    {
+        cout << "Child class" << endl;
+    }
+};
+
+// error, 语法错误
+class GrandChild: public Child
+{
+
+};
+```
+
+### override
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
