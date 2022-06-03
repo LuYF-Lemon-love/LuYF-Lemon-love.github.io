@@ -344,7 +344,7 @@ valine:
   appId: 7wSHe3pz1eYYTD0PacpIYnas-MdYXbMMI
   appKey: FobcVXab955MWLNb42rVUW7H
   avatar: monsterid # gravatar style https://valine.js.org/#/avatar
-  serverURLs: # This configuration is suitable for domestic custom domain name users, overseas version will be automatically detected (no need to manually fill in)
+  serverURLs: https://7wshe3pz.api.lncldglobal.com # This configuration is suitable for domestic custom domain name users, overseas version will be automatically detected (no need to manually fill in)
   bg: # valine background
   visitor: false
   option:
