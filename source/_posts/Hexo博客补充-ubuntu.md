@@ -26,6 +26,12 @@ date: 2022-05-31 12:03:52
 
 3. [解决 Hexo ButterFly 主题中最新评论功能模块出现无法获取评论的问题](https://dreamhomes.top/posts/202106171704/)
 
+4. [Twikoo 文档](https://twikoo.js.org/)
+
+5. [Twikoo 文档-快速上手](https://twikoo.js.org/quick-start.html)
+
+6. [Butterfly 安裝文檔(四) 主題配置-2](https://butterfly.js.org/posts/ceeb73f/#%E8%A9%95%E8%AB%96)
+
 ### 环境版本
 
 ```
@@ -329,6 +335,121 @@ valine:
 效果
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220602223237.png)
+
+### Twikoo 和 Valine 双评论
+
+[Twikoo](https://twikoo.js.org/) 是一个简洁、安全、免费的静态网站评论系统，基于腾讯云开发。
+
+>A simple, safe, free comment system based on Tencent CloudBase (tcb).
+
+{% label 特色 pink %}
+
+- 支持回复、{% label 点赞 purple %}
+
+- 无需额外适配、支持搭配浅色主题与深色主题使用
+
+- 支持 API 调用、批量获取文章评论数、最新评论
+
+- 访客在昵称栏输入 QQ 号，会自动补全 QQ 昵称和 QQ 邮箱
+
+- {% span cyan, 访客填写数字 QQ 邮箱，会使用 QQ 头像作为评论头像 %}
+
+- 支持评论框粘贴图片（可禁用）
+
+- 支持插入图片（可禁用）
+
+- 支持 7bu image bed, Tencent CloudBase image bED
+
+- 支持插入表情（可禁用）
+
+- 支持 Ctrl + Enter 快捷回复
+
+- 评论框内容实时保存草稿，刷新不会丢失
+
+- 支持 {% span blue, Katex %} 公式
+
+- {% span cyan, 支持按语言的代码高亮 %}
+
+官方部署文档-[Twikoo 文档-快速上手](https://twikoo.js.org/quick-start.html)
+
+Twikoo 分为云函数和前端两部分，部署时请注意保持二者版本一致。
+
+- 云函数部署有 4 种方式，一键部署、手动部署、命令行部署和 Vercel 部署。
+
+- 前端部署有 2 种方式，如果您的网站主题支持 Twikoo，您只需在配置文件中指定 Twikoo 即可；如果您的网站主题不支持 Twikoo，您需要修改源码手动引入 Twikoo 的 js 文件并初始化。
+
+{% label 云函数部署 pink %}
+
+|部署方式|描述|
+|:-:|:-:|
+|一键部署|[ 不建议 ] 虽然方便，但是仅支持按量计费环境——也就是说，一键部署的环境，当免费资源用尽后，将会产生费用。且按量计费环境无法切换为包年包月环境。免费额度数据库读操作数只有 500 次 / 天，无法支撑 Twikoo 的运行需求。|
+|手动部署|[ 建议 ] 手动部署到腾讯云云开发环境，在中国大陆访问速度较快。由于基础版 1 已从 0 元涨价至 6.9 元 / 月，需要付费购买环境才能部署。|
+|命令行部署|[ 不建议 ] 仅针对有 Node.js 经验的开发者。|
+|Vercel 部署|[ 建议 ] 适用于想要免费部署的用户，在中国大陆访问速度较慢。|
+
+{% label Vercel部署 pink %}
+
+[查看官方视频教程](https://www.bilibili.com/video/BV1Fh411e7ZH)
+
+1. 申请 [MongoDB](https://www.mongodb.com/cloud/atlas/register) 账号
+
+2. 创建免费 MongoDB 数据库，区域推荐选择 `AWS / N. Virginia (us-east-1)`
+
+3. 在 Clusters 页面点击 CONNECT，按步骤设置允许所有 IP 地址的连接，创建数据库用户，并记录数据库连接字符串，请将连接字符串中的 `<password>` 修改为数据库密码
+
+4. 申请 [Vercel](https://vercel.com/signup) 账号
+
+5. [Twikoo 一键部署到 Vercel](https://vercel.com/import/project?template=https://github.com/imaegoo/twikoo/tree/main/src/vercel-min)
+
+6. 进入 Settings - Environment Variables，添加环境变量 MONGODB_URI，值为第 3 步的数据库连接字符串
+
+7. 进入 Deployments , 然后在任意一项后面点击更多（三个点） , 然后点击 Redeploy , 最后点击下面的 Redeploy
+
+8. 进入 Overview，点击 Domains 下方的链接，如果环境配置正确，可以看到 “Twikoo 云函数运行正常” 的提示
+
+9. Vercel Domains（包含 https:// 前缀，例如 https://xxx.vercel.app）即为您的环境 id，如我的 `https://twikoo-lemon-theta.vercel.app/`
+
+{% label 前端部署 pink %}
+
+[Hexo Butterfly](https://github.com/jerryc127/hexo-theme-butterfly) 主题已经支持 Twikoo 评论系统了，我们只需在 _config.butterfly.yml 文件中配置一下就可以了。
+
+请参考[Butterfly 安裝文檔(四) 主題配置-2](https://butterfly.js.org/posts/ceeb73f/#%E8%A9%95%E8%AB%96)进行配置。
+
+由于之前我们已经有 Valine 评论了，因此我们能够开启双评论了。
+
+配置 _config.butterfly.yml 文件
+
+```yaml
+# Comments System
+# --------------------------------------
+
+comments:
+  # Up to two comments system, the first will be shown as default
+  # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus
+  use: Twikoo,Valine # Valine,Disqus
+  text: true # Display the comment name next to the button
+  # lazyload: The comment system will be load when comment element enters the browser's viewport.
+  # If you set it to true, the comment count will be invalid
+  lazyload: false
+  count: true # Display comment count in post's top_img
+  card_post_count: true # Display comment count in Home Page
+```
+
+配置 _config.butterfly.yml 文件，环境 ID(envId) 为前面的 Vercel Domains（如 `https://twikoo-lemon-theta.vercel.app/`）
+
+```yaml
+# Twikoo
+# https://github.com/imaegoo/twikoo
+twikoo:
+  envId: https://twikoo-lemon-theta.vercel.app/
+  region:
+  visitor: false
+  option:
+```
+
+{% label 效果 green %}
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603212433.png)
 
 ### 结语
 
