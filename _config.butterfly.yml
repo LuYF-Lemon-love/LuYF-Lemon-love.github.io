@@ -826,6 +826,7 @@ note:
 pjax:
   enable: true
   exclude:
+    - /artitalk/
     # - xxxx
     # - xxxx
 
