@@ -971,6 +971,46 @@ public:
 
 ### 模板右尖括号的优化
 
+在 C++11 以前，两个连续的尖括号（{% label >> pink %}）会被编译器解析成右移操作符，而不是模板参数表的结束。
+
+```c++
+// test.cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+template <typename T>
+class Base
+{
+public:
+    void traversal(T& t)
+    {
+        auto it = t.begin();
+        for (; it != t.end(); ++it)
+        {
+            cout << *it << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main()
+{
+    vector<int> v{ 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    // C++98/03 标准的编译器编译会 error，>> 之间需要空格，变为 > >
+    Base<vector<int>> b;
+    b.traversal(v);
+
+    return 0;
+}
+```
+
+C++11 改进了编译器的解析规则，尽可能地将多个由尖括号（>）解析成模板参数结束符。上面的代码在支持 C++11 的编译器中编译是没有任何问题。
+
+### 默认模板参数
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
