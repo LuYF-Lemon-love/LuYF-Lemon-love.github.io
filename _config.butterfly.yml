@@ -7,6 +7,7 @@ artitalk:
   path:
   js:
   option:
+    serverURLs: https://v1ykgalu.lc-cn-n1-shared.com
   front_matter:
 
 # hexo-butterfly-swiper

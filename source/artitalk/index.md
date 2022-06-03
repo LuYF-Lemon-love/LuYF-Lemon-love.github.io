@@ -12,7 +12,8 @@ top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/2022051317
 <script>
 new Artitalk({
     appId: 'v1YKGalUrOsBhhofpDfAwmRc-gzGzoHsz', // Your LeanCloud appId
-    appKey: 'PwWFj3djjMuuOyF9MJOdL7KU' // Your LeanCloud appKey
+    appKey: 'PwWFj3djjMuuOyF9MJOdL7KU', // Your LeanCloud appKey
+    serverURLs: 'https://v1ykgalu.lc-cn-n1-shared.com',
 })
 </script>
 
