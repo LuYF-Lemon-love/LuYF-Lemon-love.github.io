@@ -3700,7 +3700,7 @@ comments:
   card_post_count: true # Display comment count in Home Page
 ```
 
-选择 [valine](https://valine.js.org/) 评论，按照 [Valine官方文档-快速开始](https://valine.js.org/quickstart.html)注册，选择 {% label LeanCloud(https://leancloud.app/)国际版 green %}，选择国内版会出现各种各样的问题。并获取 appid、appkey 和 serverURLs 的值:
+选择 [Valine](https://valine.js.org/) 评论，按照 [Valine官方文档-快速开始](https://valine.js.org/quickstart.html)注册，选择 {% label LeanCloud(https://leancloud.app/)国际版 green %}，选择国内版会出现各种各样的问题。并获取 appid、appkey 和 serverURLs 的值:
 
 1. 获取 APP ID 和 APP Key，请先登录或注册 [LeanCloud](https://console.leancloud.app/), 进入控制台后点击左下角创建应用：
 
@@ -3712,12 +3712,13 @@ comments:
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603145241.png)
 
-在 _config.butterfly.yml 文件设置 valine 的属性
+在 _config.butterfly.yml 文件设置 valine 的属性，开启 visitor 后，文章页的访问人数将改为 Valine 提供，而不是 不蒜子。
 
 ```yaml
 appId: 
 appKey:
 serverURLs:
+visitor: true
 lang: zh_CN 
 ```
 

@@ -345,7 +345,7 @@ valine:
   avatar: monsterid # gravatar style https://valine.js.org/#/avatar
   serverURLs: https://7wshe3pz.api.lncldglobal.com # This configuration is suitable for domestic custom domain name users, overseas version will be automatically detected (no need to manually fill in)
   bg: # valine background
-  visitor: false
+  visitor: true
   option:
   lang: zh_CN
 
