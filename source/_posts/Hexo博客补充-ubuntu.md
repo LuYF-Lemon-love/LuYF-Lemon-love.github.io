@@ -461,7 +461,7 @@ twikoo:
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603212433.png)
 
-{% label 开通 POP3/SMTP 服务}
+{% label 开通 POP3/SMTP 服务 %}
 
 以 QQ 邮箱为例，登录 QQ 邮箱 > 设置 > 账号 > POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务，开启 POP3/SMTP 服务
 
