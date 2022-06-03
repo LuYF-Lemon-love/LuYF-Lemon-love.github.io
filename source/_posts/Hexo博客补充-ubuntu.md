@@ -32,6 +32,8 @@ date: 2022-05-31 12:03:52
 
 6. [Butterfly 安裝文檔(四) 主題配置-2](https://butterfly.js.org/posts/ceeb73f/#%E8%A9%95%E8%AB%96)
 
+7. [部署Twikoo评论系统及其邮件推送(Vercel)](https://blog.csdn.net/weixin_58068682/article/details/122770936?spm=1001.2014.3001.5506)
+
 ### 环境版本
 
 ```
@@ -358,7 +360,7 @@ valine:
 
 - 支持插入图片（可禁用）
 
-- 支持 7bu image bed, Tencent CloudBase image bED
+- 支持 7bu image bed, Tencent CloudBase image bed
 
 - 支持插入表情（可禁用）
 
@@ -367,6 +369,14 @@ valine:
 - 评论框内容实时保存草稿，刷新不会丢失
 
 - 支持 {% span blue, Katex %} 公式
+
+- 支持邮件提醒（访客和博主）
+
+- 支持自定义{% label “博主” pink %}标识文字
+
+- 内嵌式管理面板，通过密码登录，可以方便地查看评论、隐藏评论、删除评论、修改配置
+
+- 支持隐藏管理入口，通过输入暗号显示
 
 - {% span cyan, 支持按语言的代码高亮 %}
 
@@ -450,6 +460,59 @@ twikoo:
 {% label 效果 green %}
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603212433.png)
+
+{% label 开通 POP3/SMTP 服务}
+
+以 QQ 邮箱为例，登录 QQ 邮箱 > 设置 > 账号 > POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务，开启 POP3/SMTP 服务
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603230320.png)
+
+需要用 QQ 绑定的手机发送短信，获得授权码（{% label 需要留存，后面要用 green %}）。
+
+进入你的博客的评论区，点击右下角的设置按钮，注册账号并登录，你就可以配置你的评论区了。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603230715.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603230840.png)
+
+点击配置管理，进行常规配置，点击保存。
+
+```
+通用
+
+BLOGGER_NICK：博主的昵称。
+BLOGGER_EMAIL：博主的邮箱地址，用于邮件通知、博主标识。
+MASTER_TAG：博主标识自定义文字，默认为 “博主”。
+HIDE_ADMIN_CRYPT：隐藏管理面板入口。可设置一个“暗号”，只有在“昵称”一栏输入相同的“暗号”时，管理面板入口才会显示，留空则不隐藏管理入口
+```
+
+效果如下，只有在昵称输入暗号才能显示管理面板入口。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603231854.png)
+
+{% label 配置邮件通知服务 orange %}
+
+配置管理 > 邮件通知
+
+```
+SENDER_EMAIL: <你的QQ邮箱地址>
+SMTP_SERVICE: <你的邮件服务提供商>
+SMTP_HOST: <自定义 SMTP 服务器地址>
+SMTP_PORT: <自定义 SMTP 端口>
+SMTP_SECURE: <自定义 SMTP 是否使用 TLS>
+SMTP_USER: <邮件通知邮箱用户名>(需与SENDER_EMAIL一致)
+SMTP_PASS: <邮件通知邮箱密码>(授权码)
+```
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603232406.png)
+
+拉到最下方点击保存后，打开邮件通知测试，输入你的邮箱，点击发送测试邮件，如果能成功收到邮件即说明邮件通知服务设置成功！
+
+然后用其他的 QQ 在你的博客的评论区评论，你会收到邮件通知。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603232733.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603232805.png)
 
 ### 结语
 
