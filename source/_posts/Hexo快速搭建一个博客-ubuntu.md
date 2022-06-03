@@ -3696,7 +3696,17 @@ comments:
   card_post_count: true # Display comment count in Home Page
 ```
 
-在 [valine](https://valine.js.org/) 注册，并获取 appid 和 appkey 的值，在 _config.butterfly.yml 文件设置 valine 的属性
+选择 [valine](https://valine.js.org/) 评论，按照 [Valine官方文档-快速开始](https://valine.js.org/quickstart.html)注册，选择 {% label [LeanCloud](https://leancloud.app/)国际版 green %}，选择国内版会出现各种各样的问题。并获取 appid 和 appkey 的值:
+
+1. 获取 APP ID 和 APP Key，请先登录或注册 [LeanCloud](https://console.leancloud.app/), 进入控制台后点击左下角创建应用：
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603141503.png)
+
+2. 应用创建好以后，进入刚刚创建的应用，选择左下角的设置>应用Key，然后就能看到你的APP ID和APP Key了：
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603141538.png)
+
+在 _config.butterfly.yml 文件设置 valine 的属性
 
 ```yaml
 appId: 
