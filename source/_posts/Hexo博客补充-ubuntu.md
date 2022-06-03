@@ -304,9 +304,9 @@ newest_comments:
   avatar: true
 ```
 
-本人选择的是 [Valine](https://leancloud.app/) 评论，Valine 诞生于2017年8月7日，是一款基于LeanCloud的快速、简洁且高效的无后端评论系统。关于怎么配置 valine 评论可以参考我的 Hexo快速搭建一个博客-ubuntu 博文。
+本人选择的是 [Valine](https://valine.js.org/) 评论，Valine 诞生于2017年8月7日，是一款基于LeanCloud的快速、简洁且高效的无后端评论系统。关于怎么配置 valine 评论可以参考我的 Hexo快速搭建一个博客-ubuntu 博文。
 
-登录 [LeanCloud](https://console.leancloud.cn/) 进入设置 Valine 那个应用。
+登录 [LeanCloud](https://leancloud.app/) 进入设置 Valine 那个应用。
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220602221758.png)
 
