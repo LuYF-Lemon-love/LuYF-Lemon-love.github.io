@@ -381,7 +381,7 @@ facebook_comments:
 twikoo:
   envId: https://twikoo-lemon-theta.vercel.app/
   region:
-  visitor: false
+  visitor: true #false
   option:
 
 # Giscus
