@@ -5,6 +5,7 @@ type: 'artitalk'
 top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220513171423.png
 ---
 
+```
 <!-- 引用 artitalk -->
 <script type="text/javascript" src="https://unpkg.com/artitalk"></script>
 <!-- 存放说说的容器 -->
@@ -16,4 +17,4 @@ new Artitalk({
     serverURLs: 'https://v1ykgalu.lc-cn-n1-shared.com',
 })
 </script>
-
+```
