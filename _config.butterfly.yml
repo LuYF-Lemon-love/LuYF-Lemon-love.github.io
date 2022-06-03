@@ -1,14 +1,13 @@
 # Artitalk
 # see https://artitalk.js.org/
-#artitalk:
-#  enable: true
-#  appId: v1YKGalUrOsBhhofpDfAwmRc-gzGzoHsz
-#  appKey: PwWFj3djjMuuOyF9MJOdL7KU
-#  path:
-#  js:
-#  option:
-#    serverURLs: https://v1ykgalu.lc-cn-n1-shared.com
-#  front_matter:
+artitalk:
+  enable: true
+  appId: 7wSHe3pz1eYYTD0PacpIYnas-MdYXbMMI
+  appKey: FobcVXab955MWLNb42rVUW7H
+  path:
+  js:
+  option:
+  front_matter:
 
 # hexo-butterfly-swiper
 # see https://akilar.top/posts/8e1264d1/
