@@ -1133,6 +1133,100 @@ int main()
 }
 ```
 
+### using 的使用
+
+在 C++11 之前，using 用于声明命名空间，命令空间可以防止命名冲突。声明命名空间之后，就可以直接使用命名空间中的定义的类了。
+
+C++11 为 using 赋予了新的功能。
+
+#### 定义别名
+
+C++11 之前可以使用 typedef 重定义一个类型。被重定义的类型并不是一个新的类型，仅仅只是原有的类型取了一个新的名字。
+
+```c++
+typedef 旧的类型名 新的类型名;
+
+// example
+typedef unsigned int uint_t;
+```
+
+C++11 以后也可以使用 using 来定义类型的别名。类型别名和类型的名字等价。使用 typedef 定义的别名和使用 using 定义的别名在语义上是等效的。
+
+```c++
+using 新的类型名 = 旧的类型;
+
+// example
+using uint_t = int;
+```
+
+#### 定义函数指针
+
+```c++
+// 使用 typedef 定义函数指针
+typedef int(*func_ptr)(int, double);
+
+// 使用 using 定义函数指针
+using func_ptr1 = int(*)(int, double);
+```
+
+#### 模板的别名
+
+需求：一个固定以 int 类型为 key 的 map，它可以和很多类型的 value 值进行映射。
+
+```c++
+typedef map<int, string> m1;
+typedef map<int, int> m2;
+typedef map<int, double> m3;
+```
+
+typename 不支持给模板定义别名。
+
+```c++
+template <typename T>
+typedef map<int, T> type; // error
+```
+
+typedef 需要添加一个外敷类才能实现上面的需求。
+
+```c++
+#include <iostream>
+#include <functional>
+#include <map>
+using namespace std;
+
+template <typename T>
+// 定义外敷类
+struct MyMap
+{
+    typedef map<int, T> type;
+};
+
+int main(void)
+{
+    MyMap<string>::type m;
+    m.insert(make_pair(1, "susu"));
+    m.insert(make_pair(2, "honghong"));
+
+    MyMap<int>::type m1;
+    m1.insert(1, 100);
+    m1.insert(2, 200);
+
+    return 0;
+}
+```
+
+C++11 可以使用 using 来为一个模板定义别名。
+
+```c++
+template <typename T>
+using mymap = map<int, T>;
+```
+
+```c++
+#include <iostream>
+#include <functional>
+```
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
