@@ -537,11 +537,11 @@ SMTP_PASS: <邮件通知邮箱密码>(授权码)
 ```markdown
 {% post_link C-11新特性初探-ubuntu %}
 
-{% post_link C-11新特性初探-ubuntu 'C++11 新特新' %}
+{% post_link C-11新特性初探-ubuntu 'C++11 新特性' %}
 
-{% post_link C-11新特性初探-ubuntu '<b> C++11 </b> 新特新' %}
+{% post_link C-11新特性初探-ubuntu '<b> C++11 </b> 新特性' %}
 
-{% post_link C-11新特性初探-ubuntu '<b> C++11 </b> 新特新' false %}
+{% post_link C-11新特性初探-ubuntu '<b> C++11 </b> 新特性' false %}
 ```
 
 {% label 效果 pink %}
