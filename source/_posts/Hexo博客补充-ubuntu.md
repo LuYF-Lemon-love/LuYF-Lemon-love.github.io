@@ -36,6 +36,8 @@ date: 2022-05-31 12:03:52
 
 8. [hexo搭建个人博客（提高篇）](https://zhuanlan.zhihu.com/p/134242598)
 
+9. [Hexo 官方文档-引用文章](https://hexo.bootcss.com/docs/tag-plugins.html#%E5%BC%95%E7%94%A8%E6%96%87%E7%AB%A0)
+
 ### 环境版本
 
 ```
@@ -518,6 +520,8 @@ SMTP_PASS: <邮件通知邮箱密码>(授权码)
 
 ### 引用站内文章
 
+[Hexo 官方文档-引用文章](https://hexo.bootcss.com/docs/tag-plugins.html#%E5%BC%95%E7%94%A8%E6%96%87%E7%AB%A0)
+
 ```markdown
 {% post_link filename [title] [escape] %}
 ```
@@ -546,9 +550,15 @@ SMTP_PASS: <邮件通知邮箱密码>(授权码)
 
 {% post_link C-11新特性初探-ubuntu %}
 
+---
+
 {% post_link C-11新特性初探-ubuntu 'C++11 新特新' %}
 
+---
+
 {% post_link C-11新特性初探-ubuntu '<b> C++11 </b> 新特新' %}
+
+---
 
 {% post_link C-11新特性初探-ubuntu '<b> C++11 </b> 新特新' false %}
 
