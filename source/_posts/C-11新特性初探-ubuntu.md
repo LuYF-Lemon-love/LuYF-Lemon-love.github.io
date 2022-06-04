@@ -1249,6 +1249,107 @@ int main(void)
 
 ### 委托构造函数
 
+委托构造函数允许使用 {% label 同一个类 pink %} 中的构造函数调用其他的构造函数。
+
+{% label C++11以前 purple %}
+
+```c++
+#include <iostream>
+using namespace std;
+
+class Test
+{
+public:
+    Test() {};
+
+    Test(int max)
+    {
+        this->m_max = max > 0 ? max : 100;
+    }
+
+    Test(int max, int min)
+    {
+        this->m_max = max > 0 ? max : 100;
+        this->m_min = min > 0 && min < max ? min : 1;
+    }
+
+    Test(int max, int min, int mid)
+    {
+        this->m_max = max > 0 ? max : 100;
+        this->m_min = min > 0 && min < max ? min : 1;
+        this->m_middle = mid < max && mid > min ? mid : 50;
+    }
+
+    int m_min;
+    int m_max;
+    int m_middle;
+};
+
+int main()
+{
+    Test t(90, 30, 60);
+
+    return 0;
+}
+```
+
+{% label C++11加入了委托构造 purple %}
+
+```c++
+#include <iostream>
+using namespace std;
+
+class Test
+{
+public:
+    Test() {};
+
+    Test(int max)
+    {
+        this->m_max = max > 0 ? max : 100;
+    }
+
+    Test(int max, int min):Test(max)
+    {
+        this->m_min = min > 0 && min < max ? min : 1;
+    }
+
+    Test(int max, int min, int mid):Test(max, min)
+    {
+        this->m_middle = mid < max && mid > min ? mid : 50;
+    }
+
+    int m_min;
+    int m_max;
+    int m_middle;
+};
+
+int main()
+{
+    Test t(90, 30, 60);
+
+    return 0;
+}
+```
+
+注：一个构造函数调用了其他的构造函数用于相关数据的初始化，相当于一个 {% label 链式调用 pink %}。
+
+- 链式调用不能形成一个闭环，否则会在运行期抛异常。
+
+- 多层的链式调用时，需要将构造函数的调用写在初始化列表中而不是函数体内部，否则会出现形参重复定义。
+
+- 在初始化列表中调用了委托构造函数初始化某个类成员变量之后，不能在初始化列表中再次初始化这个变量。
+
+```c++
+// error
+Test(int max, int min):Test(max), m_max(max)
+{
+    this->m_min = min > 0 && min < max ? min : 1;
+}
+```
+
+### 继承构造函数
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
