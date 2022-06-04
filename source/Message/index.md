@@ -5,6 +5,7 @@ type: "Message"
 top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511162303.png
 ---
 
+```
 <div class="poem-wrap">
   <div class="poem-border poem-left"></div>
   <div class="poem-border poem-right"></div>
@@ -21,4 +22,4 @@ top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/2022051116
   });
   </script>
 </div>
-
+```

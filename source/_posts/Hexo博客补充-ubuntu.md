@@ -38,6 +38,8 @@ date: 2022-05-31 12:03:52
 
 9. [Hexo 官方文档-引用文章](https://hexo.bootcss.com/docs/tag-plugins.html#%E5%BC%95%E7%94%A8%E6%96%87%E7%AB%A0)
 
+10. [信笺样式留言板](https://akilar.top/posts/e2d3c450/)
+
 ### 环境版本
 
 ```
@@ -592,6 +594,51 @@ Twikoo 管理面板 > 插件，如下图设置，点击保存。
 {% post_link C-11新特性初探-ubuntu '<b> C++11 </b> 新特性' false %}
 
 ---
+
+### 信笺样式留言板
+
+原作者：[信笺样式留言板](https://akilar.top/posts/e2d3c450/)
+
+1. 安装插件
+
+```shell
+npm install hexo-butterfly-envelope --save
+```
+
+2. 在 _config.butterfly.yml 文件添加配置项
+
+```yaml
+# envelope_comment
+# see https://akilar.top/posts/e2d3c450/
+envelope_comment:
+  enable: true #控制开关
+  custom_pic:      
+    cover: https://npm.elemecdn.com/hexo-butterfly-envelope/lib/violet.jpg #信笺头部图片
+    line: https://npm.elemecdn.com/hexo-butterfly-envelope/lib/line.png #信笺底部图片
+    beforeimg: https://npm.elemecdn.com/hexo-butterfly-envelope/lib/before.png # 信封前半部分
+    afterimg: https://npm.elemecdn.com/hexo-butterfly-envelope/lib/after.png # 信封后半部分
+  message: #信笺正文，多行文本，写法如下
+    - 有什么想问的？
+    - 有什么想说的？
+    - 有什么想吐槽的？
+    - 哪怕是有什么想吃的，都可以告诉我哦~
+  bottom: 自动书记人偶竭诚为您服务！ #仅支持单行文本
+  height: #1050px，信封划出的高度
+  path: Message #【可选】comments 的路径名称。默认为 comments，生成的页面为 comments/index.html
+  front_matter: #【可选】comments页面的 front_matter 配置
+    title: 留言板
+    comments: true
+```
+
+path: 是你留言板所在的目录，如我的为 `blog/source/Message/index.md`，因此我填写 Message。
+
+下图是原作者关于这个问题的回答。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220604213335.png)
+
+{% label 效果 pink %}
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220604213511.png)
 
 ### 结语
 
