@@ -519,7 +519,6 @@ SMTP_PASS: <邮件通知邮箱密码>(授权码)
 ### 引用站内文章
 
 ```markdown
-{% post_path filename %}
 {% post_link filename [title] [escape] %}
 ```
 
@@ -532,14 +531,26 @@ SMTP_PASS: <邮件通知邮箱密码>(授权码)
 默认对文章的标题和自定义标题里的特殊字符进行转义。可以使用 escape 选项，禁止对特殊字符进行转义。
 
 ```markdown
-{% post_path C-11新特性初探-ubuntu %}
+{% post_link C-11新特性初探-ubuntu %}
+
+{% post_link C-11新特性初探-ubuntu 'C++11 新特新' %}
+
+{% post_link C-11新特性初探-ubuntu '<b> C++11 </b> 新特新' %}
+
+{% post_link C-11新特性初探-ubuntu '<b> C++11 </b> 新特新' false %}
 ```
 
 {% label 效果 pink %}
 
 ---
 
-{% post_path C-11新特性初探-ubuntu %}
+{% post_link C-11新特性初探-ubuntu %}
+
+{% post_link C-11新特性初探-ubuntu 'C++11 新特新' %}
+
+{% post_link C-11新特性初探-ubuntu '<b> C++11 </b> 新特新' %}
+
+{% post_link C-11新特性初探-ubuntu '<b> C++11 </b> 新特新' false %}
 
 ---
 
