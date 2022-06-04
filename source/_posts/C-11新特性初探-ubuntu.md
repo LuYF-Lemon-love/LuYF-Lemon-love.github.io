@@ -1153,7 +1153,7 @@ typedef unsigned int uint_t;
 C++11 以后也可以使用 using 来定义类型的别名。类型别名和类型的名字等价。使用 typedef 定义的别名和使用 using 定义的别名在语义上是等效的。
 
 ```c++
-using 新的类型名 = 旧的类型;
+using 新的类型名 = 旧的类型名;
 
 // example
 using uint_t = int;
@@ -1225,7 +1225,29 @@ using mymap = map<int, T>;
 ```c++
 #include <iostream>
 #include <functional>
+#include <map>
+using namespace std;
+
+template <typename T>
+using mymap = map<int, T>;
+
+int main(void)
+{
+    mymap<string> m;
+    m.insert(make_pair(1, "susu"));
+    m.insert(make_pair(2, "honghong"));
+
+    mymap<int> m1;
+    m1.insert(1, 100);
+    m1.insert(2, 200);
+
+    return 0;
+}
 ```
+
+{% span cyan, using 语法和 typedef 一样，并不会创建出新的类型，它们只是给某些类型定义了新的别名。using 还可以给模板定义别名 %}
+
+### 委托构造函数
 
 ### 结语
 
