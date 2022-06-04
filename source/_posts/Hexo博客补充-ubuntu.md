@@ -518,6 +518,35 @@ SMTP_PASS: <邮件通知邮箱密码>(授权码)
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603232805.png)
 
+{% label 按语言的代码高亮 pink %}
+
+Twikoo 管理面板 > 插件，如下图设置，点击保存。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220604150346.png)
+
+在评论框输入下面代码（按 Markdown 格式)，这里加了括号是为了防止转义，因为这篇博文是使用 Markdown 写的。
+
+```markdown
+(```)html
+<script>
+    // Just a lil’ script to show off that inline JS gets highlighted
+    window.console && console.log('foo');
+</script>
+<meta charset="utf-8" />
+<link rel="icon" href="assets/favicon.png" />
+<title>Prism</title>
+<link rel="stylesheet" href="assets/style.css" />
+<link rel="stylesheet" href="themes/prism.css" data-noprefix />
+<script src="assets/vendor/prefixfree.min.js"></script>
+(```)
+```
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220604150045.png)
+
+{% label 效果 pink %}
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220604150307.png)
+
 ### 引用站内文章
 
 [Hexo 官方文档-引用文章](https://hexo.bootcss.com/docs/tag-plugins.html#%E5%BC%95%E7%94%A8%E6%96%87%E7%AB%A0)

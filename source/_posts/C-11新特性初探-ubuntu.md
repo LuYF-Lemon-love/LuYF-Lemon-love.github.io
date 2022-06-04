@@ -1048,7 +1048,88 @@ using namespace
 template <typename T=int>
 void func(T t)
 {
-    cout << "cur
+    cout << "current value: " << t << endl;
+}
+
+int main()
+{
+    func(100);
+
+    return 0;
+}
+```
+
+注：当所有模板参数都有默认参数时，函数模板的调用如同一个普通函数，但是类模板即使所有参数都有默认参数，也必须在模板名后跟随 <> 来实例化。
+
+函数模板的默认参数可以和模板参数的自动推导结合进而更灵活的书写代码。
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+template <typename R = int, typename N>
+R func(N arg)
+{
+    return arg;
+}
+
+int main()
+{
+    // ret1: 520
+    // 函数返回值类型使用了默认的模板参数，函数的参数类型是自动推导出来的为 int 类型
+    auto ret1 = func(520);
+
+    // ret2: 52.134
+    // 函数返回值指定为 double 类型，函数的参数类型是自动推导出来的为 double 类型
+    auto ret2 = func<double>(52.134);
+
+    // ret3: 52
+    // 函数的返回值指定为 int 类型，函数的参数类型是自动推导出来的为 double 类型
+    auto ret3 = func<int>(52.134);
+
+    // ret4: d
+    // 函数的返回值指定为 char 类型，函数的参数类型指定为 int 类型
+    auto ret4 = func<char,int>(100);
+
+    return 0;
+}
+```
+
+{% label 函数模板的默认模板参数和函数模板参数自动推导的优先级（从高到低） pink %}
+
+- 自动推导
+
+- 函数模板的默认模板参数
+
+- error
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+template <typename T, typename U = char>
+void func(T arg1 = 100, U arg2 = 100)
+{
+    cout << "arg1: " << arg1 << ", arg2: " << arg2 << endl;
+}
+
+int main()
+{
+    // output: arg1: a, arg2: d
+    // T: 自动推导为 char，U: 默认模板参数 char
+    func('a');
+
+    // output: arg1: 97, arg2: a
+    // T: 自动推导为 int，U: 自动推导为 char
+    func(97, 'a');
+
+    // error
+    // T: 没有实参无法自动推导，也没有默认的模板参数
+    func();
+
+    return 0;
 }
 ```
 
