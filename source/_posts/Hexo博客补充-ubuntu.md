@@ -34,6 +34,8 @@ date: 2022-05-31 12:03:52
 
 7. [部署Twikoo评论系统及其邮件推送(Vercel)](https://blog.csdn.net/weixin_58068682/article/details/122770936?spm=1001.2014.3001.5506)
 
+8. [hexo搭建个人博客（提高篇）](https://zhuanlan.zhihu.com/p/134242598)
+
 ### 环境版本
 
 ```
@@ -461,7 +463,7 @@ twikoo:
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603212433.png)
 
-{% label 开通 POP3/SMTP 服务 %}
+{% label 开通POP3/SMTP服务  pink %}
 
 以 QQ 邮箱为例，登录 QQ 邮箱 > 设置 > 账号 > POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务，开启 POP3/SMTP 服务
 
@@ -513,6 +515,29 @@ SMTP_PASS: <邮件通知邮箱密码>(授权码)
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603232733.png)
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603232805.png)
+
+### 引用站内文章
+
+```markdown
+{% post_path filename %}
+{% post_link filename [title] [escape] %}
+```
+
+在使用此标签时可以忽略文章文件所在的路径或者文章的永久链接信息、如语言、日期。
+
+例如，在文章中使用 {% post_link how-to-bake-a-cake %} 时，只需有一个名为 how-to-bake-a-cake.md 的文章文件即可。
+
+默认链接文字是文章的标题，你也可以自定义要显示的文本。
+
+默认对文章的标题和自定义标题里的特殊字符进行转义。可以使用 escape 选项，禁止对特殊字符进行转义。
+
+```markdown
+{% post_path C-11新特性初探-ubuntu %}
+```
+
+{% label 效果 pink %}
+
+{% post_path C-11新特性初探-ubuntu %}
 
 ### 结语
 
