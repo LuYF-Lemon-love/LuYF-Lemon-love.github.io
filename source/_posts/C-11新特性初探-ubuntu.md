@@ -1245,7 +1245,7 @@ int main(void)
 }
 ```
 
-{% span cyan, using 语法和 typedef 一样，并不会创建出新的类型，它们只是给某些类型定义了新的别名。using 还可以给模板定义别名 %}
+{% span cyan, using 语法和 typedef 一样，并不会创建出新的类型，它们只是给某些类型定义了新的别名。using 还可以给模板定义别名。 %}
 
 ### 委托构造函数
 
