@@ -1350,6 +1350,145 @@ Test(int max, int min):Test(max), m_max(max)
 
 ### 继承构造函数
 
+C++11 新增了继承构造函数，可以让派生类直接使用基类的构造函数。
+
+{% label C++11以前 pink %}
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Base
+{
+public:
+    Base(int i):m_i(i){}
+
+    Base(int i, double j):m_i(i), m_j(j){}
+
+    Base(int i, double j, string k):m_i(i), m_j(j), m_k(k){}
+
+    int m_i;
+    double m_j;
+    string m_k;
+};
+
+class Child:public Base
+{
+public:
+    Child(int i): Base(i){}
+
+    Child(int i, double j): Base(i,j){}
+
+    Child(int i, double j, string k): Base(i, j, k){}
+};
+
+int main()
+{
+    Child c(520, 13.14, "see you again!");
+
+    return 0;
+}
+```
+
+{% label C++11 pink %} 使用：`using 类名::构造函数名` 来声明使用基类的构造函数。
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Base
+{
+public:
+    Base(int i):m_i(i){}
+
+    Base(int i, double j):m_i(i),m_j(j){}
+
+    Base(int i, double j, string k):m_i(i),m_j(j),m_k(k){}
+
+    int m_i;
+    double m_j;
+    string m_k;
+};
+
+class Child : public Base
+{
+public:
+    using Base::Base;
+};
+
+int main()
+{
+    Child c1(520, 13.14);
+
+    Child c2(520, 13.14, "see you again!");
+
+    return 0;
+}
+
+{% span cyan, 通过 using 使用父类的同名函数 %}
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Base
+{
+public:
+    Base(int i):m_i(i) {}
+
+    Base(int i, double j):m_i(i), m_j(j) {}
+
+    Base(int i, double j, string k):m_i(i), m_j(j), m_k(k) {}
+
+    void func(int i)
+    {
+        cout << "base class: i = " << i << ebdl;
+    }
+
+    void func(int i, string str)
+    {
+        cout << "base class: i = " << i << ", str = " << str << endl;
+    }
+
+    int m_i;
+    double m_j;
+    string m_k;
+};
+
+class Child : public Base
+{
+public:
+    using Base::Base;
+    using Base::func;
+
+    void func()
+    {
+        cout << "child class: I'm Child!" << endl;
+    }
+};
+
+int main()
+{
+    Child c(520);
+    
+    // output: child class: I'm Child!
+    c.func();
+
+    // output: base class: i = 19
+    c.func(19);
+
+    // output: base class: i = 19, str = see you again!
+    c.func(19, "see you again!");
+
+    return 0;
+}
+```
+
+### 统一的初始化
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
