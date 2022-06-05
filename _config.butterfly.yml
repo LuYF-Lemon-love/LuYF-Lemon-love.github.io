@@ -18,6 +18,7 @@ envelope_comment:
   front_matter: #【可选】comments页面的 front_matter 配置
     title: 留言板
     comments: true
+    top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511162303.png
     
 # Artitalk
 # see https://artitalk.js.org/
