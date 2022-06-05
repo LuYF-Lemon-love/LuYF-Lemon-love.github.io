@@ -549,6 +549,20 @@ Twikoo 管理面板 > 插件，如下图设置，点击保存。
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220604150307.png)
 
+{% label 显示用户系统、浏览器和用户 IP 到省 pink %}
+
+Twikoo 管理面板 > 隐私，如下图设置，点击保存。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220605223433.png)
+
+{% label 设置前 pink %}
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220605223743.png)
+
+{% label 设置后（需要新添一个评论，刷新评论系统）pink %}
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220605223926.png)
+
 ### 引用站内文章
 
 [Hexo 官方文档-引用文章](https://hexo.bootcss.com/docs/tag-plugins.html#%E5%BC%95%E7%94%A8%E6%96%87%E7%AB%A0)
@@ -597,7 +611,7 @@ Twikoo 管理面板 > 插件，如下图设置，点击保存。
 
 ### 信笺样式留言板
 
-原作者：[信笺样式留言板](https://akilar.top/posts/e2d3c450/)
+原作者的教程：[信笺样式留言板](https://akilar.top/posts/e2d3c450/)
 
 1. 安装插件
 

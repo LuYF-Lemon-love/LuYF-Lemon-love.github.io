@@ -1490,6 +1490,97 @@ int main()
 
 ### 统一的初始化
 
+{% span cyan, C++11以前，普通数组和可以直接进行内存拷贝的对象（memcpy())可以使用列表初始化来初始化数据 %}
+
+```c++
+int array[] = {1,3,5,7,9};
+double array1[3] = {1.2,1.3,1.4};
+
+struct Person
+{
+    int id;
+    double salary;
+}zhang3{1,3000};
+```
+
+{% span cyan, C++11 %}
+
+```c++
+#include <iostream>
+using namespace std;
+
+class Test
+{
+public:
+    Test(int){}
+
+private:
+    Test(const Test &) {}
+};
+
+int main(void)
+{
+    // 带参的构造函数
+    Test t1(520);
+
+    // error ，因为拷贝构造函数是私有的。如果拷贝构造函数是公有的，520 会先隐式转换为 Test(int) 构造成一个匿名对象。然后匿名对象拷贝构造得到 t2。(VS 不会出现 error，Linux 的 g++ 会出现 error)
+    Test t2 = 520;
+
+    // C++11 的列表初始化，是否写等号无影响
+    Test t3 = {520};
+    Test t4{520};
+
+    // 基础数据类型的列表初始化
+    int a1 = {1314};
+    int a2{1314};
+    int arr1[] = {1,2,3};
+    int arr2[]{1,2,3};
+
+    return 0;
+}
+```
+
+{% label new 操作符创建新对象 pink %}
+
+```c++
+int * p = new int{520};
+double b = double{52.134};
+int * array = new int[3]{1,2,3};
+```
+
+{% label 列表初始化用在函数返回值上 pink %}
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Person
+{
+public:
+    Person(int id, string name)
+    {
+        cout << "id: " << id << ", name: " << name << endl;
+    }
+};
+
+Person func()
+{   
+    // return {1, "susu"} = return Person(1, "susu")
+    // 直接返回了一个匿名对象
+    Return {1, "susu"};
+}
+
+int main(void)
+{
+    Person p = func();
+
+    return 0;
+}
+```
+
+#### 列表初始化聚合类型的变量
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
