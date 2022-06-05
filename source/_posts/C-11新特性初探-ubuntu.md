@@ -1391,7 +1391,7 @@ int main()
 }
 ```
 
-{% label C++11 pink %} 使用：`using 类名::构造函数名` 来声明使用基类的构造函数。
+{% label C++11 pink %} 使用：{% span green, using 类名::构造函数名 %} 来声明使用基类的构造函数。
 
 ```c++
 #include <iostream>
@@ -1426,6 +1426,7 @@ int main()
 
     return 0;
 }
+```
 
 {% span cyan, 通过 using 使用父类的同名函数 %}
 
