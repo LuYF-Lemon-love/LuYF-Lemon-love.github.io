@@ -628,6 +628,7 @@ envelope_comment:
   front_matter: #【可选】comments页面的 front_matter 配置
     title: 留言板
     comments: true
+    top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511162303.png
 ```
 
 path: 是你留言板所在的目录，如我的为 `blog/source/Message/index.md`，因此我填写 Message。
@@ -638,7 +639,23 @@ path: 是你留言板所在的目录，如我的为 `blog/source/Message/index.m
 
 {% label 效果 pink %}
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220604213511.png)
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220605115803.png)
+
+### 代码框展开/关闭
+
+在默认情况下，代码框自动展开，可设置是否所有代码框都关闭状态，点击>可展开代码
+
+- true 全部代码框不展开，需点击 > 打开
+
+- false 代码框展开，有 > 点击按钮
+
+- none 不显示 > 按钮
+
+修改 _config.butterfly.yml 文件
+
+```yaml
+highlight_shrink: true #代码框不展开，需点击 '>' 打开
+```
 
 ### 结语
 
