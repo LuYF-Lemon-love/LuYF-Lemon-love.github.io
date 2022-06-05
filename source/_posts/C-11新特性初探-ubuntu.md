@@ -1391,7 +1391,7 @@ int main()
 }
 ```
 
-{% span green, C++11 %} 使用 {% span cyan, using 类名::构造函数名 %} 来声明使用基类的构造函数。
+{% span green, C++11 %} 使用 using 类名::构造函数名 来声明使用基类的构造函数。
 
 ```c++
 #include <iostream>
