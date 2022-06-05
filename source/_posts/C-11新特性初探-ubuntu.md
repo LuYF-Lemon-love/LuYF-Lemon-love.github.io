@@ -1540,7 +1540,7 @@ int main(void)
 }
 ```
 
-{% label new 操作符创建新对象 pink %}
+{% label new操作符创建新对象 pink %}
 
 ```c++
 int * p = new int{520};

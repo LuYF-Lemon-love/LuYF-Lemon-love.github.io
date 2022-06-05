@@ -549,7 +549,7 @@ Twikoo 管理面板 > 插件，如下图设置，点击保存。
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220604150307.png)
 
-{% label 显示用户系统、浏览器和用户 IP 到省 pink %}
+{% label 显示用户系统、浏览器和用户IP到省 pink %}
 
 Twikoo 管理面板 > 隐私，如下图设置，点击保存。
 
@@ -559,7 +559,7 @@ Twikoo 管理面板 > 隐私，如下图设置，点击保存。
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220605223743.png)
 
-{% label 设置后（需要新添一个评论，刷新评论系统）pink %}
+{% label 设置后(需要新添一个评论，刷新评论系统) pink %}
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220605223926.png)
 
