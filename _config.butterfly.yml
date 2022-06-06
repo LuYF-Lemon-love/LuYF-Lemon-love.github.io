@@ -1,7 +1,7 @@
 businesscard:
   enable: true #总开关
   QR_code: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220606142536.png #加群二维码
-  master: LuYF-Lemon-love #群主ID
+  master: LuYF #群主ID
   group: 千万别在森林里迷路！ #QQ群号
   created: 06/19/2008 #建群时间
   front: 欢迎来到阿拉德！ #卡面正面描述语
