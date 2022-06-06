@@ -477,7 +477,7 @@ footer:
     since: 2022
   custom_text: 
     - <a href="https://beian.miit.gov.cn"><span>冀ICP备2022012632号</span></a>
-    - 感谢光临小破站，欢迎您提出宝贵的意见！
+    - \n感谢光临小破站，欢迎您提出宝贵的意见！
   copyright: true # Copyright of theme and framework
 
 # Analysis
