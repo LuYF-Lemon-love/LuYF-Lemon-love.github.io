@@ -46,6 +46,8 @@ date: 2022-05-31 12:03:52
 
 13. [twikoo评论块气泡风格魔改美化](https://akilar.top/posts/d99b5f01/)
 
+14. [Butterfly comment board beautify](https://akilar.top/posts/397b8b90/)
+
 ### 环境版本
 
 ```
@@ -1402,6 +1404,161 @@ businesscard:
 {% label 修改后 pink %}
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220606161608.png)
+
+### Butterfly comment board beautify
+
+原作者的教程：[Butterfly comment board beautify](https://akilar.top/posts/397b8b90/)
+
+注：原作者很优秀，还有很多魔改内容，相信会让你满意，可以多多访问他的博客来支持他的创作。原作者的博客地址：[Akilarの糖果屋](https://akilar.top/)
+
+1. 新建 blog/themes/butterfly/source/css/custom/fixed_comment.css 文件，粘贴下面代码
+
+```css
+div#post-comment.fixedcomment {
+    position: fixed;
+    top: 0;
+    width: 60%;
+    right: 0;
+    padding: 25px 30px 20px 20px;
+    height: 100vh;
+    overflow: scroll;
+    z-index: 90;
+    background: rgba(222, 222, 222, 0.95);
+    box-shadow:3px 2px 14px #464340;
+    animation: fixedright 0.5s linear;
+}
+div#post-comment.fixedcomment::-webkit-scrollbar {
+width: 0;
+}
+div#quit-board{
+  display: none;
+}
+div#quit-board.fixedcomment {
+  position: fixed;
+  display:block!important;
+  left: 0;
+  top: 0;
+  width: 40%;
+  height: 100vh;
+  z-index: 89!important;
+  background: rgba(25,25,25,0.3);
+  filter: blur(4px) !important;
+  animation: fixedleft 0.5s linear;
+}
+/*手机端样式适配*/
+@media screen and (max-width: 768px) {
+  div#post-comment.fixedcomment {
+      width: 90%;
+      right: 0;
+  }
+  div#quit-board.fixedcomment {
+    width: 10%;
+  }
+}
+/*动画效果*/
+@keyframes fixedright {
+  from {right:-50%;}
+  to {right:0;}
+}
+@keyframes fixedleft {
+  from {left:-50%;}
+  to {left:0;}
+}
+/* 夜间模式匹配 */
+[data-theme="dark"]
+  div#post-comment.fixedcomment {
+      background: rgba(35, 35, 35, 0.95);
+      box-shadow:3px 2px 12px #90a1a4;
+  }
+[data-theme="dark"]
+  div#quit-board.fixedcomment {
+    background: rgba(147, 146, 128, 0.3);
+  }
+```
+
+2. 新建 blog/themes/butterfly/source/js/custom/fixed_comment.js 文件（如果没有路径中的 custom 目录，请新建），粘贴下面代码
+
+```js
+//移除FixedComment类，保持原生样式，确保不与最新评论跳转冲突
+function RemoveFixedComment() {
+  var activedItems = document.querySelectorAll('.fixedcomment');
+  if (activedItems) {
+    for (i = 0; i < activedItems.length; i++) {
+      activedItems[i].classList.remove('fixedcomment');
+    }
+  }
+}
+//给post-comment添加fixedcomment类
+function AddFixedComment(){
+  var commentBoard = document.getElementById('post-comment');
+  var quitBoard = document.getElementById('quit-board');
+  commentBoard.classList.add('fixedcomment');
+  quitBoard.classList.add('fixedcomment');
+}
+//创建一个蒙版，作为退出键使用
+function CreateQuitBoard(){
+  var quitBoard = `<div id="quit-board" onclick="RemoveFixedComment()"></div>`
+  var commentBoard = document.getElementById('post-comment');
+  commentBoard.insertAdjacentHTML("beforebegin",quitBoard)
+}
+
+function FixedCommentBtn(){
+  //第一步，判断当前是否存在FixedComment类，存在则移除，不存在则添加
+  // 获取评论区对象
+  var commentBoard = document.getElementById('post-comment');
+  // 若评论区存在
+  if (commentBoard) {
+      // 判断是否存在fixedcomment类
+      if (commentBoard.className.indexOf('fixedcomment') > -1){
+        // 存在则移除
+        RemoveFixedComment();
+      }
+      else{
+        // 不存在则添加
+        CreateQuitBoard();
+        AddFixedComment();
+      }
+  }
+  // 若不存在评论区则跳转至留言板(留言板路径记得改为自己的)
+  else{
+    // 判断是否开启了pjax，尽量不破坏全局吸底音乐刷新
+      if (pjax){
+        pjax.loadUrl("/comments/#post-comment");
+      }
+      else{
+        window.location.href = "/comments/#post-comment";
+      }
+  }
+}
+//切换页面先初始化一遍，确保开始时是原生状态。所以要加pjax重载。
+RemoveFixedComment();
+```
+
+3. 在 _config.butterfly.yml 的 inject 处引入上面的 css 和 js
+
+```diff
+  inject:
+    head:
++     - <link rel="stylesheet" href="/css/custom/fixed_comment.css"  media="defer" onload="this.media='all'">
+    bottom:
++     - <script data-pjax defer src="/js/custom/fixed_comment.js"></script>
+```
+
+4. 修改 blog/themes/butterfly/layout/includes/rightside.pug 文件
+
+```diff
+  if commentsJsLoad
+-   a#to_comment(href="#post-comment" title=_p("rightside.scroll_to_comment"))
++   button#to_comment(type="button" title=_p("rightside.scroll_to_comment") onclick="FixedCommentBtn();")
+```
+
+{% label 请按右下角的直达评论按钮 pink %}
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220606164848.png)
+
+{% label 效果 pink %}
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220606164945.png)
 
 ### 结语
 
