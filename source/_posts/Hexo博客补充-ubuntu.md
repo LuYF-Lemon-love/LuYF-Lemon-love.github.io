@@ -48,6 +48,8 @@ date: 2022-05-31 12:03:52
 
 14. [Butterfly comment board beautify](https://akilar.top/posts/397b8b90/)
 
+15. [如何快速备案您的网站](https://cloud.tencent.com/document/product/243/39038)
+
 ### 环境版本
 
 ```
@@ -1559,6 +1561,27 @@ RemoveFixedComment();
 {% label 效果 pink %}
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220606164945.png)
+
+### 腾讯云备案
+
+由于我是从腾讯云上买的域名和轻量应用服务器，所以可以从腾讯云上免费备案。可以参考之前博文 {% post_link Hexo快速搭建一个博客-ubuntu %}
+
+>如果您使用中国大陆境内的服务器开办网站，则必须先办理网站备案，备案成功并获取通信管理局下发的 ICP 备案号后才能开通访问。
+
+腾讯云官方备案教程：[如何快速备案您的网站](https://cloud.tencent.com/document/product/243/39038)
+
+备案可以使用微信小程序，个人博客备案比较简单，只需要身份证。
+
+从 5 月 25 日晚在小程序上提交备案到 6 月 6 日备案成功，一共花了 12 天。
+
+注：前两天，腾讯云客服会和你进行电话沟通你之前提交信息的问题。然后就是管局审核。细节问题都会短信或者电话通知。服务态度都特别好。
+
+备案成功后 工业和信息化部（早一点） 和 腾讯云 都会给你发短信和电子邮件通知你。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220606184048.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220606184259.png)
+
 
 ### 结语
 
