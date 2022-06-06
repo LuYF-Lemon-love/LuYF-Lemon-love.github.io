@@ -834,7 +834,7 @@ function switchNightMode() {
 
 如下图
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/ 20220606132725.png)
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220606132725.png)
 
 6. 在 _config.butterfly.yml 文件中的 inject 的 bottom 处添加
 
@@ -844,9 +844,10 @@ function switchNightMode() {
 
 {% label 效果 pink %}
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/ 20220606133203.png)
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220606133203.png)
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/ 20220606133301.png)
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220606133301.png)
+
 
 ### 结语
 
