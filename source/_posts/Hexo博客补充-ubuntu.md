@@ -40,6 +40,8 @@ date: 2022-05-31 12:03:52
 
 10. [信笺样式留言板](https://akilar.top/posts/e2d3c450/)
 
+11. [添加白天夜间模式转换动画](https://akilar.top/posts/d9550c81/)
+
 ### 环境版本
 
 ```
@@ -670,6 +672,181 @@ path: 是你留言板所在的目录，如我的为 `blog/source/Message/index.m
 ```yaml
 highlight_shrink: true #代码框不展开，需点击 '>' 打开
 ```
+
+### 添加白天夜间模式转换动画
+
+原作者的教程：[添加白天夜间模式转换动画](https://akilar.top/posts/d9550c81/)
+
+注：原作者很优秀，还有很多魔改内容，相信会让你满意，可以支持一下。原作者的博客地址：[Akilarの糖果屋](https://akilar.top/)
+
+1. 新建 blog/themes/butterfly/layout/includes/custom/sun_moon.pug 文件（如果没有路径中的 custom 目录，请新建 custom 目录），粘贴下面代码。
+
+```pug
+svg(aria-hidden='true', style='position:absolute; overflow:hidden; width:0; height:0')
+  symbol#icon-sun(viewBox='0 0 1024 1024')
+    path(d='M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z', fill='#FFD878', p-id='8420')
+    path(d='M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z', fill='#FFE4A9', p-id='8421')
+    path(d='M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z', fill='#4D5152', p-id='8422')
+    path(d='M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z', fill='#4D5152', p-id='8423')
+  symbol#icon-moon(viewBox='0 0 1024 1024')
+    path(d='M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z', fill='#FFB531', p-id='11345')
+    path(d='M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z', fill='#030835', p-id='11346')
+```
+
+2. 新建 blog/themes/butterfly/source/css/_layout/sun_moon.styl 文件，粘贴下面代码
+
+```stylus
+.Cuteen_DarkSky,
+.Cuteen_DarkSky:before
+  content ''
+  position fixed
+  left 0
+  right 0
+  top 0
+  bottom 0
+  z-index 88888888
+
+.Cuteen_DarkSky
+  background linear-gradient(#feb8b0, #fef9db)
+  &:before
+    transition 2s ease all
+    opacity 0
+    background linear-gradient(#4c3f6d, #6c62bb, #93b1ed)
+
+.DarkMode
+  .Cuteen_DarkSky
+    &:before
+      opacity 1
+
+.Cuteen_DarkPlanet
+  z-index 99999999
+  position fixed
+  left -50%
+  top -50%
+  width 200%
+  height 200%
+  -webkit-animation CuteenPlanetMove 2s cubic-bezier(0.7, 0, 0, 1)
+  animation CuteenPlanetMove 2s cubic-bezier(0.7, 0, 0, 1)
+  transform-origin center bottom
+
+
+@-webkit-keyframes CuteenPlanetMove {
+  0% {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes CuteenPlanetMove {
+  0% {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.Cuteen_DarkPlanet
+  &:after
+    position absolute
+    left 35%
+    top 40%
+    width 9.375rem
+    height 9.375rem
+    border-radius 50%
+    content ''
+    background linear-gradient(#fefefe, #fffbe8)
+
+.search
+  span
+    display none
+
+.menus_item
+  a
+    text-decoration none!important
+//按钮相关，对侧栏按钮做过魔改的可以调整这里的数值
+.icon-V
+  padding 5px
+```
+
+3. 新建 blog/themes/butterfly/source/js/sun_moon.js 文件，粘贴下面代码
+
+```js
+function switchNightMode() {
+  document.querySelector('body').insertAdjacentHTML('beforeend', '<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>'),
+    setTimeout(function() {
+      document.querySelector('body').classList.contains('DarkMode') ? (document.querySelector('body').classList.remove('DarkMode'), localStorage.setItem('isDark', '0'), document.getElementById('modeicon').setAttribute('xlink:href', '#icon-moon')) : (document.querySelector('body').classList.add('DarkMode'), localStorage.setItem('isDark', '1'), document.getElementById('modeicon').setAttribute('xlink:href', '#icon-sun')),
+        setTimeout(function() {
+          document.getElementsByClassName('Cuteen_DarkSky')[0].style.transition = 'opacity 3s';
+          document.getElementsByClassName('Cuteen_DarkSky')[0].style.opacity = '0';
+          setTimeout(function() {
+            document.getElementsByClassName('Cuteen_DarkSky')[0].remove();
+          }, 1e3);
+        }, 2e3)
+    })
+  const nowMode = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
+  if (nowMode === 'light') {
+    activateDarkMode()
+    saveToLocal.set('theme', 'dark', 2)
+    GLOBAL_CONFIG.Snackbar !== undefined && btf.snackbarShow(GLOBAL_CONFIG.Snackbar.day_to_night)
+    document.getElementById('modeicon').setAttribute('xlink:href', '#icon-sun')
+  } else {
+    activateLightMode()
+    saveToLocal.set('theme', 'light', 2)
+    document.querySelector('body').classList.add('DarkMode'), document.getElementById('modeicon').setAttribute('xlink:href', '#icon-moon')
+  }
+  // handle some cases
+  typeof utterancesTheme === 'function' && utterancesTheme()
+  typeof FB === 'object' && window.loadFBComment()
+  window.DISQUS && document.getElementById('disqus_thread').children.length && setTimeout(() => window.disqusReset(), 200)
+}
+```
+
+4. 修改 blog/themes/butterfly/layout/includes/head.pug 文件，在文件末添加一行代码：
+
+```diff
+  //- global config
+  !=partial('includes/head/config', {}, {cache: true})
+
+  include ./head/config_site.pug
+  include ./head/noscript.pug
+
+  !=fragment_cache('injectHeadJs', function(){return inject_head_js()})
+
+  !=fragment_cache('injectHead', function(){return injectHtml(theme.inject.head)})
++ include ./custom/sun_moon.pug
+```
+
+5. 修改 blog/themes/butterfly/layout/includes/rightside.pug 文件，替换原本的昼夜切换（注：每一行代码都比上一行往里缩进两个 space bar）
+
+```diff
+  when 'translate'
+    if translate.enable
+      button#translateLink(type="button" title=_p('rightside.translate_title'))= translate.default
+  when 'darkmode'
+    if darkmode.enable && darkmode.button
+-     button#darkmode(type="button" title=_p('rightside.night_mode_title'))
+-       i.fas.fa-adjust
++     a.icon-V.hidden(onclick='switchNightMode()',  title=_p('rightside.night_mode_title'))
++       svg(width='25', height='25', viewBox='0 0 1024 1024')
++         use#modeicon(xlink:href='#icon-moon')
+```
+
+如下图
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/ 20220606132725.png)
+
+6. 在 _config.butterfly.yml 文件中的 inject 的 bottom 处添加
+
+```yaml
+- <script src="/js/sun_moon.js" async></script>
+```
+
+{% label 效果 pink %}
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/ 20220606133203.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/ 20220606133301.png)
 
 ### 结语
 
