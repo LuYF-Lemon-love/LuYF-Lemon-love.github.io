@@ -50,6 +50,10 @@ date: 2022-05-31 12:03:52
 
 15. [如何快速备案您的网站](https://cloud.tencent.com/document/product/243/39038)
 
+16. [Butterfly 安装文档(三) 主题配置-1-页脚自定义文本](https://butterfly.js.org/posts/4aa8abbe/#%E9%A0%81%E8%85%B3%E8%87%AA%E5%AE%9A%E7%BE%A9%E6%96%87%E6%9C%AC)
+
+17. [html语法大全](https://blog.csdn.net/weixin_44954230/article/details/124298478?spm=1001.2014.3001.5506)
+
 ### 环境版本
 
 ```
@@ -1582,6 +1586,21 @@ RemoveFixedComment();
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220606184259.png)
 
+在备案成功后，也请您按照管局要求将网站备案号展示在网站首页底部，并链接到工信部首页（https://beian.miit.gov.cn）。
+
+修改 _config.butterfly.yml 文件的页脚设置
+
+```yaml
+# Footer Settings
+# --------------------------------------
+footer:
+  owner:
+    enable: true
+    since: 2022
+  custom_text: 
+    - <a href="https://beian.miit.gov.cn"><span>冀ICP备2022012632号</span></a><br/><span>感谢光临小破站，欢迎您提出宝贵的意见！</span>
+  copyright: true # Copyright of theme and framework
+```
 
 ### 结语
 
