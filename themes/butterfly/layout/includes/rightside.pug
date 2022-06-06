@@ -28,7 +28,7 @@ mixin rightsideItem(array)
             i.fas.fa-sms
       when 'comment'
         if commentsJsLoad
-          a#to_comment(href="#post-comment" title=_p("rightside.scroll_to_comment"))
+          button#to_comment(type="button" title=_p("rightside.scroll_to_comment") onclick="FixedCommentBtn();")
             i.fas.fa-comments
 
 #rightside
