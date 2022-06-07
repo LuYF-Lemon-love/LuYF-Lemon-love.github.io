@@ -939,8 +939,8 @@ inject:
    bottom:
      - <script defer src="/js/jquery.min.js"></script>
      - <script defer src="/live2d-widget/autoload.js"></script> # 页脚看板娘2
-     #- <script defer src="/js/colorfishes.js"></script> # 页脚养鱼(彩色)    
-     - <script defer src="/js/fishes.js"></script>
+     - <script defer src="/js/colorfishes.js"></script> # 页脚养鱼(彩色)    
+     #- <script defer src="/js/fishes.js"></script>
      - <script defer src="/js/sakura.js"></script>
      #- <script defer src="/js/snow.js"></script> # 下雪动效
      - <script defer src="/js/timing.js"></script> # 公告栏计时器插件
