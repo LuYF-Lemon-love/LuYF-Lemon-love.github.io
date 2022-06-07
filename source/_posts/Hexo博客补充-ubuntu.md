@@ -1740,7 +1740,7 @@ hexo d
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607231302.png)
 
-5. 到腾讯云的 DNSPod 控制台，添加解析记录。
+5. 到腾讯云的 DNSPod 控制台，添加解析记录（Vercel 自带 SSL 证书，无需申请）。
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607231520.png)
 
