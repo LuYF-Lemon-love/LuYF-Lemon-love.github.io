@@ -1702,7 +1702,7 @@ footer_bg: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607
 luyf-lemon-love.space
 ```
 
-5. 然后一键三连，过不了多久，再打开你的浏览器，输入你自己的域名，就可以看到搭建的网站啦！
+5. 然后一键三连，过不了多久，再打开你的浏览器，输入你自己的域名如 `https://luyf-lemon-love.space/`，就可以看到搭建的网站啦！
 
 ```shell
 hexo clean
@@ -1719,6 +1719,34 @@ hexo d
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607224314.png)
 
 {% label 腾讯云域名绑定到Vercel上 pink %}
+
+1. 登录 [Vercel](https://vercel.com/dashboard) 
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607230608.png)
+
+2. 进入到部署博客的项目
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607230751.png)
+
+3. 点击 Settings > Domains
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607230912.png)
+
+4. 添加域名，我一共添加了两个自定义域名，分别为：`vercel.luyf-lemon-love.space` 和 `www.vercel.luyf-lemon-love.space`，每一次，点击 add 后，在下方会出现一组解析记录。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607231009.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607231302.png)
+
+5. 到腾讯云的 DNSPod 控制台，添加解析记录。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607231520.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607231601.png)
+
+6. 这时你就可以通过二级域名如 `https://vercel.luyf-lemon-love.space/` ，访问部署在 Vercel 的博客了。
+
+{% label 腾讯云域名绑定到轻量应用服务器上 pink %}
 
 ### 结语
 
