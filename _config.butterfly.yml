@@ -576,7 +576,7 @@ tag_ui: # 留空或 index
 background:
 
 # Footer Background
-footer_bg: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220601160230.png #false
+footer_bg: true #false
 
 # the position of bottom right button/default unit: px (右下角按鈕距離底部的距離/默認單位為px)
 rightside-bottom:
