@@ -72,6 +72,10 @@ menu:
   Archives: /archives/ || fas fa-archive
   Tags: /tags/ || fas fa-tags
   Categories: /categories/ || fas fa-folder-open
+  Server||fas fa-server:
+    Github: vercel.luyf-lemon-love.space || fab fa-github
+    Vercel: luyf-lemon-love.space || fas fa-triangle
+    Cloud: /Gallery/ || fas fa-cloud
   List||fas fa-list:
     Music: /music/ || fas fa-music
     Image: /Gallery/ || fas fa-images
