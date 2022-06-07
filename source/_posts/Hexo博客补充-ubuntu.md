@@ -1734,6 +1734,8 @@ hexo d
 
 4. 添加域名，我一共添加了两个自定义域名，分别为：`vercel.luyf-lemon-love.space` 和 `www.vercel.luyf-lemon-love.space`，每一次，点击 add 后，在下方会出现一组解析记录。
 
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607232424.png)
+
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607231009.png)
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607231302.png)
