@@ -56,6 +56,8 @@ date: 2022-05-31 12:03:52
 
 18. [Butterfly 安裝文檔(四) 主題配置-2-footer 背景](https://butterfly.js.org/posts/ceeb73f/#footer-%E8%83%8C%E6%99%AF)
 
+19. [二级域名的活用方法](https://akilar.top/posts/8250e594/)
+
 ### 环境版本
 
 ```
@@ -1570,7 +1572,7 @@ RemoveFixedComment();
 
 ### 腾讯云备案
 
-由于我是从腾讯云上买的域名和轻量应用服务器，所以可以从腾讯云上免费备案。可以参考之前博文 {% post_link Hexo快速搭建一个博客-ubuntu %}
+由于我是从腾讯云上买的域名和轻量应用服务器，所以可以从腾讯云上免费备案。关于如何使用和配置轻量应用服务器可以参考之前博文 {% post_link Hexo快速搭建一个博客-ubuntu %}
 
 >如果您使用中国大陆境内的服务器开办网站，则必须先办理网站备案，备案成功并获取通信管理局下发的 ICP 备案号后才能开通访问。
 
@@ -1627,6 +1629,96 @@ footer_bg: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607220645.png)
 
 ### 建立分站-绑定域名（Github-Vercel-轻量应用服务器）
+
+前言：阿里云的免费 DNS 解析套餐 线路类型支持境外，可以做到境外访问的是 Github 的服务器，境内访问的是自己的轻量应用服务器，但是腾讯云的免费 DNS 解析套餐不支持境外线路类型，因此无法做到自动分流，我们只能在顶部的菜单栏建立分站，来使得用户可以选择不同线路类型来加速访问。
+
+{% label 腾讯云域名绑定到 Github 上 pink %}
+
+1. 然后进入[腾讯云 DNS 解析控制台](https://console.cloud.tencent.com/cns)，点击你的域名的解析按钮，点击 前往 DNSPod 控制台点击添加记录按钮，如图
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607222452.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607222739.png)
+
+```
+主机记录：填写子域名。例如，添加 www.123.com 的解析，您在 “主机记录” 处选择 “www” 即可。如果只是想添加 123.com 的解析，您在 “主机记录” 处选择 “@” 即可。“@” 的 CNAME 会影响到 MX 记录的正常解析，添加时请您慎重考虑。
+```
+
+<table>
+<tr>
+<th>记录类型</th>
+<th>使用目的</th>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/3449">A 记录</a></td>
+<td>将域名指向一个 IP 地址（外网地址）。</td>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/3450">CNAME 记录</a></td>
+<td>将域名指向另一个域名，再由另一个域名提供 IP 地址（外网地址）。</td>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/3451">MX 记录</a></td>
+<td>设置邮箱，让邮箱能收到邮件。</td>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/3452">NS 记录</a></td>
+<td>将子域名交给其他 DNS 服务商解析。</td>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/3453">AAAA 记录</a></td>
+<td>将域名指向一个 IPv6 地址。</td>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/12647">SRV 记录</a></td>
+<td>用来标识某台服务器使用了某个服务，常见于微软系统的目录管理。</td>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/12648">TXT 记录</a></td>
+<td>对域名进行标识和说明，绝大多数的 TXT 记录是用来做 SPF 记录（反垃圾邮件）。</td>
+</tr>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/12649">隐、显性 URL 记录</a></td>
+<td>将一个域名指向另外一个已经存在的站点。</td>
+</tr>
+</table>
+
+2. 为了使访客用不用 www 都可以访问博客，我们添加两条记录，注意：我们选择 CNAME 记录类型，记录值填写 **你的 Github 用户名.github.io**，如图（下面的第二张图是 DNSPod 控制台的这一节配置完成的最终图，本步添加的记录仅有第一张图的两条 Github 记录）
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220521205412.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607222928.png)
+
+3. 进入你的 Github 博客所在仓库的设置页面，点击 Pages，在 Custom domain 处修改域名为你之前买的域名，并勾选 Enforce HTTPS，然后点击 Save。如图
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220521210424.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220521210459.png)
+
+4. 在 blog/source 目录下新建一个 CNAME 文件，填入你的域名。
+
+```
+luyf-lemon-love.space
+```
+
+5. 然后一键三连，过不了多久，再打开你的浏览器，输入你自己的域名，就可以看到搭建的网站啦！
+
+```shell
+hexo clean
+hexo g
+hexo d
+```
+
+6. 在 DNSPod 控制台，你可以点击下图的 @ 记录的 SSL 按钮申请免费的 SSL 证书，该证书能让用户以 HTTPS 的方式访问该网站。（由于我已经申请过了，所以按钮是绿色，如果没有申请是灰色，申请过程是傻瓜式操作，10 分钟就可以完成，Github 会自动安装，我们只需要申请就可以了。我们给 @ 记录申请 SSL 证书，www 记录会获得 SSL 证书的）
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607224623.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607224351.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607224314.png)
+
+{% label 腾讯云域名绑定到 Vercel 上 pink %}
 
 ### 结语
 

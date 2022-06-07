@@ -10650,7 +10650,7 @@ inject:
 
 1. 登录[腾讯云官网](https://cloud.tencent.com/)，找到 **[域名注册](https://dnspod.cloud.tencent.com/)** 并进入，选择你想要的域名并购买，注意第一次需要用身份证创建信息模板，并进行实名认证，虽然腾讯官网说需要 3-5 日，但实际上只需要 15 分钟左右，效率还是很高的。
 
-2. 然后进入[ 腾讯云 DNS 解析控制台](https://console.cloud.tencent.com/cns)，点击你的域名的解析按钮，点击添加记录按钮，如图
+2. 然后进入[腾讯云 DNS 解析控制台](https://console.cloud.tencent.com/cns)，点击你的域名的解析按钮，点击添加记录按钮，如图
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220521205001.png)
 
