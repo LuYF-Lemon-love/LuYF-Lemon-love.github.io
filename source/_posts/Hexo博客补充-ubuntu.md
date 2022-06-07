@@ -54,6 +54,8 @@ date: 2022-05-31 12:03:52
 
 17. [html语法大全](https://blog.csdn.net/weixin_44954230/article/details/124298478?spm=1001.2014.3001.5506)
 
+18. [Butterfly 安裝文檔(四) 主題配置-2-footer 背景](https://butterfly.js.org/posts/ceeb73f/#footer-%E8%83%8C%E6%99%AF)
+
 ### 环境版本
 
 ```
@@ -1601,6 +1603,30 @@ footer:
     - <a href="https://beian.miit.gov.cn"><span>冀ICP备2022012632号-1</span></a><br/><span>感谢光临小破站，欢迎您提出宝贵的意见！</span>
   copyright: true # Copyright of theme and framework
 ```
+
+由于用 普通的页脚养鱼会遮挡住 备案/许可证编号，所以我们将 页脚养鱼设置为 页脚彩色养鱼
+
+修改 _config.butterfly.yml 文件的 inject 的 bottom 处
+
+```diff
++ - <script defer src="/js/colorfishes.js"></script> # 页脚养鱼(彩色)    
+- - <script defer src="/js/fishes.js"></script>
+```
+
+由于 页脚彩色养鱼 在页脚底部会有很大的空白，因此可以在页脚添加背景图片。
+
+修改 _config.butterfly.yml 文件
+
+```yaml
+# Footer Background
+footer_bg: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607151451.png #false
+```
+
+{% label 效果 pink %}
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607220645.png)
+
+### 建立分站-绑定域名（Github-Vercel-轻量应用服务器）
 
 ### 结语
 
