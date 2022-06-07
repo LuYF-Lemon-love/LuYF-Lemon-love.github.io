@@ -1572,7 +1572,7 @@ RemoveFixedComment();
 
 ### 腾讯云备案
 
-由于我是从腾讯云上买的域名和轻量应用服务器，所以可以从腾讯云上免费备案。关于如何使用和配置轻量应用服务器可以参考之前博文 {% post_link Hexo快速搭建一个博客-ubuntu %}
+由于我是从腾讯云上买的域名和轻量应用服务器，所以可以从腾讯云上免费备案。关于如何购买域名和购买配置使用轻量应用服务器可以参考之前博文 {% post_link Hexo快速搭建一个博客-ubuntu %}
 
 >如果您使用中国大陆境内的服务器开办网站，则必须先办理网站备案，备案成功并获取通信管理局下发的 ICP 备案号后才能开通访问。
 
@@ -1632,9 +1632,9 @@ footer_bg: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607
 
 前言：阿里云的免费 DNS 解析套餐 线路类型支持境外，可以做到境外访问的是 Github 的服务器，境内访问的是自己的轻量应用服务器，但是腾讯云的免费 DNS 解析套餐不支持境外线路类型，因此无法做到自动分流，我们只能在顶部的菜单栏建立分站，来使得用户可以选择不同线路类型来加速访问。
 
-{% label 腾讯云域名绑定到 Github 上 pink %}
+{% label 腾讯云域名绑定到Github上 pink %}
 
-1. 然后进入[腾讯云 DNS 解析控制台](https://console.cloud.tencent.com/cns)，点击你的域名的解析按钮，点击 前往 DNSPod 控制台点击添加记录按钮，如图
+1. 然后进入[腾讯云 DNS 解析控制台](https://console.cloud.tencent.com/cns)，点击你的域名的解析按钮，点击 前往 DNSPod 控制台，点击添加记录按钮，如图
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607222452.png)
 
@@ -1718,7 +1718,7 @@ hexo d
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607224314.png)
 
-{% label 腾讯云域名绑定到 Vercel 上 pink %}
+{% label 腾讯云域名绑定到Vercel上 pink %}
 
 ### 结语
 
