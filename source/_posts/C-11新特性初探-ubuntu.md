@@ -1857,6 +1857,121 @@ int main(void)
 
 ### 基于范围的 for 循环
 
+#### 基于范围的 for 循环的语法
+
+{% label C++11以前 pink %}
+
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+    vector<int> t{1,2,3,4,5,6};
+    for (auto it = t.begin(); it != t.end(); ++it)
+    {
+        cout << *it << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+```
+
+```c++
+// C++98/03 中普通的 for 循环
+for(表达式1;表达式2;表达式3)
+{
+    // 循环体
+}
+
+// C++11 基于范围的 for 循环
+for(declaration : expression)
+{
+    // 循环体
+}
+```
+
+declaration 表示遍历声明，在遍历过程中，当前被遍历到的元素会被存储到声明的变量中。expression 是要遍历的对象，它可以是表达式、容器、数组、初始化列表等。
+
+{% label 基于范围的for循环 pink %}
+
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main(void)
+{
+    vector<int> t{1,2,3,4,5,6};
+    for (auto value : t)
+    {
+        cout << value << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+```
+
+{% label 遍历过程中修改元素的值，需要使用引用 pink %}
+
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main(void)
+{
+    vector<int> t{1,2,3,4,5,6};
+    cout << "遍历修改之前的容器：";
+    for (auto &value : t)
+    {
+        cout << value++ << " ";
+    }
+    cout << endl << "遍历修改之后的容器：";
+
+    for (auto &value : t)
+    {
+        cout << value << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+遍历修改之前的容器：1 2 3 4 5 6
+遍历修改之后的容器：2 3 4 5 6 7
+```
+
+{% label 更高效率的只读 pink %}
+
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main(void)
+{
+    vector<int> t{1,2,3,4,5,6};
+
+    // const auto & 效率高于 const auto
+    for (const auto& value : t)
+    {
+        cout << value << " ";
+    }
+
+    return 0;
+}
+```
+
+#### 关系型容器
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
