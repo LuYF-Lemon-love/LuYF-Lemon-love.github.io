@@ -58,6 +58,12 @@ date: 2022-05-31 12:03:52
 
 19. [二级域名的活用方法](https://akilar.top/posts/8250e594/)
 
+20. [Github Page 个人主页——自定义域名](https://blog.csdn.net/m0_47520749/article/details/124768135?spm=1001.2014.3001.5506)
+
+21. [宝塔面板 SSL 证书安装部署](https://cloud.tencent.com/document/product/400/50874)
+
+22. [腾讯云-免费 SSL 证书名额相关问题](https://cloud.tencent.com/document/product/400/46849)
+
 ### 环境版本
 
 ```
@@ -1712,6 +1718,8 @@ hexo d
 
 6. 在 DNSPod 控制台，你可以点击下图的 @ 记录的 SSL 按钮申请免费的 SSL 证书，该证书能让用户以 HTTPS 的方式访问该网站。（由于我已经申请过了，所以按钮是绿色，如果没有申请是灰色，申请过程是傻瓜式操作，10 分钟就可以完成，Github 会自动安装，我们只需要申请就可以了。我们给 @ 记录申请 SSL 证书，www 记录会获得 SSL 证书的）
 
+> 在 2018 年 5 月 1 日之后，GitHub Pages 已经开始提供免费为自定义域名开启 HTTPS 的功能，并且大大简化了操作的流程（只需勾选 Enforce HTTPS 的选项），现在用户已经不再需要自己提供证书，只需要将自己的域名使用 CNAME 的方式指向自己的 GitHub Pages 域名即可。因此本步不需要做。
+
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607224623.png)
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607224351.png)
@@ -1749,6 +1757,68 @@ hexo d
 6. 这时你就可以通过二级域名如 `https://vercel.luyf-lemon-love.space/` ，访问部署在 Vercel 的博客了。
 
 {% label 腾讯云域名绑定到轻量应用服务器上 pink %}
+
+1. 到腾讯云的 DNSPod 控制台，添加解析记录到轻量应用服务器，用 A 记录解析 IP 地址的形式。IP 地址是轻量应用服务器的公共 IP 地址。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220608124225.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220608124257.png)
+
+2. 在 DNSPod 控制台，你可以点击下图的 server 记录的 SSL 按钮申请免费的 SSL 证书，该证书能让用户以 HTTPS 的方式访问该网站。（由于我已经申请过了，所以按钮是绿色，如果没有申请是灰色，申请过程是傻瓜式操作，10 分钟就可以完成。轻量应用服务器与 Github 不同，需要手动安装，后续步骤讲解安装方法。我们给 server 记录申请 SSL 证书，www.server 记录会获得 SSL 证书的），注意申请 SSL 证书时请将其他解析记录都暂停解析，也就是上面配置的 Github 和 Vercel 的四条解析记录，否则证书不会颁发。颁发失败的证书也会消耗配额，只能重新申请，重新申请相当于重新购买会另外消耗配额，按照官方的文档，同一主域在 15 个月内至多只能申请 20 张亚洲诚信品牌免费型 DV 版 SSL 证书。请小心申请，以免浪费配额。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220608124225.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607224351.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607224314.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220608140247.png)
+
+3. 域名绑定到轻量应用服务器必须使用 SSL 证书，因此我们需要手动安装 SSL 证书。由于我的轻量应用服务器是宝塔面板，因此可以参考官方配置文档 [宝塔面板 SSL 证书安装部署](https://cloud.tencent.com/document/product/400/50874)
+
+4. 请在 [SSL 证书管理控制台](https://console.cloud.tencent.com/ssl) 中选择您需要安装的证书并单击下载。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220608125059.png)
+
+5. 在弹出的 “证书下载” 窗口中，服务器类型选择 Nginx，单击下载并解压缩 server.luyf-lemon-love.space 证书文件包（server.luyf-lemon-love.space_nginx.zip）到本地目录。解压缩后，可获得相关类型的证书文件。
+   
+   文件夹名称：server.luyf-lemon-love.space_nginx
+   
+   文件夹内容：
+      
+       server.luyf-lemon-love.space_bundle.crt 证书文件
+      
+       server.luyf-lemon-love.space_bundle.pem 证书文件
+      
+       server.luyf-lemon-love.space.key 私钥文件
+      
+       server.luyf-lemon-love.space.csr CSR 文件
+
+> CSR 文件是申请证书时由您上传或系统在线生成的，提供给 CA 机构。安装时可忽略该文件。
+
+6. 登录宝塔 Web 面板，单击网站，即可进入 “网站管理” 页面。
+
+7. 在 “网站管理” 页面中选择您需要配置 SSL 证书的域名对应的站点并单击设置。
+
+8. 在弹出的“ 站点修改” 窗口中，依次单击 SSL > 其他证书，填写密钥以及证书文件。如下图所示：
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220608134227.png)
+
+   - 密钥（KEY）：使用文本编辑器打开 .key 私钥文件，并复制内容至对应区域
+
+   - 证书（PEM 格式）：使用文本编辑器打开 .crt 证书文件，并复制内容至对应区域。
+
+9. 单击保存并显示以下信息，即可部署成功。如下图所示：
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220608134402.png)
+
+10. HTTP 自动跳转 HTTPS 的安全配置（可选），请在弹出的 “站点修改” 窗口，单击开启强制 HTTPS 即可完成配置。如下图所示：
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220608134822.png)
+
+>HTTP 跳转 HTTPS 过程中，如果您的网站元素中存在外部链接或者使用的 HTTP 协议，导致整个页面不完全是 HTTPS 协议。部分浏览器会因为这些因素报不安全的提示，例如，链接不安全。您可以单击不安全页面中的 “详细信息” 查看报错原因。
+
+{% label 增加Server页面 pink %}
 
 ### 结语
 
