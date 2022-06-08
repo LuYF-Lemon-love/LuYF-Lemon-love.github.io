@@ -2012,6 +2012,51 @@ int main(void)
 
 #### 元素只读
 
+{% span cyan, 对于 set 容器，内部元素是只读的，for 循环中 auto & 会被视为 const auto & %}
+
+```c++
+#include <iostream>
+#include <set>
+using namespace std;
+
+int main(void)
+{
+    set<int> st{1,2,3,4,5,6};
+    for(auto &item : st)
+    {
+        // error
+        cout << item++ << endl;
+    }
+
+    return 0;
+}
+```
+
+{% span cyan, 对于 map 容器，不能修改 key 值，即 first 值 %}
+
+```c++
+#include <iostream>
+#include <string>
+#include <map>
+
+int main(void)
+{
+    map<int, string> m{
+        {1, "susu"}, {2, "yaya"}, {3, "rongrong"}
+    };
+
+    for (auto& item : m)
+    {
+        // item.first 是一个常量，error
+        cout << "id: " << item.first++ << ", name: " << item.second << endl;
+    }
+
+    return 0;
+}
+```
+
+#### 访问次数
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
