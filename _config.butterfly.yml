@@ -1,14 +1,14 @@
 businesscard:
   enable: true #总开关
   QR_code: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220606142536.png #加群二维码
-  master: LuYF #群主ID
+  master: DNF #群主ID
   group: 千万别在森林里迷路！ #QQ群号
   created: 06/19/2008 #建群时间
   front: 欢迎来到阿拉德！ #卡面正面描述语
-  back1: 吾王之怒，响彻星辰；吾王之力，光照万世 #背面从上到下四行文字内容自定义
-  back2: 战国空余恨，旧王泪无痕
-  back3: 万物生自守恒，源力破则失正。莫以为敌消彼长，然乾坤逆之天崩。
-  back4: 带着这样一把武器，绝对很有挑战性！
+  back1: 恍惚之境 #背面从上到下四行文字内容自定义
+  back2: 启明星的指引
+  back3: 清泉流响
+  back4: 氤氲之息
   
 # envelope_comment
 # see https://akilar.top/posts/e2d3c450/
