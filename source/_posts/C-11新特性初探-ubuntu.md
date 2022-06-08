@@ -1581,6 +1581,112 @@ int main(void)
 
 #### 列表初始化聚合类型的变量
 
+对于自定义类型，列表初始化可能有两种执行结果。
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct T1
+{
+    int x;
+    int y;
+}a = { 123, 321 };
+
+struct T2
+{
+    int x;
+    int y;
+    T2(int, int) : x(10), y(20) {}
+}b = { 123, 321 };
+
+int main(void)
+{
+    // output: a.x: 123, a.y: 321
+    cout << "a.x: " << a.x << ", a.y: " << a.y << endl;
+
+    // output: b.x: 10, b.y: 20
+    cout << "b.x: " << b.x << ", b.y: " << b.y << endl;
+
+    return 0;
+}
+```
+
+对象 b 并没有被初始化列表中的数据初始化。因为如果使用列表初始化对对象初始化时，还需要判断这个对象对应的类型是不是一个聚合体，如果是，初始化列表中的数据就会拷贝到对象中。
+
+聚合体类型：
+
+- 普通数组本身可以看做是一个聚合类型
+
+```c++
+int x[] = {1, 2, 3, 4, 5, 6};
+double y[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9},
+};
+char carry[] = {'a', 'b', 'c', 'd', 'e', 'f'};
+std::string sarray[] = {"hello", "world"};
+```
+
+- 满足以下条件的类（class、struct、union）可以被看做成一个聚合类型：
+
+   - 无用户自定义的构造函数。
+
+   - 无私有或保护的非静态成员。
+
+   ```c++
+   struct T2
+   {
+       int x;
+       long y;
+    
+    protected:
+        static int z;
+   }t{ 1, 100};
+
+   // 静态成员的初始化
+   int T2::z = 2;
+   ```
+
+   - 无基类。
+
+   - 无虚函数。
+
+   ```c++
+   #include <iostream>
+   #include <string>
+   using namespace std;
+
+   struct T2
+   {
+       int x;
+       long y;
+    
+    protected:
+        static int z;
+   }t1{1, 100};
+
+   int T2::z = 2;
+
+   stuct T3
+   {
+       int x;
+       double y = 1;
+       int z[3]{1,2,3};
+   };
+
+   int main(void)
+   {
+       T3 t{520, 2, {6, 7, 8}};
+
+       return 0;
+   }
+   ```
+
+#### 列表初始化非聚合类型的对象
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
