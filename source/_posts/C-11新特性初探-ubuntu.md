@@ -1972,6 +1972,46 @@ int main(void)
 
 #### 关系型容器
 
+```c++
+#include <iostream>
+#include <string>
+#include <map>
+using namespace std;
+
+int main(void)
+{
+    map<int, string> m{
+        {1, "susu"},{2, "yaya"},{3, "rongrong"}
+    };
+
+    for (auto& it : m)
+    {
+        cout << "id: " << it.fist << ", name: " << it.second << endl;
+    }
+
+    for (auto it = m.begin(); it != m.end(); ++it)
+    {
+        cout << "id: " << it->first << ", name: " << it->second << endl;
+    }
+
+    return 0;
+}
+```
+
+- {% span cyan, 普通的 for 循环方式，auto 自动推导出一个迭代器类型，需要使用迭代器的方式访问键值对 %}
+
+   - it->first
+
+   - it->second
+
+- {% span cyan, 基于范围的 for 循环方式，auto 自动推导出一个 value_type 类型对象，需要使用对象的方式访问键值对 %}
+
+   - it.first
+
+   - it.second
+
+#### 元素只读
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
