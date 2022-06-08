@@ -1747,6 +1747,116 @@ int main(void)
 
 ### std::initializer_list
 
+std::initializer_list 类模板特点：
+
+- 内部定义了迭代器 iterator，遍历时得到的迭代器是只读的。
+
+- std::initializer_list<T>，可以接收任意长度的初始化列表，元素必须是同种类型 T
+
+- 三个成员接口：size(), begin(), end()。
+
+- std::initializer_list 对象只能被整体初始化或者赋值。
+
+#### 作为普通函数的参数
+
+{% label 变参函数 pink %}
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+void traversal(std::initializer_list<int> a)
+{
+    for(auto it = a.begin(); it != a.end(); ++it)
+    {
+        cout << *it << " ";
+    }
+    cout << endl;
+}
+
+int main(void)
+{
+    initializer_list<int> list;
+    cout << "current list size: " << list.size() << endl;
+    traversal(list);
+
+    list = {1,2,3,4,5,6,7,8,9,0};
+    cout << "current list size: " << list.size() << endl;
+    traversal(list);
+    cout << endl;
+
+    list = {1,3,5,7,9};
+    cout << "current list size: " << list.size() << endl;
+    traversal(list);
+    cout << endl;
+
+    traversal({2,4,6,8,0});
+    cout << endl;
+
+    traversal({11,12,13,14,15,16});
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+current list size: 0
+
+current list size: 10
+1 2 3 4 5 6 7 8 9 0
+
+current list size: 5
+1 3 5 7 9
+
+2 4 6 8 0
+
+11 12 13 14 15 16
+```
+
+std::initializer_list 遍历时得到的是一个只读的迭代器，只能以值覆盖的方式进行容器内部数据的修改。它的效率是非常高的，它不保存初始化列表中元素的拷贝，仅仅存储了初始化列表中元素的引用。
+
+#### 作为构造函数的参数
+
+```c++
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+class Test
+{
+public:
+    Test(std::initializer_list<string> list)
+    {
+        for (auto it = list.begin(); it != list.end(); ++it)
+        {
+            cout << *it << " ";
+            m_names.push_back(*it);
+        }
+        cout << endl;
+    }
+
+private:
+    vector<string> m_names;
+};
+
+int main(void)
+{
+    // output: susu yaya rongrong
+    Test t({"susu", "yaya", "rongrong"});
+
+    // output: honghong dongfangyuechu
+    Test t1({"honghong","dongfangyuechu"});
+
+    return 0;
+}
+```
+
+### 基于范围的 for 循环
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
