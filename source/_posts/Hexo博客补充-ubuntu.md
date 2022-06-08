@@ -64,6 +64,8 @@ date: 2022-05-31 12:03:52
 
 22. [腾讯云-免费 SSL 证书名额相关问题](https://cloud.tencent.com/document/product/400/46849)
 
+23. [Butterfly 安装文档(六) 进阶教程-Icon](https://butterfly.js.org/posts/4073eda/#Icon)
+
 ### 环境版本
 
 ```
@@ -1818,7 +1820,112 @@ hexo d
 
 >HTTP 跳转 HTTPS 过程中，如果您的网站元素中存在外部链接或者使用的 HTTP 协议，导致整个页面不完全是 HTTPS 协议。部分浏览器会因为这些因素报不安全的提示，例如，链接不安全。您可以单击不安全页面中的 “详细信息” 查看报错原因。
 
+11. DNSPod 控制台处的最终域名解析记录。一共 6 条。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607222928.png)
+
 {% label 增加Server页面 pink %}
+
+Butterfly 主题内置了 [Font Awesome V5](https://fontawesome.com/) 图标，目前已更新到 5.13.0，总共有1,588个免费图标。由于是国外的图标网站，对于国内的一些网站 Icon 并不支持。
+
+由于 Gitee 和 Vercel 的图标 [Font Awesome V5](https://fontawesome.com/) 并不支持。因此我要像之前 Bilibili 页面一样申请图标。
+
+1. 注册登录 [iconfont](https://www.iconfont.cn/)，Butterfly 官方文档介绍了 iconfont 申请流程，可以参考该文文档 [Butterfly 安装文档(六) 进阶教程-Icon](https://butterfly.js.org/posts/4073eda/#Icon)
+
+2. 添加图标到购物车
+
+3. 点击购物车，将图标添加进项目，如果没有项目点击下面的按钮，新建一个项目
+
+4. 点击 Font class 和 View the Online Link
+
+5. 将显示的链接补全成 css，然后添加到 _config.butterfly.yml 文件的 inject 的 head 处
+
+6. 可以在 _config.butterfly.yml 文件的 menu 处引用，引用的格式为 iconfont icon名字，如 iconfont icon-bilibili
+
+7. 修改 _config.butterfly.yml 文件，我们在 menu 处添加了 Server 页面，可以看到 iconfont 图标名称。
+
+```yaml
+menu:
+  Home: / || fas fa-home
+  Archives: /archives/ || fas fa-archive
+  Tags: /tags/ || fas fa-tags
+  Categories: /categories/ || fas fa-folder-open
+  Server||fas fa-server:
+    Github: https://luyf-lemon-love.space || fab fa-github
+    Gitee: https://luyf-lemon-love.gitee.io || iconfont icon-gitee
+    Vercel: https://vercel.luyf-lemon-love.space || iconfont icon-logo-vercel
+    Cloud: https://server.luyf-lemon-love.space || fas fa-cloud
+  List||fas fa-list:
+    Music: /music/ || fas fa-music
+    Image: /Gallery/ || fas fa-images
+    Movie: /movies/ || fas fa-video
+    ShuoShuo: /artitalk/ || fas fa-comment
+    Bilibili: /bilibili/ || iconfont icon-bilibili
+  Link: /link/ || fas fa-link
+  Message: /Message/ || fas fa-comment
+  Domains: /Domains/ || fas fa-gift
+  About: /about/ || fas fa-heart
+```
+
+8. 修改 _config.butterfly.yml 文件
+
+```yaml
+  card_announcement:
+    enable: true
+    content: 本站部署到了几个地方，对应的域名请看顶部的 Domains 页，也可以直接访问 Server 页。
+```
+
+9. 修改 blog/source/Domains/index.md 文件
+
+```markdown
+---
+title: Domains
+date: 2022-05-13 17:04:06
+type: "Domains"
+top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220513171728.png
+---
+
+### 自定义域名
+
+#### 解析到 Github 上的域名
+
+https://luyf-lemon-love.space/	> Server > Github Page
+
+https://www.luyf-lemon-love.space/
+
+#### 解析到 Vercel 上的域名
+
+https://vercel.luyf-lemon-love.space/	> Server > Vercel Page 
+
+https://www.vercel.luyf-lemon-love.space/
+
+#### 解析到 轻量应用服务器 上的域名
+
+https://server.luyf-lemon-love.space/	> Server > Cloud Page
+
+https://www.server.luyf-lemon-love.space/
+
+### Github 域名
+
+https://luyf-lemon-love.github.io/
+
+### Vercel 加速域名
+
+https://lu-yf-lemon-love-github-io.vercel.app/
+
+https://lu-yf-lemon-love-github-io-luyf-lemon-love.vercel.app/
+
+https://lu-yf-lemon-love-github-io-git-master-luyf-lemon-love.vercel.app/
+
+### Gitee 域名
+
+https://luyf-lemon-love.gitee.io	> Server > Gitee Page
+
+
+### 轻量应用服务器
+
+http://43.142.31.247/
+```
 
 ### 结语
 
