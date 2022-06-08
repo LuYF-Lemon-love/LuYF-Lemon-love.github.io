@@ -1687,6 +1687,66 @@ std::string sarray[] = {"hello", "world"};
 
 #### 列表初始化非聚合类型的对象
 
+非聚合类型对象：需要在类内定义一个使用初始化列表对类成员变量进行初始化的构造函数。
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct T1
+{
+    int x;
+    double y;
+
+    T1(int a, double b, int c) : x(a), y(b), z(c){}
+
+private:
+    int z;
+};
+
+int main(void)
+{
+    T1 t{ 520, 1.2, 1};
+
+    return 0;
+}
+```
+
+一个类有非聚合类型的非静态成员时，也可能是聚合类型。
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct T1
+{
+    int x;
+    double y;
+
+private:
+    int z;
+};
+
+struct T2
+{
+    T1 t1;
+    long x1;
+    double y1;
+};
+
+int main(void)
+{
+    // {} 相当于调用 T1 的无参构造函数
+    T2 t2{{} t2, 520, 1.2};
+    
+    return 0;
+}
+```
+
+### std::initializer_list
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
