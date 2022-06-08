@@ -40,8 +40,3 @@ https://lu-yf-lemon-love-github-io-git-master-luyf-lemon-love.vercel.app/
 ### Gitee 域名
 
 https://luyf-lemon-love.gitee.io	> Server > Gitee Page
-
-
-### 轻量应用服务器
-
-http://43.142.31.247/
