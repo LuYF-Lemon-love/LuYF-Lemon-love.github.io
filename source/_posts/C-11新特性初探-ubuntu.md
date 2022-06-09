@@ -2058,6 +2058,39 @@ int main(void)
 
 #### 访问次数
 
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<int> v{1,2,3,4,5,6};
+vector<int>& getRange()
+{
+    cout << "get vector range..." << endl;
+    return v;
+}
+
+int main(void)
+{
+    for (auto val : getRange())
+    {
+        cout << val << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+get vector range...
+1 2 3 4 5 6
+```
+
+注：基于范围的 for 循环，冒号后的表达式只被执行一次。
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
