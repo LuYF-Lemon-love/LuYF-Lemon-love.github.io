@@ -2091,6 +2091,120 @@ get vector range...
 
 注：基于范围的 for 循环，冒号后的表达式只被执行一次。
 
+### 可调用对象
+
+C++11 以前就有可调用对象。包括以下几种：
+
+- 函数指针
+
+```c++
+int print(int a, double b)
+{
+    cout << a << b << endl;
+
+    return 0;
+}
+
+// 定义函数指针
+int (*func)(int, double) = &print;
+```
+
+- 具有重载 operator() 的成员函数的类对象（仿函数）
+
+```c++
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+struct Test
+{
+    void operator()(string msg)
+    {
+        cout << "msg: " << msg << endl;
+    }
+};
+
+int main(void)
+{
+    Test t;
+    t("我是要成为真正的狐狸精！！！");
+
+    return 0;
+}
+```
+
+- 转换为函数指针的类对象
+
+```c++
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+using func_ptr = void(*)(int, string);
+struct Test
+{
+    static void print(int a, string b)
+    {
+        cout << "name: " << b << ", age: " << a << endl;
+    }
+
+    // 将类对象转换为函数指针
+    operator func_ptr()
+    {
+        return print;
+    }
+};
+
+int main(void)
+{
+    Test t;
+
+    // 对象转换为函数指针，并调用
+    t(1, "susu");
+
+    return 0;
+}
+```
+
+- 类成员函数指针和类成员指针
+
+```c++
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+struct Test
+{
+    void print(int a, string b)
+    {
+        cout << "name: " << b << ", age: " << a << endl;
+    }
+    int m_num;
+};
+
+int main(void)
+{
+    // 定义类成员函数指针
+    void (Test::*func_ptr)(int, string) = &Test::print;
+
+    // 类成员指针
+    int Test::*obj_ptr = &Test::m_num;
+
+    Test t;
+    (t.*func_ptr)(1, "susu");
+    t.*obj_ptr = 1;
+
+    cout << "number is: " << t.m_num << endl;
+    
+    return 0;
+}
+```
+
+### 可调用对象包装器
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
