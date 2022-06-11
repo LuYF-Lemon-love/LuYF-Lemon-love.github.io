@@ -2417,7 +2417,7 @@ int main(void)
 }
 ```
 
-{% span cyan, std::function 配合 std::bind 实现对类成员函数指针或类成员指针的包装 %}
+`std::function 配合 std::bind 实现对类成员函数指针或类成员指针的包装`
 
 ```c++
 #include <iostream>
@@ -2460,6 +2460,8 @@ int main(void)
 注：`f1` 的类型是 `function<void(int, int)>`，通过使用 std::bind 将 Test 的成员函数 output 的地址和对象 t 绑定，并转化为一个仿函数并存储到对象 f1 中。
 
 注：`f2` 的类型是 `function<int&(void)>`，通过使用 std::bind 将 Test 的成员 m_number 的地址和对象 t 绑定，并转换为一个仿函数并存储到对象 f2 中。int 是绑定的类成员的类型，`&` 表示变量可以被修改，由于没有参数，因此参数列表指定为 void。
+
+### Lambda 表达式
 
 ### 结语
 
