@@ -66,6 +66,14 @@ date: 2022-05-31 12:03:52
 
 23. [Butterfly 安装文档(六) 进阶教程-Icon](https://butterfly.js.org/posts/4073eda/#Icon)
 
+24. [开启自定义 CDN 加速域名](https://cloud.tencent.com/document/product/436/36637)
+
+25. [域名归属权验证](https://cloud.tencent.com/document/product/228/61702)
+
+26. [配置 CNAME](https://cloud.tencent.com/document/product/228/3121)
+
+27. [新用户体验奖励](https://cloud.tencent.com/document/product/228/64651)
+
 ### 环境版本
 
 ```
@@ -2022,6 +2030,120 @@ envelope_comment:
     title: Message
     comments: true
     top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511162303.png
+```
+
+### 开启自定义 CDN 加速域名 和 完善博客域名
+
+>虽然开启 CDN 加速域名可以省去 COS 下行流量费用，换成价格更便宜的 CDN 下行流量费用和 CDN 回源流量费用。但是腾讯云 CDN 将默认在 DNSPod 内针对该域名增加一条 CNAME 解析记录值，因此将导致我们无法将其解析到 Github 和 Vercel 上。
+
+对象存储（Cloud Object Storage，COS）开启自定义 CDN 加速域名的教程：
+
+1. [开启自定义 CDN 加速域名](https://cloud.tencent.com/document/product/436/36637)
+
+2. [域名归属权验证](https://cloud.tencent.com/document/product/228/61702)
+
+3. [配置 CNAME](https://cloud.tencent.com/document/product/228/3121)
+
+4. [新用户体验奖励](https://cloud.tencent.com/document/product/228/64651)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220611171516.png)
+
+为了更好的展示博客域名，我们将修改 Github 和 Vercel 的域名解析记录。关于如何修改域名解析记录，请参考第 16 小节——建立分站-绑定域名（Github-Vercel-轻量应用服务器）。
+
+DNSPod 控制台的解析记录如下：
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220611172304.png)
+
+Github Pages 配置如下：
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220611172545.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220611172640.png)
+
+Vercel Domains：
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220611172758.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220611172906.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220611173051.png)
+
+修改 _config.butterfly.yml 文件
+
+```yaml
+menu:
+  Home: / || iconfont icon-home
+  Archives: /archives/ || iconfont icon-archive
+  Tags: /tags/ || iconfont icon-tag-color
+  Categories: /categories/ || iconfont icon-category
+  Life||iconfont icon-list:
+    Image: /Gallery/ || iconfont icon-image
+    ShuoShuo: /artitalk/ || iconfont icon-comment
+    Bilibili: /bilibili/ || iconfont icon-bilibili
+  Server||iconfont icon-lx-server:
+    Github: https://github.luyf-lemon-love.space || iconfont icon-github
+    Gitee: https://luyf-lemon-love.gitee.io || iconfont icon-gitee
+    Vercel: https://vercel.luyf-lemon-love.space || iconfont icon-logo-vercel
+    Cloud: https://server.luyf-lemon-love.space || iconfont icon-cloud
+  Link: /link/ || iconfont icon-link
+  Message: /Message/ || iconfont icon-comment1
+  Domains: /Domains/ || iconfont icon-domainyuming
+  About: /about/ || iconfont icon-set_about_hov
+```
+
+修改 blog/source/Domains/index.md 文件
+
+```markdown
+---
+title: Domains
+date: 2022-05-13 17:04:06
+type: "Domains"
+top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220513171728.png
+---
+
+### 自定义域名
+
+https://luyf-lemon-love.space/
+
+https://www.luyf-lemon-love.space/
+
+#### 解析到 Github 上的域名
+
+https://github.luyf-lemon-love.space/	> Server > Github Page
+
+#### 解析到 Vercel 上的域名
+
+https://luyf-lemon-love.space/
+
+https://www.luyf-lemon-love.space/
+
+https://www.github.luyf-lemon-love.space/
+
+https://vercel.luyf-lemon-love.space/	> Server > Vercel Page 
+
+https://www.vercel.luyf-lemon-love.space/
+
+#### 解析到 轻量应用服务器 上的域名
+
+https://server.luyf-lemon-love.space/	> Server > Cloud Page
+
+https://www.server.luyf-lemon-love.space/
+
+### Github 域名
+
+https://luyf-lemon-love.github.io/
+
+### Vercel 加速域名
+
+https://lu-yf-lemon-love-github-io.vercel.app/
+
+https://lu-yf-lemon-love-github-io-luyf-lemon-love.vercel.app/
+
+https://lu-yf-lemon-love-github-io-git-master-luyf-lemon-love.vercel.app/
+
+### Gitee 域名
+
+https://luyf-lemon-love.gitee.io	> Server > Gitee Page
 ```
 
 ### 结语
