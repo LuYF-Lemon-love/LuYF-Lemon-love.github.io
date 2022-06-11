@@ -68,7 +68,7 @@ int main()
         </head>\
         <body>\
         <p>\
-        我是要成为真正的狐狸精!!!\
+        我要成为真正的狐狸精!!!\
         </p>\
         </body>\
         </html>";
@@ -94,7 +94,7 @@ int main()
         </head>
         <body>
         <p>
-        我是要成为真正的狐狸精!!!
+        我要成为真正的狐狸精!!!
         </p>
         </body>
         </html>)";
@@ -2128,7 +2128,7 @@ struct Test
 int main(void)
 {
     Test t;
-    t("我是要成为真正的狐狸精！！！");
+    t("我要成为真正的狐狸精！！！");
 
     return 0;
 }
@@ -2273,6 +2273,52 @@ int main(void)
 注：std::function 可以将可调用对象进行包装，得到统一形式，包装得到的对象为一个函数指针。
 
 #### 作为回调函数使用
+
+```c++
+#include <iostream>
+#include <functional>
+using namespace std;
+
+class A
+{
+public:
+    A(const function<void()>& f) : callback(f)
+    {
+
+    }
+
+    void notify()
+    {
+        callback();
+    }
+
+private:
+    function<void()> callback;
+};
+
+class B
+{
+public:
+    void operator()()
+    {
+        cout << "我要成为真正的狐狸精！！！" << endl;
+    }
+};
+
+int main(void)
+{
+    B b;
+    A a(b);
+    
+    a.notify();
+
+    return 0;
+}
+```
+
+注：使用 std::function 作为函数的传入参数，可以将不同的可调用对象进行统一的传递。
+
+### 可调用对象的绑定器
 
 ### 结语
 
