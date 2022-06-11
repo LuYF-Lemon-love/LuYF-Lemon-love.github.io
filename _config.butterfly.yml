@@ -963,7 +963,7 @@ inject:
      #- <link rel="stylesheet" href="/css/mouse.css">
      #- <link rel="stylesheet" href="/css/tag.css">
      #- <link rel="stylesheet" href="/css/transparent.css">
-     - <link rel="stylesheet" href="//at.alicdn.com/t/font_3411896_8kybu3r5toe.css">
+     #- <link rel="stylesheet" href="//at.alicdn.com/t/font_3411896_8kybu3r5toe.css">
      - "<style>#article-container.post-content h1:before, h2:before, h3:before, h4:before, h5:before, h6:before { -webkit-animation: avatar_turn_around 1s linear infinite; -moz-animation: avatar_turn_around 1s linear infinite; -o-animation: avatar_turn_around 1s linear infinite; -ms-animation: avatar_turn_around 1s linear infinite; animation: avatar_turn_around 1s linear infinite; }</style>"
      - <link rel="stylesheet" href="/css/custom/twikoo_beautify.css"  media="defer" onload="this.media='all'">
      - <link rel="stylesheet" href="/css/custom/fixed_comment.css"  media="defer" onload="this.media='all'">
