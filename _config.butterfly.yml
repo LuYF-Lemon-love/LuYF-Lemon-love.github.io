@@ -87,18 +87,23 @@ flink_style: volantis # butterfly | volantis | flexcard
 #  Message: /Message/ || fas fa-comment
 #  Domains: /Domains/ || fas fa-gift
 #  About: /about/ || fas fa-heart
+
+#List||iconfont icon-list:
+#  Music: /music/ || iconfont icon-music
+#  Image: /Gallery/ || iconfont icon-images
+#  Movie: /movies/ || iconfont icon-video
+#  ShuoShuo: /artitalk/ || iconfont icon-comment
+#  Bilibili: /bilibili/ || iconfont icon-bilibili
   
 menu:
   Home: / || iconfont icon-home
   Archives: /archives/ || iconfont icon-hc-archive
   Tags: /tags/ || iconfont icon-tag-color
   Categories: /categories/ || iconfont icon-categories
-  生活||iconfont icon-list:
-    Music: /music/ || iconfont icon-music
+  Life||iconfont icon-list:
     Image: /Gallery/ || iconfont icon-images
-    Movie: /movies/ || iconfont icon-video
     ShuoShuo: /artitalk/ || iconfont icon-comment
-    Bilibili: /bilibili/ || iconfont icon-bilibili 
+    Bilibili: /bilibili/ || iconfont icon-bilibili
   Server||iconfont icon-lx-server:
     Github: http://github.luyf-lemon-love.space || iconfont icon-github
     Gitee: https://luyf-lemon-love.gitee.io || iconfont icon-gitee
