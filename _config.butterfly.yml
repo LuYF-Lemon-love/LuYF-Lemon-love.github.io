@@ -93,21 +93,22 @@ menu:
   Archives: /archives/ || iconfont icon-hc-archive
   Tags: /tags/ || iconfont icon-tag-color
   Categories: /categories/ || iconfont icon-categories
-  Life||iconfont icon-list:
+  List||iconfont icon-list:
     Music: /music/ || iconfont icon-music
     Image: /Gallery/ || iconfont icon-images
     Movie: /movies/ || iconfont icon-video
     ShuoShuo: /artitalk/ || iconfont icon-comment
     Bilibili: /bilibili/ || iconfont icon-bilibili 
-  Link: /link/ || iconfont icon-link
-  Message: /Message/ || iconfont icon-a-my_icon_comment2x
-  Domains: /Domains/ || iconfont icon-domainyuming
-  About: /about/ || iconfont icon-set_about_hov
   Server||iconfont icon-lx-server:
     Github: http://github.luyf-lemon-love.space || iconfont icon-github
     Gitee: https://luyf-lemon-love.gitee.io || iconfont icon-gitee
     Vercel: https://vercel.luyf-lemon-love.space || iconfont icon-logo-vercel
     Cloud: https://server.luyf-lemon-love.space || iconfont icon-cloud
+  Link: /link/ || iconfont icon-link
+  Message: /Message/ || iconfont icon-a-my_icon_comment2x
+  Domains: /Domains/ || iconfont icon-domainyuming
+  About: /about/ || iconfont icon-set_about_hov
+  
   
 
 # Code Blocks (代碼相關)
