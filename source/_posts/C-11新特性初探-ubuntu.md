@@ -2205,6 +2205,75 @@ int main(void)
 
 ### 可调用对象包装器
 
+`std::function 是可调用对象的包装器，它是一个类模板，可以容纳除了类成员（函数）指针之外的所有可调用对象。`
+
+#### 基本用法
+
+```c++
+# 语法
+#include <functional>
+std::function<返回值类型(参数类型列表)> name = 可调用对象;
+```
+
+```c++
+#include <iostream>
+#include <functional>
+using namespace std;
+
+int add(int a, int b)
+{
+    cout << a << " + " << b << " = " << a + b << endl;
+    
+    return a + b;
+}
+
+class T1
+{
+public:
+    static int sub(int a, int b)
+    {
+        cout << a << " - " << b << " = " << a - b << endl;
+
+        return a - b;
+    }
+};
+
+class T2
+{
+public:
+    int operator()(int a, int b)
+    {
+        cout << a << " * " << b << " = " << a * b << endl;
+
+        return a * b;
+    }
+};
+
+int main(void)
+{
+    function<int(int, int)> f1 = add;
+    function<int(int, int)> f2 = T1::sub;
+
+    T2 t;
+    function<int(int, int)> f3 = t;
+
+    // output: 9 + 3 = 12
+    f1(9, 3);
+
+    // output: 9 - 3 = 6
+    f2(9, 3);
+
+    // output: 9 * 3 = 27
+    f3(9, 3);
+
+    return 0;
+}
+```
+
+注：std::function 可以将可调用对象进行包装，得到统一形式，包装得到的对象为一个函数指针。
+
+#### 作为回调函数使用
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
