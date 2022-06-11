@@ -1922,6 +1922,83 @@ https://lu-yf-lemon-love-github-io-git-master-luyf-lemon-love.vercel.app/
 https://luyf-lemon-love.gitee.io	> Server > Gitee Page
 ```
 
+### menu 图标完善
+
+注：国内最出名的莫过于 iconfont ,功能很强大且图标内容很丰富的矢量图标库。很多 Font Awesome 不支持的图标都可以在这里找到。同时，iconfont 支持选择需要的图标生成 css 链接，减少不必要的 CSS 加载。使用 Font Awesome，博客第一次加载时可能无法加载图标。2022 年 6 月 8 日开始， iconfont 官网维护了 3 日，还没有完成，导致用户没办法使用。因此，我们这次将把 iconfont 下载到本地加载。Butterfly 主题的 Menu 中的 List > Music 和 List > Movie 会自动加载，无需配置图标。尽量不要随意修改 Butterfly 主题的 Menu，可能导致移动端加载 Menu 失败。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220611153256.png)
+
+1. 注册登录 [iconfont](https://www.iconfont.cn/)，Butterfly 官方文档介绍了 iconfont 申请流程，可以参考该文文档 [Butterfly 安装文档(六) 进阶教程-Icon](https://butterfly.js.org/posts/4073eda/#Icon)
+
+2. 添加图标到购物车
+
+3. 点击购物车，将图标添加进项目，如果没有项目点击下面的按钮，新建一个项目。项目中的图标为
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220611154313.png)
+
+4. 点击 Download Code，下载到本地。解压压缩包，里面的文件如图
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220611154736.png)
+
+5. 将上面的所有文件复制到 blog/themes/butterfly/source/css/iconfont 目录中（路径中的 iconfont 目录如果没有，请创建），然后添加到 _config.butterfly.yml 文件的 inject 的 head 处
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220611155114.png)
+
+```yaml
+- <link rel="stylesheet" href="/css/iconfont/iconfont.css">
+```
+
+6. 可以在 _config.butterfly.yml 文件的 menu 处引用，引用的格式为 iconfont icon名字，如 iconfont icon-bilibili
+
+7. 修改 _config.butterfly.yml 文件，修改 menu 处的配置（Server 页的域名链接修改在下一小节介绍）
+
+```yaml
+menu:
+  Home: / || iconfont icon-home
+  Archives: /archives/ || iconfont icon-archive
+  Tags: /tags/ || iconfont icon-tag-color
+  Categories: /categories/ || iconfont icon-category
+  Life||iconfont icon-list:
+    Image: /Gallery/ || iconfont icon-image
+    ShuoShuo: /artitalk/ || iconfont icon-comment
+    Bilibili: /bilibili/ || iconfont icon-bilibili
+  Server||iconfont icon-lx-server:
+    Github: https://github.luyf-lemon-love.space || iconfont icon-github
+    Gitee: https://luyf-lemon-love.gitee.io || iconfont icon-gitee
+    Vercel: https://vercel.luyf-lemon-love.space || iconfont icon-logo-vercel
+    Cloud: https://server.luyf-lemon-love.space || iconfont icon-cloud
+  Link: /link/ || iconfont icon-link
+  Message: /Message/ || iconfont icon-comment1
+  Domains: /Domains/ || iconfont icon-domainyuming
+  About: /about/ || iconfont icon-set_about_hov
+```
+
+8. 修改 Message 的 title
+
+```yaml
+# envelope_comment
+# see https://akilar.top/posts/e2d3c450/
+envelope_comment:
+  enable: true #控制开关
+  custom_pic:      
+    cover: https://npm.elemecdn.com/hexo-butterfly-envelope/lib/violet.jpg #信笺头部图片
+    line: https://npm.elemecdn.com/hexo-butterfly-envelope/lib/line.png #信笺底部图片
+    beforeimg: https://npm.elemecdn.com/hexo-butterfly-envelope/lib/before.png # 信封前半部分
+    afterimg: https://npm.elemecdn.com/hexo-butterfly-envelope/lib/after.png # 信封后半部分
+  message: #信笺正文，多行文本，写法如下
+    - 有什么想问的？
+    - 有什么想说的？
+    - 有什么想吐槽的？
+    - 哪怕是有什么想吃的，都可以告诉我哦~
+  bottom: 自动书记人偶竭诚为您服务！ #仅支持单行文本
+  height: #1050px，信封划出的高度
+  path: Message #【可选】comments 的路径名称。默认为 comments，生成的页面为 comments/index.html
+  front_matter: #【可选】comments页面的 front_matter 配置
+    title: Message
+    comments: true
+    top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511162303.png
+```
+
 ### 结语
 
 第十二篇博文写完，开心！！！！
