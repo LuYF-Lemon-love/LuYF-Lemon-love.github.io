@@ -105,7 +105,7 @@ menu:
     ShuoShuo: /artitalk/ || iconfont icon-comment
     Bilibili: /bilibili/ || iconfont icon-bilibili
   Server||iconfont icon-lx-server:
-    Github: http://github.luyf-lemon-love.space || iconfont icon-github
+    Github: https://github.luyf-lemon-love.space || iconfont icon-github
     Gitee: https://luyf-lemon-love.gitee.io || iconfont icon-gitee
     Vercel: https://vercel.luyf-lemon-love.space || iconfont icon-logo-vercel
     Cloud: https://server.luyf-lemon-love.space || iconfont icon-cloud
