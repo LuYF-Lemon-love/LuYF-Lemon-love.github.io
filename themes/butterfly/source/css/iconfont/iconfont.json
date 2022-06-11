@@ -6,11 +6,46 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "5379904",
-      "name": "list",
-      "font_class": "list1",
-      "unicode": "e707",
-      "unicode_decimal": 59143
+      "icon_id": "122690",
+      "name": "Category",
+      "font_class": "category",
+      "unicode": "e699",
+      "unicode_decimal": 59033
+    },
+    {
+      "icon_id": "11231608",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e77c",
+      "unicode_decimal": 59260
+    },
+    {
+      "icon_id": "11231614",
+      "name": "image",
+      "font_class": "image",
+      "unicode": "e77f",
+      "unicode_decimal": 59263
+    },
+    {
+      "icon_id": "11231880",
+      "name": "comment",
+      "font_class": "comment",
+      "unicode": "e7a0",
+      "unicode_decimal": 59296
+    },
+    {
+      "icon_id": "14401714",
+      "name": "github",
+      "font_class": "github",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "14401850",
+      "name": "archive",
+      "font_class": "archive",
+      "unicode": "e69f",
+      "unicode_decimal": 59039
     },
     {
       "icon_id": "5379905",
@@ -34,13 +69,6 @@
       "unicode_decimal": 59129
     },
     {
-      "icon_id": "5379892",
-      "name": "home",
-      "font_class": "home",
-      "unicode": "e701",
-      "unicode_decimal": 59137
-    },
-    {
       "icon_id": "5379900",
       "name": "link",
       "font_class": "link",
@@ -48,32 +76,11 @@
       "unicode_decimal": 59140
     },
     {
-      "icon_id": "5379963",
-      "name": "video",
-      "font_class": "video",
-      "unicode": "e722",
-      "unicode_decimal": 59170
-    },
-    {
-      "icon_id": "8815653",
-      "name": "music",
-      "font_class": "music",
-      "unicode": "e924",
-      "unicode_decimal": 59684
-    },
-    {
       "icon_id": "11232059",
       "name": "comment",
-      "font_class": "comment",
+      "font_class": "comment1",
       "unicode": "e7c4",
       "unicode_decimal": 59332
-    },
-    {
-      "icon_id": "11913452",
-      "name": "images",
-      "font_class": "images",
-      "unicode": "e680",
-      "unicode_decimal": 59008
     },
     {
       "icon_id": "13592924",
@@ -90,39 +97,11 @@
       "unicode_decimal": 59016
     },
     {
-      "icon_id": "16319425",
-      "name": "hc-archive",
-      "font_class": "hc-archive",
-      "unicode": "e604",
-      "unicode_decimal": 58884
-    },
-    {
-      "icon_id": "21213246",
-      "name": "github",
-      "font_class": "github",
-      "unicode": "e723",
-      "unicode_decimal": 59171
-    },
-    {
       "icon_id": "22561663",
       "name": "tag-color",
       "font_class": "tag-color",
       "unicode": "e626",
       "unicode_decimal": 58918
-    },
-    {
-      "icon_id": "28727376",
-      "name": "categories",
-      "font_class": "categories",
-      "unicode": "e6a0",
-      "unicode_decimal": 59040
-    },
-    {
-      "icon_id": "29040713",
-      "name": "my_icon_comment@2x",
-      "font_class": "a-my_icon_comment2x",
-      "unicode": "e620",
-      "unicode_decimal": 58912
     },
     {
       "icon_id": "21901439",

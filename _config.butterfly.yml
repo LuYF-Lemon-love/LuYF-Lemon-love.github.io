@@ -97,14 +97,11 @@ flink_style: volantis # butterfly | volantis | flexcard
   
 menu:
   Home: / || iconfont icon-home
-  Archives: /archives/ || iconfont icon-hc-archive
+  Archives: /archives/ || iconfont icon-archive
   Tags: /tags/ || iconfont icon-tag-color
-  Categories: /categories/ || iconfont icon-categories
-  List||iconfont icon-list1:
-    Music: /music/ || iconfont icon-music
-    Movie: /movies/ || iconfont icon-video
+  Categories: /categories/ || iconfont icon-category
   Life||iconfont icon-list:
-    Image: /Gallery/ || iconfont icon-images
+    Image: /Gallery/ || iconfont icon-image
     ShuoShuo: /artitalk/ || iconfont icon-comment
     Bilibili: /bilibili/ || iconfont icon-bilibili
   Server||iconfont icon-lx-server:
@@ -113,11 +110,9 @@ menu:
     Vercel: https://vercel.luyf-lemon-love.space || iconfont icon-logo-vercel
     Cloud: https://server.luyf-lemon-love.space || iconfont icon-cloud
   Link: /link/ || iconfont icon-link
-  Message: /Message/ || iconfont icon-a-my_icon_comment2x
+  Message: /Message/ || iconfont icon-comment1
   Domains: /Domains/ || iconfont icon-domainyuming
   About: /about/ || iconfont icon-set_about_hov
-  
-  
 
 # Code Blocks (代碼相關)
 # --------------------------------------
