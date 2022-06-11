@@ -1632,6 +1632,31 @@ footer:
 footer_bg: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607151451.png #false
 ```
 
+在 blog/themes/butterfly/source/css/_custom 目录中创建 myCreate.css 文件，_custom 目录的作用请看 {% post_link Hexo快速搭建一个博客-ubuntu %} 的 Hexo 异步加载方案，粘贴下面代码
+
+```css
+/* 页脚半透明 */
+#footer {
+    background: rgba(255, 255, 255, 0);
+    color: #000;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    backdrop-filter: saturate(100%) blur(5px)
+}
+
+#footer::before {
+    background: rgba(255,255,255,0)
+}
+
+#footer #footer-wrap {
+    color: var(--font-color);
+}
+
+#footer #footer-wrap a {
+    color: var(--font-color);
+}
+```
+
 {% label 效果 pink %}
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607220645.png)
