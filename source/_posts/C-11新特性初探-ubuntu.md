@@ -2320,6 +2320,147 @@ int main(void)
 
 ### 可调用对象的绑定器
 
+std::bind 可以将可调用对象与参数一起进行绑定，绑定后的结果可以使用 std::function 进行保存。
+
+std::bind 的作用：
+
+- 将可调用对象与参数一起绑定成一个仿函数。
+
+- 将多元（参数个数为 n，n > 1）可调用对象转换为一元或者（n-1）元可调用对象。
+
+```c++
+// 绑定非类成员函数/变量
+auto f = std::bind(可调用对象地址, 绑定的参数/占位符);
+
+// 绑定类成员函数/变量
+auto f = std::bind(类函数/成员地址, 类实例对象地址, 绑定的参数/占位符);
+```
+
+```c++
+#include <iostream>
+#include <functional>
+using namespace std;
+
+void callFunc(int x, const function<void(int)>& f)
+{
+    if (x % 2 == 0)
+    {
+        f(x);
+    }
+}
+
+void output(int x)
+{
+    cout << x << " ";
+}
+
+void output_add(int x)
+{
+    cout << x + 10 << " ";
+}
+
+int main(void)
+{
+    // output: 0 2 4 6 8
+    auto f1 = bind(output, placeholders::_1);
+    for (int i = 0; i < 10; ++i)
+    {
+        callFunc(i, f1);
+    }
+    cout << endl;
+
+    // output: 10 12 14 16 18
+    auto f2 = bind(output_add, placeholders::_1);
+    for (int i = 0; i < 10; ++i)
+    {
+        callFunc(i, f2);
+    }
+    cout << endl;
+
+    return 0;
+}
+```
+
+注：placeholders::_1 是一个占位符，代表这个位置将在函数调用时被传入的第一个参数所替代。
+
+```c++
+#include <iostream>
+#include <functional>
+using namespace std;
+
+void output(int x, int y)
+{
+    cout << x << " " << y << endl;
+}
+
+int main(void)
+{
+    // output: 1 2
+    bind(output, 1, 2)();
+
+    // output: 10 2
+    bind(output, placeholders::_1, 2)(10);
+
+    // output: 2 10
+    bind(output, 2, placeholders::_1)(10);
+
+    // output: 2 20
+    bind(output, 2, placeholders::_2)(10, 20);
+
+    // output: 10 20
+    bind(output, placeholders::_1, placeholders::_2)(10, 20);
+
+    // output: 20 10
+    bind(output, placeholders::_2, placeholders::_1)(10, 20);
+
+    return 0;
+}
+```
+
+{% span cyan, std::function 配合 std::bind 实现对类成员函数指针或类成员指针的包装 %}
+
+```c++
+#include <iostream>
+#include <functional>
+using namespace std;
+
+class Test
+{
+public:
+    void output(int x, int y)
+    {
+        cout << "x: " << x << ", y: " << y << endl;
+    }
+    int m_number = 100;
+};
+
+int main(void)
+{
+    Test t;
+
+    // 绑定类成员函数
+    function<void(int, int)> f1 = 
+        bind(&Test::output, &t, placeholders::_1, placeholders::_2);
+
+    // 绑定类成员变量（public）
+    function<int&(void)> f2 = bind(&Test::number, &t);
+
+    // output: x: 1, y: 2
+    f1(1, 2);
+
+    f2() = 1;
+
+    // output: t.m_number: 1
+    cout << "t.m_number: " << t.m_number << endl;
+
+    return 0;
+}
+```
+
+注：`f1` 的类型是 `function<void(int, int)>`，通过使用 std::bind 将 Test 的成员函数 output 的地址和对象 t 绑定，并转化为一个仿函数并存储到对象 f1 中。
+
+注：`f2` 的类型是 `function<int&(void)>`，通过使用 std::bind 将 Test 的成员 m_number 的地址和对象 t 绑定，并转换为一个仿函数并存储到对象 f2 中。int 是绑定的类成员的类型，`&` 表示变量可以被修改，由于没有参数，因此参数列表指定为 void。
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
