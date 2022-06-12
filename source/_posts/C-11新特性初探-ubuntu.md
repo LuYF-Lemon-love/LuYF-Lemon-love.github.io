@@ -2617,6 +2617,58 @@ auto f1 = []()
 
 #### 函数本质
 
+被 mutable 修改的 lambda 表达式没有参数也要写出参数列表，可以去掉按值捕获的外部变量的只读（const）属性。
+
+```c++
+int a = 0;
+
+// error
+auto f1 = [=]{return a++;};
+
+// ok
+auto f2 = [=]()mutable {return a++;};
+```
+
+注：lambda 表达式的类型在 C++11 中会被看做是一个带 operator() 的类，即仿函数。lambda 表达式的 operator() 默认是 const 的，一个 const 成员函数是无法修改成员变量值的。
+
+{% span cyan, mutable 选项的作用就在于取消 operator() 的 const 属性。 %}
+
+---
+
+`可以使用 std::function 和 std::bind 来存储和操作 lambda 表达式`
+
+```c++
+#include <iostream>
+#include <functional>
+using namespace std;
+
+int main(void)
+{
+    std::function<int(int)> f1 = [](int a){return a;};
+    std::function<int(int)> f2 = bind([](int a){return a;}, placeholders::_1);
+
+    cout << f1(100) << endl;
+    cout << f2(200) << endl;
+
+    return 0;
+}
+```
+
+{% span cyan, 没有捕获任何变量的 lambda 表达式，可以转换成一个普通的函数指针。 %}
+
+```c++
+using func_ptr = int(*)(int);
+
+func_ptr f = [](int a)
+{
+    return a;
+};
+
+f(1);
+```
+
+### 右值引用
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
