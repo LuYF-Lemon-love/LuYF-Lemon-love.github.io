@@ -2583,6 +2583,39 @@ int main(void)
 
 #### 返回值
 
+{% span cyan, C++11 中允许省略 lambda 表达式的返回值，编译器会根据 return 语句自动推导返回值的类型。 %}
+
+```c++
+// 完整的 lambda 表达式定义
+auto f = [](int a) -> int
+{
+    return a + 10;
+};
+
+// 忽略返回值
+auto f = [](int a)
+{
+    return a + 10;
+};
+```
+
+{% span cyan, lambda 表达式不能通过列表初始化自动推导出返回值类型。 %}
+
+```c++
+auto f = [](int i)
+{
+    return i;
+}
+
+// error
+auto f1 = []()
+{
+    return {1, 2};
+}
+```
+
+#### 函数本质
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
