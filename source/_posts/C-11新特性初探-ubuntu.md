@@ -2602,6 +2602,7 @@ auto f = [](int a)
 {% span cyan, lambda 表达式不能通过列表初始化自动推导出返回值类型。 %}
 
 ```c++
+// ok
 auto f = [](int i)
 {
     return i;
