@@ -2631,7 +2631,7 @@ auto f2 = [=]()mutable {return a++;};
 
 注：lambda 表达式的类型在 C++11 中会被看做是一个带 operator() 的类，即仿函数。lambda 表达式的 operator() 默认是 const 的，一个 const 成员函数是无法修改成员变量值的。
 
-{% span cyan, mutable 选项的作用就在于取消 operator() 的 const 属性。 %}
+{% span cyan, mutable 选项可以取消 operator() 的 const 属性。 %}
 
 ---
 
