@@ -2769,7 +2769,7 @@ Test getObj()
 
 int main()
 {
-    // 深拷贝
+    // 调用拷贝构造函数进行深拷贝
     Test t = getObj();
 
     cout << "t.m_num: " << *t.m_num << endl;
@@ -2780,7 +2780,7 @@ int main()
 
 {% label output pink %}
 
-```c++
+```shell
 construct
 copy construct
 t.m_num: 100
@@ -2791,7 +2791,65 @@ t.m_num: 100
 ```c++
 #include <iostream>
 using namespace std;
+
+class Test
+{
+public:
+    Test() : m_num(new int(100))
+    {
+        cout << "construct" << endl;
+    }
+
+    Test(const Test& a) : m_num(new int(*a.m_num))
+    {
+        cout << "copy construct" << endl;
+    }
+
+    // 添加移动构造函数
+    Test(Test&& a) : m_num(a.m_num)
+    {
+        a.m_num = nullptr;
+        cout << "move construct" << endl;
+    }
+
+    ~Test()
+    {
+        delete m_num;
+        cout << "destruct Test class ..." << endl;
+    }
+
+    int* m_num;
+};
+
+Test getObj()
+{
+    Test t;
+    return t;
+}
+
+int main()
+{
+    // 调用移动构造函数进行浅拷贝
+    Test t = getObj();
+    cout << "t.m_num: " << *t.m_num << endl;
+
+    return 0;
+}
 ```
+
+{% label output pink %}
+
+```shell
+construct
+move construct
+destruct Test class ...
+t.m_num: 100
+destruct Test class ...
+```
+
+注：移动构造中使用了右值引用，会将临时对象中的堆内存地址的所有权转移给对象 t。
+
+#### && 的特性
 
 ### 结语
 
