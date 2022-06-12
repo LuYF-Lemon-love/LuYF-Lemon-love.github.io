@@ -2669,6 +2669,71 @@ f(1);
 
 ### 右值引用
 
+左值（loactor value, lvalue）是存储在内存中，有明确存储地址的数据（可取地址）。右值（read value，rvalue）是指可以提供数据值的数据（不可取地址）。所有有名字的变量或对象都是左值，而右值是匿名的。
+
+```c++
+// a，b 是左值。1，2 是右值。
+int a = 1;
+int b = 2;
+a = b;
+```
+
+右值分为两种：
+
+- 纯右值：非引用返回的临时变量、运算表达式产生的临时变量、原始字面量和 lambda 表达式等
+
+- 将亡值：与右值引用相关的表达式，如 `T&&` 类型函数的返回值、`std::move` 的返回值等
+
+{% span cyan, 右值引用（R-value reference）是一个对右值进行引用的类型，右值引用必须立即进行初始化，右值引用并不拥有所绑定对象的内存，只是一个别名，右值引用将右值（临时变量）的生命周期延长，使得所绑定的对象的生命周期与右值引用的声明周期相同，右值引用的标记为 `&&` %}
+
+```c++
+#include <iostream>
+using namespace std;
+
+// 右值引用
+int&& value = 1;
+
+class Test
+{
+public:
+    Test()
+    {
+        cout << "construct" << endl;
+    }
+
+    Test(const Test& a)
+    {
+        cout << "copy construct" << endl;
+    }
+};
+
+Test getObj()
+{
+    return Test();
+}
+
+int main(){
+    
+    int a1;
+
+    // error，使用左值初始化一个右值引用类型是不合法的
+    int &&a2 = a1;
+
+    // error，右值不能给普通的左值引用赋值
+    Test& t = getObj();
+
+    // ok
+    Test && t = getObj();
+
+    // ok，常量左值引用可以接受左值、右值、常量左值和常量右值
+    const Test& t = getObj();
+
+    return 0;
+}
+```
+
+#### 性能优化
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
