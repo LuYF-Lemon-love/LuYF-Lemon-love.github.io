@@ -74,6 +74,10 @@ date: 2022-05-31 12:03:52
 
 27. [新用户体验奖励](https://cloud.tencent.com/document/product/228/64651)
 
+28. [关于 COS 不再支持新增默认 CDN 加速域名的通知](https://cloud.tencent.com/document/product/436/67767)
+
+29. [腾讯云对象存储COS及CDN加速配置](https://blog.csdn.net/qq_40994734/article/details/112103579?spm=1001.2014.3001.5506)
+
 ### 环境版本
 
 ```
@@ -2034,7 +2038,7 @@ envelope_comment:
 
 ### 开启自定义 CDN 加速域名 和 完善博客域名
 
->虽然开启 CDN 加速域名可以省去 COS 下行流量费用，换成价格更便宜的 CDN 下行流量费用和 CDN 回源流量费用。但是腾讯云 CDN 将默认在 DNSPod 内针对该域名增加一条 CNAME 解析记录值，因此将导致我们无法将其解析到 Github 和 Vercel 上。
+>开启 CDN 加速域名可以省去 COS 下行流量费用，换成价格更便宜的 CDN 下行流量费用和 CDN 回源流量费用。自2022年5月9日起，对象存储（Cloud Object Storage，COS）服务将不再支持新增默认 CDN 加速域名。因此只能开启自定义 CDN 加速域名，但是如果域名接入国内 CDN，是需要备案的。因为 Vercel 和 Github 服务器在国外，而且我们的博客也不能保证只在国内访问，难免还是会消耗 COS 下行流量费用，CDN 全球加速费用并不便宜。最主要的是我们的博客每月的流量并不高，3.6 元 10G 的 COS 外网下行流量包已经够用，而且我也懒得改图床的域名。因此我并没有开启 CDN 加速。
 
 对象存储（Cloud Object Storage，COS）开启自定义 CDN 加速域名的教程：
 
@@ -2044,7 +2048,9 @@ envelope_comment:
 
 3. [配置 CNAME](https://cloud.tencent.com/document/product/228/3121)
 
-4. [新用户体验奖励](https://cloud.tencent.com/document/product/228/64651)
+4. [腾讯云对象存储COS及CDN加速配置](https://blog.csdn.net/qq_40994734/article/details/112103579?spm=1001.2014.3001.5506)
+
+5. [新用户体验奖励](https://cloud.tencent.com/document/product/228/64651)
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220611171516.png)
 
