@@ -2734,6 +2734,65 @@ int main(){
 
 #### 性能优化
 
+{% span cyan, 使用右值引用避免对象的深拷贝 %}
+
+```c++
+#include <iostream>
+using namespace std;
+
+class Test
+{
+public:
+    Test() : m_num(new int(100))
+    {
+        cout << "construct" << endl;
+    }
+
+    Test(const Test& a) : m_num(new int(*a.m_num))
+    {
+        cout << "copy construct" << endl;
+    }
+
+    ~Test()
+    {
+        delete m_num;
+    }
+
+    int* m_num;
+};
+
+Test getObj()
+{
+    Test t;
+    return t;
+}
+
+int main()
+{
+    // 深拷贝
+    Test t = getObj();
+
+    cout << "t.m_num: " << *t.m_num << endl;
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```c++
+construct
+copy construct
+t.m_num: 100
+```
+
+{% span cyan, 右值引用具有移动语义，可以将资源（堆、系统对象等）通过浅拷贝从一个对象转移到另一个对象 %}
+
+```c++
+#include <iostream>
+using namespace std;
+```
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
