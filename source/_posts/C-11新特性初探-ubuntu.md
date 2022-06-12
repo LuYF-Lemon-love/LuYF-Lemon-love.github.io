@@ -2499,6 +2499,90 @@ auto f = []{return 1;};
 
 #### 捕获列表
 
+lambda 表达式的捕获列表可以捕获一定范围内的变量。
+
+- `[]`: 不捕捉任何变量
+
+- `[&]`: 捕获外部作用域中所有变量，按引用捕获
+
+- `[=]`: 捕获外部作用域中所有变量，按值捕获，拷贝的副本在匿名函数体内部是只读的
+
+- `[=, &var]`: 按值捕获外部作用域中所有变量，并按照引用捕获外部变量 var
+
+- `[var]`: 按值捕获 var 变量
+
+- `[&var]`: 按引用捕获 var 变量
+
+- `[this]`: 捕获当前类中的 this 指针，让 lambda 表达式拥有和当前类成员函数同样的访问权限，如果已经使用了 & 或者 =，默认添加此选项
+
+```c++
+#include <iostream>
+#include <functional>
+using namespace std;
+
+class Test
+{
+public:
+    void output(int x, int y)
+    {
+        // error
+        auto x1 = []{return m_number;};
+
+        // ok
+        auto x2 = [=]{return m_number + x + y;};
+
+        // ok
+        auto x3 = [&]{return m_number + x + y;};
+
+        // ok，捕获 this 指针，可访问对象内部成员
+        auto x4 = [this]{return m_number;};
+
+        // error
+        auto x5 = [this]{return m_number + x + y;};
+
+        // ok
+        auto x6 = [this, x, y]{return m_number + x + y;};
+
+        // ok
+        auto x7 = [this]{return m_number++;};
+    }
+
+    int m_number = 100;
+};
+```
+
+```c++
+int main(void)
+{
+    int a = 10, b = 20;
+    
+    // error
+    auto f1 = []{return a;};
+
+    // ok
+    auto f2 = [&]{return a++;};
+
+    // ok
+    auto f3 = [=]{return a;};
+
+    // error
+    auto f4 = [=]{return a++;};
+
+    // error
+    auto f5 = [a]{return a + b;};
+
+    // ok
+    auto f6 = [a, &b]{return a + (b++);};
+
+    // ok
+    auto f7 = [=, &b]{return a + (b++);};
+
+    return 0;
+}
+```
+
+#### 返回值
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
