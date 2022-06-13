@@ -513,7 +513,7 @@ footer:
     enable: true
     since: 2022
   custom_text: 
-    - <a href="https://beian.miit.gov.cn"><span>冀ICP备2022012632号-1</span></a><br/><span>感谢光临小破站，欢迎您提出宝贵的意见！</span>
+    - <a href="https://beian.miit.gov.cn"><span>冀ICP备2022012632号-1</span></a><br/><span>感谢光临小破站，欢迎您提出宝贵的意见！</span><br/><div style="width:300px;margin:0 auto; padding:20px 0;"><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32011502011618" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/备案图标.png" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">苏公网安备 32011502011618号</p></a></div>
   copyright: true # Copyright of theme and framework
 
 # Analysis

@@ -3,6 +3,15 @@ title: Hexo博客补充-ubuntu
 tags:
   - Hexo
   - Butterfly
+  - Github
+  - 腾讯云
+  - 轻量应用服务器
+  - 宝塔Linux面板
+  - Vercel
+  - 域名
+  - CDN
+  - 网站备案
+  - 公安备案
 categories: 博客
 description: 对第一个搭建博客的博文-Hexo快速搭建一个博客-ubuntu的补充。
 cover: >-
