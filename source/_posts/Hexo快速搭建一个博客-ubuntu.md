@@ -15,7 +15,7 @@ tags:
 - 百度收录
 categories: 博客
 description: 搭建一个 Hexo 博客，进行 Butterfly 主题魔改，且解决遇到的各种各样的部署问题。
-cover: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220513124600.png
+cover: https://cos.luyf-lemon-love.space/images/20220513124600.png
 swiper_index: 1
 abbrlink: 1500512943
 date: 2022-05-08 23:22:38
@@ -969,7 +969,7 @@ setInterval(function () {
 
 在 blog/themes/butterfly/layout/includes/widget 目录下找到 card_announcement.pug 文件，添加 timing（注意缩进）
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220510195528.png)
+![](https://cos.luyf-lemon-love.space/images/20220510195528.png)
 
 #### 页脚美化
 
@@ -3074,13 +3074,13 @@ grid5   # 等宽最多 5 列，屏幕变窄会适当减少列数。
   <i class='fab fa-apple'></i>
   <b>心率管家</b>
   {% p red, 专业版 %}
-  <img src='https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511162345.png'>
+  <img src='https://cos.luyf-lemon-love.space/images/20220511162345.png'>
 </a>
 <a href='https://apps.apple.com/cn/app/heart-mate-lite-hrm-utility/id1475747930?ls=1'>
   <i class='fab fa-apple'></i>
   <b>心率管家</b>
   {% p green, 免费版 %}
-  <img src='https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511162303.png'>
+  <img src='https://cos.luyf-lemon-love.space/images/20220511162303.png'>
 </a>
 {% endbtns %}
 
@@ -3152,7 +3152,7 @@ print("hello world)
 
 {% folding 查看图片测试 %}
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511162004.png)
+![](https://cos.luyf-lemon-love.space/images/20220511162004.png)
 
 {% endfolding %}
 
@@ -3184,7 +3184,7 @@ print("hello world)
 
 {% folding 查看嵌套测试3 %}
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511161739.png)
+![](https://cos.luyf-lemon-love.space/images/20220511161739.png)
 
 {% endfolding %}
 
@@ -3222,7 +3222,7 @@ print("hello world)
 
 效果
 
-{% link 苏苏真可爱, https://luyf-lemon-love.github.io/, https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511161856.png %}
+{% link 苏苏真可爱, https://luyf-lemon-love.github.io/, https://cos.luyf-lemon-love.space/images/20220511161856.png %}
 
 #### 访客信息
 
@@ -3257,15 +3257,15 @@ if theme.aside.card_ip
 
 具体位置如下图所示
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511223806.png)
+![](https://cos.luyf-lemon-love.space/images/20220511223806.png)
 
 4. 编辑 blog/themes/butterfly/languages/zh-CN.yml 文件， 在 aside 处添加 `card_ip: 当前访问用户` 代码，如下图所示
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511224229.png)
+![](https://cos.luyf-lemon-love.space/images/20220511224229.png)
 
 5. 在 _config.butterfly.yml 文件的 aside 处添加代码 `card_ip: true`，如下图所示
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511224521.png)
+![](https://cos.luyf-lemon-love.space/images/20220511224521.png)
 
 6. 在 blog/themes/butterfly/source/js 下创建 ip_content.js，并添加如下代码
 
@@ -3436,7 +3436,7 @@ Message: /Message/ || fas fa-comment
 
 所在位置如下图所示
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511232203.png)
+![](https://cos.luyf-lemon-love.space/images/20220511232203.png)
 
 #### 鼠标样式修改
 
@@ -3704,13 +3704,13 @@ comments:
 
 1. 获取 APP ID 和 APP Key，请先登录或注册 [LeanCloud](https://console.leancloud.app/), 进入控制台后点击左下角创建应用：
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603141503.png)
+![](https://cos.luyf-lemon-love.space/images/20220603141503.png)
 
 2. 应用创建好以后，进入刚刚创建的应用，选择左下角的设置>应用Key，然后就能看到你的 APP ID、APP Key 和 serverURLs（REST API 服务器地址）了：
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603141538.png)
+![](https://cos.luyf-lemon-love.space/images/20220603141538.png)
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220603145241.png)
+![](https://cos.luyf-lemon-love.space/images/20220603145241.png)
 
 在 _config.butterfly.yml 文件设置 valine 的属性，开启 visitor 后，文章页的访问人数将改为 Valine 提供，而不是 不蒜子。
 
@@ -6700,7 +6700,7 @@ if hexo-config('css_prefix')
 
 6. 然后设置参数，如下图
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/访客地图.png)
+![](https://cos.luyf-lemon-love.space/images/访客地图.png)
 
 7. 复制代码到你想要展示的地方，如放在 About 界面的 index.md 文件。
 
@@ -8368,9 +8368,9 @@ pjax:
 
 8. 成功页面
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220516145612.png)
+![](https://cos.luyf-lemon-love.space/images/20220516145612.png)
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220516145910.png)
+![](https://cos.luyf-lemon-love.space/images/20220516145910.png)
 
 #### hexo-filter-nofollow
 
@@ -10220,7 +10220,7 @@ $.fn.ripples.noConflict = function() {
 
 打开浏览器分别输入 `https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/img/default.cur`和 `https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/img/pointer.cur` 分别下载 default.cur 和 pointer.cur，并且将这两个文件放在 blog/themes/butterfly/source/img 目录下，如图
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220521161313.png)
+![](https://cos.luyf-lemon-love.space/images/20220521161313.png)
 
 修改 blog/themes/butterfly/source/css/_custom/mouse.css 文件的内容为
 
@@ -10652,7 +10652,7 @@ inject:
 
 2. 然后进入[腾讯云 DNS 解析控制台](https://console.cloud.tencent.com/cns)，点击你的域名的解析按钮，点击添加记录按钮，如图
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220521205001.png)
+![](https://cos.luyf-lemon-love.space/images/20220521205001.png)
 
 ```
 主机记录：填写子域名。例如，添加 www.123.com 的解析，您在 “主机记录” 处选择 “www” 即可。如果只是想添加 123.com 的解析，您在 “主机记录” 处选择 “@” 即可。“@” 的 CNAME 会影响到 MX 记录的正常解析，添加时请您慎重考虑。
@@ -10700,13 +10700,13 @@ inject:
 
 3. 为了使访客用不用 www 都可以访问博客，我们添加两条记录，注意：我们选择 CNAME 记录类型，记录值填写 **你的 Github 用户名.github.io**，如图
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220521205412.png)
+![](https://cos.luyf-lemon-love.space/images/20220521205412.png)
 
 4. 进入你的 Github 博客所在仓库的设置页面，点击 Pages，在 Custom domain 处修改域名为你之前买的域名，并勾选 Enforce HTTPS，然后点击 Save。如图
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220521210424.png)
+![](https://cos.luyf-lemon-love.space/images/20220521210424.png)
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220521210459.png)
+![](https://cos.luyf-lemon-love.space/images/20220521210459.png)
 
 5. 在 blog/source 目录下新建一个 CNAME 文件，填入你的域名。
 
@@ -10732,11 +10732,11 @@ hexo d
 
 1. 在 LuYF-Lemon-love.github.io 仓库的主页新建一个 hexo 分支。
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220521221948.png)
+![](https://cos.luyf-lemon-love.space/images/20220521221948.png)
 
 2. 在 LuYF-Lemon-love.github.io 仓库的设置页面 > Branches > Default branch 处修改默认分支为 hexo 。
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220521222202.png)
+![](https://cos.luyf-lemon-love.space/images/20220521222202.png)
 
 3. 在本地任意目录下运行下面命令，将你的仓库克隆到本地
 
@@ -10884,9 +10884,9 @@ https://lu-yf-lemon-love-github-io.vercel.app/sitemap.xml
 
 7. 第二天和第三天的结果
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220523141148.png)
+![](https://cos.luyf-lemon-love.space/images/20220523141148.png)
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220524141249.png)
+![](https://cos.luyf-lemon-love.space/images/20220524141249.png)
 
 8. 百度收录很慢，一般至少要半个月，你可以半个月后到百度搜索引擎中输入 site:<域名>（site:lu-yf-lemon-love-github-io.vercel.app)看看又没有收录。
 
@@ -10894,7 +10894,7 @@ https://lu-yf-lemon-love-github-io.vercel.app/sitemap.xml
 
 1. 登录 [百度普通收录](https://ziyuan.baidu.com/linksubmit/index)，获取到 token。
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220523144002.png)
+![](https://cos.luyf-lemon-love.space/images/20220523144002.png)
 
 2. 安装插件
 

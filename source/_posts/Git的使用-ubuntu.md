@@ -5,12 +5,10 @@ tags:
   - Github
 categories: 计算机基础
 description: 介绍 Git 和 Github。
-cover: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511161508.png
+cover: https://cos.luyf-lemon-love.space/images/20220511161508.png
 abbrlink: 2854530117
 date: 2022-05-07 04:53:32
 ---
-
-
 
 ### 写在前面
 

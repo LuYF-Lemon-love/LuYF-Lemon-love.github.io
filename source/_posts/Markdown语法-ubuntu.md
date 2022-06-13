@@ -5,7 +5,7 @@ tags:
   - Markdown
 categories: 计算机基础
 description: 介绍一些 Markdown 常用语法
-cover: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220513124626.png
+cover: https://cos.luyf-lemon-love.space/images/20220513124626.png
 abbrlink: 2817253591
 date: 2022-05-07 22:53:26
 ---
@@ -138,7 +138,7 @@ print("hello world!)
 ```
 效果
 
-![苏苏真可爱](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/苏苏1.jpeg "苏苏惊呆图")
+![苏苏真可爱](https://cos.luyf-lemon-love.space/images/苏苏1.jpeg "苏苏惊呆图")
 
 
 #### Ordered List

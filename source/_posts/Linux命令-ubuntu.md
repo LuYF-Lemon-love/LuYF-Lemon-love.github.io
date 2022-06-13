@@ -3,7 +3,7 @@ title: Linux命令-ubuntu
 tags: Linux
 categories: 计算机基础
 description: 介绍一些 Linux 常用命令
-cover: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220513124700.png
+cover: https://cos.luyf-lemon-love.space/images/20220513124700.png
 abbrlink: 1327326170
 date: 2022-05-08 16:14:51
 ---

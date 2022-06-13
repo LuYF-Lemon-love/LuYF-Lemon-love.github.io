@@ -7,7 +7,7 @@ tags:
   - PicGo
 categories: 实用技巧
 description: 利用 Github 和 PicGo 搭建 Markdown 图床。
-cover: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511161649.png
+cover: https://cos.luyf-lemon-love.space/images/20220511161649.png
 abbrlink: 2568080348
 date: 2022-05-10 17:34:51
 ---
@@ -59,12 +59,12 @@ chmod u+x PicGo-2.3.0.AppImage
     - 我们采用 cdn 加速访问我们图片，因此设定自定义域名为：https://cdn.jsdelivr.net/gh/[用户名]/[仓库名]@[分支名]，例: https://cdn.jsdelivr.net/gh/LuYF-Lemon-love/PicBed@main
 - 点击确定和设为默认图床，配置完成
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220510183400.png)
+![](https://cos.luyf-lemon-love.space/images/20220510183400.png)
 
 
 点击上传区,这时就可以上传图片了，上传成功后自动将 Markdown 格式的图片链接复制到剪贴板，这是可以直接复制到 Markdown 文本上。
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220510184501.png)
+![](https://cos.luyf-lemon-love.space/images/20220510184501.png)
 
 ### 结语
 
