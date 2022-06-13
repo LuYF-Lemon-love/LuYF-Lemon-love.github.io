@@ -2,7 +2,7 @@
 title: Ohmygirl
 date: 2022-05-14 21:55:30
 type: "ohmygirl"
-top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220513171423.png
+top_img: https://cos.luyf-lemon-love.space/images/20220513171423.png
 ---
 
 {% gallery %}

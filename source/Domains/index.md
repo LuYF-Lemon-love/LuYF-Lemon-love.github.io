@@ -2,7 +2,7 @@
 title: Domains
 date: 2022-05-13 17:04:06
 type: "Domains"
-top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220513171728.png
+top_img: https://cos.luyf-lemon-love.space/images/20220513171728.png
 ---
 
 ### 自定义域名

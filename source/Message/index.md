@@ -2,7 +2,7 @@
 title: Message
 date: 2022-05-11 23:03:38
 type: "Message"
-top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511162303.png
+top_img: https://cos.luyf-lemon-love.space/images/20220511162303.png
 ---
 
 ```

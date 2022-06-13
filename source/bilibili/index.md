@@ -2,7 +2,7 @@
 title: Bilibili
 date: 2022-05-18 18:22:09
 type: "bilibili"
-top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220513171931.png
+top_img: https://cos.luyf-lemon-love.space/images/20220513171931.png
 ---
 
 ### 斗破苍穹

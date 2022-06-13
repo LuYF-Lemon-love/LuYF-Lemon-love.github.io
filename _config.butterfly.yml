@@ -1,6 +1,6 @@
 businesscard:
   enable: true #总开关
-  QR_code: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220606142536.png #加群二维码
+  QR_code: https://cos.luyf-lemon-love.space/images/20220606142536.png #加群二维码
   master: DNF #群主ID
   group: 千万别在森林里迷路！ #QQ群号
   created: 06/19/2008 #建群时间
@@ -30,7 +30,7 @@ envelope_comment:
   front_matter: #【可选】comments页面的 front_matter 配置
     title: Message
     comments: true
-    top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511162303.png
+    top_img: https://cos.luyf-lemon-love.space/images/20220511162303.png
     
 # Artitalk
 # see https://artitalk.js.org/
@@ -180,25 +180,25 @@ katex:
 # --------------------------------------
 
 # Favicon（網站圖標）
-favicon: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220601160712.png #/img/favicon.png
+favicon: https://cos.luyf-lemon-love.space/images/20220601160712.png #/img/favicon.png
 
 # Avatar (頭像)
 avatar:
   # 头像图片
-  img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/苏苏1.jpeg
+  img: https://cos.luyf-lemon-love.space/images/苏苏1.jpeg
   effect: false # 头像会一直转圈
 
 # Disable all banner image
 disable_top_img: false
 
 # The banner image of home page
-index_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511162220.png
+index_img: https://cos.luyf-lemon-love.space/images/20220511162220.png
 
 # If the banner of page not setting, it will show the top_img
-default_top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511161548.png
+default_top_img: https://cos.luyf-lemon-love.space/images/20220511161548.png
 
 # The banner image of archive page
-archive_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511161739.png
+archive_img: https://cos.luyf-lemon-love.space/images/20220511161739.png
 
 # If the banner of tag page not setting, it will show the top_img
 # note: tag page, not tags page (子標籤頁面的 top_img)
@@ -228,7 +228,7 @@ cover:
   position: both
   # When cover is not set, the default cover is displayed (當沒有設置cover時，默認的封面顯示)
   default_cover:
-    - https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511161548.png
+    - https://cos.luyf-lemon-love.space/images/20220511161548.png
 
 # Replace Broken Images (替換無法顯示的圖片)
 error_img:
@@ -239,7 +239,7 @@ error_img:
 error_404:
   enable: true
   subtitle: 'Page Not Found'
-  background: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511161336.png
+  background: https://cos.luyf-lemon-love.space/images/20220511161336.png
 
 post_meta:
   page: # Home Page
@@ -298,10 +298,10 @@ post_copyright:
 reward:
   enable: true
   QR_code:
-    - img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511162220.png
+    - img: https://cos.luyf-lemon-love.space/images/20220511162220.png
       link:
       text: wechat
-    - img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220511162303.png
+    - img: https://cos.luyf-lemon-love.space/images/20220511162303.png
       link:
       text: alipay
 
@@ -512,7 +512,7 @@ footer:
   owner:
     enable: true
     since: 2022
-  custom_text: <a href="https://beian.miit.gov.cn"><span>冀ICP备2022012632号-1</span></a><br/><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32011502011618"><img src="https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/备案图标.png"><span>苏公网安备 32011502011618号</span></a><br/><span>感谢光临小破站，欢迎您提出宝贵的意见！</span>
+  custom_text: <a href="https://beian.miit.gov.cn"><span>冀ICP备2022012632号-1</span></a><br/><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32011502011618"><img src="https://cos.luyf-lemon-love.space/images/备案图标.png"><span>苏公网安备 32011502011618号</span></a><br/><span>感谢光临小破站，欢迎您提出宝贵的意见！</span>
   copyright: true # Copyright of theme and framework
 
 # Analysis
@@ -607,7 +607,7 @@ tag_ui: # 留空或 index
 background:
 
 # Footer Background
-footer_bg: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220607151451.png #false
+footer_bg: https://cos.luyf-lemon-love.space/images/20220607151451.png #false
 
 # the position of bottom right button/default unit: px (右下角按鈕距離底部的距離/默認單位為px)
 rightside-bottom:

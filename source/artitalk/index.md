@@ -2,7 +2,7 @@
 title: Artitalk
 date: 2022-05-16 14:15:40
 type: 'artitalk'
-top_img: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220513171423.png
+top_img: https://cos.luyf-lemon-love.space/images/20220513171423.png
 ---
 
 <!-- 引用 artitalk -->
