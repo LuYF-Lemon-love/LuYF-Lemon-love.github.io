@@ -105,13 +105,11 @@ date: 2022-05-31 12:03:52
 
 38. [个人博客禁止评论应该怎么办？可用境外主机或注册云上公司](https://boke112.com/post/7590.html)
 
-39. [页脚自定义文本](https://butterfly.js.org/posts/4aa8abbe/#%E9%A0%81%E8%85%B3%E8%87%AA%E5%AE%9A%E7%BE%A9%E6%96%87%E6%9C%AC)
+39. [如何获取公安备案号？如何将公安备案号放到网站底部？](https://www.sdzhidian.com/id3651123.html)
 
-40. [如何获取公安备案号？如何将公安备案号放到网站底部？](https://www.sdzhidian.com/id3651123.html)
+40. [网站公安备案需要多久？- 桃源侠](https://blog.csdn.net/taoyuande/article/details/122736918?spm=1001.2014.3001.5506)
 
-41. [网站公安备案需要多久？- 桃源侠](https://blog.csdn.net/taoyuande/article/details/122736918?spm=1001.2014.3001.5506)
-
-42. [全国公安备案流程](https://weiyu.blog.csdn.net/article/details/119540214?spm=1001.2014.3001.5506)
+41. [全国公安备案流程](https://weiyu.blog.csdn.net/article/details/119540214?spm=1001.2014.3001.5506)
 
 ### 环境版本
 
@@ -2269,11 +2267,11 @@ https://luyf-lemon-love.gitee.io	> Server > Gitee Page
 
 4. 上传的域名证书大小需要 400KB 以内，可以在这个网站——[图片压缩软件在线版](https://yasuo.xunjiepdf.com/img/)免费在线压缩证书图片。可以重复压缩直到满足大小要求。
 
-{% label 个人博客一定要关闭评论 pink %}
+{% label 个人博客一定要关闭评论区 pink %}
 
 个人博客如果不关闭评论，就属于交互式网站。
 
-服务类型如果选择互联网交互服务，会增加很多审核流程，需要填写很多表格。非交互式备案不需要线下审查流程，交互式备案需要线下审查，比如评论是否人工审核、网站后台是否能查看评论用户 IP 和端口，网站注册是否有手机验证，而且公安备案实际审查是当地公安审查的，因此每个地方也许些许不同。
+服务类型如果选择互联网交互服务，会增加很多审核流程，需要填写很多表格。非交互式备案不需要线下审查流程，交互式备案需要线下审查，比如评论是否人工审核、网站后台是否能查看评论用户 IP 和端口，网站注册是否有手机验证，而且公安备案实际审查是当地公安审查的，因此每个地域也些许不同。
 
 非交互式网站初步审核完成后即完成备案，交互式网站需要进行面审或实地检查，具体时间将以短信告知。
 
@@ -2281,7 +2279,7 @@ https://luyf-lemon-love.gitee.io	> Server > Gitee Page
 
 - 如收到公安机关实地审核通知，请按照通知的时间做好准备，配合公安民警进行安全检查。
 
-- 面审需要用到的所有资料（具体需要带哪些由当地公安安排）
+- 面审需要用到的所有资料具体需要带哪些由当地公安安排
 
 评论功能关闭有以下好处：
 
@@ -2313,7 +2311,7 @@ https://luyf-lemon-love.gitee.io	> Server > Gitee Page
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220613155910.png)
 
-2. 点击 点击下载备案编号图标 下载图标，点击 点击复制备案编号HTML代码
+2. 点击 点击下载备案编号图标 下载图标，点击 点击复制备案编号HTML代码 得到HTML代码。
 
 ![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220613160253.png)
 
