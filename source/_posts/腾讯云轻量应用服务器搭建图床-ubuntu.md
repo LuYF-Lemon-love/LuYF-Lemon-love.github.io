@@ -11,7 +11,7 @@ tags:
   - jsdelivr
 categories: 实用技巧
 description: 利用 腾讯云轻量应用服务器、LskyPro 和 PicGo 搭建 Markdown 图床。
-cover: https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220513125213.png
+cover: https://cos.luyf-lemon-love.space/images/20220513125213.png
 abbrlink: 3910128244
 date: 2022-05-20 18:32:11
 ---
@@ -169,11 +169,11 @@ PicGo 的安装请参考我的另一篇博文 Github+PicGo搭建Markdowm图床-u
 
 1. 用管理员登录你之前创建的 Lsky Pro 的站点，点击 API，如图
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520211759.png)
+![](https://cos.luyf-lemon-love.space/images/20220520211759.png)
 
 你将看见你的 URL 如图
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520212045.png)
+![](https://cos.luyf-lemon-love.space/images/20220520212045.png)
 
 然后你手动拼接你的 URL、端口、email、password 形成一个链接，然后将其放到浏览器的地址栏里会返回一些信息，其中会有 token 值，将其记录下来。链接的形式如下
 
@@ -183,7 +183,7 @@ http://43.132.156.226:4080/api/token?email=itwxe@qq.com&password=123456
 
 2. 打开 PicGo 的详细窗口，搜索 lskypro 安装插件
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520214129.png)
+![](https://cos.luyf-lemon-love.space/images/20220520214129.png)
 
 3. 安装成功后点击图床设置，设置为 Lsky Pro 为默认图床，输入 Url 和 Token 后确定即可。
 

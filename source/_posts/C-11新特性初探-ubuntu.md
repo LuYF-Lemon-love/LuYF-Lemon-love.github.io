@@ -6,7 +6,7 @@ tags:
 categories: C++
 description: 介绍一些 C++11 的新特性。
 cover: >-
-  https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220513124745.png
+  https://cos.luyf-lemon-love.space/images/20220513124745.png
 abbrlink: 4149413868
 date: 2022-06-01 13:21:53
 ---

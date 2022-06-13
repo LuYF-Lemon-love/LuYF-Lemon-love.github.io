@@ -9,7 +9,7 @@ tags:
 categories: 硬件
 description: Ubuntu 20.04.4 LTS 安装 CF-812AC 无线网卡
 cover: >-
-  https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520214839.png
+  https://cos.luyf-lemon-love.space/images/20220520214839.png
 abbrlink: 1158755992
 date: 2022-05-23 12:45:51
 ---
@@ -32,7 +32,7 @@ date: 2022-05-23 12:45:51
 
 1. 购买的无线网卡（ CF-812AC ）。CF-812AC 是网卡型号（ 确定厂商），因此我们需要找到芯片型号。
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220523130344.png)
+![](https://cos.luyf-lemon-love.space/images/20220523130344.png)
 
 2. 查看 USB 无线网卡 的芯片型号
 
@@ -41,25 +41,25 @@ sudo apt install usbutils
 lsusb
 ```
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220523130639.png)
+![](https://cos.luyf-lemon-love.space/images/20220523130639.png)
 
 Bus 001 Device 007: ID 0bda:b812 Realtek Semiconductor Corp. 802.11ac NIC
 
 3. 登录 [The USB ID Repository](https://usb-ids.gowdy.us/)，如图
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220523130920.png)
+![](https://cos.luyf-lemon-love.space/images/20220523130920.png)
 
 4. 点击 [USB devices](https://usb-ids.gowdy.us/read/UD/)，通过 0bda 找到无线网卡 Name。如图
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220523131209.png)
+![](https://cos.luyf-lemon-love.space/images/20220523131209.png)
 
 5. 点击 [obda](https://usb-ids.gowdy.us/read/UD/0bda)，如图
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220523131412.png)
+![](https://cos.luyf-lemon-love.space/images/20220523131412.png)
 
 6. 通过 b812 找到芯片型号，为 RTL88x2bu [AC1200 Techkey]
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220523131842.png)
+![](https://cos.luyf-lemon-love.space/images/20220523131842.png)
 
 ### 安装驱动
 

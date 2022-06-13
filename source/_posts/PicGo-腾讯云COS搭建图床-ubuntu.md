@@ -9,7 +9,7 @@ tags:
 categories: 实用技巧
 description: 利用腾讯云的对象存储（Cloud Object Storage，COS）和 PicGo 搭建 Markdown 图床。
 cover: >-
-  https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220601155912.png
+  https://cos.luyf-lemon-love.space/images/20220601155912.png
 abbrlink: 2127066589
 date: 2022-05-20 21:45:38
 ---
@@ -77,7 +77,7 @@ COS 通过控制台、API、SDK 和工具等多样化方式简单、快速地接
 
 11. 点击访问密钥后，进入到以下界面，在高风险提示中，如果不会子账号的相关操作，点击继续使用主账号也行。
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520223745.png)
+![](https://cos.luyf-lemon-love.space/images/20220520223745.png)
 
 12. 然后，点击 **新建密钥**，新建密钥成功后，我们就得到了需要的 AAPID、SecretId 和 SecretKey 的值。然后，返回到存储桶列表，点击刚刚创建的存储桶，在这个存储桶的概览中找到基本信息，获取到存储桶名称、所属地域。注：一会配置 PicGo 时，会需要存储桶的地域信息，请填写括号中的英文描述，如 所属地域为：南京 （中国）（ap-nanjing），填写的时候填 ap-nanjing。
 
@@ -99,11 +99,11 @@ PicGo 的安装请参考我的另一篇博文 Github+PicGo搭建Markdowm图床-u
 2. 找到您需要设置防盗链的存储桶，单击其名称，进入存储桶管理页面。
 3. 单击安全管理 > 防盗链设置，找到防盗链设置，单击编辑进入可编辑状态。
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520225922.png)
+![](https://cos.luyf-lemon-love.space/images/20220520225922.png)
 
 4. 修改当前状态为开启，选择名单类型（黑名单或白名单），设置好相应域名，设置完成后单击保存即可，配置项说明如下：
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520230009.png)
+![](https://cos.luyf-lemon-love.space/images/20220520230009.png)
 
    - 黑名单：拒绝名单内的域名访问存储桶的默认访问地址，若名单内的域名访问存储桶的默认访问地址，则返回403。
    
@@ -133,15 +133,15 @@ PicGo 的安装请参考我的另一篇博文 Github+PicGo搭建Markdowm图床-u
 
 其中，外网下行流量费用是最高的。我用了 4 天的截图。
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220524122009.png)
+![](https://cos.luyf-lemon-love.space/images/20220524122009.png)
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220524122103.png)
+![](https://cos.luyf-lemon-love.space/images/20220524122103.png)
 
 可以购买外网下行流量包缓解。流量包是 7.2 折，平均 0.36 元 / GB。
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220524122254.png)
+![](https://cos.luyf-lemon-love.space/images/20220524122254.png)
 
-![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220524122648.png)
+![](https://cos.luyf-lemon-love.space/images/20220524122648.png)
 
 ### 结语
 

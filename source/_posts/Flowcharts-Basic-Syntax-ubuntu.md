@@ -11,7 +11,7 @@ categories:
   - 博客
 description: 基于 Mermaid 介绍在 Markdown 中绘制流程图的方法。
 cover: >-
-  https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220520214810.png
+  https://cos.luyf-lemon-love.space/images/20220520214810.png
 abbrlink: 3076501066
 date: 2022-05-27 14:16:31
 ---
