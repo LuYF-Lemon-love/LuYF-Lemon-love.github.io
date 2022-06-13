@@ -12,6 +12,7 @@ tags:
   - CDN
   - 网站备案
   - 公安备案
+  - 对象存储
 categories: 博客
 description: 对第一个搭建博客的博文-Hexo快速搭建一个博客-ubuntu的补充。
 cover: >-
@@ -110,6 +111,18 @@ date: 2022-05-31 12:03:52
 40. [网站公安备案需要多久？- 桃源侠](https://blog.csdn.net/taoyuande/article/details/122736918?spm=1001.2014.3001.5506)
 
 41. [全国公安备案流程](https://weiyu.blog.csdn.net/article/details/119540214?spm=1001.2014.3001.5506)
+
+42. [内容分发网络 CDN-产品概述](https://cloud.tencent.com/document/product/228/2939)
+
+43. [域名管理概述](https://cloud.tencent.com/document/product/436/18424)
+
+44. [CDN 流量包介绍](https://cloud.tencent.com/document/product/228/60462)
+
+45. [COS-CDN 计费说明](https://cloud.tencent.com/document/product/228/37849)
+
+46. [流量费用](https://cloud.tencent.com/document/product/436/53863)
+
+47. [防盗链配置](https://cloud.tencent.com/document/product/228/41454)
 
 ### 环境版本
 
@@ -2069,23 +2082,7 @@ envelope_comment:
     top_img: https://cos.luyf-lemon-love.space/images/20220511162303.png
 ```
 
-### 开启自定义 CDN 加速域名 和 完善博客域名
-
->开启 CDN 加速域名可以省去 COS 下行流量费用，换成价格更便宜的 CDN 下行流量费用和 CDN 回源流量费用。自2022年5月9日起，对象存储（Cloud Object Storage，COS）服务将不再支持新增默认 CDN 加速域名。因此只能开启自定义 CDN 加速域名，但是如果域名接入国内 CDN，是需要备案的。因为 Vercel 和 Github 服务器在国外，而且我们的博客也不能保证只在国内访问，难免还是会消耗 COS 下行流量费用，CDN 全球加速费用并不便宜。最主要的是我们的博客每月的流量并不高，每月 3.6 元 10G 的 COS 外网下行流量包已经够用，而且我也懒得改图床的域名。因此我并没有开启 CDN 加速。
-
-对象存储（Cloud Object Storage，COS）开启自定义 CDN 加速域名的教程：
-
-1. [开启自定义 CDN 加速域名](https://cloud.tencent.com/document/product/436/36637)
-
-2. [域名归属权验证](https://cloud.tencent.com/document/product/228/61702)
-
-3. [配置 CNAME](https://cloud.tencent.com/document/product/228/3121)
-
-4. [腾讯云对象存储COS及CDN加速配置](https://blog.csdn.net/qq_40994734/article/details/112103579?spm=1001.2014.3001.5506)
-
-5. [新用户体验奖励](https://cloud.tencent.com/document/product/228/64651)
-
-![](https://cos.luyf-lemon-love.space/images/20220611171516.png)
+### 完善博客域名
 
 为了更好的展示博客域名，我们将修改 Github 和 Vercel 的域名解析记录。关于如何修改域名解析记录，请参考第 16 小节——建立分站-绑定域名（Github-Vercel-轻量应用服务器）。
 
@@ -2341,6 +2338,232 @@ footer:
   custom_text: <a href="https://beian.miit.gov.cn"><span>冀ICP备2022012632号-1</span></a><br/><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32011502011618"><img src="https://cos.luyf-lemon-love.space/images/备案图标.png"><span>苏公网安备 32011502011618号</span></a><br/><span>感谢光临小破站，欢迎您提出宝贵的意见！</span>
   copyright: true # Copyright of theme and framework
 ```
+
+### 开启自定义 CDN 加速域名
+
+>开启 CDN 加速域名可以省去 COS 下行流量费用，换成价格更便宜的 CDN 下行流量费用和 CDN 回源流量费用。自2022年5月9日起，对象存储（Cloud Object Storage，COS）服务将不再支持新增默认 CDN 加速域名。因此只能开启自定义 CDN 加速域名，但是如果域名接入国内 CDN，是需要备案的。
+
+---
+
+>内容分发网络（Content Delivery Network，CDN），是在现有 Internet 中增加的一层新的网络架构，由遍布全球的高性能加速节点构成。这些高性能的服务节点都会按照一定的缓存策略存储您的业务内容，当您的用户向您的某一业务内容发起请求时，请求会被调度至最接近用户的服务节点，直接由服务节点快速响应，有效降低用户访问延迟，提升可用性。
+
+CDN 有效地解决了目前互联网业务中网络层面的以下问题：
+
+- 用户与业务服务器地域间物理距离较远，需要进行多次网络转发，传输延时较高且不稳定。
+
+- 用户使用运营商与业务服务器所在运营商不同，请求需要运营商之间进行互联转发。
+
+- 业务服务器网络带宽、处理能力有限，当接收到海量用户请求时，会导致响应速度降低、可用性降低。
+
+---
+
+当您将文件上传至存储桶后，对象存储（Cloud Object Storage，COS）会自动生成文件链接（文件的 URL），您可以直接通过文件 URL（即 COS 默认域名）访问该文件。若您希望通过自己的域名访问 COS 上的文件，需要将自己的域名绑定至文件所在的存储桶。
+
+您可以根据实际需求，使用对应的域名访问文件。例如您想通过 CDN 加速访问文件，则需要访问由 CDN 加速域名生成的文件链接。
+
+在对自定义 CDN 加速域名开启了 CDN 加速的情况下，如果源站为公有读存储桶，那么系统会默认用户可以直接通过自定义 CDN 加速域名访问到源站中的对象。如果源站为私有读存储桶，则建议用户开启 CDN 回源鉴权和 CDN 鉴权配置两个选项。
+
+- 回源鉴权（开启前提是已添加 CDN 服务授权）：当用户请求的数据在边缘节点没有命中缓存时，CDN 需要回源获取数据内容。使用 COS 作为源站并开启回源鉴权后，CDN 边缘节点将使用特殊的服务身份（需要通过 CDN 服务授权得到此身份）访问 COS 源站，以实现获取并缓存私有访问存储桶中的数据。
+
+- CDN 鉴权配置：当用户通过访问边缘节点获取缓存数据时，边缘节点会根据鉴权配置规则，校验访问 URL 中的身份验证字段，以此防范非授权的访问，实现防盗链，提高边缘节点缓存数据的安全性和可靠性。
+
+CDN 鉴权配置和 CDN 回源鉴权的使用情况不冲突，但是两者配置的状态不同对数据的保护效果也不同，具体情况如下表：
+
+|存储桶访问权限|是否开启 CDN 回源鉴权|是否开启 CDN 鉴权配置|通过 CDN 加速域名是否可访问源站|通过 COS 源站域名是否可访问源站|适用场景|
+|:-:|:-:|:-:|:-:|:-:|:-:|
+|公有读|关闭|关闭|可访问|可访问|全站公共访问|
+|公有读|开启|关闭|可访问|可访问|不推荐|
+|公有读|关闭|开启|需使用 URL 鉴权|可访问|不推荐|
+|公有读|开启|开启|需使用 URL 鉴权|可访问|不推荐|
+|私有读+CDN 服务授权|开启|开启|需使用 URL 鉴权|需使用 COS 鉴权|全链路保护|
+|私有读+CDN 服务授权|关闭|开启|需使用 URL 鉴权|需使用 COS 鉴权|不推荐|
+|私有读+CDN 服务授权|开启|关闭|可访问|需使用 COS 鉴权|源站保护|
+|私有读+CDN 服务授权|关闭|关闭|不可访问|需使用 COS 鉴权|不推荐|
+|私有读|关闭|开启或关闭|不可访问|需使用 COS 鉴权|无法使用 CDN|
+
+- 用户为域名启用 CDN 加速之后，任何人都可以通过此域名直接访问源站，所以如果您的数据有一定的私密性，请您务必通过鉴权配置来保护您的源站数据。
+
+{% label 定价 pink %}
+
+![](https://cos.luyf-lemon-love.space/images/20220613211911.png)
+
+![](https://cos.luyf-lemon-love.space/images/20220613212430.png)
+
+![](https://cos.luyf-lemon-love.space/images/20220613212734.png)
+
+---
+
+用户可将其静态资源（包括静态脚本、音视频、图片、附件等文件）全部托管在腾讯云 COS 的标准存储中，并利用无限容量、高频读写的特性，为静态资源提供可扩展和可靠的存储，减轻资源服务器的压力。COS 中的静态资源可接入 CDN 服务，由 CDN 进行全球加速，分发到用户客户端。
+
+![](https://cos.luyf-lemon-love.space/images/20220613213117.png)
+
+COS 作为 CDN 源站时，含两部分计费：CDN 计费（加速）和 COS 计费（回源）。
+
+![](https://cos.luyf-lemon-love.space/images/20220613213831.png)
+
+![](https://cos.luyf-lemon-love.space/images/20220613214007.png)
+
+- CDN 计费: 当 CDN 进行加速服务，从 CDN 节点获取资源分发到用户客户端时（过程1和过程4），消耗的用量由 CDN 进行计费。
+
+- COS 计费: 当 CDN 回源，从 COS 源站获取资源（过程2和过程3），消耗的用量由 COS 进行计费。
+
+对象存储（Cloud Object Storage，COS）开启自定义 CDN 加速域名的教程：
+
+1. [开启自定义 CDN 加速域名](https://cloud.tencent.com/document/product/436/36637)
+
+2. [域名归属权验证](https://cloud.tencent.com/document/product/228/61702)
+
+3. [配置 CNAME](https://cloud.tencent.com/document/product/228/3121)
+
+4. [腾讯云对象存储COS及CDN加速配置](https://blog.csdn.net/qq_40994734/article/details/112103579?spm=1001.2014.3001.5506)
+
+5. [新用户体验奖励](https://cloud.tencent.com/document/product/228/64651)
+
+6. [防盗链配置](https://cloud.tencent.com/document/product/228/41454)
+
+![](https://cos.luyf-lemon-love.space/images/20220611171516.png)
+
+腾讯云 COS 搭建图床的教程请参考 {% post_link PicGo-腾讯云COS搭建图床-ubuntu.md %}
+
+1. 登录 [对象存储控制台](https://console.cloud.tencent.com/cos5) 。 在左侧导航栏中，单击存储桶列表，进入存储桶列表页面。
+
+2. 单击需要配置域名的存储桶，进入存储桶配置页面。
+
+3. 单击左侧的域名与传输管理 > 自定义 CDN 加速域名配置项，单击添加域名，配置如下选项。若您之前在老版本 COS 控制台使用过“自定义域名”，则在新版控制台不显示“自定义 CDN 加速域名”，仍显示“自定义域名”。
+
+![](https://cos.luyf-lemon-love.space/images/20220613215026.png)
+
+   - 域名：输入待绑定的自定义域名（例如www.example.com）。请确保输入的域名已备案，并已在 DNS 服务商处设置好对应的 CNAME，详情请参见 [CNAME 配置](https://cloud.tencent.com/document/product/228/3121)。若您在接入的自定义 CDN 加速域名为以下情况，则需要进行域名归属权验证，详情请查看 [域名归属验证](https://cloud.tencent.com/document/product/228/61702) 文档。
+   
+      - 首次接入该域名
+
+      - 该域名已被其他用户接入
+
+      - 接入域名为泛域名
+
+   - 加速地域：支持中国大陆地域加速、中国香港和海外加速以及全球加速，其中全球加速指支持所有地域之间的存储桶加速。
+
+   - 源站类型：有默认源站和静态网站源站两种，如果您的存储桶开启了静态网站功能即为静态网站源站，否则为默认源站。如果您的自定义加速域名需要用作静态网站，请使用静态网站源站并开启存储桶的静态网站功能。
+
+   - 鉴权：开启回源鉴权。对于私有读存储桶，请开启回源鉴权以保护源站。
+
+![](https://cos.luyf-lemon-love.space/images/20220613215830.png)
+
+4. 我们选择域名为 cos.luyf-lemon-love.space，加速地域为 中国境内，源站类型为 默认源站，由于我们的 COS 为公有读私有写，因此不开启回源鉴权。
+
+5. 域名归属权验证，我们选择 DNS解析验证
+   
+   - 域名首次接入时，例如：`a.example.com`；该域名接入后，同级域名及次级域名如 `b.example.com` 视为已有权限域名，默认可接入，无需校验。但上级域名如 `example.com`接入仍需校验；
+
+   - 子域名已在其他账号下接入时，需进行域名归属校验验证当前域名归属权，如验证通过，可通过取回域名接入当前账号；
+
+   - 同级泛域名接入时，需校验，例如：`a.example.com` 已接入，`*.example.com` 接入时仍需校验，`*.a.example.com` 属于次级泛域名，可免校验接入。
+
+   1. 在添加域名时，如果该域名需校验，在域名下方会提示需验证域名归属权，单击验证方法；
+
+   ![](https://cos.luyf-lemon-love.space/images/20220613221109.png)
+
+   2. 验证方法中，默认为 DNS 解析验证。使用 DNS 解析验证的方式，需要您前往该域名的解析服务商，在主域名下添加一个主机记录值为_cdnauth的 TXT 记录。
+
+   ![](https://cos.luyf-lemon-love.space/images/20220613221300.png)
+
+   3. 进入 DNS 解析 DNSPod 控制台，找到该域名并单击解析，添加一条记录类型为 TXT 的 DNS 记录，主机记录填写为_cdnauth，记录类型选择为 TXT，记录值填写为腾讯云 CDN 提供的记录值，其余选项按照默认参数填写即可。
+
+   ![](https://cos.luyf-lemon-love.space/images/20220613221357.png)
+
+   ![](https://cos.luyf-lemon-love.space/images/20220613221629.png)
+
+6. 点击保存。点击 去 CDN 控制台配置进入 CDN 控制台，点击域名管理。
+
+![](https://cos.luyf-lemon-love.space/images/20220613221857.png)
+
+![](https://cos.luyf-lemon-love.space/images/20220613222057.png)
+
+7. 配置 CNAME，当您在腾讯云 CDN 内成功完成添加域名后，腾讯云 CDN 会为您的域名分配一个专属的 CNAME 地址，您还需要完成 CNAME 配置，才可以将用户的访问指向腾讯云 CDN 节点，使CDN加速生效。因为 DNS 变更解析到实际生效需要一段时间，期间可能会导致网站暂时不可访问，请您留意变更操作对业务的影响。请注意，CNAME 域名不可以直接作为访问域名使用。
+
+8. 如果您当前的域名已托管于腾讯云 DNSPod 内，且当前账号有该域名的解析权限，则可以在添加完域名后，使用一键配置完成域名配置。您可后续前往 [dnspod 控制台](https://console.dnspod.cn/dns/list) 管理解析记录。
+
+9. 在域名管理列表内，鼠标悬浮在 CNAME 前的图标上，即可看到相关提示，单击一键配置进入 CNAME 配置界面。
+
+![](https://cos.luyf-lemon-love.space/images/20220613222559.png)
+
+10. 腾讯云 CDN 将默认为您在 DNSPod 内针对该域名增加一条 CNAME 解析记录值，TTL 默认值为600。如果您的域名内已有一条 CNAME 解析记录值，为了防止 CNAME 解析冲突，将会为您自动删除原有的 CNAME 解析记录并增加一条新的 CNAME 解析记录值。
+
+![](https://cos.luyf-lemon-love.space/images/20220613222655.png)
+
+11. 在 [dnspod 控制台](https://console.dnspod.cn/dns/list) 中，可以看到腾讯云 CDN 默认增加的记录。
+
+![](https://cos.luyf-lemon-love.space/images/20220613223053.png)
+
+12. 在 [dnspod 控制台](https://console.dnspod.cn/dns/list) 中，点击该记录的 SSL 按钮，为该记录申请 SSL 证书。
+
+13. SSL 证书审核通过后，如下图。点击 一键部署，如下面第二张图配置，完成后点击确定。
+
+![](https://cos.luyf-lemon-love.space/images/20220613223439.png)
+
+![](https://cos.luyf-lemon-love.space/images/20220613224055.png)
+
+14. 等到 CDN 配置成功。需要一点时间。
+
+![](https://cos.luyf-lemon-love.space/images/20220613224512.png)
+
+![](https://cos.luyf-lemon-love.space/images/20220613224538.png)
+
+![](https://cos.luyf-lemon-love.space/images/20220613224926.png)
+
+15. 验证，进入存储桶的文件目录，点击任意文件上的详情按钮，选择自定义加速域名。
+
+![](https://cos.luyf-lemon-love.space/images/20220613225019.png)
+
+![](https://cos.luyf-lemon-love.space/images/20220613225530.png)
+
+16. 复制 对象地址 到浏览器。
+
+![](https://cos.luyf-lemon-love.space/images/20220613225751.png)
+
+17. 由于 PicGo 之前已经配置过 腾讯云 COS，因此我们也不需要配置密钥，只需要填写自定义域名即可。完成后点击确定即可。
+
+![](https://cos.luyf-lemon-love.space/images/20220613230211.png)
+
+18. 这时就可以用 自定义 CDN 加速域名 来使用图床了。
+
+19. 防盗链配置请参看官方文档——[防盗链配置](https://cloud.tencent.com/document/product/228/41454)
+
+20. 若您希望对业务资源的访问来源进行控制，腾讯云 CDN 为您提供了 referer 防盗链配置功能。通过对用户 HTTP Request Header 中 referer 字段的值设置访问控制策略，从而限制访问来源，避免恶意用户盗刷。
+
+21. 登录 [CDN 控制台](https://console.cloud.tencent.com/cdn)，在菜单栏里选择域名管理，单击域名右侧管理，即可进入域名配置页面，第二栏【访问控制】中可看到防盗链配置，默认情况下，防盗链配置为关闭状态：
+
+![](https://cos.luyf-lemon-love.space/images/20220613231541.png)
+
+22. 单击开关，选择防盗链类型并填入列表，即可启用防盗链配置：
+
+   - referer 黑名单：
+
+   - 若请求的 referer 字段匹配黑名单内设置的内容，CDN 节点拒绝返回该请求信息，直接返回403状态码。
+
+   - 若请求的 referer 不匹配黑名单内设置的内容，则 CDN 节点正常返回请求信息。
+
+   - 空 referer 选项勾选拒绝空 referer访问 选项时，此时若请求 referer 字段为空或无 referer 字段（如浏览器请求），则 CDN 节点拒绝返回该请求信息，返回403状态码。
+
+   ![](https://cos.luyf-lemon-love.space/images/20220613231758.png)
+
+   - referer白名单：
+
+   - 若请求的 referer 字段匹配白名单设置的内容，则 CDN 节点正常返回请求信息。
+
+   - 若请求的 referer 字段不匹配白名单设置的内容，则 CDN 节点拒绝返回该请求信息，会直接返回状态码403。
+
+  - 当设置白名单时，CDN 节点只能返回符合该白名单内字符串内容的请求。
+
+  - 空referer选项勾选允许空 referer访问 选项时，此时若请求 referer 字段为空或无 referer 字段（如浏览器请求），则 CDN 正常返回请求信息。
+
+  ![](https://cos.luyf-lemon-love.space/images/20220613231956.png)
+
+  - 您可以通过防盗链开关，一键关闭防盗链配置，开关为关闭状态时，即便下方存在已有配置，仍不会现网生效，下次单击开启时，会先行进行配置的二次确认，不会立即发布至全网生效。
+
+  - 防盗链支持域名 / IP 规则，匹配方式为前缀匹配（仅支持路径情况下，域名的前缀匹配不支持），即假设配置名单为 `www.abc.com`，则 `www.abc.com/123` 匹配，`www.abc.com.cn` 不匹配；假设配置名单为 `127.0.0.1`，则 `127.0.0.1/123` 也会匹配。
+
+  - 防盗链支持通配符匹配，即假设名单为 `*.qq.com`，则 `www.qq.com`、`a.qq.com` 均会匹配，`qq.com` 因其域名级别与 `*.qq.com` 的域名级别不同，则不会被匹配。
 
 ### 结语
 
