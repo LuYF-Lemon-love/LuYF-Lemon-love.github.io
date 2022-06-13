@@ -93,6 +93,26 @@ date: 2022-05-31 12:03:52
 
 32. [域名证书下载](https://cloud.tencent.com/document/product/242/3647)
 
+33. [日新博客提交了公安备案及流程](https://www.rixin.info/a/3936.html)
+
+34. [网站备案之交互式公安备案流程](https://xw.qq.com/cmsid/20220429A07IBJ00)
+
+35. [为什么越来越多的网站关闭了评论功能](https://mip.admin5.com/article/20201102/973483.shtml)
+
+36. [很多网站评论功能关闭了，网络监管要开始严格了吗？](https://www.woniuboke.com/zqsl/2015.html)
+
+37. [卢松松博客关闭评论功能，是否意味着评论式推广无用武之地？](https://boke112.com/post/7578.html)
+
+38. [个人博客禁止评论应该怎么办？可用境外主机或注册云上公司](https://boke112.com/post/7590.html)
+
+39. [页脚自定义文本](https://butterfly.js.org/posts/4aa8abbe/#%E9%A0%81%E8%85%B3%E8%87%AA%E5%AE%9A%E7%BE%A9%E6%96%87%E6%9C%AC)
+
+40. [如何获取公安备案号？如何将公安备案号放到网站底部？](https://www.sdzhidian.com/id3651123.html)
+
+41. [网站公安备案需要多久？- 桃源侠](https://blog.csdn.net/taoyuande/article/details/122736918?spm=1001.2014.3001.5506)
+
+42. [全国公安备案流程](https://weiyu.blog.csdn.net/article/details/119540214?spm=1001.2014.3001.5506)
+
 ### 环境版本
 
 ```
@@ -2232,6 +2252,97 @@ https://luyf-lemon-love.gitee.io	> Server > Gitee Page
 {% label 网站违规信息处理机制 pink %}
 
 根据网监部门规定，网站出现违规信息必须删除。如果您解析到腾讯云云服务器上的网站出现违规信息，腾讯云工作人员会立即通知您删除违规信息。如果您无响应，腾讯云将取消您的网站接入。
+
+{% label 域名证书下载 pink %}
+
+域名证书下载的流程请参考腾讯云官方文档——[域名证书下载](https://cloud.tencent.com/document/product/242/3647)
+
+1. 登录腾讯云 [域名注册控制台](https://console.cloud.tencent.com/domain/)，进入 “我的域名” 页面，查看已购买的所有域名信息。
+
+2. 在待下载域名证书的域名行中，单击更多 > 下载域名证书。如下图所示：
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220613145146.png)
+
+3. 在弹出的 “域名证书” 窗口中，单击下载证书，选择下载路径，保存证书。如下图所示：
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220613145358.png)
+
+4. 上传的域名证书大小需要 400KB 以内，可以在这个网站——[图片压缩软件在线版](https://yasuo.xunjiepdf.com/img/)免费在线压缩证书图片。可以重复压缩直到满足大小要求。
+
+{% label 个人博客一定要关闭评论 pink %}
+
+个人博客如果不关闭评论，就属于交互式网站。
+
+服务类型如果选择互联网交互服务，会增加很多审核流程，需要填写很多表格。非交互式备案不需要线下审查流程，交互式备案需要线下审查，比如评论是否人工审核、网站后台是否能查看评论用户 IP 和端口，网站注册是否有手机验证，而且公安备案实际审查是当地公安审查的，因此每个地方也许些许不同。
+
+非交互式网站初步审核完成后即完成备案，交互式网站需要进行面审或实地检查，具体时间将以短信告知。
+
+- 如收到公安机关面审通知，请按照短信通知的时间携带所需证件到公安机关进行材料完整性检验。
+
+- 如收到公安机关实地审核通知，请按照通知的时间做好准备，配合公安民警进行安全检查。
+
+- 面审需要用到的所有资料（具体需要带哪些由当地公安安排）
+
+评论功能关闭有以下好处：
+
+1. 安全性，避免出现敏感信息。
+
+2. 减少垃圾内容，因为垃圾评论很多。
+
+3. 避免无关评论，防止评论区有广告。
+
+可以看见添加评论区，对于公安备案会很麻烦，而且评论区也对个人博客来说是一个不稳定因素。因此一定要关闭评论，选择互联网非交互服务，进行公安备案。
+
+{% label 主域名和从域名 pink %}
+
+主域名：`luyf-lemon-love.space`
+
+从域名：`github.luyf-lemon-love.space`，`server.luyf-lemon-love.space`，`vercel.luyf-lemon-love.space`
+
+{% label 下载备案号码，附在网站底部 pink %}
+
+在完成以上审核以后，公安机关将会发放公安部备案号，您需要将备案号放置网站首页下端。
+
+1. 登录[全国公安机关互联网站安全管理服务平台](http://www.beian.gov.cn/portal/index)，点击 主页 > 已备案网站 > 网站详情（放大镜按钮）。
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220613155406.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220613155513.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220613155716.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220613155910.png)
+
+2. 点击 点击下载备案编号图标 下载图标，点击 点击复制备案编号HTML代码
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/20220613160253.png)
+
+![](https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/备案图标.png)
+
+```html
+		 	<div style="width:300px;margin:0 auto; padding:20px 0;">
+		 		<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32011502011618" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">苏公网安备 32011502011618号</p></a>
+		 	</div>
+```
+
+3. 但是由于 Butterfly 主题不能直接内嵌上面的 html 代码。因此需要修改成 Butterfly 主题文档——[页脚自定义文本](https://butterfly.js.org/posts/4aa8abbe/#%E9%A0%81%E8%85%B3%E8%87%AA%E5%AE%9A%E7%BE%A9%E6%96%87%E6%9C%AC)里面介绍的形式。
+
+```yaml
+custom_text: <a href="icp链接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a>
+```
+
+4. 修改 _config.butterfly.yml 文件
+
+```yaml
+# Footer Settings
+# --------------------------------------
+footer:
+  owner:
+    enable: true
+    since: 2022
+  custom_text: <a href="https://beian.miit.gov.cn"><span>冀ICP备2022012632号-1</span></a><br/><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32011502011618"><img src="https://picbed-1311975210.cos.ap-nanjing.myqcloud.com/images/备案图标.png"><span>苏公网安备 32011502011618号</span></a><br/><span>感谢光临小破站，欢迎您提出宝贵的意见！</span>
+  copyright: true # Copyright of theme and framework
+```
 
 ### 结语
 
