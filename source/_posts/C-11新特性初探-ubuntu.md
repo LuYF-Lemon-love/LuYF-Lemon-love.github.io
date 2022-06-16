@@ -2976,7 +2976,54 @@ l-value: 3
 
 - 通过右值推导 `T&&` 或者 `auto&&` 得到的是一个右值引用类型，其余都是左值引用类型。
 
-### move
+### 转移 move
+
+`std::move` 可以将左值转换为右值，没有内存拷贝，等同于一个类型转换：`static_cast<T&&>(lvalue)`。
+
+```c++
+template<class _Ty>
+_NODISCARD constexpr remove_reference_t<_Ty>&& move(_Ty&& _Arg) _NOEXCEPT
+{
+    return (static_cast<remove_reference_t<_Ty>&&>(_Arg));
+}
+```
+
+```c++
+class Test
+{
+public:
+    Test(){}
+};
+
+int main()
+{
+    Test t;
+
+    // error，不能用左值初始化右值引用
+    Test && v1 = t;
+
+    // ok
+    Test && v2 = move(t);
+    
+    return 0;
+}
+```
+
+```c++
+list<string> ls;
+ls.push_back("hello");
+ls.push_back("world");
+
+// 需要拷贝，效率低
+list<string> ls1 = ls;
+
+// 效率高，只是转换了资源的所有权
+list<string> ls2 = move(ls);
+```
+
+注：构造对象和赋值对象时，如果进行资源的重复利用，需要编写移动构造函数（`T::T(T&& another)`）和赋值函数（`T&& T::operator=(T&& rhs)`），它们都接收右值引用参数。
+
+### 完美转发 forward
 
 ### 结语
 
