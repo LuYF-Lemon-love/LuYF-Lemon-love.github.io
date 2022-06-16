@@ -2873,8 +2873,110 @@ f1(x);
 int main()
 {
     int x = 520, y = 1314;
+
+    // auto&& 表示一个整型的左值引用
+    auto&& v1 = x;
+
+    // auto&& 表示一个整型的右值引用
+    auto&& v2 = 250;
+
+    // decltype(x)&& == int&&，不能使用左值（y）初始化一个右值引用类型
+    // error
+    decltype(x)&& v3 = y;
+
+    return 0;
 }
 ```
+
+`T&&` 和 `auto&&` 这种未定引用类型，作为参数会像上面一样，`&&` 类型会发生变化，被称为引用折叠。
+
+- 通过右值推导 `T&&` 或者 `auto&&` 得到的是一个右值引用类型。
+
+- 通过非右值（右值引用、左值、左值引用、常量右值引用、常量左值引用）推导 `T&&` 或者 `auto&&` 得到的是一个左值引用类型。
+
+```c++
+// a1: 右值引用
+int&& a1 = 5;
+
+// bb: 左值引用
+auto&& bb = a1;
+
+// bb1: 右值引用
+auto&& bb1 = 5;
+
+// a2: 左值
+int a2 = 5;
+
+// a3: 左值引用
+int &a3 = a2;
+
+// cc: 左值引用
+auto&& cc = a3;
+
+// cc1: 左值引用
+auto&& cc1 = a2;
+
+// s1: 常量左值引用
+const int& s1 = 100;
+
+// s2: 常量右值引用
+const int&& s2 = 100;
+
+// dd: 常量左值引用
+auto&& dd = s1;
+
+// ee: 常量左值引用
+auto&& ee = s2;
+
+// x: 右值引用，不需要推导
+const auto&& x = 5;
+```
+
+```c++
+#include <iostream>
+using namespace std;
+
+void printValue(int &i)
+{
+    cout << "l-value: " << i << endl;
+}
+
+void printValue(int &&i)
+{
+    cout << "r-value: " << i << endl;
+}
+
+void forward(int &&k)
+{
+    printValue(k);
+}
+
+int main()
+{
+    int i = 1;
+    printValue(i);
+    printValue(2);
+    forward(3);
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+l-value: 1
+r-value: 2
+l-value: 3
+```
+
+注：
+
+- 编译器将已命名的右值引用视为左值，将未命名的右值引用视为右值。
+
+- 通过右值推导 `T&&` 或者 `auto&&` 得到的是一个右值引用类型，其余都是左值引用类型。
+
+### move
 
 ### 结语
 
