@@ -3025,6 +3025,86 @@ list<string> ls2 = move(ls);
 
 ### 完美转发 forward
 
+右值引用作为函数参数的形参时，在函数内部转发该参数给内部其他函数时，它就变成一个左值了。如果想按照参数原类型转发到另一个函数，可以使用 `std::forward` 函数。该函数实现的功能称之为完美转发。
+
+```c++
+// 函数原型
+template <class T> T&& forward (typename remove_reference<T>::type& t) noexcept;
+template <class T> T&& forward (typename remove_reference<T>::type&& t) noexcept;
+
+// 精简
+std::forward<T>(t);
+```
+
+- 当 T 为左值引用类型时，t 将被转换为 T 类型的左值。
+
+- 当 T 不是左值引用类型时，t 将被转换为 T 类型的右值。
+
+```c++
+#include <iostream>
+using namespace std;
+
+template<typename T>
+void printValue(T& t)
+{
+    cout << "l-value: " << t << endl;
+}
+
+template<typename T>
+void printValue(T&& t)
+{
+    cout << "r-value: " << t << endl;
+}
+
+template<typename T>
+void testForward(T && v)
+{
+    printValue(v);
+    printValue(move(v));
+    printValue(forward<T>(v));
+    cout << endl;
+}
+
+int main()
+{
+    // output
+    // l-value: 1
+    // r-value: 1
+    // r-value: 1
+    testForward(1);
+
+    int num = 2;
+
+    // output
+    // l-value: 2
+    // r-value: 2
+    // l-value: 2
+    testForward(num);
+
+    // output
+    // l-value: 2
+    // r-value: 2
+    // r-value: 2
+    testForward(forward<int>(num));
+
+    // output
+    // l-value: 2
+    // r-value: 2
+    // l-value: 2
+    testForward(forward<int&>(num));
+
+    // output
+    // l-value: 2
+    // r-value: 2
+    // r-value: 2
+    testForward(forward<int&&>(num));
+
+    return 0;
+}
+```
+
+### 共享智能指针
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
