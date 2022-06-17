@@ -8483,7 +8483,7 @@ hexo d
 
 3. 点击 代码仓库，创建名为 LuYF-Lemon-love 的公有仓库
 
-4. 复制 ssh 链接地址，git@e.coding.net:luyanfeng-nlp/luyf-lemon-love/LuYF-Lemon-love.git
+4. 复制 ssh 链接地址，`git@e.coding.net:luyanfeng-nlp/luyf-lemon-love/LuYF-Lemon-love.git`
 
 5. 点击快速初始化仓库
 
