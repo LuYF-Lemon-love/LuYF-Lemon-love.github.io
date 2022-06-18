@@ -24,6 +24,8 @@ C++11 标准是 ISO/IEC 14882：2011 - Information technology -- Programming lan
 
 2. [std::shared_ptr::reset](https://cplusplus.com/reference/memory/shared_ptr/reset/)
 
+3. [memset](https://cplusplus.com/reference/cstring/memset/)
+
 ### 原始字面量
 
 原始字面量能够直接表示字符串的实际含义，比如打印路径。
@@ -3381,7 +3383,80 @@ ptr4 管理的内存引用计数：0
 ptr5 管理的内存引用计数：1
 ```
 
-#### 获取原始指针
+{% label 获取原始指针 pink %}
+
+**Fill block of memory**
+
+Sets the first num bytes of the block of memory pointed by ptr to the specified value (interpreted as an unsigned char).
+
+- `ptr`: Pointer to the block of memory to fill.
+
+- `value`: Value to be set. The value is passed as an int, but the function fills the block of memory using the unsigned char conversion of this value.
+
+- `num`: Number of bytes to be set to the value. size_t is an unsigned integral type.
+
+- `Return Value`: ptr is returned.
+
+```c++
+void * memset ( void * ptr, int value, size_t num );
+```
+
+```c++
+/* memset example */
+#include <stdio.h>
+#include <string.h>
+
+int main ()
+{
+  char str[] = "almost every programmer should know memset!";
+  memset (str,'-',6);
+  puts (str);
+  return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+------ every programmer should know memset!
+```
+
+- 基础数据类型，智能指针可以直接完成数据的读写。
+
+- 类对象，需要通过原始内存地址操作数据。
+
+- 共享智能指针的 get() 方法可以得到原始内存地址。
+
+```c++
+// 函数原型
+T* get() const noexcept;
+```
+
+```c++
+#include <iostream>
+#include <string>
+#include <memory>
+using namespace std;
+
+int main()
+{
+    int len = 128;
+    shared_ptr<char> ptr(new char[len]);
+
+    char* add = ptr.get();
+    memset(add, 0, len);
+    strcpy(add, "我要成为真正的狐狸精!!!");
+    cout << "string: " << add << endl;
+
+    shared_ptr<int> p(new int);
+    *p = 100;
+    cout << *p.get() << " " << *p << endl;
+
+    return 0;
+}
+```
+
+#### 指定删除器
 
 ### 结语
 
