@@ -22,6 +22,8 @@ C++11 标准是 ISO/IEC 14882：2011 - Information technology -- Programming lan
 
 1. [苏丙榅老师的 C++ 教程](https://subingwen.cn/cplusplus/)
 
+2. [std::shared_ptr::reset](https://cplusplus.com/reference/memory/shared_ptr/reset/)
+
 ### 原始字面量
 
 原始字面量能够直接表示字符串的实际含义，比如打印路径。
@@ -3230,7 +3232,7 @@ shared_ptr<T> make_shared( Args&&... args );
 
 - `T`: 模板参数的数据类型
 
-- `Args&&... args`: 要初始化的数据
+- `Args&&... args`: 要初始化的数据，即构造函数的参数列表
 
 ```c++
 #include <iostream>
@@ -3287,6 +3289,99 @@ int main()
 ---
 
 {% label 通过reset方法初始化 pink %}
+
+```c++
+// 函数原型
+void reset() noexcept;
+
+template <class U> void reset (U* p);
+
+template <class U, class D> void reset (U* p, D del);
+
+template <class U, class D, class Alloc> void reset (U* p, D del, Alloc alloc);
+```
+
+- `p`: Pointer whose ownership is taken over by the object.
+
+- `del`: Deleter object to be used to release the owned object.
+
+- `alloc`: Allocator object used to allocate/deallocate internal storage.
+
+```c++
+// shared_ptr::reset example
+#include <iostream>
+#include <memory>
+
+int main () {
+    std::shared_ptr<int> sp;  // empty
+
+    sp.reset (new int);       // takes ownership of pointer
+    *sp=10;
+    std::cout << *sp << '\n';
+
+    sp.reset (new int);       // deletes managed object, acquires new pointer
+    *sp=20;
+    std::cout << *sp << '\n';
+
+    sp.reset();               // deletes managed object
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+10
+20
+```
+
+```c++
+#include <iostream>
+#include <string>
+#include <memory>
+using namespace std;
+
+int main()
+{
+    shared_ptr<int> ptr1 = make_shared<int>(520);
+    shared_ptr<int> ptr2 = ptr1;
+    shared_ptr<int> ptr3 = ptr1;
+    shared_ptr<int> ptr4 = ptr1;
+    cout << "ptr1 管理的内存引用计数：" << ptr1.use_count() << endl;
+    cout << "ptr2 管理的内存引用计数：" << ptr2.use_count() << endl;
+    cout << "ptr3 管理的内存引用计数：" << ptr3.use_count() << endl;
+    cout << "ptr4 管理的内存引用计数：" << ptr4.use_count() << endl;
+
+    ptr4.reset();
+    cout << "ptr1 管理的内存引用计数：" << ptr1.use_count() << endl;
+    cout << "ptr2 管理的内存引用计数：" << ptr2.use_count() << endl;
+    cout << "ptr3 管理的内存引用计数：" << ptr3.use_count() << endl;
+    cout << "ptr4 管理的内存引用计数：" << ptr4.use_count() << endl;
+
+    shared_ptr<int> ptr5;
+    ptr5.reset(new int(250));
+    cout << "ptr5 管理的内存引用计数：" << ptr5.use_count() << endl;
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+ptr1 管理的内存引用计数：4
+ptr2 管理的内存引用计数：4
+ptr3 管理的内存引用计数：4
+ptr4 管理的内存引用计数：4
+ptr1 管理的内存引用计数：3
+ptr2 管理的内存引用计数：3
+ptr3 管理的内存引用计数：3
+ptr4 管理的内存引用计数：0
+ptr5 管理的内存引用计数：1
+```
+
+#### 获取原始指针
 
 ### 结语
 
