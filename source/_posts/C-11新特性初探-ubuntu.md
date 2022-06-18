@@ -3524,7 +3524,7 @@ unique_ptr<int> ptr1(new int(10));
 unique_ptr<int> ptr2 = ptr1;
 ```
 
-{% span cyan, std::unique_ptr 对象可以通过函数返回，还可以通过 std::move 来转移给其他对象 %}
+{% span cyan, unique_ptr 对象可以通过函数返回，还可以通过 move 来转移给其他对象 %}
 
 ```c++
 #include <iostream>
@@ -3547,6 +3547,10 @@ int main()
 ```
 
 {% span cyan, reset 方法可以解除 unique_ptr 对原始内存的管理，也可以用来初始化 unique_ptr %}
+
+```c++
+void reset( pointer ptr = pointer() ) noexcept;
+```
 
 ```c++
 int main()
