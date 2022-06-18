@@ -3510,6 +3510,20 @@ int main()
 }
 ```
 
+### 独占的智能指针
+
+#### 初始化
+
+`std::unique_ptr` 是一个独占型的智能指针，它不允许其他的智能指针共享其内部的指针。
+
+```c++
+// 通过构造函数初始化对象
+unique_ptr<int> ptr1(new int(10));
+
+// error, 不允许将一个 unique_ptr 赋值给另一个 unique_ptr
+unique_ptr<int> ptr2 = ptr1;
+```
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
