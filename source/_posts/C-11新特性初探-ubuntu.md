@@ -3640,7 +3640,7 @@ constexpr weak_ptr() noexcept;
 // 拷贝构造函数
 weak_ptr (const weak_ptr& x) noexcept;
 
-template <class u> weak_ptr (const weak_ptr<U>& x) noexcept;
+template <class U> weak_ptr (const weak_ptr<U>& x) noexcept;
 
 // 通过 shared_ptr 对象构造
 template <class U> weak_ptr (const shared_ptr<U>& x) noexcept;
