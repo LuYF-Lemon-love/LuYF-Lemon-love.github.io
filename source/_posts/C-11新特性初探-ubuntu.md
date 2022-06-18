@@ -3458,6 +3458,58 @@ int main()
 
 #### 指定删除器
 
+定义共享智能指针的删除操作，删除操作称为删除器，删除器函数是一个回调函数，由共享智能指针自动调用。
+
+```c++
+#include <iostream>
+#include <memory>
+using namespace std;
+
+void deleteIntPtr(int* p)
+{
+    delete p;
+    cout << "int 类型被释放了..." << endl;
+}
+
+int main()
+{
+    shared_ptr<int> ptr(new int(1), deleteIntPtr);
+
+    shared_ptr<int> ptr1(new int(2), [](int* p) {delete p;});
+
+    // C++11 使用 shared_ptr 管理动态数组时，需要指定删除器
+    shared_ptr<int> ptr2(new int[3], [](int* p) {delete[]p;});
+
+    // 使用 C++11 提供的删除器 std::default_delete<T>()
+    shared_ptr<int> ptr3(new int[4], default_delete<int[]>());
+
+    return 0;
+}
+```
+
+```c++
+#include <iostream>
+#include <memory>
+using namespace std;
+
+template <typename T>
+shared_ptr<T> make_share_array(size_t size)
+{
+    return shared_ptr<T>(new T[size], default_delete<T[]>());
+}
+
+int main()
+{
+    shared_ptr<int> ptr1 = make_share_array<int>(1);
+    cout << ptr1.use_count() << endl;
+
+    shared_ptr<char> ptr2 = make_share_array<char>(2);
+    cout << ptr2.use_count() << endl;
+
+    return 0;
+}
+```
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
