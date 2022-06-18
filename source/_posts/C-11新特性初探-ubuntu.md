@@ -3222,6 +3222,72 @@ ptr5 管理的内存引用计数：3
 
 {% label 通过std::make_shared初始化 pink %}
 
+```c++
+// 函数原型
+template< class T, class... Args >
+shared_ptr<T> make_shared( Args&&... args );
+```
+
+- `T`: 模板参数的数据类型
+
+- `Args&&... args`: 要初始化的数据
+
+```c++
+#include <iostream>
+#include <string>
+#include <memory>
+using namespace std;
+
+class Test
+{
+public:
+    Test()
+    {
+        cout << "construct Test ..." << endl;
+    }
+
+    Test(int x)
+    {
+        cout << "construct Test, x = " << x << endl;
+    }
+
+    Test(string str)
+    {
+        cout << "construct Test, str = " << str << endl;
+    }
+
+    ~Test()
+    {
+        cout << "destruct Test ..." << endl;
+    }
+};
+
+int main()
+{
+    shared_ptr<int> ptr1 = make_shared<int>(520);
+    cout << "ptr1 管理的内存引用计数：" << ptr1.use_count() << endl;
+
+    shared_ptr<Test> ptr2 = make_shared<Test>();
+    cout << "ptr2 管理的内存引用计数：" << ptr2.use_count() << endl;
+    
+    shared_ptr<Test> ptr3 = make_shared<Test>(520);
+    cout << "ptr3 管理的内存引用计数：" << ptr3.use_count() << endl;
+
+    shared_ptr<Test> ptr4 = make_shared<Test>("我要成为真正的狐狸精!!!");
+    cout << "ptr4 管理的内存引用计数：" << ptr4.use_count() << endl;
+
+    return 0;
+}
+```
+
+{% note blue 'fas fa-bullhorn' simple %}
+如果申请的内存是普通类型，通过 std::make_shared() 可完成内存地址的初始化；如果申请的内存是类对象，std::make_shared() 需要指定构造函数的参数。
+{% endnote %}
+
+---
+
+{% label 通过reset方法初始化 pink %}
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
