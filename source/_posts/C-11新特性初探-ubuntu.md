@@ -3549,6 +3549,7 @@ int main()
 {% span cyan, reset 方法可以解除 unique_ptr 对原始内存的管理，也可以用来初始化 unique_ptr %}
 
 ```c++
+// 函数原型
 void reset( pointer ptr = pointer() ) noexcept;
 ```
 
@@ -3571,6 +3572,7 @@ int main()
 {% span cyan, get() 方法可以获取独占智能指针管理的原始地址。 %}
 
 ```c++
+// 函数原型
 pointer get() const noexcept;
 ```
 
@@ -3590,6 +3592,42 @@ int main()
 ```
 
 #### 删除器
+
+{% span cyan, unique_ptr 指定删除器需要确定删除器的类型。 %}
+
+```c++
+// ok
+shared_ptr<int> ptr1(new int(10), [](int*p) {delete p; });
+
+// error
+unique_ptr<int> ptr1(new int(10), [](int*p) {delete p; });
+
+int main()
+{
+    using func_ptr = void(*)(int*);
+    unique_ptr<int, func_ptr> ptr1(new int(10), [](int*p) {delete p; });
+
+    return 0;
+}
+```
+
+{% span cyan, lambda 表达式如果没有捕获任何外部变量时，可以直接转换成函数指针；如果捕获了外部变量，就无法编译成功，如果想通过编译，可以使用可调用对象包装器来替换函数指针。 %}
+
+```c++
+int main()
+{
+    using func_ptr = void(*)(int*);
+
+    // error
+    unique_ptr<int, func_ptr> ptr1(new int(10), [&](int*p) {delete p; });
+
+    // ok
+    unique_ptr<int, function<void(int*)>> ptr2(new int(10), [&](int*p) {delete p; });
+    return 0;
+}
+```
+
+### 弱引用智能指针
 
 ### 结语
 
