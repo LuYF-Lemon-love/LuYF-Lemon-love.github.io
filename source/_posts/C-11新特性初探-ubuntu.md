@@ -3174,7 +3174,53 @@ shared_ptr<int> p1(p);
 shared_ptr<int> p2(p);
 ```
 
-{% label 通过拷贝构造函数和移动构造函数初始化 %}
+{% label 通过拷贝构造函数和移动构造函数初始化 pink %}
+
+```c++
+#include <iostream>
+#include <memory>
+using namespace std;
+
+int main()
+{
+    shared_ptr<int> ptr1(new int(520));
+    cout << "ptr1 管理的内存引用计数：" << ptr1.use_count() << endl;
+
+    // 调用拷贝构造函数
+    shared_ptr<int> ptr2(ptr1);
+    cout << "ptr2 管理的内存引用计数：" << ptr2.use_count() << endl;
+
+    shared_ptr<int> ptr3 = ptr1;
+    cout << "ptr3 管理的内存引用计数：" << ptr3.use_count() << endl;
+    
+    // 调用移动构造函数
+    shared_ptr<int> ptr4(std::move(ptr1));
+    cout << "ptr4 管理的内存引用计数：" << ptr4.use_count() << endl;
+
+    std::shared_ptr<int> ptr5 = std::move(ptr2);
+    cout << "ptr5 管理的内存引用计数：" << ptr5.use_count() << endl;
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+ptr1 管理的内存引用计数：1
+ptr2 管理的内存引用计数：2
+ptr3 管理的内存引用计数：3
+ptr4 管理的内存引用计数：3
+ptr5 管理的内存引用计数：3
+```
+
+{% note blue 'fas fa-bullhorn' simple %}
+使用拷贝构造函数初始化共享智能指针对象，堆内存对应的引用计数 + 1；使用移动构造函数初始化共享智能指针对象，堆内存的引用计数不会 + 1。
+{% endnote %}
+
+---
+
+{% label 通过std::make_shared初始化 pink %}
 
 ### 结语
 
