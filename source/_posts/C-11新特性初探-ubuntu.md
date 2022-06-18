@@ -3611,7 +3611,7 @@ int main()
 }
 ```
 
-{% span cyan, lambda 表达式如果没有捕获任何外部变量时，可以直接转换成函数指针；如果捕获了外部变量，就无法编译成功，如果想通过编译，可以使用可调用对象包装器来替换函数指针。 %}
+{% span cyan, lambda 表达式如果没有捕获任何外部变量时，可以直接转换成函数指针；如果捕获了外部变量，就无法编译成功，如果想成功通过编译，可以使用可调用对象包装器来替换函数指针。 %}
 
 ```c++
 int main()
@@ -3628,6 +3628,50 @@ int main()
 ```
 
 ### 弱引用智能指针
+
+弱引用智能指针 `std::weak_ptr` 不能操作资源，因此它不会改变引用计数。
+
+#### 初始化
+
+```c++
+// 默认构造函数
+constexpr weak_ptr() noexcept;
+
+// 拷贝构造函数
+weak_ptr (const weak_ptr& x) noexcept;
+
+template <class u> weak_ptr (const weak_ptr<U>& x) noexcept;
+
+// 通过 shared_ptr 对象构造
+template <class U> weak_ptr (const shared_ptr<U>& x) noexcept;
+```
+
+```c++
+#include <iostream>
+#include <memory>
+using namespace std;
+
+int main()
+{
+    shared_ptr<int> sp(new int);
+
+    weak_ptr<int> wp1;
+    weak_ptr<int> wp2(wp1);
+    weak_ptr<int> wp3(sp);
+    
+    weak_ptr<int> wp4;
+    wp4 = sp;
+
+    weak_ptr<int> wp5;
+    wp5 = wp3;
+
+    return 0;
+}
+```
+
+#### 其他常用方法
+
+{% label use_count() pink %}
 
 ### 结语
 
