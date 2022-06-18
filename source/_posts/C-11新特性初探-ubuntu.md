@@ -3105,6 +3105,77 @@ int main()
 
 ### 共享智能指针
 
+{% span cyan, 智能指针是存储指向动态分配（堆）对象指针的类，用于生存期的控制，能够确保在离开指针所在作用域时，自动地销毁动态分配的对象，防止内存泄漏。智能指针的核心实现技术是引用计数，每使用一次，内部引用计数加 1，每析构一次内部的引用计数减 1，减为 0 时，删除所指向的堆内存。%}
+
+C++11 有三种智能指针，需要引用头文件 `<memory>` ：
+
+- `std::shared_ptr`: 共享的智能指针
+
+- `std::unique_ptr`: 独占的智能指针
+
+- `std::weak_ptr` : 弱引用的智能指针
+
+#### shared_ptr 的初始化
+
+{% span cyan, 多个共享智能指针可以同时管理同一块内存，共享智能指针是一个模板类 %}
+
+```c++
+// 管理当前对象的 shared_ptr 实例数量
+long use_count() const noexcept;
+```
+
+{% label 通过构造函数初始化 pink %}
+
+```c++
+std::shared_ptr<T> name(创建堆内存);
+```
+
+```c++
+#include <iostream>
+#include <memory>
+using namespace std;
+
+int main()
+{
+    shared_ptr<int> ptr1(new int(520));
+    cout << "ptr1 管理的内存引用计数：" << ptr1.use_count() << endl;
+
+    shared_ptr<char> ptr2(new char[12]);
+    cout << "ptr2 管理的内存引用计数：" << ptr2.use_count() << endl;
+
+    shared_ptr<int> ptr3;
+    cout << "ptr3 管理的内存引用计数：" << ptr3.use_count() << endl;
+
+    shared_ptr<int> ptr4(nullptr);
+    cout << "ptr4 管理的内存引用计数：" << ptr4.use_count() << endl;
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+ptr1 管理的内存引用计数：1
+ptr2 管理的内存引用计数：1
+ptr3 管理的内存引用计数：0
+ptr4 管理的内存引用计数：0
+```
+
+{% note blue 'fas fa-bullhorn' simple %}
+共享智能指针被初始化了一块有效内存，相应内存的引用计数 + 1，共享智能指针没有被初始化或者被初始化为 nullptr 空指针，引用计数不会 + 1。不要使用一个原始指针初始化多个 shared_ptr。
+{% endnote %}
+
+```c++
+int *p = new int;
+shared_ptr<int> p1(p);
+
+// error
+shared_ptr<int> p2(p);
+```
+
+{% label 通过拷贝构造函数和移动构造函数初始化 %}
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
