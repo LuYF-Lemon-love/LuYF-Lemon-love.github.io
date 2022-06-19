@@ -3760,6 +3760,86 @@ int main()
 
 {% label lock() pink %}
 
+`lock()` 方法可以获取管理所监测资源的 `shared_ptr` 对象。
+
+```c++
+shared_ptr<element_type> lock() const noexcept;
+```
+
+```c++
+#include <iostream>
+#include <memory>
+using namespace std;
+
+int main()
+{
+    shared_ptr<int> sp1, sp2;
+    weak_ptr<int> wp;
+
+    sp1 = std::make_shared<int>(520);
+    wp = sp1;
+    sp2 = wp.lock();
+    cout << "use_count: " << wp.use_count() << endl;
+
+    sp1.reset();
+    cout << "use_count: " << wp.use_count() << endl;
+    
+    sp1 = wp.lock();
+    cout << "use_count: " << wp.use_count() << endl;
+
+    cout << "*sp1: " << *sp1 << endl;
+    cout << "*sp2: " << *sp2 << endl;
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+use_count: 2
+use_count: 1
+use_count: 2
+*sp1: 520
+*sp2: 520
+```
+
+{% label reset() pink %}
+
+`reset()` 方法可以清空对象，使其不监测任何资源。
+
+```c++
+void reset() noexcept;
+```
+
+```c++
+#include <iostream>
+#include <memory>
+using namespace std;
+
+int main()
+{
+    shared_ptr<int> sp(new int(10));
+    weak_ptr<int> wp(sp);
+
+    cout << "1. wp " << (wp.expired() ? "is" : "is not") << " expired" << endl;
+
+    wp.reset();
+    cout << "2. wp " << (wp.expired() ? "is" : "is not") << " expired" << endl;
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+1. wp is not expired
+2. wp is expired
+```
+
+#### 返回管理 this 的 shared_ptr
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
