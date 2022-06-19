@@ -3838,7 +3838,7 @@ int main()
 2. wp is expired
 ```
 
-#### 返回管理 this 的 shared_ptr
+#### 返回管理 this 的 shared_ptr 对象
 
 ```c++
 #include <iostream>
@@ -3926,6 +3926,130 @@ class Test is disstruct ...
 {% span cyan, 在调用 enable_shared_from_this 类的 shared_from_this() 方法之前，需要先初始化，如上面的例子那样。 %}
 
 #### 解决循环引用问题
+
+`共享智能指针的循环引用会导致内存泄漏。`
+
+```c++
+#include <iostream>
+#include <memory>
+using namespace std;
+
+struct TA;
+struct TB;
+
+struct TA
+{
+    shared_ptr<TB> bptr;
+    
+    ~TA()
+    {
+        cout << "class TA is disstruct ..." << endl;
+    }
+};
+
+struct TB
+{
+    shared_ptr<TA> aptr;
+    
+    ~TB()
+    {
+        cout << "class TB is disstruct ..." << endl;
+    }
+};
+
+void testPtr()
+{
+    shared_ptr<TA> ap(new TA);
+    shared_ptr<TB> bp(new TB);
+    cout << "TA object use_count: " << ap.use_count() << endl;
+    cout << "TB object use_count: " << bp.use_count() << endl;
+
+    ap->bptr = bp;
+    bp->aptr = ap;
+    cout << "TA object use_count: " << ap.use_count() << endl;
+    cout << "TB object use_count: " << bp.use_count() << endl;
+}
+
+int main()
+{
+    testPtr();
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+TA object use_count: 1
+TB object use_count: 1
+TA object use_count: 2
+TB object use_count: 2
+```
+
+{% span cyan, 由于共享智能指针的循环引用，导致 TA 和 TB 的实例对象不能被析构，最终造成内存泄露。weak_ptr 并不会增加引用计数，因此可以将 TA 和 TB 中任意一个成员改为 weak_ptr 来解决内存泄漏的问题。 %}
+
+```c++
+#include <iostream>
+#include <memory>
+using namespace std;
+
+struct TA;
+struct TB;
+
+struct TA
+{
+    weak_ptr<TB> bptr;
+
+    ~TA()
+    {
+        cout << "class TA is disstruct ..." << endl;
+    }
+};
+
+struct TB
+{
+    shared_ptr<TA> aptr;
+
+    ~TB()
+    {
+        cout << "class TB is disstruct ..." << endl;
+    }
+};
+
+void testPtr()
+{
+    shared_ptr<TA> ap(new TA);
+    shared_ptr<TB> bp(new TB);
+    cout << "TA object use_count: " << ap.use_count() << endl;
+    cout << "TB object use_count: " << bp.use_count() << endl;
+
+    ap->bptr = bp;
+    bp->aptr = ap;
+    cout << "TA object use_count: " << ap.use_count() << endl;
+    cout << "TB object use_count: " << bp.use_count() << endl;
+}
+
+int main()
+{
+    testPtr();
+    
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+TA object use_count: 1
+TB object use_count: 1
+TA object use_count: 2
+TB object use_count: 1
+class TB is disstruct ...
+class TA is disstruct ...
+```
+
+由于 `ap->bptr` 的类型是 `weak_ptr`，因此它并不增加引用计数，所以 `bp` 对应的 `TB` 对象可以成功析构。`TB` 对象的 `bp->aptr` 也被析构。因此 `ap` 对应的 `TA` 对象可以被成功析构。
 
 ### 结语
 
