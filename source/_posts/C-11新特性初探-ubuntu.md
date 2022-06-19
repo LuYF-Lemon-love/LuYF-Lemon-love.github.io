@@ -3840,6 +3840,93 @@ int main()
 
 #### 返回管理 this 的 shared_ptr
 
+```c++
+#include <iostream>
+#include <memory>
+using namespace std;
+
+struct Test
+{
+    shared_ptr<Test> getSharedPtr()
+    {
+        return shared_ptr<Test>(this);
+    }
+
+    ~Test()
+    {
+        cout << "class Test is disstruct ..." << endl;
+    }
+};
+
+int main()
+{
+    shared_ptr<Test> sp1(new Test);
+    cout << "use_count: " << sp1.use_count() << endl;
+
+    shared_ptr<Test> sp2 = sp1->getSharedPtr();
+    cout << "use_count: " << sp1.use_count() << endl;
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+use_count: 1
+use_count: 1
+class Test is disstruct ...
+class Test is disstruct ...
+```
+
+{% span cyan, 运行上面的代码会出现异常，相当于使用同一个 this 指针初始化了两个共享智能指针，因此导致重复析构。 %}
+
+---
+
+{% span cyan, 可以使用模板类 enable_shared_from_this<T> 的 shared_from_this() 方法返回 shared_ptr 对象，内部使用 weak_ptr 的 lock() 方法实现。 %}
+
+```c++
+#include <iostream>
+#include <memory>
+using namespace std;
+
+struct Test: public enable_shared_from_this<Test>
+{
+    shared_ptr<Test> getSharedPtr()
+    {
+        return shared_from_this();
+    }
+
+    ~Test()
+    {
+        cout << "class Test is disstruct ..." << endl;
+    }
+};
+
+int main()
+{
+    shared_ptr<Test> sp1(new Test);
+    cout << "use_count: " << sp1.use_count() << endl;
+
+    shared_ptr<Test> sp2 = sp1->getSharedPtr();
+    cout << "use_count: " << sp1.use_count() << endl;
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+use_count: 1
+use_count: 2
+class Test is disstruct ...
+```
+
+{% span cyan, 在调用 enable_shared_from_this 类的 shared_from_this() 方法之前，需要先初始化，如上面的例子那样。 %}
+
+#### 解决循环引用问题
+
 ### 结语
 
 第十三篇博文写完，开心！！！！
