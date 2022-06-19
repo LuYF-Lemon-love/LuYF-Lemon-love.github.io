@@ -80,11 +80,11 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start_
 
 - `start_routine`: 函数指针。
 
-- `arg`: `start_routine` 的实参。
+- `arg`: 函数指针 `start_routine` 的实参。
 
 - `返回值`: 线程创建成功返回 0。
 
-函数指针的类型为 `void * (*start_routine)(void *)`。
+函数指针 `start_routine` 的类型为 `void * (*start_routine)(void *)`。
 
 ```c
 // pthread_create.c
