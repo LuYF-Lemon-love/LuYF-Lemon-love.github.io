@@ -3629,7 +3629,7 @@ int main()
 
 ### 弱引用智能指针
 
-弱引用智能指针 `std::weak_ptr` 不能操作资源，因此它不会改变引用计数。
+弱引用智能指针 `std::weak_ptr` 不能操作资源，因此它不会改变引用计数，主要是监视 `shared_ptr`。
 
 #### 初始化
 
@@ -3672,6 +3672,93 @@ int main()
 #### 其他常用方法
 
 {% label use_count() pink %}
+
+`use_count()` 方法可以返回所监测资源的引用计数。
+
+```c++
+long int use_count() const noexcept;
+```
+
+```c++
+#include <iostream>
+#include <memory>
+using namespace std;
+
+int main()
+{
+    shared_ptr<int> sp(new int);
+
+    weak_ptr<int> wp1;
+    weak_ptr<int> wp2(wp1);
+    weak_ptr<int> wp3(sp);
+    weak_ptr<int> wp4;
+    wp4 = sp;
+    weak_ptr<int> wp5;
+    wp5 = wp3;
+
+    cout << "use_count: " << endl;
+    cout << "wp1: " << wp1.use_count() << endl;
+    cout << "wp2: " << wp2.use_count() << endl;
+    cout << "wp3: " << wp3.use_count() << endl;
+    cout << "wp4: " << wp4.use_count() << endl;
+    cout << "wp5: " << wp5.use_count() << endl;
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+use_count: 
+wp1: 0
+wp2: 0
+wp3: 1
+wp4: 1
+wp5: 1
+```
+
+{% label weak_ptr只是监测资源，并不管理资源。 pink %}
+
+---
+
+{% label expired() pink %}
+
+`expired()` 方法可以判断观测的资源是否已经被释放。
+
+```c++
+// true 表示资源已经被释放，false 表示资源没有被释放
+bool expired() const noexcept;
+```
+
+```c++
+#include <iostream>
+#include <memory>
+using namespace std;
+
+int main()
+{
+    shared_ptr<int> shared(new int(10));
+    weak_ptr<int> weak(shared);
+
+    cout << "1. weak " << (weak.expired() ? "is" : "is not") << " expired" << endl;
+
+    shared.reset();
+
+    cout << "2. weak " << (weak.expired() ? "is" : "is not") << " expired" << endl;
+
+    return 0;
+}
+```
+
+{% label output pink %}
+
+```shell
+1. weak is not expired
+2. weak is expired
+```
+
+{% label lock() pink %}
 
 ### 结语
 
