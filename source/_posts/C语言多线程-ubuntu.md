@@ -96,7 +96,7 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start_
 
 void* working(void* arg)
 {
-    printf("子线程，ID： %ld\n", pthread_self());
+    printf("子线程，ID：%ld\n", pthread_self());
     for(int i = 0; i < 9; ++i)
     {
         printf("child i = %d\n", i);
@@ -136,6 +136,62 @@ gcc pthread_create.c -lpthread
 {% span cyan, 正常情况下，主线程控制虚拟地址空间（虚拟地址空间的生命周期和主线程相同），当主线程退出时，虚拟地址空间将被释放，因此子线程也将被销毁。但是子线程退出时，不会释放虚拟地址空间。 %}
 
 ### 线程退出
+
+线程退出函数，只会退出该线程，并不会释放虚拟地址空间（主线程）。
+
+```c
+#include <pthread.h>
+void pthread_exit(void *retval);
+```
+
+- `retval`: 线程退出时返回的数据，主线程会得到该子线程的该数据。如果没有返回的数据，`retval` 指定为 NULL。
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <pthread.h>
+
+void* working(void* arg)
+{
+    sleep(1);
+
+    printf("子线程，ID：%ld\n", pthread_self());
+
+    for(int i = 0; i < 9; ++i)
+    {
+        if(i == 6)
+        {
+            pthread_exit(NULL);
+        }
+        printf("child i = %d\n", i);
+    }
+
+    return NULL;
+}
+
+int main()
+{
+    pthread_t tid;
+    pthread_create(&tid, NULL, working, NULL);
+
+    printf("子线程创建成功，ID：%ld\n", tid);
+    printf("主线程，ID：%ld\n", pthread_self());
+
+    for(int i = 0; i < 3; ++i)
+    {
+        printf("main i = %d\n", i);
+    }
+
+    // 主线程调用退出函数退出时，虚拟地址空间不会被释放
+    pthread_exit(NULL);
+
+    return 0;
+}
+```
+
+### 线程回收
 
 ### 结语
 
