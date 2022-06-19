@@ -3879,11 +3879,11 @@ class Test is disstruct ...
 class Test is disstruct ...
 ```
 
-{% span cyan, 运行上面的代码会出现异常，相当于使用同一个 this 指针初始化了两个共享智能指针，因此导致重复析构。 %}
+{% span cyan, 运行上面的代码会出现异常，相当于使用同一个 this 指针初始化了两个共享智能指针，它们是相互独立的，因此导致重复析构。 %}
 
 ---
 
-{% span cyan, 可以使用模板类 enable_shared_from_this<T> 的 shared_from_this() 方法返回 shared_ptr 对象，内部使用 weak_ptr 的 lock() 方法实现。 %}
+可以使用模板类 `enable_shared_from_this<T>` 的 `shared_from_this()` 方法返回 `shared_ptr` 对象，内部使用 `weak_ptr` 的 `lock()` 方法实现。
 
 ```c++
 #include <iostream>
