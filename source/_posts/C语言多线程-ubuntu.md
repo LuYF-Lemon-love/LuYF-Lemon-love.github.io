@@ -59,6 +59,84 @@ date: 2022-06-19 18:37:01
 
 ### 创建线程
 
+线程的 ID 类型为 `pthread_t`，本质是无符号长整型。
+
+{% label 返回当前线程ID的函数 pink %}
+
+```c
+pthread_t pthread_self(void);
+```
+
+{% label 创建线程的函数 pink %}
+
+```c
+#include <pthread.h>
+int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start_routine)(void *), void *arg);
+```
+
+- `thread`: 传出参数，该指针指向的内存用于保存线程 ID。
+
+- `attr`: 线程的属性，一般为 NULL。
+
+- `start_routine`: 函数指针。
+
+- `arg`: `start_routine` 的实参。
+
+- `返回值`: 线程创建成功返回 0。
+
+函数指针的类型为 `void * (*start_routine)(void *)`。
+
+```c
+// pthread_create.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <pthread.h>
+
+void* working(void* arg)
+{
+    printf("子线程，ID： %ld\n", pthread_self());
+    for(int i = 0; i < 9; ++i)
+    {
+        printf("child i = %d\n", i);
+    }
+
+    return NULL;
+}
+
+int main()
+{
+    pthread_t tid;
+    pthread_create(&tid, NULL, working, NULL);
+
+    printf("子线程创建成功，ID：%ld\n", tid);
+    printf("主线程，ID：%ld\n", pthread_self());
+
+    for(int i = 0; i < 3; ++i)
+    {
+        printf("main i = %d\n", i);
+    }
+
+    // 挂起主线程，使得子线程有机会抢到 CPU 时间片
+    sleep(1);
+
+    return 0;
+}
+```
+
+{% label 线程的动态链接库为libpthread.so pink %}
+
+```shell
+gcc pthread_create.c -lpthread
+
+./a.out
+```
+
+{% span cyan, 正常情况下，主线程控制虚拟地址空间（虚拟地址空间的生命周期和主线程相同），当主线程退出时，虚拟地址空间将被释放，因此子线程也将被销毁。但是子线程退出时，不会释放虚拟地址空间。 %}
+
+### 线程退出
+
 ### 结语
 
 第十四篇博文写完，开心！！！！
