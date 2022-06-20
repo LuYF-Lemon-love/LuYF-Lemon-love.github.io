@@ -726,6 +726,93 @@ int main()(int argc, const char* argv[])
 
 ### 死锁
 
+死锁现象：所有的线程都被阻塞，并且线程的阻塞无法解开（解锁的线程也被阻塞了）。
+
+{% label 死锁现象1——加锁之后忘记解锁 pink %}
+
+```c
+void func()
+{
+    for(int i = 0; i < 6; ++i)
+    {
+        pthread_mutex_lock(&mutex);
+    }
+}
+```
+
+```c
+void func()
+{
+    for(int i = 0; i < 6; ++i)
+    {
+        pthread_mutex_lock(&mutex);
+
+        if (condition)
+        {
+            return;
+        }
+
+        pthread_mutex_lock(&mutex);
+    }
+}
+```
+
+{% label 死锁现象2——重复加锁 pink %}
+
+```c
+void func()
+{
+    for(int i = 0; i < 6; ++i)
+    {
+        pthread_mutex_lock(&mutex);
+
+        pthread_mutex_lock(&mutex);
+
+        pthread_mutex_unlock(&mutex);
+    }
+}
+```
+
+```c
+void funcA()
+{
+    for(int i = 0; i < 6; ++i)
+    {
+        pthread_mutex_lock(&mutex);
+
+        pthread_mutex_unlock(&mutex);
+    }
+}
+
+void funcB()
+{
+    for(int i = 0; i < 6; ++i)
+    {
+        pthread_mutex_lock(&mutex);
+
+        funcA();
+
+        pthread_mutex_unlock(&mutex);
+    }
+}
+```
+
+{% label 死锁现象3——多个共享资源，多个线程 pink %}
+
+![](https://cos.luyf-lemon-love.space/images/20220620225726.png)
+
+{% label 避免死锁 pink %}
+
+- 避免多次锁定。
+
+- 对共享资源访问完毕之后，一定要解锁。
+
+- 控制多个共享资源访问顺序，即控制加锁解锁顺序。
+
+- {% label 对其他互斥锁加锁前，先释放拥有的互斥锁。 pink %}
+
+### 读写锁
+
 ### 结语
 
 第十四篇博文写完，开心！！！！
