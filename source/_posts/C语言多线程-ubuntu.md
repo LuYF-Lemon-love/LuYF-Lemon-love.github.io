@@ -371,7 +371,7 @@ void* working(void* arg)
         {
             p->age = 12;
             strcpy(p->name, "susu");
-            p->id = 100;
+            p->id = 1;
 
             pthread_exit(p);
         }
