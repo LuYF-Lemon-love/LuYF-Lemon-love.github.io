@@ -621,6 +621,111 @@ int main(int argc, const char* argv[])
 
 ### 互斥锁
 
+互斥锁的类型为 `pthread_mutex_t`。该类型保存了锁的状态：锁定还是未锁定；加锁的线程 ID。一个互斥锁只能被一个线程锁定，其他想对临界区加锁的线程将被阻塞。直到这把互斥锁被加锁的线程解锁，被阻塞的线程才能解除阻塞。互斥锁的数量和共享资源的个数相同。
+
+```c
+pthread_mutex_t mutex;
+```
+
+只有 `restrict` 修饰的指针可以访问该地址。
+
+```c
+// 初始化互斥锁
+int pthread_mutex_init(pthread_mutex_t *restrict mutex, const pthread_mutexattr_t *restrict attr);
+
+// 释放互斥锁
+int pthread_mutex_destroy(pthread_mutex_t *mutex);
+```
+
+- `mutex`: 互斥锁变量的地址。
+
+- `attr`: 互斥锁的属性，一般为 NULL。
+
+```c
+// 加锁
+int pthread_mutex_lock(pthread_mutex_t *mutex);
+```
+
+```c
+// 尝试加锁
+// 如果锁没有被锁定，则加锁成功；如果锁已被锁定，则尝试加锁的线程不会被阻塞
+int pthread_mutex_trylock(pthread_mutex_t *mutex);
+```
+
+```c
+// 解锁
+int pthread_mutex_unlock(pthread_mutex_t *mutex);
+```
+
+{% label 进行线程同步 pink %}
+
+```c
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <string.h>
+#include <pthread.h>
+
+#define MAX 50
+
+int number;
+
+pthread_mutex_t mutex;
+
+void* funcA_num(void* arg)
+{
+    for(int i = 0; i < MAX; ++i)
+    {
+        pthread_mutex_lock(&mutex);
+        int cur = number;
+        cur++;
+        usleep(10);
+        number = cur;
+        pthread_mutex_unlock(&mutex);
+        printf("Thread A, id = %lu, number = %d\n", pthread_self(), number);
+    }
+
+    return NULL;
+}
+
+void* funcB_num(void* arg)
+{
+    for(int i = 0; i < MAX; ++i)
+    {
+        pthread_mutex_lock(&mutex);
+        int cur = number;
+        cur++;
+        number = cur;
+        pthread_mutex_unlock(&mutex);
+        printf("Thread B, id = %lu, number = %d\n", pthread_self(), number);
+        usleep(5);
+    }
+
+    return NULL;
+}
+
+int main()(int argc, const char* argv[])
+{
+    pthread_t p1, p2;
+
+    pthread_mutex_init(&mutex, NULL);
+
+    pthread_create(&p1, NULL, funcA_num, NULL);
+    pthread_create(&p2, NULL, funcB_num, NULL);
+
+    pthread_join(p1, NULL);
+    pthread_join(p2, NULL);
+
+    pthread_mutex_destroy(&mutex);
+
+    return 0;
+}
+```
+
+### 死锁
+
 ### 结语
 
 第十四篇博文写完，开心！！！！
