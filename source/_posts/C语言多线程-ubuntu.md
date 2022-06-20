@@ -797,7 +797,7 @@ void funcB()
 }
 ```
 
-{% label 死锁现象3——多个共享资源，多个线程 pink %}
+{% label 死锁现象3——多个共享资源，多个线程，随意加锁 pink %}
 
 ![](https://cos.luyf-lemon-love.space/images/20220620225726.png)
 
