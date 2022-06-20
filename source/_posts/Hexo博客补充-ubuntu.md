@@ -13,6 +13,7 @@ tags:
   - 网站备案
   - 公安备案
   - 对象存储
+  - PicGo
 categories: 博客
 description: 对第一个搭建博客的博文-Hexo快速搭建一个博客-ubuntu的补充。
 cover: >-

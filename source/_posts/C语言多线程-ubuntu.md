@@ -193,6 +193,221 @@ int main()
 
 ### 线程回收
 
+线程回收函数是 `pthread_join()`，该函数会阻塞当前线程（一般为主线程），直到要回收的子线程退出。可以通过该函数获得子线程退出时返回的数据。
+
+```c
+#include <pthread.h>
+int pthread_join(pthread_t thread, void **retval)
+```
+
+- `thread`: 子线程的 ID。
+
+- `retval`: 传出参数，该块内存保存了子线程中的 `pthread_exit()` 方法传递出的数据。如果不需要该参数获得子线程返回的数据，指定为 NULL。
+
+- `返回值`: 线程回收成功返回 0。
+
+{% label 数据保存在子线程的栈区 pink %}
+
+```c
+// pthread_join.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <pthread.h>
+
+struct Person
+{
+    int id;
+    char name[36];
+    int age;
+};
+
+void* working(void* arg)
+{
+    printf("子线程，ID：%ld\n", pthread_self());
+    
+    for(int i = 0; i < 9; ++i)
+    {
+        printf("child i = %d\n", i);
+        if(i == 6)
+        {
+            struct Person p;
+            p.age = 12;
+            strcpy(p.name, "susu");
+            p.id = 1;
+            
+            pthread_exit(&p);
+        }
+    }
+
+    return NULL;
+}
+
+int main()
+{
+    pthread_t tid;
+    pthread_create(&tid, NULL, working, NULL);
+
+    printf("子线程创建成功，ID：%ld\n", tid);
+    printf("主线程，ID：%ld\n", pthread_self());
+
+    for(int i = 0; i < 3; ++i)
+    {
+        printf("main i = %d\n", i);
+    }
+
+    void* ptr = NULL;
+    pthread_join(tid, &ptr);
+
+    struct Person* pp = (struct Person*)ptr;
+    
+    pritnf("子线程返回数据 name: %s, age: %d, id: %d\n", pp->name, pp->age, pp->id);
+    printf("子线程资源被成功回收...\n");
+
+    return 0;
+}
+```
+
+{% label 编译并执行程序 pink %}
+
+```shell
+gcc pthread_join.c -lpthread
+
+./a.out
+```
+
+运行结果显示主线程并没有获取子线程返回的数据，由于子线程的栈区的生命周期与子线程相同，因此当子线程退出后，子线程的栈区将被回收，主线程并不能得到子线程返回的栈区数据。
+
+{% label 数据保存在全局变量中 pink %}
+
+位于同一个虚拟地址空间中的线程，可以共享全局数据区和堆区数据（全局变量、静态变量和堆内存）。
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <pthread.h>
+
+struct Person
+{
+    int id;
+    char name[36];
+    int age;
+};
+
+struct Person p;
+
+void* working(void* arg)
+{
+    printf("子线程，ID：%ld\n", pthread_self());
+    for(int i = 0; i < 9; ++i)
+    {
+        printf("child i = %d\n", i);
+        if(i == 6)
+        {
+            p.age = 12;
+            strcpy(p.name, "susu");
+            p.id = 1;
+            pthread_exit(&p);
+        }
+    }
+
+    return NULL;
+}
+
+int main()
+{
+    pthread_t tid;
+    pthread_create(&tid, NULL, working, NULL);
+
+    printf("子线程创建成功，ID：%ld\n", tid);
+    printf("主线程，ID：%ld\n", pthread_self());
+
+    for(int i = 0; i < 3; ++i)
+    {
+        printf("main i = %d\n", i);
+    }
+
+    void* ptr = NULL;
+    pthread_join(tid, &ptr);
+
+    // ptr(需要转换类型为 struct Person*) 和 p 都可以访问子线程传出的数据
+    struct Person* pp = (struct Person*)ptr;
+
+    pritnf("子线程返回数据 name: %s, age: %d, id: %d\n", pp->name, pp->age, pp->id);
+    printf("子线程资源被成功回收...\n");
+
+    return 0;
+}
+```
+
+{% label 数据保存在主线程栈区中 pink %}
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <pthread.h>
+
+struct Person
+{
+    int id;
+    char name[36];
+    int age;
+};
+
+void* working(void* arg)
+{
+    struct Person* p = (struct Person*)arg;
+    printf("子线程，ID：%ld\n", pthread_self());
+
+    for(int i = 0; i < 9; ++i)
+    {
+        printf("child i = %d\n", i);
+        if(i == 6)
+        {
+            p->age = 12;
+            strcpy(p->name, "susu");
+            p->id = 100;
+
+            pthread_exit(p);
+        }
+    }
+
+    return NULL;
+}
+
+int main()
+{
+    pthread_t tid;
+    struct Person p;
+
+    pthread_create(&tid, NULL, working, &p);
+
+    printf("子线程创建成功，ID：%ld\n", tid);
+    printf("主线程，ID：%ld\n", pthread_self());
+
+    for(int i = 0; i < 3; ++i)
+    {
+        printf("main i = %d\n", i);
+    }
+
+    void* ptr = NULL;
+    pthread_join(tid, &ptr);
+
+    // ptr(需要转换类型为 struct Person*) 和 p 都可以访问子线程传出的数据
+    pritnf("子线程返回数据 name: %s, age: %d, id: %d\n", p.name, p.age, p.id);
+    printf("子线程资源被成功回收...\n");
+
+    return 0;
+}
+```
+
+### 线程分离
+
 ### 结语
 
 第十四篇博文写完，开心！！！！
