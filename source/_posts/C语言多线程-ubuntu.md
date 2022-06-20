@@ -459,6 +459,80 @@ int main()
 
 ### 线程取消
 
+线程取消函数 `pthread_cancel` 可以使一个线程 kill 另一个线程。下面是 kill 一个线程的步骤：
+
+1. 线程 A 中调用线程取消函数 `pthread_cancel`，指定杀死线程 B。
+
+2. 线程 B 调用一次系统调用（内核函数即系统函数）。
+
+3. 线程 B 被 kill。
+
+```c
+#include <pthread.h>
+int pthread_cancel(pthread_t thread);
+```
+
+- `thread`: 要 kill 的线程的 ID。
+
+- `返回值`: 函数调用成功返回 0。
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <pthread.h>
+
+void* working(void* arg)
+{
+    int j = 0;
+    for(int i = 0; i < 9; ++i)
+    {
+        j++;
+    }
+
+    // printf 函数会调用系统函数
+    printf("子线程，ID：%ld\n", pthread_self());
+
+    for(int i = 0; i < 9; ++i)
+    {
+        printf("child i = %d\n", i);
+    }
+
+    return NULL;
+}
+
+int main()
+{
+    pthread_t tid;
+    pthread_create(&tid, NULL, working, NULL);
+
+    printf("子线程创建成功，ID：%ld\n", tid);
+    printf("主线程，ID：%ld\n", pthread_self());
+
+    for(int i = 0; i < 3; ++i)
+    {
+        printf("main i = %d\n", i);
+    }
+
+    pthread_cancel(tid);
+
+    pthread_exit(NULL);
+
+    return 0;
+}
+```
+
+{% note blue 'fas fa-bullhorn' simple %}
+系统调用的两种方式：
+
+1. 直接调用 Linux 系统函数。
+
+2. 调用 C 语言的标准库函数。
+{% endnote %}
+
+### 线程 ID 比较函数
+
 ### 结语
 
 第十四篇博文写完，开心！！！！
