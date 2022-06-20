@@ -408,6 +408,57 @@ int main()
 
 ### 线程分离
 
+线程分离函数 `pthread_detach()` 可以使子线程和主线程分离，子线程退出时会被其他进程回收。
+
+```c
+#include <pthread.h>
+int pthread_detach(pthread_t thread);
+```
+
+{% label 主线程和子线程的分离 pink %}
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <pthread.h>
+
+void* working(void* arg)
+{
+    printf("字线程，ID：%ld\n", pthread_self());
+
+    for(int i = 0; i < 9; ++i)
+    {
+        printf("child i = %d\n", i);
+    }
+    
+    return NULL;
+}
+
+int main()
+{
+    pthread_t tid;
+    pthread_create(&tid, NULL, working, NULL);
+
+    printf("子线程创建成功，ID：%ld\n", tid);
+    printf("主线程，ID：%ld\n", pthread_self());
+
+    for(int i = 0; i < 3; ++i)
+    {
+        printf("main i = %d\n", i);
+    }
+
+    pthread_detach(tid);
+
+    pthread_exit(NULL);
+
+    return 0;
+}
+```
+
+### 线程取消
+
 ### 结语
 
 第十四篇博文写完，开心！！！！
