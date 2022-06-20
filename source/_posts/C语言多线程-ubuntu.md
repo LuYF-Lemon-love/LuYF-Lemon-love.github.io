@@ -546,6 +546,83 @@ int pthread_equal(pthread_t t1, pthread_t t2);
 
 ### 线程同步
 
+线程同步保证多个线程只能有一个线程在访问共享资源。保证共享资源对于所有线程具有一致性。
+
+{% label 不进行线程同步 pink %}
+
+```c
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <string.h>
+#include <pthread.h>
+
+#define MAX 50
+
+int number;
+
+void* funcA_num(void* arg)
+{
+    for(int i = 0; i < MAX; ++i)
+    {
+        int cur = number;
+        cur++;
+        usleep(10);
+        number = cur;
+        printf("Thread A, id = %lu, number = %d\n", pthread_self(), number);
+    }
+
+    return NULL;
+}
+
+void* funcB_num(void* arg)
+{
+    for(int i = 0; i < MAX; ++i)
+    {
+        int cur = number;
+        cur++;
+        number = cur;
+        printf("Thread B, id = %lu, number = %d\n", pthread_self(), number);
+        usleep(5);
+    }
+
+    return NULL;
+}
+
+int main(int argc, const char* argv[])
+{
+    pthread_t p1, p2;
+
+    pthread_create(&p1, NULL, funcA_num, NULL);
+    pthread_create(&p2, NULL, funcB_num, NULL);
+
+    pthread_join(p1, NULL);
+    pthread_join(p2, NULL);
+
+    return 0;
+}
+```
+
+{% span cyan, 编译并执行上面代码，可以发现最终的 number 小于 100。%}
+
+---
+
+{% span cyan, CPU 的寄存器、一级缓存、二级缓存和三级缓存对于每个线程是独占的，用于存储处理的数据和线程的状态信息，即分时复用 CPU 时间片时上下文切换保存的状态。线程计算完成的数据需要从 CPU 保存到内存中，最终再通过文件 IO 将数据从内存保存到磁盘中。%}
+
+当某一个线程未将某一循环中计算完成的数据保存到内存中时，失去了 CPU 时间片。另一个得到 CPU 时间片的线程从物理内存读取数据。因此这个线程只能基于旧数据计算，并保存到内存中，然后继续循环计算，直到这个线程失去了 CPU 时间片。由于我们上面的例子中只有两个线程，上一失去CPU 时间片获得 CPU 时间片，将还未来得及保存到内存的数据保存到内存中，覆盖了另一个线程保存的数据。因此导致最终的 number 小于 100。
+
+线程同步共有 4 种，{% label 互斥锁 pink %}、{% label 读写锁 red %}、{% label 条件变量 purple %} 和 {% label 信号量 green %}。共享资源被称为临界资源。
+
+{% label 临界资源相关的上下文代码块被称为临界区 orange %}
+
+需要在临界区上边添加锁函数，对临界区加锁；在临界区下边添加解锁函数，对临界区解锁。某一线程会将临界区锁定，防止其他线程和它同时访问临界区，等到它访问完成，对临界区解锁，其他被阻塞且抢到锁的线程对临界区加锁，访问临界区。
+
+`锁机制保证任何时刻只能有一个线程可以访问临界区。`
+
+### 互斥锁
+
 ### 结语
 
 第十四篇博文写完，开心！！！！
