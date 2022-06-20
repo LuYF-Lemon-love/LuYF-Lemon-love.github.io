@@ -3,6 +3,7 @@ title: Markdown语法-ubuntu
 tags:
   - VSCode
   - Markdown
+  - jsdelivr
 categories: 计算机基础
 description: 介绍一些 Markdown 常用语法
 cover: https://cos.luyf-lemon-love.space/images/20220513124626.png

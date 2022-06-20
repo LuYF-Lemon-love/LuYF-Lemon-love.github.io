@@ -5,6 +5,7 @@ tags:
   - Markdown
   - Github
   - PicGo
+  - jsdelivr
 categories: 实用技巧
 description: 利用 Github 和 PicGo 搭建 Markdown 图床。
 cover: https://cos.luyf-lemon-love.space/images/20220511161649.png
