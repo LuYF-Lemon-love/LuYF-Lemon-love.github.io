@@ -1136,9 +1136,9 @@ int main()
 
 ### 信号量
 
-`信号量` 的如它的名字一样可以指示资源的可用情况，它配合互斥锁也可以处理生产者和消费者模型，也被称为 `信号灯`。
+`信号量` 如它的名字一样可以指示资源的可用情况，它配合互斥锁也可以处理生产者和消费者模型，它也被称为 `信号灯`。
 
-使用信号量需要引用头文件 `<semaphore.h>。信号量的类型为 `sem_t`。
+使用信号量需要引用头文件 `<semaphore.h>`。信号量的类型为 `sem_t`。
 
 ```c
 #include <semaphore.h>
@@ -1155,7 +1155,7 @@ int sem_init(sem_t *sem, int pshared, unsigned int value);
 int sem_destroy(sem_t *sem);
 ```
 
-- `sem`: 信号量变量地址。
+- `sem`: 信号量变量的地址。
 
 - `pshared`: `0` 表示线程同步，`非 0` 表示进程同步。
 
@@ -1189,7 +1189,7 @@ int sem_timedwait(sem_t *sem, const struct timespec *abs_timeout);
 ```
 
 ```c
-// 资源数 +1，如果有线程因为资源数为 0 而阻塞，这时这些线程会被解除阻塞，进而访问临界区
+// 资源数 +1，如果有线程因为资源数为 0 而被阻塞，这时这些线程会被解除阻塞，进而访问临界区
 int sem_post(sem_t *sem);
 ```
 
@@ -1420,7 +1420,6 @@ int main()
 
     sem_destroy(&psem);
     sem_destroy(&csem);
-    
     
     pthread_mutex_destroy(&mutex);
 
