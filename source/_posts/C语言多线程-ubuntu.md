@@ -57,7 +57,9 @@ date: 2022-06-19 18:37:01
 
 1. [苏丙榅老师的多线程教程](https://subingwen.cn/linux/thread/)
 
-2. [生产者消费者问题](https://baike.baidu.com/item/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98)
+2. [苏丙榅老师的线程同步教程](https://subingwen.cn/linux/thread-sync/)
+
+3. [生产者消费者问题](https://baike.baidu.com/item/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98)
 
 ### 创建线程
 
@@ -982,7 +984,7 @@ int pthread_cond_wait(pthread_cond_t *restrict cond, pthread_mutex_t *restrict m
 
 - `pthread_cond_wait` 函数的作用可以参考下面例子（生产者和消费者问题）中的消费者线程函数（`consumer函数`）。
 
-- 在 `阻塞消费者线程` 时候（`内层的while循环`)，该函数会把当前消费者之前上的锁 `mutex` 打开。
+- 在 `阻塞消费者线程` 时候（`内层的while循环`)，该函数会把当前消费者线程之前上的锁 `mutex` 打开。
 
 - 当 `消费者线程解除阻塞` 时候，该函数会帮助这个消费者线程将这个 `mutex` 互斥锁再次锁上。消费者线程继续访问临界区。
 
@@ -1026,7 +1028,7 @@ int pthread_cond_broadcast(pthread_cond_t *cond);
 
 ![](https://cos.luyf-lemon-love.space//images/20220621163744.png)
 
->场景描述：使用条件变量实现生产者和消费者模型，生产者和消费者各 5 个，生产者在链表头部添加节点；消费者在链表头部删除节点。由于缓存区是链表，所以生产者可以一直生产。
+>场景描述：使用条件变量和互斥锁实现生产者和消费者模型，生产者和消费者各 5 个，生产者在链表头部添加节点；消费者在链表头部删除节点。由于缓存区是链表，所以生产者可以一直生产。
 
 ```c
 #include <stdio.h>
