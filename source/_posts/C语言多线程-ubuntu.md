@@ -1136,6 +1136,298 @@ int main()
 
 ### 信号量
 
+`信号量` 的如它的名字一样可以指示资源的可用情况，它配合互斥锁也可以处理生产者和消费者模型，也被称为 `信号灯`。
+
+使用信号量需要引用头文件 `<semaphore.h>。信号量的类型为 `sem_t`。
+
+```c
+#include <semaphore.h>
+sem_t sem;
+```
+
+```c
+#include <semaphore.h>
+
+// 初始化
+int sem_init(sem_t *sem, int pshared, unsigned int value);
+
+// 释放资源
+int sem_destroy(sem_t *sem);
+```
+
+- `sem`: 信号量变量地址。
+
+- `pshared`: `0` 表示线程同步，`非 0` 表示进程同步。
+
+- `value`: 初始化信号量拥有的资源数（`>=0`），如果资源数为 `0`， 线程将被阻塞。
+
+```c
+// 资源数 -1
+int sem_wait(sem_t *sem);
+```
+
+线程调用 `sem_wait` 函数，如果资源数 `>0`，线程不会被阻塞，资源数 `-1`；如果资源数 `=0`，线程被阻塞。
+
+```c
+// 当资源数 >0，效果等同于 sem_wait；当资源数 =0，线程不会被阻塞
+int sem_trywait(sem_t *sem);
+```
+
+```c
+// 时间是从 1971.1.1 0:0:0 到当前的时间，总长度是两个成员变量的和。
+struct timespec {
+    
+    // Seconds
+    time_t tv_sec;
+
+    // Nanoseconds
+    long tv_nsec;
+};
+
+// 当资源数 >0，效果等同于 sem_wait；当资源数 =0，线程会阻塞一段时间
+int sem_timedwait(sem_t *sem, const struct timespec *abs_timeout);
+```
+
+```c
+// 资源数 +1，如果有线程因为资源数为 0 而阻塞，这时这些线程会被解除阻塞，进而访问临界区
+int sem_post(sem_t *sem);
+```
+
+```c
+// 获得资源数，sval 是一个传出参数，sval 和返回值的作用一样。
+int sem_getvalue(sem_t *sem, int *sval);
+```
+
+{% label 生产者和消费者问题 pink %}
+
+>场景描述：使用信号量和互斥锁实现生产者和消费者模型，生产者和消费者各 5 个，生产者在链表头部添加节点；消费者在链表头部删除节点。
+
+{% label 总资源数为1 green %}
+
+>由于生产者和消费者的总资源数为 1，所以任何时刻可以工作的线程只能有一个，不需要互斥锁。
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <semaphore.h>
+#include <pthread.h>
+
+struct Node
+{
+    int number;
+    struct Node* next;
+};
+
+sem_t psem;
+sem_t csem;
+
+pthread_mutex_t mutex;
+
+struct Node * head = NULL;
+
+void* producer(void* arg)
+{
+    while(1)
+    {
+        sem_wait(&psem);
+
+        struct Node* pnew = (struct Node*)malloc(sizeof(struct Node));
+
+        pnew->number = rand() % 1000;
+
+        pnew->next = head;
+
+        head = pnew;
+
+        printf("producer, number = %d, tid = %ld\n", pnew->number, pthread_self());
+
+        sem_post(&csem);
+
+        sleep(rand() % 3);
+    }
+
+    return NULL;
+}
+
+void* consumer(void* arg)
+{
+    while(1)
+    {
+        sem_wait(&csem);
+
+        struct Node* pnode = head;
+        
+        printf("consumer, number = %d, tid = %ld\n", pnode->number, pthread_self());
+        
+        head = pnode->next;
+
+        free(pnode);
+
+        sem_post(&psem);
+
+        sleep(rand() % 3);
+    }
+
+    return NULL;
+}
+
+int main()
+{
+    sem_init(&psem, 0, 1);
+    sem_init(&csem, 0, 0);
+
+    pthread_t ptid[5];
+    pthread_t ctid[5];
+
+    for(int i = 0; i < 5; ++i)
+    {
+        pthread_create(&ptid[i], NULL, producer, NULL);
+    }
+
+    for(int i = 0; i < 5; ++i)
+    {
+        pthread_create(&ctid[i], NULL, consumer, NULL);
+    }
+
+    for(int i = 0; i < 5; ++i)
+    {
+        pthread_join(ptid[i], NULL);
+    }
+
+    for(int i = 0; i < 5; ++i)
+    {
+        pthread_join(ctid[i], NULL);
+    }
+
+    sem_destroy(&psem);
+    sem_destroy(&csem);
+
+    return 0;
+}
+```
+
+{% label 总资源数大于1 green %}
+
+>由于生产者和消费者的总资源数大于 1，所以需要互斥锁。信号量和互斥锁的函数在线程函数（ producer 和 consumer ）中调用顺序不能颠倒。
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <semaphore.h>
+#include <pthread.h>
+
+struct Node
+{
+    int number;
+    struct Node* next;
+};
+
+sem_t psem;
+
+sem_t csem;
+
+pthread_mutex_t mutex;
+
+struct Node * head = NULL;
+
+void* producer(void* arg)
+{
+    while(1)
+    {
+        sem_wait(&psem);
+
+        pthread_mutex_lock(&mutex);
+
+        struct Node* pnew = (struct Node*)malloc(sizeof(struct Node));
+
+        pnew->number = rand() % 1000;
+
+        pnew->next = head;
+
+        head = pnew;
+
+        printf("producer, number = %d, tid = %ld\n", pnew->number, pthread_self());
+
+        pthread_mutex_unlock(&mutex);
+
+        sem_post(&csem);
+
+        sleep(rand() % 3);
+    }
+
+    return NULL;
+}
+
+void* consumer(void* arg)
+{
+    while(1)
+    {
+        sem_wait(&csem);
+
+        pthread_mutex_lock(&mutex);
+        
+        struct Node* pnode = head;
+
+        printf("consumer, number = %d, tid = %ld\n", pnode->number, pthread_self());
+
+        head = pnode->next;
+
+        free(pnode);
+
+        pthread_mutex_unlock(&mutex);
+
+        sem_post(&psem);
+
+        sleep(rand() % 3);
+    }
+
+    return NULL;
+}
+
+int main()
+{
+    sem_init(&psem, 0, 5);
+    sem_init(&csem, 0, 0);
+
+    pthread_mutex_init(&mutex, NULL);
+
+    pthread_t ptid[5];
+    pthread_t ctid[5];
+
+    for(int i = 0; i < 5; ++i)
+    {
+        pthread_create(&ptid[i], NULL, producer, NULL);
+    }
+
+    for(int i = 0; i < 5; ++i)
+    {
+        pthread_create(&ctid[i], NULL, consumer, NULL);
+    }
+
+    for(int i = 0; i < 5; ++i)
+    {
+        pthread_join(ptid[i], NULL);
+    }
+
+    for(int i = 0; i < 5; ++i)
+    {
+        pthread_join(ctid[i], NULL);
+    }
+
+    sem_destroy(&psem);
+    sem_destroy(&csem);
+    
+    
+    pthread_mutex_destroy(&mutex);
+
+    return 0;
+}
+```
+
 ### 结语
 
 第十四篇博文写完，开心！！！！
