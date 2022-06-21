@@ -57,6 +57,8 @@ date: 2022-06-19 18:37:01
 
 1. [苏丙榅老师的多线程教程](https://subingwen.cn/linux/thread/)
 
+2. [生产者消费者问题](https://baike.baidu.com/item/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98)
+
 ### 创建线程
 
 线程的 ID 类型为 `pthread_t`，本质是无符号长整型。
@@ -947,6 +949,190 @@ int main()
 ```
 
 ### 条件变量
+
+{% label 条件变量 pink %}
+
+条件变量在满足条件时会阻塞线程。条件变量配合互斥锁用于处理生产者和消费者模型。
+
+条件变量类型为 `pthread_cond_t`，被条件变量阻塞的线程的信息被记录在这个类型变量中。
+
+```c
+pthread_cond_t cond;
+```
+
+```c
+#include <pthread.h>
+pthread_cond_t cond;
+
+// 初始化
+int pthread_cond_init(pthread_cond_t *restrict cond, const pthread_condattr_t *restrict attr);
+
+// 释放资源
+int pthread_cond_destroy(pthread_cond_t *cond);
+```
+
+- `cond`: 条件变量的地址。
+
+- `attr`: 条件变量的属性，一般为 NULL。
+
+```c
+// 线程阻塞函数
+int pthread_cond_wait(pthread_cond_t *restrict cond, pthread_mutex_t *restrict mutex);
+```
+
+- `pthread_cond_wait` 函数的作用可以参考下面例子（生产者和消费者问题）中的消费者线程函数（`consumer函数`）。
+
+- 在 `阻塞消费者线程` 时候（`内层的while循环`)，该函数会把当前消费者之前上的锁 `mutex` 打开。
+
+- 当 `消费者线程解除阻塞` 时候，该函数会帮助这个消费者线程将这个 `mutex` 互斥锁再次锁上。消费者线程继续访问临界区。
+
+```c
+// 时间是从 1971.1.1 0:0:0 到当前的时间，总长度是两个成员变量的和。
+struct timespec {
+    
+    // Seconds
+    time_t tv_sec;
+
+    // Nanoseconds
+    long tv_nsec;
+};
+
+// 阻塞线程一段时间
+int pthread_cond_timedwait(pthread_cond_t *restrict cond, pthread_mutex_t *restrict mutex, const struct timespec *restrict abstime);
+```
+
+```c
+// 时间是从 1971.1.1 0:0:0 到当前的时间，总秒数
+time_t mytime = time(NULL);
+
+struct timespec tmsp;
+
+// 线程阻塞 100s
+tmsp.tv_sec = time(NULL) + 100;
+tmsp.tv_nsec = 0;
+```
+
+```c
+// 唤醒阻塞在条件变量上的线程，至少有一个线程被解除阻塞
+int pthread_cond_signal(pthread_cond_t *cond);
+
+// 唤醒阻塞在条件变量上的线程，被阻塞的线程全部被解除阻塞
+int pthread_cond_broadcast(pthread_cond_t *cond);
+```
+
+{% label 生产者和消费者问题 pink %}
+
+生产者消费者问题（英语：Producer-consumer problem），也称有限缓冲问题（英语：Bounded-buffer problem），是一个多线程同步问题的经典案例。该问题描述了两个共享固定大小缓冲区的线程——即所谓的“生产者”和“消费者”——在实际运行时会发生的问题。生产者的主要作用是生成一定量的数据放到缓冲区中，然后重复此过程。与此同时，消费者也在缓冲区消耗这些数据。该问题的关键就是要保证生产者不会在缓冲区满时加入数据，消费者也不会在缓冲区中空时消耗数据。该问题也能被推广到多个生产者和消费者的情形。
+
+![](https://cos.luyf-lemon-love.space//images/20220621163744.png)
+
+>场景描述：使用条件变量实现生产者和消费者模型，生产者和消费者各 5 个，生产者在链表头部添加节点；消费者在链表头部删除节点。由于缓存区是链表，所以生产者可以一直生产。
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <pthread.h>
+
+struct Node
+{
+    int number;
+    struct Node* next;
+};
+
+pthread_cond_t cond;
+
+pthread_mutex_t mutex;
+
+struct Node * head = NULL;
+
+void* producer(void* arg)
+{
+    while(1)
+    {
+        pthread_mutex_lock(&mutex);
+
+        struct Node* pnew = (struct Node*)malloc(sizeof(struct Node));
+
+        pnew->number = rand() % 1000;
+
+        pnew->next = head;
+
+        head = pnew;
+
+        printf("producer, number = %d, tid = %ld\n", pnew->number, pthread_self());
+
+        pthread_mutex_unlock(&mutex);
+
+        pthread_cond_broadcast(&cond);
+
+        sleep(rand() % 3);
+    }
+
+    return NULL;
+}
+
+void* consumer(void* arg)
+{
+    while(1)
+    {
+        pthread_mutex_lock(&mutex);
+
+        // 一定要用循环，不要用 if 条件判断
+        while(head == NULL)
+        {
+            pthread_cond_wait(&cond, &mutex);
+        }
+
+        struct Node* pnode = head;
+        printf("consumer, number = %d, tid = %ld\n", pnode->number, pthread_self());
+        head = pnode->next;
+        free(pnode);
+        pthread_mutex_unlock(&mutex);
+
+        sleep(rand() % 3);
+    }
+
+    return NULL;    
+}
+
+int main()
+{
+    pthread_cond_init(&cond, NULL);
+    pthread_mutex_init(&mutex, NULL);
+
+    pthread_t ptid[5];
+    pthread_t ctid[5];
+
+    for(int i = 0; i < 5; ++i)
+    {
+        pthread_create(&ptid[i], NULL, producer, NULL);
+    }
+
+    for(int i = 0; i < 5; ++i)
+    {
+        pthread_create(&ctid[i], NULL, consumer, NULL);
+    }
+
+    for(int i = 0; i < 5; ++i)
+    {
+        pthread_join(ptid[i], NULL);
+    }
+
+    for(int i = 0; i < 5; ++i)
+    {
+        pthread_join(ctid[i], NULL);
+    }
+
+    pthread_cond_destroy(&cond);
+    pthread_mutex_destroy(&mutex);
+
+    return 0;
+}
+```
+
+### 信号量
 
 ### 结语
 
