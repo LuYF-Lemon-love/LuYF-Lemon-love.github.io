@@ -813,6 +813,139 @@ void funcB()
 
 ### 读写锁
 
+`读写锁是互斥锁的升级版，读操作是并行的`。读写锁的类型为 `pthread_rwlock_t`。该类型包含以下信息：`锁定 / 打开`、`读操作 / 写操作` 和 `线程 ID`。
+
+```c
+pthread_rwlock_t rwlock;
+```
+
+`读写锁` 锁定了 `读操作`，需要`先解锁`才能去`锁定写操作`，反之亦然。
+
+读写锁的使用方式和互斥锁的使用方式完全相同。
+
+- 使用读写锁的`读锁`锁定了临界区，线程对临界区的访问是并行的，`读锁是共享的`。
+
+- 使用读写锁的`写锁`锁定了临界区，线程对临界区的访问是串行的，`写锁是独占的`。
+
+- 两个线程要同时访问`读锁`和`写锁`锁定的两个临界区。访问`写锁锁定的临界区`线程先访问，访问`读锁锁定的临界区`的线程被阻塞。`写锁的优先级更好`。
+
+- `读写锁`对读操作比写操作多的场景有优势。
+
+```c
+#include <pthread.h>
+pthread_rwlock_t rwlock;
+
+// 初始化读写锁
+int pthread_rwlock_init(pthread_rwlock_t *restrict rwlock, const pthread_rwlockattr_t *restrict attr);
+
+// 释放读写锁
+int pthread_rwlock_destroy(pthread_rwlock_t *rwlock);
+```
+
+- `rwlock`: 读写锁变量的地址。
+
+- `attr`: 读写锁的属性，一般为 NULL。
+
+```c
+// 加读锁
+int pthread_rwlock_rdlock(pthread_rwlock_t *rwlock);
+```
+
+```c
+// 尝试加读锁，加锁失败，不会阻塞当前线程
+int pthread_rwlock_tryrdlock(pthread_rwlock_t *rwlock);
+```
+
+```c
+// 加写锁
+int pthread_rwlock_wrlock(pthread_rwlock_t *rwlock);
+```
+
+```c
+// 尝试加写锁，加锁失败，不会阻塞当前线程
+int pthread_rwlock_trywrlock(pthread_rwlock_t *rwlock);
+```
+
+```c
+// 解锁，读锁和写锁都可以
+int pthread_rwlock_unlock(pthread_rwlock_t *rwlock);
+```
+
+{% label 读写锁的使用 pink %}
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <pthread.h>
+
+int number = 0;
+
+pthread_rwlock_t rwlock;
+
+void* writeNum(void* arg)
+{
+    while(1)
+    {
+        pthread_rwlock_wrlock(&rwlock);
+        int cur = number;
+        cur++;
+        number = cur;
+        printf("写操作完毕，number = %d, tid = %ld\n", number, pthread_self());
+        pthread_rwlock_unlock(&rwlock);
+
+        usleep(rand() % 100);
+    }
+
+    return NULL;
+}
+
+void* readNum(void* arg)
+{
+    while(1)
+    {
+        pthread_rwlock_rdlock(&rwlock);
+        printf("读操作完毕，number = %d, tid = %ld\n", number, pthread_self());
+        pthread_rwlock_unlock(&rwlock);
+        usleep(rand() % 100);
+    }
+
+    return NULL;
+}
+
+int main()
+{
+    pthread_rwlock_init(&rwlock, NULL);
+
+    pthread_t wtid[3];
+    pthread_t rtid[5];
+    for(int i = 0; i < 3; ++i)
+    {
+        pthread_create(&wtid[i], NULL, writeNum, NULL);
+    }
+
+    for(int i = 0; i < 5; ++i)
+    {
+        pthread_create(&rtid[i], NULL, readNum, NULL);
+    }
+
+    for(int i = 0; i < 3; ++i)
+    {
+        pthread_join(wtid[i], NULL);
+    }
+
+    for(int i = 0; i < 5; ++i)
+    {
+        pthread_join(rtid[i], NULL);
+    }
+
+    pthread_rwlock_destroy(&rwlock);
+
+    return 0;
+}
+```
+
 ### 结语
 
 第十四篇博文写完，开心！！！！
