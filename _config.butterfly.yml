@@ -758,7 +758,7 @@ aside:
       link: https://luyf-lemon-love.space/atom.xml #atom.xml
   card_announcement:
     enable: true
-    content: 本站部署到了几个地方，对应的域名请看顶部的 Domains 页，也可以直接访问 Server 页。<img src="https://cos.luyf-lemon-love.space//images/20150404H5648_ZuzhL.gif">
+    content: 本站部署到了几个地方，对应的域名请看顶部的 Domains 页，也可以直接访问 Server 页。<img src="https://cos.luyf-lemon-love.space//images/src=http___5b0988e595225.cdn.sohucs.com_images_20190807_3a7deb1efdfc4111bada5782b7fbf454.gif&refer=http___5b0988e595225.cdn.sohucs.gif">
   card_recent_post:
     enable: true
     limit: 5 # if set 0 will show all
