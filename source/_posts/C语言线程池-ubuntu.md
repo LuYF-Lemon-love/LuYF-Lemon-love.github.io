@@ -7,7 +7,7 @@ tags:
   - Linux
   - VSCode
   - 线程池
-categories: C
+categories: C语言
 description: 用 C 语言编写线程池。
 cover: 'https://cos.luyf-lemon-love.space/images/20220604154519.png'
 abbrlink: 1808307381
@@ -28,7 +28,7 @@ date: 2022-06-23 15:20:36
 
 - `消费者线程队列`: 线程会不停地处理任务队列中的任务。
 
-- `管理者线程`: 监控 `消费者队列`，控制 `消费者线程队列` 中线程的个数。
+- `管理者线程`: 监控 `消费者线程队列`，控制 `消费者线程队列` 中线程的个数。
 
 操作系统：Ubuntu 20.04.4 LTS
 

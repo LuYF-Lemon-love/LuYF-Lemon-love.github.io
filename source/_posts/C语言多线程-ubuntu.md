@@ -6,7 +6,7 @@ tags:
   - GCC
   - 进程
   - Linux
-categories: C
+categories: C语言
 description: 介绍 C 语言的线程。
 cover: 'https://cos.luyf-lemon-love.space/images/20220604154620.png'
 abbrlink: 1066633904
