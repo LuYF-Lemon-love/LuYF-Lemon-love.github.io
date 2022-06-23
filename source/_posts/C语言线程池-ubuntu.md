@@ -8,7 +8,7 @@ tags:
   - VSCode
   - 线程池
 categories: C语言
-description: 用 C 语言编写线程池。
+description: 使用 C 语言从头实现线程池。
 cover: 'https://cos.luyf-lemon-love.space/images/20220604154519.png'
 abbrlink: 1808307381
 date: 2022-06-23 15:20:36
