@@ -106,7 +106,7 @@ Hello C++ World from VS Code and the C++ extension!
 
 ### C++ 多线程
 
-`C++11` 之前不包含多线程应用程序的任何内置支持。相反，它完全依赖于操作系统来提供此功能。
+`C++11` 之前不包含对多线程应用程序的任何内置支持。相反，它完全依赖于操作系统来提供此功能。
 
 本博文假设您使用的是 Linux 操作系统，我们将使用 POSIX Threads 或 Pthreads 提供的 API 编写多线程 C++ 程序。
 
