@@ -328,20 +328,185 @@ test_say_time(None)
 | c_wchar_p | wchar_t* (NUL terminated) | string or None |
 | c_void_p | void* | int or None |
 
+1. 在 test_ctypes.py 文件中， 添加 test_say_time 函数。
+
+```python
+def test_fundamental_data_types():
+
+    print("调用构造函数创建对象：")
+
+    print(ctypes.c_int())
+    print(ctypes.c_wchar_p("Hello, World"))
+    print(ctypes.c_ushort(-3))
+
+    print("*" * 64)
+
+    print("更改对象的值")
+
+    i = ctypes.c_int(42)
+    print(i)
+    print(i.value)
+
+    i.value = -99
+    print(i.value)
+
+    print("*" * 64)
+
+    print("c_wchar_p")
+
+    s = "Hello, World"
+    c_s = ctypes.c_wchar_p(s)
+    print(c_s)
+    print(c_s.value)
+
+    # the memory location has changed
+    c_s.value = "Hi, there"
+    print(c_s)
+    print(c_s.value)
+
+    # first object is unchanged
+    print(s)
+
+    print("*" * 64)
+
+    print("create_string_buffer()")
+
+    # create a 3 byte buffer, initialized to NUL bytes
+    p = ctypes.create_string_buffer(3)
+    print(ctypes.sizeof(p), repr(p.raw))
+
+    # create a buffer containing a NUL terminated string
+    p = ctypes.create_string_buffer(b"Hello")
+    print(ctypes.sizeof(p), repr(p.raw))
+    print(repr(p.value))
+
+    # create a 10 byte buffer
+    p = ctypes.create_string_buffer(b"hello", 10)
+    print(ctypes.sizeof(p), repr(p.raw))
+    p.value = b"Hi"
+    print(ctypes.sizeof(p), repr(p.raw))
+```
+
+2. 在 `if _name__ == '__main__':` 中，注释 `test_say_time(None)`。
+
+```python
+#test_say_time(None)
+
+test_fundamental_data_types()
+```
+
+3. 打开 test_ctypes.py 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+调用构造函数创建对象：
+c_int(0)
+c_wchar_p(139905448734320)
+c_ushort(65533)
+****************************************************************
+更改对象的值
+c_int(42)
+42
+-99
+****************************************************************
+c_wchar_p
+c_wchar_p(139905448734320)
+Hello, World
+c_wchar_p(139905448740688)
+Hi, there
+Hello, World
+****************************************************************
+create_string_buffer()
+3 b'\x00\x00\x00'
+6 b'Hello\x00'
+b'Hello'
+10 b'hello\x00\x00\x00\x00\x00'
+10 b'Hi\x00lo\x00\x00\x00\x00\x00'
+```
+
+---
+
 {% span green, The constructor accepts any object with a truth value. %}
 
+```python
+print("调用构造函数创建对象：")
 
+print(ctypes.c_int())
+print(ctypes.c_wchar_p("Hello, World"))
+print(ctypes.c_ushort(-3))
+```
 
+{% span green, 更改对象的值。 %}
 
+```python
+print("更改对象的值")
 
+i = ctypes.c_int(42)
+print(i)
+print(i.value)
 
+i.value = -99
+print(i.value)
+```
 
+{% span green, 当给指针类型的对象 `c_char_p`, `c_wchar_p` 和 `c_void_p` 等赋值时，将改变它们所指向的 `内存地址`，而 `不是` 它们所指向的内存区域的 `内容` (这是理所当然的，因为 Python 的 `bytes` 对象是不可变的)。 %}
 
+```python
+print("c_wchar_p")
 
+s = "Hello, World"
+c_s = ctypes.c_wchar_p(s)
+print(c_s)
+print(c_s.value)
 
+# the memory location has changed
+c_s.value = "Hi, there"
+print(c_s)
+print(c_s.value)
 
+# first object is unchanged
+print(s)
+```
 
+{% span cyan, 因此，不能将对象 c_char_p、c_wchar_p 和 c_void_p 传递给会改变指针所指内存的函数。如果想要可改变的内存块，可以使用 create_string_buffer() 函数。可以使用 raw 属性存取当前的内存块的内容。如果想要 NUL 结束的字符串，需要使用 value 属性。%}
 
+>You should be careful, however, not to pass them to functions expecting pointers to mutable memory. If you need mutable memory blocks, ctypes has a create_string_buffer() function which creates these in various ways. The current memory block contents can be accessed (or changed) with the raw property; if you want to access it as NUL terminated string, use the value property.
+
+```python
+print("create_string_buffer()")
+
+# create a 3 byte buffer, initialized to NUL bytes
+p = ctypes.create_string_buffer(3)
+print(ctypes.sizeof(p), repr(p.raw))
+
+# create a buffer containing a NUL terminated string
+p = ctypes.create_string_buffer(b"Hello")
+print(ctypes.sizeof(p), repr(p.raw))
+print(repr(p.value))
+
+# create a 10 byte buffer
+p = ctypes.create_string_buffer(b"hello", 10)
+print(ctypes.sizeof(p), repr(p.raw))
+p.value = b"Hi"
+print(ctypes.sizeof(p), repr(p.raw))
+```
+
+```python
+ctypes.create_string_buffer(init_or_size, size=None)
+```
+
+> This function creates a mutable character buffer. The returned object is a ctypes array of c_char.
+>
+> init_or_size must be an integer which specifies the size of the array, or a bytes object which will be used to initialize the array items.
+>
+> If a bytes object is specified as first argument, the buffer is made one item larger than its length so that the last element in the array is a NUL termination character. An integer can be passed as second argument which allows specifying the size of the array if the length of the bytes should not be used.
+
+- 此函数会创建一个可变的字符缓冲区。 返回的对象是一个 c_char 的 ctypes 数组。
+
+- init_or_size 必须是一个指明数组大小的整数，或者是一个将被用来初始化数组条目的字节串对象。
+
+- 如果将一个字节串对象指定为第一个参数，则将使缓冲区大小比其长度多一项以便数组的最后一项为一个 NUL 终结符。 可以传入一个整数作为第二个参数以允许在不使用字节串长度的情况下指定数组大小。
 
 
 
