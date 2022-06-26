@@ -215,7 +215,7 @@ print(libc_ll['say_hello_world'] == libc_ll['say_hello_world'])
 
 ### 调用函数
 
-你可以像其他 Python 函数那样调用这些动态链接库中的函数。
+你可以像调用其他 Python 函数那样调用这些动态链接库中的函数。
 
 ```c
 #include <time.h>
@@ -298,7 +298,7 @@ test_say_time(None)
 
 >None, integers, bytes objects and (unicode) strings are the only native Python objects that can directly be used as parameters in these function calls. None is passed as a C NULL pointer, bytes objects and strings are passed as pointer to the memory block that contains their data (char* or wchar_t*). Python integers are passed as the platforms default C int type, their value is masked to fit into the C type.
 
-`None`, `integers`, `bytes objects` 和 `(unicode) string` 是仅有的可以直接作为函数参数使用的四种 Python 本地数据类型。`None` 被作为 C 的空指针（NULL）,`bytes objects` 和 `strings` 是一个指向其保存数据（char* or wchar_t*）内存块指针，`integers` 则作为平台默认的C的 int 类型，他们的数值被截断以适应C类型的整型长度。
+`None`, `integers`, `bytes objects` 和 `(unicode) string` 是仅有的可以直接作为函数参数使用的四种 Python 本地数据类型。`None` 被作为 C 的空指针（NULL）,`bytes objects` 和 `strings` 是一个指向其保存数据（char* or wchar_t*）内存块指针，`integers` 则作为平台默认的 C 的 int 类型，它们的数值被截断以适应 C 类型的整型长度。
 
 ### 基础数据类型
 
