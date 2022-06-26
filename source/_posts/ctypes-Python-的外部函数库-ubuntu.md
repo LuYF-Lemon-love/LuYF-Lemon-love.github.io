@@ -37,6 +37,12 @@ date: 2022-06-26 12:32:26
 
 2. [global interpreter lock -- 全局解释器锁](https://docs.python.org/zh-cn/3/glossary.html#term-global-interpreter-lock)
 
+3. [东八区](https://baike.baidu.com/item/%E4%B8%9C%E5%85%AB%E5%8C%BA/8083927)
+
+4. [利用time(NULL）函数表示此刻的时间](https://blog.csdn.net/weixin_50941322/article/details/111184723?spm=1001.2014.3001.5506)
+
+5. [time](https://cplusplus.com/reference/ctime/time/)
+
 ### 载入动态链接库
 
 1. 启动 VSCode。
@@ -109,7 +115,7 @@ deactivate
 
 6. 按 Ctrl+Shift+P，输入 `Python: Select Interpreter` 命令，选择上步配置的 `virtual environment` 环境，如 `Python 3.9.7 ('.venv': venv) ./.venv/bin/python	Recommended`。
 
-7. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 文件按钮，运行 Python 脚本。
+7. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
 
 {% label output pink %}
 
@@ -191,7 +197,7 @@ ctypes.cdll
 
 `ctypes.cdll` 是一个 `LibraryLoader` 类的实例。
 
-```
+```python
 libc_ll = ctypes.cdll.LoadLibrary("./libtest.so")
 
 libc_ll.say_hello_world()
@@ -209,14 +215,92 @@ print(libc_ll['say_hello_world'] == libc_ll['say_hello_world'])
 
 ### 调用函数
 
+你可以像其他 Python 函数那样调用这些动态链接库中的函数。
 
+```c
+#include <time.h>
 
+time_t time (time_t* timer);
+```
 
+- Get the current calendar time as a value of type time_t.
 
+- The function returns this value, and if the argument is not a null pointer, it also sets this value to the object pointed by timer.
 
+- The value returned generally represents the number of seconds since 00:00 hours, Jan 1, 1970 UTC (i.e., the current unix timestamp). 
 
+- `timer`: Pointer to an object of type time_t, where the time value is stored. Alternatively, this parameter can be a null pointer, in which case the parameter is not used (the function still returns a value of type time_t with the result).
 
+- `time(NULL)`: The value returned represents the number of seconds since 00:00 hours, Jan 1, 1970 UTC (i.e., the current unix timestamp).
 
+1. 在 test_ctypes.c 文件中，引用 `<time.h>` 头文件。
+
+```c
+#include <time.h>
+```
+
+2. 在 test_ctypes.c 文件中，添加 say_time 函数。
+
+```c
+void say_time(time_t* timer)
+{
+    long now;
+
+    // 今天已经过去的时间（秒）
+    now = time(timer) % (60 * 60 * 24);
+
+    long hour = now / 3600;
+    long minute = now % 3600 / 60;
+    long second = now % 3600 % 60;
+
+    printf("零时区时间： %2ld :%2ld :%2ld \n", hour, minute, second);
+
+    // 北京位于东八区：东八区（UTC/GMT+08:00）是比世界协调时间（UTC）/格林尼治时间（GMT）快 8 小时的时区
+    hour = (hour + 8) % 24;
+    printf("北京时间：   %2ld :%2ld :%2ld \n", hour, minute, second);
+}
+```
+
+3. 生成动态链接库。
+
+```shell
+gcc -fPIC -shared -o libtest.so test_ctypes.c
+```
+
+4. 在 test_ctypes.py 文件中， 添加 test_say_time 函数。
+
+```python
+def test_say_time(timer):
+
+    libc = ctypes.CDLL("./libtest.so")
+
+    libc.say_time(timer)
+```
+
+5. 在 `if _name__ == '__main__':` 中，注释 `test_say_hello_world()`。
+
+```python
+#test_say_hello_world()
+
+test_say_time(None)
+```
+
+6. 打开 test_ctypes.py 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+零时区时间：  9 :16 :43 
+北京时间：   17 :16 :43
+```
+
+在 `ctypes` 中，调用函数时可以使用 `None` 作为空指针。
+
+>None, integers, bytes objects and (unicode) strings are the only native Python objects that can directly be used as parameters in these function calls. None is passed as a C NULL pointer, bytes objects and strings are passed as pointer to the memory block that contains their data (char* or wchar_t*). Python integers are passed as the platforms default C int type, their value is masked to fit into the C type.
+
+`None`, `integers`, `bytes objects` 和 `(unicode) string` 是仅有的可以直接作为函数参数使用的四种 Python 本地数据类型。`None` 被作为 C 的空指针（NULL）,`bytes objects` 和 `strings` 是一个指向其保存数据（char* or wchar_t*）内存块指针，`integers` 则作为平台默认的C的 int 类型，他们的数值被截断以适应C类型的整型长度。
+
+### 基础数据类型
 
 
 
