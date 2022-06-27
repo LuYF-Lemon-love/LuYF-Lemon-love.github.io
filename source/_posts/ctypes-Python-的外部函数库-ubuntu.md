@@ -785,7 +785,7 @@ True
 #include <string.h>
 
 const char * strchr ( const char * str, int character );
-char * strchr (       char * str, int character );
+char * strchr ( char * str, int character );
 ```
 
 **Locate first occurrence of character in string**
