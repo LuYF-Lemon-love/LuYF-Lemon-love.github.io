@@ -320,7 +320,7 @@ test_say_time(None)
 | c_longlong | __int64 or long long | int |
 | c_ulonglong | unsigned __int64 or unsigned long long | int |
 | c_size_t | size_t | int |
-| c_ssize_t | ssize_t ot Py_ssize_t | int |
+| c_ssize_t | ssize_t or Py_ssize_t | int |
 | c_float | float | float |
 | c_double | double | float |
 | c_longdouble | long double | float |
@@ -450,7 +450,7 @@ i.value = -99
 print(i.value)
 ```
 
-{% span green, 当给指针类型的对象 `c_char_p`, `c_wchar_p` 和 `c_void_p` 等赋值时，将改变它们所指向的 `内存地址`，而 `不是` 它们所指向的内存区域的 `内容` (这是理所当然的，因为 Python 的 `bytes` 对象是不可变的)。 %}
+{% span green, 当给指针类型的对象 c_char_p, c_wchar_p 和 c_void_p 等赋值时，将改变它们所指向的 内存地址，而 不是 它们所指向的内存区域的 内容 (这是理所当然的，因为 Python 的 bytes 对象是不可变的)。 %}
 
 ```python
 print("c_wchar_p")
@@ -469,9 +469,11 @@ print(c_s.value)
 print(s)
 ```
 
-{% span cyan, 因此，不能将对象 c_char_p、c_wchar_p 和 c_void_p 传递给会改变指针所指内存的函数。如果想要可改变的内存块，可以使用 create_string_buffer() 函数。可以使用 raw 属性存取当前的内存块的内容。如果想要 NUL 结束的字符串，需要使用 value 属性。%}
-
 >You should be careful, however, not to pass them to functions expecting pointers to mutable memory. If you need mutable memory blocks, ctypes has a create_string_buffer() function which creates these in various ways. The current memory block contents can be accessed (or changed) with the raw property; if you want to access it as NUL terminated string, use the value property.
+
+{% span cyan, 因此，不能将对象 c_char_p、c_wchar_p 和 c_void_p 传递给会改变指针所指内存的函数。如果想要可改变的内存块，可以使用 create_string_buffer() 函数。可以使用 raw 属性存取当前的内存块的内容。如果想要取出 NUL 结束的字符串，需要使用 value 属性。%}
+
+
 
 ```python
 print("create_string_buffer()")
@@ -508,12 +510,27 @@ ctypes.create_string_buffer(init_or_size, size=None)
 
 - 如果将一个字节串对象指定为第一个参数，则将使缓冲区大小比其长度多一项以便数组的最后一项为一个 NUL 终结符。 可以传入一个整数作为第二个参数以允许在不使用字节串长度的情况下指定数组大小。
 
+>To create a mutable memory block containing unicode characters of the C type wchar_t use the create_unicode_buffer() function.
 
+{% span green, create_unicode_buffer() 函数可以创建 unicode 字符的可变内存块，与之对应的 C 语言类型是 wchar_t。 %}
 
+```python
+ctypes.create_unicode_buffer(init_or_size, size=None)
+```
 
+>This function creates a mutable unicode character buffer. The returned object is a ctypes array of c_wchar.
+>
+>init_or_size must be an integer which specifies the size of the array, or a string which will be used to initialize the array items.
+>
+>If a string is specified as first argument, the buffer is made one item larger than the length of the string so that the last element in the array is a NUL termination character. An integer can be passed as second argument which allows specifying the size of the array if the length of the string should not be used.
 
+- 此函数会创建一个可变的 unicode 字符缓冲区。 返回的对象是一个 c_wchar 的 ctypes 数组。
 
+- init_or_size 必须是一个指明数组大小的整数，或者是一个将被用来初始化数组条目的字符串。
 
+- 如果将一个字符串指定为第一个参数，则将使缓冲区大小比其长度多一项以便数组的最后一项为一个 NUL 终结符。 可以传入一个整数作为第二个参数以允许在不使用字符串长度的情况下指定数组大小。
+
+### Calling functions, continued
 
 
 
