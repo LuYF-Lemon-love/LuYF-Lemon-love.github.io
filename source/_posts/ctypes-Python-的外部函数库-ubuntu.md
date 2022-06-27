@@ -721,10 +721,10 @@ int return_bool()
 gcc -fPIC -shared -o libtest.so test_ctypes.c
 ```
 
-4. 在 `test_ctypes.py` 文件中，添加 `ValidReturn` 和 `test_return_types` 函数。
+4. 在 `test_ctypes.py` 文件中，添加 `valid_return` 和 `test_return_types` 函数。
 
 ```python
-def ValidReturn(value):
+def valid_return(value):
 
     if value == 0:
         return False
@@ -751,7 +751,7 @@ def test_return_types():
     print("*" * 64)
 
     return_bool = libc.return_bool
-    return_bool.restype = ValidReturn
+    return_bool.restype = valid_return
 
     print(return_bool())
 ```
@@ -785,7 +785,7 @@ True
 #include <string.h>
 
 const char * strchr ( const char * str, int character );
-      char * strchr (       char * str, int character );
+char * strchr (       char * str, int character );
 ```
 
 **Locate first occurrence of character in string**
@@ -841,10 +841,10 @@ print(strchr(b"abcdef", b"x"))
 
 >You can also use a callable Python object (a function or a class for example) as the restype attribute, if the foreign function returns an integer. The callable will be called with the integer the C function returns, and the result of this call will be used as the result of your function call. This is useful to check for error return values and automatically raise an exception.
 
-{% span cyan, 如果外部函数返回了一个整数，你也可以使用一个可调用的 Python 对象（比如函数或者类）作为 restype 属性的值。将会以 C 函数返回的整数对象作为参数调用这个可调用对象，执行后的结果作为最终函数返回值。这在错误返回值校验和自动抛出异常等方面比较有用。 %}
+{% span green, 如果外部函数返回了一个整数，你也可以使用一个可调用的 Python 对象（比如函数或者类）作为 restype 属性的值。将会以 C 函数返回的整数对象作为参数调用这个可调用对象，执行后的结果作为最终函数返回值。这在错误返回值校验和自动抛出异常等方面比较有用。 %}
 
 ```python
-def ValidReturn(value):
+def valid_return(value):
 
     if value == 0:
         return False
@@ -852,7 +852,7 @@ def ValidReturn(value):
         return True
         
 return_bool = libc.return_bool
-return_bool.restype = ValidReturn
+return_bool.restype = valid_return
 
 print(return_bool())
 ```
