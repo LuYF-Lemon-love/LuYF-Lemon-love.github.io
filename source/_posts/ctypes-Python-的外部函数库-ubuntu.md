@@ -427,7 +427,9 @@ b'Hello'
 
 ---
 
-{% span green, The constructor accepts any object with a truth value. %}
+>The constructor accepts any object with a truth value.
+
+{% span green, 使用构造函数创建对象。 %}
 
 ```python
 print("调用构造函数创建对象：")
@@ -471,7 +473,7 @@ print(s)
 
 >You should be careful, however, not to pass them to functions expecting pointers to mutable memory. If you need mutable memory blocks, ctypes has a create_string_buffer() function which creates these in various ways. The current memory block contents can be accessed (or changed) with the raw property; if you want to access it as NUL terminated string, use the value property.
 
-{% span cyan, 因此，不能将对象 c_char_p、c_wchar_p 和 c_void_p 传递给会改变指针所指内存的函数。如果想要可改变的内存块，可以使用 create_string_buffer() 函数。可以使用 raw 属性存取当前的内存块的内容。如果想要取出 NUL 结束的字符串，需要使用 value 属性。%}
+{% span green, 因此，不能将对象 c_char_p、c_wchar_p 和 c_void_p 传递给会改变指针所指内存的函数。如果想要可改变的内存块，可以使用 create_string_buffer() 函数。可以使用 raw 属性存取当前的内存块的内容。如果想要取出 NUL 结束的字符串，需要使用 value 属性。%}
 
 
 
