@@ -534,8 +534,69 @@ ctypes.create_unicode_buffer(init_or_size, size=None)
 
 ### Calling functions, continued
 
+1. 在 `test_ctypes.c` 文件中，引用 `<wchar.h>` 头文件。
 
+```c
+#include <wchar.h>
+```
 
+2. 在 `test_ctypes.c` 文件中，添加 `call_functions` 函数。
+
+```c
+void call_functions(int i, char* str, wchar_t* w_str, double db)
+{
+    printf("int i = %d\nchar* str = %s\nwchar_t* w_str = %ls\ndouble* db = %f\n", i, str, w_str, db);
+}
+```
+
+3. 生成动态链接库。
+
+```shell
+gcc -fPIC -shared -o libtest.so test_ctypes.c
+```
+
+4. 在 `test_ctypes.py` 文件中，添加 `test_call_functions` 函数。
+
+```python
+def test_call_functions():
+
+    i = ctypes.c_int(42)
+
+    str = ctypes.c_char_p(b"Hello, World in c_char_p.")
+
+    w_str = ctypes.c_wchar_p("我要成为真正的狐狸精!!!")
+
+    db = ctypes.c_double(3.14)
+
+    libc = ctypes.CDLL("./libtest.so")
+
+    libc.call_functions(i, str, w_str, db)
+```
+
+5. 在 `if __name__ == `__main__`:` 中，注释 `test_fundamental_data_types()`。
+
+```python
+#test_fundamental_data_types()
+
+test_call_functions()
+```
+
+6. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+int i = 42
+char* str = Hello, World in c_char_p.
+wchar_t* w_str = 我要成为真正的狐狸精!!!
+double* db = 3.140000
+```
+
+>As has been mentioned before, all Python types except integers, strings, and bytes objects have to be wrapped in their corresponding ctypes type, so that they can be converted to the required C data type
+
+{% span green, 正如前面所提到过的，除了整数、字符串以及字节串之外，所有的 Python 类型都必须使用它们对应的 ctypes 类型包装，才能够被正确地转换为所需的C语言类型。 %}
+
+### 使用自定义的数据类型调用函数
 
 
 
