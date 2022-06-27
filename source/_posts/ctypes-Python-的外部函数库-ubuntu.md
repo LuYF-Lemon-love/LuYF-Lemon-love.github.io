@@ -43,6 +43,8 @@ date: 2022-06-26 12:32:26
 
 5. [time](https://cplusplus.com/reference/ctime/time/)
 
+6. [strchr](https://cplusplus.com/reference/cstring/strchr/)
+
 ### 载入动态链接库
 
 1. 启动 VSCode。
@@ -698,19 +700,164 @@ double* db = 3.140000
 
 ### 返回类型
 
+1. 在 `test_ctypes.c` 文件中，引用 `<string.h>` 头文件。
 
+```c
+#include <string.h>
+```
 
+2. 在 `test_ctypes.c` 文件中，添加 `return_bool` 函数。
 
+```c
+int return_bool()
+{
+    return 1;
+}
+```
 
+3. 生成动态链接库。
 
+```shell
+gcc -fPIC -shared -o libtest.so test_ctypes.c
+```
 
+4. 在 `test_ctypes.py` 文件中，添加 `ValidReturn` 和 `test_return_types` 函数。
 
+```python
+def ValidReturn(value):
 
+    if value == 0:
+        return False
+    else:
+        return True
 
+def test_return_types():
 
+    libc = ctypes.CDLL("./libtest.so")
+    strchr = libc.strchr
+    print(strchr(b"abcdef", ord("d")))
 
+    # c_char_p is a pointer to a string
+    strchr.restype = ctypes.c_char_p
+    print(strchr(b"abcdef", ord("d")))
+    print(strchr(b"abcdef", ord("x")))
 
+    print("*" * 64)
 
+    strchr.argtypes = [ctypes.c_char_p, ctypes.c_char]
+    print(strchr(b"abcdef", b"d"))
+    print(strchr(b"abcdef", b"x"))
+
+    print("*" * 64)
+
+    return_bool = libc.return_bool
+    return_bool.restype = ValidReturn
+
+    print(return_bool())
+```
+
+5. 在 `if __name__ == '__main__':` 中，注释 `test_argtypes()`。
+
+```python
+#test_argtypes()
+
+test_return_types()
+```
+
+6. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+-1173963645
+b'def'
+None
+****************************************************************
+b'def'
+None
+****************************************************************
+True
+```
+
+---
+
+```c
+#include <string.h>
+
+const char * strchr ( const char * str, int character );
+      char * strchr (       char * str, int character );
+```
+
+**Locate first occurrence of character in string**
+
+Returns a pointer to the first occurrence of character in the C string str.
+
+The terminating null-character is considered part of the C string. Therefore, it can also be located in order to retrieve a pointer to the end of a string.
+
+**Parameters**
+
+- `str`: C string.
+
+- `character`: Character to be located. It is passed as its int promotion, but it is internally converted back to char for the comparison.
+
+**Return Value**
+
+A pointer to the first occurrence of character in str. If the character is not found, the function returns a null pointer.
+
+**Portability**
+
+In C, this function is only declared as:
+
+`char * strchr ( const char *, int );`
+
+instead of the two overloaded versions provided in C++.
+
+---
+
+>By default functions are assumed to return the C int type. Other return types can be specified by setting the restype attribute of the function object.
+
+{% span green, 默认情况下都会假定函数返回 C int 类型。其他返回类型可以通过设置函数对象的 restype 属性来指定。 %}
+
+```python
+libc = ctypes.CDLL("./libtest.so")
+strchr = libc.strchr
+print(strchr(b"abcdef", ord("d")))
+
+# c_char_p is a pointer to a string
+strchr.restype = ctypes.c_char_p
+print(strchr(b"abcdef", ord("d")))
+print(strchr(b"abcdef", ord("x")))
+```
+
+>If you want to avoid the ord("x") calls above, you can set the argtypes attribute, and the second argument will be converted from a single character Python bytes object into a C char.
+
+{% span green, 如果希望避免上述的 ord("x") 调用，可以设置 argtypes 属性，第二个参数就会将单字符的 Python 二进制字符对象转换为 C 字符。 %}
+
+```python
+strchr.argtypes = [ctypes.c_char_p, ctypes.c_char]
+print(strchr(b"abcdef", b"d"))
+print(strchr(b"abcdef", b"x"))
+```
+
+>You can also use a callable Python object (a function or a class for example) as the restype attribute, if the foreign function returns an integer. The callable will be called with the integer the C function returns, and the result of this call will be used as the result of your function call. This is useful to check for error return values and automatically raise an exception.
+
+{% span cyan, 如果外部函数返回了一个整数，你也可以使用一个可调用的 Python 对象（比如函数或者类）作为 restype 属性的值。将会以 C 函数返回的整数对象作为参数调用这个可调用对象，执行后的结果作为最终函数返回值。这在错误返回值校验和自动抛出异常等方面比较有用。 %}
+
+```python
+def ValidReturn(value):
+
+    if value == 0:
+        return False
+    else:
+        return True
+        
+return_bool = libc.return_bool
+return_bool.restype = ValidReturn
+
+print(return_bool())
+```
+
+### 传递指针（或以引用方式传递形参）
 
 
 
