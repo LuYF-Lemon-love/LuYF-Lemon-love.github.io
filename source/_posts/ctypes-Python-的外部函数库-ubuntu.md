@@ -573,7 +573,7 @@ def test_call_functions():
     libc.call_functions(i, str, w_str, db)
 ```
 
-5. 在 `if __name__ == `__main__`:` 中，注释 `test_fundamental_data_types()`。
+5. 在 `if __name__ == '__main__':` 中，注释 `test_fundamental_data_types()`。
 
 ```python
 #test_fundamental_data_types()
