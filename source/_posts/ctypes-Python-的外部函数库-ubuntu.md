@@ -452,7 +452,7 @@ i.value = -99
 print(i.value)
 ```
 
-{% span green, 当给指针类型的对象 c_char_p, c_wchar_p 和 c_void_p 等赋值时，将改变它们所指向的 内存地址，而 不是 它们所指向的内存区域的 内容 (这是理所当然的，因为 Python 的 bytes 对象是不可变的)。 %}
+{% span green, 当给指针类型的对象 c_char_p、c_wchar_p 和 c_void_p 等赋值时，将改变它们所指向的 内存地址，而 不是 它们所指向的内存区域的 内容 (这是理所当然的，因为 Python 的 bytes 对象是不可变的)。 %}
 
 ```python
 print("c_wchar_p")
