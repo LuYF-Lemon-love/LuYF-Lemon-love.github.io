@@ -598,9 +598,60 @@ double* db = 3.140000
 
 ### 使用自定义的数据类型调用函数
 
+1. 在 `test_ctypes.c` 文件中，添加 `say_bottles` 函数。
 
+```c
+void say_bottles(int bottles)
+{
+    printf("%d bottles of beer.\n", bottles);
+}
+```
 
+2. 生成动态链接库。
 
+```shell
+gcc -fPIC -shared -o libtest.so test_ctypes.c
+```
+
+3. 在 `test_ctypes.py` 文件中，添加 `test_say_bottles` 函数。
+
+```python
+class Bottles:
+
+    def __init__(self, number):
+        
+        self._as_parameter_ = number
+
+def test_say_bottles():
+
+    bottles = Bottles(42)
+
+    libc = ctypes.CDLL("./libtest.so")
+
+    libc.say_bottles(bottles)
+```
+
+4. 在 `if __name__ == '__main__':` 中，注释 `test_call_functions()`。
+
+```python
+#test_call_functions()
+
+test_say_bottles()
+```
+
+5. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+42 bottles of beer.
+```
+
+>You can also customize ctypes argument conversion to allow instances of your own classes be used as function arguments. ctypes looks for an _as_parameter_ attribute and uses this as the function argument. Of course, it must be one of integer, string, or bytes
+
+{% span green, 你也可以通过自定义 ctypes 参数转换方式来允许自定义类型作为参数。ctypes 会寻找 _as_parameter_ 属性并使用它作为函数参数。当然，它必须是数字、字符串或者二进制字符串。 %}
+
+### 指定必选参数的类型（函数原型）
 
 
 
