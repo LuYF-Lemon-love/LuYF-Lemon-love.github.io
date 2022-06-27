@@ -653,12 +653,50 @@ test_say_bottles()
 
 ### 指定必选参数的类型（函数原型）
 
+1. 在 `test_ctypes.py` 文件中，添加 `test_argtypes` 函数。
 
+```python
+def test_argtypes():
 
+    libc = ctypes.CDLL("./libtest.so")
 
+    libc.call_functions.argtypes = [ctypes.c_int, ctypes.c_char_p, ctypes.c_wchar_p, ctypes.c_double]
 
+    libc.call_functions(42, b"Hello, World in c_char_p.", "我要成为真正的狐狸精!!!", 3.14)
+```
 
+2. 在 `if __name__ == '__main__':` 中，注释 `test_say_bottles()`。
 
+```python
+#test_say_bottles()
+
+test_argtypes()
+```
+
+3. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+int i = 42
+char* str = Hello, World in c_char_p.
+wchar_t* w_str = 我要成为真正的狐狸精!!!
+double* db = 3.140000
+```
+
+>It is possible to specify the required argument types of functions exported from DLLs by setting the argtypes attribute.
+>
+>argtypes must be a sequence of C data types.
+>
+>Specifying a format protects against incompatible argument types (just as a prototype for a C function), and tries to convert the arguments to valid types.
+
+- 可以通过设置 argtypes 属性指定从 DLL 中导出函数的必选参数类型。
+
+- argtypes 必须是一个 C 数据类型的序列。
+
+- 指定数据类型可以防止不合理的参数传递（就像 C 函数的原型），并且会自动尝试将参数转换为需要的类型。
+
+### 返回类型
 
 
 
