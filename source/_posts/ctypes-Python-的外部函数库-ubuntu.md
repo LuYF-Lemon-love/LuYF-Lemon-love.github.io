@@ -1149,12 +1149,113 @@ def test_bit_fields():
 
 ### Arrays
 
+1. 在 `test_ctypes.py` 文件中，添加 `test_arrays` 函数。
 
+```python
+class MyStruct(ctypes.Structure):
 
+    _fields_ = [("a", ctypes.c_int), ("b", ctypes.c_float), ("point_array", POINT * 4)]
 
+def test_arrays():
 
+    TenPointsArrayType = POINT * 10
 
+    arr = TenPointsArrayType()
 
+    for pt in arr:
+        print(pt.x, pt.y)
+
+    print("*" * 64)
+
+    print(len(MyStruct().point_array))
+
+    print("*" * 64)
+
+    TenIntegers = ctypes.c_int * 10
+
+    ii = TenIntegers(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+    print(ii)
+
+    for i in ii: print(i, end = " ")
+
+    print()
+```
+
+2. 在 `if __name__ == '__main__':` 中，注释 `test_bit_fields()`。
+
+```python
+#test_bit_fields()
+
+test_arrays()
+```
+
+3. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+0 0
+0 0
+0 0
+0 0
+0 0
+0 0
+0 0
+0 0
+0 0
+0 0
+****************************************************************
+4
+****************************************************************
+<__main__.c_int_Array_10 object at 0x7f22efcbedc0>
+1 2 3 4 5 6 7 8 9 10
+```
+
+---
+
+>Arrays are sequences, containing a fixed number of instances of the same type.
+>
+>The recommended way to create array types is by multiplying a data type with a positive integer.
+
+{% span green, 数组是一个序列，包含指定个数元素，且必须类型相同。创建数组类型的推荐方式是使用一个类型乘以一个正数。 %}
+
+```python
+TenPointsArrayType = POINT * 10
+```
+
+```python
+class MyStruct(ctypes.Structure):
+
+    _fields_ = [("a", ctypes.c_int), ("b", ctypes.c_float), ("point_array", POINT * 4)]
+
+print(len(MyStruct().point_array))
+```
+
+```python
+arr = TenPointsArrayType()
+
+for pt in arr:
+    print(pt.x, pt.y)
+```
+
+>Initializers of the correct type can also be specified.
+
+{% span green, 也能通过指定正确类型的数据来初始化。 %}
+
+```python
+TenIntegers = ctypes.c_int * 10
+
+ii = TenIntegers(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+print(ii)
+
+for i in ii: print(i, end = " ")
+
+print()
+```
+
+### Pointers
 
 
 
