@@ -942,6 +942,22 @@ On success, the function returns the number of items in the argument list succes
 
 ---
 
+```python
+ctypes.byref(obj[, offset])
+```
+
+Returns a light-weight pointer to obj, which must be an instance of a ctypes type. offset defaults to zero, and must be an integer that will be added to the internal pointer value.
+
+byref(obj, offset) corresponds to this C code:
+
+```c
+(((char *)&obj) + offset)
+```
+
+The returned object can only be used as a foreign function call parameter. It behaves similar to pointer(obj), but the construction is a lot faster.
+
+---
+
 >Sometimes a C api function expects a pointer to a data type as parameter, probably to write into the corresponding location, or if the data is too large to be passed by value. This is also known as passing parameters by reference.
 
 {% span green, 有时候 C 函数接口可能由于要往某个地址写入值，或者数据太大不适合作为值传递，从而希望接收一个指针作为数据参数类型。这可以称为引用方式传递形参。 %}
