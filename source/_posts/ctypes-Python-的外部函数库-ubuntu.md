@@ -45,6 +45,8 @@ date: 2022-06-26 12:32:26
 
 6. [strchr](https://cplusplus.com/reference/cstring/strchr/)
 
+7. [sscanf](https://cplusplus.com/reference/cstdio/sscanf/)
+
 ### 载入动态链接库
 
 1. 启动 VSCode。
@@ -859,17 +861,116 @@ print(return_bool())
 
 ### 传递指针（或以引用方式传递形参）
 
+1. 在 `test_ctypes.c` 文件中，引用 `<stdio.h>` 头文件。
 
+```c
+#include <stdio.h>
+```
 
+2. 在 `test_ctypes.c` 文件中，添加 `pass_pointers` 函数。
 
+```c
+void pass_pointers(int* i, float* f, char* str)
+{
+    sscanf("1 3.14 Hello", "%d %f %s", i, f, str);
+}
+```
 
+3. 生成动态链接库。
 
+```shell
+gcc -fPIC -shared -o libtest.so test_ctypes.c
+```
 
+4. 在 `test_ctypes.py` 文件中，添加 `test_pass_pointers` 函数。
 
+```python
+def test_pass_pointers():
 
+    i = ctypes.c_int()
+    f = ctypes.c_float()
+    s = ctypes.create_string_buffer(b'\000' * 32)
+    print(i.value, f.value, repr(s.value))
 
+    libc = ctypes.CDLL("./libtest.so")
+    libc.pass_pointers(ctypes.byref(i), ctypes.byref(f), s)
+    print(i.value, f.value, repr(s.value))
+```
 
+5. 在 `if __name__ == '__main__':` 中，注释 `test_return_types()`。
 
+```python
+#test_return_types()
+
+test_pass_pointers()
+```
+
+6. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+0 0.0 b''
+1 3.140000104904175 b'Hello'
+```
+
+---
+
+```c
+#include <stdio.h>
+
+int sscanf ( const char * s, const char * format, ...);
+```
+
+**Read formatted data from string**
+
+Reads data from s and stores them according to parameter format into the locations given by the additional arguments, as if scanf was used, but reading from s instead of the standard input (stdin).
+
+The additional arguments should point to already allocated objects of the type specified by their corresponding format specifier within the format string.
+
+**Parameters**
+
+- `s`: C string that the function processes as its source to retrieve the data.
+
+- `format`: C string that contains a format string that follows the same specifications as format in scanf (see scanf for details).
+
+- `... (additional arguments)`: Depending on the format string, the function may expect a sequence of additional arguments, each containing a pointer to allocated storage where the interpretation of the extracted characters is stored with the appropriate type. There should be at least as many of these arguments as the number of values stored by the format specifiers. Additional arguments are ignored by the function.
+
+**Return Value**
+
+On success, the function returns the number of items in the argument list successfully filled. This count can match the expected number of items or be less (even zero) in the case of a matching failure. In the case of an input failure before any data could be successfully interpreted, EOF is returned.
+
+---
+
+>Sometimes a C api function expects a pointer to a data type as parameter, probably to write into the corresponding location, or if the data is too large to be passed by value. This is also known as passing parameters by reference.
+
+{% span green, 有时候 C 函数接口可能由于要往某个地址写入值，或者数据太大不适合作为值传递，从而希望接收一个指针作为数据参数类型。这可以称为引用方式传递形参。
+
+>ctypes exports the byref() function which is used to pass parameters by reference. The same effect can be achieved with the pointer() function, although pointer() does a lot more work since it constructs a real pointer object, so it is faster to use byref() if you don’t need the pointer object in Python itself.
+
+{% span green, ctypes 暴露了 byref() 函数用于通过引用传递参数，使用 pointer() 函数也能达到同样的效果，只不过 pointer() 需要更多步骤，因为它要先构造一个真实指针对象。所以在 Python 代码本身不需要使用这个指针对象的情况下，使用 byref() 效率更高。 %}
+
+```c
+void pass_pointers(int* i, float* f, char* str)
+{
+    sscanf("1 3.14 Hello", "%d %f %s", i, f, str);
+}
+```
+
+```python
+def test_pass_pointers():
+
+    i = ctypes.c_int()
+    f = ctypes.c_float()
+    s = ctypes.create_string_buffer(b'\000' * 32)
+    print(i.value, f.value, repr(s.value))
+
+    libc = ctypes.CDLL("./libtest.so")
+    libc.pass_pointers(ctypes.byref(i), ctypes.byref(f), s)
+    print(i.value, f.value, repr(s.value))
+```
+
+### Structures and unions
 
 
 
