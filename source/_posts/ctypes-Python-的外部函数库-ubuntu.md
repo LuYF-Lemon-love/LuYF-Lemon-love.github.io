@@ -47,6 +47,8 @@ date: 2022-06-26 12:32:26
 
 7. [sscanf](https://cplusplus.com/reference/cstdio/sscanf/)
 
+8. [qsort](https://cplusplus.com/reference/cstdlib/qsort/)
+
 ### 载入动态链接库
 
 1. 启动 VSCode。
@@ -1661,22 +1663,227 @@ def test_incomplete_types():
 
 ### Callback functions
 
+1. 在 `test_ctypes.c` 文件中，引用 `<stdlib.h>` 头文件。
 
+```c
+#include <stdlib.h>
+```
 
+2. 生成动态链接库。
 
+```shell
+gcc -fPIC -shared -o libtest.so test_ctypes.c
+```
 
+3. 在 `test_ctypes.py` 文件中，添加 `py_cmp_func`、`py_cmp_reverse` 和 `test_callback_functions` 函数。
 
+```python
+def py_cmp_func(a, b):
 
+    print("py_cmp_func", a[0], b[0])
+    return a[0] - b[0]
 
+@ctypes.CFUNCTYPE(ctypes.c_int, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int))
+def py_cmp_reverse(a, b):
 
+    print("py_cmp_reverse", a[0], b[0])
+    return b[0] - a[0]
 
+def test_callback_functions():
 
+    IntArray5 = ctypes.c_int * 5
+    ia = IntArray5(5, 1, 7, 33, 99)
 
+    libc = ctypes.CDLL("./libtest.so")
+    qsort = libc.qsort
+    qsort.restype = None
 
+    CMPFUNC = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int))
+    qsort(ia, len(ia), ctypes.sizeof(ctypes.c_int), CMPFUNC(py_cmp_func))
 
+    for i in ia: print(i, end=" ")
+    print()
 
+    print("*" * 64)
 
+    ia_r = IntArray5(5, 1, 7, 33, 99)
+    qsort(ia_r, len(ia_r), ctypes.sizeof(ctypes.c_int), py_cmp_reverse)
 
+    for i in ia_r: print(i, end=" ")
+    print()
+```
+
+4. 在 `if __name__ == '__main__':` 中，注释 `test_incomplete_types()`。
+
+```python
+#test_incomplete_types()
+
+test_callback_functions()
+```
+
+5. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+py_cmp_func 5 1
+py_cmp_func 33 99
+py_cmp_func 7 33
+py_cmp_func 1 7
+py_cmp_func 5 7
+1 5 7 33 99 
+****************************************************************
+py_cmp_reverse 5 1
+py_cmp_reverse 33 99
+py_cmp_reverse 7 99
+py_cmp_reverse 7 33
+py_cmp_reverse 5 99
+py_cmp_reverse 5 33
+py_cmp_reverse 5 7
+99 33 7 5 1
+```
+
+---
+
+```c
+void qsort (void* base, size_t num, size_t size, int (*compar)(const void*,const void*));
+```
+
+**Sort elements of array**
+
+Sorts the num elements of the array pointed to by base, each element size bytes long, using the compar function to determine the order.
+
+The sorting algorithm used by this function compares pairs of elements by calling the specified compar function with pointers to them as argument.
+
+The function does not return any value, but modifies the content of the array pointed to by base reordering its elements as defined by compar.
+
+The order of equivalent elements is undefined.
+
+**Parameters**
+
+- `base`: Pointer to the first object of the array to be sorted, converted to a void*.
+
+- `num`: Number of elements in the array pointed to by base. size_t is an unsigned integral type.
+
+- `size`: Size in bytes of each element in the array. size_t is an unsigned integral type.
+
+- `compar`: 
+   
+   Pointer to a function that compares two elements. This function is called repeatedly by qsort to compare two elements. It shall follow the following prototype:
+
+   ```c
+   int compar (const void* p1, const void* p2);
+   ```
+   
+   Taking two pointers as arguments (both converted to const void*). The function defines the order of the elements by returning (in a stable and transitive manner):
+   
+   |return value|meaning|
+   |:-:|:-:|
+   |<0|The element pointed to by p1 goes before the element pointed to by p2|
+   |0|The element pointed to by p1 is equivalent to the element pointed to by p2|
+   |>0|The element pointed to by p1 goes after the element pointed to by p2|
+   
+   For types that can be compared using regular relational operators, a general compar function may look like:
+   
+   ```c
+   int compareMyType (const void * a, const void * b)
+   {
+       if ( *(MyType*)a <  *(MyType*)b ) return -1;
+       if ( *(MyType*)a == *(MyType*)b ) return 0;
+       if ( *(MyType*)a >  *(MyType*)b ) return 1;
+   }
+   ```
+
+**Return Value**
+
+none
+
+---
+
+```python
+ctypes.CFUNCTYPE(restype, *argtypes, use_errno=False, use_last_error=False)
+```
+
+The returned function prototype creates functions that use the standard C calling convention. {% label The function will release the GIL during the call green %}. 
+
+---
+
+>ctypes allows creating C callable function pointers from Python callables. These are sometimes called callback functions.
+
+{% span green, ctypes 允许创建一个指向 Python 可调用对象的 C 函数。它们有时候被称为回调函数。 %}
+
+>First, you must create a class for the callback function. The class knows the calling convention, the return type, and the number and types of arguments this function will receive. The CFUNCTYPE() factory function creates types for callback functions using the cdecl calling convention.
+
+{% span green, 首先，你必须为回调函数创建一个类，这个类知道调用约定，包括返回值类型以及函数接收的参数类型及个数。CFUNCTYPE() 工厂函数使用 cdecl 调用约定创建回调函数类型。 %}
+
+>Both of these factory functions are called with the result type as first argument, and the callback functions expected argument types as the remaining arguments.
+>
+>I will present an example here which uses the standard C library’s qsort() function, that is used to sort items with the help of a callback function. qsort() will be used to sort an array of integers.
+
+{% span green, 这些工厂函数的第一个参数是返回值类型，回调函数的参数类型作为剩余参数。这里展示一个使用 C 标准库函数 qsort() 的例子，它使用一个回调函数对数据进行排序。qsort() 将用来给整数数组排序。 %}
+
+```python
+IntArray5 = ctypes.c_int * 5
+ia = IntArray5(5, 1, 7, 33, 99)
+
+libc = ctypes.CDLL("./libtest.so")
+qsort = libc.qsort
+qsort.restype = None
+```
+
+>qsort() must be called with a pointer to the data to sort, the number of items in the data array, the size of one item, and a pointer to the comparison function, the callback. The callback will then be called with two pointers to items, and it must return a negative integer if the first item is smaller than the second, a zero if they are equal, and a positive integer otherwise.
+
+{% span green, qsort() 必须接收的参数，一个指向待排序数据的指针，元素个数，每个元素的大小，以及一个指向排序函数的指针，即回调函数。然后回调函数接收两个元素的指针，如果第一个元素小于第二个，则返回一个负整数，如果相等则返回 0，否则返回一个正整数。 %}
+
+>So our callback function receives pointers to integers, and must return an integer. First we create the type for the callback function.
+
+{% span green, 所以，我们的回调函数要接收两个整数指针，返回一个整数。首先我们创建回调函数的类型。 %}
+
+```python
+CMPFUNC = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int))
+```
+
+>Now we can actually compare the two items and return a useful result.
+
+{% span green, 现在我们可以比较两个元素并返回有用的结果了。 %}
+
+```python
+def py_cmp_func(a, b):
+
+    print("py_cmp_func", a[0], b[0])
+    return a[0] - b[0]
+
+qsort(ia, len(ia), ctypes.sizeof(ctypes.c_int), CMPFUNC(py_cmp_func))
+```
+
+>As we can easily check, our array is sorted now.
+
+{% span green, 我们可以轻易地验证，现在数组是有序的了。 %}
+
+```python
+for i in ia: print(i, end=" ")
+print()
+```
+
+>The function factories can be used as decorator factories, so we may as well write.
+
+{% span green, 这些工厂函数可以当作装饰器工厂，所以可以这样写。 %}
+
+```python
+@ctypes.CFUNCTYPE(ctypes.c_int, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int))
+def py_cmp_reverse(a, b):
+
+    print("py_cmp_reverse", a[0], b[0])
+    return b[0] - a[0]
+
+ia_r = IntArray5(5, 1, 7, 33, 99)
+qsort(ia_r, len(ia_r), ctypes.sizeof(ctypes.c_int), py_cmp_reverse)
+
+for i in ia_r: print(i, end=" ")
+print()  
+```
+
+### Accessing values exported from dlls
 
 
 
