@@ -1453,15 +1453,120 @@ print(bool(null_ptr))
 
 ### Type conversions
 
+1. 在 `test_ctypes.py` 文件中，添加 `test_type_conversions` 函数。
 
+```python
+class Bar(ctypes.Structure):
 
+    _fields_ = [("count", ctypes.c_int), ("values", ctypes.POINTER(ctypes.c_int))]
 
+def test_type_conversions():
 
+    bar = Bar()
+    bar.values = (ctypes.c_int * 3)(1, 2, 3)
+    bar.count = 3
+    for i in range(bar.count):
+        print(bar.values[i])
 
+    print("*" * 64)
 
+    bar.values = None
 
+    print("*" * 64)
 
+    a = (ctypes.c_byte * 4)()
+    print(ctypes.cast(a, ctypes.POINTER(ctypes.c_int)))
 
+    print("*" * 64)
+
+    bar = Bar()
+    b = (ctypes.c_long * 4)(97, 98, 99, 100)
+    bar.values = ctypes.cast(b, ctypes.POINTER(ctypes.c_int))
+    print(bar.values[0])
+```
+
+2. 在 `if __name__ == '__main__':` 中，注释 `test_pointers()`。
+
+```python
+#test_pointers()
+
+test_type_conversions()
+```
+
+3. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+1
+2
+3
+****************************************************************
+****************************************************************
+<__main__.LP_c_int object at 0x7ff94fca7440>
+****************************************************************
+97
+```
+
+---
+
+```python
+ctypes.cast(obj, type)
+```
+
+This function is similar to the cast operator in C. It returns a new instance of type which points to the same memory block as obj. type must be a pointer type, and obj must be an object that can be interpreted as a pointer.
+
+---
+
+>Usually, ctypes does strict type checking. This means, if you have POINTER(c_int) in the argtypes list of a function or as the type of a member field in a structure definition, only instances of exactly the same type are accepted. There are some exceptions to this rule, where ctypes accepts other objects. For example, you can pass compatible array instances instead of pointer types. So, for POINTER(c_int), ctypes accepts an array of c_int.
+
+{% span green, 通常情况下，ctypes 具有严格的类型检查。这代表着，如果在函数 argtypes 中或者结构体定义成员中有 POINTER(c_int) 类型，只有相同类型的实例才会被接受。也有一些例外。比如，你可以传递兼容的数组实例给指针类型。所以，对于 POINTER(c_int)，ctypes 也可以接受 c_int 类型的数组。 %}
+
+```python
+class Bar(ctypes.Structure):
+
+    _fields_ = [("count", ctypes.c_int), ("values", ctypes.POINTER(ctypes.c_int))]
+
+bar = Bar()
+bar.values = (ctypes.c_int * 3)(1, 2, 3)
+bar.count = 3
+for i in range(bar.count):
+    print(bar.values[i])
+```
+
+>In addition, if a function argument is explicitly declared to be a pointer type (such as POINTER(c_int)) in argtypes, an object of the pointed type (c_int in this case) can be passed to the function. ctypes will apply the required byref() conversion in this case automatically.
+
+{% span green, 另外，如果一个函数 argtypes 列表中的参数显式的定义为指针类型(如 POINTER(c_int) )，指针所指向的类型 (这个例子中是 c_int ) 也可以传递给函数。ctypes 会自动调用对应的 byref() 转换。 %}
+
+>To set a POINTER type field to NULL, you can assign None.
+
+{% span green, 可以给指针内容赋值为 None 将其设置为 Null。 %}
+
+```python
+bar.values = None
+```
+
+>The cast() function can be used to cast a ctypes instance into a pointer to a different ctypes data type. cast() takes two parameters, a ctypes object that is or can be converted to a pointer of some kind, and a ctypes pointer type. It returns an instance of the second argument, which references the same memory block as the first argument.
+
+{% span green, cast() 函数可以将一个指针实例强制转换为另一种 ctypes 类型。cast() 接收两个参数，一个 ctypes 指针对象或者可以被转换为指针的其他类型对象，和一个 ctypes 指针类型。返回第二个类型的一个实例，该返回实例和第一个参数指向同一片内存空间。 %}
+
+```python
+a = (ctypes.c_byte * 4)()
+print(ctypes.cast(a, ctypes.POINTER(ctypes.c_int)))
+```
+
+>So, cast() can be used to assign to the values field of Bar the structure.
+
+{% span green, 所以 cast() 可以用来给结构体 Bar 的 values 字段赋值。 %}
+
+```python
+bar = Bar()
+b = (ctypes.c_long * 4)(97, 98, 99, 100)
+bar.values = ctypes.cast(b, ctypes.POINTER(ctypes.c_int))
+print(bar.values[0])
+```
+
+### Incomplete Types
 
 
 
