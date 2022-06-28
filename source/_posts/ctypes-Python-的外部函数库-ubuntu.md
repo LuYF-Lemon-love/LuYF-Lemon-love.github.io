@@ -1804,7 +1804,7 @@ none
 ctypes.CFUNCTYPE(restype, *argtypes, use_errno=False, use_last_error=False)
 ```
 
-The returned function prototype creates functions that use the standard C calling convention. {% label The function will release the GIL during the call green %}. 
+The returned function prototype creates functions that use the standard C calling convention. {% span green, The function will release the GIL during the call %}. 
 
 ---
 
