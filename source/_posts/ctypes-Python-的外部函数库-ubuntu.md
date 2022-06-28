@@ -1389,7 +1389,7 @@ print(pi.contents)
 
 >Note that ctypes does not have OOR (original object return), it constructs a new, equivalent object each time you retrieve an attribute.
 
-{% span green, 注意 ctypes 并没有 OOR （返回原始对象）, 每次访问这个属性时都会构造返回一个新的相同对象。 %}
+{% span green, 注意 ctypes 并没有 OOR（返回原始对象），每次访问这个属性时都会构造返回一个新的相同对象。 %}
 
 ```python
 print(pi.contents is i)
@@ -1430,7 +1430,7 @@ print(j)
 
 >Behind the scenes, the pointer() function does more than simply create pointer instances, it has to create pointer types first. This is done with the POINTER() function, which accepts any ctypes type, and returns a new type.
 
-{% span green, 内部细节, pointer() 函数不只是创建了一个指针实例，它首先创建了一个指针类型。这是通过调用 POINTER() 函数实现的，它接收 ctypes 类型为参数，返回一个新的类型。 %}
+{% span green, 内部细节，pointer() 函数不只是创建了一个指针实例，它首先创建了一个指针类型。这是通过调用 POINTER() 函数实现的，它接收 ctypes 类型为参数，返回一个新的类型。 %}
 
 ```python
 PI = ctypes.POINTER(ctypes.c_int)
