@@ -1568,10 +1568,98 @@ print(bar.values[0])
 
 ### Incomplete Types
 
+1. 在 `test_ctypes.py` 文件中，添加 `test_incomplete_types` 函数。
 
+```python
+class cell(ctypes.Structure):
 
+    pass
 
+cell._fields_ = [("name", ctypes.c_char_p), ("next", ctypes.POINTER(cell))]
 
+def test_incomplete_types():
+
+    c1 = cell()
+    c1.name = b"foo"
+    
+    c2 = cell()
+    c2.name = b"bar"
+
+    c1.next = ctypes.pointer(c2)
+    c2.next = ctypes.pointer(c1)
+
+    p=c1
+    for i in range(8):
+        print(p.name, end=" ")
+        p = p.next[0]
+    print()
+```
+
+2. 在 `if __name__ == '__main__':` 中，注释 `test_type_conversions()`。
+
+```python
+#test_type_conversions()
+
+test_incomplete_types()
+```
+
+3. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+b'foo' b'bar' b'foo' b'bar' b'foo' b'bar' b'foo' b'bar' 
+```
+
+---
+
+>Incomplete Types are structures, unions or arrays whose members are not yet specified. In C, they are specified by forward declarations, which are defined later.
+
+{% span green, 不完整类型即还没有定义成员的结构体、联合或者数组。在 C 中，它们通常用于前置声明，然后在后面定义。 %}
+
+```c
+struct cell; /* forward declaration */
+
+struct cell {
+    char *name;
+    struct cell *next;
+};
+```
+
+{% span green, 翻译成 ctypes 代码。 %}
+
+```python
+class cell(ctypes.Structure):
+
+    pass
+
+cell._fields_ = [("name", ctypes.c_char_p), ("next", ctypes.POINTER(cell))]
+```
+
+>We create two instances of cell, and let them point to each other, and finally follow the pointer chain a few times.
+
+{% span green, 我们定义两个 cell 实例，让它们互相指向对方，然后通过指针链式访问几次。 %}
+
+```python
+def test_incomplete_types():
+
+    c1 = cell()
+    c1.name = b"foo"
+    
+    c2 = cell()
+    c2.name = b"bar"
+
+    c1.next = ctypes.pointer(c2)
+    c2.next = ctypes.pointer(c1)
+
+    p=c1
+    for i in range(8):
+        print(p.name, end=" ")
+        p = p.next[0]
+    print()
+```
+
+### Callback functions
 
 
 
