@@ -1080,7 +1080,7 @@ print(rc_2.upperleft.x, rc_2.upperleft.y, rc_2.lowerright.x, rc_2.lowerright.y)
 
 >Field descriptors can be retrieved from the class, they are useful for debugging because they can provide useful information.
 
-{% span green, 可以通过 类 获取字段 descriptor ，它能提供很多有用的调试信息。 %}
+{% span green, 可以通过类获取字段 descriptor ，它能提供很多有用的调试信息。 %}
 
 ```python
 print(POINT.x, POINT.y)
@@ -1098,7 +1098,7 @@ ctypes does not support passing unions or structures with bit-fields to function
 ctypes 不支持带位域的结构体、联合以值的方式传给函数。这可能在 32 位 x86 平台上可以正常工作，但是对于一般情况，这种行为是未定义的。带位域的结构体、联合应该总是通过指针传递给函数。
 {% endnote %}
 
-### Structure/union alignment and byte order
+### Bit fields in structures and unions
 
 
 
