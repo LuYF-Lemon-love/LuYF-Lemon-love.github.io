@@ -944,7 +944,7 @@ On success, the function returns the number of items in the argument list succes
 
 >Sometimes a C api function expects a pointer to a data type as parameter, probably to write into the corresponding location, or if the data is too large to be passed by value. This is also known as passing parameters by reference.
 
-{% span green, 有时候 C 函数接口可能由于要往某个地址写入值，或者数据太大不适合作为值传递，从而希望接收一个指针作为数据参数类型。这可以称为引用方式传递形参。
+{% span green, 有时候 C 函数接口可能由于要往某个地址写入值，或者数据太大不适合作为值传递，从而希望接收一个指针作为数据参数类型。这可以称为引用方式传递形参。 %}
 
 >ctypes exports the byref() function which is used to pass parameters by reference. The same effect can be achieved with the pointer() function, although pointer() does a lot more work since it constructs a real pointer object, so it is faster to use byref() if you don’t need the pointer object in Python itself.
 
