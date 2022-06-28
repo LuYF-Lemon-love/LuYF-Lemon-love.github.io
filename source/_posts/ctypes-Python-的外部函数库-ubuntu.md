@@ -1100,10 +1100,54 @@ ctypes 不支持带位域的结构体、联合以值的方式传给函数。这�
 
 ### Bit fields in structures and unions
 
+1. 在 `test_ctypes.py` 文件中，添加 `test_bit_fields` 函数。
 
+```python
+class Int(ctypes.Structure):
 
+    _fields_ = [("first_16", ctypes.c_int, 16), ("second_16", ctypes.c_int, 16)]
 
+def test_bit_fields():
 
+    print(Int.first_16)
+    print(Int.second_16)
+```
+
+2. 在 `if __name__ == '__main__':` 中，注释 `test_structures_unions()`。
+
+```python
+#test_structures_unions()
+
+test_bit_fields()
+```
+
+3. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+<Field type=c_int, ofs=0:0, bits=16>
+<Field type=c_int, ofs=0:16, bits=16>
+```
+
+---
+
+>It is possible to create structures and unions containing bit fields. Bit fields are only possible for integer fields, the bit width is specified as the third item in the _fields_ tuples.
+
+{% span green, 结构体和联合中是可以包含位域字段的。位域只能用于整型字段，位长度通过 _fields_ 中的第三个参数指定。 %}
+
+```python
+class Int(ctypes.Structure):
+
+    _fields_ = [("first_16", ctypes.c_int, 16), ("second_16", ctypes.c_int, 16)]
+
+def test_bit_fields():
+
+    print(Int.first_16)
+    print(Int.second_16)
+```
+
+### Arrays
 
 
 
