@@ -1273,21 +1273,185 @@ print()
 
 ### Pointers
 
+1. 在 `test_ctypes.py` 文件中，添加 `test_pointers` 函数。
 
+```python
+def test_pointers():
 
+    i = ctypes.c_int(42)
+    pi = ctypes.pointer(i)
 
+    print("*" * 64)
 
+    print(pi.contents)
 
+    print("*" * 64)
 
+    print(pi.contents is i)
+    print(pi.contents is pi.contents)
 
+    print("*" * 64)
 
+    j = ctypes.c_int(99)
+    pi.contents = j
+    print(pi.contents)
 
+    print("*" * 64)
 
+    print(pi[0])
 
+    print("*" * 64)
 
+    print(j)
+    pi[0] = 22
+    print(j)
 
+    print("*" * 64)
 
+    PI = ctypes.POINTER(ctypes.c_int)
+    print(PI)
+    print(PI(ctypes.c_int(42)))
 
+    print("*" * 64)
+
+    null_ptr = ctypes.POINTER(ctypes.c_int)()
+    print(bool(null_ptr))
+```
+
+2. 在 `if __name__ == '__main__':` 中，注释 `test_arrays()`。
+
+```python
+#test_arrays()
+
+test_pointers()
+```
+
+3. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+****************************************************************
+c_int(42)
+****************************************************************
+False
+False
+****************************************************************
+c_int(99)
+****************************************************************
+99
+****************************************************************
+c_int(99)
+c_int(22)
+****************************************************************
+<class '__main__.LP_c_int'>
+<__main__.LP_c_int object at 0x7f354fbb7240>
+****************************************************************
+False
+```
+
+---
+
+```python
+ctypes.POINTER(type)
+```
+
+This factory function creates and returns a new ctypes pointer type. Pointer types are cached and reused internally, so calling this function repeatedly is cheap. type must be a ctypes type.
+
+---
+
+```python
+ctypes.pointer(obj)
+```
+
+This function creates a new pointer instance, pointing to obj. The returned object is of the type POINTER(type(obj)).
+
+Note: If you just want to pass a pointer to an object to a foreign function call, you should use byref(obj) which is much faster.
+
+---
+
+>Pointer instances are created by calling the pointer() function on a ctypes type.
+
+{% span green, 可以将 ctypes 类型数据传入 pointer() 函数创建指针。 %}
+
+```python
+i = ctypes.c_int(42)
+pi = ctypes.pointer(i)
+```
+
+>Pointer instances have a contents attribute which returns the object to which the pointer points, the i object above.
+
+{% span green, 指针实例拥有 contents 属性，它返回指针指向的真实对象，如上面的 i 对象。 %}
+
+```python
+print(pi.contents)
+```
+
+>Note that ctypes does not have OOR (original object return), it constructs a new, equivalent object each time you retrieve an attribute.
+
+{% span green, 注意 ctypes 并没有 OOR （返回原始对象）, 每次访问这个属性时都会构造返回一个新的相同对象。 %}
+
+```python
+print(pi.contents is i)
+print(pi.contents is pi.contents)
+```
+
+>Assigning another c_int instance to the pointer’s contents attribute would cause the pointer to point to the memory location where this is stored.
+
+{% span green, 将这个指针的 contents 属性赋值为另一个 c_int 实例将会导致该指针指向该实例的内存地址。 %}
+
+```python
+j = ctypes.c_int(99)
+pi.contents = j
+print(pi.contents)
+```
+
+>Pointer instances can also be indexed with integers.
+
+{% span green, 指针对象也可以通过整数下标进行访问。 %}
+
+```python
+print(pi[0])
+```
+
+>Assigning to an integer index changes the pointed to value.
+
+{% span green, 通过整数下标赋值可以改变指针所指向的真实内容。 %}
+
+```python
+print(j)
+pi[0] = 22
+print(j)
+```
+
+>It is also possible to use indexes different from 0, but you must know what you’re doing, just as in C: You can access or change arbitrary memory locations. Generally you only use this feature if you receive a pointer from a C function, and you know that the pointer actually points to an array instead of a single item.
+
+{% span green, 使用 0 以外的索引也是合法的，但是你必须确保知道自己为什么这么做，就像 C 语言中: 你可以访问或者修改任意内存内容。通常只会在函数接收指针是才会使用这种特性，而且你知道这个指针指向的是一个数组而不是单个值。 %}
+
+>Behind the scenes, the pointer() function does more than simply create pointer instances, it has to create pointer types first. This is done with the POINTER() function, which accepts any ctypes type, and returns a new type.
+
+{% span green, 内部细节, pointer() 函数不只是创建了一个指针实例，它首先创建了一个指针类型。这是通过调用 POINTER() 函数实现的，它接收 ctypes 类型为参数，返回一个新的类型。 %}
+
+```python
+PI = ctypes.POINTER(ctypes.c_int)
+print(PI)
+print(PI(ctypes.c_int(42)))
+```
+
+>Calling the pointer type without an argument creates a NULL pointer. NULL pointers have a False boolean value.
+
+{% span green, 无参调用指针类型可以创建一个 NULL 指针。 NULL 指针的布尔值是 False。 %}
+
+```python
+null_ptr = ctypes.POINTER(ctypes.c_int)()
+print(bool(null_ptr))
+```
+
+>ctypes checks for NULL when dereferencing pointers (but dereferencing invalid non-NULL pointers would crash Python).
+
+{% span green, 解引用指针的时候， ctypes 会帮你检测是否指针为 NULL (但是解引用无效的非 NULL 指针仍会导致 Python 崩溃) %}
+
+### Type conversions
 
 
 
