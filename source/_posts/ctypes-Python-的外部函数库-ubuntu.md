@@ -1080,7 +1080,7 @@ print(rc_2.upperleft.x, rc_2.upperleft.y, rc_2.lowerright.x, rc_2.lowerright.y)
 
 >Field descriptors can be retrieved from the class, they are useful for debugging because they can provide useful information.
 
-{% span green, 可以通过类获取字段 descriptor ，它能提供很多有用的调试信息。 %}
+{% span green, 可以通过类获取字段 descriptor，它能提供很多有用的调试信息。 %}
 
 ```python
 print(POINT.x, POINT.y)
