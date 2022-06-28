@@ -972,18 +972,133 @@ def test_pass_pointers():
 
 ### Structures and unions
 
+1. 在 `test_ctypes.py` 文件中，添加 `test_structures_unions` 函数。
 
+```python
+class POINT(ctypes.Structure):
 
+    _fields_ = [("x", ctypes.c_int), ("y", ctypes.c_int)]
 
+class RECT(ctypes.Structure):
 
+    _fields_ = [("upperleft", POINT), ("lowerright", POINT)]
 
+def test_structures_unions():
 
+    p_1 = POINT(10, 20)
+    print(p_1.x, p_1.y)
 
+    p_2 = POINT(y = 5)
+    print(p_2.x, p_2.y)
 
+    print("*" * 64)
 
+    rc = RECT(p_1)
 
+    print(rc.upperleft.x, rc.upperleft.y, rc.lowerright.x, rc.lowerright.y)
 
+    print("*" * 64)
 
+    rc_1 = RECT(POINT(1, 2), POINT(3, 4))
+    rc_2 = RECT((5, 6), (7, 8))
+    print(rc_1.upperleft.x, rc_1.upperleft.y, rc_1.lowerright.x, rc_1.lowerright.y)
+    print(rc_2.upperleft.x, rc_2.upperleft.y, rc_2.lowerright.x, rc_2.lowerright.y)
+
+    print("*" * 64)
+
+    print(POINT.x, POINT.y)
+```
+
+2. 在 `if __name__ == '__main__':` 中，注释 `test_pass_pointers()`。
+
+```python
+#test_pass_pointers()
+
+test_structures_unions()
+```
+
+3. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+10 20
+0 5
+****************************************************************
+10 20 0 0
+****************************************************************
+1 2 3 4
+5 6 7 8
+****************************************************************
+<Field type=c_int, ofs=0, size=4> <Field type=c_int, ofs=4, size=4>
+```
+
+---
+
+>Structures and unions must derive from the Structure and Union base classes which are defined in the ctypes module. Each subclass must define a _fields_ attribute. _fields_ must be a list of 2-tuples, containing a field name and a field type.
+
+{% span green, 结构体和联合必须继承自 ctypes 模块中的 Structure 和 Union 。子类必须定义 _fields_ 属性。 _fields_ 是一个二元组列表，二元组中包含 field name 和 field type 。 %}
+
+>The field type must be a ctypes type like c_int, or any other derived ctypes type: structure, union, array, pointer.
+
+{% span green, type 字段必须是一个 ctypes 类型，比如 c_int，或者其他 ctypes 类型: 结构体、联合、数组、指针。 %}
+
+```python
+class POINT(ctypes.Structure):
+
+    _fields_ = [("x", ctypes.c_int), ("y", ctypes.c_int)]
+    
+p_1 = POINT(10, 20)
+print(p_1.x, p_1.y)
+
+p_2 = POINT(y = 5)
+print(p_2.x, p_2.y)
+```
+
+---
+
+```python
+class RECT(ctypes.Structure):
+
+    _fields_ = [("upperleft", POINT), ("lowerright", POINT)]
+
+rc = RECT(p_1)
+
+print(rc.upperleft.x, rc.upperleft.y, rc.lowerright.x, rc.lowerright.y)
+```
+
+>Nested structures can also be initialized in the constructor in several ways.
+
+{% span green, 嵌套结构体可以通过几种方式构造初始化。 %}
+
+```python
+rc_1 = RECT(POINT(1, 2), POINT(3, 4))
+rc_2 = RECT((5, 6), (7, 8))
+print(rc_1.upperleft.x, rc_1.upperleft.y, rc_1.lowerright.x, rc_1.lowerright.y)
+print(rc_2.upperleft.x, rc_2.upperleft.y, rc_2.lowerright.x, rc_2.lowerright.y)
+```
+
+>Field descriptors can be retrieved from the class, they are useful for debugging because they can provide useful information.
+
+{% span green, 可以通过 类 获取字段 descriptor ，它能提供很多有用的调试信息。 %}
+
+```python
+print(POINT.x, POINT.y)
+```
+
+---
+
+{% note warning flat %}
+ctypes does not support passing unions or structures with bit-fields to functions by value. While this may work on 32-bit x86, it’s not guaranteed by the library to work in the general case. Unions and structures with bit-fields should always be passed to functions by pointer.
+{% endnote %}
+
+---
+
+{% note warning flat %}
+ctypes 不支持带位域的结构体、联合以值的方式传给函数。这可能在 32 位 x86 平台上可以正常工作，但是对于一般情况，这种行为是未定义的。带位域的结构体、联合应该总是通过指针传递给函数。
+{% endnote %}
+
+### Structure/union alignment and byte order
 
 
 
