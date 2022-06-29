@@ -2088,12 +2088,69 @@ print(s.value is s.value)
 
 ### Variable-sized data types
 
+1. 在 `test_ctypes.py` 文件中，添加 `test_variable_sized_data_types` 函数。
 
+```python
+def test_variable_sized_data_types():
 
+    short_array = (ctypes.c_short * 4)()
+    print(ctypes.sizeof(short_array))
+    print(ctypes.sizeof(type(short_array)))
 
+    ctypes.resize(short_array, 32)
+    print(ctypes.sizeof(short_array))
+    print(ctypes.sizeof(type(short_array)))
 
+    print(short_array[:])
+```
 
+2. 在 `if __name__ == '__main__':` 中，注释 `test_surprises()`。
 
+```python
+#test_surprises()
+
+test_variable_sized_data_types()
+```
+
+3. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+8
+8
+32
+8
+[0, 0, 0, 0]
+```
+
+---
+
+```python
+ctypes.resize(obj, size)
+```
+
+This function resizes the internal memory buffer of obj, which must be an instance of a ctypes type. It is not possible to make the buffer smaller than the native size of the objects type, as given by sizeof(type(obj)), but it is possible to enlarge the buffer.
+
+---
+
+>ctypes provides some support for variable-sized arrays and structures.
+
+{% span green, ctypes 对变长数组和结构体提供了一些支持。 %}
+
+```python
+def test_variable_sized_data_types():
+
+    short_array = (ctypes.c_short * 4)()
+    print(ctypes.sizeof(short_array))
+    print(ctypes.sizeof(type(short_array)))
+
+    ctypes.resize(short_array, 32)
+    print(ctypes.sizeof(short_array))
+    print(ctypes.sizeof(type(short_array)))
+
+    print(short_array[:])
+```
 
 ### 结语
 
