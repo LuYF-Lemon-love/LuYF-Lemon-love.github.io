@@ -1992,18 +1992,101 @@ print()
 
 ### Surprises
 
+1. 在 `test_ctypes.py` 文件中，添加 `test_surprises` 函数。
 
+```python
+def test_surprises():
 
+    p1 = POINT(1, 2)
+    p2 = POINT(3, 4)
+    rc = RECT(p1, p2)
+    print(rc.upperleft.x, rc.upperleft.y, rc.lowerright.x, rc.lowerright.y)
 
+    # now swap the two points
+    rc.upperleft, rc.lowerright = rc.lowerright, rc.upperleft
+    print(rc.upperleft.x, rc.upperleft.y, rc.lowerright.x, rc.lowerright.y)
 
+    print("*" * 64)
 
+    s = ctypes.c_char_p()
+    s.value = b"abc def ghi"
+    print(s.value)
+    print(s.value is s.value)
+```
 
+2. 在 `if __name__ == '__main__':` 中，注释 `test_access_values_from_dlls()`。
 
+```python
+#test_access_values_from_dlls()
 
+test_surprises()
+```
 
+3. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
 
+{% label output pink %}
 
+```shell
+1 2 3 4
+3 4 3 4
+****************************************************************
+b'abc def ghi'
+False
+```
 
+---
+
+>There are some edges in ctypes where you might expect something other than what actually happens.
+
+{% span green, ctypes 也有自己的边界，有时候会发生一些意想不到的事情。 %}
+
+```python
+p1 = POINT(1, 2)
+p2 = POINT(3, 4)
+rc = RECT(p1, p2)
+print(rc.upperleft.x, rc.upperleft.y, rc.lowerright.x, rc.lowerright.y)
+
+# now swap the two points
+rc.upperleft, rc.lowerright = rc.lowerright, rc.upperleft
+print(rc.upperleft.x, rc.upperleft.y, rc.lowerright.x, rc.lowerright.y)
+```
+
+>Hm. We certainly expected the last statement to print 3 4 1 2. What happened? Here are the steps of the rc.a, rc.b = rc.b, rc.a line above.
+
+{% span green, 嗯。我们预想应该打印 3 4 1 2 。但是为什么呢? 这是 rc.a, rc.b = rc.b, rc.a 这行代码展开后的步骤。 %}
+
+```python
+temp0, temp1 = rc.b, rc.a
+rc.a = temp0
+rc.b = temp1
+```
+
+>Note that temp0 and temp1 are objects still using the internal buffer of the rc object above. So executing rc.a = temp0 copies the buffer contents of temp0 into rc ‘s buffer. This, in turn, changes the contents of temp1. So, the last assignment rc.b = temp1, doesn’t have the expected effect.
+
+{% span green, 注意 temp0 和 temp1 对象始终引用了对象 rc 的内容。然后执行 rc.a = temp0 会把 temp0 的内容拷贝到 rc 的空间。这也改变了 temp1 的内容。最终导致赋值语句 rc.b = temp1 没有产生预想的效果。 %}
+
+>Keep in mind that retrieving sub-objects from Structure, Unions, and Arrays doesn’t copy the sub-object, instead it retrieves a wrapper object accessing the root-object’s underlying buffer.
+
+{% note info flat %}
+记住，访问被包含在结构体、联合、数组中的对象并不会将其复制出来，而是得到了一个代理对象，它是对根对象的内部内容的一层包装。
+{% endnote %}
+
+```python
+s = ctypes.c_char_p()
+s.value = b"abc def ghi"
+print(s.value)
+print(s.value is s.value)
+```
+
+{% note info flat %}
+使用 c_char_p  实例化的对象只能将其值设置为 bytes 或者整数。
+{% endnote %}
+
+>Why is it printing False? ctypes instances are objects containing a memory block plus some descriptors accessing the contents of the memory. Storing a Python object in the memory block does not store the object itself, instead the contents of the object is stored. Accessing the contents again constructs a new Python object each time!
+
+{% span green, 为什么这里打印了 False ？ctypes 实例是一些内存块加上一些用于访问这些内存块的 descriptor 组成。将 Python 对象存储在内存块并不会存储对象本身，而是存储了对象的内容。每次访问对象的内容都会构造一个新的 Python 对象。 %}
+
+### Variable-sized data types
 
 
 
