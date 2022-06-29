@@ -1746,6 +1746,8 @@ py_cmp_reverse 5 7
 ---
 
 ```c
+#include <stdlib.h>
+
 void qsort (void* base, size_t num, size_t size, int (*compar)(const void*,const void*));
 ```
 
@@ -1885,13 +1887,110 @@ print()
 
 ### Accessing values exported from dlls
 
+1. 在 `test_ctypes.c` 文件中，添加 `NUMBER` 常量和 `array` 数组。
 
+```c
+const int NUMBER = 10;
 
+const int array[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+```
 
+2. 生成动态链接库。
 
+```shell
+gcc -fPIC -shared -o libtest.so test_ctypes.c
+```
 
+3. 在 `test_ctypes.py` 文件中，添加 `test_access_values_from_dlls` 函数。
 
+```python
+def test_access_values_from_dlls():
 
+    libc = ctypes.CDLL("./libtest.so")
+    num = ctypes.c_int.in_dll(libc, "NUMBER")
+    print(num)
+    print(num.value)
+
+    print("*" * 64)
+
+    array = ctypes.c_int * num.value
+    table = array.in_dll(libc, "array")
+
+    for item in table: print(item, end=" ")
+    print()
+
+    print("*" * 64)
+
+    for i in range(num.value): print(table[i], end=" ")
+    print()
+```
+
+4. 在 `if __name__ == '__main__':` 中，注释 `test_callback_functions()`。
+
+```python
+#test_callback_functions()
+
+test_access_values_from_dlls()
+```
+
+5. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+c_int(10)
+10
+****************************************************************
+0 1 2 3 4 5 6 7 8 9 
+****************************************************************
+0 1 2 3 4 5 6 7 8 9
+```
+
+---
+
+```python
+class ctypes._CData
+    # This non-public class is the common base class of all ctypes data types.
+    
+    in_dll(library, name)
+        # This method returns a ctypes type instance exported by a shared library. name is the name of the symbol that exports the data, library is the loaded shared library.
+```
+
+---
+
+>Some shared libraries not only export functions, they also export variables. ctypes can access values like this with the in_dll() class methods of the type.
+
+{% span green, 一些动态链接库不仅仅可以导出函数，也会导出变量。ctypes 可以通过 in_dll() 类方法访问这类变量。 %}
+
+```c
+const int NUMBER = 10;
+```
+
+```python
+libc = ctypes.CDLL("./libtest.so")
+num = ctypes.c_int.in_dll(libc, "NUMBER")
+print(num)
+print(num.value)
+```
+
+{% span green, 访问数组。 %}
+
+```c
+const int array[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+```
+
+```python
+array = ctypes.c_int * num.value
+table = array.in_dll(libc, "array")
+
+for item in table: print(item, end=" ")
+print()
+
+for i in range(num.value): print(table[i], end=" ")
+print()
+```
+
+### Surprises
 
 
 
