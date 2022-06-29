@@ -49,6 +49,8 @@ date: 2022-06-26 12:32:26
 
 8. [qsort](https://cplusplus.com/reference/cstdlib/qsort/)
 
+9. [Python调用c/c++动态库（一）](https://blog.csdn.net/giveaname/article/details/89811783?spm=1001.2014.3001.5506)
+
 ### 载入动态链接库
 
 1. 启动 VSCode。
@@ -2150,6 +2152,63 @@ def test_variable_sized_data_types():
     print(ctypes.sizeof(type(short_array)))
 
     print(short_array[:])
+```
+
+### from_buffer_copy
+
+1. 在 `test_ctypes.c` 文件中，添加 `say_array` 函数。
+
+```c
+void say_array(unsigned char *puStr)
+{
+    int i = 0;
+    for (i = 0; i < 10; i++) {
+        printf("%c ", puStr[i]);
+    }
+    printf("\n");
+}
+```
+
+2. 生成动态链接库。
+
+```shell
+gcc -fPIC -shared -o libtest.so test_ctypes.c
+```
+
+3. 在 `test_ctypes.py` 文件中，添加 `test_from_buffer_copy` 函数。
+
+```python
+def test_from_buffer_copy():
+
+    libc = ctypes.CDLL("./libtest.so")
+    u_str_info = (ctypes.c_ubyte * 16).from_buffer_copy(b'0123456789abcdef')
+    libc.say_array(u_str_info)
+```
+
+4. 在 `if __name__ == '__main__':` 中，注释 `test_variable_sized_data_types()`。
+
+```python
+#test_variable_sized_data_types()
+
+test_from_buffer_copy()
+```
+
+5. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+0 1 2 3 4 5 6 7 8 9
+```
+
+---
+
+```python
+class ctypes._CData
+    # This non-public class is the common base class of all ctypes data types. 
+    
+    from_buffer_copy(source[, offset])
+        # This method creates a ctypes instance, copying the buffer from the source object buffer which must be readable. The optional offset parameter specifies an offset into the source buffer in bytes; the default is zero.
 ```
 
 ### 结语
