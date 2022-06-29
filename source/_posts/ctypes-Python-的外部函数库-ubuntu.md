@@ -51,6 +51,8 @@ date: 2022-06-26 12:32:26
 
 9. [Python调用c/c++动态库（一）](https://blog.csdn.net/giveaname/article/details/89811783?spm=1001.2014.3001.5506)
 
+10. [strcpy](https://cplusplus.com/reference/cstring/strcpy/)
+
 ### 载入动态链接库
 
 1. 启动 VSCode。
@@ -2210,6 +2212,100 @@ class ctypes._CData
     from_buffer_copy(source[, offset])
         # This method creates a ctypes instance, copying the buffer from the source object buffer which must be readable. The optional offset parameter specifies an offset into the source buffer in bytes; the default is zero.
 ```
+
+### 二级指针
+
+1. 在 `test_ctypes.c` 文件中，引用 `<string.h>` 头文件。
+
+```c
+#include <string.h>
+```
+
+2. 在 `test_ctypes.c` 文件中，添加 `double_point` 和 `free_point` 函数。
+
+```c
+void double_point(int ** ppInt, char ** ppStr)
+{
+    printf("before int: %d\n", **ppInt);
+
+    **ppInt = 10086;
+    *ppStr = (char*)malloc(10 * sizeof(char));
+    strcpy(*ppStr, "Happy National Day!");
+}
+
+void free_point(void *pt)
+{
+    if (pt != NULL) {
+        free(pt);
+        pt = NULL;
+    }
+}
+```
+
+2. 生成动态链接库。
+
+```shell
+gcc -fPIC -shared -o libtest.so test_ctypes.c
+```
+
+3. 在 `test_ctypes.py` 文件中，添加 `test_double_point` 函数。
+
+```python
+def test_double_point():
+
+    libc = ctypes.CDLL("./libtest.so")
+
+    int_a = ctypes.c_int(10)
+    int_pt = ctypes.pointer(int_a)
+    word_pt = ctypes.c_char_p()
+    
+    libc.double_point(ctypes.byref(int_pt), ctypes.byref(word_pt))
+    print("out_value: ", int_a.value)
+    print("out_word: ", word_pt.value)
+    libc.free_point(word_pt)
+```
+
+4. 在 `if __name__ == '__main__':` 中，注释 `test_from_buffer_copy()`。
+
+```python
+#test_from_buffer_copy()
+
+test_double_point()
+```
+
+5. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+before int: 10
+out_value:  10086
+out_word:  b'Happy National Day!'
+```
+
+---
+
+```c
+#include <string.h>
+
+char * strcpy ( char * destination, const char * source );
+```
+
+**Copy string**
+
+Copies the C string pointed by source into the array pointed by destination, including the terminating null character (and stopping at that point).
+
+To avoid overflows, the size of the array pointed by destination shall be long enough to contain the same C string as source (including the terminating null character), and should not overlap in memory with source.
+
+**Parameters**
+
+- `destination`: Pointer to the destination array where the content is to be copied.
+
+- `source`: C string to be copied.
+
+**Return Value**
+
+destination is returned.
 
 ### 结语
 
