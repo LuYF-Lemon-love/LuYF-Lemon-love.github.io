@@ -2053,7 +2053,7 @@ print(rc.upperleft.x, rc.upperleft.y, rc.lowerright.x, rc.lowerright.y)
 
 >Hm. We certainly expected the last statement to print 3 4 1 2. What happened? Here are the steps of the rc.a, rc.b = rc.b, rc.a line above.
 
-{% span green, 嗯。我们预想应该打印 3 4 1 2 。但是为什么呢? 这是 rc.a, rc.b = rc.b, rc.a 这行代码展开后的步骤。 %}
+嗯。我们预想应该打印 `3 4 1 2` 。但是为什么呢? 这是 `rc.a, rc.b = rc.b, rc.a` 这行代码展开后的步骤。
 
 ```python
 temp0, temp1 = rc.b, rc.a
