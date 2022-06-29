@@ -2242,13 +2242,13 @@ void free_point(void *pt)
 }
 ```
 
-2. 生成动态链接库。
+3. 生成动态链接库。
 
 ```shell
 gcc -fPIC -shared -o libtest.so test_ctypes.c
 ```
 
-3. 在 `test_ctypes.py` 文件中，添加 `test_double_point` 函数。
+4. 在 `test_ctypes.py` 文件中，添加 `test_double_point` 函数。
 
 ```python
 def test_double_point():
@@ -2265,7 +2265,7 @@ def test_double_point():
     libc.free_point(word_pt)
 ```
 
-4. 在 `if __name__ == '__main__':` 中，注释 `test_from_buffer_copy()`。
+5. 在 `if __name__ == '__main__':` 中，注释 `test_from_buffer_copy()`。
 
 ```python
 #test_from_buffer_copy()
@@ -2273,7 +2273,7 @@ def test_double_point():
 test_double_point()
 ```
 
-5. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+6. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
 
 {% label output pink %}
 
