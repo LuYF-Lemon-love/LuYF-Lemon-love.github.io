@@ -53,6 +53,8 @@ date: 2022-06-26 12:32:26
 
 10. [strcpy](https://cplusplus.com/reference/cstring/strcpy/)
 
+11. [sprintf](https://cplusplus.com/reference/cstdio/sprintf/)
+
 ### 载入动态链接库
 
 1. 启动 VSCode。
@@ -2306,6 +2308,163 @@ To avoid overflows, the size of the array pointed by destination shall be long e
 **Return Value**
 
 destination is returned.
+
+### 结构体综合练习
+
+1. 在 `test_ctypes.c` 文件中，添加下面代码。
+
+```c
+typedef struct _rect
+{
+    int index;
+    char info[16];
+}Rect;
+
+int read_rect(Rect rect)
+{
+    printf("index: %d info: %s\n", rect.index, rect.info);
+
+    return 0;
+}
+
+int read_rect_point(Rect * pRect)
+{
+    printf("index: %d info: %s\n", pRect->index, pRect->info);
+
+    return 0;
+}
+
+int read_rect_array(Rect * pRectArray)
+{
+    int i;
+    for (i = 0; i < 5; i++)
+    {
+        printf("pRectArray.index: %d pRectArray.info: %s\n", pRectArray[i].index, pRectArray[i].info);
+    }
+
+    return 0;
+}
+
+Rect * obtain_rect_array(int * pArrayNum)
+{
+    int num = 5;
+    *pArrayNum = num;
+    Rect *pArray = (Rect*)malloc(num * sizeof(Rect));
+    for (int i = 0; i < num; i++)
+    {
+        pArray[i].index = i;
+        sprintf(pArray[i].info, "%s_%d", "Hello", i);
+    }
+    return pArray;
+}
+
+void free_rect(Rect * pRect)
+{
+    free(pRect);
+}
+```
+
+2. 生成动态链接库。
+
+```shell
+gcc -fPIC -shared -o libtest.so test_ctypes.c
+```
+
+3. 在 `test_ctypes.py` 文件中，添加 `test_read_rect` 函数。
+
+```python
+class Rect(ctypes.Structure):
+
+    _fields_ = [('index', ctypes.c_int), ('info', ctypes.c_char * 16)]
+
+def test_read_rect():
+
+    libc = ctypes.CDLL("./libtest.so")
+
+    rect_a = Rect(10, b"Hello")
+    
+    libc.read_rect(rect_a)
+
+    print("*" * 64)
+
+    libc.read_rect_point(ctypes.byref(rect_a))
+
+    print("*" * 64)
+
+    rect_array = (Rect * 5)()
+    for i in range(5):
+        rect_array[i] = Rect(i, bytes("Hello_" + str(i), encoding = 'utf-8'))
+    libc.read_rect_array(rect_array)
+
+    print("*" * 64)
+
+    libc.obtain_rect_array.restype = ctypes.POINTER(Rect)
+    num = ctypes.c_int(0)
+    rect_pt = libc.obtain_rect_array(ctypes.byref(num))
+    for i in range(num.value):
+        print("index: ", rect_pt[i].index, "info: ", rect_pt[i].info)
+    libc.free_rect(rect_pt)
+```
+
+4. 在 `if __name__ == '__main__':` 中，注释 `test_double_point()`。
+
+```python
+#test_double_point()
+
+test_read_rect()
+```
+
+5. 打开 `test_ctypes.py` 文件，点击右上角的 `Run Python File` 按钮，运行 Python 脚本。
+
+{% label output pink %}
+
+```shell
+index: 10 info: Hello
+****************************************************************
+index: 10 info: Hello
+****************************************************************
+pRectArray.index: 0 pRectArray.info: Hello_0
+pRectArray.index: 1 pRectArray.info: Hello_1
+pRectArray.index: 2 pRectArray.info: Hello_2
+pRectArray.index: 3 pRectArray.info: Hello_3
+pRectArray.index: 4 pRectArray.info: Hello_4
+****************************************************************
+index:  0 info:  b'Hello_0'
+index:  1 info:  b'Hello_1'
+index:  2 info:  b'Hello_2'
+index:  3 info:  b'Hello_3'
+index:  4 info:  b'Hello_4'
+```
+
+---
+
+```c
+#include <stdio.h>
+
+int sprintf ( char * str, const char * format, ... );
+```
+
+**Write formatted data to string**
+
+Composes a string with the same text that would be printed if format was used on printf, but instead of being printed, the content is stored as a C string in the buffer pointed by str.
+
+The size of the buffer should be large enough to contain the entire resulting string (see snprintf for a safer version).
+
+A terminating null character is automatically appended after the content.
+
+After the format parameter, the function expects at least as many additional arguments as needed for format.
+
+**Parameters**
+
+- `str`: Pointer to a buffer where the resulting C-string is stored. The buffer should be large enough to contain the resulting string.
+
+- `format`: C string that contains a format string that follows the same specifications as format in printf (see printf for details).
+
+- `... (additional arguments)`: Depending on the format string, the function may expect a sequence of additional arguments, each containing a value to be used to replace a format specifier in the format string (or a pointer to a storage location, for n). There should be at least as many of these arguments as the number of values specified in the format specifiers. Additional arguments are ignored by the function.
+
+**Return Value**
+
+On success, the total number of characters written is returned. This count does not include the additional null-character automatically appended at the end of the string. On failure, a negative number is returned.
 
 ### 结语
 
