@@ -2466,6 +2466,658 @@ After the format parameter, the function expects at least as many additional arg
 
 On success, the total number of characters written is returned. This count does not include the additional null-character automatically appended at the end of the string. On failure, a negative number is returned.
 
+### 最终代码
+
+#### test_ctypes.c
+
+```c
+#include <stdio.h>
+#include <time.h>
+#include <wchar.h>
+#include <string.h>
+#include <stdlib.h>
+
+void say_hello_world()
+{
+    printf("hello world in C.\n");
+}
+
+void say_time(time_t* timer)
+{
+    long now;
+
+    // 今天已经过去的时间（秒）
+    now = time(timer) % (60 * 60 * 24);
+
+    long hour = now / 3600;
+    long minute = now % 3600 / 60;
+    long second = now % 3600 % 60;
+
+    printf("零时区时间： %2ld :%2ld :%2ld \n", hour, minute, second);
+
+    // 北京位于东八区：东八区（UTC/GMT+08:00）是比世界协调时间（UTC）/格林尼治时间（GMT）快 8 小时的时区
+    hour = (hour + 8) % 24;
+    printf("北京时间：   %2ld :%2ld :%2ld \n", hour, minute, second);
+}
+
+void call_functions(int i, char* str, wchar_t* w_str, double db)
+{
+    printf("int i = %d\nchar* str = %s\nwchar_t* w_str = %ls\ndouble* db = %f\n", i, str, w_str, db);
+}
+
+void say_bottles(int bottles)
+{
+    printf("%d bottles of beer.\n", bottles);
+}
+
+int return_bool()
+{
+    return 1;
+}
+
+void pass_pointers(int* i, float* f, char* str)
+{
+    sscanf("1 3.14 Hello", "%d %f %s", i, f, str);
+}
+
+struct cell; /* forward declaration */
+
+struct cell {
+    char *name;
+    struct cell *next;
+};
+
+const int NUMBER = 10;
+
+const int array[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+void say_array(unsigned char *puStr)
+{
+    int i = 0;
+    for (i = 0; i < 10; i++) {
+        printf("%c ", puStr[i]);
+    }
+    printf("\n");
+}
+
+void double_point(int ** ppInt, char ** ppStr)
+{
+    printf("before int: %d\n", **ppInt);
+
+    **ppInt = 10086;
+    *ppStr = (char*)malloc(10 * sizeof(char));
+    strcpy(*ppStr, "Happy National Day!");
+}
+
+void free_point(void *pt)
+{
+    if (pt != NULL) {
+        free(pt);
+        pt = NULL;
+    }
+}
+
+typedef struct _rect
+{
+    int index;
+    char info[16];
+}Rect;
+
+int read_rect(Rect rect)
+{
+    printf("index: %d info: %s\n", rect.index, rect.info);
+
+    return 0;
+}
+
+int read_rect_point(Rect * pRect)
+{
+    printf("index: %d info: %s\n", pRect->index, pRect->info);
+
+    return 0;
+}
+
+int read_rect_array(Rect * pRectArray)
+{
+    int i;
+    for (i = 0; i < 5; i++)
+    {
+        printf("pRectArray.index: %d pRectArray.info: %s\n", pRectArray[i].index, pRectArray[i].info);
+    }
+
+    return 0;
+}
+
+Rect * obtain_rect_array(int * pArrayNum)
+{
+    int num = 5;
+    *pArrayNum = num;
+    Rect *pArray = (Rect*)malloc(num * sizeof(Rect));
+    for (int i = 0; i < num; i++)
+    {
+        pArray[i].index = i;
+        sprintf(pArray[i].info, "%s_%d", "Hello", i);
+    }
+    return pArray;
+}
+
+void free_rect(Rect * pRect)
+{
+    free(pRect);
+}
+```
+
+#### test_ctypes.py
+
+```python
+import ctypes
+
+def test_say_hello_world():
+
+    libc = ctypes.CDLL("./libtest.so")
+
+    libc.say_hello_world()
+
+    libc['say_hello_world']()
+
+    print(libc.say_hello_world == libc.say_hello_world)
+
+    print(libc['say_hello_world'] == libc['say_hello_world'])
+
+    print("*" * 64)
+
+    libc_ll = ctypes.cdll.LoadLibrary("./libtest.so")
+
+    libc_ll.say_hello_world()
+
+    libc_ll['say_hello_world']()
+
+    print(libc_ll.say_hello_world == libc_ll.say_hello_world)
+
+    print(libc_ll['say_hello_world'] == libc_ll['say_hello_world'])
+
+def test_say_time(timer):
+
+    libc = ctypes.CDLL("./libtest.so")
+
+    libc.say_time(timer)
+
+def test_fundamental_data_types():
+
+    print("调用构造函数创建对象：")
+
+    print(ctypes.c_int())
+    print(ctypes.c_wchar_p("Hello, World"))
+    print(ctypes.c_ushort(-3))
+
+    print("*" * 64)
+
+    print("更改对象的值")
+
+    i = ctypes.c_int(42)
+    print(i)
+    print(i.value)
+
+    i.value = -99
+    print(i.value)
+
+    print("*" * 64)
+
+    print("c_wchar_p")
+
+    s = "Hello, World"
+    c_s = ctypes.c_wchar_p(s)
+    print(c_s)
+    print(c_s.value)
+
+    # the memory location has changed
+    c_s.value = "Hi, there"
+    print(c_s)
+    print(c_s.value)
+
+    # first object is unchanged
+    print(s)
+
+    print("*" * 64)
+
+    print("create_string_buffer()")
+
+    # create a 3 byte buffer, initialized to NUL bytes
+    p = ctypes.create_string_buffer(3)
+    print(ctypes.sizeof(p), repr(p.raw))
+
+    # create a buffer containing a NUL terminated string
+    p = ctypes.create_string_buffer(b"Hello")
+    print(ctypes.sizeof(p), repr(p.raw))
+    print(repr(p.value))
+
+    # create a 10 byte buffer
+    p = ctypes.create_string_buffer(b"hello", 10)
+    print(ctypes.sizeof(p), repr(p.raw))
+    p.value = b"Hi"
+    print(ctypes.sizeof(p), repr(p.raw))
+
+def test_call_functions():
+
+    i = ctypes.c_int(42)
+
+    str = ctypes.c_char_p(b"Hello, World in c_char_p.")
+
+    w_str = ctypes.c_wchar_p("我要成为真正的狐狸精!!!")
+
+    db = ctypes.c_double(3.14)
+
+    libc = ctypes.CDLL("./libtest.so")
+
+    libc.call_functions(i, str, w_str, db)
+
+class Bottles:
+
+    def __init__(self, number):
+        
+        self._as_parameter_ = number
+
+def test_say_bottles():
+
+    bottles = Bottles(42)
+
+    libc = ctypes.CDLL("./libtest.so")
+
+    libc.say_bottles(bottles)
+
+def test_argtypes():
+
+    libc = ctypes.CDLL("./libtest.so")
+
+    libc.call_functions.argtypes = [ctypes.c_int, ctypes.c_char_p, ctypes.c_wchar_p, ctypes.c_double]
+
+    libc.call_functions(42, b"Hello, World in c_char_p.", "我要成为真正的狐狸精!!!", 3.14)
+
+def valid_return(value):
+
+    if value == 0:
+        return False
+    else:
+        return True
+
+def test_return_types():
+
+    libc = ctypes.CDLL("./libtest.so")
+    strchr = libc.strchr
+    print(strchr(b"abcdef", ord("d")))
+
+    # c_char_p is a pointer to a string
+    strchr.restype = ctypes.c_char_p
+    print(strchr(b"abcdef", ord("d")))
+    print(strchr(b"abcdef", ord("x")))
+
+    print("*" * 64)
+
+    strchr.argtypes = [ctypes.c_char_p, ctypes.c_char]
+    print(strchr(b"abcdef", b"d"))
+    print(strchr(b"abcdef", b"x"))
+
+    print("*" * 64)
+
+    return_bool = libc.return_bool
+    return_bool.restype = valid_return
+
+    print(return_bool())
+
+def test_pass_pointers():
+
+    i = ctypes.c_int()
+    f = ctypes.c_float()
+    s = ctypes.create_string_buffer(b'\000' * 32)
+    print(i.value, f.value, repr(s.value))
+
+    libc = ctypes.CDLL("./libtest.so")
+    libc.pass_pointers(ctypes.byref(i), ctypes.byref(f), s)
+    print(i.value, f.value, repr(s.value))
+
+class POINT(ctypes.Structure):
+
+    _fields_ = [("x", ctypes.c_int), ("y", ctypes.c_int)]
+
+class RECT(ctypes.Structure):
+
+    _fields_ = [("upperleft", POINT), ("lowerright", POINT)]
+
+def test_structures_unions():
+
+    p_1 = POINT(10, 20)
+    print(p_1.x, p_1.y)
+
+    p_2 = POINT(y = 5)
+    print(p_2.x, p_2.y)
+
+    print("*" * 64)
+
+    rc = RECT(p_1)
+
+    print(rc.upperleft.x, rc.upperleft.y, rc.lowerright.x, rc.lowerright.y)
+
+    print("*" * 64)
+
+    rc_1 = RECT(POINT(1, 2), POINT(3, 4))
+    rc_2 = RECT((5, 6), (7, 8))
+    print(rc_1.upperleft.x, rc_1.upperleft.y, rc_1.lowerright.x, rc_1.lowerright.y)
+    print(rc_2.upperleft.x, rc_2.upperleft.y, rc_2.lowerright.x, rc_2.lowerright.y)
+
+    print("*" * 64)
+
+    print(POINT.x, POINT.y)
+
+class Int(ctypes.Structure):
+
+    _fields_ = [("first_16", ctypes.c_int, 16), ("second_16", ctypes.c_int, 16)]
+
+def test_bit_fields():
+
+    print(Int.first_16)
+    print(Int.second_16)
+
+class MyStruct(ctypes.Structure):
+
+    _fields_ = [("a", ctypes.c_int), ("b", ctypes.c_float), ("point_array", POINT * 4)]
+
+def test_arrays():
+
+    TenPointsArrayType = POINT * 10
+
+    arr = TenPointsArrayType()
+
+    for pt in arr:
+        print(pt.x, pt.y)
+
+    print("*" * 64)
+
+    print(len(MyStruct().point_array))
+
+    print("*" * 64)
+
+    TenIntegers = ctypes.c_int * 10
+
+    ii = TenIntegers(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+    print(ii)
+
+    for i in ii: print(i, end = " ")
+
+    print()
+
+def test_pointers():
+
+    i = ctypes.c_int(42)
+    pi = ctypes.pointer(i)
+
+    print("*" * 64)
+
+    print(pi.contents)
+
+    print("*" * 64)
+
+    print(pi.contents is i)
+    print(pi.contents is pi.contents)
+
+    print("*" * 64)
+
+    j = ctypes.c_int(99)
+    pi.contents = j
+    print(pi.contents)
+
+    print("*" * 64)
+
+    print(pi[0])
+
+    print("*" * 64)
+
+    print(j)
+    pi[0] = 22
+    print(j)
+
+    print("*" * 64)
+
+    PI = ctypes.POINTER(ctypes.c_int)
+    print(PI)
+    print(PI(ctypes.c_int(42)))
+
+    print("*" * 64)
+
+    null_ptr = ctypes.POINTER(ctypes.c_int)()
+    print(bool(null_ptr))
+
+class Bar(ctypes.Structure):
+
+    _fields_ = [("count", ctypes.c_int), ("values", ctypes.POINTER(ctypes.c_int))]
+
+def test_type_conversions():
+
+    bar = Bar()
+    bar.values = (ctypes.c_int * 3)(1, 2, 3)
+    bar.count = 3
+    for i in range(bar.count):
+        print(bar.values[i])
+
+    print("*" * 64)
+
+    bar.values = None
+
+    print("*" * 64)
+
+    a = (ctypes.c_byte * 4)()
+    print(ctypes.cast(a, ctypes.POINTER(ctypes.c_int)))
+
+    print("*" * 64)
+
+    bar = Bar()
+    b = (ctypes.c_long * 4)(97, 98, 99, 100)
+    bar.values = ctypes.cast(b, ctypes.POINTER(ctypes.c_int))
+    print(bar.values[0])
+
+class cell(ctypes.Structure):
+
+    pass
+
+cell._fields_ = [("name", ctypes.c_char_p), ("next", ctypes.POINTER(cell))]
+
+def test_incomplete_types():
+
+    c1 = cell()
+    c1.name = b"foo"
+    
+    c2 = cell()
+    c2.name = b"bar"
+
+    c1.next = ctypes.pointer(c2)
+    c2.next = ctypes.pointer(c1)
+
+    p=c1
+    for i in range(8):
+        print(p.name, end=" ")
+        p = p.next[0]
+    print()
+
+def py_cmp_func(a, b):
+
+    print("py_cmp_func", a[0], b[0])
+    return a[0] - b[0]
+
+@ctypes.CFUNCTYPE(ctypes.c_int, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int))
+def py_cmp_reverse(a, b):
+
+    print("py_cmp_reverse", a[0], b[0])
+    return b[0] - a[0]
+
+def test_callback_functions():
+
+    IntArray5 = ctypes.c_int * 5
+    ia = IntArray5(5, 1, 7, 33, 99)
+
+    libc = ctypes.CDLL("./libtest.so")
+    qsort = libc.qsort
+    qsort.restype = None
+
+    CMPFUNC = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int))
+    qsort(ia, len(ia), ctypes.sizeof(ctypes.c_int), CMPFUNC(py_cmp_func))
+
+    for i in ia: print(i, end=" ")
+    print()
+
+    print("*" * 64)
+
+    ia_r = IntArray5(5, 1, 7, 33, 99)
+    qsort(ia_r, len(ia_r), ctypes.sizeof(ctypes.c_int), py_cmp_reverse)
+
+    for i in ia_r: print(i, end=" ")
+    print()
+
+def test_access_values_from_dlls():
+
+    libc = ctypes.CDLL("./libtest.so")
+    num = ctypes.c_int.in_dll(libc, "NUMBER")
+    print(num)
+    print(num.value)
+
+    print("*" * 64)
+
+    array = ctypes.c_int * num.value
+    table = array.in_dll(libc, "array")
+
+    for item in table: print(item, end=" ")
+    print()
+
+    print("*" * 64)
+
+    for i in range(num.value): print(table[i], end=" ")
+    print()
+
+def test_surprises():
+
+    p1 = POINT(1, 2)
+    p2 = POINT(3, 4)
+    rc = RECT(p1, p2)
+    print(rc.upperleft.x, rc.upperleft.y, rc.lowerright.x, rc.lowerright.y)
+
+    # now swap the two points
+    rc.upperleft, rc.lowerright = rc.lowerright, rc.upperleft
+    print(rc.upperleft.x, rc.upperleft.y, rc.lowerright.x, rc.lowerright.y)
+
+    print("*" * 64)
+
+    s = ctypes.c_char_p()
+    s.value = b"abc def ghi"
+    print(s.value)
+    print(s.value is s.value)
+
+def test_variable_sized_data_types():
+
+    short_array = (ctypes.c_short * 4)()
+    print(ctypes.sizeof(short_array))
+    print(ctypes.sizeof(type(short_array)))
+
+    ctypes.resize(short_array, 32)
+    print(ctypes.sizeof(short_array))
+    print(ctypes.sizeof(type(short_array)))
+
+    print(short_array[:])
+
+def test_from_buffer_copy():
+
+    libc = ctypes.CDLL("./libtest.so")
+    u_str_info = (ctypes.c_ubyte * 16).from_buffer_copy(b'0123456789abcdef')
+    libc.say_array(u_str_info)
+
+def test_double_point():
+
+    libc = ctypes.CDLL("./libtest.so")
+
+    int_a = ctypes.c_int(10)
+    int_pt = ctypes.pointer(int_a)
+    word_pt = ctypes.c_char_p()
+    
+    libc.double_point(ctypes.byref(int_pt), ctypes.byref(word_pt))
+    print("out_value: ", int_a.value)
+    print("out_word: ", word_pt.value)
+    libc.free_point(word_pt)
+
+class Rect(ctypes.Structure):
+
+    _fields_ = [('index', ctypes.c_int), ('info', ctypes.c_char * 16)]
+
+def test_read_rect():
+
+    libc = ctypes.CDLL("./libtest.so")
+
+    rect_a = Rect(10, b"Hello")
+    
+    libc.read_rect(rect_a)
+
+    print("*" * 64)
+
+    libc.read_rect_point(ctypes.byref(rect_a))
+
+    print("*" * 64)
+
+    rect_array = (Rect * 5)()
+    for i in range(5):
+        rect_array[i] = Rect(i, bytes("Hello_" + str(i), encoding = 'utf-8'))
+    libc.read_rect_array(rect_array)
+
+    print("*" * 64)
+
+    libc.obtain_rect_array.restype = ctypes.POINTER(Rect)
+    num = ctypes.c_int(0)
+    rect_pt = libc.obtain_rect_array(ctypes.byref(num))
+    for i in range(num.value):
+        print("index: ", rect_pt[i].index, "info: ", rect_pt[i].info)
+    libc.free_rect(rect_pt)
+
+if __name__ == '__main__':
+    
+    #test_say_hello_world()
+
+    #test_say_time(None)
+
+    #test_fundamental_data_types()
+
+    #test_call_functions()
+
+    #test_say_bottles()
+
+    #test_argtypes()
+
+    #test_return_types()
+
+    #test_pass_pointers()
+
+    #test_structures_unions()
+
+    #test_bit_fields()
+
+    #test_arrays()
+
+    #test_pointers()
+
+    #test_type_conversions()
+
+    #test_incomplete_types()
+
+    #test_callback_functions()
+
+    #test_access_values_from_dlls()
+
+    #test_surprises()
+
+    #test_variable_sized_data_types()
+
+    #test_from_buffer_copy()
+
+    #test_double_point()
+
+    test_read_rect()
+```
+
 ### 结语
 
 第十六篇博文写完，开心！！！！
