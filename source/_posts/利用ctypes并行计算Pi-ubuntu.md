@@ -60,9 +60,11 @@ $$
 \frac{M}{N}=\frac{piR^2}{(2R)^2} \Rightarrow pi=4*\frac{M}{N}
 $$
 
+$$
 \f\relax{x} = \int_{-\infty}^\infty
     \f\hat\xi\,e^{2 \pi i \xi x}
     \,d\xi
+$$
   
 2. 数学公式（级数）[<sup>13</sup>](#13)
 
