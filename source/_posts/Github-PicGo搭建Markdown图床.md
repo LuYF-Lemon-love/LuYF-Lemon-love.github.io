@@ -35,11 +35,11 @@ VSCode 通过 Markdown 插件可以很方便的书写 Markdown 文本，并且 V
 
 ### 搭建 Markdown 图床
 
-#### 配置 Github
+1. 在 Github 上创建一个 Public 仓库，如 PicBed
 
-- 在 Github 上创建一个 Public 仓库，如 PicBed
-- 在 Github 上生成一个 Personal access token，该 token 包含 repo 权限，生成 token 的方法可以观看[Git的使用-ubuntu](https://luyf-lemon-love.github.io/2022/05/07/Git%E7%9A%84%E4%BD%BF%E7%94%A8-ubuntu/)
-- 通过链接 https://github.com/Molunerfinn/PicGo/releases 下载，linux 用户下载 AppImage 文件，本博文写作时版本为：PicGo-2.3.1-beta.3.AppImage，下载得到的文件名为：PicGo-2.3.0.AppImage
+2. 在 Github 上生成一个 Personal access token，该 token 包含 repo 权限，生成 token 的方法可以观看[Git的使用-ubuntu](https://luyf-lemon-love.github.io/2022/05/07/Git%E7%9A%84%E4%BD%BF%E7%94%A8-ubuntu/)
+
+3. 通过链接 https://github.com/Molunerfinn/PicGo/releases 下载，linux 用户下载 AppImage 文件，本博文写作时版本为：PicGo-2.3.1-beta.3.AppImage，下载得到的文件名为：PicGo-2.3.0.AppImage
 
 不同的 linux 发行版可能有不同的格式的安装文件，如 DEB、RPM，开发人员必须为同一软件发布不同格式的安装文件。
 
