@@ -35,15 +35,15 @@ VSCode 通过 Markdown 插件可以很方便的书写 Markdown 文本，并且 V
 
 ### 搭建 Markdown 图床
 
-1. 在 Github 上创建一个 Public 仓库，如 PicBed
+1. 在 Github 上创建一个 Public 仓库，如 PicBed。
 
-2. 在 Github 上生成一个 Personal access token，该 token 包含 repo 权限，生成 token 的方法可以观看 [Git的使用-ubuntu](https://www.luyf-lemon-love.space/2854530117/)
+2. 在 Github 上生成一个 Personal access token，该 token 包含 repo 权限，生成 token 的方法可以观看 [Git的使用-ubuntu](https://www.luyf-lemon-love.space/2854530117/)。
 
-3. 通过链接 https://github.com/Molunerfinn/PicGo/releases 下载，linux 用户下载 AppImage 文件，本博文写作时版本为：PicGo-2.3.1-beta.3.AppImage，下载得到的文件名为：PicGo-2.3.0.AppImage
+3. 通过链接 https://github.com/Molunerfinn/PicGo/releases 下载，linux 用户下载 AppImage 文件，本博文写作时版本为：PicGo-2.3.1-beta.3.AppImage，下载得到的文件名为：PicGo-2.3.0.AppImage。
 
 不同的 linux 发行版可能有不同的格式的安装文件，如 DEB、RPM，开发人员必须为同一软件发布不同格式的安装文件。
 
-AppImage 是一种通用的软件包格式。可以在不同的 linux 发行版上使用。并且 AppImage 文件不需要安装,不需要卸载，直接点击运行，并且不触发 root 权限。
+AppImage 是一种通用的软件包格式。可以在不同的 linux 发行版上使用。并且 AppImage 文件不需要安装，不需要卸载，直接点击运行，并且不触发 root 权限。
 
 ```shell
 # AppImage 默认为只读模式，需要赋予执行权限
@@ -54,7 +54,7 @@ chmod u+x PicGo-2.3.0.AppImage
 - 点击 ubuntu 系统右上 PicGo 的图标，点击 打开详细窗口按钮
 - 点击图床设置
 - 点击 Github 图床
-- 安装下面图片的格式填写
+- 按照下面图片的格式填写
     - Token 就是上面生成的 Token
     - 存储路径按照你的需要指定
     - 我们采用 cdn 加速访问我们图片，因此设定自定义域名为：https://cdn.jsdelivr.net/gh/[用户名]/[仓库名]@[分支名]，例: https://cdn.jsdelivr.net/gh/LuYF-Lemon-love/PicBed@main
