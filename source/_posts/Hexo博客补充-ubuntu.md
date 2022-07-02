@@ -2694,7 +2694,7 @@ katex:
   hide_scrollbar: true
 ```
 
-2. 安装插件，建议使用淘宝镜像 cnpm 安装，因为国内 npm 有可能安装失败。
+2. 安装插件，建议使用淘宝镜像 cnpm 安装，在国内，npm 有可能安装失败。
 
 ```shell
 npm install -g cnpm --registry=https://registry.npm.taobao.org
