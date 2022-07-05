@@ -2713,7 +2713,7 @@ markdown:
         strict: false
 ```
 
-关于如何在 Markdown 中插入数学公式可以参看下面的文档。
+关于如何在 Markdown 中插入数学公式可以参考下面的文档。
 
 [MarkDown数学公式基本语法](https://blog.csdn.net/qq_38342510/article/details/124064158)
 
