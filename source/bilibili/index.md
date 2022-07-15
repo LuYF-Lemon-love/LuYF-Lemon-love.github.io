@@ -7,24 +7,13 @@ top_img: https://cos.luyf-lemon-love.space/images/20220513171931.png
 
 <div class="gallery-group-main">
 {% galleryGroup '斗破苍穹' '关于斗破苍穹的 bilibili 视频' '/bilibili/doupocangqiong' https://cos.luyf-lemon-love.space/images/20220715214746.png %}
-{% galleryGroup 'OH MY GIRL' '关于OH MY GIRL的图片' '/Gallery/ohmygirl' https://i.loli.net/2019/12/25/hOqbQ3BIwa6KWpo.jpg %}
+{% galleryGroup '英雄联盟' '关于英雄联盟的 bilibili 视频' '/bilibili/lol' https://cos.luyf-lemon-love.space/images/20220715221513.png %}
+{% galleryGroup '动物' '关于动物的 bilibili 视频' '/bilibili/animals' https://cos.luyf-lemon-love.space/images/20220715222413.png %}
+{% galleryGroup '英雄联盟' '关于英雄联盟的 bilibili 视频' '/bilibili/lol' https://cos.luyf-lemon-love.space/images/20220715221513.png %}
+{% galleryGroup '英雄联盟' '关于英雄联盟的 bilibili 视频' '/bilibili/lol' https://cos.luyf-lemon-love.space/images/20220715221513.png %}
+{% galleryGroup '英雄联盟' '关于英雄联盟的 bilibili 视频' '/bilibili/lol' https://cos.luyf-lemon-love.space/images/20220715221513.png %}
+{% galleryGroup '英雄联盟' '关于英雄联盟的 bilibili 视频' '/bilibili/lol' https://cos.luyf-lemon-love.space/images/20220715221513.png %}
 </div>
-
-### 英雄联盟
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=554792651&bvid=BV1av4y137Lp&cid=741279984&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
-
-### 动物
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=982382896&bvid=BV1nt4y1H7xx&cid=743322218&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
 
 ### 风景
 
