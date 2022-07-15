@@ -5,13 +5,10 @@ type: "bilibili"
 top_img: https://cos.luyf-lemon-love.space/images/20220513171931.png
 ---
 
-### 斗破苍穹
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=209733780&bvid=BV17a411r7AV&cid=462112443&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" ></iframe>
+<div class="gallery-group-main">
+{% galleryGroup '斗破苍穹' '关于斗破苍穹的 bilibili 视频' '/bilibili/doupocangqiong' https://cos.luyf-lemon-love.space/images/20220715214746.png %}
+{% galleryGroup 'OH MY GIRL' '关于OH MY GIRL的图片' '/Gallery/ohmygirl' https://i.loli.net/2019/12/25/hOqbQ3BIwa6KWpo.jpg %}
 </div>
-{% endraw %}
 
 ### 英雄联盟
 
