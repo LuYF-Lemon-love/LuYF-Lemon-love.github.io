@@ -9,95 +9,11 @@ top_img: https://cos.luyf-lemon-love.space/images/20220513171931.png
 {% galleryGroup '斗破苍穹' '关于斗破苍穹的 bilibili 视频' '/bilibili/doupocangqiong' https://cos.luyf-lemon-love.space/images/20220715214746.png %}
 {% galleryGroup '英雄联盟' '关于英雄联盟的 bilibili 视频' '/bilibili/lol' https://cos.luyf-lemon-love.space/images/20220715221513.png %}
 {% galleryGroup '动物' '关于动物的 bilibili 视频' '/bilibili/animals' https://cos.luyf-lemon-love.space/images/20220715222413.png %}
+{% galleryGroup '风景' '关于风景的 bilibili 视频' '/bilibili/scenery' https://cos.luyf-lemon-love.space/images/20220715223530.png %}
+{% galleryGroup '快乐' '关于快乐的 bilibili 视频' '/bilibili/happy' https://cos.luyf-lemon-love.space/images/20220715224701.png %}
+{% galleryGroup 'EDG' '关于 EDG 的 bilibili 视频' '/bilibili/edg' https://cos.luyf-lemon-love.space/images/20220715225340.png %}
 {% galleryGroup '英雄联盟' '关于英雄联盟的 bilibili 视频' '/bilibili/lol' https://cos.luyf-lemon-love.space/images/20220715221513.png %}
-{% galleryGroup '英雄联盟' '关于英雄联盟的 bilibili 视频' '/bilibili/lol' https://cos.luyf-lemon-love.space/images/20220715221513.png %}
-{% galleryGroup '英雄联盟' '关于英雄联盟的 bilibili 视频' '/bilibili/lol' https://cos.luyf-lemon-love.space/images/20220715221513.png %}
-{% galleryGroup '英雄联盟' '关于英雄联盟的 bilibili 视频' '/bilibili/lol' https://cos.luyf-lemon-love.space/images/20220715221513.png %}
 </div>
-
-### 风景
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=981767910&bvid=BV1yt4y1W7eL&cid=727604946&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
-
-### 快乐
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=726161644&bvid=BV1tS4y187JR&cid=589166094&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=725762184&bvid=BV1US4y1Y7YW&cid=580886550&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=725527520&bvid=BV13S4y127YT&cid=570769805&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
-
-### EDG
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=634063398&bvid=BV1kb4y187nu&cid=438725865&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=591756974&bvid=BV1jq4y167m7&cid=444791354&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=294161423&bvid=BV1KF411h7qq&cid=440777302&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=65185192&bvid=BV1A4411k7pA&cid=113130118&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=891929668&bvid=BV1PP4y1V7BN&cid=449419461&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=848614374&bvid=BV1ML4y1B7hf&cid=425482607&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=550571265&bvid=BV1cq4y1A7or&cid=481305535&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=468001993&bvid=BV175411U7Qv&cid=570979143&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
-
-{% raw %}
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=468965455&bvid=BV1y5411d7Dh&cid=715558813&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;" > </iframe>
-</div>
-{% endraw %}
 
 ### 动漫
 
