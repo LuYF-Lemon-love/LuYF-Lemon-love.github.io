@@ -79,11 +79,11 @@
       descr: C++ 学习网站
     - name: pybind11
       link: https://github.com/pybind/pybind11
-      avatar: https://cos.luyf-lemon-love.space/images/20220716135012.png
+      avatar: https://cos.luyf-lemon-love.space/images/20220716142629.png
       descr: Seamless operability between C++11 and Python
     - name: KaTeX
       link: https://katex.org/docs/supported.html
-      avatar: https://cos.luyf-lemon-love.space/images/20220716135346.png
+      avatar: https://cos.luyf-lemon-love.space/images/20220716143055.png
       descr: This is a list of TeX functions supported by KaTeX
     - name: tinypng
       link: https://tinypng.com/
@@ -91,5 +91,5 @@
       descr: Smart WebP, PNG and JPEG compression
     - name: docsmall
       link: https://docsmall.com/
-      avatar: https://cos.luyf-lemon-love.space/images/20220716141636.png
+      avatar: https://cos.luyf-lemon-love.space/images/20220716143243.png
       descr: 免费在线图片压缩
