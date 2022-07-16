@@ -14,4 +14,5 @@ top_img: https://cos.luyf-lemon-love.space/images/20220513171931.png
 {% galleryGroup 'EDG' '关于 EDG 的 bilibili 视频' '/bilibili/edg' https://cos.luyf-lemon-love.space/images/20220715225340.png %}
 {% galleryGroup '动漫' '关于动漫的 bilibili 视频' '/bilibili/comic' https://cos.luyf-lemon-love.space/images/20220715231050.png %}
 {% galleryGroup '历史' '关于历史的 bilibili 视频' '/bilibili/history' https://cos.luyf-lemon-love.space/images/20220716120435.png %}
+{% galleryGroup '技术' '关于技术的 bilibili 视频' '/bilibili/technology' https://cos.luyf-lemon-love.space/images/20220716124155.png %}
 </div>
