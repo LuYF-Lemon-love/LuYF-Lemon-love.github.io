@@ -21,7 +21,6 @@ categories: 博客
 description: 对第一个搭建博客的博文-Hexo快速搭建一个博客-ubuntu的补充。
 cover: >-
   https://cos.luyf-lemon-love.space/images/20220520214849.png
-swiper_index: 1
 abbrlink: 2759212511
 date: 2022-05-31 12:03:52
 ---

@@ -16,7 +16,6 @@ tags:
 categories: 博客
 description: 搭建一个 Hexo 博客，进行 Butterfly 主题魔改，且解决遇到的各种各样的部署问题。
 cover: https://cos.luyf-lemon-love.space/images/20220513124600.png
-swiper_index: 1
 abbrlink: 1500512943
 date: 2022-05-08 23:22:38
 ---

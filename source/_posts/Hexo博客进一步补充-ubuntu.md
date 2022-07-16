@@ -8,8 +8,8 @@ tags:
   - Bing收录
 categories: 博客
 description: 对前两篇搭建博客的博文进一步补充。
-cover: 'https://cos.luyf-lemon-love.space/images/noxus-bastion..png'
-swiper_index: 1
+cover: >-
+  https://cos.luyf-lemon-love.space/images/noxus-bastion..png
 abbrlink: 1285055319
 date: 2022-07-16 19:41:36
 ---
