@@ -16,13 +16,13 @@ date: 2022-07-16 19:41:36
 
 ### 前言
 
-前两篇搭建博客的博文—— {% post_link Hexo快速搭建一个博客-ubuntu %} 和 {% post_link Hexo博客补充-ubuntu %}，虽然已经介绍了方方面面，但是还有一些遗漏之处，并且它包含的内容过多，导致它的加载很缓慢，影响观看。因此本篇博文将作为它们的补充为大家介绍其他内容。
+前两篇搭建博客的博文—— {% post_link Hexo快速搭建一个博客-ubuntu %} 和 {% post_link Hexo博客补充-ubuntu %}，虽然已经介绍了方方面面，但是还有一些遗漏之处，并且它们包含的内容过多，导致它的加载很缓慢，影响观看。因此本篇博文将作为它们的补充为大家介绍其他内容。
 
 操作系统：Ubuntu 20.04.4 LTS
 
 ### 参考文档
 
-1. [给hexo-theme-hiero添加雪花飘落效果（2020-07-05）](https://www.jianshu.com/p/b726f356e118)
+1. [注册谷歌账号时手机号码不能验证？（最新解决办法）](https://blog.aftss.cn/1642.html)
 
 ### 环境版本
 
@@ -93,6 +93,10 @@ Google 收录和 Bing 收录的流程与百度收录的流程一样，先使用`
 1. [Google Search Console](https://search.google.com/search-console)
 
 2. [Microsoft Bing Webmaster Tools](https://www.bing.com/webmasters/)
+
+注：有可能注册谷歌账号的时候会出现问题，请参考下面这篇文章，也可以直接花 10 多元买一个谷歌账号。
+
+- [注册谷歌账号时手机号码不能验证？（最新解决办法）](https://blog.aftss.cn/1642.html)
 
 ### 结语
 
