@@ -20,7 +20,15 @@ swiper_index: 1
 
 ### 教程
 
-1. {% link 苏苏镇可爱, {% post_link Hexo快速搭建一个博客-ubuntu %}, https://cos.luyf-lemon-love.space/images/20220513124600.png %}
+{% flink %}
+- class_name: Hexo 博客教程
+  class_desc: Butterfly 主题
+  link_list:
+    - name: Hexo快速搭建一个博客-ubuntu
+      link: {% post_link Hexo快速搭建一个博客-ubuntu %}
+      avatar: https://cos.luyf-lemon-love.space/images/20220513124600.png
+      descr: 搭建一个 Hexo 博客，进行 Butterfly 主题魔改，且解决遇到的各种各样的部署问题。
+{% endflink %}
 
 ### 结语
 
