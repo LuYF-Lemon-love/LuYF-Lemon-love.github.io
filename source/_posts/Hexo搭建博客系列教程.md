@@ -19,9 +19,9 @@ date: 2022-07-16 22:16:26
 
 ### 教程
 
-1. {% post_link Hexo快速搭建一个博客-ubuntu %}。
+1. {% post_link Hexo快速搭建一个博客-ubuntu %}
 
-2. {% post_link Hexo博客补充-ubuntu %}。
+2. {% post_link Hexo博客补充-ubuntu %}
 
 3. {% post_link Hexo博客进一步补充-ubuntu %}
 
