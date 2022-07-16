@@ -19,8 +19,6 @@ date: 2022-07-16 22:16:26
 
 ### 教程
 
-{% link 苏苏镇可爱, {% post_link Hexo快速搭建一个博客-ubuntu %}, https://cos.luyf-lemon-love.space/images/bilgewater-bilgewater-bay. (1).png %}
-
 1. {% post_link Hexo快速搭建一个博客-ubuntu %}。
 
 2. {% post_link Hexo博客补充-ubuntu %}。
