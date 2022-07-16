@@ -1,23 +1,6 @@
 - class_name: 友情链接
-  class_desc: 那些人，那些事
+  class_desc: 大佬博客
   link_list:
-    - name: Hexo
-      link: https://hexo.io/zh-tw/
-      avatar: https://cos.luyf-lemon-love.space/images/20220520165659.png
-      descr: A fast, simple & powerful blog framework
-    - name: Butterfly
-      link: https://butterfly.js.org/
-      avatar: https://cos.luyf-lemon-love.space/images/20220511153142.png
-      descr: A Simple and Card UI Design theme for Hexo
-    - name:  Volantis
-      link: https://volantis.js.org/
-      avatar: https://cos.luyf-lemon-love.space/images/20220511210949.png
-      descr: 一个功能丰富、高度模块化的 Hexo 博客主题
-      siteshot: https://cos.luyf-lemon-love.space/images/20220511212752.png
-    - name: Vercel
-      link: https://vercel.com/
-      avatar: https://cos.luyf-lemon-love.space/images/vercel-icon-dark.png
-      descr: Vercel combines the best developer experience with an obsessive focus on end-user performance.
     - name: 冯乐乐
       link: https://candycat1992.github.io/
       avatar: https://cos.luyf-lemon-love.space/images/20220514181622.png
@@ -61,12 +44,27 @@
       avatar: https://cos.luyf-lemon-love.space/images/20220602215147.png
       descr: 前途似海渺渺来，日方长漫漫，与其互为人间，不如自成宇宙。
       siteshot: https://cos.luyf-lemon-love.space/images/20220602215211.png
-     
-    
 
 - class_name: 网站
-  class_desc: 值得推荐的网站
+  class_desc: 优秀网站
   link_list:
+    - name: Hexo
+      link: https://hexo.io/zh-tw/
+      avatar: https://cos.luyf-lemon-love.space/images/20220520165659.png
+      descr: A fast, simple & powerful blog framework
+    - name: Butterfly
+      link: https://butterfly.js.org/
+      avatar: https://cos.luyf-lemon-love.space/images/20220511153142.png
+      descr: A Simple and Card UI Design theme for Hexo
+    - name:  Volantis
+      link: https://volantis.js.org/
+      avatar: https://cos.luyf-lemon-love.space/images/20220511210949.png
+      descr: 一个功能丰富、高度模块化的 Hexo 博客主题
+      siteshot: https://cos.luyf-lemon-love.space/images/20220511212752.png
+    - name: Vercel
+      link: https://vercel.com/
+      avatar: https://cos.luyf-lemon-love.space/images/vercel-icon-dark.png
+      descr: Vercel combines the best developer experience with an obsessive focus on end-user performance.
     - name: 哔哩哔哩
       link: https://www.bilibili.com/
       avatar: https://cos.luyf-lemon-love.space/images/20220511134022.png
@@ -79,3 +77,19 @@
       link: https://www.cplusplus.com/
       avatar: https://cos.luyf-lemon-love.space/images/20220601131204.png
       descr: C++ 学习网站
+    - name: pybind11
+      link: https://github.com/pybind/pybind11
+      avatar: https://cos.luyf-lemon-love.space/images/20220716135012.png
+      descr: Seamless operability between C++11 and Python
+    - name: KaTeX
+      link: https://katex.org/docs/supported.html
+      avatar: https://cos.luyf-lemon-love.space/images/20220716135346.png
+      descr: This is a list of TeX functions supported by KaTeX
+    - name: tinypng
+      link: https://tinypng.com/
+      avatar: https://cos.luyf-lemon-love.space/images/20220716140431.png
+      descr: Smart WebP, PNG and JPEG compression
+    - name: docsmall
+      link: https://docsmall.com/
+      avatar: https://cos.luyf-lemon-love.space/images/20220716141636.png
+      descr: 免费在线图片压缩
