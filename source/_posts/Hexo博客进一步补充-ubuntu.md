@@ -1,0 +1,107 @@
+---
+title: Hexo博客进一步补充-ubuntu
+tags:
+  - Hexo
+  - Butterfly
+  - 百度收录
+  - Google收录
+  - Bing收录
+categories: 博客
+description: 对前两篇搭建博客的博文进一步补充。
+cover: 'https://cos.luyf-lemon-love.space/images/noxus-bastion..png'
+swiper_index: 1
+abbrlink: 1285055319
+date: 2022-07-16 19:41:36
+---
+
+### 前言
+
+前两篇搭建博客的博文—— {% post_link Hexo快速搭建一个博客-ubuntu %} 和 {% post_link Hexo博客补充-ubuntu %}，虽然已经介绍了方方面面，但是还有一些遗漏之处，并且它包含的内容过多，导致它的加载很缓慢，影响观看。因此本篇博文将作为它们的补充为大家介绍其他内容。
+
+操作系统：Ubuntu 20.04.4 LTS
+
+### 参考文档
+
+1. [给hexo-theme-hiero添加雪花飘落效果（2020-07-05）](https://www.jianshu.com/p/b726f356e118)
+
+
+### 环境版本
+
+```
+git         2.25.1
+node        v18.2.0
+npm         8.9.0
+
+cnpm -v
+cnpm@7.1.1 (/usr/local/lib/node_modules/cnpm/lib/parse_argv.js)
+npm@6.14.17 (/usr/local/lib/node_modules/cnpm/node_modules/npm/lib/npm.js)
+node@18.2.0 (/usr/bin/node)
+npminstall@5.8.1 (/usr/local/lib/node_modules/cnpm/node_modules/npminstall/lib/index.js)
+prefix=/usr/local 
+linux x64 5.13.0-41-generic 
+registry=https://registry.npmmirror.com
+
+hexo -v
+INFO  Validating config
+INFO  
+  ===================================================================
+                                                                     
+      #####  #    # ##### ##### ###### #####  ###### #      #   #    
+      #    # #    #   #     #   #      #    # #      #       # #     
+      #####  #    #   #     #   #####  #    # #####  #        #     
+      #    # #    #   #     #   #      #####  #      #        #      
+      #    # #    #   #     #   #      #   #  #      #        #    
+      #####   ####    #     #   ###### #    # #      ######   #  
+
+                            4.2.0
+  ===================================================================
+hexo: 6.1.0
+hexo-cli: 4.3.0
+os: linux 5.13.0-41-generic Ubuntu 20.04.4 LTS (Focal Fossa)
+node: 18.2.0
+v8: 10.1.124.8-node.13
+uv: 1.43.0
+zlib: 1.2.11
+brotli: 1.0.9
+ares: 1.18.1
+modules: 108
+nghttp2: 1.47.0
+napi: 8
+llhttp: 6.0.6
+openssl: 3.0.3+quic
+cldr: 41.0
+icu: 71.1
+tz: 2022a
+unicode: 14.0
+ngtcp2: 0.1.0-DEV
+nghttp3: 0.1.0-DEV
+
+# 轻量应用服务器信息
+
+实例规格                 CPU: 2核 内存: 2GB
+系统盘                   40GB SSD云硬盘
+带宽                    4Mbps
+镜像名称                 宝塔Linux面板
+镜像类型                 应用镜像
+操作系统                 CentOS 7.9 64bit
+预装应用软件              宝塔Linux面板 7.8.0 腾讯云专享版
+```
+
+### Google | Bing | Baidu
+
+偶然间发现 Bing 竟然收录了我的博客，但是我并没有向其添加站点。因此我看了看 Google 和 Baidu，发现它们也都收录了我的博客。但是不幸的是之前向百度提交的站点，并没有被百度收录（`site:lu-yf-lemon-love-github-io.vercel.app`）。
+
+这也证明了我们不需要主动向搜索引擎提交站点，也能被收录。因为 Google 账号在国内很难申请，这也省去了很多麻烦。
+
+也证明了即便你向百度提交站点，也不一定被收录。
+
+也证明了部署在 Vercel 上的博客能够被百度收录。
+
+`www.luyf-lemon-love.space` 是 2022 年 6 月 11 日创建的，而我是 2022 年 6 月 16 日发现上面现象的。
+
+
+### 结语
+
+第十八篇博文写完，开心！！！！
+
+今天，也是充满希望的一天。
