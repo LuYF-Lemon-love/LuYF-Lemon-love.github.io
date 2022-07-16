@@ -24,7 +24,6 @@ date: 2022-07-16 19:41:36
 
 1. [给hexo-theme-hiero添加雪花飘落效果（2020-07-05）](https://www.jianshu.com/p/b726f356e118)
 
-
 ### 环境版本
 
 ```
@@ -89,16 +88,11 @@ nghttp3: 0.1.0-DEV
 
 ### Google | Bing | Baidu
 
-偶然间发现 Bing 竟然收录了我的博客，但是我并没有向其添加站点。因此我看了看 Google 和 Baidu，发现它们也都收录了我的博客。但是不幸的是之前向百度提交的站点，并没有被百度收录（`site:lu-yf-lemon-love-github-io.vercel.app`）。
+Google 收录和 Bing 收录的流程与百度收录的流程一样，先使用`文件验证`添加网站，然后添加博客的 sitemap。收录流程请参考 {% post_link Hexo快速搭建一个博客-ubuntu %} 的 `百度收录博客`。
 
-这也证明了我们不需要主动向搜索引擎提交站点，也能被收录。因为 Google 账号在国内很难申请，这也省去了很多麻烦。
+1. [Google Search Console](https://search.google.com/search-console)
 
-也证明了即便你向百度提交站点，也不一定被收录。
-
-也证明了部署在 Vercel 上的博客能够被百度收录。
-
-`www.luyf-lemon-love.space` 是 2022 年 6 月 11 日创建的，而我是 2022 年 6 月 16 日发现上面现象的。
-
+2. [Microsoft Bing Webmaster Tools](https://www.bing.com/webmasters/)
 
 ### 结语
 
