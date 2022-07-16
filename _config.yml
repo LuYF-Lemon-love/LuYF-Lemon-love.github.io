@@ -38,6 +38,7 @@ skip_render:
   - baidu_verify_code-BpOQH6T9DQ.html
   - BingSiteAuth.xml
   - baidu_verify_code-JDp7WEgqfu.html
+  - google7815576b60aaf426.html
 
 # Writing
 new_post_name: :title.md # File name of new posts
