@@ -1,15 +1,14 @@
 ---
 title: Hexo搭建博客系列教程
-date: 2022-07-16 22:16:26
-tags:
 tags:
   - Hexo
   - Butterfly
 categories: 博客
 description: Hexo搭建博客系列教程。
-cover: >-
-  https://cos.luyf-lemon-love.space/images/bilgewater-bilgewater-bay. (1).png
+cover: 'https://cos.luyf-lemon-love.space/images/bilgewater-bilgewater-bay. (1).png'
 swiper_index: 1
+abbrlink: 1714036681
+date: 2022-07-16 22:16:26
 ---
 
 ### 前言
@@ -19,6 +18,8 @@ swiper_index: 1
 操作系统：Ubuntu 20.04.4 LTS
 
 ### 教程
+
+{% link 苏苏镇可爱, {% post_link Hexo快速搭建一个博客-ubuntu %}, https://cos.luyf-lemon-love.space/images/bilgewater-bilgewater-bay. (1).png %}
 
 1. {% post_link Hexo快速搭建一个博客-ubuntu %}。
 
