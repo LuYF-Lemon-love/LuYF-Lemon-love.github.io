@@ -20,18 +20,14 @@ swiper_index: 1
 
 ### 教程
 
-{% flink %}
-- class_name: Hexo 博客教程
-  class_desc: Butterfly 主题
-  link_list:
-    - name: Hexo快速搭建一个博客-ubuntu
-      link: {% post_link Hexo快速搭建一个博客-ubuntu %}
-      avatar: https://cos.luyf-lemon-love.space/images/20220513124600.png
-      descr: 搭建一个 Hexo 博客，进行 Butterfly 主题魔改，且解决遇到的各种各样的部署问题。
-{% endflink %}
+1. {% post_link Hexo快速搭建一个博客-ubuntu %}。
+
+2. {% post_link Hexo博客补充-ubuntu %}。
+
+3. {% post_link Hexo博客进一步补充-ubuntu %}
 
 ### 结语
 
-第十八篇博文写完，开心！！！！
+第十九篇博文写完，开心！！！！
 
 今天，也是充满希望的一天。
