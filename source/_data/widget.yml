@@ -5,9 +5,3 @@ bottom:
       icon: fas fa-heartbeat
       order:
       html: '<script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=tZmOqhEgNYZZabN7nRUd-2bAEXcDNOKlXd4dKdcaF6Y"></script>'
-    - class_name: weibo
-      id_name: weibo
-      name: 微博热搜
-      icon: fab fa-weibo
-      order:
-      html: '<script defer src="/js/weibo.js"></script>'

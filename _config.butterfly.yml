@@ -847,6 +847,9 @@ aside:
     post_count: true
     last_push_date: true
     sort_order: # Don't modify the setting unless you know how it works
+  card_weibo:
+    enable: true
+    sort_order:
 
 # busuanzi count for PV / UV in site
 # 訪問人數
@@ -1054,8 +1057,9 @@ inject:
      #- <script defer src="/js/snow3.js"></script>
      - <script src="/js/sun_moon.js" async></script>
      - <script data-pjax defer src="/js/custom/fixed_comment.js"></script>
-     - <script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script>
-     - <script src="/js/weather.js"></script> 
+     - <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script>
+     - <script defer src="/js/weather.js"></script>
+     - <script defer src="/js/weibo.js"></script>
 
 # CDN
 # Don't modify the following settings unless you know how they work
