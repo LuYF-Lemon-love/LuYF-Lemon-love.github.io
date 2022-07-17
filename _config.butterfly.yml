@@ -195,7 +195,7 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img: https://cos.luyf-lemon-love.space/images/20220511162220.png
+index_img: https://cos.luyf-lemon-love.space/images/wallpaper.jpg
 
 # If the banner of page not setting, it will show the top_img
 default_top_img: https://cos.luyf-lemon-love.space/images/20220511161548.png
@@ -978,6 +978,7 @@ inject:
      - <script defer src="/js/colorfishes.js"></script> # 页脚养鱼(彩色)    
      #- <script defer src="/js/fishes.js"></script>
      - <script defer src="/js/sakura.js"></script>
+     #- <script defer src="/js/canvas-nest.min.js"></script>
      #- <script defer src="/js/snow.js"></script> # 下雪动效
      - <script defer src="/js/timing.js"></script> # 公告栏计时器插件
      - <script defer src="/js/footerbea.js"></script>
