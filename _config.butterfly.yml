@@ -997,7 +997,8 @@ inject:
      #- <script defer src="/js/snow3.js"></script>
      - <script src="/js/sun_moon.js" async></script>
      - <script data-pjax defer src="/js/custom/fixed_comment.js"></script>
-     
+     - <script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script>
+     - <script src="/js/weather.js"></script>   
 
 # CDN
 # Don't modify the following settings unless you know how they work
