@@ -22,4 +22,3 @@ WIDGET = {
   }
 }
 </script>
-<script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script>
