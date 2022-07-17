@@ -1,5 +1,3 @@
-<div id="he-plugin-simple"></div>
-<script>
 WIDGET = {
   "CONFIG": {
     "modules": "01234",
@@ -21,4 +19,3 @@ WIDGET = {
     "key": "666301007e3e40aa999d0cda3c7b4afe"
   }
 }
-</script>
