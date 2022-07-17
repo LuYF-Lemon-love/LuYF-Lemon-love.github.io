@@ -26,6 +26,10 @@ date: 2022-07-16 19:41:36
 
 2. [Hexo页脚养鱼效果](https://cnhuazhu.top/butterfly/2021/02/19/Hexo%E9%AD%94%E6%94%B9/Hexo%E9%A1%B5%E8%84%9A%E5%85%BB%E9%B1%BC%E6%95%88%E6%9E%9C/)
 
+3. [网站背景](https://butterfly.js.org/posts/ceeb73f/#%E7%B6%B2%E7%AB%99%E8%83%8C%E6%99%AF)
+
+4. [代码框展开/关闭](https://butterfly.js.org/posts/4aa8abbe/#%E4%BB%A3%E7%A2%BC%E6%A1%86%E5%B1%95%E9%96%8B-x2F-%E9%97%9C%E9%96%89)
+
 ### 环境版本
 
 ```
@@ -457,6 +461,33 @@ $(function(){
 ```yaml
 # Footer Background
 footer_bg: false
+```
+
+### 网站背景
+
+默认显示白色，可设置图片或者颜色。
+
+修改 _config.butterfly.yml 文件。
+
+```yaml
+# Website Background (設置網站背景)
+# can set it to color or image (可設置圖片 或者 顔色)
+# The formal of image: url(http://xxxxxx.com/xxx.jpg)
+background: url(https://i.loli.net/2019/09/09/5oDRkWVKctx2b6A.png)
+```
+
+### 代码框展开/关闭
+
+在默认情况下，代码框自动展开，可设置是否所有代码框都关闭状态，点击 > 可展开代码
+
+- true: 全部代码框不展开，需点击 > 打开
+- false: 代码框展开，有 > 点击按钮
+- none: 不显示 > 按钮
+
+修改 _config.butterfly.yml 文件。
+
+```yaml
+highlight_shrink: true # true: shrink the code blocks / false: expand the code blocks | none: expand code blocks and hide the button
 ```
 
 ### 结语
