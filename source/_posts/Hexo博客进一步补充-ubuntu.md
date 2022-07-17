@@ -30,6 +30,8 @@ date: 2022-07-16 19:41:36
 
 4. [代码框展开/关闭](https://butterfly.js.org/posts/4aa8abbe/#%E4%BB%A3%E7%A2%BC%E6%A1%86%E5%B1%95%E9%96%8B-x2F-%E9%97%9C%E9%96%89)
 
+5. [Hexo在顶部增加天气小部件](https://cnhuazhu.top/butterfly/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%9C%A8%E9%A1%B6%E9%83%A8%E5%A2%9E%E5%8A%A0%E5%A4%A9%E6%B0%94%E5%B0%8F%E9%83%A8%E4%BB%B6/)
+
 ### 环境版本
 
 ```
@@ -488,6 +490,76 @@ background: url(https://i.loli.net/2019/09/09/5oDRkWVKctx2b6A.png)
 
 ```yaml
 highlight_shrink: true # true: shrink the code blocks / false: expand the code blocks | none: expand code blocks and hide the button
+```
+
+### Hexo在顶部增加天气小部件
+
+原教程链接：[Hexo在顶部增加天气小部件](https://cnhuazhu.top/butterfly/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%9C%A8%E9%A1%B6%E9%83%A8%E5%A2%9E%E5%8A%A0%E5%A4%A9%E6%B0%94%E5%B0%8F%E9%83%A8%E4%BB%B6/)
+
+1. 在[和风天气插件](https://widget.qweather.com/create-simple)中创建一个模板，点击生成代码。需要登录。
+
+2. 在 blog/themes/butterfly/source/js 目录下创建一个 weather.js 文件，将生成的代码写入。下面代码需要写入自己的 key 值。
+
+```js
+WIDGET = {
+  "CONFIG": {
+    "modules": "01234",
+    "background": "5",
+    "tmpColor": "FF9900",
+    "tmpSize": "16",
+    "cityColor": "CCCCCC",
+    "citySize": "16",
+    "aqiColor": "D9D9D9",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "15px 10px 10px 20px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "5",
+    "fixed": "false",
+    "vertical": "top",
+    "horizontal": "left",
+    "key": ""
+  }
+}
+```
+
+3. 修改 _config.butterfly.yml 文件，在 inject 的 bottom 处引入 js 文件。
+
+```yaml
+- <script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script>
+- <script src="/js/weather.js"></script>
+```
+
+4. 修改 blog/themes/butterfly/layout/includes/header/nav.pug 文件。
+
+```diff
+nav#nav
+  span#blog_name
+    a#site-name(href=url_for('/')) #[=config.title]
++  #he-plugin-simple
++  #none_space
+    
+  #menus
+    if (theme.algolia_search.enable || theme.local_search.enable)
+      #search-button
+        a.site-page.social-icon.search
+          i.fas.fa-search.fa-fw
+          span=' '+_p('search.title')
+    !=partial('includes/header/menu_item', {}, {cache: true})
+
+    #toggle-menu
+      a.site-page
+        i.fas.fa-bars.fa-fw
+```
+
+5. 修改 blog/themes/butterfly/source/css/_layout/head.styl 文件。
+
+```diff
+-  #blog_name
++  #none_space
+    flex: 1
 ```
 
 ### 结语
