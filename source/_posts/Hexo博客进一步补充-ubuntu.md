@@ -34,6 +34,8 @@ date: 2022-07-16 19:41:36
 
 6. [Gitcalendar](https://akilar.top/posts/1f9c68c9/)
 
+7. [Sidebar Card Clock](https://akilar.top/posts/4e39cf4a/)
+
 ### 环境版本
 
 ```
@@ -635,6 +637,38 @@ gitcalendar:
   container: .recent-post-item(style='width:100%;height:auto;padding:10px;') #父元素容器，需要使用pug语法
   gitcalendar_css: https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.css
   gitcalendar_js: https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.js
+```
+
+### Sidebar Card Clock
+
+原教程链接：[Sidebar Card Clock](https://akilar.top/posts/4e39cf4a/)
+
+1. 安装插件。
+
+```shell
+npm install hexo-butterfly-clock --save
+```
+
+2. 在 _config.butterfly.yml 文件中，添加如下代码。
+
+```yaml
+# electric_clock
+# see https://akilar.top/posts/4e39cf4a/
+electric_clock:
+  enable: true # 开关
+  priority: 5 #过滤器优先权
+  enable_page: all # 应用页面
+  exclude:
+    # - /posts/
+    # - /about/
+  layout: # 挂载容器类型
+    type: class
+    name: sticky_layout
+    index: 0
+  loading: https://npm.elemecdn.com/hexo-butterfly-clock/lib/loading.gif #加载动画自定义
+  clock_css: https://npm.elemecdn.com/hexo-butterfly-clock/lib/clock.min.css
+  clock_js: https://npm.elemecdn.com/hexo-butterfly-clock/lib/clock.min.js
+  ip_api: https://pv.sohu.com/cityjson?ie=utf-8
 ```
 
 ### 结语
