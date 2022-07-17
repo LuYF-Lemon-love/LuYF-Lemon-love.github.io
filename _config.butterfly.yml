@@ -978,8 +978,7 @@ inject:
      - <script defer src="/live2d-widget/autoload.js"></script> # 页脚看板娘2
      #- <script defer src="/js/colorfishes.js"></script> # 页脚养鱼(彩色)    
      #- <script defer src="/js/fishes.js"></script>
-     #- <script defer src="/js/fish.js"></script>
-     - <script defer src="/js/fish3.js"></script>
+     - <script defer src="/js/fish.js"></script>
      - <script defer src="/js/sakura.js"></script>
      #- <script defer src="/js/canvas-nest.min.js"></script>
      #- <script defer src="/js/snow.js"></script> # 下雪动效
