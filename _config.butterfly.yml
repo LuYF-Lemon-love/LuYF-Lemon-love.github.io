@@ -610,7 +610,7 @@ tag_ui: # 留空或 index
 background:
 
 # Footer Background
-footer_bg: https://cos.luyf-lemon-love.space/images/20220607151451.png #false
+footer_bg: false
 
 # the position of bottom right button/default unit: px (右下角按鈕距離底部的距離/默認單位為px)
 rightside-bottom:
