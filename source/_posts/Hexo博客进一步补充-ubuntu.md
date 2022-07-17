@@ -36,6 +36,8 @@ date: 2022-07-16 19:41:36
 
 7. [Sidebar Card Clock](https://akilar.top/posts/4e39cf4a/)
 
+8. [Hexo侧边栏添加微博热搜](https://cnhuazhu.top/butterfly/2022/06/23/Hexo%E9%AD%94%E6%94%B9/Hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E6%B7%BB%E5%8A%A0%E5%BE%AE%E5%8D%9A%E7%83%AD%E6%90%9C/)
+
 ### 环境版本
 
 ```
@@ -532,8 +534,8 @@ WIDGET = {
 3. 修改 _config.butterfly.yml 文件，在 inject 的 bottom 处引入 js 文件。
 
 ```yaml
-- <script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script>
-- <script src="/js/weather.js"></script>
+- <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script>
+- <script defer src="/js/weather.js"></script>
 ```
 
 4. 修改 blog/themes/butterfly/layout/includes/header/nav.pug 文件。
@@ -669,6 +671,152 @@ electric_clock:
   clock_css: https://npm.elemecdn.com/hexo-butterfly-clock/lib/clock.min.css
   clock_js: https://npm.elemecdn.com/hexo-butterfly-clock/lib/clock.min.js
   ip_api: https://pv.sohu.com/cityjson?ie=utf-8
+```
+
+### Hexo侧边栏添加微博热搜
+
+原教程链接：[Hexo侧边栏添加微博热搜](https://cnhuazhu.top/butterfly/2022/06/23/Hexo%E9%AD%94%E6%94%B9/Hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E6%B7%BB%E5%8A%A0%E5%BE%AE%E5%8D%9A%E7%83%AD%E6%90%9C/)
+
+1. 在 blog/themes/butterfly/layout/includes/widget 目录下新建 `card_weibo.pug` 文件，并写入如下代码。
+
+```
+if theme.aside.card_weibo.enable
+  .card-widget.card-weibo
+    .card-content
+      .item-headline
+        i.fab.fa-weibo
+        span 微博热搜
+      #weibo-container
+        .weibo-list
+```
+
+2. 修改 blog/themes/butterfly/layout/includes/widget/index.pug 文件中的 page 项代码。
+
+```diff
+else
+  //- page
+  !=partial('includes/widget/card_author', {}, {cache: true})
+  !=partial('includes/widget/card_announcement', {}, {cache: true})
++  !=partial('includes/widget/card_weibo', {}, {cache: true})
+  !=partial('includes/widget/card_top_self', {}, {cache: true})
+```
+
+3. 在 blog/themes/butterfly/source/js 目录中，新建 `weibo.js` 文件，并写入如下代码。
+
+```js
+fetch('https://weibo-9qsvnblo6-pc-study.vercel.app/api').then(data=>data.json()).then(data=>{
+    let html = '<style>.weibo-new{background:#ff3852}.weibo-hot{background:#ff9406}.weibo-jyzy{background:#ffc000}.weibo-recommend{background:#00b7ee}.weibo-adrecommend{background:#febd22}.weibo-friend{background:#8fc21e}.weibo-boom{background:#bd0000}.weibo-topic{background:#ff6f49}.weibo-topic-ad{background:#4dadff}.weibo-boil{background:#f86400}#weibo-container{overflow-y:auto;-ms-overflow-style:none;scrollbar-width:none}#weibo-container::-webkit-scrollbar{display:none}.weibo-list-item{display:flex;flex-direction:row;justify-content:space-between;flex-wrap:nowrap}.weibo-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:auto}.weibo-num{float:right}.weibo-hotness{display:inline-block;padding:0 6px;transform:scale(.8) translateX(-3px);color:#fff;border-radius:8px}</style>'
+    html += '<div class="weibo-list">'
+    let hotness = {
+        '爆': 'weibo-boom',
+        '热': 'weibo-hot',
+        '沸': 'weibo-boil',
+        '新': 'weibo-new',
+        '荐': 'weibo-recommend',
+        '音': 'weibo-jyzy',
+        '影': 'weibo-jyzy',
+        '剧': 'weibo-jyzy',
+        '综': 'weibo-jyzy'
+    }
+    for (let item of data) {
+        html += '<div class="weibo-list-item"><div class="weibo-hotness ' + hotness[(item.hot || '荐')] + '">' + (item.hot || '荐') + '</div>' + '<span class="weibo-title"><a title="' + item.title + '"href="' + item.url + '" target="_blank" rel="external nofollow noreferrer">' + item.title + '</a></span>' + '<div class="weibo-num"><span>' + item.num + '</span></div></div>'
+    }
+    html += '</div>'
+    document.getElementById('weibo-container').innerHTML = html
+}
+).catch(function(error) {
+    console.log(error);
+});
+```
+
+4. 在 _config.butterfly.yml 文件 inject 的 bottom 处引入上面的脚本。
+
+```yaml
+- <script defer src="/js/weibo.js"></script>
+```
+
+5. 在 blog/themes/butterfly/source/css/_custom 亩下创建 `weibo.css` 文件，写入下面代码。
+
+```css
+#weibo-container{
+  width: 100%; 
+  height: 150px;
+  font-size: 95%;
+}
+
+.weibo-new{
+  background:#ff3852
+}
+.weibo-hot{
+  background:#ff9406
+}
+.weibo-jyzy{
+  background:#ffc000
+}
+.weibo-recommend{
+  background:#00b7ee
+}
+.weibo-adrecommend{
+  background:#febd22
+}
+.weibo-friend{
+  background:#8fc21e
+}
+.weibo-boom{
+  background:#bd0000
+}
+.weibo-topic{
+  background:#ff6f49
+}
+.weibo-topic-ad{
+  background:#4dadff
+}
+.weibo-boil{
+  background:#f86400
+}
+#weibo-container{
+  overflow-y:auto;
+  -ms-overflow-style:none;
+  scrollbar-width:none
+}
+#weibo-container::-webkit-scrollbar{
+  display:none
+}
+.weibo-list-item{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  flex-wrap:nowrap
+}
+.weibo-title{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  margin-right:auto
+}
+.weibo-num{
+  float:right
+}
+.weibo-hotness{
+  display:inline-block;
+  padding:0 6px;
+  transform:scale(.8) translateX(-3px);
+  color:#fff;
+  border-radius:8px
+}
+```
+
+6. 在 _config.butterfly.yml 文件的 aside 处添加如下配置。
+
+```diff
+  card_webinfo:
+    enable: true
+    post_count: true
+    last_push_date: true
+    sort_order: # Don't modify the setting unless you know how it works
++  card_weibo:
++    enable: true
++    sort_order:
 ```
 
 ### 结语
