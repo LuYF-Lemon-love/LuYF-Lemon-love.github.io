@@ -10,4 +10,4 @@ bottom:
       name: 微博热搜
       icon: fab fa-weibo
       order:
-      html: '<script defer src=""/js/weibo.js></script>'
+      html: '<script defer src="/js/weibo.js"></script>'
