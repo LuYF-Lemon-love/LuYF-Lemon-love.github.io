@@ -32,6 +32,8 @@ date: 2022-07-16 19:41:36
 
 5. [Hexo在顶部增加天气小部件](https://cnhuazhu.top/butterfly/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%9C%A8%E9%A1%B6%E9%83%A8%E5%A2%9E%E5%8A%A0%E5%A4%A9%E6%B0%94%E5%B0%8F%E9%83%A8%E4%BB%B6/)
 
+6. [Gitcalendar](https://akilar.top/posts/1f9c68c9/)
+
 ### 环境版本
 
 ```
@@ -560,6 +562,79 @@ nav#nav
 -  #blog_name
 +  #none_space
     flex: 1
+```
+
+### Gitcalendar
+
+原教程链接：[Gitcalendar](https://akilar.top/posts/1f9c68c9/)
+
+1. 安装插件。
+
+```shell
+npm install hexo-filter-gitcalendar --save
+```
+
+2. 访问[Vercel官网](https://vercel.com/)，注册登录。点击 `New Project` 按钮。
+
+![](https://cos.luyf-lemon-love.space/images/20220717190519.png)
+
+3. 点击下图按钮，引入第三方 Git 仓库。
+
+![](https://cos.luyf-lemon-love.space/images/20220717190541.png)
+
+4. 输入 `https://github.com/Zfour/python_github_calendar_api.git`，然后点击 `Continue` 按钮。
+
+![](https://cos.luyf-lemon-love.space/images/20220717190736.png)
+
+5. 输入仓库名（任意），取消 `Create private Git Repository` 的勾选，点击 `Create` 按钮。
+
+![](https://cos.luyf-lemon-love.space/images/20220717191641.png)
+
+![](https://cos.luyf-lemon-love.space/images/20220717191723.png)
+
+6. 点击 `Go to Dashboard` 按钮。获得 API，如 `github-calendar-api-nine.vercel.app`。
+
+7. 在 _config.butterfly.yml 文件中，添加下面的代码。`user`：自己的 Github 用户名，`apiurl`：上面的获得的 API。
+
+```yaml
+# hexo-filter-gitcalendar
+# see https://akilar.top/posts/1f9c68c9/
+gitcalendar:
+  enable: true # 开关
+  priority: 5 #过滤器优先权
+  enable_page: / # 应用页面
+  # butterfly挂载容器
+  layout: # 挂载容器类型
+    type: id
+    name: recent-posts
+    index: 0
+  # volantis挂载容器
+  # layout:
+  #   type: class
+  #   name: l_main
+  #   index: 0
+  # matery挂载容器
+  # layout:
+  #   type: id
+  #   name: indexCard
+  #   index: 0
+  # mengd挂载容器
+  # layout:
+  #   type: class
+  #   name: content
+  #   index: 0
+  user: LuYF-Lemon-love #git用户名
+  apiurl: 'https://github-calendar-api-nine.vercel.app'
+  minheight:
+    pc: 280px #桌面端最小高度
+    mibile: 0px #移动端最小高度
+  color: "['#e4dfd7', '#f9f4dc', '#f7e8aa', '#f7e8aa', '#f8df72', '#fcd217', '#fcc515', '#f28e16', '#fb8b05', '#d85916', '#f43e06']" #橘黄色调
+  # color: "['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f']" #浅紫色调
+  # color: "['#ebedf0', '#f0fff4', '#dcffe4', '#bef5cb', '#85e89d', '#34d058', '#28a745', '#22863a', '#176f2c', '#165c26', '#144620']" #翠绿色调
+  # color: "['#ebedf0', '#f1f8ff', '#dbedff', '#c8e1ff', '#79b8ff', '#2188ff', '#0366d6', '#005cc5', '#044289', '#032f62', '#05264c']" #天青色调
+  container: .recent-post-item(style='width:100%;height:auto;padding:10px;') #父元素容器，需要使用pug语法
+  gitcalendar_css: https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.css
+  gitcalendar_js: https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.js
 ```
 
 ### 结语
