@@ -859,7 +859,7 @@ dark()
 - <script defer src="/js/universe.js"></script>
 ```
 
-4. 效果只针对夜间模式。
+4. 只有夜间模式生效。
 
 ### 结语
 
