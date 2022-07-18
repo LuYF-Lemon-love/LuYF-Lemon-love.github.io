@@ -77,6 +77,10 @@
       link: https://www.cplusplus.com/
       avatar: https://cos.luyf-lemon-love.space/images/20220601131204.png
       descr: C++ 学习网站
+    - name: cppreference
+      link: https://en.cppreference.com/w/
+      avatar: https://cos.luyf-lemon-love.space/images/20220718180410.png
+      descr: C++ 学习网站
     - name: pybind11
       link: https://github.com/pybind/pybind11
       avatar: https://cos.luyf-lemon-love.space/images/20220716142629.png
@@ -101,3 +105,7 @@
       link: https://cn.office-converter.com/webp-to-png
       avatar: https://cos.luyf-lemon-love.space/images/20220716215753.png
       descr: 转换 WEBP 到 PNG
+    - name: TIOBE Index
+      link: https://www.tiobe.com/tiobe-index/
+      avatar: https://cos.luyf-lemon-love.space/images/20220718175520.png
+      descr: 编程语言排行榜
