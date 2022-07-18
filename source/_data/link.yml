@@ -121,10 +121,26 @@
       link: https://tensorflow.google.cn/tutorials
       avatar: https://cos.luyf-lemon-love.space/images/20220718193250.png
       descr: TensorFlow 教程
+    - name: Pytorch 文档
+      link: https://pytorch.org/docs/stable/index.html
+      avatar: https://cos.luyf-lemon-love.space/images/20220718213852.png
+      descr: Pytorch 文档
+    - name: Keras
+      link: https://keras.io/
+      avatar: https://cos.luyf-lemon-love.space/images/20220718214041.png
+      descr: Simple. Flexible. Powerful.
     - name: Tianshou (天授)
       link: https://github.com/thu-ml/tianshou
       avatar: https://cos.luyf-lemon-love.space/images/20220718211150.png
       descr: a reinforcement learning platform based on pure PyTorch
+    - name: kaggle
+      link: https://www.kaggle.com/
+      avatar: https://cos.luyf-lemon-love.space/images/20220718214304.png
+      descr: 免费的 GPU
+    - name: Dive into Deep Learning
+      link: https://d2l.ai/
+      avatar: https://cos.luyf-lemon-love.space/images/20220718214518.png
+      descr: 最优秀的 Pytorch 深度学习入门书籍
 
 - class_name: Markdown
   class_desc:
