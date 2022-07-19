@@ -1253,6 +1253,8 @@ makefile 文件名可以命名为 makefile 和 Makefile 两种方式。构建项
 
 makefile 是由规则构成的，make 命令其实就是通过解析 makefile 的规则并运行它们实现自动化编译工作的。
 
+{% span green, 注意：Makefile 中的缩进是制表符而不是空格符。 %}
+
 ```makefile
 # 规则的语法格式:
 target1,target2...: depend1, depend2, ...
