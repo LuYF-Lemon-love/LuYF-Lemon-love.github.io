@@ -98,6 +98,7 @@ artitalk:
   path:
   js:
   option:
+    pageSize: 10
   front_matter:
     title: ShuoShuo
     top_img: https://cos.luyf-lemon-love.space/images/mttargon-caverns-of-stone..jpg
@@ -125,34 +126,6 @@ flink_style: volantis # butterfly | volantis | flexcard
 # Main menu navigation (導航目錄)
 # see https://butterfly.js.org/posts/4aa8abbe/#導航菜單
 # --------------------------------------
-
-#menu:
-#  Home: / || fas fa-home
-#  Archives: /archives/ || fas fa-archive
-#  Tags: /tags/ || fas fa-tags
-#  Categories: /categories/ || fas fa-folder-open
-#  Server||fas fa-server:
-#    Github: http://github.luyf-lemon-love.space || fab fa-github
-#    Gitee: https://luyf-lemon-love.gitee.io || iconfont icon-gitee
-#    Vercel: https://vercel.luyf-lemon-love.space || iconfont icon-logo-vercel
-#    Cloud: https://server.luyf-lemon-love.space || fas fa-cloud
-#  List||fas fa-list:
-#    Music: /music/ || fas fa-music
-#    Image: /Gallery/ || fas fa-images
-#    Movie: /movies/ || fas fa-video
-#    ShuoShuo: /artitalk/ || fas fa-comment
-#    Bilibili: /bilibili/ || iconfont icon-bilibili
-#  Link: /link/ || fas fa-link
-#  Message: /Message/ || fas fa-comment
-#  Domains: /Domains/ || fas fa-gift
-#  About: /about/ || fas fa-heart
-
-#List||iconfont icon-list:
-#  Music: /music/ || iconfont icon-music
-#  Image: /Gallery/ || iconfont icon-images
-#  Movie: /movies/ || iconfont icon-video
-#  ShuoShuo: /artitalk/ || iconfont icon-comment
-#  Bilibili: /bilibili/ || iconfont icon-bilibili
   
 menu:
   Home: / || iconfont icon-home

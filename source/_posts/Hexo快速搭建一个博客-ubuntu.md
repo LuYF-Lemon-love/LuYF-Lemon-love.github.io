@@ -8281,6 +8281,8 @@ top_img: https://cdn.jsdelivr.net/gh/LuYF-Lemon-love/PicBed@main/blogs/pictures/
 
 #### 说说
 
+安装插件 `hexo-butterfly-artitalk`，具体配置查看[插件文档](https://github.com/jerryc127/butterfly-plugins/tree/main/hexo-butterfly-hpptalk)。
+
 1. 在 blog 目录下安装插件
 
 ```shell
@@ -8319,8 +8321,20 @@ artitalk:
   path:
   js:
   option:
+    pageSize: 10
   front_matter:
+    title: ShuoShuo
+    top_img: https://cos.luyf-lemon-love.space/images/mttargon-caverns-of-stone..jpg
 ```
+
+|参数|解释|
+|:-:|:-:|
+|appId| (必选) LeanCloud 创建的应用中的 AppID |
+|appKey| (必选) LeanCloud 创建的应用中的 AppKey |
+|path| (可选) Artitalk 的路径名称 (默认为 artitalk，生成的页面为 artitalk/index.html) |
+|js| (可选) 更换 Artitalk 的 js CDN (默认为 https://cdn.jsdelivr.net/npm/artitalk) |
+|option| (可选) Artitalk 需要的额外配置 |
+|front_matter| (可选) Artitalk 页面的 front_matter 配置 |
 
 4. 在 _config.butterfly.yml 文件中的 menu 处添加
 
@@ -8328,35 +8342,7 @@ artitalk:
 ShuoShuo: /artitalk/ || fas fa-comment
 ```
 
-5. 创建页面
-
-```yaml
-hexo new page "artitalk"
-```
-
-6. 在 blog/source/artitalk/index.md 文件中写入下面内容 
-
-```markdown
----
-title: artitalk
-date: 2022-05-16 14:15:40
-type: 'artitalk'
-top_img: https://cdn.jsdelivr.net/gh/LuYF-Lemon-love/PicBed@main/blogs/pictures/20220513171423.png
----
-
-<!-- 引用 artitalk -->
-<script type="text/javascript" src="https://unpkg.com/artitalk"></script>
-<!-- 存放说说的容器 -->
-<div id="artitalk_main"></div>
-<script>
-new Artitalk({
-    appId: '', // Your LeanCloud appId
-    appKey: '' // Your LeanCloud appKey
-})
-</script>
-```
-
-7. 因为 Artitalk 对 Pjax 的支持不友善，如果使用 Valine 评论的话，请把说说页面添加到主题配置文件中的 Pjax 的 exclude 去，不然会引起 Artitalk 和 Valine 都加载出错。修改 _config.butterfly.yml 文件
+5. 因为 Artitalk 对 Pjax 的支持不友善，如果使用 Valine 评论的话，请把说说页面添加到主题配置文件中的 Pjax 的 exclude 去，不然会引起 Artitalk 和 Valine 都加载出错。修改 _config.butterfly.yml 文件
 
 ```yaml
 pjax:
@@ -8365,7 +8351,7 @@ pjax:
     - /artitalk/
 ```
 
-8. 成功页面
+6. 成功页面
 
 ![](https://cos.luyf-lemon-love.space/images/20220516145612.png)
 
