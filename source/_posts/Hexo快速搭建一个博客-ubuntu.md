@@ -8281,7 +8281,7 @@ top_img: https://cdn.jsdelivr.net/gh/LuYF-Lemon-love/PicBed@main/blogs/pictures/
 
 #### 说说
 
-安装插件 `hexo-butterfly-artitalk`，具体配置查看[插件文档](https://github.com/jerryc127/butterfly-plugins/tree/main/hexo-butterfly-hpptalk)。
+安装插件 `hexo-butterfly-artitalk`，具体配置查看 [插件文档](https://github.com/jerryc127/butterfly-plugins/tree/main/hexo-butterfly-artitalk)。
 
 1. 在 blog 目录下安装插件
 
@@ -8330,9 +8330,9 @@ artitalk:
 |参数|解释|
 |:-:|:-:|
 |appId| (必选) LeanCloud 创建的应用中的 AppID |
-|appKey| (必选) LeanCloud 创建的应用中的 AppKey |
+|appKey| (必选) LeanCloud 创建的应用中的 AppKEY |
 |path| (可选) Artitalk 的路径名称 (默认为 artitalk，生成的页面为 artitalk/index.html) |
-|js| (可选) 更换 Artitalk 的 js CDN (默认为 https://cdn.jsdelivr.net/npm/artitalk) |
+|js| (可选) 更换 Artitalk 的 js CDN (默认为 `https://cdn.jsdelivr.net/npm/artitalk`) |
 |option| (可选) Artitalk 需要的额外配置 |
 |front_matter| (可选) Artitalk 页面的 front_matter 配置 |
 
