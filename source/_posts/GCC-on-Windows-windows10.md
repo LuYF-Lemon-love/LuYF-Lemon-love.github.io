@@ -149,17 +149,17 @@ int main(void)
 
 ### 常见问题
 
-1. 如果出现下图错误，可以采用下面的方法或者参考下面的文档。
+1. 如果出现下图错误，可以采用下面的方法或者参考下面的文章。
 
 ![](https://cos.luyf-lemon-love.space/images/20220719205257.png)
 
-   - 使用-static 编译[g++ -static file.cpp]。
+   - `方法1`: 使用-static 编译[g++ -static file.cpp]。
 
-   - 将 `libstdc++-6.dll` 文件放到 `C:\Windows\System32` 或 `C:\Windows\SysWOW64` 文件夹下。`libstdc++-6.dll` 文件可以从`Mingw-w64` 的 `bin` 目录的路径（`D:\lyf_computer_language\msys64\mingw64\bin`）得到。
+   - `方法2`: 将 `libstdc++-6.dll` 文件放到 `C:\Windows\System32` 或 `C:\Windows\SysWOW64` 文件夹下。`libstdc++-6.dll` 文件可以从`Mingw-w64` 的 `bin` 目录的路径（`D:\lyf_computer_language\msys64\mingw64\bin`）得到。
 
-   - [关于用g++编译后运行时出现的问题:无法定位程序输入点__gxx_personality_v0](https://blog.csdn.net/lushuchengsky/article/details/78002565)
+   - `文章1`: [关于用g++编译后运行时出现的问题:无法定位程序输入点__gxx_personality_v0](https://blog.csdn.net/lushuchengsky/article/details/78002565)
 
-   - [无法定位程序输入点__gxx_personality_v0的一个解决方法](https://blog.csdn.net/zyli14/article/details/51302153)
+   - `文章2`: [无法定位程序输入点__gxx_personality_v0的一个解决方法](https://blog.csdn.net/zyli14/article/details/51302153)
 
 ### 结语
 
