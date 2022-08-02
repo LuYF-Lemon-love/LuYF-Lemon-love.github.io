@@ -209,6 +209,10 @@
       link: https://nodejs.org/en/
       avatar: https://cos.luyf-lemon-love.space/images/20220718203705.png
       descr: Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine
+    - name: MSYS2
+      link: https://www.msys2.org/
+      avatar: https://cos.luyf-lemon-love.space/images/20220802223352.png
+      descr: Software Distribution and Building Platform for Windows
 
 - class_name: 娱乐和学习
   class_desc:
