@@ -9,7 +9,7 @@ tags:
   - G++
 categories: 配置环境
 description: 系统介绍 MSYS2。
-cover: '!https://cos.luyf-lemon-love.space/images/下载 (1).png'
+cover: 'https://cos.luyf-lemon-love.space/images/下载 (1).png'
 abbrlink: 2468517816
 date: 2022-08-02 22:21:45
 ---
