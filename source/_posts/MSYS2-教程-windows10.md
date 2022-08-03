@@ -246,6 +246,165 @@ UCRT（Universal C Runtime）是一个较新的版本，默认情况下也被 Mi
 
 >You can make one of the MSYS2 profiles the default by setting the defaultProfile key to the guid value of one of the profile entries.
 
+#### Package Management
+
+#### Package repositories
+
+The MSYS2 software distribution uses a port of `pacman` (known from Arch Linux) to manage (install, remove and update) binary packages and also to build those packages in the first place.
+
+There are 6 package repositories, the "classical" ones `msys2`, `mingw32`, and `mingw64` and the newer `ucrt64`, `clang32`, and `clang64`.
+
+The packages in `msys2` are named just like on a Linux distribution, the packages in the others are prefixed by either `mingw-w64-i686-` for 32-bit packages, or `mingw-w64-x86_64-` for 64-bit packages with a secondary prefix `clang` or `ucrt` where applicable.
+
+#### Finding a package
+
+{% label 查找软件包 pink %}
+
+```shell
+pacman -Ss <name or part of the name of the package>
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacman -Ss openjp
+mingw32/mingw-w64-i686-openjpeg 1.5.2-7
+    An open source JPEG 2000 codec (mingw-w64)
+mingw32/mingw-w64-i686-openjpeg2 2.5.0-2
+    An open source JPEG 2000 codec (mingw-w64)
+mingw64/mingw-w64-x86_64-openjpeg 1.5.2-7
+    An open source JPEG 2000 codec (mingw-w64)
+mingw64/mingw-w64-x86_64-openjpeg2 2.5.0-2 [已安装]
+    An open source JPEG 2000 codec (mingw-w64)
+ucrt64/mingw-w64-ucrt-x86_64-openjpeg 1.5.2-7
+    An open source JPEG 2000 codec (mingw-w64)
+ucrt64/mingw-w64-ucrt-x86_64-openjpeg2 2.5.0-2
+    An open source JPEG 2000 codec (mingw-w64)
+clang32/mingw-w64-clang-i686-openjpeg 1.5.2-7
+    An open source JPEG 2000 codec (mingw-w64)
+clang32/mingw-w64-clang-i686-openjpeg2 2.5.0-2
+    An open source JPEG 2000 codec (mingw-w64)
+clang64/mingw-w64-clang-x86_64-openjpeg 1.5.2-7
+    An open source JPEG 2000 codec (mingw-w64)
+clang64/mingw-w64-clang-x86_64-openjpeg2 2.5.0-2
+    An open source JPEG 2000 codec (mingw-w64)
+```
+
+你能发现 `mingw-w64-x86_64-openjpeg2` 包已被安装，其他包没有被安装。
+
+{% label 只想在已安装的软件包中搜索 pink %}
+
+```shell
+pacman -Qs <name or part of the name of the package>
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacman -Qs openjp
+local/mingw-w64-x86_64-openjpeg2 2.5.0-2
+    An open source JPEG 2000 codec (mingw-w64)
+```
+
+#### Installing a package
+
+{% label 安装包 pink %}
+
+```shell
+pacman -S <name of the package>
+```
+
+>If the package has dependencies which are not installed, pacman will ask you whether you would like to install the dependencies in the first place.
+>
+>`pacman -S` also accepts virtual package names and package group names. Virtual package names can be often encountered with packages built from Git, e.g. `msys2-launcher-git` can be installed by requesting `msys-launcher`. Package groups simplify installation of related packages, e.g. install `base-devel` to get basic development tools.
+>
+>Please note that neither of those are real packages, so the commands below won't accept these names and you need to use the real package names instead.
+
+#### Uninstalling a package
+
+>The following command will remove a package (but not its dependencies nor any files produced by running it):
+
+```shell
+pacman -R <name of the package>
+```
+
+#### Installing a specific version of a package or a stand-alone packages
+
+>Older (or pre-release) versions of packages can be installed directly from the package archive (`.tar.zst` or `.tar.xz`). [The data store](https://repo.msys2.org/) for the repositories contains older versions of packages, but beware that you might need to recursively find correct versions of dependencies for the desired package. Once downloaded, the package can be installed like this:
+
+```shell
+pacman -U <packagefile.tar.zst>
+```
+
+{% span or pink %}
+
+```shell
+pacman -U <packagefile.tar.xz>
+```
+
+#### Finding dependencies of a package
+
+You can use `pactree` to figure out which packages are needed to make a package working properly:
+
+```shell
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pactree mingw-w64-x86_64-gettext
+mingw-w64-x86_64-gettext
+├─mingw-w64-x86_64-expat
+├─mingw-w64-x86_64-gcc-libs
+│ ├─mingw-w64-x86_64-gmp
+│ ├─mingw-w64-x86_64-mpc
+│ │ └─mingw-w64-x86_64-mpfr
+│ │   └─mingw-w64-x86_64-gmp
+│ ├─mingw-w64-x86_64-mpfr
+│ └─mingw-w64-x86_64-libwinpthread-git provides mingw-w64-x86_64-libwinpthread
+└─mingw-w64-x86_64-libiconv
+```
+
+Alternatively you can use `pacman -Qi` to get the list of `direct` dependencies of a package:
+
+```shell
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacman -Qi mingw-w64-x86_64-gettext
+名字           : mingw-w64-x86_64-gettext
+版本           : 0.21-3
+描述           : GNU internationalization library (mingw-w64)
+架构           : any
+URL            : https://www.gnu.org/software/gettext/
+软件许可       : GPL3  partial:LGPL2.1
+组             : 无
+提供           : 无
+依赖于         : mingw-w64-x86_64-expat  mingw-w64-x86_64-gcc-libs
+                 mingw-w64-x86_64-libiconv
+可选依赖       : 无
+依赖它         : mingw-w64-x86_64-libidn2  mingw-w64-x86_64-libpsl
+                 mingw-w64-x86_64-libtre-git  mingw-w64-x86_64-libxml2
+                 mingw-w64-x86_64-make  mingw-w64-x86_64-p11-kit
+                 mingw-w64-x86_64-rhash  mingw-w64-x86_64-xz
+被可选依赖     : 无
+与它冲突       : 无
+取代           : 无
+安装后大小     : 17.47 MiB
+打包者         : CI (msys2-autobuild/f765fe5e/1689836820)
+编译日期       : 2022年01月13日 6:36:51
+安装日期       : 2022年07月19日 19:55:58
+安装原因       : 作为其他软件包的依赖关系安装
+安装脚本       : 否
+验证者         : 数字签名
+```
+
+#### Finding out which package a file belongs to
+
+Use the following command to trace a file back to its owning package:
+
+```shell
+pacman -Qo <full file path>
+```
+
+Note that this operation only compares the file paths, so proper capitalization and the `.exe` suffix (if applicable) is required. Also note that this works only on `installed packages`, it will not scan the whole package repositories.
+
+#### Finding which package will install the file you need
+
+The two recommended tools that can scan a repository and find packages that contain specific files are `pacman -F` and `pkgfile`. Below are examples of `pacman -F` usage:
+
+Call `pacman -Fy` to update your package database. To find an `exact match`, call `pacman -F <filename>` (don't include the path in the filename). To find a `substring match`, call `pacman -Fx <filename>`.
+
+Note that this operation only compares the file paths, so proper capitalization and the `.exe` suffix (if applicable) is required.
+
 ### 结语
 
 第二十一篇博文写完，开心！！！！
