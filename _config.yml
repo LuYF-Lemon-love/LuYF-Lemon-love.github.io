@@ -115,7 +115,7 @@ deploy:
   - type: git
     repo: 
       github: git@github.com:LuYF-Lemon-love/LuYF-Lemon-love.github.io.git
-      gitee: git@gitee.com:LuYF-Lemon-love/LuYF-Lemon-love.git
+      #gitee: git@gitee.com:LuYF-Lemon-love/LuYF-Lemon-love.git
       #coding: git@e.coding.net:luyanfeng-nlp/luyf-lemon-love/LuYF-Lemon-love.git
       baota: git@43.142.31.247:/www/wwwroot/repo/hexo.git
     branch: master
