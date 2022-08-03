@@ -7,6 +7,10 @@ tags:
   - MSYS2
   - Windows
   - G++
+  - CMake
+  - Pacman
+  - Cygwin
+  - mintty
 categories: 配置环境
 description: 系统介绍 MSYS2。
 cover: 'https://cos.luyf-lemon-love.space/images/下载 (1).png'
@@ -18,7 +22,7 @@ date: 2022-08-02 22:21:45
 
 [MSYS2](https://www.msys2.org/) 是一个适用于 Windows 的软件分发和构建平台。
 
-MSYS2 是一系列工具和库，为您提供易于使用的环境，用于构建、安装和运行 Windows 软件。包含名为 `mintty` 的 bash 命令行终端、`git` 等版本控制系统、`tar` 等工具，这些工具是 `Cygwin` 的修改版本。MSYS2 为 `GCC`、`mingw-w64`、`CPython`、`Cmake`、`Meson`、`OpenSSL`、`FFmpeg`、`Rust`、`Ruby` 等提供了最新的原生版本。
+MSYS2 是一系列工具和库，为您提供易于使用的环境，用于构建、安装和运行 Windows 软件。包含名为 `mintty` 的 `bash` 命令行终端、`git` 等版本控制系统、`tar` 等工具，这些工具是 `Cygwin` 的修改版本。MSYS2 为 `GCC`、`mingw-w64`、`CPython`、`CMake`、`Meson`、`OpenSSL`、`FFmpeg`、`Rust`、`Ruby` 等提供了最新的原生版本。
 
 MSYS2 具有一个名为 `Pacman` 的软件包管理系统。
 
@@ -31,6 +35,10 @@ MSYS2 具有一个名为 `Pacman` 的软件包管理系统。
 ### 安装
 
 关于如何安装可以参考官方文档 [MSYS2](https://www.msys2.org/) 或者 {% post_link GCC-on-Windows-windows10 %}。
+
+### MSYS2 vs Cygwin
+
+>The unixy tools in MSYS2 are directly based on Cygwin, so there is some overlap there. While Cygwin focuses on building Unix software on Windows as is, MSYS2 focuses on building native software built against the Windows APIs.
 
 ### 结语
 
