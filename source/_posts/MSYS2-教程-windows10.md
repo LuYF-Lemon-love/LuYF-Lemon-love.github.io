@@ -135,7 +135,7 @@ UCRT（Universal C Runtime）是一个较新的版本，默认情况下也被 Mi
 
 我安装的是 **Windows Terminal Preview**。
 
-**Windows Werminal** 默认情况下支持 cmd、powershell 和 WSL，也可以扩展支持 MSYS2 shell。
+**Windows Terminal** 默认情况下支持 cmd、powershell 和 WSL，也可以扩展支持 MSYS2 shell。
 
 ![](https://cos.luyf-lemon-love.space/images/20220803201434.png)
 
