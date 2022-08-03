@@ -246,7 +246,7 @@ UCRT（Universal C Runtime）是一个较新的版本，默认情况下也被 Mi
 
 >You can make one of the MSYS2 profiles the default by setting the defaultProfile key to the guid value of one of the profile entries.
 
-#### Package Management
+### Package Management
 
 #### Package repositories
 
@@ -308,7 +308,7 @@ local/mingw-w64-x86_64-openjpeg2 2.5.0-2
 pacman -S <name of the package>
 ```
 
->If the package has dependencies which are not installed, pacman will ask you whether you would like to install the dependencies in the first place.
+>If the package has dependencies which are not installed, `pacman` will ask you whether you would like to install the dependencies in the first place.
 >
 >`pacman -S` also accepts virtual package names and package group names. Virtual package names can be often encountered with packages built from Git, e.g. `msys2-launcher-git` can be installed by requesting `msys-launcher`. Package groups simplify installation of related packages, e.g. install `base-devel` to get basic development tools.
 >
