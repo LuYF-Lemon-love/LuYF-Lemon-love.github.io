@@ -330,7 +330,7 @@ pacman -R <name of the package>
 pacman -U <packagefile.tar.zst>
 ```
 
-{% span or pink %}
+{% label or pink %}
 
 ```shell
 pacman -U <packagefile.tar.xz>
