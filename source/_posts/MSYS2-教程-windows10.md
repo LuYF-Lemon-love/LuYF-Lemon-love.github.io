@@ -528,7 +528,7 @@ $ pacboy -S x265:m
 
 The package manager uses only environments that are configured under `/etc/pacman.conf`. You may add/uncomment/remove/comment those as needed:
 
-```conf
+```
 # always include msys!
 [msys]
 Include = /etc/pacman.d/mirrorlist.msys
@@ -643,62 +643,10 @@ $
 ---
 
 ```shell
-Windows PowerShell
 版权所有 (C) Microsoft Corporation。保留所有权利。
-
 尝试新的跨平台 PowerShell https://aka.ms/pscore6
-
 PS C:\Users\lyf> pacman -Qi meson | grep '^Licenses'
 error: package 'meson' was not found
-resolving dependencies...
-
-
-Total Installed Size:  7.84 MiB
-
-:: Proceed with installation? [Y/n]
-(1/1) checking keys in keyring                                           [#######################################] 100%
-(1/1) checking package integrity                                         [#######################################] 100%
-(1/1) loading package files                                              [#######################################] 100%
-(1/1) checking for file conflicts                                        [#######################################] 100%
-(1/1) checking available disk space                                      [#######################################] 100%
-(1/1) installing meson                                                   [#######################################] 100%
-PS C:\Users\lyf> pacman -Ss meson
-mingw32/mingw-w64-i686-meson 0.63.0-1
-    High-productivity build system (mingw-w64)
-mingw64/mingw-w64-x86_64-meson 0.63.0-1
-    High-productivity build system (mingw-w64)
-ucrt64/mingw-w64-ucrt-x86_64-meson 0.63.0-1
-    High-productivity build system (mingw-w64)
-clang32/mingw-w64-clang-i686-meson 0.63.0-1
-    High-productivity build system (mingw-w64)
-clang64/mingw-w64-clang-x86_64-meson 0.63.0-1
-    High-productivity build system (mingw-w64)
-    High-productivity build system
-Licenses        : spdx:Apache-2.0
-PS C:\Users\lyf> pacman -Si meson | grep '^Licenses'
-Licenses        : spdx:Apache-2.0
-PS C:\Users\lyf> pacman -R meson
-checking dependencies...
-
-Packages (1) meson-0.63.0-1
-
-Total Removed Size:  7.84 MiB
-
-:: Do you want to remove these packages? [Y/n]
-:: Processing package changes...
-(1/1) removing meson                                                     [#######################################] 100%
-PS C:\Users\lyf> pacman -Ss meson
-mingw32/mingw-w64-i686-meson 0.63.0-1
-mingw64/mingw-w64-x86_64-meson 0.63.0-1
-ucrt64/mingw-w64-ucrt-x86_64-meson 0.63.0-1
-clang32/mingw-w64-clang-i686-meson 0.63.0-1
-    High-productivity build system (mingw-w64)
-clang64/mingw-w64-clang-x86_64-meson 0.63.0-1
-    High-productivity build system (mingw-w64)
-msys/meson 0.63.0-1
-    High-productivity build system
-PS C:\Users\lyf> pacman -Si meson | grep '^Licenses'
-Licenses        : spdx:Apache-2.0
 PS C:\Users\lyf> pacman -S meson
 resolving dependencies...
 looking for conflicting packages...
@@ -708,12 +656,56 @@ Packages (1) meson-0.63.0-1
 Total Installed Size:  7.84 MiB
 
 :: Proceed with installation? [Y/n]
-(1/1) checking keys in keyring                                           [#######################################] 100%
-(1/1) loading package files                                              [#######################################] 100%
-(1/1) checking for file conflicts                                        [#######################################] 100%
-(1/1) checking available disk space                                      [#######################################] 100%
+(1/1) checking keys in keyring                                 [#################################] 100%
+(1/1) checking package integrity                               [#################################] 100%
+(1/1) loading package files                                    [#################################] 100%
+(1/1) checking for file conflicts                              [#################################] 100%
 :: Processing package changes...
-(1/1) installing meson                                                   [#######################################] 100%
+PS C:\Users\lyf> pacman -Ss meson
+    High-productivity build system (mingw-w64)
+mingw64/mingw-w64-x86_64-meson 0.63.0-1
+    High-productivity build system (mingw-w64)
+ucrt64/mingw-w64-ucrt-x86_64-meson 0.63.0-1
+    High-productivity build system (mingw-w64)
+clang32/mingw-w64-clang-i686-meson 0.63.0-1
+    High-productivity build system (mingw-w64)
+clang64/mingw-w64-clang-x86_64-meson 0.63.0-1
+    High-productivity build system (mingw-w64)
+msys/meson 0.63.0-1 [installed]
+    High-productivity build system
+PS C:\Users\lyf> pacman -Qi meson | grep '^Licenses'
+Licenses        : spdx:Apache-2.0
+PS C:\Users\lyf> pacman -Si meson | grep '^Licenses'
+Licenses        : spdx:Apache-2.0
+checking dependencies...
+
+Packages (1) meson-0.63.0-1
+
+Total Removed Size:  7.84 MiB
+
+:: Do you want to remove these packages? [Y/n]
+:: Processing package changes...
+(1/1) removing meson                                           [#################################] 100%
+PS C:\Users\lyf> pacman -Si meson | grep '^Licenses'
+Licenses        : spdx:Apache-2.0
+PS C:\Users\lyf> pacman -Ql meson | grep -E "/share/licenses/.+/.+"
+error: package 'meson' was not found
+PS C:\Users\lyf> pacman -S meson
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (1) meson-0.63.0-1
+
+Total Installed Size:  7.84 MiB
+
+:: Proceed with installation? [Y/n]
+(1/1) checking keys in keyring                                 [#################################] 100%
+(1/1) checking package integrity                               [#################################] 100%
+(1/1) loading package files                                    [#################################] 100%
+(1/1) checking for file conflicts                              [#################################] 100%
+(1/1) checking available disk space                            [#################################] 100%
+:: Processing package changes...
+(1/1) installing meson                                         [#################################] 100%
 PS C:\Users\lyf> pacman -Ql meson | grep -E "/share/licenses/.+/.+"
 meson /usr/share/licenses/meson/COPYING
 PS C:\Users\lyf> pacman -Ql mingw-w64-x86_64-pugixml
@@ -724,19 +716,16 @@ looking for conflicting packages...
 
 Packages (1) mingw-w64-x86_64-pugixml-1.12.1-1
 
-Total Download Size:   0.14 MiB
 Total Installed Size:  0.82 MiB
 
 :: Proceed with installation? [Y/n]
-:: Retrieving packages...
- mingw-w64-x86_64-pugixml-1.12.1-1-any       140.0 KiB  95.2 KiB/s 00:01 [#######################################] 100%
-(1/1) checking keys in keyring                                           [#######################################] 100%
-(1/1) checking package integrity                                         [#######################################] 100%
-(1/1) loading package files                                              [#######################################] 100%
-(1/1) checking for file conflicts                                        [#######################################] 100%
-(1/1) checking available disk space                                      [#######################################] 100%
+(1/1) checking keys in keyring                                 [#################################] 100%
+(1/1) checking package integrity                               [#################################] 100%
+(1/1) loading package files                                    [#################################] 100%
+(1/1) checking for file conflicts                              [#################################] 100%
+(1/1) checking available disk space                            [#################################] 100%
 :: Processing package changes...
-(1/1) installing mingw-w64-x86_64-pugixml                                [#######################################] 100%
+(1/1) installing mingw-w64-x86_64-pugixml                      [#################################] 100%
 PS C:\Users\lyf> pacman -Ql mingw-w64-x86_64-pugixml
 mingw-w64-x86_64-pugixml /mingw64/
 mingw-w64-x86_64-pugixml /mingw64/bin/
