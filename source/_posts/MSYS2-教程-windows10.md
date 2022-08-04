@@ -409,6 +409,119 @@ Note that this operation only compares the file paths, so proper capitalization 
 
 #### Overview
 
+不同环境的 `the package prefix` - `MINGW_PACKAGE_PREFIX`。
+
+|                                                          | Name           | Package Prefix        |
+|----------------------------------------------------------|----------------|---------------|
+| ![msys](https://cos.luyf-lemon-love.space/images/20220803155912.png)        | **MSYS**       | `None`        |
+| ![mingw64](https://cos.luyf-lemon-love.space/images/20220803160001.png)       | **MINGW64**    | `mingw-w64-x86_64-`    |
+| ![ucrt64](https://cos.luyf-lemon-love.space/images/20220803160033.png)         | **UCRT64**     | `mingw-w64-ucrt-x86_64-`     |
+| ![clang64](https://cos.luyf-lemon-love.space/images/20220803160111.png)       | **CLANG64**    | `mingw-w64-clang-x86_64-`    |
+| ![mingw32](https://cos.luyf-lemon-love.space/images/20220803160139.png)       | **MINGW32**    | `mingw-w64-i686-`    |
+| ![clang32](https://cos.luyf-lemon-love.space/images/20220803160311.png)       | **CLANG32**    | `mingw-w64-clang-i686-`    |
+| ![clangarm64](https://cos.luyf-lemon-love.space/images/20220803160335.png) | **CLANGARM64** | `mingw-w64-clang-aarch64-` |
+
+#### Avoiding writing long package names
+
+Use `pacboy` to install **mingw** packages without having to type the long package names (install `pacboy` first using `pacman -S pactoys` if necessary). Examples:
+
+- `pacboy` installs the listed packages for one or more environments. The selection of environments for each package is controlled by `appending suffixes` on the package name.
+
+- In particular, adding the `:p` suffix installs the package for `the current environment only`.
+
+- `If no suffix is given, the selection of environments depends on what environment you're currently in` - e.g. in a mingw64 environment, it currently defaults to installing the package for both mingw32 and mingw64.
+
+```shell
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacboy help
+
+    Pacboy 2016.6.24
+    Copyright (C) 2015, 2016 Renato Silva
+    Licensed under BSD
+
+    This is a pacman wrapper for MSYS2 which handles the package prefixes
+    automatically, and provides human-friendly commands for common tasks.
+
+    Usage:
+        pacboy [command] [arguments]
+        Arguments will be passed to pacman after translation:
+
+        For 64-bit MSYS2 shell:
+            name:i means i686-only
+            name:x means x86_64-only
+            name:z means clang-i686-only
+            name:c means clang-x86_64-only
+            name:u means ucrt-x86_64-only
+            name:a means clang-aarch64-only
+            name:p means MINGW_PACKAGE_PREFIX-only
+
+        For MSYS shell:
+            name:m means mingw-w64
+            name:l means mingw-w64-clang
+
+        For all shells:
+            name: disables any translation for name
+            repository::name means repository/name
+
+    Commands:
+        sync        Shorthand for --sync or --upgrade
+        update      Shorthand for --sync --refresh --sysupgrade
+        refresh     Shorthand for --sync --refresh
+        find        Shorthand for --sync --search
+        packages    Shorthand for --sync --list
+        files       Shorthand for --query --list [--file]
+        info        Shorthand for --query --info [--file]
+        origin      Shorthand for --query --owns or --files
+        remove      Shorthand for --remove --recursive
+        debug       Verbose output for the above commands
+```
+
+Here are examples of using the `:x`, `:i` and `:m` suffixes for installing packages for the `mingw64`, `mingw32` and `both environments`:
+
+```shell
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacboy -S x265:x
+正在解析依赖关系...
+正在查找软件包冲突...
+
+软件包 (1) mingw-w64-x86_64-x265-3.5-3
+
+下载大小：       2.92 MiB
+全部安装大小：  65.20 MiB
+
+:: 进行安装吗？ [Y/n] n
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacboy -S x265:i
+正在解析依赖关系...
+正在查找软件包冲突...
+
+软件包 (6) mingw-w64-i686-gcc-libs-12.1.0-3  mingw-w64-i686-gmp-6.2.1-3
+           mingw-w64-i686-libwinpthread-git-10.0.0.r54.gb4116e310-1
+           mingw-w64-i686-mpc-1.2.1-1  mingw-w64-i686-mpfr-4.1.0.p13-1
+           mingw-w64-i686-x265-3.5-3
+
+下载大小：       3.52 MiB
+全部安装大小：  30.04 MiB
+
+:: 进行安装吗？ [Y/n] n
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacboy -S x265:m
+正在解析依赖关系...
+正在查找软件包冲突...
+
+软件包 (7) mingw-w64-i686-gcc-libs-12.1.0-3  mingw-w64-i686-gmp-6.2.1-3
+           mingw-w64-i686-libwinpthread-git-10.0.0.r54.gb4116e310-1
+           mingw-w64-i686-mpc-1.2.1-1  mingw-w64-i686-mpfr-4.1.0.p13-1
+           mingw-w64-i686-x265-3.5-3  mingw-w64-x86_64-x265-3.5-3
+
+下载大小：       6.44 MiB
+全部安装大小：  95.24 MiB
+
+:: 进行安装吗？ [Y/n] n
+```
+
 ### 结语
 
 第二十一篇博文写完，开心！！！！
