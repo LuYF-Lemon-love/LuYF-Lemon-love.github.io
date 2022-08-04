@@ -3,9 +3,9 @@
 electric_clock:
   enable: true # 开关
   priority: 5 #过滤器优先权
-  enable_page: all # 应用页面
+  enable_page: / #all # 应用页面
   exclude:
-    - /_posts/
+    # - /posts/
     # - /about/
   layout: # 挂载容器类型
     type: class
