@@ -554,6 +554,214 @@ Include = /etc/pacman.d/mirrorlist.mingw
 
 To launch an environment either use the wrapper executables like `ucrt64.exe` or call `msys2_shell.cmd` with either the matching parameter like `msys2_shell.cmd -clang64` or by setting `MSYSTEM`.
 
+### Tips and Tricks
+
+#### Show the license information of a package
+
+To list the license of an installed package you can run:
+
+```shell
+$ pacman -Qi meson | grep '^Licenses'
+Licenses        : Apache 2
+```
+
+To list the license of a package in the sync database you can run:
+
+```shell
+$ pacman -Si meson | grep '^Licenses'
+Licenses        : Apache 2
+```
+
+To list all license files installed by a package in the recommended location:
+
+```shell
+$ pacman -Ql meson | grep -E "/share/licenses/.+/.+"
+meson /usr/share/licenses/meson/COPYING
+```
+
+Note that not every package includes the license text as a file, nor puts it in this specific recommended location.
+
+#### Listing the content of a package
+
+If you would like to know what has been installed as a part of a specific package use the following command:
+
+```shell
+pacman -Ql <name of the package>
+```
+
+Example:
+
+```shell
+pacman -Ql mingw-w64-x86_64-pugixml
+```
+
+```shell
+mingw-w64-x86_64-pugixml /mingw64/
+mingw-w64-x86_64-pugixml /mingw64/bin/
+mingw-w64-x86_64-pugixml /mingw64/bin/libpugixml.dll
+mingw-w64-x86_64-pugixml /mingw64/include/
+mingw-w64-x86_64-pugixml /mingw64/include/pugixml-1.8/
+mingw-w64-x86_64-pugixml /mingw64/include/pugixml-1.8/pugiconfig.hpp
+mingw-w64-x86_64-pugixml /mingw64/include/pugixml-1.8/pugixml.hpp
+mingw-w64-x86_64-pugixml /mingw64/lib/
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/pugixml-config-noconfig.cmake
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/pugixml-config.cmake
+mingw-w64-x86_64-pugixml /mingw64/lib/pkgconfig/
+mingw-w64-x86_64-pugixml /mingw64/lib/pkgconfig/pugixml.pc
+mingw-w64-x86_64-pugixml /mingw64/lib/pugixml-1.8/
+mingw-w64-x86_64-pugixml /mingw64/lib/pugixml-1.8/libpugixml.dll.a
+```
+
+As you can see the package contains:
+
+- a binary executable library file (libpugixml.dll),
+
+- a static library (libpugixml.dll.a),
+
+- 2 header files (pugixml.hpp, pugiconfig.hpp),
+
+- 2 cmake files,
+
+- and a PKGCONFIG file (pugixml.pc).
+
+>请注意上面的命令不能够在 `Mintty` 中输出想要的结果。可以使用 `Windows PowerShell` 运行上面的命令。要在 `Windows PowerShell` 运行上面的命令，需要配置环境变量，可以参考 {% post_link GCC-on-Windows-windows10 %}
+
+```shell
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ which meson
+/usr/bin/meson
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacman -Qi meson | grep '^Licenses'
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$
+```
+
+---
+
+```shell
+Windows PowerShell
+版权所有 (C) Microsoft Corporation。保留所有权利。
+
+尝试新的跨平台 PowerShell https://aka.ms/pscore6
+
+PS C:\Users\lyf> pacman -Qi meson | grep '^Licenses'
+error: package 'meson' was not found
+resolving dependencies...
+
+
+Total Installed Size:  7.84 MiB
+
+:: Proceed with installation? [Y/n]
+(1/1) checking keys in keyring                                           [#######################################] 100%
+(1/1) checking package integrity                                         [#######################################] 100%
+(1/1) loading package files                                              [#######################################] 100%
+(1/1) checking for file conflicts                                        [#######################################] 100%
+(1/1) checking available disk space                                      [#######################################] 100%
+(1/1) installing meson                                                   [#######################################] 100%
+PS C:\Users\lyf> pacman -Ss meson
+mingw32/mingw-w64-i686-meson 0.63.0-1
+    High-productivity build system (mingw-w64)
+mingw64/mingw-w64-x86_64-meson 0.63.0-1
+    High-productivity build system (mingw-w64)
+ucrt64/mingw-w64-ucrt-x86_64-meson 0.63.0-1
+    High-productivity build system (mingw-w64)
+clang32/mingw-w64-clang-i686-meson 0.63.0-1
+    High-productivity build system (mingw-w64)
+clang64/mingw-w64-clang-x86_64-meson 0.63.0-1
+    High-productivity build system (mingw-w64)
+    High-productivity build system
+Licenses        : spdx:Apache-2.0
+PS C:\Users\lyf> pacman -Si meson | grep '^Licenses'
+Licenses        : spdx:Apache-2.0
+PS C:\Users\lyf> pacman -R meson
+checking dependencies...
+
+Packages (1) meson-0.63.0-1
+
+Total Removed Size:  7.84 MiB
+
+:: Do you want to remove these packages? [Y/n]
+:: Processing package changes...
+(1/1) removing meson                                                     [#######################################] 100%
+PS C:\Users\lyf> pacman -Ss meson
+mingw32/mingw-w64-i686-meson 0.63.0-1
+mingw64/mingw-w64-x86_64-meson 0.63.0-1
+ucrt64/mingw-w64-ucrt-x86_64-meson 0.63.0-1
+clang32/mingw-w64-clang-i686-meson 0.63.0-1
+    High-productivity build system (mingw-w64)
+clang64/mingw-w64-clang-x86_64-meson 0.63.0-1
+    High-productivity build system (mingw-w64)
+msys/meson 0.63.0-1
+    High-productivity build system
+PS C:\Users\lyf> pacman -Si meson | grep '^Licenses'
+Licenses        : spdx:Apache-2.0
+PS C:\Users\lyf> pacman -S meson
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (1) meson-0.63.0-1
+
+Total Installed Size:  7.84 MiB
+
+:: Proceed with installation? [Y/n]
+(1/1) checking keys in keyring                                           [#######################################] 100%
+(1/1) loading package files                                              [#######################################] 100%
+(1/1) checking for file conflicts                                        [#######################################] 100%
+(1/1) checking available disk space                                      [#######################################] 100%
+:: Processing package changes...
+(1/1) installing meson                                                   [#######################################] 100%
+PS C:\Users\lyf> pacman -Ql meson | grep -E "/share/licenses/.+/.+"
+meson /usr/share/licenses/meson/COPYING
+PS C:\Users\lyf> pacman -Ql mingw-w64-x86_64-pugixml
+error: package 'mingw-w64-x86_64-pugixml' was not found
+PS C:\Users\lyf> pacman -S mingw-w64-x86_64-pugixml
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (1) mingw-w64-x86_64-pugixml-1.12.1-1
+
+Total Download Size:   0.14 MiB
+Total Installed Size:  0.82 MiB
+
+:: Proceed with installation? [Y/n]
+:: Retrieving packages...
+ mingw-w64-x86_64-pugixml-1.12.1-1-any       140.0 KiB  95.2 KiB/s 00:01 [#######################################] 100%
+(1/1) checking keys in keyring                                           [#######################################] 100%
+(1/1) checking package integrity                                         [#######################################] 100%
+(1/1) loading package files                                              [#######################################] 100%
+(1/1) checking for file conflicts                                        [#######################################] 100%
+(1/1) checking available disk space                                      [#######################################] 100%
+:: Processing package changes...
+(1/1) installing mingw-w64-x86_64-pugixml                                [#######################################] 100%
+PS C:\Users\lyf> pacman -Ql mingw-w64-x86_64-pugixml
+mingw-w64-x86_64-pugixml /mingw64/
+mingw-w64-x86_64-pugixml /mingw64/bin/
+mingw-w64-x86_64-pugixml /mingw64/bin/libpugixml.dll
+mingw-w64-x86_64-pugixml /mingw64/include/
+mingw-w64-x86_64-pugixml /mingw64/include/pugiconfig.hpp
+mingw-w64-x86_64-pugixml /mingw64/include/pugixml.hpp
+mingw-w64-x86_64-pugixml /mingw64/lib/
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/pugixml-config-version.cmake
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/pugixml-config.cmake
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/pugixml-targets-release.cmake
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/pugixml-targets.cmake
+mingw-w64-x86_64-pugixml /mingw64/lib/libpugixml.a
+mingw-w64-x86_64-pugixml /mingw64/lib/libpugixml.dll.a
+mingw-w64-x86_64-pugixml /mingw64/lib/pkgconfig/
+mingw-w64-x86_64-pugixml /mingw64/lib/pkgconfig/pugixml.pc
+mingw-w64-x86_64-pugixml /mingw64/share/
+mingw-w64-x86_64-pugixml /mingw64/share/licenses/
+mingw-w64-x86_64-pugixml /mingw64/share/licenses/pugixml/
+mingw-w64-x86_64-pugixml /mingw64/share/licenses/pugixml/LICENSE
+PS C:\Users\lyf>
+```
+
 ### 结语
 
 第二十一篇博文写完，开心！！！！
