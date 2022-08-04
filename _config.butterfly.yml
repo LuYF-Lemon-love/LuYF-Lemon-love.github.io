@@ -5,7 +5,7 @@ electric_clock:
   priority: 5 #过滤器优先权
   enable_page: all # 应用页面
   exclude:
-    - /posts/
+    - /_posts/
     # - /about/
   layout: # 挂载容器类型
     type: class
