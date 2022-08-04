@@ -748,6 +748,25 @@ mingw-w64-x86_64-pugixml /mingw64/share/
 mingw-w64-x86_64-pugixml /mingw64/share/licenses/
 mingw-w64-x86_64-pugixml /mingw64/share/licenses/pugixml/
 mingw-w64-x86_64-pugixml /mingw64/share/licenses/pugixml/LICENSE
+PS C:\Users\lyf> history
+
+  Id CommandLine
+  -- -----------
+   1 pacman -Qi meson | grep '^Licenses'
+   2 pacman -S meson
+   3 pacman -Ss meson
+   4 pacman -Qi meson | grep '^Licenses'
+   5 pacman -Si meson | grep '^Licenses'
+   6 pacman -R meson
+   7 pacman -Si meson | grep '^Licenses'
+   8 pacman -Ql meson | grep -E "/share/licenses/.+/.+"
+   9 pacman -S meson
+  10 pacman -Ql meson | grep -E "/share/licenses/.+/.+"
+  11 pacman -Ql mingw-w64-x86_64-pugixml
+  12 pacman -S mingw-w64-x86_64-pugixml
+  13 pacman -Ql mingw-w64-x86_64-pugixml
+
+
 PS C:\Users\lyf>
 ```
 
