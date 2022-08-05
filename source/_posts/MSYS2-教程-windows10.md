@@ -405,6 +405,76 @@ Call `pacman -Fy` to update your package database. To find an `exact match`, cal
 
 Note that this operation only compares the file paths, so proper capitalization and the `.exe` suffix (if applicable) is required.
 
+#### listing installed packages
+
+```shell
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacman -Qqe
+base
+base-devel
+clang
+cmake
+filesystem
+meson
+mingw-w64-clang-x86_64-clang
+mingw-w64-clang-x86_64-clang-analyzer
+mingw-w64-clang-x86_64-clang-tools-extra
+mingw-w64-clang-x86_64-compiler-rt
+mingw-w64-clang-x86_64-crt-git
+mingw-w64-clang-x86_64-gcc-compat
+mingw-w64-clang-x86_64-headers-git
+mingw-w64-clang-x86_64-libc++
+mingw-w64-clang-x86_64-libc++abi
+mingw-w64-clang-x86_64-libmangle-git
+mingw-w64-clang-x86_64-libunwind
+mingw-w64-clang-x86_64-libwinpthread-git
+mingw-w64-clang-x86_64-lld
+mingw-w64-clang-x86_64-lldb
+mingw-w64-clang-x86_64-llvm
+mingw-w64-clang-x86_64-make
+mingw-w64-clang-x86_64-openmp
+mingw-w64-clang-x86_64-pkgconf
+mingw-w64-clang-x86_64-polly
+mingw-w64-clang-x86_64-tools-git
+mingw-w64-clang-x86_64-winpthreads-git
+mingw-w64-clang-x86_64-winstorecompat-git
+mingw-w64-x86_64-binutils
+mingw-w64-x86_64-boost
+mingw-w64-x86_64-cmake
+mingw-w64-x86_64-crt-git
+mingw-w64-x86_64-gcc
+mingw-w64-x86_64-gcc-ada
+mingw-w64-x86_64-gcc-fortran
+mingw-w64-x86_64-gcc-libgfortran
+mingw-w64-x86_64-gcc-libs
+mingw-w64-x86_64-gcc-objc
+mingw-w64-x86_64-gdb
+mingw-w64-x86_64-gdb-multiarch
+mingw-w64-x86_64-headers-git
+mingw-w64-x86_64-libgccjit
+mingw-w64-x86_64-libmangle-git
+mingw-w64-x86_64-libwinpthread-git
+mingw-w64-x86_64-make
+mingw-w64-x86_64-openjpeg2
+mingw-w64-x86_64-pkgconf
+mingw-w64-x86_64-protobuf-c
+mingw-w64-x86_64-pugixml
+mingw-w64-x86_64-tools-git
+mingw-w64-x86_64-winpthreads-git
+mingw-w64-x86_64-winstorecompat-git
+msys2-runtime
+pactoys
+protobuf-devel
+python
+tree
+unzip
+vim
+zip
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$
+```
+
 ### Package Naming
 
 #### Overview
