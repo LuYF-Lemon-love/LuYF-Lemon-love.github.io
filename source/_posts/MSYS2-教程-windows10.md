@@ -14,6 +14,7 @@ tags:
   - MSVC
   - Clang
   - Windows-Terminal
+  - make
 categories: 配置环境
 description: 系统介绍 MSYS2。
 cover: 'https://cos.luyf-lemon-love.space/images/下载 (1).png'
@@ -405,7 +406,7 @@ Call `pacman -Fy` to update your package database. To find an `exact match`, cal
 
 Note that this operation only compares the file paths, so proper capitalization and the `.exe` suffix (if applicable) is required.
 
-#### listing installed packages
+#### Listing installed packages
 
 ```shell
 lyf@DESKTOP-GV2QHKN MSYS ~
@@ -921,6 +922,10 @@ Paths                                                    | Contents
 `/c`, `/d`, ...                                          | mount points for Windows drives
 `/*.xml`, `/maintenancetool.*`, `InstallationLog.txt`    | (un)installer
 `/autorebase.bat`, `/msys2_shell.cmd`, `/msys2.ico`      | shell entry points
+
+### mingw32-make
+
+MSYS2 provides two versions of make, one in the `make` package and one in the `mingw-w64-{i686,x86_64}-make` packages. The latter one is called `mingw32-make` on command line, is fully native and doesn't depend on `msys2` shells. The downside is that it doesn't work with many `Makefile`s. Unless you know what you're doing, use the regular `make`.
 
 ### 结语
 
