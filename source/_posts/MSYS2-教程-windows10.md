@@ -255,7 +255,7 @@ UCRT（Universal C Runtime）是一个较新的版本，默认情况下也被 Mi
 
 1. 以 `管理员权限` 打开 `Windows PowerShell`，输入 `set-ExecutionPolicy RemoteSigned`，输入 `a` 或者 `y`。
 
-2. 测试是否更改成功：输入 `get-executionpolicy` 结果为 `RemoteSigned` 表示成功。
+2. 测试是否更改成功：输入 `get-executionpolicy` ，结果为 `RemoteSigned` 表示成功。
 
 ### Package Management
 
