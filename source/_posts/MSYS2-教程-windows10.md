@@ -42,7 +42,7 @@ MSYS2 具有一个名为 `Pacman` 的软件包管理系统。
 
 ### 安装
 
-关于如何安装可以参考官方文档 [MSYS2](https://www.msys2.org/) 或者 {% post_link GCC-on-Windows-windows10 %}。
+关于如何安装 `MSYS2` 可以参考官方文档 [MSYS2](https://www.msys2.org/) 或者 {% post_link GCC-on-Windows-windows10 %}。
 
 ### MSYS2 vs Cygwin
 
