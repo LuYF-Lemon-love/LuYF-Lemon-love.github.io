@@ -97,6 +97,22 @@
       link: https://en.cppreference.com/w/
       avatar: https://cos.luyf-lemon-love.space/images/20220718180410.png
       descr: C++ 学习网站
+    - name: CMake
+      link: https://cmake.org/
+      avatar: https://cos.luyf-lemon-love.space/images/20220805212534.png
+      descr: CMake is an open-source, cross-platform family of tools designed to build, test and package software
+    - name: CMake Examples
+      link: https://github.com/ttroy50/cmake-examples
+      avatar: https://cos.luyf-lemon-love.space/images/20220805212534.png
+      descr: some example modern CMake configurations
+    - name: cmake-examples-Chinese
+      link: https://github.com/SFUMECJF/cmake-examples-Chinese
+      avatar: https://cos.luyf-lemon-love.space/images/20220805212534.png
+      descr: CMake Examples 中文版
+    - name: learning-cmake
+      link: https://github.com/Akagi201/learning-cmake
+      avatar: https://cos.luyf-lemon-love.space/images/20220805212534.png
+      descr: This is a simple CMake tutorial project which contains some different scenarios
 
 - class_name: Python
   class_desc:
