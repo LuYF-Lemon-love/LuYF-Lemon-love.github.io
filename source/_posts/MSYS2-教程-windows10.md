@@ -38,6 +38,8 @@ MSYS2 具有一个名为 `Pacman` 的软件包管理系统。
 
 2. [给萌新的C/C++环境搭建攻略（VSCode和MSYS2）](https://zhuanlan.zhihu.com/p/401188789)
 
+3. [问题解决：系统上禁止运行脚本。](https://blog.csdn.net/wodexinhaoleng1/article/details/119712635)
+
 ### 安装
 
 关于如何安装可以参考官方文档 [MSYS2](https://www.msys2.org/) 或者 {% post_link GCC-on-Windows-windows10 %}。
@@ -246,6 +248,14 @@ UCRT（Universal C Runtime）是一个较新的版本，默认情况下也被 Mi
 ![](https://cos.luyf-lemon-love.space/images/20220803204323.png)
 
 >You can make one of the MSYS2 profiles the default by setting the defaultProfile key to the guid value of one of the profile entries.
+
+#### Issues
+
+如果 `Windows PowerShell` 报告 `系统上禁止运行脚本` 问题。可以参考 [问题解决：系统上禁止运行脚本。](https://blog.csdn.net/wodexinhaoleng1/article/details/119712635)。
+
+1. 输入 `set-ExecutionPolicy RemoteSigned`，输入 `a` 或者 `y`。
+
+2. 测试是否更改成功：输入 `get-executionpolicy` 结果为 `RemoteSigned` 表示成功。
 
 ### Package Management
 
