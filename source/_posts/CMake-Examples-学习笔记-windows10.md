@@ -403,6 +403,248 @@ lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/A-hel
 $
 ```
 
+#### B-hello-headers
+
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
+
+```shell
+cd ..
+mkdir B-hello-headers
+cd B-hello-headers
+```
+
+2. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+# Set the minimum version of CMake that can be used
+# To find the cmake version run
+# $ cmake --version
+cmake_minimum_required(VERSION 3.5)
+
+# Set the project name
+project(hello_headers)
+
+# Create a sources variable with a link to all cpp files to compile
+file(GLOB SOURCES "src/*.cpp")
+
+# Add an executable with the above sources
+add_executable(hello_headers ${SOURCES})
+
+# Set the directories that should be included in the build command for this target
+# when running g++ these will be included as -I/directory/path/
+target_include_directories(hello_headers
+        PRIVATE
+        ${PROJECT_SOURCE_DIR}/include
+        )
+```
+
+3. 创建 `include/Hello.h` 文件，粘贴下面代码。
+
+```c++
+#ifndef __HELLO_H__
+#define __HELLO_H__
+
+class Hello
+{
+public:
+        void print();
+};
+
+#endif
+```
+
+4. 创建 `src/Hello.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+
+#include "Hello.h"
+
+void Hello::print()
+{
+        std::cout << "Hello Headers!" << std::endl;
+}
+```
+
+5. 创建 `src/main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include "Hello.h"
+
+int main(int argc, char *argv[])
+{
+        Hello hi;
+        hi.print();
+        return 0;
+}
+```
+
+##### Introduction
+
+该例子使用不同目录包含头文件和源文件。
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers
+$ tree
+.
+├── CMakeLists.txt
+├── include
+│   └── Hello.h
+└── src
+    ├── Hello.cpp
+    └── main.cpp
+
+2 directories, 4 files
+```
+
+- `CMakeLists.txt`: `CMake` 的配置文件。
+
+- `include/Hello.h`: 头文件。
+
+- `src/Hello.cpp`: 源文件。
+
+- `src/main.cpp`: main 文件。
+
+##### Concepts
+
+###### Directory Paths
+
+`CMake` 语法指定了许多变量，这些变量可用于帮助在项目或源代码树中查找有用的目录。其中一些包括：
+
+|Variable|Info|
+|:-:|:-:|
+|CMAKE_SOURCE_DIR|The root source directory|
+|CMAKE_CURRENT_SOURCE_DIR|The current source directory if using sub-projects and directories.|
+|PROJECT_SOURCE_DIR|The source directory of the current cmake project.|
+|CMAKE_BINARY_DIR|The root binary / build directory. This is the directory where you ran the cmake command.|
+|CMAKE_CURRENT_BINARY_DIR|The build directory you are currently in.|
+|PROJECT_BINARY_DIR|The build directory for the current project.|
+
+###### Source Files Variable
+
+通过创建包含源文件的变量，你可以更清楚地了解这些文件，并轻松地将它们添加到多个命令中，例如，add_executable() 函数。
+
+```cmake
+# Create a sources variable with a link to all cpp files to compile
+set(SOURCES
+    src/Hello.cpp
+    src/main.cpp
+)
+
+add_executable(${PROJECT_NAME} ${SOURCES})
+```
+
+在 `SOURCES` 变量中设置特定文件名的替代方法是使用 `GLOB` 命令通过通配符模式匹配来查找文件。
+
+```cmake
+file(GLOB SOURCES "src/*.cpp")
+```
+
+###### Including Directories
+
+当你有不同的文件夹时，可以使用 `target_include_directories()` 函数使编译器知道它们。在编译此目标时，这会将这些目录添加到具有 -I 标志的编译器中，例如 `-I /directory/path`。
+
+```cmake
+target_include_directories(target
+    PRIVATE
+        ${PROJECT_SOURCE_DIR}/include
+)
+```
+
+##### Building the Example
+
+###### Standard Output
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build
+$ cmake .. -G "MSYS Makefiles"
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build
+$ make
+[ 33%] Building CXX object CMakeFiles/hello_headers.dir/src/Hello.cpp.obj
+[ 66%] Building CXX object CMakeFiles/hello_headers.dir/src/main.cpp.obj
+[100%] Linking CXX executable hello_headers.exe
+[100%] Built target hello_headers
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build
+$ ls
+cmake_install.cmake  CMakeFiles         Makefile
+CMakeCache.txt       hello_headers.exe
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build
+$ ./hello_headers.exe
+Hello Headers!
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build
+$
+```
+
+###### Verbose Output
+
+在前面的示例中，运行 `make` 命令时，输出仅显示生成的状态。若要查看用于调试目的的完整输出，可以在运行 `make` 时添加 `VERBOSE=1` 标志。
+
+下面显示了 `VERBOSE` 输出，对输出的检查显示了要添加到 c++ 编译器命令中的 `include` 目录。
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build
+$ make clean
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build
+$ ls
+cmake_install.cmake  CMakeCache.txt  CMakeFiles  Makefile
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build
+$ make VERBOSE=1
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -S/F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers -B/F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build --check-build-system CMakeFiles/Makefile.cmake 0
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build/CMakeFiles /F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build//CMakeFiles/progress.marks
+make  -f CMakeFiles/Makefile2 all
+make[1]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build”
+make  -f CMakeFiles/hello_headers.dir/build.make CMakeFiles/hello_headers.dir/depend
+make[2]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build”
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_depends "MSYS Makefiles" /F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers /F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers /F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build /F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build /F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build/CMakeFiles/hello_headers.dir/DependInfo.cmake --color=
+make[2]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build”
+make  -f CMakeFiles/hello_headers.dir/build.make CMakeFiles/hello_headers.dir/build
+make[2]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build”
+[ 33%] Building CXX object CMakeFiles/hello_headers.dir/src/Hello.cpp.obj
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe  -I/F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/include  -MD -MT CMakeFiles/hello_headers.dir/src/Hello.cpp.obj -MF CMakeFiles/hello_headers.dir/src/Hello.cpp.obj.d -o CMakeFiles/hello_headers.dir/src/Hello.cpp.obj -c /F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/src/Hello.cpp
+[ 66%] Building CXX object CMakeFiles/hello_headers.dir/src/main.cpp.obj
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe  -I/F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/include  -MD -MT CMakeFiles/hello_headers.dir/src/main.cpp.obj -MF CMakeFiles/hello_headers.dir/src/main.cpp.obj.d -o CMakeFiles/hello_headers.dir/src/main.cpp.obj -c /F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/src/main.cpp
+[100%] Linking CXX executable hello_headers.exe
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E rm -f CMakeFiles/hello_headers.dir/objects.a
+/D/lyf_computer_language/msys64/mingw64/bin/ar.exe qc CMakeFiles/hello_headers.dir/objects.a "CMakeFiles/hello_headers.dir/src/Hello.cpp.obj" "CMakeFiles/hello_headers.dir/src/main.cpp.obj"
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe -Wl,--whole-archive CMakeFiles/hello_headers.dir/objects.a -Wl,--no-whole-archive -o hello_headers.exe -Wl,--out-implib,libhello_headers.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+make[2]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build”
+[100%] Built target hello_headers
+make[1]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build”
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build/CMakeFiles 0
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build
+$
+```
+
 ### 结语
 
 第二十二篇博文写完，开心！！！！
