@@ -72,6 +72,36 @@ The relevant generator alternatives are:
 
 If building by invoking `cmake --build`, the same command works for all generator choices. Alternatively, to build by directly invoking the build tool, you can call `ninja`, `make` or `mingw32-make` respectively for those three alternatives.
 
+#### version
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 ~
+$ cmake --version
+cmake version 3.23.2
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+
+lyf@DESKTOP-GV2QHKN MINGW64 ~
+$ make --version
+GNU Make 4.3
+为 x86_64-pc-msys 编译
+Copyright (C) 1988-2020 Free Software Foundation, Inc.
+许可证：GPLv3+：GNU 通用公共许可证第 3 版或更新版本<http://gnu.org/licenses/gpl.html>。
+本软件是自由软件：您可以自由修改和重新发布它。
+在法律允许的范围内没有其他保证。
+
+lyf@DESKTOP-GV2QHKN MINGW64 ~
+$ which cmake
+/mingw64/bin/cmake
+
+lyf@DESKTOP-GV2QHKN MINGW64 ~
+$ which make
+/usr/bin/make
+
+lyf@DESKTOP-GV2QHKN MINGW64 ~
+$
+```
+
 ### 01-basic
 
 #### A-hello-cmake
@@ -182,7 +212,7 @@ add_executable(${PROJECT_NAME} main.cpp)
 
 `内部构建`在与源代码相同的目录结构中生成所有临时生成文件。这意味着所有 `Makefiles and object files` 都散布在源代码代码中。要`内部构建`目标，请在根目录中运行 `cmake` 命令。例如：
 
-```cmake
+```shell
 lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/A-hello-cmake
 $ which cmake
 /mingw64/bin/cmake
