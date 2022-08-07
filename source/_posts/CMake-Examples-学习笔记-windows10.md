@@ -11,6 +11,7 @@ tags:
   - Pacman
   - Clang
   - make
+  - 静态链接库
 categories: 学习笔记
 description: CMake Examples 项目的学习笔记，该项目介绍一些现代 CMake 的例子。
 cover: 'https://cos.luyf-lemon-love.space/images/弗雷尔卓德.png'
@@ -642,6 +643,240 @@ make[1]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-h
 /D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build/CMakeFiles 0
 
 lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/B-hello-headers/build
+$
+```
+
+#### C-static-library
+
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
+
+```shell
+cd ../..
+mkdir C-static-library
+cd C-static-library
+```
+
+2. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+cmake_minimum_required(VERSION 3.5)
+
+project(hello_library)
+
+##############################################
+# Create a library
+##############################################
+
+# Generate the static library from the library sources
+add_library(hello_library STATIC
+        src/Hello.cpp
+        )
+
+target_include_directories(hello_library
+        PUBLIC
+        ${PROJECT_SOURCE_DIR}/include
+        )
+
+###############################################
+# Create an executable
+###############################################
+
+# Add an executable with the above sources
+add_executable(hello_binary
+        src/main.cpp
+        )
+
+# link the new hello_library target with the hello_binary target
+target_link_libraries(hello_binary
+        PRIVATE
+        hello_library
+        )
+```
+
+3. 创建 `include/static/Hello.h` 文件，粘贴下面代码。
+
+```c++
+#ifndef __HELLO_H__
+#define __HELLO_H__
+
+class Hello
+{
+public:
+        void print();
+};
+
+#endif
+```
+
+4. 创建 `src/Hello.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+
+#include "static/Hello.h"
+
+void Hello::print()
+{
+        std::cout << "Hello Static Library!" << std::endl;
+}
+```
+
+5. 创建 `src/main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include "static/Hello.h"
+
+int main(int argc, char *argv[])
+{
+        Hello hi;
+        hi.print();
+        return 0;
+}
+```
+
+##### Introduction
+
+显示一个 `hello world` 示例，该示例首先创建并链接`静态链接库`。这是一个简化的示例，显示库和二进制文件位于同一文件夹中。
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/C-static-library
+$ tree
+.
+├── CMakeLists.txt
+├── include
+│   └── static
+│       └── Hello.h
+└── src
+    ├── Hello.cpp
+    └── main.cpp
+
+3 directories, 4 files
+```
+
+- `CMakeLists.txt`: `CMake` 的配置文件。
+
+- `include/static/Hello.h`: 头文件。
+
+- `src/Hello.cpp`: 源文件。
+
+- `src/main.cpp`: main 文件。
+
+##### Concepts
+
+###### Adding a Static Library
+
+`add_library()` 函数用于从某些源文件创建库。这称为：
+
+```cmake
+add_library(hello_library STATIC
+    src/Hello.cpp
+)
+```
+
+这将用于创建一个名为 `libhello_library.a` 的静态库，其中包含 `add_library` 调用中的源文件。
+
+###### Populating Including Directories
+
+在此示例中，我们使用作用域设置为 `PUBLIC` 的 `target_include_directories()` 函数在库中包含目录。
+
+```cmake
+target_include_directories(hello_library
+    PUBLIC
+        ${PROJECT_SOURCE_DIR}/include
+)
+```
+
+This will cause the included directory used in the following places:
+
+- When compiling the library.
+
+- When compiling any additional target that links the library.
+
+The meaning of scopes are:
+
+- `PRIVATE` - the directory is added to `this target`’s include directories
+
+- `INTERFACE` - the directory is added to the include directories for `any targets` that link this library.
+
+- `PUBLIC` - As above, it is included in this library and also any targets that link this library.
+
+For public headers it is often a good idea to have your include folder be "namespaced" with sub-directories.
+
+The directory passed to target_include_directories will be the root of your include directory tree and your C++ files should include the path from there to your header.
+
+For this example you can see that we do it as follows:
+
+```c++
+#include "static/Hello.h"
+```
+
+Using this method means that there is less chance of header filename clashes when you use multiple libraries in your project.
+
+###### Linking a Library
+
+创建将使用库的可执行文件时，必须告知编译器该库。这可以使用 `target_link_libraries()` 函数来完成。
+
+```cmake
+add_executable(hello_binary
+    src/main.cpp
+)
+
+target_link_libraries( hello_binary
+    PRIVATE
+        hello_library
+)
+```
+
+This tells CMake to link the hello_library against the hello_binary executable during link time. It will also propagate any include directories with `PUBLIC` or `INTERFACE` scope from the linked library target.
+
+##### Building the Example
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/C-static-library
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/C-static-library
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/C-static-library/build
+$ cmake .. -G "MSYS Makefiles"
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/cmake-examples/01-basic/C-static-library/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/C-static-library/build
+$ make
+[ 25%] Building CXX object CMakeFiles/hello_library.dir/src/Hello.cpp.obj
+[ 50%] Linking CXX static library libhello_library.a
+[ 50%] Built target hello_library
+[ 75%] Building CXX object CMakeFiles/hello_binary.dir/src/main.cpp.obj
+[100%] Linking CXX executable hello_binary.exe
+[100%] Built target hello_binary
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/C-static-library/build
+$ ls
+cmake_install.cmake  CMakeFiles        libhello_library.a
+CMakeCache.txt       hello_binary.exe  Makefile
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/C-static-library/build
+$ ./hello_binary.exe
+Hello Static Library!
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/C-static-library/build
 $
 ```
 
