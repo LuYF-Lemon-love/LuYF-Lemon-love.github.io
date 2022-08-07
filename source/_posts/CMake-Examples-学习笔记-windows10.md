@@ -12,6 +12,7 @@ tags:
   - Clang
   - make
   - 静态链接库
+  - 动态链接库
 categories: 学习笔记
 description: CMake Examples 项目的学习笔记，该项目介绍一些现代 CMake 的例子。
 cover: 'https://cos.luyf-lemon-love.space/images/弗雷尔卓德.png'
@@ -877,6 +878,216 @@ $ ./hello_binary.exe
 Hello Static Library!
 
 lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/C-static-library/build
+$
+```
+
+#### D-shared-library
+
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
+
+```shell
+cd ../..
+mkdir D-shared-library
+cd D-shared-library/
+```
+
+2. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+cmake_minimum_required(VERSION 3.5)
+
+project(hello_library)
+
+#########################################
+# Create a library
+#########################################
+
+# Generate the shared library from the library sources
+add_library(hello_library SHARED
+        src/Hello.cpp
+        )
+
+add_library(hello::library ALIAS hello_library)
+
+target_include_directories(hello_library
+        PUBLIC
+        ${PROJECT_SOURCE_DIR}/include
+        )
+
+#########################################
+# Create an executable
+#########################################
+
+# Add an executable with the above sources
+add_executable(hello_binary
+        src/main.cpp
+        )
+
+# link the new hello_library target with the hello_binary target
+target_link_libraries(hello_binary
+        PRIVATE
+        hello::library
+        )
+```
+
+3. 创建 `include/shared/Hello.h` 文件，粘贴下面代码。
+
+```c++
+#ifndef __HELLO_H__
+#define __HELLO_H__
+
+class Hello
+{
+public:
+        void print();
+};
+
+#endif
+```
+
+4. 创建 `src/Hello.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+
+#include "shared/Hello.h"
+
+void Hello::print()
+{
+        std::cout << "Hello Shared Library!" << std::endl;
+}
+```
+
+5. 创建 `src/main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include "shared/Hello.h"
+
+int main(int argc, char *argv[])
+{
+        Hello hi;
+        hi.print();
+        return 0;
+}
+```
+
+##### Introduction
+
+该示例首先创建并链接共享库，然后显示了如何创建别名目标。
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/D-shared-library
+$ tree
+.
+├── CMakeLists.txt
+├── include
+│   └── shared
+│       └── Hello.h
+└── src
+    ├── Hello.cpp
+    └── main.cpp
+
+3 directories, 4 files
+```
+
+- `CMakeLists.txt`: `CMake` 的配置文件。
+
+- `include/shared/Hello.h`: 头文件。
+
+- `src/Hello.cpp`: 源文件。
+
+- `src/main.cpp`: main 文件。
+
+##### Concepts
+
+###### Adding a Shared Library
+
+`add_library()` 函数也可以用于从某些源文件创建共享库。这称为：
+
+```cmake
+add_library(hello_library SHARED
+    src/Hello.cpp
+)
+```
+
+这将用于创建一个名为 `libhello_library.so` 的共享库，并将源文件传递给 `add_library()` 函数。
+
+###### Alias Target
+
+顾名思义，别名目标是目标的替代名称，可以在只读上下文中代替实际目标名称使用。
+
+```cmake
+add_library(hello::library ALIAS hello_library)
+```
+
+如下所示，这允许你在将目标与其他目标链接时使用别名引用目标。
+
+###### Linking a Shared Library
+
+链接共享库与链接静态库相同。创建可执行文件时，使用 `target_link_library()` 函数指向库。
+
+```cmake
+add_executable(hello_binary
+    src/main.cpp
+)
+
+target_link_libraries(hello_binary
+    PRIVATE
+        hello::library
+)
+```
+
+这将指示 `CMake` 使用别名目标名称将 `hello_library` 与 `hello_binary` 可执行文件链接起来。
+
+##### Building the Example
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/D-shared-library
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/D-shared-library
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/D-shared-library/build
+$ cmake .. -G "MSYS Makefiles"
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/cmake-examples/01-basic/D-shared-library/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/D-shared-library/build
+$ make
+[ 25%] Building CXX object CMakeFiles/hello_library.dir/src/Hello.cpp.obj
+[ 50%] Linking CXX shared library libhello_library.dll
+[ 50%] Built target hello_library
+[ 75%] Building CXX object CMakeFiles/hello_binary.dir/src/main.cpp.obj
+[100%] Linking CXX executable hello_binary.exe
+[100%] Built target hello_binary
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/D-shared-library/build
+$ ls
+cmake_install.cmake  hello_binary.exe        Makefile
+CMakeCache.txt       libhello_library.dll
+CMakeFiles           libhello_library.dll.a
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/D-shared-library/build
+$ ./hello_binary.exe
+Hello Shared Library!
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/D-shared-library/build
 $
 ```
 
