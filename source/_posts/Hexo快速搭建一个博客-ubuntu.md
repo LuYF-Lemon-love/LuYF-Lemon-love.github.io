@@ -8516,7 +8516,7 @@ hexo d
 
 3. 登录 轻量应用服务器控制台 后，选择实例卡片右上角的更多 > 重置密码。
 
-4. 使用密码登录 轻量应用服务器控制台
+4. 使用密码登录。
 
 ```shell
 ssh <username>@<IP address or domain name>
