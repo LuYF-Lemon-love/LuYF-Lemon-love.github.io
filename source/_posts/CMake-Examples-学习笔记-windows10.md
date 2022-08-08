@@ -40,6 +40,8 @@ date: 2022-08-05 21:35:50
 
 3. [Using CMake in MSYS2](https://www.msys2.org/docs/cmake/)
 
+4. [Step 4: Installing and Testing](https://cmake.org/cmake/help/latest/guide/tutorial/Installing%20and%20Testing.html)
+
 ### Prerequisites
 
 关于如何安装 `MSYS2` 可以参考官方文档 [MSYS2](https://www.msys2.org/) 或者 {% post_link GCC-on-Windows-windows10 %}。
@@ -1341,7 +1343,7 @@ $
 cmake --install . --prefix "/home/myuser/installdir"
 ```
 
-Navigate to the install directory and verify that the installed Tutorial runs.
+Navigate to the install directory and verify that the installed `cmake_examples_inst_bin` runs.
 
 ```shell
 lyf@DESKTOP-GV2QHKN MINGW64 /f/home/lyf/installdir
