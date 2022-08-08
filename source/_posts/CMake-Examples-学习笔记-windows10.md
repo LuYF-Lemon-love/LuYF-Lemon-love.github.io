@@ -1373,6 +1373,162 @@ lyf@DESKTOP-GV2QHKN MINGW64 /f/home/lyf/installdir/bin
 $
 ```
 
+#### F-build-type
+
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
+
+```shell
+cd ../..
+mkdir F-build-type
+cd F-build-type
+```
+
+2. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+# Set the minimum version of CMake that can be used
+# To find the cmake version run
+# $ cmake --version
+cmake_minimum_required(VERSION 3.5)
+
+# Set a default build type if none was specified
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+        message("Setting build type to 'RelWithDebInfo' as none was specified.")
+        set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "Choose the type of build." FORCE)
+        # Set the possible values of build type for cmake-gui
+        set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+endif()
+
+# Set the project name
+project(build_type)
+
+# Add an executable
+add_executable(cmake_examples_build_type main.cpp)
+```
+
+3. 创建 `main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+
+int main(int argc, char *argv[])
+{
+        std::cout << "Hello Build Type!" << std::endl;
+        return 0;
+}
+```
+
+##### Introduction
+
+`CMake` 具有许多内置的生成配置，可用于编译项目。它们指定优化级别以及调试信息是否要包含在二进制文件中。
+
+提供的级别包括：
+
+- `Release` - Adds the `-O3 -DNDEBUG` flags to the compiler.
+
+- `Debug` - Adds the `-g` flag.
+
+- `MinSizeRel` - Adds `-Os -DNDEBUG`.
+
+- `RelWithDebInfo` - Adds `-O2 -g -DNDEBUG` flags.
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type
+$ tree
+.
+├── CMakeLists.txt
+└── main.cpp
+
+0 directories, 2 files
+```
+
+- `CMakeLists.txt`: `CMake` 的配置文件。
+
+- `main.cpp`: main 文件。
+
+##### Concepts
+
+###### Set Build Type
+
+`Passing into cmake`
+
+```shell
+cmake .. -DCMAKE_BUILD_TYPE=Release
+```
+
+###### Set Default Build Type
+
+`CMake` 提供的默认生成类型是不包含用于优化的编译器标志。对于某些项目，您可能希望设置默认生成类型，这样就不必记得设置它。
+
+为此，你可以将以下内容添加到顶级 `CMakeLists.txt`。
+
+```cmake
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  message("Setting build type to 'RelWithDebInfo' as none was specified.")
+  set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "Choose the type of build." FORCE)
+  # Set the possible values of build type for cmake-gui
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release"
+    "MinSizeRel" "RelWithDebInfo")
+endif()
+```
+
+##### Building the Example
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build
+$ cmake .. -G "MSYS Makefiles"
+Setting build type to 'RelWithDebInfo' as none was specified.
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build
+$ make VERBOSE=1
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -S/F/vscode/cpp_projects/cmake-examples/01-basic/F-build-type -B/F/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build --check-build-system CMakeFiles/Makefile.cmake 0
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build/CMakeFiles /F/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build//CMakeFiles/progress.marks
+make  -f CMakeFiles/Makefile2 all
+make[1]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build”
+make  -f CMakeFiles/cmake_examples_build_type.dir/build.make CMakeFiles/cmake_examples_build_type.dir/depend
+make[2]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build”
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_depends "MSYS Makefiles" /F/vscode/cpp_projects/cmake-examples/01-basic/F-build-type /F/vscode/cpp_projects/cmake-examples/01-basic/F-build-type /F/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build /F/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build /F/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build/CMakeFiles/cmake_examples_build_type.dir/DependInfo.cmake --color=
+make[2]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build”
+make  -f CMakeFiles/cmake_examples_build_type.dir/build.make CMakeFiles/cmake_examples_build_type.dir/build
+make[2]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build”
+[ 50%] Building CXX object CMakeFiles/cmake_examples_build_type.dir/main.cpp.obj
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe   -O2 -g -DNDEBUG -MD -MT CMakeFiles/cmake_examples_build_type.dir/main.cpp.obj -MF CMakeFiles/cmake_examples_build_type.dir/main.cpp.obj.d -o CMakeFiles/cmake_examples_build_type.dir/main.cpp.obj -c /F/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/main.cpp
+[100%] Linking CXX executable cmake_examples_build_type.exe
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E rm -f CMakeFiles/cmake_examples_build_type.dir/objects.a
+/D/lyf_computer_language/msys64/mingw64/bin/ar.exe qc CMakeFiles/cmake_examples_build_type.dir/objects.a "CMakeFiles/cmake_examples_build_type.dir/main.cpp.obj"
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe -O2 -g -DNDEBUG -Wl,--whole-archive CMakeFiles/cmake_examples_build_type.dir/objects.a -Wl,--no-whole-archive -o cmake_examples_build_type.exe -Wl,--out-implib,libcmake_examples_build_type.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+make[2]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build”
+[100%] Built target cmake_examples_build_type
+make[1]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build”
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build/CMakeFiles 0
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build
+$
+```
+
 ### 结语
 
 第二十二篇博文写完，开心！！！！
