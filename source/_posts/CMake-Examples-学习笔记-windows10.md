@@ -1091,6 +1091,286 @@ lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/D-sha
 $
 ```
 
+#### E-installing
+
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
+
+```shell
+cd ../..
+mkdir E-installing
+cd E-installing
+```
+
+2. 创建 `cmake-examples.conf` 文件，粘贴下面代码。
+
+```conf
+# Sample configuration file that could be installed
+```
+
+3. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+cmake_minimum_required(VERSION 3.5)
+
+project(cmake_examples_install)
+
+#########################################
+# Create a library
+#########################################
+
+# Generate the shared library from the library sources
+add_library(cmake_examples_inst SHARED
+        src/Hello.cpp
+        )
+
+target_include_directories(cmake_examples_inst
+        PUBLIC
+        ${PROJECT_SOURCE_DIR}/include
+        )
+
+###########################################
+# Create an executable
+###########################################
+
+# Add an executable with the above sources
+add_executable(cmake_examples_inst_bin
+        src/main.cpp
+        )
+
+# link the new hello_library target with the hello_binary target
+target_link_libraries(cmake_examples_inst_bin
+        PRIVATE
+        cmake_examples_inst
+        )
+
+###################################################
+# Install
+###################################################
+
+# Binaries
+install(TARGETS cmake_examples_inst_bin
+        DESTINATION bin)
+
+# Library
+# Note: may not work on windows
+install(TARGETS cmake_examples_inst
+        LIBRARY DESTINATION lib)
+
+# Header files
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+        DESTINATION include)
+# Cofig
+install(FILES cmake-examples.conf
+        DESTINATION etc)
+```
+
+4. 创建 `include/installing/Hello.h` 文件，粘贴下面代码。
+
+```c++
+#ifndef __HELLO_H__
+#define __HELLO_H__
+
+class Hello
+{
+public:
+        void print();
+};
+
+#endif
+```
+
+5. 创建 `src/Hello.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+
+#include "installing/Hello.h"
+
+void Hello::print()
+{
+        std::cout << "Hello Install!" << std::endl;
+}
+```
+
+6. 创建 `src/main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include "installing/Hello.h"
+
+int main(int argc, char *argv[])
+{
+        Hello hi;
+        hi.print();
+        return 0;
+}
+```
+
+##### Introduction
+
+此示例演示如何生成 `make install` 目标以在系统上安装文件和二进制文件。
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/E-installing
+$ tree
+.
+├── cmake-examples.conf
+├── CMakeLists.txt
+├── include
+│   └── installing
+│       └── Hello.h
+└── src
+    ├── Hello.cpp
+    └── main.cpp
+
+3 directories, 5 files
+```
+
+- `CMakeLists.txt`: `CMake` 的配置文件。
+
+- `cmake-examples.conf`: 配置文件。
+
+- `include/installing/Hello.h`: 头文件。
+
+- `src/Hello.cpp`: 源文件。
+
+- `src/main.cpp`: main 文件。
+
+##### Concepts
+
+###### Installing
+
+`CMake` 提供了添加 `make install` 目标的功能，以允许用户安装 `二进制文件`，`库` 和 `其他文件`。基本安装位置由变量 `CMAKE_INSTALL_PREFIX` 控制，该变量可以使用 `ccmake` 或通过调用 `cmake` (`cmake .. -DCMAKE_INSTALL_PREFIX=/install/location`) 来设置。
+
+安装的文件由 `install()` 函数控制。
+
+```cmake
+install (TARGETS cmake_examples_inst_bin
+    DESTINATION bin)
+```
+
+将从目标 `cmake_examples_inst_bin` 生成的 `二进制文件` 安装到 `${CMAKE_INSTALL_PREFIX}/bin` 目录中。
+
+```cmake
+install (TARGETS cmake_examples_inst
+    LIBRARY DESTINATION lib)
+```
+
+将从目标 `cmake_examples_inst` 生成的 `共享库` 安装到 `${CMAKE_INSTALL_PREFIX}/lib` 目录中。
+
+```cmake
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+    DESTINATION include)
+```
+
+将用于针对 `cmake_examples_inst` 库进行开发的 `头文件` 安装到 `${CMAKE_INSTALL_PREFIX}/include` 目录中。
+
+```cmake
+install (FILES cmake-examples.conf
+    DESTINATION etc)
+```
+
+将 `配置文件` 安装到 `${CMAKE_INSTALL_PREFIX}/etc` 目录中。
+
+##### Building the Example
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/E-installing
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/E-installing
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/E-installing/build
+$ cmake .. -G "MSYS Makefiles"
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/cmake-examples/01-basic/E-installing/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/E-installing/build
+$ make
+[ 25%] Building CXX object CMakeFiles/cmake_examples_inst.dir/src/Hello.cpp.obj
+[ 50%] Linking CXX shared library libcmake_examples_inst.dll
+[ 50%] Built target cmake_examples_inst
+[ 75%] Building CXX object CMakeFiles/cmake_examples_inst_bin.dir/src/main.cpp.obj
+[100%] Linking CXX executable cmake_examples_inst_bin.exe
+[100%] Built target cmake_examples_inst_bin
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/E-installing/build
+$ cmake --install . --prefix "/f/home/lyf/installdir/"
+-- Install configuration: ""
+-- Installing: F:/home/lyf/installdir/bin/cmake_examples_inst_bin.exe
+-- Installing: F:/home/lyf/installdir/lib/libcmake_examples_inst.dll.a
+-- Installing: F:/home/lyf/installdir/bin/libcmake_examples_inst.dll
+-- Installing: F:/home/lyf/installdir/include
+-- Installing: F:/home/lyf/installdir/include/installing
+-- Installing: F:/home/lyf/installdir/include/installing/Hello.h
+-- Installing: F:/home/lyf/installdir/etc/cmake-examples.conf
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/E-installing/build
+$ ls
+cmake_examples_inst_bin.exe  install_manifest.txt
+cmake_install.cmake          libcmake_examples_inst.dll
+CMakeCache.txt               libcmake_examples_inst.dll.a
+CMakeFiles                   Makefile
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/E-installing/build
+$ ./cmake_examples_inst_bin.exe
+Hello Install!
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/E-installing/build
+$
+```
+
+>The CMake variable `CMAKE_INSTALL_PREFIX` is used to determine the root of where the files will be installed. If using the `cmake --install` command, the installation prefix can be overridden via the `--prefix` argument. For example:
+
+```shell
+cmake --install . --prefix "/home/myuser/installdir"
+```
+
+Navigate to the install directory and verify that the installed Tutorial runs.
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/home/lyf/installdir
+$ tree
+.
+├── bin
+│   ├── cmake_examples_inst_bin.exe
+│   └── libcmake_examples_inst.dll
+├── etc
+│   └── cmake-examples.conf
+├── include
+│   └── installing
+│       └── Hello.h
+└── lib
+    └── libcmake_examples_inst.dll.a
+
+5 directories, 5 files
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/home/lyf/installdir
+$ cd bin/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/home/lyf/installdir/bin
+$ ./cmake_examples_inst_bin.exe
+Hello Install!
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/home/lyf/installdir/bin
+$
+```
+
 ### 结语
 
 第二十二篇博文写完，开心！！！！
