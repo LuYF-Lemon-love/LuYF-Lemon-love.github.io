@@ -1526,6 +1526,15 @@ make[1]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/F-build-t
 /D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build/CMakeFiles 0
 
 lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build
+$ ls
+cmake_examples_build_type.exe  CMakeCache.txt  Makefile
+cmake_install.cmake            CMakeFiles
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build
+$ ./cmake_examples_build_type.exe
+Hello Build Type!
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/F-build-type/build
 $
 ```
 
