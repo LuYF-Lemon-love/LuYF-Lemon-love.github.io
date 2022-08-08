@@ -1538,6 +1538,193 @@ lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/F-bui
 $
 ```
 
+#### G-compile-flags
+
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
+
+```shell
+cd ../..
+mkdir G-compile-flags
+cd G-compile-flags
+```
+
+2. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+cmake_minimum_required(VERSION 3.5)
+
+# Set a default C++ compile flag
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEX2" CACHE STRING "Set C++ Compiler Flags" FORCE)
+
+# Set the project name
+project(compile_flags)
+
+# Add an executable
+add_executable(cmake_examples_compile_flags main.cpp)
+
+target_compile_definitions(cmake_examples_compile_flags
+        PRIVATE EX3)
+```
+
+3. 创建 `main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include<iostream>
+
+int main(int argc, char *argv[])
+{
+        std::cout << "Hello Compile Flags!" << std::endl;
+
+        // only print if compile flag set
+#ifdef EX2
+        std::cout << "Hello Compile Flag EX2!" << std::endl;
+#endif
+
+#ifdef EX3
+        std::cout << "Hello Compile Flag Ex3!" << std::endl;
+#endif
+
+        return 0;
+}
+```
+
+##### Introduction
+
+`CMake` 支持以多种不同的方式设置编译标志：
+
+- 使用 `target_compile_definitions()` 函数。
+
+- 使用 `CMAKE_C_FLAGS` 和 `CMAKE_CXX_FLAGS` 变量。
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags
+$ tree
+.
+├── CMakeLists.txt
+└── main.cpp
+
+0 directories, 2 files
+```
+
+- `CMakeLists.txt`: `CMake` 的配置文件。
+
+- `main.cpp`: main 文件。
+
+##### Concepts
+
+###### Set Per-Target C++ Flags
+
+在现代 `CMake` 中设置 `C++` 标志的推荐方法是使用 `per-target flags`，这些标志可以通过 `target_compile_definitions()` 函数填充到其他目标。这将填充库的 `INTERFACE_COMPILE_DEFINITIONS`，并根据范围将定义推送到链接的目标。
+
+```cmake
+target_compile_definitions(cmake_examples_compile_flags
+    PRIVATE EX3
+)
+```
+
+这将导致编译器在编译目标时添加定义 `-DEX3`。
+
+如果目标是一个库，并且已选择作用域 `PUBLIC` 或 `INTERFACE`，则该定义也将包含在链接此目标的任何可执行文件中。
+
+对于编译器选项，您还可以使用 `target_compile_options()` 函数。
+
+###### Set Default C++ Flags
+
+`CMAKE_CXX_FLAGS` 的默认值为空或包含生成类型的适当标志。
+
+若要设置额外的默认编译标志，可以将以下内容添加到顶级 `CMakeLists.txt`。
+
+```cmake
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEX2" CACHE STRING "Set C++ Compiler Flags" FORCE)
+```
+
+与 `CMAKE_CXX_FLAGS` 类似，其他选项包括：
+
+- 使用 `CMAKE_C_FLAGS` 设置 `C` 编译器标志。
+
+- 使用 `CMAKE_LINKER_FLAGS` 设置链接器标志。
+
+>The values `CACHE STRING "Set C++ Compiler Flags" FORCE` from the above command are used to force this variable to be set in the `CMakeCache.txt` file.
+
+Once set the `CMAKE_C_FLAGS` and `CMAKE_CXX_FLAGS` will set a compiler flag / definition globally for all targets in this directory or any included sub-directories. This method is not recommended for general usage now and the `target_compile_definitions` function is preferred.
+
+###### Set CMake Flags
+
+Similar to the `build type` a global C++ compiler flag can be set using the following methods.
+
+`Passing into cmake`
+
+```shell
+cmake .. -DCMAKE_CXX_FLAGS="-DEX3"
+```
+
+##### Building the Example
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build
+$ cmake .. -G "MSYS Makefiles"
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build
+$ make VERBOSE=1
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -S/F/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags -B/F/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build --check-build-system CMakeFiles/Makefile.cmake 0
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build/CMakeFiles /F/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build//CMakeFiles/progress.marks
+make  -f CMakeFiles/Makefile2 all
+make[1]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build”
+make  -f CMakeFiles/cmake_examples_compile_flags.dir/build.make CMakeFiles/cmake_examples_compile_flags.dir/depend
+make[2]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build”
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_depends "MSYS Makefiles" /F/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags /F/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags /F/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build /F/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build /F/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build/CMakeFiles/cmake_examples_compile_flags.dir/DependInfo.cmake --color=
+make[2]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build”
+make  -f CMakeFiles/cmake_examples_compile_flags.dir/build.make CMakeFiles/cmake_examples_compile_flags.dir/build
+make[2]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build”
+[ 50%] Building CXX object CMakeFiles/cmake_examples_compile_flags.dir/main.cpp.obj
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe -DEX3  -DEX2 -MD -MT CMakeFiles/cmake_examples_compile_flags.dir/main.cpp.obj -MF CMakeFiles/cmake_examples_compile_flags.dir/main.cpp.obj.d -o CMakeFiles/cmake_examples_compile_flags.dir/main.cpp.obj -c /F/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/main.cpp
+[100%] Linking CXX executable cmake_examples_compile_flags.exe
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E rm -f CMakeFiles/cmake_examples_compile_flags.dir/objects.a
+/D/lyf_computer_language/msys64/mingw64/bin/ar.exe qc CMakeFiles/cmake_examples_compile_flags.dir/objects.a "CMakeFiles/cmake_examples_compile_flags.dir/main.cpp.obj"
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe  -DEX2 -Wl,--whole-archive CMakeFiles/cmake_examples_compile_flags.dir/objects.a -Wl,--no-whole-archive -o cmake_examples_compile_flags.exe -Wl,--out-implib,libcmake_examples_compile_flags.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+make[2]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build”
+[100%] Built target cmake_examples_compile_flags
+make[1]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build”
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build/CMakeFiles 0
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build
+$ ls
+cmake_examples_compile_flags.exe  CMakeCache.txt  Makefile
+cmake_install.cmake               CMakeFiles
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build
+$ ./cmake_examples_compile_flags.exe
+Hello Compile Flags!
+Hello Compile Flag EX2!
+Hello Compile Flag Ex3!
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build
+$
+```
+
 ### 结语
 
 第二十二篇博文写完，开心！！！！
