@@ -2059,7 +2059,7 @@ Below is an example of passing the compiler via `the command line`.
 cmake .. -DCMAKE_C_COMPILER=clang-3.6 -DCMAKE_CXX_COMPILER=clang++-3.6
 ```
 
-After setting these options, when your run make clang will be used to compile your binary. 
+After setting these options, when your run `make` clang will be used to compile your binary. 
 
 ##### Building the Examples
 
