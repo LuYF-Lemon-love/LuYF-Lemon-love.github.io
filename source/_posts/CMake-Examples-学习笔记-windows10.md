@@ -44,6 +44,8 @@ date: 2022-08-05 21:35:50
 
 ### Prerequisites
 
+本博文使用 `MSYS2` 作为运行 `C++` 和 `CMake` 的工作环境。
+
 关于如何安装 `MSYS2` 可以参考官方文档 [MSYS2](https://www.msys2.org/) 或者 {% post_link GCC-on-Windows-windows10 %}。
 
 运行开始菜单的 “MSYS2 MSYS”。安装 CMake。
@@ -53,9 +55,9 @@ pacman -S mingw-w64-x86_64-cmake
 pacman -S make
 ```
 
-`MSYS2` 的 `cmake` 可以参考 [Using CMake in MSYS2](https://www.msys2.org/docs/cmake/)。
+`MSYS2` 的 `CMake` 可以参考 [Using CMake in MSYS2](https://www.msys2.org/docs/cmake/)。
 
-`MSYS2` 的 `cmake` 默认使用 `Ninja` 作为构建工具。可以通过 `-G` 指定。
+`MSYS2` 的 `CMake` 默认使用 `Ninja` 作为构建工具。可以通过 `-G` 指定。
 
 When running the CMake configuration command, it's recommended to explicitly specify the desired build file generator with the `-G` option. MSYS2 provided CMake defaults to Ninja (but this is not the default in upstream CMake, so it's safest to explicitly specify it).
 
@@ -1722,6 +1724,250 @@ Hello Compile Flag EX2!
 Hello Compile Flag Ex3!
 
 lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/G-compile-flags/build
+$
+```
+
+#### H-third-party-library
+
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
+
+```shell
+cd ../..
+mkdir H-third-party-library
+cd H-third-party-library
+```
+
+2. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+cmake_minimum_required(VERSION 3.5)
+
+# Set the project name
+project(third_party_include)
+
+# find a boost install with the libraries filesystem and system
+find_package(Boost 1.46.1 REQUIRED COMPONENTS filesystem system)
+
+# check if boost was found
+if(Boost_FOUND)
+        message("boost found")
+else()
+        message(FATAL_ERROR "Cannot find Boost")
+endif()
+
+# Add an executable
+add_executable(third_party_include main.cpp)
+
+# link against the boost libraries
+target_link_libraries(third_party_include
+        PRIVATE
+        Boost::filesystem
+        )
+```
+
+3. 创建 `main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+#include <boost/shared_ptr.hpp>
+#include <boost/filesystem.hpp>
+
+int main(int argc, char *argv[])
+{
+        std::cout << "Hello Third Party Include!" << std::endl;
+
+        // use a shared ptr
+        boost::shared_ptr<int> isp(new int(4));
+
+        // trivial use of boost filesystem
+        boost::filesystem::path path = "/usr/share/cmake/modules";
+        if(path.is_relative())
+        {
+                std::cout << "Path is relative" << std::endl;
+        }
+        else
+        {
+                std::cout << "Path is not relative" << std::endl;
+        }
+
+        return 0;
+}
+```
+
+##### Introduction
+
+几乎所有重要的项目都需要包含第三方库、头文件或程序。`CMake` 支持使用 `find_package()` 函数查找这些工具的路径。这将从 `CMAKE_MODULE_PATH` 中的文件夹列表中搜索格式为 `FindXXX.cmake` 的 `CMake` 模块。在 `linux` 上，默认搜索路径将包括 `/usr/share/cmake/Modules`。
+
+本教程中的文件如下：
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/H-third-party-library
+$ tree
+.
+├── CMakeLists.txt
+└── main.cpp
+
+0 directories, 2 files
+```
+
+- `CMakeLists.txt`: `CMake` 的配置文件。
+
+- `main.cpp`: main 文件。
+
+##### Requirements
+
+此示例要求 `boost` 安装在默认系统位置。
+
+```shell
+pacman -S mingw-w64-x86_64-boost
+```
+
+##### Concepts
+
+###### Finding a Package
+
+As mentioned above the `find_package()` function will search for CMake modules in the formant "FindXXX.cmake" from the list of folders in `CMAKE_MODULE_PATH`. The exact format of the arguments to `find_package` will depend on the module you are looking for. This is typically documented at the top of the `FindXXX.cmake` file.
+
+A basic example of finding `boost` is below:
+
+```cmake
+find_package(Boost 1.46.1 REQUIRED COMPONENTS filesystem system)
+```
+
+The arguments are:
+
+- `Boost` - Name of the library. This is part of used to find the module file `FindBoost.cmake`.
+
+- `1.46.1` - The minimum version of `boost` to find.
+
+- `REQUIRED` - Tells the module that this is required and to fail if it cannot be found.
+
+- `COMPONENTS` - The list of components to find in the library.
+
+`Boost` includes can take more arguments and also make use of other variables. 
+
+###### Checking if the package is found
+
+Most included packages will set a variable `XXX_FOUND`, which can be used to check if the package is available on the system.
+
+In this example the variable is `Boost_FOUND`:
+
+```cmake
+if(Boost_FOUND)
+    message ("boost found")
+    include_directories(${Boost_INCLUDE_DIRS})
+else()
+    message (FATAL_ERROR "Cannot find Boost")
+endif()
+```
+
+###### Exported Variables
+
+After a package is found it will often export variables which can inform the user where to find the library, header, or executable files. Similar to the `XXX_FOUND` variable, these are package specific and are typically documented at the top of the `FindXXX.cmake` file.
+
+The variables exported in this example include:
+
+- `Boost_INCLUDE_DIRS` - The path to the boost header files.
+
+In some cases you can also check these variables by examining the cache using ccmake or cmake-gui.
+
+###### Alias / Imported targets
+
+Most modern CMake libraries export ALIAS targets in their module files. The benefit of imported targets are that they can also populate include directories and linked libraries.
+
+For example, starting from v3.5+ of CMake, the Boost module supports this. Similar to using your own ALIAS target for libraires, an ALIAS in a module can make referencing found targets easier.
+
+In the case of Boost, all targets are exported using the `Boost::` identifier and then the name of the subsystem. For example you can use:
+
+- `Boost::boost` for header only libraries
+
+- `Boost::system` for the boost system library.
+
+- `Boost::filesystem` for filesystem library.
+
+As with your own targets, these targets include their dependencies, so linking against `Boost::filesystem` will automatically add `Boost::boost` and `Boost::system` dependencies.
+
+To link against an imported target you can use the following:
+
+```cmake
+target_link_libraries(third_party_include
+        PRIVATE
+        Boost::filesystem
+)
+```
+
+###### Non-alias targets
+
+While most modern libraries use imported targets, not all modules have been updated. In the case where a library hasn’t been updated you will often find the following variables available:
+
+- `xxx_INCLUDE_DIRS` - A variable pointing to the include directory for the library.
+
+- `xxx_LIBRARY` - A variable pointing to the library path.
+
+These can then be added to your `target_include_directories` and `target_link_libraries` as:
+
+```cmake
+# Include the boost headers
+target_include_directories( third_party_include
+    PRIVATE ${Boost_INCLUDE_DIRS}
+)
+
+# link against the boost libraries
+target_link_libraries( third_party_include
+    PRIVATE
+    ${Boost_SYSTEM_LIBRARY}
+    ${Boost_FILESYSTEM_LIBRARY}
+)
+```
+
+##### Building the Example
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/H-third-party-library
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/H-third-party-library
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/H-third-party-library/build
+$ cmake .. -G "MSYS Makefiles"
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found Boost: D:/lyf_computer_language/msys64/mingw64/include (found suitable version "1.79.0", minimum required is "1.46.1") found components: filesystem system
+boost found
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/cmake-examples/01-basic/H-third-party-library/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/H-third-party-library/build
+$ make
+[ 50%] Building CXX object CMakeFiles/third_party_include.dir/main.cpp.obj
+[100%] Linking CXX executable third_party_include.exe
+[100%] Built target third_party_include
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/H-third-party-library/build
+$ ls
+cmake_install.cmake  CMakeFiles  third_party_include.exe
+CMakeCache.txt       Makefile
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/H-third-party-library/build
+$ ./third_party_include.exe
+Hello Third Party Include!
+Path is relative
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/H-third-party-library/build
 $
 ```
 
