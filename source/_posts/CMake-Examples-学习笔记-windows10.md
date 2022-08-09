@@ -1971,6 +1971,147 @@ lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/H-thi
 $
 ```
 
+#### I-compiling-with-clang
+
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MSYS”，安装 `Clang toolchain`。
+
+```shell
+pacman -S --needed base-devel mingw-w64-clang-x86_64-toolchain
+pacman -S cmake
+```
+
+2. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/cmake-examples/01-basic/
+mkdir I-compiling-with-clang
+cd I-compiling-with-clang
+```
+
+3. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+# Set the minimum version of CMake that can be used
+# To find the cmake version run
+# $ cmake --version
+cmake_minimum_required(VERSION 3.5)
+
+# Set the project name
+project(hello_cmake)
+
+# Add an executable
+add_executable(hello_cmake main.cpp)
+```
+
+4. 创建 `main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+
+int main(int argc, char *argv[])
+{
+        std::cout << "Hello CMake!" << std::endl;
+        return 0;
+}
+```
+
+##### Introduction
+
+使用 `CMake` 构建时，可以设置 `C` 和 `C++` 编译器。
+
+本教程中的文件如下：
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/01-basic/I-compiling-with-clang
+$ tree
+.
+├── CMakeLists.txt
+└── main.cpp
+
+0 directories, 2 files
+```
+
+- `CMakeLists.txt`: `CMake` 的配置文件。
+
+- `main.cpp`: main 文件。
+
+##### Concepts
+
+###### Compiler Option
+
+`CMake` exposes options to control the programs used to compile and link your code. These programs include:
+
+- `CMAKE_C_COMPILER` - The program used to compile `c` code.
+
+- `CMAKE_CXX_COMPILER` - The program used to compile `c++` code.
+
+- `CMAKE_LINKER` - The program used to link your binary.
+
+###### Setting Flags
+
+As described in the `Build Type` example, you can set `CMake options` using either a cmake gui or by passing from the command line.
+
+Below is an example of passing the compiler via `the command line`.
+
+```shell
+cmake .. -DCMAKE_C_COMPILER=clang-3.6 -DCMAKE_CXX_COMPILER=clang++-3.6
+```
+
+After setting these options, when your run make clang will be used to compile your binary. 
+
+##### Building the Examples
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/01-basic/I-compiling-with-clang
+$ mkdir build.clang
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/01-basic/I-compiling-with-clang
+$ cd build.clang/
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/01-basic/I-compiling-with-clang/build.clang
+$ cmake .. -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+-- The C compiler identification is Clang 14.0.4
+-- The CXX compiler identification is Clang 14.0.4
+System is unknown to cmake, create:
+Platform/MINGW64_NT-10.0-19044 to use this system, please post your config file on discourse.cmake.org so it can be added to cmake
+-- Detecting C compiler ABI info
+System is unknown to cmake, create:
+Platform/MINGW64_NT-10.0-19044 to use this system, please post your config file on discourse.cmake.org so it can be added to cmake
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /clang64/bin/clang.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+System is unknown to cmake, create:
+Platform/MINGW64_NT-10.0-19044 to use this system, please post your config file on discourse.cmake.org so it can be added to cmake
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /clang64/bin/clang++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /f/vscode/cpp_projects/cmake-examples/01-basic/I-compiling-with-clang/build.clang
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/01-basic/I-compiling-with-clang/build.clang
+$ make
+[ 50%] Building CXX object CMakeFiles/hello_cmake.dir/main.cpp.obj
+[100%] Linking CXX executable hello_cmake
+[100%] Built target hello_cmake
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/01-basic/I-compiling-with-clang/build.clang
+$ ls
+cmake_install.cmake  CMakeCache.txt  CMakeFiles  hello_cmake.exe  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/01-basic/I-compiling-with-clang/build.clang
+$ ./hello_cmake.exe
+Hello CMake!
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/01-basic/I-compiling-with-clang/build.clang
+$
+```
+
 ### 结语
 
 第二十二篇博文写完，开心！！！！
