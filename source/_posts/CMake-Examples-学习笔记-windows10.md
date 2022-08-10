@@ -2828,7 +2828,7 @@ int main(int argc, char *argv[])
 
 ###### Introduction
 
-This example shows how to set the C++ standard using the `CMAKE_CXX_STANDARD` variable. This is available since CMake v3.1
+This example shows how to set the C++ standard using the `CMAKE_CXX_STANDARD` variable. This is available since CMake v3.1.
 
 The files in this tutorial are below:
 
