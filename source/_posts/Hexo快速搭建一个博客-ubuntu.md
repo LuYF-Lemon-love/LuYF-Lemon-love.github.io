@@ -977,7 +977,7 @@ setInterval(function () {
 ```js
 // 动态心跳
 $(document).ready(function(e){
-    $('.copyright').html('©2022 <i class="fa-fw fas fa-heartbeat card-announcement-animation cc_pointer"></i> By LuYF-Lemon-love');
+    $('.copyright').html('©2022 - 2022 <i class="fa-fw fas fa-heartbeat fa-beat" style="color: #f92672;"></i> By LuYF-Lemon-love');
 })
 
 $(document).ready(function(e){
