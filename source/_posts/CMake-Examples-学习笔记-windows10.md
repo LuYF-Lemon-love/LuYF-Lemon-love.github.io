@@ -2783,6 +2783,143 @@ lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp
 $
 ```
 
+##### ii-cxx-standard
+
+###### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/
+mkdir ii-cxx-standard
+cd ii-cxx-standard
+```
+
+2. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+# Set the minimum version of CMake that can be used
+# To find the cmake version run
+# $ cmake --version
+cmake_minimum_required(VERSION 3.1)
+
+# Set the project name
+project(hello_cpp11)
+
+# Set the C++ standard to C++ 11
+set(CMAKE_CXX_STANDARD 11)
+
+# Add an executable
+add_executable(hello_cpp11 main.cpp)
+```
+
+3. 创建 `main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+
+int main(int argc, char *argv[])
+{
+        auto message = "Hello C++11";
+        std::cout << message << std::endl;
+        return 0;
+}
+```
+
+###### Introduction
+
+This example shows how to set the C++ standard using the `CMAKE_CXX_STANDARD` variable. This is available since CMake v3.1
+
+The files in this tutorial are below:
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard
+$ tree
+.
+├── CMakeLists.txt
+└── main.cpp
+
+0 directories, 2 files
+```
+
+- `CMakeLists.txt` - Contains the CMake commands you wish to run.
+
+- `main.cpp` - A simple "Hello World" cpp file targeting C++11.
+
+###### Concepts
+
+**Using CXX_STANDARD property**
+
+Setting the `CMAKE_CXX_STANDARD` variable causes the `CXX_STANDARD` property on all targets. This causes CMake to set the appropriate flag at compille time.
+
+The `CMAKE_CXX_STANDARD` variable falls back to the closest appropriate standard without a failure. For example, if you request `-std=gnu11` you may end up with `-std=gnu0x`.
+
+This can result in an unexpected failure at compile time.
+
+###### Building the Examples
+
+Below is sample output from building this example.
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build
+$ cmake .. -G "MSYS Makefiles"
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build
+$ make VERBOSE=1
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -S/F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard -B/F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build --check-build-system CMakeFiles/Makefile.cmake 0
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build/CMakeFiles /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build//CMakeFiles/progress.marks
+make  -f CMakeFiles/Makefile2 all
+make[1]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build”
+make  -f CMakeFiles/hello_cpp11.dir/build.make CMakeFiles/hello_cpp11.dir/depend
+make[2]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build”
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_depends "MSYS Makefiles" /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build/CMakeFiles/hello_cpp11.dir/DependInfo.cmake --color=
+make[2]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build”
+make  -f CMakeFiles/hello_cpp11.dir/build.make CMakeFiles/hello_cpp11.dir/build
+make[2]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build”
+[ 50%] Building CXX object CMakeFiles/hello_cpp11.dir/main.cpp.obj
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe   -std=gnu++11 -MD -MT CMakeFiles/hello_cpp11.dir/main.cpp.obj -MF CMakeFiles/hello_cpp11.dir/main.cpp.obj.d -o CMakeFiles/hello_cpp11.dir/main.cpp.obj -c /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/main.cpp
+[100%] Linking CXX executable hello_cpp11.exe
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E rm -f CMakeFiles/hello_cpp11.dir/objects.a
+/D/lyf_computer_language/msys64/mingw64/bin/ar.exe qc CMakeFiles/hello_cpp11.dir/objects.a "CMakeFiles/hello_cpp11.dir/main.cpp.obj"
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe -Wl,--whole-archive CMakeFiles/hello_cpp11.dir/objects.a -Wl,--no-whole-archive -o hello_cpp11.exe -Wl,--out-implib,libhello_cpp11.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+make[2]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build”
+[100%] Built target hello_cpp11
+make[1]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build”
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build/CMakeFiles 0
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build
+$ ls
+cmake_install.cmake  CMakeCache.txt  CMakeFiles  hello_cpp11.exe  Makefile
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build
+$ ./hello_cpp11.exe
+Hello C++11
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/ii-cxx-standard/build
+$
+```
+
 ### 结语
 
 第二十二篇博文写完，开心！！！！
