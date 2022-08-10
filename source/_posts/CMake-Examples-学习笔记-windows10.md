@@ -2417,6 +2417,173 @@ lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/J-bui
 $
 ```
 
+#### K-imported-targets
+
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/cmake-examples/01-basic/
+mkdir K-imported-targets
+cd K-imported-targets
+```
+
+2. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+cmake_minimum_required(VERSION 3.5)
+
+# Set the project name
+project(imported_targets)
+
+# find a boost install with the libraries filesystem and system
+find_package(Boost 1.46.1 REQUIRED COMPONENTS filesystem system)
+
+# check if boost was found
+if(Boost_FOUND)
+        message("boost found")
+else()
+        message(FATAL_ERROR "Cannot find Boost")
+endif()
+
+# Add an executable
+add_executable(imported_targets main.cpp)
+
+# link against the boost libraries
+target_link_libraries(imported_targets
+        PRIVATE
+        Boost::filesystem
+        )
+```
+
+3. 创建 `main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+#include <boost/shared_ptr.hpp>
+#include <boost/filesystem.hpp>
+
+int main(int argc, char *argv[])
+{
+        std::cout << "Hello Third Party Include!" << std::endl;
+
+        // use a shared ptr
+        boost::shared_ptr<int> isp(new int(4));
+
+        // trivial use of boost filesystem
+        boost::filesystem::path path = "/usr/share/cmake/modules";
+        if(path.is_relative())
+        {
+                std::cout << "Path is relative" << std::endl;
+        }
+        else
+        {
+                std::cout << "Path is not relative" << std::endl;
+        }
+
+        return 0;
+}
+```
+
+##### Introduction
+
+As previously mentioned in `the third party library`, newer versions of CMake allow you to link third party libraries using `imported ALIAS targets`.
+
+The files in this tutorial are below:
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/K-imported-targets
+$ tree
+.
+├── CMakeLists.txt
+└── main.cpp
+
+0 directories, 2 files
+```
+
+- `CMakeLists.txt` - Contains the CMake commands you wish to run.
+
+- `main.cpp` - The source file with main.
+
+##### Requirements
+
+This example requires the following:
+
+- CMake v3.5+
+
+- The boost libraries to be installed in a default system location.
+
+```shell
+pacman -S mingw-w64-x86_64-boost
+```
+
+##### Concepts
+
+###### Imported Target
+
+Imported targets are `read-only targets` that are exported by `FindXXX modules`.
+
+To include `boost filesystem` you can do the following:
+
+```cmake
+target_link_libraries( imported_targets
+        PRIVATE
+        Boost::filesystem
+)
+```
+
+Linking against `Boost::filesystem` will automatically add `Boost::boost` and `Boost::system` dependencies.
+
+##### Building the Example
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/K-imported-targets
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/K-imported-targets
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/K-imported-targets/build
+$ cmake .. -G "MSYS Makefiles"
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found Boost: D:/lyf_computer_language/msys64/mingw64/include (found suitable version "1.79.0", minimum required is "1.46.1") found components: filesystem system
+boost found
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/cmake-examples/01-basic/K-imported-targets/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/K-imported-targets/build
+$ make
+[ 50%] Building CXX object CMakeFiles/imported_targets.dir/main.cpp.obj
+[100%] Linking CXX executable imported_targets.exe
+[100%] Built target imported_targets
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/K-imported-targets/build
+$ ls
+cmake_install.cmake  CMakeFiles            Makefile
+CMakeCache.txt       imported_targets.exe
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/K-imported-targets/build
+$ ./imported_targets.exe
+Hello Third Party Include!
+Path is relative
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/K-imported-targets/build
+$
+```
+
 ### 结语
 
 第二十二篇博文写完，开心！！！！
