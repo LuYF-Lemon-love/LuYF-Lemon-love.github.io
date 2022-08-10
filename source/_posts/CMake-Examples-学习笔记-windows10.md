@@ -2920,6 +2920,155 @@ lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp
 $
 ```
 
+##### iii-compile-features
+
+###### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/
+mkdir iii-compile-features
+cd iii-compile-features
+```
+
+2. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+# Set the minimum version of CMake that can be used
+# To find the cmake version run
+# $ cmake --version
+cmake_minimum_required(VERSION 3.1)
+
+# Set the project name
+project(hello_cpp11)
+
+# Add an executable
+add_executable(hello_cpp11 main.cpp)
+
+# set the C++ standard to the appropriate standard for using auto
+target_compile_features(hello_cpp11 PUBLIC cxx_auto_type)
+
+# Print the list of known compile features for this version of CMake
+message("List of compile features: ${CMAKE_CXX_COMPILE_FEATURES}")
+```
+
+3. 创建 `main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+
+int main(int argc, char *argv[])
+{
+        auto message = "Hello C++11";
+        std::cout << message << std::endl;
+        return 0;
+}
+```
+
+###### Introduction
+
+This example shows how to set the C++ standard using the `target_compile_features` function. This is available since CMake v3.1.
+
+The files in this tutorial are below:
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features
+$ tree
+.
+├── CMakeLists.txt
+└── main.cpp
+
+0 directories, 2 files
+```
+
+- `CMakeLists.txt` - Contains the CMake commands you wish to run.
+
+- `main.cpp` - A simple "Hello World" cpp file targeting C++11.
+
+###### Concepts
+
+**Using target_compile_features**
+
+Calling the `target_compile_features` function on a target will look at the passed in feature and determine the correct compiler flag to use for your target.
+
+```cmake
+target_compile_features(hello_cpp11 PUBLIC cxx_auto_type)
+```
+
+As with other `target_*` functions, you can specify the scope of the feature for the selected target. This populates the `INTERFACE_COMPILE_FEATURES` property for the target.
+
+The list of available features can be found from the `CMAKE_CXX_COMPILE_FEATURES` variable. You can obtain a list of the available features using the following code:
+
+```cmake
+message("List of compile features: ${CMAKE_CXX_COMPILE_FEATURES}")
+```
+
+###### Building the Examples
+
+Below is sample output from building this example.
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build
+$ cmake .. -G "MSYS Makefiles"
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+List of compile features: cxx_std_98;cxx_template_template_parameters;cxx_std_11;cxx_alias_templates;cxx_alignas;cxx_alignof;cxx_attributes;cxx_auto_type;cxx_constexpr;cxx_decltype;cxx_decltype_incomplete_return_types;cxx_default_function_template_args;cxx_defaulted_functions;cxx_defaulted_move_initializers;cxx_delegating_constructors;cxx_deleted_functions;cxx_enum_forward_declarations;cxx_explicit_conversions;cxx_extended_friend_declarations;cxx_extern_templates;cxx_final;cxx_func_identifier;cxx_generalized_initializers;cxx_inheriting_constructors;cxx_inline_namespaces;cxx_lambdas;cxx_local_type_template_args;cxx_long_long_type;cxx_noexcept;cxx_nonstatic_member_init;cxx_nullptr;cxx_override;cxx_range_for;cxx_raw_string_literals;cxx_reference_qualified_functions;cxx_right_angle_brackets;cxx_rvalue_references;cxx_sizeof_member;cxx_static_assert;cxx_strong_enums;cxx_thread_local;cxx_trailing_return_types;cxx_unicode_literals;cxx_uniform_initialization;cxx_unrestricted_unions;cxx_user_literals;cxx_variadic_macros;cxx_variadic_templates;cxx_std_14;cxx_aggregate_default_initializers;cxx_attribute_deprecated;cxx_binary_literals;cxx_contextual_conversions;cxx_decltype_auto;cxx_digit_separators;cxx_generic_lambdas;cxx_lambda_init_captures;cxx_relaxed_constexpr;cxx_return_type_deduction;cxx_variable_templates;cxx_std_17;cxx_std_20;cxx_std_23
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build
+$ make VERBOSE=1
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -S/F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features -B/F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build --check-build-system CMakeFiles/Makefile.cmake 0
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build/CMakeFiles /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build//CMakeFiles/progress.marks
+make  -f CMakeFiles/Makefile2 all
+make[1]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build”
+make  -f CMakeFiles/hello_cpp11.dir/build.make CMakeFiles/hello_cpp11.dir/depend
+make[2]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build”
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_depends "MSYS Makefiles" /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build/CMakeFiles/hello_cpp11.dir/DependInfo.cmake --color=
+make[2]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build”
+make  -f CMakeFiles/hello_cpp11.dir/build.make CMakeFiles/hello_cpp11.dir/build
+make[2]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build”
+[ 50%] Building CXX object CMakeFiles/hello_cpp11.dir/main.cpp.obj
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe    -MD -MT CMakeFiles/hello_cpp11.dir/main.cpp.obj -MF CMakeFiles/hello_cpp11.dir/main.cpp.obj.d -o CMakeFiles/hello_cpp11.dir/main.cpp.obj -c /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/main.cpp
+[100%] Linking CXX executable hello_cpp11.exe
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E rm -f CMakeFiles/hello_cpp11.dir/objects.a
+/D/lyf_computer_language/msys64/mingw64/bin/ar.exe qc CMakeFiles/hello_cpp11.dir/objects.a "CMakeFiles/hello_cpp11.dir/main.cpp.obj"
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe -Wl,--whole-archive CMakeFiles/hello_cpp11.dir/objects.a -Wl,--no-whole-archive -o hello_cpp11.exe -Wl,--out-implib,libhello_cpp11.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+make[2]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build”
+[100%] Built target hello_cpp11
+make[1]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build”
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build/CMakeFiles 0
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build
+$ ls
+cmake_install.cmake  CMakeCache.txt  CMakeFiles  hello_cpp11.exe  Makefile
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build
+$ ./hello_cpp11.exe
+Hello C++11
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/iii-compile-features/build
+$
+```
+
 ### 结语
 
 第二十二篇博文写完，开心！！！！
