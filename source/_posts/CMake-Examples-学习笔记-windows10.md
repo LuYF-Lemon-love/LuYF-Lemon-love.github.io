@@ -2584,6 +2584,205 @@ lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/K-imp
 $
 ```
 
+#### L-cpp-standard
+
+Since the release of `C++11` and `C++14` a common use case is to invoke the compiler to use these standards. As CMake has evolved, it has added features to make this easier and new versions of CMake have changed how this is achieved.
+
+The following examples show different methods of setting the C++ standard and what versions of CMake they are available from.
+
+The examples include:
+
+- `common-method` - A simple version that should work with most versions of CMake.
+
+- `cxx-standard` - Using the `CMAKE_CXX_STANDARD` variable introduced in `CMake v3.1`.
+
+- `compile-features` - Using the `target_compile_features` function introduced in `CMake v3.1`.
+
+##### i-common-method
+
+###### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/cmake-examples/01-basic/
+mkdir L-cpp-standard
+cd L-cpp-standard
+mkdir i-common-method
+cd i-common-method
+```
+
+2. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+# Set the minimum version of CMake that can be used
+# To find the cmake version run
+# $ cmake --version
+cmake_minimum_required(VERSION 2.8)
+
+# Set the project name
+project(hello_cpp11)
+
+# try conditional compilation
+include(CheckCXXCompilerFlag)
+CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
+CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
+
+# check results and add flag
+if(COMPILER_SUPPORTS_CXX11)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+elseif(COMPILER_SUPPORTS_CXX0X)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+else()
+        message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
+endif()
+
+# Add an executable
+add_executable(hello_cpp11 main.cpp)
+```
+
+3. 创建 `main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+
+int main(int argc, char *argv[])
+{
+        auto message = "Hello C++11";
+        std::cout << message << std::endl;
+        return 0;
+}
+```
+
+###### Introduction
+
+This example shows a common method to set the C++ Standard. This can be used with most versions of CMake. However, if you are targeting a recent version of CMake there are more convenient methods available.
+
+The files in this tutorial are below:
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method
+$ tree
+.
+├── CMakeLists.txt
+└── main.cpp
+
+0 directories, 2 files
+```
+
+- `CMakeLists.txt` - Contains the CMake commands you wish to run.
+
+- `main.cpp` - A simple "Hello World" cpp file targeting C++11.
+
+###### Concepts
+
+**Checking Compile flags**
+
+CMake has support for attempting to compile a program with any flags you pass into the function `CMAKE_CXX_COMPILER_FLAG`. The result is then stored in a variable that you pass in.
+
+For example:
+
+```cmake
+include(CheckCXXCompilerFlag)
+CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
+```
+
+This example will attempt to compile a program with the flag `-std=c++11` and store the result in the variable `COMPILER_SUPPORTS_CXX11`.
+
+The line `include(CheckCXXCompilerFlag)` tells CMake to include this function to make it available for use.
+
+**Adding the flag**
+
+Once you have determined if the compile supports a flag, you can then use the standard cmake methods to add this flag to a target. In this example we use the `CMAKE_CXX_FLAGS` to propegate the flag to all targets.
+
+```cmake
+if(COMPILER_SUPPORTS_CXX11)#
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+elseif(COMPILER_SUPPORTS_CXX0X)#
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+else()
+    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
+endif()
+```
+
+The above example only checks for the gcc version of the compile flags and supports fallback from `C++11` to the `pre-standardisation C+\+0x` flag. In real usage you may want to check for `C14`, or add support for different methods of setting the compile, e.g. `-std=gnu11`.
+
+###### Building the Examples
+
+Below is sample output from building this example.
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build
+$ cmake .. -G "MSYS Makefiles"
+CMake Deprecation Warning at CMakeLists.txt:4 (cmake_minimum_required):
+  Compatibility with CMake < 2.8.12 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test COMPILER_SUPPORTS_CXX11
+-- Performing Test COMPILER_SUPPORTS_CXX11 - Success
+-- Performing Test COMPILER_SUPPORTS_CXX0X
+-- Performing Test COMPILER_SUPPORTS_CXX0X - Success
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build
+$ make VERBOSE=1
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -S/F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method -B/F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build --check-build-system CMakeFiles/Makefile.cmake 0
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build/CMakeFiles /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build//CMakeFiles/progress.marks
+make  -f CMakeFiles/Makefile2 all
+make[1]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build”
+make  -f CMakeFiles/hello_cpp11.dir/build.make CMakeFiles/hello_cpp11.dir/depend
+make[2]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build”
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_depends "MSYS Makefiles" /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build/CMakeFiles/hello_cpp11.dir/DependInfo.cmake --color=
+make[2]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build”
+make  -f CMakeFiles/hello_cpp11.dir/build.make CMakeFiles/hello_cpp11.dir/build
+make[2]: 进入目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build”
+[ 50%] Building CXX object CMakeFiles/hello_cpp11.dir/main.cpp.obj
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe   -std=c++11 -MD -MT CMakeFiles/hello_cpp11.dir/main.cpp.obj -MF CMakeFiles/hello_cpp11.dir/main.cpp.obj.d -o CMakeFiles/hello_cpp11.dir/main.cpp.obj -c /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/main.cpp
+[100%] Linking CXX executable hello_cpp11.exe
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E rm -f CMakeFiles/hello_cpp11.dir/objects.a
+/D/lyf_computer_language/msys64/mingw64/bin/ar.exe qc CMakeFiles/hello_cpp11.dir/objects.a "CMakeFiles/hello_cpp11.dir/main.cpp.obj"
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe  -std=c++11 -Wl,--whole-archive CMakeFiles/hello_cpp11.dir/objects.a -Wl,--no-whole-archive -o hello_cpp11.exe -Wl,--out-implib,libhello_cpp11.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+make[2]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build”
+[100%] Built target hello_cpp11
+make[1]: 离开目录“/f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build”
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build/CMakeFiles 0
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build
+$ ls
+cmake_install.cmake  CMakeCache.txt  CMakeFiles  hello_cpp11.exe  Makefile
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build
+$ ./hello_cpp11.exe
+Hello C++11
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/01-basic/L-cpp-standard/i-common-method/build
+$
+```
+
 ### 结语
 
 第二十二篇博文写完，开心！！！！
