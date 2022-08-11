@@ -3926,7 +3926,7 @@ The variables exported by the `CMake protobuf package` and used in this example 
 
 - `PROTOBUF_LIBRARIES` - The protobuf library
 
-More variables are defined and can be found by examining the documentation at the top of your `FindProtobuf.cmake file`.
+More variables are defined and can be found by examining the documentation at the top of your `FindProtobuf.cmake` file.
 
 ###### Generating Source
 
