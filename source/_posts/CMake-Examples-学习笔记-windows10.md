@@ -3423,7 +3423,7 @@ Code generation can be useful to create source code in different languages from 
 
 Examples showing code generation using variables from CMake and also using some common tools.
 
-- `configure-file` - Using the `CMake` configure_file function to inject CMake variables.
+- `configure-file` - Using the `CMake` `configure_file` function to inject CMake variables.
 
 - `Protocol Buffers` - Using `Google Protocol Buffers` to generate C++ source.
 
@@ -3554,13 +3554,13 @@ configure_file(ver.h.in ${PROJECT_BINARY_DIR}/ver.h)
 configure_file(path.h.in ${PROJECT_BINARY_DIR}/path.h @ONLY)
 ```
 
-The first example above, allows the variable to be defined like a CMake variables using the `${}` syntax or an `@@` in the ver.h.in file. After generation a new file ver.h will be available in the `PROJECT_BINARY_DIR`.
+The first example above, allows the variable to be defined like a CMake variables using the `${}` syntax or an `@@` in the `ver.h.in` file. After generation a new file `ver.h` will be available in the `PROJECT_BINARY_DIR`.
 
 ```c++
 const char* ver = "${cf_example_VERSION}";
 ```
 
-The second example, only allows variables to be defined using the `@@` syntax in the path.h.in file. After generation a new file path.h will be available in the `PROJECT_BINARY_DIR`.
+The second example, only allows variables to be defined using the `@@` syntax in the `path.h.in` file. After generation a new file `path.h` will be available in the `PROJECT_BINARY_DIR`.
 
 ```c++
 const char* path = "@CMAKE_SOURCE_DIR@";
