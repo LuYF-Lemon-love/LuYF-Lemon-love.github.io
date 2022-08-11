@@ -3261,13 +3261,13 @@ $ tree
 
 - `sublibrary1/CMakeLists.txt` - to make a static library
 
-`sublibrary1/include/sublib1/sublib1.h` - The header file of the static library
+- `sublibrary1/include/sublib1/sublib1.h` - The header file of the static library
 
-`sublibrary1/src/sublib1.cpp` - The source file of the static library
+- `sublibrary1/src/sublib1.cpp` - The source file of the static library
 
-`sublibrary2/CMakeLists.txt` - to setup header only library
+- `sublibrary2/CMakeLists.txt` - to setup header only library
 
-`sublibrary2/include/sublib2/sublib2.h` - The header file of the header only library
+- `sublibrary2/include/sublib2/sublib2.h` - The header file of the header only library
 
 In this example I have moved the header files to a subfolder under each projects include directory, while `leaving the target include as the root include folder`. This is a good idea to prevent filename clashes because you have to include a file like below:
 
