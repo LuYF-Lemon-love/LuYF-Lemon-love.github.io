@@ -3639,6 +3639,454 @@ lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-genera
 $
 ```
 
+#### protobuf
+
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/cmake-examples/03-code-generation/
+mkdir protobuf
+cd protobuf/
+```
+
+2. 创建 `AddressBook.proto` 文件，粘贴下面代码。
+
+```c++
+package tutorial;
+
+message Person {
+        required string name = 1;
+        required int32 id = 2;
+        optional string email = 3;
+
+        enum PhoneType {
+                MOBILE = 0;
+                HOME = 1;
+                WORK = 2;
+        }
+
+        message PhoneNumber {
+                required string number = 1;
+                optional PhoneType type = 2 [default = HOME];
+        }
+
+        repeated PhoneNumber phone = 4;
+}
+
+message AddressBook {
+        repeated Person person = 1;
+}
+```
+
+3. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+cmake_minimum_required(VERSION 3.5)
+
+# Set the project name
+project (protobuf_example)
+
+# find the protobuf compiler and libraries
+find_package(Protobuf REQUIRED)
+
+# check if protobuf was found
+if(PROTOBUF_FOUND)
+    message ("protobuf found")
+else()
+    message (FATAL_ERROR "Cannot find Protobuf")
+endif()
+
+# Generate the .h and .cxx files
+PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS AddressBook.proto)
+
+# Print path to generated files
+message ("PROTO_SRCS = ${PROTO_SRCS}")
+message ("PROTO_HDRS = ${PROTO_HDRS}")
+
+# Add an executable
+add_executable(protobuf_example
+    main.cpp
+    ${PROTO_SRCS}
+    ${PROTO_HDRS})
+
+target_include_directories(protobuf_example
+    PUBLIC
+    ${PROTOBUF_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_BINARY_DIR}
+)
+
+# link the exe against the libraries
+target_link_libraries(protobuf_example
+    PUBLIC
+    ${PROTOBUF_LIBRARIES}
+)
+```
+
+4. 创建 `main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+#include <fstream>
+#include <string>
+#include "AddressBook.pb.h"
+using namespace std;
+
+// This function fills in a Person message based on user input.
+void PromptForAddress(tutorial::Person* person) {
+  cout << "Enter person ID number: ";
+  int id;
+  cin >> id;
+  person->set_id(id);
+  cin.ignore(256, '\n');
+
+  cout << "Enter name: ";
+  getline(cin, *person->mutable_name());
+
+  cout << "Enter email address (blank for none): ";
+  string email;
+  getline(cin, email);
+  if (!email.empty()) {
+    person->set_email(email);
+  }
+
+  while (true) {
+    cout << "Enter a phone number (or leave blank to finish): ";
+    string number;
+    getline(cin, number);
+    if (number.empty()) {
+      break;
+    }
+
+    tutorial::Person::PhoneNumber* phone_number = person->add_phone();
+    phone_number->set_number(number);
+
+    cout << "Is this a mobile, home, or work phone? ";
+    string type;
+    getline(cin, type);
+    if (type == "mobile") {
+      phone_number->set_type(tutorial::Person::MOBILE);
+    } else if (type == "home") {
+      phone_number->set_type(tutorial::Person::HOME);
+    } else if (type == "work") {
+      phone_number->set_type(tutorial::Person::WORK);
+    } else {
+      cout << "Unknown phone type.  Using default." << endl;
+    }
+  }
+}
+
+// Main function:  Reads the entire address book from a file,
+//   adds one person based on user input, then writes it back out to the same
+//   file.
+int main(int argc, char* argv[]) {
+  // Verify that the version of the library that we linked against is
+  // compatible with the version of the headers we compiled against.
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  if (argc != 2) {
+    cerr << "Usage:  " << argv[0] << " ADDRESS_BOOK_FILE" << endl;
+    return -1;
+  }
+
+  tutorial::AddressBook address_book;
+
+  {
+    // Read the existing address book.
+    fstream input(argv[1], ios::in | ios::binary);
+    if (!input) {
+      cout << argv[1] << ": File not found.  Creating a new file." << endl;
+    } else if (!address_book.ParseFromIstream(&input)) {
+      cerr << "Failed to parse address book." << endl;
+      return -1;
+    }
+  }
+
+  // Add an address.
+  PromptForAddress(address_book.add_person());
+
+  {
+    // Write the new address book back to disk.
+    fstream output(argv[1], ios::out | ios::trunc | ios::binary);
+    if (!address_book.SerializeToOstream(&output)) {
+      cerr << "Failed to write address book." << endl;
+      return -1;
+    }
+  }
+
+  // Optional:  Delete all global objects allocated by libprotobuf.
+  google::protobuf::ShutdownProtobufLibrary();
+
+  return 0;
+}
+```
+
+##### Introduction
+
+This example shows how to generate source files using `protobuf`. `Protocol Buffers is a data serialization format from Google.` A user provides a `.proto` file with a description of the data. Then using the protobuf compiler, `the proto file can be translated into source code in a number of languages including C++`.
+
+The files in this tutorial are below:
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf
+$ tree
+.
+├── AddressBook.proto
+├── CMakeLists.txt
+└── main.cpp
+
+0 directories, 3 files
+```
+
+- `AddressBook.proto` - proto file from main protocol buffer example
+
+- `CMakeLists.txt` - Contains the CMake commands you wish to run
+
+- `main.cpp` - The source file from the protobuf example.
+
+##### Requirements
+
+This example requires the protocol buffers binary and libraries to be installed.
+
+```shell
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacman -S mingw-w64-x86_64-protobuf mingw-w64-x86_64-protobuf-c protobuf-de
+vel
+正在解析依赖关系...
+正在查找软件包冲突...
+
+软件包 (4) protobuf-3.16.0-1  mingw-w64-x86_64-protobuf-3.16.0-3
+           mingw-w64-x86_64-protobuf-c-1.3.3-2  protobuf-devel-3.16.0-1
+
+全部安装大小：  58.05 MiB
+
+:: 进行安装吗？ [Y/n]
+(4/4) 正在检查密钥环里的密钥                       [##################] 100%
+(4/4) 正在检查软件包完整性                         [##################] 100%
+(4/4) 正在加载软件包文件                           [##################] 100%
+(4/4) 正在检查文件冲突                             [##################] 100%
+(4/4) 正在检查可用存储空间                         [##################] 100%
+:: 正在处理软件包的变化...
+(1/4) 正在安装 mingw-w64-x86_64-protobuf           [##################] 100%
+(2/4) 正在安装 mingw-w64-x86_64-protobuf-c         [##################] 100%
+(3/4) 正在安装 protobuf                            [##################] 100%
+(4/4) 正在安装 protobuf-devel                      [##################] 100%
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacman -Ss protobuf
+mingw32/mingw-w64-i686-protobuf 3.16.0-3
+    Protocol Buffers - Google's data interchange format (mingw-w64)
+mingw32/mingw-w64-i686-protobuf-c 1.3.3-2
+    Protocol Buffers implementation in C (mingw-w64)
+mingw32/mingw-w64-i686-python-protobuf 3.16.0-3
+    Protocol Buffers (mingw-w64)
+mingw64/mingw-w64-x86_64-protobuf 3.16.0-3 [已安装]
+    Protocol Buffers - Google's data interchange format (mingw-w64)
+mingw64/mingw-w64-x86_64-protobuf-c 1.3.3-2 [已安装]
+    Protocol Buffers implementation in C (mingw-w64)
+mingw64/mingw-w64-x86_64-python-protobuf 3.16.0-3
+    Protocol Buffers (mingw-w64)
+ucrt64/mingw-w64-ucrt-x86_64-protobuf 3.16.0-3
+    Protocol Buffers - Google's data interchange format (mingw-w64)
+ucrt64/mingw-w64-ucrt-x86_64-protobuf-c 1.3.3-2
+    Protocol Buffers implementation in C (mingw-w64)
+ucrt64/mingw-w64-ucrt-x86_64-python-protobuf 3.16.0-3
+    Protocol Buffers (mingw-w64)
+clang32/mingw-w64-clang-i686-protobuf 3.16.0-3
+    Protocol Buffers - Google's data interchange format (mingw-w64)
+clang32/mingw-w64-clang-i686-protobuf-c 1.3.3-2
+    Protocol Buffers implementation in C (mingw-w64)
+clang32/mingw-w64-clang-i686-python-protobuf 3.16.0-3
+    Protocol Buffers (mingw-w64)
+clang64/mingw-w64-clang-x86_64-protobuf 3.16.0-3
+    Protocol Buffers - Google's data interchange format (mingw-w64)
+clang64/mingw-w64-clang-x86_64-protobuf-c 1.3.3-2
+    Protocol Buffers implementation in C (mingw-w64)
+clang64/mingw-w64-clang-x86_64-python-protobuf 3.16.0-3
+    Protocol Buffers (mingw-w64)
+msys/protobuf 3.16.0-1 (libraries) [已安装]
+    Protocol Buffers - Google's data interchange format
+msys/protobuf-devel 3.16.0-1 (development) [已安装]
+    Protobuf headers and libraries
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$
+```
+
+##### Concepts
+
+###### Exported Variables
+
+The variables exported by the `CMake protobuf package` and used in this example include:
+
+- `PROTOBUF_FOUND` - If Protocol Buffers is installed
+
+- `PROTOBUF_INCLUDE_DIRS` - The protobuf header files
+
+- `PROTOBUF_LIBRARIES` - The protobuf library
+
+More variables are defined and can be found by examining the documentation at the top of your `FindProtobuf.cmake file`.
+
+###### Generating Source
+
+`The protobuf CMake package` includes a number of helper functions to make the code generation easier. In this example we are generating C++ source and use the following code:
+
+```cmake
+PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS AddressBook.proto)
+```
+
+The arguments are:
+
+- `PROTO_SRCS` - Name of the variable that will store the `.pb.cc` files.
+
+- `PROTO_HDRS` - Name of the variable that will store the `.pb.h` files.
+
+- `AddressBook.proto` - The `.proto` file to generate code from.
+
+###### Generated Files
+
+After the `PROTOBUF_GENERATE_CPP` function is called, you will have the above mentioned variables available. These will be marked as the output to a custom command which calls the protobuf compiler binary to generate them.
+
+To then have the files generated you should add them to a library or executable. For example:
+
+```cmake
+add_executable(protobuf_example
+    main.cpp
+    ${PROTO_SRCS}
+    ${PROTO_HDRS})
+```
+
+This will cause the protobuf compiler to be called when you call `make` on that executables target.
+
+When changes are made to the `.proto` file, the associated source files will be autogenerated again. However, if no changes are made to the `.proto` file and you re-run make, then nothing will be done.
+
+##### Building the Example
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build
+$ cmake .. -G "MSYS Makefiles"
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found Protobuf: D:/lyf_computer_language/msys64/mingw64/lib/libprotobuf.dll.a (found version "3.16.0")
+protobuf found
+PROTO_SRCS = F:/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build/AddressBook.pb.cc
+PROTO_HDRS = F:/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build/AddressBook.pb.h
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build
+$ ls
+cmake_install.cmake  CMakeCache.txt  CMakeFiles  Makefile
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build
+$ make VERBOSE=1
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -S/F/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf -B/F/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build --check-build-system CMakeFiles/Makefile.cmake 0
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build/CMakeFiles /F/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build//CMakeFiles/progress.marks
+make  -f CMakeFiles/Makefile2 all
+make[1]: 进入目录“/f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build”
+make  -f CMakeFiles/protobuf_example.dir/build.make CMakeFiles/protobuf_example.dir/depend
+make[2]: 进入目录“/f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build”
+[ 25%] Running cpp protocol buffer compiler on AddressBook.proto
+/D/lyf_computer_language/msys64/mingw64/bin/protoc.exe --cpp_out F:/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build -I F:/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf F:/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/AddressBook.proto
+[libprotobuf WARNING C:/_/M/mingw-w64-protobuf/src/build-x86_64-shared/src/google/protobuf/compiler/parser.cc:651] No syntax specified for the proto file: AddressBook.proto. Please use 'syntax = "proto2";' or 'syntax = "proto3";' to specify a syntax version. (Defaulted to proto2 syntax.)
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_depends "MSYS Makefiles" /F/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf /F/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf /F/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build /F/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build /F/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build/CMakeFiles/protobuf_example.dir/DependInfo.cmake --color=
+make[2]: 离开目录“/f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build”
+make  -f CMakeFiles/protobuf_example.dir/build.make CMakeFiles/protobuf_example.dir/build
+make[2]: 进入目录“/f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build”
+[ 50%] Building CXX object CMakeFiles/protobuf_example.dir/main.cpp.obj
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe  -I/F/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build  -MD -MT CMakeFiles/protobuf_example.dir/main.cpp.obj -MF CMakeFiles/protobuf_example.dir/main.cpp.obj.d -o CMakeFiles/protobuf_example.dir/main.cpp.obj -c /F/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/main.cpp
+[ 75%] Building CXX object CMakeFiles/protobuf_example.dir/AddressBook.pb.cc.obj
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe  -I/F/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build  -MD -MT CMakeFiles/protobuf_example.dir/AddressBook.pb.cc.obj -MF CMakeFiles/protobuf_example.dir/AddressBook.pb.cc.obj.d -o CMakeFiles/protobuf_example.dir/AddressBook.pb.cc.obj -c /F/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build/AddressBook.pb.cc
+[100%] Linking CXX executable protobuf_example.exe
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E rm -f CMakeFiles/protobuf_example.dir/objects.a
+/D/lyf_computer_language/msys64/mingw64/bin/ar.exe qc CMakeFiles/protobuf_example.dir/objects.a "CMakeFiles/protobuf_example.dir/main.cpp.obj" "CMakeFiles/protobuf_example.dir/AddressBook.pb.cc.obj"
+/D/lyf_computer_language/msys64/mingw64/bin/c++.exe -Wl,--whole-archive CMakeFiles/protobuf_example.dir/objects.a -Wl,--no-whole-archive -o protobuf_example.exe -Wl,--out-implib,libprotobuf_example.dll.a -Wl,--major-image-version,0,--minor-image-version,0  /D/lyf_computer_language/msys64/mingw64/lib/libprotobuf.dll.a -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+make[2]: 离开目录“/f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build”
+[100%] Built target protobuf_example
+make[1]: 离开目录“/f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build”
+/D/lyf_computer_language/msys64/mingw64/bin/cmake.exe -E cmake_progress_start /F/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build/CMakeFiles 0
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build
+$ ls
+AddressBook.pb.cc  cmake_install.cmake  CMakeFiles  protobuf_example.exe
+AddressBook.pb.h   CMakeCache.txt       Makefile
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build
+$ ./protobuf_example.exe test.db
+test.db: File not found.  Creating a new file.
+Enter person ID number: 1
+Enter name: lyf
+Enter email address (blank for none): xxx@qq.com
+Enter a phone number (or leave blank to finish): 12345678901
+Is this a mobile, home, or work phone? home
+Enter a phone number (or leave blank to finish):
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build
+$ ls
+AddressBook.pb.cc  cmake_install.cmake  CMakeFiles  protobuf_example.exe
+AddressBook.pb.h   CMakeCache.txt       Makefile    test.db
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build
+$ cat test.db
+
+$
+lyf
+xxx@qq.com"
+
+12345678901
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build
+$ ./protobuf_example.exe test.db
+Enter person ID number: 2
+Enter name: zhy
+Enter email address (blank for none): xxx@qq.com
+Enter a phone number (or leave blank to finish): 12345678902
+Is this a mobile, home, or work phone? mobile
+Enter a phone number (or leave blank to finish): 99999999999
+Is this a mobile, home, or work phone? work
+Enter a phone number (or leave blank to finish):
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build
+$ ls
+AddressBook.pb.cc  cmake_install.cmake  CMakeFiles  protobuf_example.exe
+AddressBook.pb.h   CMakeCache.txt       Makefile    test.db
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build
+$ cat test.db
+
+$
+lyf
+xxx@qq.com"
+
+12345678901
+5
+zhy
+xxx@qq.com"
+
+12345678902"
+
+99999999999
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/protobuf/build
+$
+```
+
 ### 结语
 
 第二十二篇博文写完，开心！！！！
