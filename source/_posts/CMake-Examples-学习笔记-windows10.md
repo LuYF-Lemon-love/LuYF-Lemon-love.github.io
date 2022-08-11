@@ -3417,6 +3417,228 @@ lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/02-sub-project
 $
 ```
 
+### 03-code-generation
+
+Code generation can be useful to create source code in different languages from a common description file. This can reduce the amount of manual code to write and increase interoperability.
+
+Examples showing code generation using variables from CMake and also using some common tools.
+
+- `configure-file` - Using the `CMake` configure_file function to inject CMake variables.
+
+- `Protocol Buffers` - Using `Google Protocol Buffers` to generate C++ source.
+
+#### configure-files
+
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/cmake-examples/
+mkdir 03-code-generation
+cd 03-code-generation/
+mkdir configure-files
+cd configure-files/
+```
+
+2. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+cmake_minimum_required(VERSION 3.5)
+
+# Set the project name
+project(cf_example)
+
+# Set a project version
+set(cf_example_VERSION_MAJOR 0)
+set(cf_example_VERSION_MINOR 2)
+set(cf_example_VERSION_PATCH 1)
+set(cf_example_VERSION "${cf_example_VERSION_MAJOR}.${cf_example_VERSION_MINOR}.${cf_example_VERSION_PATCH}")
+
+# Call configure files on ver.h.in to set the version.
+# Uses the standard ${VARIABLE} syntax in the file
+configure_file(ver.h.in ${PROJECT_BINARY_DIR}/ver.h)
+
+# configure the path.h.in file.
+# This file can only use the @VARIABLE@ syntax in the file
+configure_file(path.h.in ${PROJECT_BINARY_DIR}/path.h @ONLY)
+
+# Add an executable
+add_executable(cf_example
+        main.cpp
+        )
+
+# include the directory with the new files
+target_include_directories(cf_example
+        PUBLIC
+        ${CMAKE_BINARY_DIR}
+        )
+```
+
+3. 创建 `main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+#include "ver.h"
+#include "path.h"
+
+int main(int argc, char *argv[])
+{
+        std::cout << "Hello Version " << ver << "!" << std::endl;
+        std::cout << "Path is " << path << std::endl;
+        return 0;
+}
+```
+
+4. 创建 `path.h.in` 文件，粘贴下面代码。
+
+```c++
+#ifndef __PATH_H__
+#define __PATH_H__
+
+// version variable that will be substituted by cmake
+// This shows an example using the @ variable type
+const char* path = "@CMAKE_SOURCE_DIR@";
+
+#endif
+```
+
+5. 创建 `ver.h.in` 文件，粘贴下面代码。
+
+```c++
+#ifndef __VER_H__
+#define __VER_H__
+
+// version variable that will be substituted by cmake
+// This shows an example using the $ variable type
+const char* ver = "${cf_example_VERSION}";
+
+#endif
+```
+
+##### Introduction
+
+During the call to cmake it is possible to create files that use variables from the CMakeLists.txt and cmake cache. During CMake generation the file is copied to a new location and any cmake variables are replaced.
+
+The files in this tutorial are below:
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/configure-files
+$ tree
+.
+├── CMakeLists.txt
+├── main.cpp
+├── path.h.in
+└── ver.h.in
+
+0 directories, 4 files
+```
+
+- `CMakeLists.txt` - Contains the CMake commands you wish to run
+
+- `main.cpp` - The source file with main
+
+- `path.h.in` - File to contain a path to the build directory
+
+- `ver.h.in` - File to contain the version of the project
+
+##### Concepts
+
+###### Configure Files
+
+To do variable substitution in a file you can use the `configure_file()` function in CMake. This core arguments for this function are source file and destination file.
+
+```cmake
+configure_file(ver.h.in ${PROJECT_BINARY_DIR}/ver.h)
+
+configure_file(path.h.in ${PROJECT_BINARY_DIR}/path.h @ONLY)
+```
+
+The first example above, allows the variable to be defined like a CMake variables using the `${}` syntax or an `@@` in the ver.h.in file. After generation a new file ver.h will be available in the `PROJECT_BINARY_DIR`.
+
+```c++
+const char* ver = "${cf_example_VERSION}";
+```
+
+The second example, only allows variables to be defined using the `@@` syntax in the path.h.in file. After generation a new file path.h will be available in the `PROJECT_BINARY_DIR`.
+
+```c++
+const char* path = "@CMAKE_SOURCE_DIR@";
+```
+
+##### Building the Example
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/configure-files
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/configure-files
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/configure-files/build
+$ cmake .. -G "MSYS Makefiles"
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/cmake-examples/03-code-generation/configure-files/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/configure-files/build
+$ ls
+cmake_install.cmake  CMakeCache.txt  CMakeFiles  Makefile  path.h  ver.h
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/configure-files/build
+$ cat path.h
+#ifndef __PATH_H__
+#define __PATH_H__
+
+// version variable that will be substituted by cmake
+// This shows an example using the @ variable type
+const char* path = "F:/vscode/cpp_projects/cmake-examples/03-code-generation/configure-files";
+
+#endif
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/configure-files/build
+$ cat ver.h
+#ifndef __VER_H__
+#define __VER_H__
+
+// version variable that will be substituted by cmake
+// This shows an example using the $ variable type
+const char* ver = "0.2.1";
+
+#endif
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/configure-files/build
+$ make
+[ 50%] Building CXX object CMakeFiles/cf_example.dir/main.cpp.obj
+[100%] Linking CXX executable cf_example.exe
+[100%] Built target cf_example
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/configure-files/build
+$ ls
+cf_example.exe       CMakeCache.txt  Makefile  ver.h
+cmake_install.cmake  CMakeFiles      path.h
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/configure-files/build
+$ ./cf_example.exe
+Hello Version 0.2.1!
+Path is F:/vscode/cpp_projects/cmake-examples/03-code-generation/configure-files
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-generation/configure-files/build
+$
+```
+
 ### 结语
 
 第二十二篇博文写完，开心！！！！
