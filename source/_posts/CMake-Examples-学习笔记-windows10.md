@@ -42,6 +42,8 @@ date: 2022-08-05 21:35:50
 
 4. [Step 4: Installing and Testing](https://cmake.org/cmake/help/latest/guide/tutorial/Installing%20and%20Testing.html)
 
+5. [Step 7: Packaging an Installer](https://cmake.org/cmake/help/latest/guide/tutorial/Packaging%20an%20Installer.html)
+
 ### Prerequisites
 
 本博文使用 `MSYS2` 作为运行 `C++` 和 `CMake` 的工作环境。
@@ -4578,13 +4580,13 @@ Which sets the maintainer and version. More debian specific settings are specifi
 
 |Variable|Info|
 |:-:|:-:|
-|CPACK_DEBIAN_PACKAGE_MAINTAINER|Maintainer information|
-|CPACK_PACKAGE_DESCRIPTION_SUMMARY|Package short description|
-|CPACK_PACKAGE_DESCRIPTION|Package description|
+|CPACK_DEBIAN_PACKAGE_MAINTAINER|Maintainer information.|
+|CPACK_PACKAGE_DESCRIPTION_SUMMARY|Package short description.|
+|CPACK_PACKAGE_DESCRIPTION|Package description.|
 |CPACK_DEBIAN_PACKAGE_DEPENDS|For advanced users to add custom scripts.|
 |CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA|The build directory you are currently in.|
-|CPACK_DEBIAN_PACKAGE_SECTION|Package section (see [here](http://packages.debian.org/stable/))|
-|CPACK_DEBIAN_PACKAGE_VERSION|Package version|
+|CPACK_DEBIAN_PACKAGE_SECTION|Package section (see [here](http://packages.debian.org/stable/)).|
+|CPACK_DEBIAN_PACKAGE_VERSION|Package version.|
 
 ##### Building the Example
 
