@@ -4087,6 +4087,284 @@ lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/03-code-genera
 $
 ```
 
+### 04-static-analysis
+
+Static analysis is the analysis of code without executing it. It can be used to find common programming errors and enforce coding guidelines. Examples of errors that can be found using static analysis tools include:
+
+- Out of bounds errors
+
+- Memory leaks
+
+- Usage of uninitialized variables
+
+- Use of unsafe functions
+
+Analysis tools can detect errors early and are becoming a standard tool in most build chains. Some build tools such as `Clang` include a build in static analysis tool. However standalone tools also exist.
+
+The examples here include using the following tools:
+
+- `CppCheck`
+
+- `Clang Static Analyzer`
+
+- `Clang Format`
+
+#### clang-analyzer
+
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MSYS”，安装 `Clang toolchain`。
+
+```shell
+pacman -S --needed base-devel mingw-w64-clang-x86_64-toolchain
+pacman -S cmake
+```
+
+2. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/cmake-examples/
+mkdir 04-static-analysis
+cd 04-static-analysis/
+mkdir clang-analyzer
+cd clang-analyzer/
+```
+
+3. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+cmake_minimum_required(VERSION 3.5)
+
+project(cppcheck_analysis)
+
+# Use debug build as recommended
+set(CMAKE_BUILD_TYPE Debug)
+
+# Have cmake create a compile database
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Add sub directories
+add_subdirectory(subproject1)
+add_subdirectory(subproject2)
+```
+
+4. 创建 `subproject1/CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+# Set the project name
+project(subproject1)
+
+# Add an executable with the above sources
+add_executable(${PROJECT_NAME} main1.cpp)
+```
+
+5. 创建 `subproject1/main1.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+
+int main(int argc, char *argv[])
+{
+        std::cout << "Hello Main1!" << std::endl;
+        return 0;
+}
+```
+
+6. 创建 `subproject2/CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+# Set the project name
+project(subproject2)
+
+# Add an executable with the above sources
+add_executable(${PROJECT_NAME} main2.cpp)
+```
+
+7. 创建 `subproject2/main2.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+
+int main(int argc, char *argv[])
+{
+        std::cout << "Hello Main2!" << std::endl;
+        int* x = NULL;
+        std::cout << *x << std::endl;
+        return 0;
+}
+```
+
+##### Introduction
+
+This example shows how to call `the Clang Static Analyzer` to do static analysis using `the scan-build tool`.
+
+The files included in this example are:
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer
+$ tree
+.
+├── CMakeLists.txt
+├── subproject1
+│   ├── CMakeLists.txt
+│   └── main1.cpp
+└── subproject2
+    ├── CMakeLists.txt
+    └── main2.cpp
+
+2 directories, 5 files
+```
+
+- `CMakeLists.txt` - Top level CMakeLists.txt
+
+- `subproject1/CMakeLists.txt` - CMake commands for subproject 1
+
+- `subproject1/main1.cpp` - source for a subproject with no errors
+
+- `subproject2/CMakeLists.txt` - CMake commands for subproject 2
+
+- `subproject2/main2.cpp` - source for a subproject that includes errors
+
+##### Requirements
+
+To run this example you must have `clang analyzer` and the `scan-build tool` installed. 
+
+```shell
+pacman -S --needed base-devel mingw-w64-clang-x86_64-toolchain
+```
+
+It will result in the tool being available as:
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer
+$ which scan-build
+/clang64/bin/scan-build
+```
+
+##### Concepts
+
+###### scan-build
+
+To run `clang static analyzer` you can use the tool `scan-build` to run the analyzer when you also run the compiler. This overrides the `CC` and `CXX` environment variables and replaces them with it’s own tools. To run it you can do
+
+```shell
+$ scan-build-3.6 cmake ..
+$ scan-build-3.6 make
+```
+
+By default this will run the standard compiler for your platform, i.e. `gcc` on linux. However, if you want to override this you can change the command to:
+
+```shell
+$ scan-build-3.6 --use-cc=clang-3.6 --use-c++=clang++-3.6 -o ./scanbuildout/ make
+```
+
+###### scan-build output
+
+`scan-build` will only output warnings during compile time and will also generate a list of HTML files which contain detailed analysis of the error.
+
+```shell
+$ cd scanbuildout/
+$ tree
+.
+└── 2017-07-03-213514-3653-1
+    ├── index.html
+    ├── report-42eba1.html
+    ├── scanview.css
+    └── sorttable.js
+
+1 directory, 4 files
+```
+
+By default these are output to `/tmp/scanbuildout/{run folder}`. You can change this using `scan-build -o /output/folder`.
+
+##### Building the example
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build
+$ scan-build -o ./scanbuildout cmake ..
+scan-build: Using '/clang64/bin/clang' for static analysis
+-- The C compiler identification is Clang 14.0.4
+-- The CXX compiler identification is Clang 14.0.4
+System is unknown to cmake, create:
+Platform/MINGW64_NT-10.0-19044 to use this system, please post your config file on discourse.cmake.org so it can be added to cmake
+-- Detecting C compiler ABI info
+System is unknown to cmake, create:
+Platform/MINGW64_NT-10.0-19044 to use this system, please post your config file on discourse.cmake.org so it can be added to cmake
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /clang64/libexec/ccc-analyzer - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+System is unknown to cmake, create:
+Platform/MINGW64_NT-10.0-19044 to use this system, please post your config file on discourse.cmake.org so it can be added to cmake
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /clang64/libexec/c++-analyzer - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build
+scan-build: Analysis run complete.
+scan-build: Removing directory '/f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build/scanbuildout/2022-08-12-144922-1147-1' because it contains no reports.
+scan-build: No bugs found.
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build
+$ scan-build -o ./scanbuildout make
+scan-build: Using '/clang64/bin/clang' for static analysis
+[ 25%] Building CXX object subproject1/CMakeFiles/subproject1.dir/main1.cpp.obj
+[ 50%] Linking CXX executable subproject1
+[ 50%] Built target subproject1
+[ 75%] Building CXX object subproject2/CMakeFiles/subproject2.dir/main2.cpp.obj
+[100%] Linking CXX executable subproject2
+[100%] Built target subproject2
+scan-build: Analysis run complete.
+scan-build: Removing directory '/f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build/scanbuildout/2022-08-12-144942-1200-1' because it contains no reports.
+scan-build: No bugs found.
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build
+$ ls
+cmake_install.cmake  CMakeFiles             Makefile      subproject1
+CMakeCache.txt       compile_commands.json  scanbuildout  subproject2
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build
+$ cd scanbuildout/
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build/scanbuildout
+$ ls
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build/scanbuildout
+$ cd ../subproject1
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build/subproject1
+$ ls
+cmake_install.cmake  CMakeFiles  Makefile  subproject1.exe
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build/subproject1
+$ ./subproject1.exe
+Hello Main1!
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build/subproject1
+$ cd ../subproject2
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build/subproject2
+$ ls
+cmake_install.cmake  CMakeFiles  Makefile  subproject2.exe
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build/subproject2
+$ ./subproject2.exe
+Hello Main2!
+Segmentation fault
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-analysis/clang-analyzer/build/subproject2
+$
+```
+
 ### 结语
 
 第二十二篇博文写完，开心！！！！
