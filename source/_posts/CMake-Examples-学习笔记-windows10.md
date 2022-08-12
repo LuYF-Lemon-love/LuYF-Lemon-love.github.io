@@ -4365,6 +4365,345 @@ lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/cmake-examples/04-static-anal
 $
 ```
 
+### 06-installer
+
+`CMake` has the ability to create installers for multiple platforms using a program called `CPack`. `CPack` includes the ability to create `Linux` `RPM`, `deb` and `gzip` distributions of both binaries and source code. It also includes the ability to create `NSIS files` for `Microsoft Windows`.
+
+#### deb
+
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/cmake-examples/
+mkdir 06-installer
+cd 06-installer/
+mkdir deb
+cd deb/
+```
+
+2. 创建 `cmake-examples.conf` 文件，粘贴下面代码。
+
+```
+# Sample configuration file that could be installed
+```
+
+3. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+cmake_minimum_required(VERSION 3.5)
+
+project(cmake_examples_zip)
+
+# set a project version
+set(deb_example_VERSION_MAJOR 0)
+set(deb_example_VERSION_MINOR 2)
+set(deb_example_VERSION_PATCH 2)
+set(deb_example_VERSION "${deb_example_VERSION_MAJOR}.${deb_example_VERSION_MINOR}.${deb_example_VERSION_PATCH}")
+
+#######################################
+# Create a library
+#######################################
+
+# Generate the shared library from the library sources
+add_library(cmake_examples_zip SHARED src/Hello.cpp)
+
+target_include_directories(cmake_examples_zip
+        PUBLIC
+        ${PROJECT_SOURCE_DIR}/include
+        )
+
+########################################
+# Create an executable
+########################################
+
+# Add an executable with the above sources
+add_executable(cmake_examples_zip_bin src/main.cpp)
+
+# link the new hello_library target with the hello_binary target
+target_link_libraries(cmake_examples_zip_bin
+        PUBLIC
+        cmake_examples_zip
+        )
+
+###########################################
+# Install
+###########################################
+
+# Binaries
+install(TARGETS cmake_examples_zip_bin
+        DESTINATION bin)
+
+# Library
+# Note: may not work on windows
+install(TARGETS cmake_examples_zip
+        LIBRARY DESTINATION lib)
+
+# Config
+install(FILES cmake-examples.conf
+        DESTINATION etc)
+
+############################################
+# Create DEB
+############################################
+
+# Tell CPack to generate a .deb package
+set(CPACK_GENERATOR "ZIP")
+
+# Set a Package Maintainer.
+# This is required
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "luyanfeng")
+
+# Set a Package Version
+set(CPACK_PACKAGE_VERSION ${deb_example_VERSION})
+
+# Include CPack
+include(CPack)
+```
+
+4. 创建 `include/Hello.h` 文件，粘贴下面代码。
+
+```c++
+#ifndef __HELLO_H__
+#define __HELLO_H__
+
+class Hello
+{
+public:
+        void print();
+};
+
+#endif
+```
+
+5. 创建 `src/Hello.cpp` 文件，粘贴下面代码。
+
+```c++
+#include <iostream>
+
+#include "Hello.h"
+
+void Hello::print()
+{
+        std::cout << "Hello Install!" << std::endl;
+}
+```
+
+6. 创建 `src/main.cpp` 文件，粘贴下面代码。
+
+```c++
+#include "Hello.h"
+
+int main(int argc, char *argv[])
+{
+        Hello hi;
+        hi.print();
+        return 0;
+}
+```
+
+##### Introduction
+
+This example shows how to generate a `Linux` installers using the `ZIP` format.
+
+The files in this tutorial are below:
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb
+$ tree
+.
+├── cmake-examples.conf
+├── CMakeLists.txt
+├── include
+│   └── Hello.h
+└── src
+    ├── Hello.cpp
+    └── main.cpp
+
+2 directories, 5 files
+```
+
+- `CMakeLists.txt` - Contains the CMake commands you wish to run
+
+- `cmake-examples.conf` - An example configuration file
+
+- `include/Hello.h` - The header file to include
+
+- `src/Hello.cpp` - A source file to compile
+
+- `src/main.cpp` - The source file with main
+
+##### Requirements
+
+```shell
+pacman -S zip
+pacman -S unzip
+```
+
+##### Concepts
+
+###### CPack Generator
+
+A CPack Generator can be used by a `make package` target to create an installer.
+
+In the case of Debian packages you can tell CMake to create a generator using the following:
+
+```cmake
+set(CPACK_GENERATOR "DEB")
+```
+
+After setting various settings to describe the package you must then tell `CMake` to include the `CPack generator` using
+
+```cmake
+include(CPack)
+```
+
+Once included all files that would typically be installed using a `make install` target can now be packaged into `a Debian package`.
+
+###### Debian Package Settings
+
+Various settings for the package are exposed by `CPack`. In this example we set the following:
+
+```cmake
+# Set a Package Maintainer.
+# This is required
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Thom Troy")
+
+# Set a Package Version
+set(CPACK_PACKAGE_VERSION ${deb_example_VERSION})
+```
+
+Which sets the maintainer and version. More debian specific settings are specified below.
+
+|Variable|Info|
+|:-:|:-:|
+|CPACK_DEBIAN_PACKAGE_MAINTAINER|Maintainer information|
+|CPACK_PACKAGE_DESCRIPTION_SUMMARY|Package short description|
+|CPACK_PACKAGE_DESCRIPTION|Package description|
+|CPACK_DEBIAN_PACKAGE_DEPENDS|For advanced users to add custom scripts.|
+|CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA|The build directory you are currently in.|
+|CPACK_DEBIAN_PACKAGE_SECTION|Package section (see [here](http://packages.debian.org/stable/))|
+|CPACK_DEBIAN_PACKAGE_VERSION|Package version|
+
+##### Building the Example
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb/build
+$ cmake .. -G "MSYS Makefiles"
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/cmake-examples/06-installer/deb/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb/build
+$ make help
+The following are some of the valid targets for this Makefile:
+... all (the default if no target is provided)
+... clean
+... depend
+... edit_cache
+... install
+... install/local
+... install/strip
+... list_install_components
+... package
+... package_source
+... rebuild_cache
+... cmake_examples_zip
+... cmake_examples_zip_bin
+... src/Hello.obj
+... src/Hello.i
+... src/Hello.s
+... src/main.obj
+... src/main.i
+... src/main.s
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb/build
+$ make package
+[ 25%] Building CXX object CMakeFiles/cmake_examples_zip.dir/src/Hello.cpp.obj
+[ 50%] Linking CXX shared library libcmake_examples_zip.dll
+[ 50%] Built target cmake_examples_zip
+[ 75%] Building CXX object CMakeFiles/cmake_examples_zip_bin.dir/src/main.cpp.obj
+[100%] Linking CXX executable cmake_examples_zip_bin.exe
+[100%] Built target cmake_examples_zip_bin
+Run CPack packaging tool...
+CPack: Create package using ZIP
+CPack: Install projects
+CPack: - Run preinstall target for: cmake_examples_zip
+CPack: - Install project: cmake_examples_zip []
+CPack: Create package
+CPack: - package: F:/vscode/cpp_projects/cmake-examples/06-installer/deb/build/cmake_examples_zip-0.2.2-win64.zip generated.
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb/build
+$ ls
+_CPack_Packages                     CPackConfig.cmake
+cmake_examples_zip_bin.exe          CPackSourceConfig.cmake
+cmake_examples_zip-0.2.2-win64.zip  install_manifest.txt
+cmake_install.cmake                 libcmake_examples_zip.dll
+CMakeCache.txt                      libcmake_examples_zip.dll.a
+CMakeFiles                          Makefile
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb/build
+$ unzip cmake_examples_zip-0.2.2-win64.zip
+Archive:  cmake_examples_zip-0.2.2-win64.zip
+   creating: cmake_examples_zip-0.2.2-win64/bin/
+  inflating: cmake_examples_zip-0.2.2-win64/bin/cmake_examples_zip_bin.exe
+  inflating: cmake_examples_zip-0.2.2-win64/bin/libcmake_examples_zip.dll
+   creating: cmake_examples_zip-0.2.2-win64/etc/
+  inflating: cmake_examples_zip-0.2.2-win64/etc/cmake-examples.conf
+   creating: cmake_examples_zip-0.2.2-win64/lib/
+  inflating: cmake_examples_zip-0.2.2-win64/lib/libcmake_examples_zip.dll.a
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb/build
+$ ls
+_CPack_Packages                     CPackConfig.cmake
+cmake_examples_zip_bin.exe          CPackSourceConfig.cmake
+cmake_examples_zip-0.2.2-win64      install_manifest.txt
+cmake_examples_zip-0.2.2-win64.zip  libcmake_examples_zip.dll
+cmake_install.cmake                 libcmake_examples_zip.dll.a
+CMakeCache.txt                      Makefile
+CMakeFiles
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb/build
+$ cd cmake_examples_zip-0.2.2-win64/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb/build/cmake_examples_zip-0.2.2-win64
+$ ls
+bin  etc  lib
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb/build/cmake_examples_zip-0.2.2-win64
+$ cd bin/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb/build/cmake_examples_zip-0.2.2-win64/bin
+$ ls
+cmake_examples_zip_bin.exe  libcmake_examples_zip.dll
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb/build/cmake_examples_zip-0.2.2-win64/bin
+$ ./cmake_examples_zip_bin.exe
+Hello Install!
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/cmake-examples/06-installer/deb/build/cmake_examples_zip-0.2.2-win64/bin
+$
+```
+
 ### 结语
 
 第二十二篇博文写完，开心！！！！
