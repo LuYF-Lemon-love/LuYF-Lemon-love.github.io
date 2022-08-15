@@ -187,7 +187,7 @@ http://43.132.156.226:4080/api/token?email=itwxe@qq.com&password=123456
 
 3. 安装成功后点击图床设置，设置为 Lsky Pro 为默认图床，输入 Url 和 Token 后确定即可。
 
-4. 到这里你就可以使用 PicGo 上传图片到你的 轻量服务器中，并返回 Markdown 格式的 图片链接。
+4. 到这里你就可以使用 PicGo 上传图片到你的轻量服务器中，并返回 Markdown 格式的图片链接。
 
 ### 结语
 
