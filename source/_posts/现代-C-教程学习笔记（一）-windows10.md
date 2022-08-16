@@ -12,7 +12,8 @@ tags:
 categories: 学习笔记
 description: 现代 C++ 教程前两章（序言、迈向现代 C++、语言可用性的强化
 ）的学习笔记。
-cover: 'https://cos.luyf-lemon-love.space/images/shadow_ruination_03.jpg'
+cover: >-
+  https://cos.luyf-lemon-love.space/images/shadow_ruination_03.jpg
 ---
 
 # 前言
