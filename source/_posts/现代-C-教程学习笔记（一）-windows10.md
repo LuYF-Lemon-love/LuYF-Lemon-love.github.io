@@ -379,7 +379,7 @@ $
 
 ### nullptr
 
-`nullptr` 出现的目的是为了替代 `NULL`。在某种意义上来说，`传统 C++` 会把 `NULL`、`0` 视为同一种东西，即直接将 `NULL` 定义为 `0`(C++ 不允许直接将 `void *` 隐式转换到其他类型)。
+`nullptr` 出现的目的是为了替代 `NULL`。在某种意义上来说，`传统 C++` 会把 `NULL`、`0` 视为同一种东西，即直接将 `NULL` 定义为 `0`（C++ 不允许直接将 `void *` 隐式转换到其他类型）。
 
 将 `NULL` 定义成 `0` 将导致 `C++` 中重载特性发生混乱。考虑下面这两个 `foo` 函数：
 
@@ -423,7 +423,7 @@ void foo(int i) {
 }
 ```
 
-{% label 将输出：pink %}
+{% label 将输出 pink %}
 
 ```shell
 foo(int) is called
@@ -433,6 +433,8 @@ foo(char*) is called
 从输出中我们可以看出，`NULL` 不同于 `0` 与 `nullptr`。所以，请养成直接使用 `nullptr` 的习惯。
 
 简单来说，`decltype` 用于`类型推导`，而 `std::is_same` 用于比较两个类型是否相同。
+
+### constexpr
 
 # 结语
 
