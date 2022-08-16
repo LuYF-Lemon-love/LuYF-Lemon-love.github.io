@@ -543,6 +543,77 @@ $
 
 ### constexpr
 
+`C++` 本身已经具备了`常量表达式`的概念，比如 `1+2`, `3*4` 这种表达式总是会产生相同的结果并且没有任何副作用。如果`编译器`能够在编译时就把这些表达式`直接优化并植入到程序运行`时，将能增加程序的性能。一个非常明显的例子就是在数组的定义阶段：
+
+```c++
+#include <iostream>
+#define LEN 10
+
+int len_foo() {
+    int i = 2;
+    return i;
+}
+constexpr int len_foo_constexpr() {
+    return 5;
+}
+
+constexpr int fibonacci(const int n) {
+    return n == 1 || n == 2 ? 1 : fibonacci(n-1)+fibonacci(n-2);
+}
+
+int main() {
+    char arr_1[10];                      // 合法
+    char arr_2[LEN];                     // 合法
+
+    int len = 10;
+    // char arr_3[len];                  // 非法
+
+    const int len_2 = len + 1;
+    constexpr int len_2_constexpr = 1 + 2 + 3;
+    // char arr_4[len_2];                // 非法
+    char arr_4[len_2_constexpr];         // 合法
+
+    // char arr_5[len_foo()+5];          // 非法
+    char arr_6[len_foo_constexpr() + 1]; // 合法
+
+    // 1, 1, 2, 3, 5, 8, 13, 21, 34, 55
+    std::cout << fibonacci(10) << std::endl;
+    return 0;
+}
+```
+
+上面的例子中，为什么 `char arr_4[len_2]` 仍然是`非法`的呢？这是因为 `C++` 标准中`数组的长度`必须是`一个常量表达式`，而对于 `len_2` 而言，这是一个 `const` 常数，而不是`一个常量表达式`，因此（即便这种行为在大部分编译器中都支持，但是）它是`一个非法的行为`，`我们需要使用接下来即将介绍的 C++11 引入的 constexpr 特性来解决这个问题；`而对于 `arr_5` 来说，`C++98` 之前的编译器无法得知 `len_foo()` 在运行期实际上是`返回一个常数`，这也就导致了`非法的产生`。
+
+>注意，现在大部分编译器其实都带有`自身编译优化`，很多非法行为在编译器优化的加持下会`变得合法`，若需重现编译报错的现象需要使用老版本的编译器。
+
+`C++11` 提供了 `constexpr` 让用户`显式的声明`函数或对象构造函数在编译期会成为`常量表达式`，这个关键字明确的告诉编译器应该去验证 `len_foo` 在编译期就应该是`一个常量表达式`。
+
+此外，`constexpr` 修饰的函数可以使用递归：
+
+```c++
+constexpr int fibonacci(const int n) {
+    return n == 1 || n == 2 ? 1 : fibonacci(n-1)+fibonacci(n-2);
+}
+```
+
+从 `C++14` 开始，`constexpr` 函数可以在内部使用`局部变量`、`循环`和`分支`等简单语句，例如下面的代码在 `C++11` 的标准下是不能够通过编译的：
+
+```c++
+constexpr int fibonacci(const int n) {
+    if(n == 1) return 1;
+    if(n == 2) return 1;
+    return fibonacci(n-1) + fibonacci(n-2);
+}
+```
+
+为此，我们可以写出下面这类简化的版本来使得函数从 `C++11` 开始即`可用`：
+
+```c++
+constexpr int fibonacci(const int n) {
+    return n == 1 || n == 2 ? 1 : fibonacci(n-1) + fibonacci(n-2);
+}
+```
+
 # 结语
 
 第二十三篇博文写完，开心！！！！
