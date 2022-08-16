@@ -764,7 +764,8 @@ subtitle:
   # 如果關閉打字效果，subtitle 只會顯示 sub 的第一行文字
   sub:
     - 我宁愿犯错，也不愿什么都不做。
-    - I'd rather make a mistake than do nothing.
+    - 弱小和无知不是生存的障碍，傲慢才是！
+    #- I'd rather make a mistake than do nothing.
 
 # Loading Animation (加載動畫)
 preloader:

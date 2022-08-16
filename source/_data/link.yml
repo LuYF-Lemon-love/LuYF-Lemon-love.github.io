@@ -113,6 +113,10 @@
       link: https://github.com/Akagi201/learning-cmake
       avatar: https://cos.luyf-lemon-love.space/images/20220805212534.png
       descr: This is a simple CMake tutorial project which contains some different scenarios
+    - name: 现代 C++ 教程：高速上手 C++ 11/14/17/20
+      link: https://changkun.de/modern-cpp/
+      avatar: https://cos.luyf-lemon-love.space/images/cover-2nd.png
+      descr: 高速上手 C++ 11/14/17/20
 
 - class_name: Python
   class_desc:
