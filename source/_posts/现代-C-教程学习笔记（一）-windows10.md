@@ -70,6 +70,173 @@ date: 2022-08-16 11:00:28
 
 # 第 1 章 迈向现代 C++ 
 
+`编译环境`：本书将使用 `clang++` 作为唯一使用的编译器，同时总是在代码中使用 `-std=c++2a` 编译标志。
+
+本笔记的环境平台是 `MSYS2`。关于 `MSYS2` 的安装及使用可以参考：{% post_link GCC-on-Windows-windows10 %} 、{% post_link MSYS2-教程-windows10 %} 和 {% post_link CMake-Examples-学习笔记-windows10 %}。
+
+`clang++` 的安装。
+
+```shell
+pacman -S --needed base-devel mingw-w64-clang-x86_64-toolchain
+```
+
+安装完成后，运行开始菜单的 “MSYS2 MinGW Clang x64”。现在就可以使用 “make” 和 “clang++” 为 Windows 构建软件了。
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 ~
+$ which make
+/usr/bin/make
+
+lyf@DESKTOP-GV2QHKN CLANG64 ~
+$ make -v
+GNU Make 4.3
+为 x86_64-pc-msys 编译
+Copyright (C) 1988-2020 Free Software Foundation, Inc.
+许可证：GPLv3+：GNU 通用公共许可证第 3 版或更新版本<http://gnu.org/licenses/gpl.html>。
+本软件是自由软件：您可以自由修改和重新发布它。
+在法律允许的范围内没有其他保证。
+
+lyf@DESKTOP-GV2QHKN CLANG64 ~
+$ which clang++
+/clang64/bin/clang++
+
+lyf@DESKTOP-GV2QHKN CLANG64 ~
+$ clang++ -v
+clang version 14.0.4
+Target: x86_64-w64-windows-gnu
+Thread model: posix
+InstalledDir: D:/lyf_computer_language/msys64/clang64/bin
+
+lyf@DESKTOP-GV2QHKN CLANG64 ~
+$ which gcc
+/clang64/bin/gcc
+
+lyf@DESKTOP-GV2QHKN CLANG64 ~
+$ gcc -v
+clang version 14.0.4
+Target: x86_64-w64-windows-gnu
+Thread model: posix
+InstalledDir: D:/lyf_computer_language/msys64/clang64/bin
+
+lyf@DESKTOP-GV2QHKN CLANG64 ~
+$
+```
+
+## 被弃用的特性
+
+从 `C++11` 开始，被弃用的主要特性：
+
+>注意：弃用并非彻底不能用，只是用于`暗示`程序员这些特性将从未来的标准中消失，应该`尽量避免使用`。但是，`已弃用的特性依然是标准库的一部分`，并且出于兼容性的考虑，大部分特性其实会`永久`保留。
+
+- 不再允许`字符串字面值常量`赋值给一个 `char *`。如果需要用`字符串字面值常量`赋值和初始化一个 `char *`，应该使用 `const char *` 或者 `auto`。
+
+```c++
+char *str = "hello world!"; // 将出现弃用警告
+```
+
+- `C++98 异常说明`、 `unexpected_handler`、`set_unexpected()` 等相关特性被弃用，应该使用 `noexcept`。
+
+- `auto_ptr` 被弃用，应使用 `unique_ptr`。
+
+- `register` 关键字被弃用，可以使用但不再具备任何实际含义。
+
+- `bool` 类型的 `++` 操作被弃用。
+
+- 如果一个类有`析构函数`，为其生成`拷贝构造函数`和`拷贝赋值运算符`的特性被弃用了。
+
+- `C 语言风格`的`类型转换`被弃用（即在变量前使用 `(convert_type)`），应该使用 `static_cast`、`reinterpret_cast`、`const_cast` 来进行`类型转换`。
+
+- 特别地，在最新的 `C++17` 标准中弃用了一些可以使用的 `C 标准库`，例如 `<ccomplex>`、`<cstdalign>`、`<cstdbool>` 与 `<ctgmath>` 等。
+
+还有一些其他诸如参数绑定（`C++11` 提供了 `std::bind` 和 `std::function`）、`export` 等特性也均被弃用。
+
+## 与 C 的兼容性
+
+出于一些不可抗力、历史原因，我们不得不在 `C++` 中使用一些 `C` 语言代码（甚至`古老的 C 语言代码`），例如 `Linux 系统调用`。
+
+{% span pink, C 和 C++ 互相兼容情况 %}
+
+![](https://cos.luyf-lemon-love.space/images/20220816144219.png)
+
+`C++` 不是 `C` 的一个超集。在编写 `C++` 时，也应该尽可能的避免使用诸如 `void*` 之类的程序风格。而在不得不使用 `C` 时，应该注意使用 `extern "C"` 这种特性，将 `C` 语言的代码与 `C++` 代码进行`分离编译`，再`统一链接`这种做法，例如：
+
+```c++
+// foo.h
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int add(int x, int y);
+
+#ifdef __cplusplus
+}
+#endif
+
+// foo.c
+int add(int x, int y) {
+    return x+y;
+}
+
+// 1.1.cpp
+#include "foo.h"
+#include <iostream>
+#include <functional>
+
+int main() {
+    [out = std::ref(std::cout << "Result from C code: " << add(1, 2))](){
+        out.get() << ".\n";
+    }();
+    return 0;
+}
+```
+
+应先使用 `gcc` 编译 `C` 语言的代码：
+
+```shell
+gcc -c foo.c
+```
+
+编译出 `foo.o` 文件，再使用 `clang++` 将 `C++` 代码和 `.o` 文件链接起来（或者都编译为 `.o` 再统一链接）：
+
+```shell
+clang++ 1.1.cpp foo.o -std=c++2a -o 1.1
+```
+
+当然，你可以使用 `Makefile` 来编译上面的代码：
+
+```makefile
+C = gcc
+CXX = clang++
+
+SOURCE_C = foo.c
+OBJECTS_C = foo.o
+
+SOURCE_CXX = 1.1.cpp
+
+TARGET = 1.1
+LDFLAGS_COMMON = -std=c++2a
+
+all:
+  $(C) -c $(SOURCE_C)
+  $(CXX) $(SOURCE_CXX) $(OBJECTS_C) $(LDFLAGS_COMMON) -o $(TARGET)
+clean:
+  rm -rf *.o $(TARGET)
+```
+
+>注意：`Makefile` 中的缩进是`制表符`而不是`空格符`。
+
+## 进一步阅读的参考文献
+
+1. C++ 语言导学. Bjarne Stroustrup
+
+2. [C++ 历史](https://en.cppreference.com/w/cpp/language/history)
+
+3. [C++ 特性在 GCC/Clang 等编译器中的支持情况](https://en.cppreference.com/w/cpp/compiler_support)
+
+4. [C++98 与 C99 之间的区别](http://david.tribble.com/text/cdiffs.htm#C99-vs-CPP98)
+
+# 第 2 章 语言可用性的强化
+
 # 结语
 
 第二十三篇博文写完，开心！！！！
