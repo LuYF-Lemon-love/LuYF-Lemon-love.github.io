@@ -8,6 +8,7 @@ tags:
   - Clang
   - make
   - Makefile
+  - C/C++
 categories: 学习笔记
 description: 现代 C++ 教程前两章（序言、迈向现代 C++、语言可用性的强化）的学习笔记。
 cover: 'https://cos.luyf-lemon-love.space/images/shadow_ruination_03.jpg'
@@ -19,15 +20,15 @@ date: 2022-08-16 11:00:28
 
 [现代 C++ 教程：高速上手 C++ 11/14/17/20（第二版）](https://changkun.de/modern-cpp/) 是欧长坤(hi[at]changkun.de)用中文写的。
 
-本人的笔记对应的书籍最后更新为 2022 年 7 月 17 日。
+本人的笔记对应的书籍最后更新时间为 2022 年 7 月 17 日。
 
-本书的官网为 https://changkun.de/modern-cpp/。可以在线阅读或者下载 PDF 版本。
+本书的官网为 https://changkun.de/modern-cpp/ 。可以在线阅读或者下载 PDF 版本。
 
-本书 GitHub 的地址为 https://github.com/changkun/modern-cpp-tutorial。
+本书 GitHub 的地址为 https://github.com/changkun/modern-cpp-tutorial 。
 
-本书 code 的地址为 https://github.com/changkun/modern-cpp-tutorial/tree/master/code。
+本书 code 的地址为 https://github.com/changkun/modern-cpp-tutorial/tree/master/code 。
 
-本书 exercises 的地址为 https://github.com/changkun/modern-cpp-tutorial/tree/master/exercises。
+本书 exercises 的地址为 https://github.com/changkun/modern-cpp-tutorial/tree/master/exercises 。
 
 操作系统：**Windows 10 专业版**
 
