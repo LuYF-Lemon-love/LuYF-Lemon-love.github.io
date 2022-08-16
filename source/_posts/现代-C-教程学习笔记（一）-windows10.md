@@ -1,6 +1,5 @@
 ---
 title: 现代 C++ 教程学习笔记（一）-windows10
-date: 2022-08-16 11:00:28
 tags:
   - C++11
   - MinGW
@@ -10,10 +9,10 @@ tags:
   - make
   - Makefile
 categories: 学习笔记
-description: 现代 C++ 教程前两章（序言、迈向现代 C++、语言可用性的强化
-）的学习笔记。
-cover: >-
-  https://cos.luyf-lemon-love.space/images/shadow_ruination_03.jpg
+description: 现代 C++ 教程前两章（序言、迈向现代 C++、语言可用性的强化）的学习笔记。
+cover: 'https://cos.luyf-lemon-love.space/images/shadow_ruination_03.jpg'
+abbrlink: 2389973386
+date: 2022-08-16 11:00:28
 ---
 
 # 前言
