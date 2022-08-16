@@ -154,7 +154,7 @@ char *str = "hello world!"; // 将出现弃用警告
 
 出于一些不可抗力、历史原因，我们不得不在 `C++` 中使用一些 `C` 语言代码（甚至`古老的 C 语言代码`），例如 `Linux 系统调用`。
 
-{% span pink, C 和 C++ 互相兼容情况 %}
+{% span cyan, C 和 C++ 互相兼容情况 %}
 
 ![](https://cos.luyf-lemon-love.space/images/20220816144219.png)
 
