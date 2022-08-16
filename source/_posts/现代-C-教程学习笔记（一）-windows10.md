@@ -373,6 +373,67 @@ $
 
 # 第 2 章 语言可用性的强化
 
+当我们声明、定义一个变量或者常量，对代码进行流程控制、面向对象的功能、模板编程等这些都是运行时之前，可能发生在编写代码或编译器编译代码时的行为。为此，我们通常谈及`语言可用性`，是指那些发生在运行时之前的语言行为。
+
+## 常量
+
+### nullptr
+
+`nullptr` 出现的目的是为了替代 `NULL`。在某种意义上来说，`传统 C++` 会把 `NULL`、`0` 视为同一种东西，即直接将 `NULL` 定义为 `0`(C++ 不允许直接将 `void *` 隐式转换到其他类型)。
+
+将 `NULL` 定义成 `0` 将导致 `C++` 中重载特性发生混乱。考虑下面这两个 `foo` 函数：
+
+```c++
+void foo(char*);
+void foo(int);
+```
+
+那么 `foo(NULL);` 这个语句将会去调用 `foo(int)`，从而导致代码违反直觉。
+
+为了解决这个问题，`C++11` 引入了 `nullptr` 关键字，专门用来区分`空指针`、`0`。而 `nullptr` 的类型为 `nullptr_t`，能够`隐式的转换`为`任何指针`或`成员指针`的类型，也能和它们进行`相等`或者`不等`的比较。
+
+你可以尝试使用 `clang++` 编译下面的代码：
+
+```c++
+#include <iostream>
+#include <type_traits>
+
+void foo(char *);
+void foo(int);
+
+int main() {
+    if (std::is_same<decltype(NULL), decltype(0)>::value)
+        std::cout << "NULL == 0" << std::endl;
+    if (std::is_same<decltype(NULL), decltype((void*)0)>::value)
+        std::cout << "NULL == (void *)0" << std::endl;
+    if (std::is_same<decltype(NULL), std::nullptr_t>::value)
+        std::cout << "NULL == nullptr" << std::endl;
+
+    foo(0);          // 调用 foo(int)
+    // foo(NULL);    // 该行不能通过编译
+    foo(nullptr);    // 调用 foo(char*)
+    return 0;
+}
+
+void foo(char *) {
+    std::cout << "foo(char*) is called" << std::endl;
+}
+void foo(int i) {
+    std::cout << "foo(int) is called" << std::endl;
+}
+```
+
+{% label 将输出：pink %}
+
+```shell
+foo(int) is called
+foo(char*) is called
+```
+
+从输出中我们可以看出，`NULL` 不同于 `0` 与 `nullptr`。所以，请养成直接使用 `nullptr` 的习惯。
+
+简单来说，`decltype` 用于`类型推导`，而 `std::is_same` 用于比较两个类型是否相同。
+
 # 结语
 
 第二十三篇博文写完，开心！！！！
