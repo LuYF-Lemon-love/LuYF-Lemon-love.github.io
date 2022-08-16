@@ -235,6 +235,142 @@ clean:
 
 4. [C++98 与 C99 之间的区别](http://david.tribble.com/text/cdiffs.htm#C99-vs-CPP98)
 
+## Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/
+mkdir modern-cpp-tutorial
+cd modern-cpp-tutorial/
+mkdir code
+cd code/
+mkdir 1
+cd 1
+```
+
+2. 创建 `foo.h` 文件，粘贴下面代码。
+
+```c++
+// foo.h
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int add(int x, int y);
+
+#ifdef __cplusplus
+}
+#endif
+```
+
+3. 创建 `foo.c` 文件，粘贴下面代码。
+
+```c++
+// foo.c
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include "foo.h"
+
+int add(int x, int y) {
+        return x+y;
+}
+```
+
+4. 创建 `1.1.c.and.cpp` 文件，粘贴下面代码。
+
+```c++
+// 1.1.c.and.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include "foo.h"
+#include <iostream>
+#include <functional>
+
+int main() {
+
+        // use lambda expression
+        [out = std::ref(std::cout << "Result from C code: " << add(1,2))](){
+                out.get() << ".\n";
+        }();
+
+        return 0;
+}
+```
+
+5. 创建 `Makefile` 文件，粘贴下面代码。
+
+```makefile
+# Makefile
+# created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+C = gcc
+CXX = clang++
+
+SOURCE_C = foo.c
+OBJECTS_C = foo.o
+
+SOURCE_CXX = 1.1.c.and.cpp
+
+TARGET = 1.1.out
+LDFLAGS_COMMON = -std=c++2a
+
+add:
+        $(C) -c $(SOURCE_C)
+        $(CXX) $(SOURCE_CXX) $(OBJECTS_C) $(LDFLAGS_COMMON) -o $(TARGET)
+
+clean:
+        rm -rf *.o $(TARGET)
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/1
+$ tree
+.
+├── 1.1.c.and.cpp
+├── foo.c
+├── foo.h
+└── Makefile
+
+0 directories, 4 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/1
+$ ls
+1.1.c.and.cpp  foo.c  foo.h  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/1
+$ make
+gcc -c foo.c
+clang++ 1.1.c.and.cpp foo.o -std=c++2a -o 1.1.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/1
+$ ls
+1.1.c.and.cpp  1.1.out  foo.c  foo.h  foo.o  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/1
+$ ./1.1.out
+Result from C code: 3.
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/1
+$ make clean
+rm -rf *.o 1.1.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/1
+$ ls
+1.1.c.and.cpp  foo.c  foo.h  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/1
+$
+```
+
 # 第 2 章 语言可用性的强化
 
 # 结语
