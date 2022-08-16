@@ -434,6 +434,113 @@ foo(char*) is called
 
 简单来说，`decltype` 用于`类型推导`，而 `std::is_same` 用于比较两个类型是否相同。
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/
+mkdir 2
+cd 2/
+```
+
+2. 创建 `2.01.nullptr.cpp` 文件，粘贴下面代码。
+
+```c++
+// 2.01.nullptr.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <type_traits>
+
+void foo(char *);
+void foo(int);
+
+int main() {
+        if (std::is_same<decltype(NULL), decltype(0)>::value)
+                std::cout << "NULL == 0" << std::endl;
+        if (std::is_same<decltype(NULL), decltype((void*)0)>::value)
+                std::cout << "NULL == (void *)0" << std::endl;
+        if (std::is_same<decltype(NULL), std::nullptr_t>::value)
+                std::cout << "NULL == nullptr" << std::endl;
+
+        foo(0);                 // will call foo(int)
+        foo(NULL);              // will call foo(int)
+        foo(nullptr);           // will call foo(char*)
+
+        return 0;
+}
+
+void foo(char *) {
+        std::cout << "foo(char*) is called" << std::endl;
+}
+
+void foo(int i) {
+        std::cout << "foo(int) is called" << std::endl;
+}
+```
+
+3. 创建 `Makefile` 文件，粘贴下面代码。
+
+```makefile
+# Makefile
+# created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+all: $(patsubst %.cpp, %.out, $(wildcard *.cpp))
+
+%.out: %.cpp Makefile
+        clang++ $< -o $@ -std=c++2a -pedantic
+
+clean:
+        rm *.out
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ tree
+.
+├── 2.01.nullptr.cpp
+└── Makefile
+
+0 directories, 2 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make
+clang++ 2.01.nullptr.cpp -o 2.01.nullptr.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp  2.01.nullptr.out  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ./2.01.nullptr.out
+NULL == 0
+foo(int) is called
+foo(int) is called
+foo(char*) is called
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$
+```
+
 ### constexpr
 
 # 结语
