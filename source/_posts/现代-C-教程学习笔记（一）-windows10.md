@@ -1240,12 +1240,12 @@ std::cout << add(i, j) << std::endl;
 
 >**注意：**`auto` **还不能用于推导数组类型：**
 >
->>```c++
->>auto auto_arr2[10] = {arr}; // 错误, 无法推导数组元素类型
->>
->>2.6.auto.cpp:30:19: error: 'auto_arr2' declared as array of 'auto'
->>    auto auto_arr2[10] = {arr};
->>```
+>```c++
+auto auto_arr2[10] = {arr}; // 错误, 无法推导数组元素类型
+>
+2.6.auto.cpp:30:19: error: 'auto_arr2' declared as array of 'auto'
+>    auto auto_arr2[10] = {arr};
+>```
 
 #### Files
 
