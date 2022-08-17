@@ -850,6 +850,83 @@ $
 
 ### 初始化列表
 
+初始化是一个非常重要的语言特性，最常见的就是在对象进行初始化时进行使用。 在传统 `C++` 中，`不同的对象有着不同的初始化方法`，例如普通数组、 `POD` （Plain Old Data，即`没有构造`、`析构`和`虚函数`的类或结构体） 类型都可以使用 `{}` 进行初始化，也就是我们所说的`初始化列表`。 而对于类对象的初始化，要么需要通过`拷贝构造`、要么就需要使用 `()` 进行。 这些`不同方法都针对各自对象，不能通用`。例如：
+
+```c++
+#include <iostream>
+#include <vector>
+
+class Foo {
+public:
+    int value_a;
+    int value_b;
+    Foo(int a, int b) : value_a(a), value_b(b) {}
+};
+
+int main() {
+    // before C++11
+    int arr[3] = {1, 2, 3};
+    Foo foo(1, 2);
+    std::vector<int> vec = {1, 2, 3, 4, 5};
+
+    std::cout << "arr[0]: " << arr[0] << std::endl;
+    std::cout << "foo:" << foo.value_a << ", " << foo.value_b << std::endl;
+    for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); ++it) {
+        std::cout << *it << std::endl;
+    }
+    return 0;
+}
+```
+
+为解决这个问题，`C++11` 首先把初始化列表的概念绑定到类型上，称其为 `std::initializer_list`，`允许构造函数或其他函数像参数一样使用初始化列表`，这就为`类对象的初始化`与`普通数组`和 `POD` 的初始化方法提供了统一的桥梁，例如：
+
+```c++
+#include <initializer_list>
+#include <vector>
+#include <iostream>
+
+class MagicFoo {
+public:
+    std::vector<int> vec;
+    MagicFoo(std::initializer_list<int> list) {
+        for (std::initializer_list<int>::iterator it = list.begin();
+             it != list.end(); ++it)
+            vec.push_back(*it);
+    }
+};
+int main() {
+    // after C++11
+    MagicFoo magicFoo = {1, 2, 3, 4, 5};
+
+    std::cout << "magicFoo: ";
+    for (std::vector<int>::iterator it = magicFoo.vec.begin(); 
+        it != magicFoo.vec.end(); ++it) 
+        std::cout << *it << std::endl;
+}
+```
+
+这种构造函数被叫做`初始化列表构造函数`，具有这种构造函数的类型将在初始化时被特殊关照。
+
+初始化列表除了用在对象构造上，还能将其`作为普通函数的形参`，例如：
+
+```c++
+public:
+    void foo(std::initializer_list<int> list) {
+        for (std::initializer_list<int>::iterator it = list.begin();
+            it != list.end(); ++it) vec.push_back(*it);
+    }
+
+magicFoo.foo({6,7,8,9});
+```
+
+其次，`C++11` 还提供了`统一的语法`来`初始化任意的对象`，例如：
+
+```c++
+Foo foo2 {3, 4};
+```
+
+### 结构化绑定
+
 # 结语
 
 第二十三篇博文写完，开心！！！！
