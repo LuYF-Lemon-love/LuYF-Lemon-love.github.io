@@ -927,6 +927,146 @@ Foo foo2 {3, 4};
 
 #### Files
 
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/2/
+```
+
+2. 创建 `2.04.initializer.list.cpp` 文件，粘贴下面代码。
+
+```c++
+// 2.04.initializer.list.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <initializer_list>
+#include <vector>
+
+class Foo {
+public:
+        int value_a;
+        int value_b;
+        Foo(int a, int b) : value_a(a), value_b(b) {}
+};
+
+class MagicFoo {
+public:
+        std::vector<int> vec;
+        MagicFoo(std::initializer_list<int> list) {
+                for (std::initializer_list<int>::iterator it = list.begin(); it != list.end(); ++it) {
+                        vec.push_back(*it);
+                }
+        }
+
+        void foo(std::initializer_list<int> list) {
+                for (std::initializer_list<int>::iterator it = list.begin(); it != list.end(); ++it) {
+                        vec.push_back(*it);
+                }
+        }
+};
+
+int main() {
+
+        // before C++11
+        int arr[3] = {1, 2, 3};
+        Foo foo(1, 2);
+        std::vector<int> vec = {1, 2, 3, 4, 5};
+
+        // after C++11
+        MagicFoo magicFoo = {1, 2, 3, 4, 5};
+        magicFoo.foo({6, 7, 8, 9});
+        Foo foo2 {3, 4};
+
+        std::cout << "arr[0]: " << arr[0] << std::endl;
+        std::cout << "foo: " << foo.value_a << ", " << foo.value_b << std::endl;
+        std::cout << "vec: " << std::endl;
+        for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); ++it) {
+                std::cout << *it << std::endl;
+        }
+        std::cout << "magicFoo: " << std::endl;
+        for (std::vector<int>::iterator it = magicFoo.vec.begin(); it != magicFoo.vec.end(); ++it) {
+                std::cout << *it << std::endl;
+        }
+        std::cout << "foo2: " << foo2.value_a << ", " << foo2.value_b << std::endl;
+
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ tree
+.
+├── 2.01.nullptr.cpp
+├── 2.02.constexpr.cpp
+├── 2.03.if.switch.cpp
+├── 2.04.initializer.list.cpp
+└── Makefile
+
+0 directories, 5 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp    2.03.if.switch.cpp         Makefile
+2.02.constexpr.cpp  2.04.initializer.list.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make
+clang++ 2.01.nullptr.cpp -o 2.01.nullptr.out -std=c++2a -pedantic
+clang++ 2.02.constexpr.cpp -o 2.02.constexpr.out -std=c++2a -pedantic
+clang++ 2.03.if.switch.cpp -o 2.03.if.switch.out -std=c++2a -pedantic
+clang++ 2.04.initializer.list.cpp -o 2.04.initializer.list.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp    2.03.if.switch.out
+2.01.nullptr.out    2.04.initializer.list.cpp
+2.02.constexpr.cpp  2.04.initializer.list.out
+2.02.constexpr.out  Makefile
+2.03.if.switch.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ./2.04.initializer.list.out
+arr[0]: 1
+foo: 1, 2
+vec:
+1
+2
+3
+4
+5
+magicFoo:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+foo2: 3, 4
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp    2.03.if.switch.cpp         Makefile
+2.02.constexpr.cpp  2.04.initializer.list.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$
+```
+
 ### 结构化绑定
 
 # 结语
