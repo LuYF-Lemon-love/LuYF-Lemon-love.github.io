@@ -756,6 +756,98 @@ if (const std::vector<int>::iterator itr = std::find(vec.begin(), vec.end(), 3);
 }
 ```
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/2/
+```
+
+2. 创建 `2.03.if.switch.cpp` 文件，粘贴下面代码。
+
+```c++
+// 2.03.if.switch.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+
+        std::vector<int> vec = {1, 2, 3, 4};
+
+        // after c++17, can be simplefied by using 'auto'
+        const std::vector<int>::iterator itr = std::find(vec.begin(), vec.end(), 2);
+        if (itr != vec.end()) {
+                *itr = 3;
+        }
+
+        if (const std::vector<int>::iterator itr = std::find(vec.begin(), vec.end(), 3);
+                        itr != vec.end()) {
+                *itr = 4;
+        }
+
+        // should output: 1, 4, 3, 4. can be simplefied using `auto`
+        for (std::vector<int>::iterator element = vec.begin(); element != vec.end(); ++element)
+                std::cout << *element << std::endl;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ tree
+.
+├── 2.01.nullptr.cpp
+├── 2.02.constexpr.cpp
+├── 2.03.if.switch.cpp
+└── Makefile
+
+0 directories, 4 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp    2.03.if.switch.cpp
+2.02.constexpr.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make
+clang++ 2.01.nullptr.cpp -o 2.01.nullptr.out -std=c++2a -pedantic
+clang++ 2.02.constexpr.cpp -o 2.02.constexpr.out -std=c++2a -pedantic
+clang++ 2.03.if.switch.cpp -o 2.03.if.switch.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp    2.02.constexpr.out  Makefile
+2.01.nullptr.out    2.03.if.switch.cpp
+2.02.constexpr.cpp  2.03.if.switch.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ./2.03.if.switch.out
+1
+4
+3
+4
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp    2.03.if.switch.cpp
+2.02.constexpr.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$
+```
+
 ### 初始化列表
 
 # 结语
