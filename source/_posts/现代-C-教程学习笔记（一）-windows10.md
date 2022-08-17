@@ -1178,6 +1178,77 @@ $
 
 ## 类型推导
 
+`C++11` 引入了 `auto` 和 `decltype` 这两个关键字实现了`类型推导`，让编译器来操心变量的类型。
+
+### auto
+
+使用 `auto` 进行`类型推导`的一个最为常见而且显著的例子就是`迭代器`。你应该在前面的小节里看到了`传统 C++` 中`冗长的迭代写法`：
+
+```c++
+// 在 C++11 之前
+// 由于 cbegin() 将返回 vector<int>::const_iterator
+// 所以 itr 也应该是 vector<int>::const_iterator 类型
+for(vector<int>::const_iterator it = vec.cbegin(); itr != vec.cend(); ++it)
+```
+
+而有了 `auto` 之后可以：
+
+```c++
+#include <initializer_list>
+#include <vector>
+#include <iostream>
+
+class MagicFoo {
+public:
+    std::vector<int> vec;
+    MagicFoo(std::initializer_list<int> list) {
+        // 从 C++11 起, 使用 auto 关键字进行类型推导
+        for (auto it = list.begin(); it != list.end(); ++it) {
+            vec.push_back(*it);
+        }
+    }
+};
+int main() {
+    MagicFoo magicFoo = {1, 2, 3, 4, 5};
+    std::cout << "magicFoo: ";
+    for (auto it = magicFoo.vec.begin(); it != magicFoo.vec.end(); ++it) {
+        std::cout << *it << ", ";
+    }
+    std::cout << std::endl;
+    return 0;
+}
+```
+
+一些其他的常见用法：
+
+```c++
+auto i = 5;              // i 被推导为 int
+auto arr = new auto(10); // arr 被推导为 int *
+```
+
+从 `C++ 20` 起，`auto` 甚至能用于`函数传参`，考虑下面的例子：
+
+```c++
+int add(auto x, auto y) {
+    return x+y;
+}
+
+auto i = 5; // 被推导为 int
+auto j = 6; // 被推导为 int
+std::cout << add(i, j) << std::endl;
+```
+
+>**注意：**`auto` **还不能用于推导数组类型：**
+>
+>```c++
+>auto auto_arr2[10] = {arr}; // 错误, 无法推导数组元素类型
+>
+>2.6.auto.cpp:30:19: error: 'auto_arr2' declared as array of 'auto'
+>    auto auto_arr2[10] = {arr};
+>```
+
+### decltype
+
 # 结语
 
 第二十三篇博文写完，开心！！！！
