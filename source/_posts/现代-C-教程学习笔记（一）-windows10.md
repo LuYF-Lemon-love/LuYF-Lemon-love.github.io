@@ -616,6 +616,107 @@ constexpr int fibonacci(const int n) {
 
 #### Files
 
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/2/
+```
+
+2. 创建 `2.02.constexpr.cpp` 文件，粘贴下面代码。
+
+```c++
+// 2.02.constexpr.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#define LEN 10
+
+int len_foo() {
+        int i = 2;
+        return i;
+}
+
+constexpr int len_foo_constexpr() {
+        return 5;
+}
+
+constexpr int fibonacci(const int n) {
+        return n == 1 || n == 2 ? 1 : fibonacci(n-1) + fibonacci(n-2);
+}
+
+int main() {
+
+        char arr_1[10];                                 // legal
+        char arr_2[LEN];                                // legal
+
+        int len = 10;
+        // char arr_3[len];                             // illegal
+
+        const int len_2 = len + 1;
+        constexpr int len_2_constexpr = 1 + 2 + 3;
+        // char arr_4[len_2];                           // illegal, but ok for most of the compilers
+        char arr_4[len_2_constexpr];                    // legal
+
+        // char arr_5[len_foo()+5];                     // illegal
+        char arr_6[len_foo_constexpr() + 1];            // legal
+
+        // 1, 1, 2, 3, 5, 8, 13, 21, 34, 55
+        std::cout << fibonacci(10) << std::endl;
+
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ tree
+.
+├── 2.01.nullptr.cpp
+├── 2.02.constexpr.cpp
+└── Makefile
+
+0 directories, 3 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp  2.02.constexpr.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make
+clang++ 2.01.nullptr.cpp -o 2.01.nullptr.out -std=c++2a -pedantic
+clang++ 2.02.constexpr.cpp -o 2.02.constexpr.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp  2.02.constexpr.cpp  Makefile
+2.01.nullptr.out  2.02.constexpr.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ./2.02.constexpr.out
+55
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp  2.02.constexpr.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$
+```
+
+## 变量及其初始化
+
+### if/switch 变量声明强化
+
 # 结语
 
 第二十三篇博文写完，开心！！！！
