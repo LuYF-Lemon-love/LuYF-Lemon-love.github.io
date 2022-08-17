@@ -1069,6 +1069,25 @@ $
 
 ### 结构化绑定
 
+`C++17` 给出的`结构化绑定`提供了类似其他语言中提供的`多返回值`的功能。
+
+```c++
+#include <iostream>
+#include <tuple>
+
+std::tuple<int, double, std::string> f() {
+    return std::make_tuple(1, 2.3, "456");
+}
+
+int main() {
+    auto [x, y, z] = f();
+    std::cout << x << ", " << y << ", " << z << std::endl;
+    return 0;
+}
+```
+
+## 类型推导
+
 # 结语
 
 第二十三篇博文写完，开心！！！！
