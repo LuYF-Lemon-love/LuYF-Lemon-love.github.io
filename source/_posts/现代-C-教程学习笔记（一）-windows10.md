@@ -1249,6 +1249,118 @@ auto auto_arr2[10] = {arr}; // 错误, 无法推导数组元素类型
 
 #### Files
 
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/2/
+```
+
+2. 创建 `2.06.auto.cpp` 文件，粘贴下面代码。
+
+```c++
+// 2.06.auto.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <initializer_list>
+#include <vector>
+#include <iostream>
+
+class MagicFoo {
+public:
+        std::vector<int> vec;
+        MagicFoo(std::initializer_list<int> list) {
+                for (auto it = list.begin(); it != list.end(); ++it) {
+                        vec.push_back(*it);
+                }
+        }
+};
+
+int add(auto x, auto y) { // Supported in C++20
+        return x+y;
+}
+
+int main() {
+
+        MagicFoo magicFoo = {1, 2, 3, 4, 5};
+        std::cout << "magicFoo: ";
+        for (auto it = magicFoo.vec.begin(); it != magicFoo.vec.end(); ++it) {
+                std::cout << *it << ", ";
+        }
+        std::cout << std::endl;
+
+        auto i = 5;                     // type int
+        auto j = 6;                     // type int
+        std::cout << add(i, j) << std::endl;
+
+        auto arr = new auto(10);        // type int*
+        // auto auto_arr2[10] = {arr};  // invalid
+
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ tree
+.
+├── 2.01.nullptr.cpp
+├── 2.02.constexpr.cpp
+├── 2.03.if.switch.cpp
+├── 2.04.initializer.list.cpp
+├── 2.05.structured.binding.cpp
+├── 2.06.auto.cpp
+└── Makefile
+
+0 directories, 7 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp    2.04.initializer.list.cpp    Makefile
+2.02.constexpr.cpp  2.05.structured.binding.cpp
+2.03.if.switch.cpp  2.06.auto.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make
+clang++ 2.01.nullptr.cpp -o 2.01.nullptr.out -std=c++2a -pedantic
+clang++ 2.02.constexpr.cpp -o 2.02.constexpr.out -std=c++2a -pedantic
+clang++ 2.03.if.switch.cpp -o 2.03.if.switch.out -std=c++2a -pedantic
+clang++ 2.04.initializer.list.cpp -o 2.04.initializer.list.out -std=c++2a -pedantic
+clang++ 2.05.structured.binding.cpp -o 2.05.structured.binding.out -std=c++2a -pedantic
+clang++ 2.06.auto.cpp -o 2.06.auto.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp    2.03.if.switch.out           2.06.auto.cpp
+2.01.nullptr.out    2.04.initializer.list.cpp    2.06.auto.out
+2.02.constexpr.cpp  2.04.initializer.list.out    Makefile
+2.02.constexpr.out  2.05.structured.binding.cpp
+2.03.if.switch.cpp  2.05.structured.binding.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ./2.06.auto.out
+magicFoo: 1, 2, 3, 4, 5,
+11
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp    2.04.initializer.list.cpp    Makefile
+2.02.constexpr.cpp  2.05.structured.binding.cpp
+2.03.if.switch.cpp  2.06.auto.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$
+```
+
 ### decltype
 
 # 结语
