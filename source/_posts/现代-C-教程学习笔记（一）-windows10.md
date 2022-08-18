@@ -1395,6 +1395,105 @@ type x == int
 type z == type x
 ```
 
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/2/
+```
+
+2. 创建 `2.07.decltype.cpp` 文件，粘贴下面代码。
+
+```c++
+// 2.07.decltype.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <type_traits>
+
+int main() {
+
+        auto x = 1;
+        auto y = 2;
+        decltype(x+y) z = 3;
+        if (std::is_same<decltype(x), int>::value)
+                std::cout << "type x == int" << std::endl;
+        if (std::is_same<decltype(x), float>::value)
+                std::cout << "type z == float" << std::endl;
+        if (std::is_same<decltype(x), decltype(z)>::value)
+                std::cout << "type z == type x" << std::endl;
+
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ tree
+.
+├── 2.01.nullptr.cpp
+├── 2.02.constexpr.cpp
+├── 2.03.if.switch.cpp
+├── 2.04.initializer.list.cpp
+├── 2.05.structured.binding.cpp
+├── 2.06.auto.cpp
+├── 2.07.decltype.cpp
+└── Makefile
+
+0 directories, 8 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp    2.04.initializer.list.cpp    2.07.decltype.cpp
+2.02.constexpr.cpp  2.05.structured.binding.cpp  Makefile
+2.03.if.switch.cpp  2.06.auto.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make
+clang++ 2.01.nullptr.cpp -o 2.01.nullptr.out -std=c++2a -pedantic
+clang++ 2.02.constexpr.cpp -o 2.02.constexpr.out -std=c++2a -pedantic
+clang++ 2.03.if.switch.cpp -o 2.03.if.switch.out -std=c++2a -pedantic
+clang++ 2.04.initializer.list.cpp -o 2.04.initializer.list.out -std=c++2a -pedantic
+clang++ 2.05.structured.binding.cpp -o 2.05.structured.binding.out -std=c++2a -pedantic
+clang++ 2.06.auto.cpp -o 2.06.auto.out -std=c++2a -pedantic
+clang++ 2.07.decltype.cpp -o 2.07.decltype.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp    2.03.if.switch.out           2.06.auto.cpp
+2.01.nullptr.out    2.04.initializer.list.cpp    2.06.auto.out
+2.02.constexpr.cpp  2.04.initializer.list.out    2.07.decltype.cpp
+2.02.constexpr.out  2.05.structured.binding.cpp  2.07.decltype.out
+2.03.if.switch.cpp  2.05.structured.binding.out  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ./2.07.decltype.out
+type x == int
+type z == type x
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp    2.04.initializer.list.cpp    2.07.decltype.cpp
+2.02.constexpr.cpp  2.05.structured.binding.cpp  Makefile
+2.03.if.switch.cpp  2.06.auto.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$
+```
+
+#### 尾返回类型推导
+
 ## 结语
 
 第二十三篇博文写完，开心！！！！
