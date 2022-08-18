@@ -1363,6 +1363,38 @@ $
 
 ### decltype
 
+`decltype` 关键字是为了解决 `auto` 关键字只能对`变量`进行`类型推导`的缺陷而出现的。它的用法和 `typeof` 很相似：
+
+```c++
+decltype(表达式)
+```
+
+有时候，我们可能需要计算某个表达式的类型，例如：
+
+```c++
+auto x = 1;
+auto y = 2;
+decltype(x+y) z;
+```
+
+你已经在前面的例子中看到 `decltype` 用于推断类型的用法，下面这个例子就是判断上面的变量 `x`, `y`, `z` 是否是同一类型：
+
+```c++
+if (std::is_same<decltype(x), int>::value)
+    std::cout << "type x == int" << std::endl;
+if (std::is_same<decltype(x), float>::value)
+    std::cout << "type x == float" << std::endl;
+if (std::is_same<decltype(x), decltype(z)>::value)
+    std::cout << "type z == type x" << std::endl;
+```
+
+其中，`std::is_same<T, U>` 用于判断 `T` 和 `U` 这两个类型是否相等。输出结果为：
+
+```shell
+type x == int
+type z == type x
+```
+
 # 结语
 
 第二十三篇博文写完，开心！！！！
