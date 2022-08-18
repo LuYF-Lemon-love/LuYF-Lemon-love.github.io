@@ -1662,6 +1662,39 @@ $
 
 #### decltype(auto)
 
+decltype(auto) 是 `C++14` 开始提供的一个略微复杂的用法。
+
+简单来说，`decltype(auto)` 主要用于对`转发函数`或`封装`的`返回类型`进行`推导`，它使我们无需显式的指定 `decltype` 的参数表达式。考虑看下面的例子，当我们需要对下面两个函数进行封装时：
+
+```c++
+std::string  lookup1();
+std::string& lookup2();
+```
+
+在 `C++11` 中，封装实现是如下形式：
+
+```c++
+std::string look_up_a_string_1() {
+    return lookup1();
+}
+std::string& look_up_a_string_2() {
+    return lookup2();
+}
+```
+
+而有了 `decltype(auto)`，我们可以让`编译器`完成这一件烦人的`参数转发`：
+
+```c++
+decltype(auto) look_up_a_string_1() {
+    return lookup1();
+}
+decltype(auto) look_up_a_string_2() {
+    return lookup2();
+}
+```
+
+### 控制流
+
 ## 结语
 
 第二十三篇博文写完，开心！！！！
