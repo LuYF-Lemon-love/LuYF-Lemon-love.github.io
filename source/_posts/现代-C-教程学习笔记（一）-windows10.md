@@ -1731,6 +1731,115 @@ int main() {
 }
 ```
 
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/2/
+```
+
+2. 创建 `2.10.if.constexpr.cpp` 文件，粘贴下面代码。
+
+```c++
+// 2.10.if.constexpr.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+
+template<typename T>
+auto print_type_info(const T& t) {
+        if constexpr (std::is_integral<T>::value) {
+                return t + 1;
+        } else {
+                return t + 0.001;
+        }
+}
+
+int main() {
+
+        std::cout << print_type_info(5) << std::endl;
+        std::cout << print_type_info(3.14) << std::endl;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ tree
+.
+├── 2.01.nullptr.cpp
+├── 2.02.constexpr.cpp
+├── 2.03.if.switch.cpp
+├── 2.04.initializer.list.cpp
+├── 2.05.structured.binding.cpp
+├── 2.06.auto.cpp
+├── 2.07.decltype.cpp
+├── 2.08.tail.return.type.cpp
+├── 2.10.if.constexpr.cpp
+└── Makefile
+
+0 directories, 10 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.06.auto.cpp
+2.02.constexpr.cpp           2.07.decltype.cpp
+2.03.if.switch.cpp           2.08.tail.return.type.cpp
+2.04.initializer.list.cpp    2.10.if.constexpr.cpp
+2.05.structured.binding.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make
+clang++ 2.01.nullptr.cpp -o 2.01.nullptr.out -std=c++2a -pedantic
+clang++ 2.02.constexpr.cpp -o 2.02.constexpr.out -std=c++2a -pedantic
+clang++ 2.03.if.switch.cpp -o 2.03.if.switch.out -std=c++2a -pedantic
+clang++ 2.04.initializer.list.cpp -o 2.04.initializer.list.out -std=c++2a -pedantic
+clang++ 2.05.structured.binding.cpp -o 2.05.structured.binding.out -std=c++2a -pedantic
+clang++ 2.06.auto.cpp -o 2.06.auto.out -std=c++2a -pedantic
+clang++ 2.07.decltype.cpp -o 2.07.decltype.out -std=c++2a -pedantic
+clang++ 2.08.tail.return.type.cpp -o 2.08.tail.return.type.out -std=c++2a -pedantic
+clang++ 2.10.if.constexpr.cpp -o 2.10.if.constexpr.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.06.auto.cpp
+2.01.nullptr.out             2.06.auto.out
+2.02.constexpr.cpp           2.07.decltype.cpp
+2.02.constexpr.out           2.07.decltype.out
+2.03.if.switch.cpp           2.08.tail.return.type.cpp
+2.03.if.switch.out           2.08.tail.return.type.out
+2.04.initializer.list.cpp    2.10.if.constexpr.cpp
+2.04.initializer.list.out    2.10.if.constexpr.out
+2.05.structured.binding.cpp  Makefile
+2.05.structured.binding.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ./2.10.if.constexpr.out
+6
+3.141
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.06.auto.cpp
+2.02.constexpr.cpp           2.07.decltype.cpp
+2.03.if.switch.cpp           2.08.tail.return.type.cpp
+2.04.initializer.list.cpp    2.10.if.constexpr.cpp
+2.05.structured.binding.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$
+```
+
 #### 区间 for 迭代
 
 ## 结语
