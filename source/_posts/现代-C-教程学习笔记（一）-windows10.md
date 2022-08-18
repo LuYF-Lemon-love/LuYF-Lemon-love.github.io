@@ -1862,6 +1862,126 @@ int main() {
 }
 ```
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/2/
+```
+
+2. 创建 `2.11.for.loop.cpp` 文件，粘贴下面代码。
+
+```c++
+// 2.11.for.loop.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+
+        std::vector<int> vec = {1, 2, 3, 4};
+        if (auto itr = std::find(vec.begin(), vec.end(), 3); itr != vec.end()) *itr = 4;
+        for (auto element : vec)
+                std::cout << element << std::endl;      // read only
+        for (auto &element : vec) {
+                element += 1;                           // writeable
+        }
+        for (auto element : vec)
+                std::cout << element << std::endl;      // read only
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ tree
+.
+├── 2.01.nullptr.cpp
+├── 2.02.constexpr.cpp
+├── 2.03.if.switch.cpp
+├── 2.04.initializer.list.cpp
+├── 2.05.structured.binding.cpp
+├── 2.06.auto.cpp
+├── 2.07.decltype.cpp
+├── 2.08.tail.return.type.cpp
+├── 2.10.if.constexpr.cpp
+├── 2.11.for.loop.cpp
+└── Makefile
+
+0 directories, 11 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.07.decltype.cpp
+2.02.constexpr.cpp           2.08.tail.return.type.cpp
+2.03.if.switch.cpp           2.10.if.constexpr.cpp
+2.04.initializer.list.cpp    2.11.for.loop.cpp
+2.05.structured.binding.cpp  Makefile
+2.06.auto.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make
+clang++ 2.01.nullptr.cpp -o 2.01.nullptr.out -std=c++2a -pedantic
+clang++ 2.02.constexpr.cpp -o 2.02.constexpr.out -std=c++2a -pedantic
+clang++ 2.03.if.switch.cpp -o 2.03.if.switch.out -std=c++2a -pedantic
+clang++ 2.04.initializer.list.cpp -o 2.04.initializer.list.out -std=c++2a -pedantic
+clang++ 2.05.structured.binding.cpp -o 2.05.structured.binding.out -std=c++2a -pedantic
+clang++ 2.06.auto.cpp -o 2.06.auto.out -std=c++2a -pedantic
+clang++ 2.07.decltype.cpp -o 2.07.decltype.out -std=c++2a -pedantic
+clang++ 2.08.tail.return.type.cpp -o 2.08.tail.return.type.out -std=c++2a -pedantic
+clang++ 2.10.if.constexpr.cpp -o 2.10.if.constexpr.out -std=c++2a -pedantic
+clang++ 2.11.for.loop.cpp -o 2.11.for.loop.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.06.auto.out
+2.01.nullptr.out             2.07.decltype.cpp
+2.02.constexpr.cpp           2.07.decltype.out
+2.02.constexpr.out           2.08.tail.return.type.cpp
+2.03.if.switch.cpp           2.08.tail.return.type.out
+2.03.if.switch.out           2.10.if.constexpr.cpp
+2.04.initializer.list.cpp    2.10.if.constexpr.out
+2.04.initializer.list.out    2.11.for.loop.cpp
+2.05.structured.binding.cpp  2.11.for.loop.out
+2.05.structured.binding.out  Makefile
+2.06.auto.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ./2.11.for.loop.out
+1
+2
+4
+4
+2
+3
+5
+5
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.07.decltype.cpp
+2.02.constexpr.cpp           2.08.tail.return.type.cpp
+2.03.if.switch.cpp           2.10.if.constexpr.cpp
+2.04.initializer.list.cpp    2.11.for.loop.cpp
+2.05.structured.binding.cpp  Makefile
+2.06.auto.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$
+```
+
 ### 模板
 
 ## 结语
