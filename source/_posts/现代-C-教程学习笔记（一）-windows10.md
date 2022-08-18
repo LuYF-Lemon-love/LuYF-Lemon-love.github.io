@@ -1842,6 +1842,28 @@ $
 
 #### 区间 for 迭代
 
+终于，`C++11` 引入了`基于范围`的迭代写法，我们拥有了能够写出像 `Python` 一样`简洁的循环语句`，我们可以进一步简化前面的例子：
+
+```c++
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> vec = {1, 2, 3, 4};
+    if (auto itr = std::find(vec.begin(), vec.end(), 3); itr != vec.end()) *itr = 4;
+    for (auto element : vec)
+        std::cout << element << std::endl; // read only
+    for (auto &element : vec) {
+        element += 1;                      // writeable
+    }
+    for (auto element : vec)
+        std::cout << element << std::endl; // read only
+}
+```
+
+### 模板
+
 ## 结语
 
 第二十三篇博文写完，开心！！！！
