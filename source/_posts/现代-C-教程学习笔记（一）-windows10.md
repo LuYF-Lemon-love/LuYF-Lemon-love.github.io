@@ -1695,6 +1695,44 @@ decltype(auto) look_up_a_string_2() {
 
 ### 控制流
 
+#### if constexpr
+
+`C++17` 将 `constexpr` 这个关键字引入到 `if` 语句中，允许在代码中声明`常量表达式`的`判断条件`，考虑下面的代码：
+
+```c++
+#include <iostream>
+
+template<typename T>
+auto print_type_info(const T& t) {
+    if constexpr (std::is_integral<T>::value) {
+        return t + 1;
+    } else {
+        return t + 0.001;
+    }
+}
+int main() {
+    std::cout << print_type_info(5) << std::endl;
+    std::cout << print_type_info(3.14) << std::endl;
+}
+```
+
+在编译时，实际代码就会表现为如下：
+
+```c++
+int print_type_info(const int& t) {
+    return t + 1;
+}
+double print_type_info(const double& t) {
+    return t + 0.001;
+}
+int main() {
+    std::cout << print_type_info(5) << std::endl;
+    std::cout << print_type_info(3.14) << std::endl;
+}
+```
+
+#### 区间 for 迭代
+
 ## 结语
 
 第二十三篇博文写完，开心！！！！
