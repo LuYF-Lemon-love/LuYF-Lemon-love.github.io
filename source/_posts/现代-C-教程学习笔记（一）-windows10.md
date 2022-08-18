@@ -1494,6 +1494,43 @@ $
 
 #### 尾返回类型推导
 
+>注意：`typename` 和 `class` 在`模板参数列表`中没有区别，在 `typename` 这个关键字出现之前，都是使用 `class` 来定义`模板参数`的。但在模板中定义有`嵌套依赖类型`的变量时，需要用 `typename` 消除歧义。
+
+`C++11` 引入了一个叫做`尾返回类型`（trailing return type），利用 `auto` 关键字将返回类型后置，进而`推导函数的返回类型`：
+
+```c++
+template<typename T, typename U>
+auto add2(T x, U y) -> decltype(x+y){
+    return x + y;
+}
+```
+
+令人欣慰的是从 `C++14` 开始是可以直接让`普通函数`具备返回值推导，因此下面的写法变得合法：
+
+```c++
+template<typename T, typename U>
+auto add3(T x, U y){
+    return x + y;
+}
+```
+
+可以检查一下类型推导是否正确：
+
+```c++
+// after c++11
+auto w = add2<int, double>(1, 2.0);
+if (std::is_same<decltype(w), double>::value) {
+    std::cout << "w is double: ";
+}
+std::cout << w << std::endl;
+
+// after c++14
+auto q = add3<double, int>(1.0, 2);
+std::cout << "q: " << q << std::endl;
+```
+
+#### decltype(auto)
+
 ## 结语
 
 第二十三篇博文写完，开心！！！！
