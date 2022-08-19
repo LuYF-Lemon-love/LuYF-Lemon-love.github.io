@@ -2697,6 +2697,43 @@ $
 
 #### 非类型模板参数推导
 
+前面我们主要提及的是模板参数的一种形式：`类型模板参数`。
+
+```c++
+template <typename T, typename U>
+auto add(T t, U u) {
+    return t+u;
+}
+```
+
+其中模板的参数 `T` 和 `U` 为具体的`类型`。但还有一种常见模板参数形式可以让不同`字面量`成为模板参数，即`非类型模板参数`：
+
+```c++
+template <typename T, int BufSize>
+class buffer_t {
+public:
+    T& alloc();
+    void free(T& item);
+private:
+    T data[BufSize];
+}
+
+buffer_t<int, 100> buf; // 100 作为模板参数
+```
+
+在这种模板参数形式下，我们可以将 `100` 作为模板的参数进行传递。 在 `C++11` 引入了`类型推导`这一特性后，我们会很自然的问，既然此处的`模板参数`以具体的`字面量`进行传递，能否让`编译器`辅助我们进行`类型推导`，通过使用占位符 `auto` 从而不再需要明确指明类型？ 幸运的是，`C++17` 引入了这一特性，我们的确可以用 `auto` 关键字，让`编译器`辅助完成具体类型的`推导`， 例如：
+
+```c++
+template <auto value> void foo() {
+    std::cout << value << std::endl;
+    return;
+}
+
+int main() {
+    foo<10>();  // value 被推导为 int 类型
+}
+```
+
 ## 结语
 
 第二十三篇博文写完，开心！！！！
