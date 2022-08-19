@@ -2561,6 +2561,19 @@ $
 
 #### 折叠表达式
 
+`C++ 17` 中将`变长参数`这种特性进一步带给了`表达式`，考虑下面这个例子：
+
+```c++
+#include <iostream>
+template<typename ... T>
+auto sum(T ... t) {
+    return (t + ...);
+}
+int main() {
+    std::cout << sum(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) << std::endl;
+}
+```
+
 ## 结语
 
 第二十三篇博文写完，开心！！！！
