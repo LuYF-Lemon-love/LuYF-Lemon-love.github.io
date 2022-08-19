@@ -2131,6 +2131,38 @@ $
 
 #### 类型别名模板
 
+在了解`类型别名模板`之前，需要理解`模板`和`类型`之间的不同。仔细体会这句话：`模板是用来产生类型的`。在传统 `C++` 中，`typedef` 可以`为类型定义一个新的名称`，但是`却没有办法为模板定义一个新的名称`。因为，`模板不是类型`。例如：
+
+```c++
+template<typename T, typename U>
+class MagicType {
+public:
+    T dark;
+    U magic;
+};
+
+// 不合法
+template<typename T>
+typedef MagicType<std::vector<T>, std::string> FakeDarkMagic;
+```
+
+`C++11` 使用 `using` 引入了下面这种形式的写法，并且同时支持对传统 `typedef` 相同的功效：
+
+>通常我们使用 `typedef` 定义别名的语法是：`typedef 原名称 新名称;`，但是`对函数指针等别名的定义语法却不相同`，这通常给直接阅读造成了一定程度的困难。
+
+```c++
+typedef int (*process)(void *);
+using NewProcess = int(*)(void *);
+template<typename T>
+using TrueDarkMagic = MagicType<std::vector<T>, std::string>;
+
+int main() {
+    TrueDarkMagic<bool> you;
+}
+```
+
+#### 变长参数模板
+
 ## 结语
 
 第二十三篇博文写完，开心！！！！
