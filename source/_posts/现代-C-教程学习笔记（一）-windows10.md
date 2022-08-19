@@ -1864,7 +1864,7 @@ int main() {
 }
 ```
 
-#### Files
+##### Files
 
 1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
 
