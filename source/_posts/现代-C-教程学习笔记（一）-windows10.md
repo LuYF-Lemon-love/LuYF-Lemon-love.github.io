@@ -2602,7 +2602,8 @@ int main() {
 ---
 
 ```shell
-lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2$ tree
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ tree
 .
 ├── 2.01.nullptr.cpp
 ├── 2.02.constexpr.cpp
@@ -2763,7 +2764,8 @@ int main() {
 ---
 
 ```shell
-lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2$ tree
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ tree
 .
 ├── 2.01.nullptr.cpp
 ├── 2.02.constexpr.cpp
