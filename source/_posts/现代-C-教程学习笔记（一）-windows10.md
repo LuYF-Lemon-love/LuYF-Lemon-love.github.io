@@ -36,6 +36,8 @@ date: 2022-08-16 11:00:28
 
 1. [现代 C++ 教程：高速上手 C++ 11/14/17/20（第二版）](https://changkun.de/modern-cpp/)
 
+2. [C++ 初始化列表展开,这个代码是什么意思？](https://www.zhihu.com/question/443285720/answer/1723184923)
+
 ## 序言
 
 ### 引言
@@ -2282,6 +2284,111 @@ $
 ```
 
 #### 变长参数模板
+
+模板一直是 `C++` 所独有的`黑魔法`（一起念：Dark Magic）之一。 在 `C++11` 之前，无论是`类模板`还是`函数模板`，都只能按其指定的样子， `接受一组固定数量的模板参数`；而 `C++11` 加入了新的表示方法， `允许任意个数、任意类别的模板参数`，同时`也不需要在定义时将参数的个数固定`。
+
+```c++
+template<typename... Ts> class Magic;
+```
+
+模板类 `Magic` 的对象，能够接受`不受限制个数`的 `typename` 作为`模板的形式参数`，例如下面的定义：
+
+```c++
+class Magic<int,
+            std::vector<int>,
+            std::map<std::string,
+            std::vector<int>>> darkMagic;
+```
+
+既然是任意形式，所以个数为 `0` 的模板参数也是可以的：`class Magic<> nothing;`。
+
+如果不希望产生的模板参数个数为 `0`，可以手动的定义`至少一个模板参数`：
+
+```c++
+template<typename Require, typename... Args> class Magic;
+```
+
+`变长参数模板`也能被直接调整到到`模板函数上`。传统 `C` 中的 `printf` 函数，虽然也能达成不定个数的形参的调用，但其`并非类别安全`。而 `C++11` 除了能定义`类别安全`的`变长参数`函数外， 还可以使类似 `printf` 的函数`能自然地处理非自带类别的对象`。 除了在`模板参数`中能使用 `...` 表示`不定长模板参数`外，`函数参数`也使用同样的表示法代表`不定长参数`，这也就为我们简单编写`变长参数函数`提供了便捷的手段，例如：
+
+```c++
+template<typename... Args> void printf(const std::string &str, Args... args);
+```
+
+那么我们定义了`变长的模板参数`，如何对参数进行解包呢？
+
+首先，我们可以使用 `sizeof...` 来计算参数的个数：
+
+```c++
+template<typename... Ts>
+void magic(Ts... args) {
+    std::cout << sizeof...(args) << std::endl;
+}
+```
+
+我们可以传递任意个参数给 `magic` 函数：
+
+```c++
+magic(); // 输出0
+magic(1); // 输出1
+magic(1, ""); // 输出2
+```
+
+其次，`对参数进行解包`，到目前为止还没有一种简单的方法能够处理参数包，但有三种经典的处理手法：
+
+**1. 递归模板函数**
+
+递归是非常容易想到的一种手段，也是`最经典的处理方法`。这种方法不断递归地向函数传递模板参数，进而达到递归遍历所有模板参数的目的：
+
+```c++
+#include <iostream>
+template<typename T0>
+void printf1(T0 value) {
+    std::cout << value << std::endl;
+}
+template<typename T, typename... Ts>
+void printf1(T value, Ts... args) {
+    std::cout << value << std::endl;
+    printf1(args...);
+}
+int main() {
+    printf1(1, 2, "123", 1.1);
+    return 0;
+}
+```
+
+**2. 变参模板展开**
+
+你应该感受到了这很繁琐，在 `C++17` 中增加了变参模板展开的支持，于是你可以在一个函数中完成 `printf` 的编写：
+
+```c++
+template<typename T0, typename... T>
+void printf2(T0 t0, T... t) {
+    std::cout << t0 << std::endl;
+    if constexpr (sizeof...(t) > 0) printf2(t...);
+}
+```
+
+**3. 初始化列表展开**
+
+`递归模板函数`是一种标准的做法，但缺点显而易见的在于必须定义一个`终止递归`的函数。
+
+这里介绍一种使用`初始化列表展开`的黑魔法：
+
+```c++
+template<typename T, typename... Ts>
+auto printf3(T value, Ts... args) {
+    std::cout << value << std::endl;
+    (void) std::initializer_list<T>{([&args] {
+        std::cout << args << std::endl;
+    }(), value)...};
+}
+```
+
+通过`初始化列表`，`(lambda 表达式, value)...` 将会被展开。由于`逗号表达式`的出现，`首先会执行前面的 lambda 表达式，完成参数的输出`。 为了避免编译器警告，我们可以将 `std::initializer_list` 显式的转为 `void`。
+
+关于上面`初始化列表展开`代码的详细解释可以参考：[C++ 初始化列表展开,这个代码是什么意思？](https://www.zhihu.com/question/443285720/answer/1723184923)。
+
+#### 折叠表达式
 
 ## 结语
 
