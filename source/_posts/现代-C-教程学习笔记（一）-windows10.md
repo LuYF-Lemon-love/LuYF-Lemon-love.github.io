@@ -2388,6 +2388,177 @@ auto printf3(T value, Ts... args) {
 
 关于上面`初始化列表展开`代码的详细解释可以参考：[C++ 初始化列表展开,这个代码是什么意思？](https://www.zhihu.com/question/443285720/answer/1723184923)。
 
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/2/
+```
+
+2. 创建 `2.15.variadic.template.param.cpp` 文件，粘贴下面代码。
+
+```c++
+// 2.15.variadic.template.param.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+// sizeof...
+template<typename... Ts>
+void magic(Ts... args) {
+        std::cout << sizeof...(args) << std::endl;
+}
+
+// 1. recursive parameter unpack
+template<typename T0>
+void printf1(T0 value) {
+        std::cout << value << std::endl;
+}
+
+template<typename T, typename... Ts>
+void printf1(T value, Ts... args) {
+        std::cout << value << std::endl;
+        printf1(args...);
+}
+
+// 2. variadic template parameter unfold
+template<typename T0, typename... T>
+void printf2(T0 t0, T... t) {
+        std::cout << t0 << std::endl;
+        if constexpr (sizeof...(t) > 0) printf2(t...);
+}
+
+// 3. parameter unpack using initializer_list
+template<typename T, typename... Ts>
+auto printf3(T value, Ts... args) {
+        std::cout << value << std::endl;
+        (void) std::initializer_list<T>{([&args] {
+                        std::cout << args << std::endl;
+        }(), value)...};
+}
+
+int main() {
+
+        magic();
+        magic(1);
+        magic(1,"");
+
+        printf1(1, 2, "123", 1.1);
+        printf2(1, 2.3, "abc");
+        printf3(111, 123, "alpha", 1.2);
+
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ tree
+.
+├── 2.01.nullptr.cpp
+├── 2.02.constexpr.cpp
+├── 2.03.if.switch.cpp
+├── 2.04.initializer.list.cpp
+├── 2.05.structured.binding.cpp
+├── 2.06.auto.cpp
+├── 2.07.decltype.cpp
+├── 2.08.tail.return.type.cpp
+├── 2.10.if.constexpr.cpp
+├── 2.11.for.loop.cpp
+├── 2.12.external.template.cpp
+├── 2.13.alias.template.cpp
+├── 2.15.variadic.template.param.cpp
+└── Makefile
+
+0 directories, 14 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.08.tail.return.type.cpp
+2.02.constexpr.cpp           2.10.if.constexpr.cpp
+2.03.if.switch.cpp           2.11.for.loop.cpp
+2.04.initializer.list.cpp    2.12.external.template.cpp
+2.05.structured.binding.cpp  2.13.alias.template.cpp
+2.06.auto.cpp                2.15.variadic.template.param.cpp
+2.07.decltype.cpp            Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make
+clang++ 2.01.nullptr.cpp -o 2.01.nullptr.out -std=c++2a -pedantic
+clang++ 2.02.constexpr.cpp -o 2.02.constexpr.out -std=c++2a -pedantic
+clang++ 2.03.if.switch.cpp -o 2.03.if.switch.out -std=c++2a -pedantic
+clang++ 2.04.initializer.list.cpp -o 2.04.initializer.list.out -std=c++2a -pedantic
+clang++ 2.05.structured.binding.cpp -o 2.05.structured.binding.out -std=c++2a -pedantic
+clang++ 2.06.auto.cpp -o 2.06.auto.out -std=c++2a -pedantic
+clang++ 2.07.decltype.cpp -o 2.07.decltype.out -std=c++2a -pedantic
+clang++ 2.08.tail.return.type.cpp -o 2.08.tail.return.type.out -std=c++2a -pedantic
+clang++ 2.10.if.constexpr.cpp -o 2.10.if.constexpr.out -std=c++2a -pedantic
+clang++ 2.11.for.loop.cpp -o 2.11.for.loop.out -std=c++2a -pedantic
+clang++ 2.12.external.template.cpp -o 2.12.external.template.out -std=c++2a -pedantic
+clang++ 2.13.alias.template.cpp -o 2.13.alias.template.out -std=c++2a -pedantic
+clang++ 2.15.variadic.template.param.cpp -o 2.15.variadic.template.param.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.08.tail.return.type.cpp
+2.01.nullptr.out             2.08.tail.return.type.out
+2.02.constexpr.cpp           2.10.if.constexpr.cpp
+2.02.constexpr.out           2.10.if.constexpr.out
+2.03.if.switch.cpp           2.11.for.loop.cpp
+2.03.if.switch.out           2.11.for.loop.out
+2.04.initializer.list.cpp    2.12.external.template.cpp
+2.04.initializer.list.out    2.12.external.template.out
+2.05.structured.binding.cpp  2.13.alias.template.cpp
+2.05.structured.binding.out  2.13.alias.template.out
+2.06.auto.cpp                2.15.variadic.template.param.cpp
+2.06.auto.out                2.15.variadic.template.param.out
+2.07.decltype.cpp            Makefile
+2.07.decltype.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ./2.15.variadic.template.param.out
+0
+1
+2
+1
+2
+123
+1.1
+1
+2.3
+abc
+111
+123
+alpha
+1.2
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.08.tail.return.type.cpp
+2.02.constexpr.cpp           2.10.if.constexpr.cpp
+2.03.if.switch.cpp           2.11.for.loop.cpp
+2.04.initializer.list.cpp    2.12.external.template.cpp
+2.05.structured.binding.cpp  2.13.alias.template.cpp
+2.06.auto.cpp                2.15.variadic.template.param.cpp
+2.07.decltype.cpp            Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$
+```
+
 #### 折叠表达式
 
 ## 结语
