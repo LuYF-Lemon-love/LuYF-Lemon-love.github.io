@@ -3215,6 +3215,176 @@ std::ostream& operator<<(
 std::cout << new_enum::value3 << std::endl
 ```
 
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/2/
+```
+
+2. 创建 `2.20.strong.type.enum.cpp` 文件，粘贴下面代码。
+
+```c++
+// 2.20.strong.type.enum.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+template<typename T>
+std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::ostream>::type& stream, const T& e)
+{
+        return stream << static_cast<typename std::underlying_type<T>::type>(e);
+}
+
+// there will be compile error if all define value1 和 value2
+enum Left {
+        left_value1 = 1,
+        left_value2
+};
+
+enum Right {
+        right_value1 = 1,
+        right_value2
+};
+
+enum class new_enum : unsigned int{
+        value1,
+        value2,
+        value3 = 100,
+        value4 = 100
+};
+
+int main() {
+
+        // compile error
+        //if (Left::left_value1 == Right::right_value2) {
+        //      std::cout << "Left::value1 == Right::value2" << std::endl;
+        //}
+
+        // compile error
+        // if(new_enum::left_value1 == 1) {
+        //      std::cout << "true!" << std::endl;
+        // }
+
+        if (new_enum::value3 == new_enum::value4) {
+                std::cout << "new_enum::value3 == new_enum::value4" << std::endl;
+        }
+
+        std::cout << new_enum::value3 << std::endl;
+
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ tree
+.
+├── 2.01.nullptr.cpp
+├── 2.02.constexpr.cpp
+├── 2.03.if.switch.cpp
+├── 2.04.initializer.list.cpp
+├── 2.05.structured.binding.cpp
+├── 2.06.auto.cpp
+├── 2.07.decltype.cpp
+├── 2.08.tail.return.type.cpp
+├── 2.10.if.constexpr.cpp
+├── 2.11.for.loop.cpp
+├── 2.12.external.template.cpp
+├── 2.13.alias.template.cpp
+├── 2.15.variadic.template.param.cpp
+├── 2.16.fold.expression.cpp
+├── 2.18.non.type.template.auto.cpp
+├── 2.19.delegate.constructor.cpp
+├── 2.20.strong.type.enum.cpp
+└── Makefile
+
+0 directories, 18 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.11.for.loop.cpp
+2.02.constexpr.cpp           2.12.external.template.cpp
+2.03.if.switch.cpp           2.13.alias.template.cpp
+2.04.initializer.list.cpp    2.15.variadic.template.param.cpp
+2.05.structured.binding.cpp  2.16.fold.expression.cpp
+2.06.auto.cpp                2.18.non.type.template.auto.cpp
+2.07.decltype.cpp            2.19.delegate.constructor.cpp
+2.08.tail.return.type.cpp    2.20.strong.type.enum.cpp
+2.10.if.constexpr.cpp        Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make
+clang++ 2.01.nullptr.cpp -o 2.01.nullptr.out -std=c++2a -pedantic
+clang++ 2.02.constexpr.cpp -o 2.02.constexpr.out -std=c++2a -pedantic
+clang++ 2.03.if.switch.cpp -o 2.03.if.switch.out -std=c++2a -pedantic
+clang++ 2.04.initializer.list.cpp -o 2.04.initializer.list.out -std=c++2a -pedantic
+clang++ 2.05.structured.binding.cpp -o 2.05.structured.binding.out -std=c++2a -pedantic
+clang++ 2.06.auto.cpp -o 2.06.auto.out -std=c++2a -pedantic
+clang++ 2.07.decltype.cpp -o 2.07.decltype.out -std=c++2a -pedantic
+clang++ 2.08.tail.return.type.cpp -o 2.08.tail.return.type.out -std=c++2a -pedantic
+clang++ 2.10.if.constexpr.cpp -o 2.10.if.constexpr.out -std=c++2a -pedantic
+clang++ 2.11.for.loop.cpp -o 2.11.for.loop.out -std=c++2a -pedantic
+clang++ 2.12.external.template.cpp -o 2.12.external.template.out -std=c++2a -pedantic
+clang++ 2.13.alias.template.cpp -o 2.13.alias.template.out -std=c++2a -pedantic
+clang++ 2.15.variadic.template.param.cpp -o 2.15.variadic.template.param.out -std=c++2a -pedantic
+clang++ 2.16.fold.expression.cpp -o 2.16.fold.expression.out -std=c++2a -pedantic
+clang++ 2.18.non.type.template.auto.cpp -o 2.18.non.type.template.auto.out -std=c++2a -pedantic
+clang++ 2.19.delegate.constructor.cpp -o 2.19.delegate.constructor.out -std=c++2a -pedantic
+clang++ 2.20.strong.type.enum.cpp -o 2.20.strong.type.enum.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.11.for.loop.cpp
+2.01.nullptr.out             2.11.for.loop.out
+2.02.constexpr.cpp           2.12.external.template.cpp
+2.02.constexpr.out           2.12.external.template.out
+2.03.if.switch.cpp           2.13.alias.template.cpp
+2.03.if.switch.out           2.13.alias.template.out
+2.04.initializer.list.cpp    2.15.variadic.template.param.cpp
+2.04.initializer.list.out    2.15.variadic.template.param.out
+2.05.structured.binding.cpp  2.16.fold.expression.cpp
+2.05.structured.binding.out  2.16.fold.expression.out
+2.06.auto.cpp                2.18.non.type.template.auto.cpp
+2.06.auto.out                2.18.non.type.template.auto.out
+2.07.decltype.cpp            2.19.delegate.constructor.cpp
+2.07.decltype.out            2.19.delegate.constructor.out
+2.08.tail.return.type.cpp    2.20.strong.type.enum.cpp
+2.08.tail.return.type.out    2.20.strong.type.enum.out
+2.10.if.constexpr.cpp        Makefile
+2.10.if.constexpr.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ./2.20.strong.type.enum.out
+new_enum::value3 == new_enum::value4
+100
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.11.for.loop.cpp
+2.02.constexpr.cpp           2.12.external.template.cpp
+2.03.if.switch.cpp           2.13.alias.template.cpp
+2.04.initializer.list.cpp    2.15.variadic.template.param.cpp
+2.05.structured.binding.cpp  2.16.fold.expression.cpp
+2.06.auto.cpp                2.18.non.type.template.auto.cpp
+2.07.decltype.cpp            2.19.delegate.constructor.cpp
+2.08.tail.return.type.cpp    2.20.strong.type.enum.cpp
+2.10.if.constexpr.cpp        Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$
+```
+
 ### 总结
 
 本节介绍了现代 `C++` 中对语言可用性的增强，其中笔者认为最为重要的几个特性是几乎所有人都需要了解并熟练使用的：
