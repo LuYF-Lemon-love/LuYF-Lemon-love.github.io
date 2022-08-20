@@ -2985,6 +2985,191 @@ class Magic {
 }
 ```
 
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/2/
+```
+
+2. 创建 `2.19.delegate.constructor.cpp` 文件，粘贴下面代码。
+
+```c++
+// 2.19.delegate.constructor.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <string>
+
+class Base {
+public:
+        std::string str;
+        int value;
+        Base() = delete;
+        Base(std::string s) {
+                str = s;
+        }
+
+        // delegate constructor
+        Base(std::string s, int v) : Base(s) {
+                value = v;
+        }
+
+        // final constructor
+        virtual void foo() final {
+                return;
+        }
+
+        virtual void foo(int v) {
+                value = v;
+        }
+};
+
+class Subclass final : public Base {
+public:
+        double floating;
+        Subclass() = delete;
+
+        // inherit constructor
+        Subclass(double f, int v, std::string s) : Base(s, v) {
+                floating = f;
+        }
+
+        // explifict constructor
+        virtual void foo(int v) override {
+                std::cout << v << std::endl;
+                value = v;
+        }
+};
+
+//class Subclass2 : Subclass {
+//};    // illegal, Subclass has final
+//class Subclass3 : Base {
+//      void foo();     // illegal, foo has final
+//}
+
+int main() {
+
+        // Subclass oops; // illegal, default constructor has deleted
+        Subclass s(1.2, 3, "abc");
+
+        s.foo(1);
+
+        std::cout << s.floating << std::endl;
+        std::cout << s.value << std::endl;
+        std::cout << s.str << std::endl;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ tree
+.
+├── 2.01.nullptr.cpp
+├── 2.02.constexpr.cpp
+├── 2.03.if.switch.cpp
+├── 2.04.initializer.list.cpp
+├── 2.05.structured.binding.cpp
+├── 2.06.auto.cpp
+├── 2.07.decltype.cpp
+├── 2.08.tail.return.type.cpp
+├── 2.10.if.constexpr.cpp
+├── 2.11.for.loop.cpp
+├── 2.12.external.template.cpp
+├── 2.13.alias.template.cpp
+├── 2.15.variadic.template.param.cpp
+├── 2.16.fold.expression.cpp
+├── 2.18.non.type.template.auto.cpp
+├── 2.19.delegate.constructor.cpp
+└── Makefile
+
+0 directories, 17 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.11.for.loop.cpp
+2.02.constexpr.cpp           2.12.external.template.cpp
+2.03.if.switch.cpp           2.13.alias.template.cpp
+2.04.initializer.list.cpp    2.15.variadic.template.param.cpp
+2.05.structured.binding.cpp  2.16.fold.expression.cpp
+2.06.auto.cpp                2.18.non.type.template.auto.cpp
+2.07.decltype.cpp            2.19.delegate.constructor.cpp
+2.08.tail.return.type.cpp    Makefile
+2.10.if.constexpr.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make
+clang++ 2.01.nullptr.cpp -o 2.01.nullptr.out -std=c++2a -pedantic
+clang++ 2.02.constexpr.cpp -o 2.02.constexpr.out -std=c++2a -pedantic
+clang++ 2.03.if.switch.cpp -o 2.03.if.switch.out -std=c++2a -pedantic
+clang++ 2.04.initializer.list.cpp -o 2.04.initializer.list.out -std=c++2a -pedantic
+clang++ 2.05.structured.binding.cpp -o 2.05.structured.binding.out -std=c++2a -pedantic
+clang++ 2.06.auto.cpp -o 2.06.auto.out -std=c++2a -pedantic
+clang++ 2.07.decltype.cpp -o 2.07.decltype.out -std=c++2a -pedantic
+clang++ 2.08.tail.return.type.cpp -o 2.08.tail.return.type.out -std=c++2a -pedantic
+clang++ 2.10.if.constexpr.cpp -o 2.10.if.constexpr.out -std=c++2a -pedantic
+clang++ 2.11.for.loop.cpp -o 2.11.for.loop.out -std=c++2a -pedantic
+clang++ 2.12.external.template.cpp -o 2.12.external.template.out -std=c++2a -pedantic
+clang++ 2.13.alias.template.cpp -o 2.13.alias.template.out -std=c++2a -pedantic
+clang++ 2.15.variadic.template.param.cpp -o 2.15.variadic.template.param.out -std=c++2a -pedantic
+clang++ 2.16.fold.expression.cpp -o 2.16.fold.expression.out -std=c++2a -pedantic
+clang++ 2.18.non.type.template.auto.cpp -o 2.18.non.type.template.auto.out -std=c++2a -pedantic
+clang++ 2.19.delegate.constructor.cpp -o 2.19.delegate.constructor.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.10.if.constexpr.out
+2.01.nullptr.out             2.11.for.loop.cpp
+2.02.constexpr.cpp           2.11.for.loop.out
+2.02.constexpr.out           2.12.external.template.cpp
+2.03.if.switch.cpp           2.12.external.template.out
+2.03.if.switch.out           2.13.alias.template.cpp
+2.04.initializer.list.cpp    2.13.alias.template.out
+2.04.initializer.list.out    2.15.variadic.template.param.cpp
+2.05.structured.binding.cpp  2.15.variadic.template.param.out
+2.05.structured.binding.out  2.16.fold.expression.cpp
+2.06.auto.cpp                2.16.fold.expression.out
+2.06.auto.out                2.18.non.type.template.auto.cpp
+2.07.decltype.cpp            2.18.non.type.template.auto.out
+2.07.decltype.out            2.19.delegate.constructor.cpp
+2.08.tail.return.type.cpp    2.19.delegate.constructor.out
+2.08.tail.return.type.out    Makefile
+2.10.if.constexpr.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ./2.19.delegate.constructor.out
+1
+1.2
+1
+abc
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$ ls
+2.01.nullptr.cpp             2.11.for.loop.cpp
+2.02.constexpr.cpp           2.12.external.template.cpp
+2.03.if.switch.cpp           2.13.alias.template.cpp
+2.04.initializer.list.cpp    2.15.variadic.template.param.cpp
+2.05.structured.binding.cpp  2.16.fold.expression.cpp
+2.06.auto.cpp                2.18.non.type.template.auto.cpp
+2.07.decltype.cpp            2.19.delegate.constructor.cpp
+2.08.tail.return.type.cpp    Makefile
+2.10.if.constexpr.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/2
+$
+```
+
 #### 强类型枚举
 
 ## 结语
