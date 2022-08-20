@@ -3600,6 +3600,8 @@ lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises
 $
 ```
 
+参考答案[见此](https://changkun.de/modern-cpp/exercises/2)。
+
 ## 结语
 
 第二十三篇博文写完，开心！！！！
