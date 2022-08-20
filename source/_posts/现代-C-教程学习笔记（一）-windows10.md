@@ -3399,6 +3399,132 @@ $
 
 ### 习题
 
+1. 使用`结构化绑定`，仅用一行函数内代码实现如下函数：
+
+```c++
+template <typename Key, typename Value, typename F>
+void update(std::map<Key, Value>& m, F foo) {
+    // TODO:
+}
+int main() {
+    std::map<std::string, long long int> m {
+        {"a", 1},
+        {"b", 2},
+        {"c", 3}
+    };
+    update(m, [](std::string key) {
+        return std::hash<std::string>{}(key);
+    });
+    for (auto&& [key, value] : m)
+        std::cout << key << ":" << value << std::endl;
+}
+```
+
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/
+mkdir exercises
+cd exercises/
+mkdir 2
+cd 2/
+```
+
+2. 创建 `structured.binding.cpp` 文件，粘贴下面代码。
+
+```c++
+// structured.binding.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <map>
+#include <string>
+#include <functional>
+
+template <typename Key, typename Value, typename F>
+void update(std::map<Key, Value>& m, F foo) {
+        for (auto&& [key, value] : m ) value = foo(key);
+}
+
+int main() {
+
+        std::map<std::string, long long int> m {
+                {"a", 1},
+                {"b", 2},
+                {"c", 3}
+        };
+
+        update(m, [](std::string key) -> long long int {
+                        return std::hash<std::string>{}(key);
+        });
+
+        for (auto&& [key, value] : m)
+                std::cout << key << ":" << value << std::endl;
+}
+```
+
+3. 创建 `Makefile` 文件，粘贴下面代码。
+
+```makefile
+# Makefile
+# created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+all: $(patsubst %.cpp, %.out, $(wildcard *.cpp))
+
+%.out: %.cpp Makefile
+        clang++ $< -o $@ -std=c++2a -pedantic
+
+clean:
+        rm *.out
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$ tree
+.
+├── Makefile
+└── structured.binding.cpp
+
+0 directories, 2 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$ ls
+Makefile  structured.binding.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$ make
+clang++ structured.binding.cpp -o structured.binding.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$ ls
+Makefile  structured.binding.cpp  structured.binding.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$ ./structured.binding.out
+a:2603192927274642682
+b:4947675599669400333
+c:-7663404831243078624
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$ ls
+Makefile  structured.binding.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$
+```
+
 ## 结语
 
 第二十三篇博文写完，开心！！！！
