@@ -3525,6 +3525,81 @@ lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises
 $
 ```
 
+2. 尝试用`折叠表达式`实现用于计算均值的函数，传入允许任意参数。
+
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2/
+```
+
+2. 创建 `fold.expresion.cpp` 文件，粘贴下面代码。
+
+```c++
+// fold.expresion.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+
+template<typename ... T>
+auto average(T ... t) {
+        return (t + ... ) / sizeof...(t);
+}
+
+int main() {
+        std::cout << average(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) << std::endl;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$ tree
+.
+├── fold.expresion.cpp
+├── Makefile
+└── structured.binding.cpp
+
+0 directories, 3 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$ ls
+fold.expresion.cpp  Makefile  structured.binding.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$ make
+clang++ fold.expresion.cpp -o fold.expresion.out -std=c++2a -pedantic
+clang++ structured.binding.cpp -o structured.binding.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$ ls
+fold.expresion.cpp  structured.binding.cpp
+fold.expresion.out  structured.binding.out
+Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$ ./fold.expresion.out
+5
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$ ls
+fold.expresion.cpp  Makefile  structured.binding.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/2
+$
+```
+
 ## 结语
 
 第二十三篇博文写完，开心！！！！
