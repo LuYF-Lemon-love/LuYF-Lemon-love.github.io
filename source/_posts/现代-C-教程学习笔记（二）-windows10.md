@@ -345,6 +345,113 @@ int main() {
 
 >提示：注意 `auto` 关键字的妙用。有时候我们可能不太熟悉一个函数的返回值类型，但是我们却可以通过 `auto` 的使用来规避这一问题的出现。
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/3/
+```
+
+2. 创建 `3.2.function.wrap.cpp` 文件，粘贴下面代码。
+
+```c++
+// 3.2.function.wrap.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <functional>
+#include <iostream>
+
+using foo = void(int);  // function pointer
+void functional(foo f) {
+        f(1);
+}
+
+int foo2(int para) {
+        return para;
+}
+
+int foo3(int a, int b, int c) {
+        return 0;
+}
+
+int main() {
+
+        auto f = [](int value) {
+                std::cout << value << std::endl;
+        };
+        functional(f);  // call by function pointer
+        f(1);           // call by lambda expression
+
+        // std::function wraps a function that take int parameter and returns int value
+        std::function<int(int)> func = foo2;
+
+        int important = 10;
+        std::function<int(int)> func2 = [&](int value) -> int {
+                return 1+value+important;
+        };
+        std::cout << func(10) << std::endl;
+        std::cout << func2(10) << std::endl;
+
+        // bind parameter 1, 2 on function foo, and use std::placeholders::_1 as placeholder
+        // for the first parameter.
+        auto bindFoo = std::bind(foo3, std::placeholders::_1, 1, 2);
+        // when call bindFoo, we only need one param left
+        bindFoo(1);
+
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ tree
+.
+├── 3.1.lambda.basic.cpp
+├── 3.2.function.wrap.cpp
+└── Makefile
+
+0 directories, 3 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp  3.2.function.wrap.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ make
+clang++ 3.1.lambda.basic.cpp -o 3.1.lambda.basic.out -std=c++2a -pedantic
+clang++ 3.2.function.wrap.cpp -o 3.2.function.wrap.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp  3.2.function.wrap.cpp  Makefile
+3.1.lambda.basic.out  3.2.function.wrap.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ./3.2.function.wrap.out
+1
+1
+10
+21
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp  3.2.function.wrap.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$
+```
+
 ### 右值引用
 
 ## 结语
