@@ -143,6 +143,138 @@ add(1.1, 2.2);
 
 #### Files
 
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/
+mkdir 3
+cd 3/
+```
+
+2. 创建 `3.1.lambda.basic.cpp` 文件，粘贴下面代码。
+
+```c++
+// 3.1.lambda.basic.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <memory> // std::make_unique
+#include <utility> // std::move
+
+void lambda_value_capture() {
+        int value = 1;
+        auto copy_value = [value] {
+                return value;
+        };
+        value = 100;
+        auto stored_value = copy_value();
+        std::cout << "stored_value = " << stored_value << std::endl;
+        // At this moment, stored_value == 1, and value == 100.
+        // Because copy_value has copied when its was created.
+}
+
+void lambda_reference_capture() {
+        int value = 1;
+        auto copy_value = [&value] {
+                return value;
+        };
+        value = 100;
+        auto stored_value = copy_value();
+        std::cout << "stored_value = " << stored_value << std::endl;
+        // At this moment, stored_value == 100, value == 100.
+        // Because copy_value stores reference
+}
+
+void lambda_expression_capture() {
+        auto important = std::make_unique<int>(1);
+        auto add = [v1 = 1, v2 = std::move(important)](int x, int y) -> int {
+                return x+y+v1+(*v2);
+        };
+        std::cout << add(3,4) << std::endl;
+}
+
+void lambda_generic() {
+        auto generic = [](auto x, auto y) {
+                return x+y;
+        };
+
+        std::cout << generic(1, 2) << std::endl;
+        std::cout << generic(1.1, 2.2) << std::endl;
+}
+
+int main() {
+
+        lambda_value_capture();
+        lambda_reference_capture();
+        lambda_expression_capture();
+        lambda_generic();
+
+        return 0;
+}
+```
+
+3. 创建 `Makefile` 文件，粘贴下面代码。
+
+```makefile
+# Makefile
+# created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+all: $(patsubst %.cpp, %.out, $(wildcard *.cpp))
+
+%.out: %.cpp Makefile
+        clang++ $< -o $@ -std=c++2a -pedantic
+
+clean:
+        rm *.out
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ tree
+.
+├── 3.1.lambda.basic.cpp
+└── Makefile
+
+0 directories, 2 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ make
+clang++ 3.1.lambda.basic.cpp -o 3.1.lambda.basic.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp  3.1.lambda.basic.out  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ./3.1.lambda.basic.out
+stored_value = 1
+stored_value = 100
+9
+3
+3.3
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$
+```
+
 ### 函数对象包装器
 
 ## 结语
