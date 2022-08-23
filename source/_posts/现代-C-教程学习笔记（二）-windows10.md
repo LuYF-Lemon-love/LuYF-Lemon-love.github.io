@@ -1058,6 +1058,132 @@ constexpr _Tp&& forward(typename std::remove_reference<_Tp>::type&& __t) noexcep
 
 这时我们能回答这样一个问题：`为什么在使用循环语句的过程中，auto&& 是最安全的方式？` 因为当 `auto` 被推导为不同的`左右引用`时，与 `&&` 的坍缩组合是`完美转发`。
 
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/3/
+```
+
+2. 创建 `3.7.perfect.forward.cpp` 文件，粘贴下面代码。
+
+```c++
+// 3.7.perfect.forward.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <utility>
+
+void reference(int& v) {
+        std::cout << "lvalue reference" << std::endl;
+}
+
+void reference(int&& v) {
+        std::cout << "rvalue reference" << std::endl;
+}
+
+template <typename T>
+void pass(T&& v) {
+        std::cout << "          normal param passing: ";
+        reference(v);
+        std::cout << "       std::move param passing: ";
+        reference(std::move(v));
+        std::cout << "    std::forward param passing: ";
+        reference(std::forward<T>(v));
+        std::cout << "static_cast<T&&> param passing: ";
+        reference(static_cast<T&&>(v));
+}
+
+int main() {
+        std::cout << "rvalue pass:" << std::endl;
+        pass(1);
+
+        std::cout << "lvalue pass:" << std::endl;
+        int l = 1;
+        pass(l);
+
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ tree
+.
+├── 3.1.lambda.basic.cpp
+├── 3.2.function.wrap.cpp
+├── 3.3.rvalue.cpp
+├── 3.4.historical.cpp
+├── 3.5.move.semantics.cpp
+├── 3.6.move.semantics.cpp
+├── 3.7.perfect.forward.cpp
+└── Makefile
+
+0 directories, 8 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp   3.5.move.semantics.cpp
+3.2.function.wrap.cpp  3.6.move.semantics.cpp
+3.3.rvalue.cpp         3.7.perfect.forward.cpp
+3.4.historical.cpp     Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ make
+clang++ 3.1.lambda.basic.cpp -o 3.1.lambda.basic.out -std=c++2a -pedantic
+clang++ 3.2.function.wrap.cpp -o 3.2.function.wrap.out -std=c++2a -pedantic
+clang++ 3.3.rvalue.cpp -o 3.3.rvalue.out -std=c++2a -pedantic
+clang++ 3.4.historical.cpp -o 3.4.historical.out -std=c++2a -pedantic
+clang++ 3.5.move.semantics.cpp -o 3.5.move.semantics.out -std=c++2a -pedantic
+clang++ 3.6.move.semantics.cpp -o 3.6.move.semantics.out -std=c++2a -pedantic
+clang++ 3.7.perfect.forward.cpp -o 3.7.perfect.forward.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp   3.5.move.semantics.cpp
+3.1.lambda.basic.out   3.5.move.semantics.out
+3.2.function.wrap.cpp  3.6.move.semantics.cpp
+3.2.function.wrap.out  3.6.move.semantics.out
+3.3.rvalue.cpp         3.7.perfect.forward.cpp
+3.3.rvalue.out         3.7.perfect.forward.out
+3.4.historical.cpp     Makefile
+3.4.historical.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ./3.7.perfect.forward.out
+rvalue pass:
+          normal param passing: lvalue reference
+       std::move param passing: rvalue reference
+    std::forward param passing: rvalue reference
+static_cast<T&&> param passing: rvalue reference
+lvalue pass:
+          normal param passing: lvalue reference
+       std::move param passing: rvalue reference
+    std::forward param passing: lvalue reference
+static_cast<T&&> param passing: lvalue reference
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp   3.5.move.semantics.cpp
+3.2.function.wrap.cpp  3.6.move.semantics.cpp
+3.3.rvalue.cpp         3.7.perfect.forward.cpp
+3.4.historical.cpp     Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$
+```
+
 ### 总结
 
 本章介绍了现代 `C++` 中最为重要的几个`语言运行时的增强`，其中笔者认为本节中提到的所有特性都是值得掌握的：
