@@ -580,6 +580,129 @@ void foo() {
 
 第二个问题，为什么`常量引用允许绑定到非左值`？原因很简单，因为 `Fortran` 需要。
 
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/3/
+```
+
+2. 创建 `3.3.rvalue.cpp` 文件，粘贴下面代码。
+
+```c++
+// 3.3.rvalue.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <string>
+
+void reference(std::string& str) {
+        std::cout << "lvalue" << std::endl;
+}
+void reference(std::string&& str) {
+        std::cout << "rvalue" << std::endl;
+}
+
+int main()
+{
+        std::string lv1 = "string,";    // lv1 is a lvalue
+        // std::string&& r1 = lv1;      // illegal, rvalue can't ref to lvalue
+        std::string&& rv1 = std::move(lv1);     // legal, std::move can convert lvalue to rvalue
+        std::cout << rv1 << std::endl;          // string,
+
+        const std::string& lv2 = lv1 + lv1;     // legal, const lvalue reference can extend temp variable's lifecycle
+        // lv2 += "Test";                       // illegal, const ref can't be modified
+        std::cout << lv2 << std::endl;          // string,string
+
+        std::string&& rv2= lv1 + lv2;           // legal, rvalue ref extend lifecycle
+        rv2 += "string";                        // legal, non-const reference can be modified
+        std::cout << rv2 << std::endl;          // string,string,string
+
+        reference(rv2);                         // output: lvalue
+
+        return 0;
+}
+```
+
+3. 创建 `3.4.historical.cpp` 文件，粘贴下面代码。
+
+```c++
+// 3.4.historical.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+
+int main() {
+        // int &a = std::move(1);       // illegal, non-const lvalue reference cannot ref rvalue
+        const int &b = std::move(1);    // legal, const lvalue reference can
+
+        std::cout << b << std::endl;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ tree
+.
+├── 3.1.lambda.basic.cpp
+├── 3.2.function.wrap.cpp
+├── 3.3.rvalue.cpp
+├── 3.4.historical.cpp
+└── Makefile
+
+0 directories, 5 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp   3.3.rvalue.cpp      Makefile
+3.2.function.wrap.cpp  3.4.historical.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ make
+clang++ 3.1.lambda.basic.cpp -o 3.1.lambda.basic.out -std=c++2a -pedantic
+clang++ 3.2.function.wrap.cpp -o 3.2.function.wrap.out -std=c++2a -pedantic
+clang++ 3.3.rvalue.cpp -o 3.3.rvalue.out -std=c++2a -pedantic
+clang++ 3.4.historical.cpp -o 3.4.historical.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp   3.3.rvalue.out
+3.1.lambda.basic.out   3.4.historical.cpp
+3.2.function.wrap.cpp  3.4.historical.out
+3.2.function.wrap.out  Makefile
+3.3.rvalue.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ./3.3.rvalue.out
+string,
+string,string,
+string,string,string,string
+lvalue
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ./3.4.historical.out
+1
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp   3.3.rvalue.cpp      Makefile
+3.2.function.wrap.cpp  3.4.historical.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$
+```
+
 #### 移动语义
 
 `传统 C++` 通过`拷贝构造函数`和`赋值操作符`为类对象设计了`拷贝/复制`的概念，但为了`实现对资源的移动操作，调用者必须使用先复制、再析构的方式，否则就需要自己实现移动对象的接口`。试想，搬家的时候是把家里的东西直接搬到新家去，而不是将所有东西复制一份（重买）再放到新家、再把原来的东西全部扔掉（销毁），这是非常反人类的一件事情。
