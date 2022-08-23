@@ -779,6 +779,167 @@ int main() {
 }
 ```
 
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/3/
+```
+
+2. 创建 `3.5.move.semantics.cpp` 文件，粘贴下面代码。
+
+```c++
+// 3.5.move.semantics.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+
+class A {
+public:
+        int *pointer;
+        A():pointer(new int(1)) {
+                std::cout << "construct" << pointer << std::endl;
+        }
+
+        A(A& a):pointer(new int(*a.pointer)) {
+                std::cout << "copy" << pointer << std::endl;
+        } // meaningless object copy
+
+        A(A&& a):pointer(a.pointer) {
+                a.pointer = nullptr;
+                std::cout << "move" << pointer << std::endl;
+        }
+
+        ~A(){
+                std::cout << "destruct" << pointer << std::endl;
+                delete pointer;
+        }
+};
+
+// avoid compiler optimization
+A return_rvalue(bool test) {
+        A a,b;
+        if(test) return a;      // equal to static_cast<A&&>(a);
+        else return b;          // equal to static_cast<A&&>(b);
+}
+
+int main() {
+        A obj = return_rvalue(false);
+        std::cout << "obj:" << std::endl;
+        std::cout << obj.pointer << std::endl;
+        std::cout << *obj.pointer << std::endl;
+        return 0;
+}
+```
+
+3. 创建 `3.6.move.semantics.cpp` 文件，粘贴下面代码。
+
+```c++
+// 3.6.move.semantics.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream> // std::cout
+#include <utility> // std::move
+#include <vector> // std::vector
+#include <string> // std::string
+
+int main() {
+
+        std::string str = "Hello world.";
+        std::vector<std::string> v;
+
+        // use push_back(const T&), copy
+        v.push_back(str);
+        // "str: Hello world."
+        std::cout << "str: " << str << std::endl;
+
+        // use push_back(const T&&), no copy
+        // the string will be moved to vector, and therefore std::move can reduce copy cost
+        v.push_back(std::move(str));
+        // str is empty now
+        std::cout << "str: " << str << std::endl;
+
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ tree
+.
+├── 3.1.lambda.basic.cpp
+├── 3.2.function.wrap.cpp
+├── 3.3.rvalue.cpp
+├── 3.4.historical.cpp
+├── 3.5.move.semantics.cpp
+├── 3.6.move.semantics.cpp
+└── Makefile
+
+0 directories, 7 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp   3.4.historical.cpp      Makefile
+3.2.function.wrap.cpp  3.5.move.semantics.cpp
+3.3.rvalue.cpp         3.6.move.semantics.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ make
+clang++ 3.1.lambda.basic.cpp -o 3.1.lambda.basic.out -std=c++2a -pedantic
+clang++ 3.2.function.wrap.cpp -o 3.2.function.wrap.out -std=c++2a -pedantic
+clang++ 3.3.rvalue.cpp -o 3.3.rvalue.out -std=c++2a -pedantic
+clang++ 3.4.historical.cpp -o 3.4.historical.out -std=c++2a -pedantic
+clang++ 3.5.move.semantics.cpp -o 3.5.move.semantics.out -std=c++2a -pedantic
+clang++ 3.6.move.semantics.cpp -o 3.6.move.semantics.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp   3.4.historical.out
+3.1.lambda.basic.out   3.5.move.semantics.cpp
+3.2.function.wrap.cpp  3.5.move.semantics.out
+3.2.function.wrap.out  3.6.move.semantics.cpp
+3.3.rvalue.cpp         3.6.move.semantics.out
+3.3.rvalue.out         Makefile
+3.4.historical.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ./3.5.move.semantics.out
+construct000002B19FC567D0
+construct000002B19FC56810
+move000002B19FC56810
+destruct0000000000000000
+destruct000002B19FC567D0
+obj:
+000002B19FC56810
+1
+destruct000002B19FC56810
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ./3.6.move.semantics.out
+str: Hello world.
+str:
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ls
+3.1.lambda.basic.cpp   3.4.historical.cpp      Makefile
+3.2.function.wrap.cpp  3.5.move.semantics.cpp
+3.3.rvalue.cpp         3.6.move.semantics.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$
+```
+
 #### 完美转发
 
 前面我们提到了，一个声明的`右值引用`其实是一个`左值`。这就为我们进行`参数转发（传递）`造成了问题：
