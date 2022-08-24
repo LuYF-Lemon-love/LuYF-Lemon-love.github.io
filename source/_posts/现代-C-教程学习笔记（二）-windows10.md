@@ -1732,6 +1732,156 @@ for(int i = 0; i != tuple_len(new_tuple); ++i)
     std::cout << tuple_index(new_tuple, i) << std::endl;
 ```
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/4/
+```
+
+2. 创建 `4.3.tuples.cpp` 文件，粘贴下面代码。
+
+```c++
+// 4.3.tuples.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <tuple>
+#include <iostream>
+#include <variant>
+
+auto get_student(int id)
+{
+        if (id == 0)
+                return std::make_tuple(3.8, 'A', "John");
+        if (id == 1)
+                return std::make_tuple(2.9, 'C', "Jack");
+        if (id == 2)
+                return std::make_tuple(1.7, 'D', "Ive");
+        // return type is std::tuple<double, char, std::string>
+        return std::make_tuple(0.0, 'D', "null");
+}
+
+template <size_t n, typename... T>
+constexpr std::variant<T...> _tuple_index(const std::tuple<T...>& tpl, size_t i) {
+        if constexpr (n >= sizeof...(T))
+                throw std::out_of_range("out of range.");
+        if (i == n)
+                return std::variant<T...>{ std::in_place_index<n>, std::get<n>(tpl) };
+        return _tuple_index<(n < sizeof...(T)-1 ? n+1 : 0)>(tpl, i);
+}
+
+template <typename... T>
+constexpr std::variant<T...> tuple_index(const std::tuple<T...>& tpl, size_t i) {
+        return _tuple_index<0>(tpl, i);
+}
+
+template <typename T>
+auto tuple_len(T &tpl) {
+        return std::tuple_size<T>::value;
+}
+
+template <typename T0, typename ... Ts>
+std::ostream & operator<< (std::ostream & s, std::variant<T0, Ts...> const & v) {
+        std::visit([&](auto && x){ s << x;}, v);
+        return s;
+}
+
+int main()
+{
+        auto student = get_student(0);
+        std::cout << "ID: 0, "
+                  << "GPA: "   << std::get<0>(student) << ", "
+                  << "Grade: " << std::get<1>(student) << ", "
+                  << "Name: "  << std::get<2>(student) << '\n';
+
+        double gpa;
+        char grade;
+        std::string name;
+
+        // tuple unpack
+        std::tie(gpa, grade, name) = get_student(1);
+        std::cout << "ID: 1, "
+                  << "GPA: "   << gpa   << ", "
+                  << "Grade: " << grade << ", "
+                  << "Name: "  << name  << '\n';
+
+        std::tuple<std::string, double, double, int> t("123", 4.5, 6.7, 8);
+        std::cout << std::get<std::string>(t) << std::endl;
+        // std::cout << std::get<double>(t) << std::endl; // illegal, runtime error
+        std::cout << std::get<3>(t) << std::endl;
+
+        // concat
+        auto new_tuple = std::tuple_cat(get_student(1), std::move(t));
+
+        // iteration
+        for (int i = 0; i != tuple_len(new_tuple); ++i) {
+                std::cout << tuple_index(new_tuple, i) << std::endl; // runtime indexing
+        }
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ tree
+.
+├── 4.1.linear.container.cpp
+├── 4.2.unordered.map.cpp
+├── 4.3.tuples.cpp
+└── Makefile
+
+0 directories, 4 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ls
+4.1.linear.container.cpp  4.3.tuples.cpp
+4.2.unordered.map.cpp     Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ make
+clang++ 4.1.linear.container.cpp -o 4.1.linear.container.out -std=c++2a -pedantic
+clang++ 4.2.unordered.map.cpp -o 4.2.unordered.map.out -std=c++2a -pedantic
+clang++ 4.3.tuples.cpp -o 4.3.tuples.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ls
+4.1.linear.container.cpp  4.2.unordered.map.out  Makefile
+4.1.linear.container.out  4.3.tuples.cpp
+4.2.unordered.map.cpp     4.3.tuples.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ./4.3.tuples.out
+ID: 0, GPA: 3.8, Grade: A, Name: John
+ID: 1, GPA: 2.9, Grade: C, Name: Jack
+123
+8
+2.9
+C
+Jack
+123
+4.5
+6.7
+8
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ls
+4.1.linear.container.cpp  4.3.tuples.cpp
+4.2.unordered.map.cpp     Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$
+```
+
 ### 总结
 
 本章简单介绍了`现代 C++` 中新增的容器，它们的用法和`传统 C++` 中已有的容器类似，相对简单，可以根据实际场景丰富的选择需要使用的容器，从而获得更好的性能。
