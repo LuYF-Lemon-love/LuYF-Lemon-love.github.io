@@ -1295,6 +1295,162 @@ std::sort(arr.begin(), arr.end());
 
 需要知道的是，和 `std::list` 的`双向链表`的实现不同，`std::forward_list` 使用`单向链表`进行实现，提供了 `O(1)` 复杂度的元素插入，`不支持快速随机访问（这也是链表的特点）`，也是标准库容器中唯一一个不提供 `size()` 方法的容器。当不需要双向迭代时，具有比 `std::list` 更高的空间利用率。
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/
+mkdir 4
+cd 4/
+```
+
+2. 创建 `4.1.linear.container.cpp` 文件，粘贴下面代码。
+
+```c++
+// 4.1.linear.container.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <array>
+#include <vector>
+
+void foo(int *p, int len) {
+        for (int i = 0; i != len; ++i) {
+                std::cout << p[i] << std::endl;
+        }
+}
+
+int main() {
+        std::vector<int> v;
+        std::cout << "size:" << v.size() << std::endl;          // output 0
+        std::cout << "capacity:" << v.capacity() << std::endl;  // output 0
+
+        // As you can see, the storage of std::vector is automatically managed and
+        // automatically expanded as needed.
+        // But if there is not enough space, you need to redistribute more memory,
+        // and reallocating memory is usually a performance-intensive operation.
+        v.push_back(1);
+        v.push_back(2);
+        v.push_back(3);
+        std::cout << "size:" << v.size() << std::endl;          // output 3
+        std::cout << "capacity:" << v.capacity() << std::endl;  // output 4
+
+        // The auto-expansion logic here is very similar to Golang's slice.
+        v.push_back(4);
+        v.push_back(5);
+        std::cout << "size:" << v.size() << std::endl;          // output 5
+        std::cout << "capacity:" << v.capacity() << std::endl;  // output 8
+
+        // As can be seen below, although the container empties the element,
+        // the memory of the emptied element is not returned.
+        v.clear();
+        std::cout << "size:" << v.size() << std::endl;          // output 0
+        std::cout << "capacity:" << v.capacity() << std::endl;  // output 8
+
+        // Additional memory can be returned to the system via the shrink_to_fit() call
+        v.shrink_to_fit();
+        std::cout << "size:" << v.size() << std::endl;          // output 0
+        std::cout << "capacity:" << v.capacity() << std::endl;  // output 0
+
+        std::array<int, 4> arr = {1, 4, 3, 2};
+
+        //int len = 4;
+        //std::array<int, len> arr = {1,2,3,4}; // illegal, size of array must be constexpr
+
+        // C style parameter passing
+        // foo(arr, arr.size());                // illegal, cannot convert implicitly
+        foo(&arr[0], arr.size());
+        foo(arr.data(), arr.size());
+
+        // more usage
+        std::sort(arr.begin(), arr.end());
+        for (auto &i : arr)
+                std::cout << i << std::endl;
+
+        return 0;
+}
+```
+
+3. 创建 `Makefile` 文件，粘贴下面代码。
+
+```makefile
+# Makefile
+# created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+all: $(patsubst %.cpp, %.out, $(wildcard *.cpp))
+
+%.out: %.cpp Makefile
+        clang++ $< -o $@ -std=c++2a -pedantic
+
+clean:
+        rm *.out
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ tree
+.
+├── 4.1.linear.container.cpp
+└── Makefile
+
+0 directories, 2 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ls
+4.1.linear.container.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ make
+clang++ 4.1.linear.container.cpp -o 4.1.linear.container.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ls
+4.1.linear.container.cpp  4.1.linear.container.out  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ./4.1.linear.container.out
+size:0
+capacity:0
+size:3
+capacity:4
+size:5
+capacity:8
+size:0
+capacity:8
+size:0
+capacity:0
+1
+4
+3
+2
+1
+4
+3
+2
+1
+2
+3
+4
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ls
+4.1.linear.container.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$
+```
+
 ### 无序容器
 
 ## 结语

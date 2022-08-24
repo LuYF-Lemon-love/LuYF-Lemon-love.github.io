@@ -1533,7 +1533,7 @@ $(wildcard PATTERN...)
 src=$(wildcard *.c ./sub/*.c)
 ```
 
-#### patsubst
+#### patsubst 函数
 
 作用：按照指定的模式替换指定的文件名的后缀。
 
