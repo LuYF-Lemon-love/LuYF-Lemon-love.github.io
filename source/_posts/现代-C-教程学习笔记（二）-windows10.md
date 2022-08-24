@@ -1506,6 +1506,105 @@ Key:[2] Value:[2]
 Key:[3] Value:[3]
 ```
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/4/
+```
+
+2. 创建 `4.2.unordered.map.cpp` 文件，粘贴下面代码。
+
+```c++
+// 4.2.unordered.map.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <map>
+
+int main() {
+
+        // initialized in same order
+        std::unordered_map<int, std::string> u = {
+                {1, "1"},
+                {3, "3"},
+                {2, "2"}
+        };
+        std::map<int, std::string> v = {
+                {1, "1"},
+                {3, "3"},
+                {2, "2"}
+        };
+
+        // iterates in the same way
+        std::cout << "std::unordered_map" << std::endl;
+        for ( const auto & n : u)
+                std::cout << "Key:[" << n.first << "] Value:[" << n.second << "]\n";
+
+        std::cout << std::endl;
+        std::cout << "std::map" << std::endl;
+        for ( const auto & n : v)
+                std::cout << "Key:[" << n.first << "] Value:[" << n.second << "]\n";
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ tree
+.
+├── 4.1.linear.container.cpp
+├── 4.2.unordered.map.cpp
+└── Makefile
+
+0 directories, 3 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ls
+4.1.linear.container.cpp  4.2.unordered.map.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ make
+clang++ 4.1.linear.container.cpp -o 4.1.linear.container.out -std=c++2a -pedantic
+clang++ 4.2.unordered.map.cpp -o 4.2.unordered.map.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ls
+4.1.linear.container.cpp  4.2.unordered.map.cpp  Makefile
+4.1.linear.container.out  4.2.unordered.map.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ./4.2.unordered.map.out
+std::unordered_map
+Key:[2] Value:[2]
+Key:[3] Value:[3]
+Key:[1] Value:[1]
+
+std::map
+Key:[1] Value:[1]
+Key:[2] Value:[2]
+Key:[3] Value:[3]
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ls
+4.1.linear.container.cpp  4.2.unordered.map.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$
+```
+
 ### 元组
 
 ## 结语
