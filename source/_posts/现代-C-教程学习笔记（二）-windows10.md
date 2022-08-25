@@ -2138,6 +2138,114 @@ int main() {
 }
 ```
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/5/
+```
+
+2. 创建 `5.2.unique.ptr.cpp` 文件，粘贴下面代码。
+
+```c++
+// 5.2.unique.ptr.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <memory>
+struct Foo {
+        Foo()      { std::cout << "Foo::Foo" << std::endl; }
+        ~Foo()     { std::cout << "Foo::~Foo" << std::endl; }
+        void foo() { std::cout << "Foo::foo" << std::endl; }
+};
+
+void f(const Foo &) {
+        std::cout << "f(const Foo&)" << std::endl;
+}
+
+int main() {
+        std::unique_ptr<Foo> p1(std::make_unique<Foo>());
+
+        // p1 is not empty, prints
+        if (p1) p1->foo();
+        {
+                std::unique_ptr<Foo> p2(std::move(p1));
+
+                // p2 is not empty, prints
+                f(*p2);
+
+                // p2 is not empty, prints
+                if(p2) p2->foo();
+
+                // p1 is empty, no prints
+                if(p1) p1->foo();
+
+                p1 = std::move(p2);
+
+                // p2 is empty, no prints
+                if(p2) p2->foo();
+                std::cout << "p2 was destroyed" << std::endl;
+        }
+        // p1 is not empty, prints
+        if (p1) p1->foo();
+
+        // Foo instance will be destroyed when leaving the scope
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ tree
+.
+├── 5.1.shared.ptr.a.cpp
+├── 5.2.unique.ptr.cpp
+└── Makefile
+
+0 directories, 3 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ls
+5.1.shared.ptr.a.cpp  5.2.unique.ptr.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ make
+clang++ 5.1.shared.ptr.a.cpp -o 5.1.shared.ptr.a.out -std=c++2a -pedantic
+clang++ 5.2.unique.ptr.cpp -o 5.2.unique.ptr.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ls
+5.1.shared.ptr.a.cpp  5.2.unique.ptr.cpp  Makefile
+5.1.shared.ptr.a.out  5.2.unique.ptr.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ./5.2.unique.ptr.out
+Foo::Foo
+Foo::foo
+f(const Foo&)
+Foo::foo
+p2 was destroyed
+Foo::foo
+Foo::~Foo
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ls
+5.1.shared.ptr.a.cpp  5.2.unique.ptr.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$
+```
+
 ### std::weak_ptr
 
 如果你仔细思考 `std::shared_ptr` 就会发现依然存在着资源无法释放的问题。看下面这个例子：
