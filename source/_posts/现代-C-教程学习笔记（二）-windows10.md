@@ -1950,6 +1950,135 @@ std::cout << "pointer3.use_count() = "
           << pointer3.use_count() << std::endl;           // pointer3 已 reset; 0
 ```
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/
+mkdir 5
+cd 5/
+```
+
+2. 创建 `5.1.shared.ptr.a.cpp` 文件，粘贴下面代码。
+
+```c++
+// 5.1.shared.ptr.a.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <memory>
+
+void foo(std::shared_ptr<int> i)
+{
+        (*i)++;
+}
+
+int main()
+{
+        // auto pointer = new int(10); // illegal, no direct assignment
+        // std::shared_ptr construction
+        auto pointer = std::make_shared<int>(10);
+        auto pointer2 = pointer;        // reference count + 1
+        auto pointer3 = pointer;        // reference count + 1
+
+        foo(pointer);
+        std::cout << *pointer << std::endl; // 11
+        int *p = pointer.get();             // does not increase reference count
+
+        std::cout << "pointer.use_count() = " << pointer.use_count() << std::endl;
+        std::cout << "pointer2.use_count() = " << pointer2.use_count() << std::endl;
+        std::cout << "pointer3.use_count() = " << pointer3.use_count() << std::endl;
+
+        pointer2.reset();
+        std::cout << "reset pointer2:" << std::endl;
+        std::cout << "pointer.use_count() = " << pointer.use_count() << std::endl;
+        std::cout << "pointer2.use_count() = " << pointer2.use_count() << std::endl;
+        std::cout << "pointer3.use_count() = " << pointer3.use_count() << std::endl;
+
+        pointer3.reset();
+        std::cout << "reset pointer3:" << std::endl;
+        std::cout << "pointer.use_count() = " << pointer.use_count() << std::endl;
+        std::cout << "pointer2.use_count() = " << pointer2.use_count() << std::endl;
+        std::cout << "pointer3.use_count() = " << pointer3.use_count() << std::endl;
+        std::cout << *pointer << std::endl; // reference count equals 0, illegal access
+
+        // Before leaving the scope, the pointer is destructed and
+        // the reference count is reduced to 0
+        return 0;
+}
+```
+
+3. 创建 `Makefile` 文件，粘贴下面代码。
+
+```makefile
+# Makefile
+# created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+all: $(patsubst %.cpp, %.out, $(wildcard *.cpp))
+
+%.out: %.cpp Makefile
+        clang++ $< -o $@ -std=c++2a -pedantic
+
+clean:
+        rm *.out
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ tree
+.
+├── 5.1.shared.ptr.a.cpp
+└── Makefile
+
+0 directories, 2 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ls
+5.1.shared.ptr.a.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ make
+clang++ 5.1.shared.ptr.a.cpp -o 5.1.shared.ptr.a.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ls
+5.1.shared.ptr.a.cpp  5.1.shared.ptr.a.out  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ./5.1.shared.ptr.a.out
+11
+pointer.use_count() = 3
+pointer2.use_count() = 3
+pointer3.use_count() = 3
+reset pointer2:
+pointer.use_count() = 2
+pointer2.use_count() = 0
+pointer3.use_count() = 2
+reset pointer3:
+pointer.use_count() = 1
+pointer2.use_count() = 0
+pointer3.use_count() = 0
+11
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ls
+5.1.shared.ptr.a.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$
+```
+
 ### std::unique_ptr
 
 `std::unique_ptr` 是一种独占的`智能指针`，它禁止其他`智能指针`与其共享同一个对象，从而保证代码的安全：
