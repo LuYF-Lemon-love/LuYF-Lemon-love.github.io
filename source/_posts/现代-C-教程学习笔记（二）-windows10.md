@@ -2286,6 +2286,105 @@ int main() {
 
 `std::weak_ptr` 没有 `*` 运算符和 `->` 运算符，所以`不能够对资源进行操作`，它可以用于检查 `std::shared_ptr` 是否存在，其 `expired()` 方法能`在资源未被释放时`，会返回 `false`，否则返回 `true`；除此之外，它也可以用于获取指向原始对象的 `std::shared_ptr` 指针，其 `lock()` 方法在原始对象未被释放时，返回一个指向原始对象的 `std::shared_ptr` 指针，进而访问原始对象的资源，否则返回 `nullptr`。
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/5/
+```
+
+2. 创建 `5.3.weak.ptr.cpp` 文件，粘贴下面代码。
+
+```c++
+// 5.3.weak.ptr.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <memory>
+
+class A;
+class B;
+
+class A {
+public:
+        // std::shared_ptr<B> pointer;
+        std::weak_ptr<B> pointer;
+        ~A() {
+                std::cout << "A was destroyed" << std::endl;
+        }
+};
+
+class B {
+public:
+        std::shared_ptr<A> pointer;
+        ~B() {
+                std::cout << "B was destroyed" << std::endl;
+        }
+};
+
+int main() {
+        std::shared_ptr<A> a = std::make_shared<A>();
+        std::shared_ptr<B> b = std::make_shared<B>();
+        a->pointer = b;
+        b->pointer = a;
+
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ tree
+.
+├── 5.1.shared.ptr.a.cpp
+├── 5.2.unique.ptr.cpp
+├── 5.3.weak.ptr.cpp
+└── Makefile
+
+0 directories, 4 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ls
+5.1.shared.ptr.a.cpp  5.3.weak.ptr.cpp
+5.2.unique.ptr.cpp    Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ make
+clang++ 5.1.shared.ptr.a.cpp -o 5.1.shared.ptr.a.out -std=c++2a -pedantic
+clang++ 5.2.unique.ptr.cpp -o 5.2.unique.ptr.out -std=c++2a -pedantic
+clang++ 5.3.weak.ptr.cpp -o 5.3.weak.ptr.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ls
+5.1.shared.ptr.a.cpp  5.2.unique.ptr.out  Makefile
+5.1.shared.ptr.a.out  5.3.weak.ptr.cpp
+5.2.unique.ptr.cpp    5.3.weak.ptr.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ./5.3.weak.ptr.out
+B was destroyed
+A was destroyed
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ls
+5.1.shared.ptr.a.cpp  5.3.weak.ptr.cpp
+5.2.unique.ptr.cpp    Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$
+```
+
 ### 总结
 
 `智能指针`这种技术并不新奇，在很多语言中都是一种常见的技术，`现代 C++` 将这项技术引进，在一定程度上消除了 `new`/`delete` 的滥用，是一种更加成熟的编程范式。
