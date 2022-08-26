@@ -152,6 +152,119 @@ sub-match[0]: bar.txt
 bar.txt sub-match[1]: bar
 ```
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/
+mkdir 6
+cd 6/
+```
+
+2. 创建 `6.1.regex.cpp` 文件，粘贴下面代码。
+
+```c++
+// 6.1.regex.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <string>
+#include <regex>
+
+int main() {
+        std::string fnames[] = {"foo.txt", "bar.txt", "test", "a0.txt", "AAA.txt"};
+        // In C++, '\' will be used as an escape character in the string.
+        // In order for '\.' to be passed as a regular expression,
+        // it is necessary to perform second escaping of '\', thus we have '\\.'
+        std::regex txt_regex("[a-z]+\\.txt");
+        for (const auto &fname: fnames)
+                std::cout << fname << ": " << std::regex_match(fname, txt_regex) << std::endl;
+
+        std::regex base_regex("([a-z]+)\\.txt");
+        std::smatch base_match;
+        for (const auto &fname: fnames) {
+                if (std::regex_match(fname, base_match, base_regex)) {
+                        // the first element of std::smatch matches the entire string
+                        // the second element of std::smatch matches the first expression with brackets
+                        if (base_match.size() == 2) {
+                                std::string base = base_match[1].str();
+                                std::cout << "sub-match[0]: " << base_match[0].str() << std::endl;
+                                std::cout << fname << " sub-match[1]: " << base << std::endl;
+                        }
+                }
+        }
+
+        return 0;
+}
+```
+
+3. 创建 `Makefile` 文件，粘贴下面代码。
+
+```makefile
+# Makefile
+# created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+all: $(patsubst %.cpp, %.out, $(wildcard *.cpp))
+
+%.out: %.cpp Makefile
+        clang++ $< -o $@ -std=c++2a -pedantic
+
+clean:
+        rm *.out
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/6
+$ tree
+.
+├── 6.1.regex.cpp
+└── Makefile
+
+0 directories, 2 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/6
+$ ls
+6.1.regex.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/6
+$ make
+clang++ 6.1.regex.cpp -o 6.1.regex.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/6
+$ ls
+6.1.regex.cpp  6.1.regex.out  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/6
+$ ./6.1.regex.out
+foo.txt: 1
+bar.txt: 1
+test: 0
+a0.txt: 0
+AAA.txt: 0
+sub-match[0]: foo.txt
+foo.txt sub-match[1]: foo
+sub-match[0]: bar.txt
+bar.txt sub-match[1]: bar
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/6
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/6
+$ ls
+6.1.regex.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/6
+$
+```
+
 ### 总结
 
 本节简单介绍了`正则表达式`本身，然后根据使用`正则表达式`的主要需求，通过一个实际的例子介绍了`正则表达式库`的使用。
