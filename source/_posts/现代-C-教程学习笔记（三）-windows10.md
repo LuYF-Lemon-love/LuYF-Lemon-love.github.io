@@ -297,6 +297,93 @@ int main() {
 }
 ```
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/
+mkdir 7
+cd 7/
+```
+
+2. 创建 `7.1.thread.basic.cpp` 文件，粘贴下面代码。
+
+```c++
+// 7.1.thread.basic.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <thread>
+
+int main() {
+        std::thread t([](){
+                std::cout << "hello world." << std::endl;
+        });
+        t.join();
+
+        return 0;
+}
+```
+
+3. 创建 `Makefile` 文件，粘贴下面代码。
+
+```makefile
+# Makefile
+# created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+all: $(patsubst %.cpp, %.out, $(wildcard *.cpp))
+
+%.out: %.cpp Makefile
+        clang++ $< -o $@ -std=c++2a -pedantic
+
+clean:
+        rm *.out
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ tree
+.
+├── 7.1.thread.basic.cpp
+└── Makefile
+
+0 directories, 2 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ make
+clang++ 7.1.thread.basic.cpp -o 7.1.thread.basic.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp  7.1.thread.basic.out  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ./7.1.thread.basic.out
+hello world.
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$
+```
+
 ### 互斥量与临界区
 
 我们在`操作系统`、亦或是`数据库`的相关知识中已经了解过了有关`并发技术`的基本知识，`mutex` 就是其中的核心之一。`C++11` 引入了 `mutex` 相关的类，其所有相关的函数都放在 `<mutex>` 头文件中。
@@ -784,7 +871,7 @@ std::cout << f.get() << std::endl;
 
 3. Herlihy, M. P., & Wing, J. M. (1990). Linearizability: a correctness condition for concurrent objects. ACM Transactions on Programming Languages and Systems, 12(3), 463–492. https://doi.org/10.1145/78969.78972
 
-## 第 8 章 文件系统 
+## 第 8 章 文件系统
 
 ## 结语
 
