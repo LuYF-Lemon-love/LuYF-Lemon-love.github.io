@@ -43,7 +43,7 @@ gitcalendar:
   #   name: content
   #   index: 0
   user: LuYF-Lemon-love #git用户名
-  apiurl: 'https://gitcalendar.luyf-lemon-love.space/' #'https://github-calendar-api-nine.vercel.app'
+  apiurl: 'https://gitcalendar.luyf-lemon-love.space' #'https://github-calendar-api-nine.vercel.app'
   minheight:
     pc: 280px #桌面端最小高度
     mibile: 0px #移动端最小高度
