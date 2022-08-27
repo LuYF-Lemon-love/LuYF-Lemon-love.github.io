@@ -643,6 +643,10 @@ gitcalendar:
   gitcalendar_js: https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.js
 ```
 
+>注意，2022 年 8 月 27 日下午，中国大陆 `IP` 不能使用 `Vercel` 自动生成的域名，需要自定义域名，如 `gitcalendar.luyf-lemon-love.space`。首先，登录 `Vercel`，进入你的 `github-calendar-api` 项目，然后点击 `Setting` -> `Domains`，输入你的自定义域名。`Vercel` 会给出你的需要解析的 `CNAME` 记录，最后登录你的`域名解析平台`（如 DNSPod ）解析域名。`Vercel` 自定义域名可以参考[Hexo博客补充-ubuntu](../2759212511)。
+
+![](https://cos.luyf-lemon-love.space/images/20220827232304.png)
+
 ### Sidebar Card Clock
 
 原教程链接：[Sidebar Card Clock](https://akilar.top/posts/4e39cf4a/)
