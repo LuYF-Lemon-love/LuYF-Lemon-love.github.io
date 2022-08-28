@@ -461,6 +461,145 @@ int main() {
 }
 ```
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/7/
+```
+
+2. 创建 `7.2.critical.section.a.cpp` 文件，粘贴下面代码。
+
+```c++
+// 7.2.critical.section.a.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <mutex>
+#include <thread>
+
+int v = 1;
+
+void critical_section(int change_v) {
+        static std::mutex mtx;
+        std::lock_guard<std::mutex> lock(mtx);
+
+        // do contention operations
+        v = change_v;
+
+        // mtx will be destructed when exit this region
+}
+
+int main() {
+
+        std::thread t1(critical_section, 2), t2(critical_section, 3);
+        t1.join();
+        t2.join();
+
+        std::cout << v << std::endl;
+        return 0;
+}
+```
+
+3. 创建 `7.3.critical.section.b.cpp` 文件，粘贴下面代码。
+
+```c++
+// 7.3.critical.section.b.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <mutex>
+#include <thread>
+
+int v = 1;
+
+void critical_section(int change_v) {
+        static std::mutex mtx;
+        std::unique_lock<std::mutex> lock(mtx);
+        // do contention operations
+        v = change_v;
+        std::cout << v << std::endl;
+        // release the lock
+        lock.unlock();
+
+        // during this period,
+        // others are allowed to acquire v
+
+        // start another group of contention operations
+        // lock again
+        lock.lock();
+        v += 1;
+        std::cout << v << std::endl;
+}
+
+int main() {
+        std::thread t1(critical_section, 2), t2(critical_section, 3);
+        t1.join();
+        t2.join();
+
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ tree
+.
+├── 7.1.thread.basic.cpp
+├── 7.2.critical.section.a.cpp
+├── 7.3.critical.section.b.cpp
+└── Makefile
+
+0 directories, 4 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.3.critical.section.b.cpp
+7.2.critical.section.a.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ make
+clang++ 7.1.thread.basic.cpp -o 7.1.thread.basic.out -std=c++2a -pedantic
+clang++ 7.2.critical.section.a.cpp -o 7.2.critical.section.a.out -std=c++2a -pedantic
+clang++ 7.3.critical.section.b.cpp -o 7.3.critical.section.b.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.2.critical.section.a.out  Makefile
+7.1.thread.basic.out        7.3.critical.section.b.cpp
+7.2.critical.section.a.cpp  7.3.critical.section.b.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ./7.2.critical.section.a.out
+3
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ./7.3.critical.section.b.out
+3
+4
+2
+3
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.3.critical.section.b.cpp
+7.2.critical.section.a.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$
+```
+
 ### 期物
 
 `期物`（`Future`）表现为 `std::future`，`它提供了一个访问异步操作结果的途径`，这句话很不好理解。为了理解这个特性，我们需要先理解一下在 `C++11` 之前的多线程行为。
