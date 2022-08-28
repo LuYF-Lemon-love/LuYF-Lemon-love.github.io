@@ -635,6 +635,96 @@ int main() {
 
 在封装好要调用的目标后，可以使用 `get_future()` 来获得一个 `std::future` 对象，`以便之后实施线程同步`。
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/7/
+```
+
+2. 创建 `7.4.futures.cpp` 文件，粘贴下面代码。
+
+```c++
+// 7.4.futures.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <thread>
+#include <future>
+
+int main() {
+        // pack a lambda expression that returns 7 into a std::packaged_task
+        std::packaged_task<int()> task([](){return 7;});
+        // get the future of task
+        std::future<int> result = task.get_future();    // run task in a thread
+        std::thread(std::move(task)).detach();
+        std::cout << "waiting...";
+        result.wait(); // block until future has arrived
+        // output result
+        std::cout << "done!" << std::endl << "future result is " << result.get() << std::endl;
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ tree
+.
+├── 7.1.thread.basic.cpp
+├── 7.2.critical.section.a.cpp
+├── 7.3.critical.section.b.cpp
+├── 7.4.futures.cpp
+└── Makefile
+
+0 directories, 5 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.4.futures.cpp
+7.2.critical.section.a.cpp  Makefile
+7.3.critical.section.b.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ make
+clang++ 7.1.thread.basic.cpp -o 7.1.thread.basic.out -std=c++2a -pedantic
+clang++ 7.2.critical.section.a.cpp -o 7.2.critical.section.a.out -std=c++2a -pedantic
+clang++ 7.3.critical.section.b.cpp -o 7.3.critical.section.b.out -std=c++2a -pedantic
+clang++ 7.4.futures.cpp -o 7.4.futures.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.3.critical.section.b.out
+7.1.thread.basic.out        7.4.futures.cpp
+7.2.critical.section.a.cpp  7.4.futures.out
+7.2.critical.section.a.out  Makefile
+7.3.critical.section.b.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ./7.4.futures.out
+waiting...done!
+future result is 7
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.4.futures.cpp
+7.2.critical.section.a.cpp  Makefile
+7.3.critical.section.b.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$
+```
+
 ### 条件变量
 
 条件变量 `std::condition_variable` 是为了解决`死锁`而生，当互斥操作不够用而引入的。比如，`线程`可能需要等待某个条件为真才能继续执行，而一个忙等待循环中可能会导致所有其他线程都无法进入临界区使得条件为真时，就会发生`死锁`。所以，`condition_variable` 实例被创建出现主要就是用于`唤醒等待线程`从而避免`死锁`。`std::condition_variable` 的 `notify_one()` 用于`唤醒一个线程`；`notify_all()` 则是`通知所有线程`。下面是一个`生产者和消费者模型`的例子：
