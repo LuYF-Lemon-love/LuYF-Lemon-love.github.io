@@ -791,6 +791,165 @@ int main() {
 
 值得一提的是，在`生产者`中我们虽然可以使用 `notify_one()`，但实际上并不建议在此处使用，因为在多`消费者`的情况下，我们的消费者实现中简单放弃了锁的持有，这使得可能让其他`消费者`争夺此锁，从而更好的利用多个消费者之间的并发。话虽如此，但实际上因为 `std::mutex` 的`排他性`，我们根本无法期待多个`消费者`能真正意义上的并行消费队列的中生产的内容，我们仍需要粒度更细的手段。
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/7/
+```
+
+2. 创建 `7.5.producer.consumer.cpp` 文件，粘贴下面代码。
+
+```c++
+// 7.5.producer.consumer.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <queue>
+#include <chrono>
+#include <mutex>
+#include <thread>
+#include <iostream>
+#include <condition_variable>
+
+int main() {
+        std::queue<int> produced_nums;
+        std::mutex mtx;
+        std::condition_variable cv;
+        bool notified = false;  // notification sign
+
+        auto producer = [&]() {
+                for (int i = 0; ; i++) {
+                        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+                        std::unique_lock<std::mutex> lock(mtx);
+                        std::cout << "producing " << i << std::endl;
+                        produced_nums.push(i);
+                        notified = true;
+                        cv.notify_all();
+                }
+        };
+        auto consumer = [&]() {
+                while (true) {
+                        std::unique_lock<std::mutex> lock(mtx);
+                        while (!notified) {  // avoid spurious wakeup
+                                cv.wait(lock);
+                        }
+
+                        // temporal unlock to allow producer produces more rather than
+                        // let consumer hold the lock until its consumed.
+                        lock.unlock();
+                        std::this_thread::sleep_for(std::chrono::milliseconds(1000)); // consumer is slower
+                        lock.lock();
+                        if (!produced_nums.empty()) {
+                                std::cout << "consuming " << produced_nums.front() << std::endl;
+                                produced_nums.pop();
+                        }
+                        notified = false;
+                }
+        };
+
+        std::thread p(producer);
+        std::thread cs[2];
+        for (int i = 0; i < 2; ++i) {
+                cs[i] = std::thread(consumer);
+        }
+        p.join();
+        for (int i = 0; i < 2; ++i) {
+                cs[i].join();
+        }
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ tree
+.
+├── 7.1.thread.basic.cpp
+├── 7.2.critical.section.a.cpp
+├── 7.3.critical.section.b.cpp
+├── 7.4.futures.cpp
+├── 7.5.producer.consumer.cpp
+└── Makefile
+
+0 directories, 6 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.4.futures.cpp
+7.2.critical.section.a.cpp  7.5.producer.consumer.cpp
+7.3.critical.section.b.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ make
+clang++ 7.1.thread.basic.cpp -o 7.1.thread.basic.out -std=c++2a -pedantic
+clang++ 7.2.critical.section.a.cpp -o 7.2.critical.section.a.out -std=c++2a -pedantic
+clang++ 7.3.critical.section.b.cpp -o 7.3.critical.section.b.out -std=c++2a -pedantic
+clang++ 7.4.futures.cpp -o 7.4.futures.out -std=c++2a -pedantic
+clang++ 7.5.producer.consumer.cpp -o 7.5.producer.consumer.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.4.futures.cpp
+7.1.thread.basic.out        7.4.futures.out
+7.2.critical.section.a.cpp  7.5.producer.consumer.cpp
+7.2.critical.section.a.out  7.5.producer.consumer.out
+7.3.critical.section.b.cpp  Makefile
+7.3.critical.section.b.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ./7.5.producer.consumer.out
+producing 0
+producing 1
+consuming 0
+consuming 1
+producing 2
+producing 3
+consuming 2
+consuming 3
+producing 4
+producing 5
+consuming 4
+consuming 5
+producing 6
+producing 7
+consuming 6
+consuming 7
+producing 8
+producing 9
+consuming 8
+consuming 9
+producing 10
+producing 11
+consuming 10
+consuming 11
+producing 12
+producing 13
+consuming 12
+consuming 13
+producing 14
+
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.4.futures.cpp
+7.2.critical.section.a.cpp  7.5.producer.consumer.cpp
+7.3.critical.section.b.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$
+```
+
 ### 原子操作与内存模型
 
 细心的读者可能会对前一小节中`生产者消费者模型`的例子可能存在编译器优化导致程序出错的情况产生疑惑。例如，布尔值 `notified` 没有被 `volatile` 修饰，`编译器可能对此变量存在优化`，例如将其作为一个`寄存器`的值，`从而导致消费者线程永远无法观察到此值的变化`。这是一个好问题，为了解释清楚这个问题，我们需要进一步讨论`从 C++ 11 起引入的内存模型这一概念`。我们首先来看一个问题，下面这段代码输出结果是多少？
