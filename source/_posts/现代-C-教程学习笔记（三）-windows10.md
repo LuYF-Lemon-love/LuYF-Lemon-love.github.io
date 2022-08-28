@@ -982,6 +982,111 @@ int main() {
 
 从直观上看，`t2` 中 `a = 5;` 这一条语句似乎总在 `flag = 1;` 之前得到执行，而 `t1` 中 `while (flag != 1)` 似乎保证了 `std::cout << "b = " << b << std::endl;` 不会再标记被改变前执行。从逻辑上看，似乎 `b` 的值应该等于 `5`。但实际情况远比此复杂得多，或者说`这段代码本身属于未定义的行为`，因为对于 `a` 和 `flag` 而言，他们`在两个并行的线程中被读写，出现了竞争`。除此之外，即便我们忽略竞争读写，仍然可能受 `CPU` 的`乱序执行`，`编译器对指令的重排`的影响，导致 `a = 5` 发生在 `flag = 1` 之后。从而 `b` 可能输出 `0`。
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/7/
+```
+
+2. 创建 `7.6.bad.example.cpp` 文件，粘贴下面代码。
+
+```c++
+// 7.6.bad.example.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <thread>
+#include <iostream>
+
+int main() {
+        int a = 0;
+        volatile int flag = 0;
+
+        std::thread t1([&]() {
+                while (flag != 1);
+
+                int b = a;
+                std::cout << "b = " << b << std::endl;
+        });
+
+        std::thread t2([&]() {
+                a = 5;
+                flag = 1;
+        });
+
+        t1.join();
+        t2.join();
+
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ tree
+.
+├── 7.1.thread.basic.cpp
+├── 7.2.critical.section.a.cpp
+├── 7.3.critical.section.b.cpp
+├── 7.4.futures.cpp
+├── 7.5.producer.consumer.cpp
+├── 7.6.bad.example.cpp
+└── Makefile
+
+0 directories, 7 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.5.producer.consumer.cpp
+7.2.critical.section.a.cpp  7.6.bad.example.cpp
+7.3.critical.section.b.cpp  Makefile
+7.4.futures.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ make
+clang++ 7.1.thread.basic.cpp -o 7.1.thread.basic.out -std=c++2a -pedantic
+clang++ 7.2.critical.section.a.cpp -o 7.2.critical.section.a.out -std=c++2a -pedantic
+clang++ 7.3.critical.section.b.cpp -o 7.3.critical.section.b.out -std=c++2a -pedantic
+clang++ 7.4.futures.cpp -o 7.4.futures.out -std=c++2a -pedantic
+clang++ 7.5.producer.consumer.cpp -o 7.5.producer.consumer.out -std=c++2a -pedantic
+clang++ 7.6.bad.example.cpp -o 7.6.bad.example.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.4.futures.out
+7.1.thread.basic.out        7.5.producer.consumer.cpp
+7.2.critical.section.a.cpp  7.5.producer.consumer.out
+7.2.critical.section.a.out  7.6.bad.example.cpp
+7.3.critical.section.b.cpp  7.6.bad.example.out
+7.3.critical.section.b.out  Makefile
+7.4.futures.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ./7.6.bad.example.out
+b = 5
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.5.producer.consumer.cpp
+7.2.critical.section.a.cpp  7.6.bad.example.cpp
+7.3.critical.section.b.cpp  Makefile
+7.4.futures.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$
+```
+
 #### 原子操作
 
 `std::mutex` 可以解决上面出现的`并发读写`的问题，但`互斥锁`是`操作系统`级的功能，这是因为一个`互斥锁`的实现通常包含两条基本原理：
