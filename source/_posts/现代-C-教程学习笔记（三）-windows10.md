@@ -1146,6 +1146,109 @@ int main() {
 }
 ```
 
+##### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/7/
+```
+
+2. 创建 `7.6.atomic.cpp` 文件，粘贴下面代码。
+
+```c++
+// 7.6.atomic.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <atomic>
+#include <thread>
+#include <iostream>
+
+std::atomic<int> count = {0};
+
+int main() {
+        std::thread t1([](){
+                count.fetch_add(1);
+        });
+        std::thread t2([](){
+                count++;        // identical to fetch_add
+                count += 1;     // identical to fetch_add
+        });
+        t1.join();
+        t2.join();
+        std::cout << count << std::endl;
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ tree
+.
+├── 7.1.thread.basic.cpp
+├── 7.2.critical.section.a.cpp
+├── 7.3.critical.section.b.cpp
+├── 7.4.futures.cpp
+├── 7.5.producer.consumer.cpp
+├── 7.6.atomic.cpp
+├── 7.6.bad.example.cpp
+└── Makefile
+
+0 directories, 8 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.5.producer.consumer.cpp
+7.2.critical.section.a.cpp  7.6.atomic.cpp
+7.3.critical.section.b.cpp  7.6.bad.example.cpp
+7.4.futures.cpp             Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ make
+clang++ 7.1.thread.basic.cpp -o 7.1.thread.basic.out -std=c++2a -pedantic
+clang++ 7.2.critical.section.a.cpp -o 7.2.critical.section.a.out -std=c++2a -pedantic
+clang++ 7.3.critical.section.b.cpp -o 7.3.critical.section.b.out -std=c++2a -pedantic
+clang++ 7.4.futures.cpp -o 7.4.futures.out -std=c++2a -pedantic
+clang++ 7.5.producer.consumer.cpp -o 7.5.producer.consumer.out -std=c++2a -pedantic
+clang++ 7.6.atomic.cpp -o 7.6.atomic.out -std=c++2a -pedantic
+clang++ 7.6.bad.example.cpp -o 7.6.bad.example.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.5.producer.consumer.cpp
+7.1.thread.basic.out        7.5.producer.consumer.out
+7.2.critical.section.a.cpp  7.6.atomic.cpp
+7.2.critical.section.a.out  7.6.atomic.out
+7.3.critical.section.b.cpp  7.6.bad.example.cpp
+7.3.critical.section.b.out  7.6.bad.example.out
+7.4.futures.cpp             Makefile
+7.4.futures.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ./7.6.atomic.out
+3
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.5.producer.consumer.cpp
+7.2.critical.section.a.cpp  7.6.atomic.cpp
+7.3.critical.section.b.cpp  7.6.bad.example.cpp
+7.4.futures.cpp             Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$
+```
+
 #### 一致性模型
 
 并行执行的多个线程，从某种宏观层面上讨论，可以粗略的视为一种`分布式系统`。在分布式系统中，`任何通信乃至本地操作都需要消耗一定时间，甚至出现不可靠的通信`。
