@@ -1997,6 +1997,170 @@ $
 
 2. 请使用 `std::atomic<bool>` 实现一个互斥锁。
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7/
+```
+
+2. 创建 `7.2.mutex.cpp` 文件，粘贴下面代码。
+
+```c++
+// 7.2.mutex.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <atomic>
+#include <thread>
+#include <iostream>
+
+class mutex {
+        std::atomic<bool> flag{false};
+
+public:
+        void lock()
+        {
+                while (flag.exchange(true, std::memory_order_relaxed));
+                std::atomic_thread_fence(std::memory_order_acquire);
+        }
+
+        void unlock()
+        {
+                std::atomic_thread_fence(std::memory_order_release);
+                flag.store(false, std::memory_order_relaxed);
+        }
+};
+
+int a = 0;
+
+int main() {
+
+        mutex mtx_a;
+
+        std::thread t1([&](){
+                mtx_a.lock();
+                a += 1;
+                mtx_a.unlock();
+        });
+        std::thread t2([&](){
+                mtx_a.lock();
+                a += 2;
+                mtx_a.unlock();
+        });
+
+        t1.join();
+        t2.join();
+
+        std::cout << a << std::endl;
+
+        return 0;
+}
+```
+
+3. 创建 `Makefile` 文件，粘贴下面代码。
+
+```makefile
+# Makefile
+# created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+all: $(patsubst %.cpp, %.out, $(wildcard *.cpp))
+
+%.out: %.cpp Makefile
+        clang++ $< -o $@ -std=c++2a -pedantic
+
+clean:
+        rm *.out
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7
+$ tree
+.
+├── 7.1
+│   ├── build
+│   │   ├── cmake_install.cmake
+│   │   ├── CMakeCache.txt
+│   │   ├── CMakeFiles
+│   │   │   ├── 3.23.2
+│   │   │   │   ├── CMakeCCompiler.cmake
+│   │   │   │   ├── CMakeCXXCompiler.cmake
+│   │   │   │   ├── CMakeDetermineCompilerABI_C.bin
+│   │   │   │   ├── CMakeDetermineCompilerABI_CXX.bin
+│   │   │   │   ├── CMakeRCCompiler.cmake
+│   │   │   │   ├── CMakeSystem.cmake
+│   │   │   │   ├── CompilerIdC
+│   │   │   │   │   ├── a.exe
+│   │   │   │   │   ├── CMakeCCompilerId.c
+│   │   │   │   │   └── tmp
+│   │   │   │   └── CompilerIdCXX
+│   │   │   │       ├── a.exe
+│   │   │   │       ├── CMakeCXXCompilerId.cpp
+│   │   │   │       └── tmp
+│   │   │   ├── cmake.check_cache
+│   │   │   ├── CMakeDirectoryInformation.cmake
+│   │   │   ├── CMakeOutput.log
+│   │   │   ├── CMakeTmp
+│   │   │   ├── Makefile.cmake
+│   │   │   ├── Makefile2
+│   │   │   ├── progress.marks
+│   │   │   ├── TargetDirectories.txt
+│   │   │   └── thread_pool.dir
+│   │   │       ├── build.make
+│   │   │       ├── cmake_clean.cmake
+│   │   │       ├── compiler_depend.make
+│   │   │       ├── compiler_depend.ts
+│   │   │       ├── depend.make
+│   │   │       ├── DependInfo.cmake
+│   │   │       ├── flags.make
+│   │   │       ├── objects.a
+│   │   │       ├── progress.make
+│   │   │       └── src
+│   │   └── Makefile
+│   ├── CMakeLists.txt
+│   ├── include
+│   │   └── thread_pool.hpp
+│   └── src
+│       └── main.cpp
+├── 7.2.mutex.cpp
+└── Makefile
+
+13 directories, 34 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7
+$ ls
+7.1  7.2.mutex.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7
+$ make
+clang++ 7.2.mutex.cpp -o 7.2.mutex.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7
+$ ls
+7.1  7.2.mutex.cpp  7.2.mutex.out  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7
+$ ./7.2.mutex.out
+3
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7
+$ ls
+7.1  7.2.mutex.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7
+$
+```
+
 ### 进一步阅读的参考资料
 
 1. [C++ 并发编程(中文版)](https://book.douban.com/subject/26386925/)
