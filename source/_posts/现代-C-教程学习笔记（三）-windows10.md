@@ -12,6 +12,9 @@ tags:
   - 多线程
   - 线程池
   - 正则表达式
+  - GCC
+  - G++
+  - CMake
 categories: 学习笔记
 description: >-
   现代 C++ 教程第 6 章、第 7 章、第 8 章、第 9 章和第 10 章（正则表达式、并行与并发、文件系统、其他杂项、展望：C++20
@@ -1647,6 +1650,349 @@ auto f = pool.enqueue([](int life) {
 
 // 从 future 中获得执行结果
 std::cout << f.get() << std::endl;
+```
+
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/
+mkdir 7
+cd 7/
+mkdir 7.1
+cd 7.1/
+```
+
+2. 创建 `CMakeLists.txt` 文件，粘贴下面代码。
+
+```cmake
+# CMakeLists.txt
+# created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+# Set the minimum version of CMake that can be used
+# To find the cmake version run
+# $ cmake --version
+cmake_minimum_required(VERSION 3.5)
+
+# Set the project name
+project(thread_pool)
+
+# Create a sources variable with a link to all cpp files to compile
+file(GLOB SOURCES "src/*.cpp")
+
+# Add an executable with the above sources
+add_executable(thread_pool ${SOURCES})
+
+# Set the directories that should be included in the build command for this target
+# when running g++ these will be included as -I/directory/path/
+target_include_directories(thread_pool
+        PRIVATE
+        ${PROJECT_SOURCE_DIR}/include
+        )
+```
+
+3. 创建 `include/thread_pool.hpp` 文件，粘贴下面代码。
+
+```c++
+// thread_pool.hpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#ifndef THREAD_POOL_H
+#define THREAD_POOL_H
+
+#include <vector>               // std::vector
+#include <queue>                // std::queue
+#include <memory>               // std::make_shared
+
+#include <thread>               // std::thread
+#include <mutex>                // std::mutex, std::unique_lock
+#include <condition_variable>   // std::condition_variable
+#include <future>               // std::future, std::packaged_task
+
+#include <functional>           // std::function, std::bind
+#include <stdexcept>            // std::runtime_error
+#include <utility>              // std::move, std::forward
+
+class ThreadPool {
+public:
+
+    // initialize the number of concurrency threads
+    ThreadPool(size_t);
+
+    // enqueue new thread task
+    template<class F, class... Args>
+    decltype(auto) enqueue(F&& f, Args&&... args);
+
+    // destroy thread pool and all created threads
+    ~ThreadPool();
+private:
+
+    // thread list, stores all threads
+    std::vector< std::thread > workers;
+    // queue task, the type of queue elements are functions with void return type
+    std::queue< std::function<void()> > tasks;
+
+    // for synchonization
+    std::mutex queue_mutex;
+    // std::condition_variable is a new feature from c++11,
+    // it's a synchronization primitives. it can be used
+    // to block a thread or threads at the same time until
+    // all of them modified condition_variable.
+    std::condition_variable condition;
+    bool stop;
+};
+
+// constructor initialize a fixed size of worker
+inline ThreadPool::ThreadPool(size_t threads): stop(false) {
+    // initialize worker
+    for(size_t i = 0;i<threads;++i)
+        // std::vector::emplace_back :
+        //    append to the end of vector container
+        //    this element will be constructed at the end of container, without copy and move behavior
+        workers.emplace_back([this] { // the lambda express capture this, i.e. the instance of thread pool
+                // avoid fake awake
+                for(;;) {
+                    // define function task container, return type is void
+                    std::function<void()> task;
+
+                    // critical section
+                    {
+                        // get mutex
+                        std::unique_lock<std::mutex> lock(this->queue_mutex);
+
+                        // block current thread
+                        this->condition.wait(lock,
+                            [this]{ return this->stop || !this->tasks.empty(); });
+
+                        // return if queue empty and task finished
+                        if(this->stop && this->tasks.empty())
+                            return;
+
+                        // otherwise execute the first element of queue
+                        task = std::move(this->tasks.front());
+                        this->tasks.pop();
+                    }
+
+                    // execution
+                    task();
+                }
+            }
+        );
+}
+
+// Enqueue a new thread
+// use variadic templates and tail return type
+template<class F, class... Args>
+decltype(auto) ThreadPool::enqueue(F&& f, Args&&... args) {
+    // deduce return type
+    using return_type = typename std::result_of<F(Args...)>::type;
+
+    // fetch task
+    auto task = std::make_shared<std::packaged_task<return_type()>>(
+        std::bind(std::forward<F>(f), std::forward<Args>(args)...)
+    );
+
+    std::future<return_type> res = task->get_future();
+
+    // critical section
+    {
+        std::unique_lock<std::mutex> lock(queue_mutex);
+
+        // avoid add new thread if theadpool is destroyed
+        if(stop)
+            throw std::runtime_error("enqueue on stopped ThreadPool");
+
+        // add thread to queue
+        tasks.emplace([task]{ (*task)(); });
+    }
+
+    // notify a wait thread
+    condition.notify_one();
+    return res;
+}
+
+// destroy everything
+inline ThreadPool::~ThreadPool()
+{
+    // critical section
+    {
+        std::unique_lock<std::mutex> lock(queue_mutex);
+        stop = true;
+    }
+
+    // wake up all threads
+    condition.notify_all();
+
+    // let all processes into synchronous execution, use c++11 new for-loop: for(value:values)
+    for(std::thread &worker: workers)
+        worker.join();
+}
+
+#endif
+```
+
+4. 创建 `src/main.cpp` 文件，粘贴下面代码。
+
+```c++
+// main.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream> // std::cout, std::endl
+
+#include <vector>   // std::vector
+#include <string>   // std::string
+#include <future>   // std::future
+#include <thread>   // std::this_thread::sleep_for
+#include <chrono>   // std::chrono::seconds
+
+#include "thread_pool.hpp"
+
+int main()
+{
+    // create a thread pool with max. 4 concurrency threads
+    ThreadPool pool(4);
+    // create execution results list
+    std::vector< std::future<std::string> > results;
+
+    // start eight thread task
+    for(int i = 0; i < 8; ++i) {
+        // add all task to result list
+        results.emplace_back(
+            // ass print task to thread pool
+            pool.enqueue([i] {
+                std::cout << "hello " << i << std::endl;
+                // wait a sec when the previous line is out
+                std::this_thread::sleep_for(std::chrono::seconds(1));
+                // keep output and return the status of execution
+                std::cout << "world " << i << std::endl;
+                return std::string("---thread ") + std::to_string(i) + std::string(" finished.---");
+            })
+        );
+    }
+
+    // outputs
+    for(auto && result: results)
+        std::cout << result.get() << ' ';
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7/7.1
+$ tree
+.
+├── CMakeLists.txt
+├── include
+│   └── thread_pool.hpp
+└── src
+    └── main.cpp
+
+2 directories, 3 files
+```
+
+---
+
+该线程池代码使用`MSYS2 MinGW x64` 的 `g++` 作为编译器。详细安装方法可以参考 [GCC on Windows-windows10](../175786877)。
+
+安装 `Mingw-w64 toolset`。
+
+```shell
+pacman -S --needed base-devel mingw-w64-x86_64-toolchain
+```
+
+---
+
+该线程池代码使用 `CMake` 来构建可执行程序，关于 `CMake` 的语法和安装可以参考 [CMake Examples 学习笔记-windows10](../2876445371) 和 [Using CMake in MSYS2](https://www.msys2.org/docs/cmake/)。
+
+运行开始菜单的 “MSYS2 MSYS”。安装 `CMake`。
+
+```shell
+pacman -S mingw-w64-x86_64-cmake
+pacman -S make
+```
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7/7.1
+$ which make
+/usr/bin/make
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7/7.1
+$ which cmake
+/mingw64/bin/cmake
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7/7.1
+```
+
+---
+
+{% label 外部构建 pink %}
+
+```shell
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7/7.1
+$ ls
+CMakeLists.txt  include  src
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7/7.1
+$ mkdir build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7/7.1
+$ cd build/
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7/7.1/build
+$ cmake .. -G "MSYS Makefiles"
+-- The C compiler identification is GNU 12.1.0
+-- The CXX compiler identification is GNU 12.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/lyf_computer_language/msys64/mingw64/bin/cc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/lyf_computer_language/msys64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/vscode/cpp_projects/modern-cpp-tutorial/exercises/7/7.1/build
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7/7.1/build
+$ make
+[ 50%] Building CXX object CMakeFiles/thread_pool.dir/src/main.cpp.obj
+[100%] Linking CXX executable thread_pool.exe
+[100%] Built target thread_pool
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7/7.1/build
+$ ls
+cmake_install.cmake  CMakeCache.txt  CMakeFiles  Makefile  thread_pool.exe
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7/7.1/build
+$ ./thread_pool.exe
+hello hello 1hello 3
+
+0
+hello 2
+world 3
+world 2
+world 0
+hello 5
+world 1
+hello 6
+---thread 0 finished.--- hello 7
+hello 4
+---thread 1 finished.--- ---thread 2 finished.--- ---thread 3 finished.--- world world 5
+6
+world world 4
+7
+---thread 4 finished.--- ---thread 5 finished.--- ---thread 6 finished.--- ---thread 7 finished.---
+
+lyf@DESKTOP-GV2QHKN MINGW64 /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/7/7.1/build
+$
 ```
 
 2. 请使用 `std::atomic<bool>` 实现一个互斥锁。
