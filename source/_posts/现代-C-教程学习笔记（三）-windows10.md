@@ -1437,6 +1437,198 @@ std::cout << "current counter:" << counter << std::endl;
 
 这个例子与第一个宽松模型的例子本质上没有区别，仅仅只是将原子操作的内存顺序修改为了 `memory_order_seq_cst`，有兴趣的读者可以自行编写程序测量这两种不同内存顺序导致的性能差异。
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/7/
+```
+
+2. 创建 `7.8.memory.order.cpp` 文件，粘贴下面代码。
+
+```c++
+// 7.8.memory.order.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <atomic>
+#include <thread>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+using namespace std::chrono;
+
+const int N = 10000;
+
+void relaxed_order() {
+        cout << "relaxed_order: " << endl;
+
+        atomic<int> counter = {0};
+        vector<thread> vt;
+        for (int i = 0; i < N; ++i) {
+                vt.emplace_back([&](){
+                        counter.fetch_add(1, memory_order_relaxed);
+                });
+        }
+        auto t1 = high_resolution_clock::now();
+        for (auto& t : vt) {
+                t.join();
+        }
+        auto t2 = high_resolution_clock::now();
+        auto duration = ( t2 - t1 ).count();
+        cout << "relaxed order speed: " << duration / N << "ns" << endl;
+}
+
+void release_consume_order() {
+        cout << "release_consume_order: " << endl;
+
+        atomic<int*> ptr;
+        int v;
+        thread producer([&]() {
+                int* p = new int(42);
+                v = 1024;
+                ptr.store(p, memory_order_release);
+        });
+        thread consumer([&]() {
+                int* p;
+                while(!(p = ptr.load(memory_order_consume)));
+
+                cout << "p: " << *p << endl;
+                cout << "v: " << v << endl;
+        });
+        producer.join();
+        consumer.join();
+}
+
+void release_acquire_order() {
+        cout << "release_acquire_order: " << endl;
+
+        int v;
+        atomic<int> flag = {0};
+        thread release([&]() {
+                v = 42;
+                flag.store(1, memory_order_release);
+        });
+        thread acqrel([&]() {
+                int expected = 1; // must before compare_exchange_strong
+                while(!flag.compare_exchange_strong(expected, 2, memory_order_acq_rel)) {
+                        expected = 1; // must after compare_exchange_strong
+                }
+                // flag has changed to 2
+        });
+        thread acquire([&]() {
+                while(flag.load(memory_order_acquire) < 2);
+
+                cout << "v: " << v << endl; // must be 42
+        });
+        release.join();
+        acqrel.join();
+        acquire.join();
+}
+
+void sequential_consistent_order() {
+        cout << "sequential_consistent_order: " << endl;
+
+        atomic<int> counter = {0};
+        vector<thread> vt;
+        for (int i = 0; i < N; ++i) {
+                vt.emplace_back([&](){
+                        counter.fetch_add(1, memory_order_seq_cst);
+                });
+        }
+        auto t1 = high_resolution_clock::now();
+        for (auto& t : vt) {
+                t.join();
+        }
+        auto t2 = high_resolution_clock::now();
+        auto duration = ( t2 - t1 ).count();
+        cout << "sequential consistent speed: " << duration / N << "ns" << endl;
+}
+
+int main() {
+        relaxed_order();
+        release_consume_order();
+        release_acquire_order();
+        sequential_consistent_order();
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ tree
+.
+├── 7.1.thread.basic.cpp
+├── 7.2.critical.section.a.cpp
+├── 7.3.critical.section.b.cpp
+├── 7.4.futures.cpp
+├── 7.5.producer.consumer.cpp
+├── 7.6.atomic.cpp
+├── 7.6.bad.example.cpp
+├── 7.8.memory.order.cpp
+└── Makefile
+
+0 directories, 9 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.4.futures.cpp            7.6.bad.example.cpp
+7.2.critical.section.a.cpp  7.5.producer.consumer.cpp  7.8.memory.order.cpp
+7.3.critical.section.b.cpp  7.6.atomic.cpp             Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ make
+clang++ 7.1.thread.basic.cpp -o 7.1.thread.basic.out -std=c++2a -pedantic
+clang++ 7.2.critical.section.a.cpp -o 7.2.critical.section.a.out -std=c++2a -pedantic
+clang++ 7.3.critical.section.b.cpp -o 7.3.critical.section.b.out -std=c++2a -pedantic
+clang++ 7.4.futures.cpp -o 7.4.futures.out -std=c++2a -pedantic
+clang++ 7.5.producer.consumer.cpp -o 7.5.producer.consumer.out -std=c++2a -pedantic
+clang++ 7.6.atomic.cpp -o 7.6.atomic.out -std=c++2a -pedantic
+clang++ 7.6.bad.example.cpp -o 7.6.bad.example.out -std=c++2a -pedantic
+clang++ 7.8.memory.order.cpp -o 7.8.memory.order.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.4.futures.cpp            7.6.bad.example.cpp
+7.1.thread.basic.out        7.4.futures.out            7.6.bad.example.out
+7.2.critical.section.a.cpp  7.5.producer.consumer.cpp  7.8.memory.order.cpp
+7.2.critical.section.a.out  7.5.producer.consumer.out  7.8.memory.order.out
+7.3.critical.section.b.cpp  7.6.atomic.cpp             Makefile
+7.3.critical.section.b.out  7.6.atomic.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ./7.8.memory.order.out
+relaxed_order:
+relaxed order speed: 11489ns
+release_consume_order:
+p: 42
+v: 1024
+release_acquire_order:
+v: 42
+sequential_consistent_order:
+sequential consistent speed: 23720ns
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$ ls
+7.1.thread.basic.cpp        7.4.futures.cpp            7.6.bad.example.cpp
+7.2.critical.section.a.cpp  7.5.producer.consumer.cpp  7.8.memory.order.cpp
+7.3.critical.section.b.cpp  7.6.atomic.cpp             Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/7
+$
+```
+
 ### 总结
 
 `C++11` 语言层提供了`并发编程`的相关支持，本节简单的介绍了 `std::thread`, `std::mutex`, `std::future` 这些`并发编程`中不可回避的重要工具。除此之外，我们还介绍了 `C++11` 最重要的几个特性之一的`内存模型`，它们为 `C++` 在`标准化高性能计算`中提供了重要的基础。
