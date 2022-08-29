@@ -1654,7 +1654,7 @@ std::cout << f.get() << std::endl;
 
 #### Files
 
-1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。
+1. 运行开始菜单的 “MSYS2 MinGW x64”，运行下面命令构建项目目录。
 
 ```shell
 cd /f/vscode/cpp_projects/modern-cpp-tutorial/exercises/
