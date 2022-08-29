@@ -1437,7 +1437,7 @@ std::cout << "current counter:" << counter << std::endl;
 
 这个例子与第一个宽松模型的例子本质上没有区别，仅仅只是将原子操作的内存顺序修改为了 `memory_order_seq_cst`，有兴趣的读者可以自行编写程序测量这两种不同内存顺序导致的性能差异。
 
-#### Files
+##### Files
 
 1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
 
