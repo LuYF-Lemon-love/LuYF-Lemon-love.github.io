@@ -2560,6 +2560,93 @@ int main() {
 
 其中 `std::max_align_t` 要求每个标量类型的对齐方式严格一样，因此它几乎是最大标量没有差异，进而大部分平台上得到的结果为 `long double`，因此我们这里得到的 `AlignasStorage` 的对齐要求是 `8` 或 `16`。
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/9/
+```
+
+2. 创建 `9.3.alignment.cpp` 文件，粘贴下面代码。
+
+```c++
+// 9.3.alignment.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+
+struct Storage {
+        char      a;
+        int       b;
+        double    c;
+        long long d;
+};
+
+struct alignas(std::max_align_t) AlignasStorage {
+        char      a;
+        int       b;
+        double    c;
+        long long d;
+};
+
+int main() {
+        std::cout << alignof(Storage) << std::endl;
+        std::cout << alignof(AlignasStorage) << std::endl;
+
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ tree
+.
+├── 9.1.noexcept.cpp
+├── 9.2.literals.cpp
+├── 9.3.alignment.cpp
+└── Makefile
+
+0 directories, 4 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ ls
+9.1.noexcept.cpp  9.2.literals.cpp  9.3.alignment.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ make
+clang++ 9.1.noexcept.cpp -o 9.1.noexcept.out -std=c++2a -pedantic
+clang++ 9.2.literals.cpp -o 9.2.literals.out -std=c++2a -pedantic
+clang++ 9.3.alignment.cpp -o 9.3.alignment.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ ls
+9.1.noexcept.cpp  9.2.literals.cpp  9.3.alignment.cpp  Makefile
+9.1.noexcept.out  9.2.literals.out  9.3.alignment.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ ./9.3.alignment.out
+8
+16
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ ls
+9.1.noexcept.cpp  9.2.literals.cpp  9.3.alignment.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$
+```
+
 ### 总结
 
 本节介绍的几个特性是从仍未介绍的`现代 C++ 新特性`里使用频次较靠前的特性了，`noexcept` 是最为重要的特性，`它的一个功能在于能够阻止异常的扩散传播`，有效的让编译器最大限度的优化我们的代码。
