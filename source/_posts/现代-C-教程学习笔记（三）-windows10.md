@@ -2263,6 +2263,131 @@ try {
 捕获异常, 来自 non_block_throw()
 ```
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/
+mkdir 9
+cd 9/
+```
+
+2. 创建 `9.1.noexcept.cpp` 文件，粘贴下面代码。
+
+```c++
+// 9.1.noexcept.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+
+void may_throw() {
+        throw true;
+}
+
+auto non_block_throw = []{
+        may_throw();
+};
+
+void no_throw() noexcept {
+        return;
+}
+
+auto block_throw = []() noexcept {
+        no_throw();
+};
+
+int main()
+{
+        std::cout << std::boolalpha
+                << "may_throw() noexcept? " << noexcept(may_throw()) << std::endl
+                << "no_throw() noexcept? " << noexcept(no_throw()) << std::endl
+                << "lmay_throw() noexcept? " << noexcept(non_block_throw()) << std::endl
+                << "lno_throw() noexcept? " << noexcept(block_throw()) << std::endl;
+
+        try {
+                may_throw();
+        } catch (...) {
+                std::cout << "exception captured from my_throw()" << std::endl;
+        }
+
+        try {
+                non_block_throw();
+        } catch (...) {
+                std::cout << "exception captured from non_block_throw()" << std::endl;
+        }
+
+        try {
+                block_throw();
+        } catch (...) {
+                std::cout << "exception captured from block_throw()" << std::endl;
+        }
+}
+```
+
+3. 创建 `Makefile` 文件，粘贴下面代码。
+
+```makefile
+# Makefile
+# created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+all: $(patsubst %.cpp, %.out, $(wildcard *.cpp))
+
+%.out: %.cpp Makefile
+        clang++ $< -o $@ -std=c++2a -pedantic
+
+clean:
+        rm *.out
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ tree
+.
+├── 9.1.noexcept.cpp
+└── Makefile
+
+0 directories, 2 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ ls
+9.1.noexcept.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ make
+clang++ 9.1.noexcept.cpp -o 9.1.noexcept.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ ls
+9.1.noexcept.cpp  9.1.noexcept.out  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ ./9.1.noexcept.out
+may_throw() noexcept? false
+no_throw() noexcept? true
+lmay_throw() noexcept? false
+lno_throw() noexcept? true
+exception captured from my_throw()
+exception captured from non_block_throw()
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ ls
+9.1.noexcept.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$
+```
+
 ### 字面量
 
 #### 原始字符串字面量
