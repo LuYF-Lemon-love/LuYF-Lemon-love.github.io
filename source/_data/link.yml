@@ -233,6 +233,22 @@
       link: https://www.msys2.org/
       avatar: https://cos.luyf-lemon-love.space/images/20220802223352.png
       descr: Software Distribution and Building Platform for Windows
+    - name: VLC media player
+      link: https://www.videolan.org/vlc/
+      avatar: https://cos.luyf-lemon-love.space/images/20220830220009.png
+      descr: VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议
+    - name: 腾讯软件中心
+      link: https://pc.qq.com/
+      avatar: https://cos.luyf-lemon-love.space/images/20220830220422.png
+      descr: 海量软件，轻松下载
+    - name: Convertio
+      link: https://convertio.co/zh/
+      avatar: https://cos.luyf-lemon-love.space/images/20220830220813.png
+      descr: 文件转换器，将您的文件转换成任意格式
+    - name: Free Online File Converter
+      link: https://www.online-convert.com/
+      avatar: https://cos.luyf-lemon-love.space/images/20220830221120.png
+      descr: Convert media files online from one format into another
 
 - class_name: 娱乐和学习
   class_desc:
