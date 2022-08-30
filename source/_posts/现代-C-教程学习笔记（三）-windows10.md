@@ -2440,6 +2440,96 @@ int main() {
 
 4. `字符字面量`：参数只能是 `char`, `wchar_t`, `char16_t`, `char32_t` 这几种类型。
 
+#### Files
+
+1. 运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。
+
+```shell
+cd /f/vscode/cpp_projects/modern-cpp-tutorial/code/9/
+```
+
+2. 创建 `9.2.literals.cpp` 文件，粘贴下面代码。
+
+```c++
+// 9.2.literals.cpp
+// created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+
+#include <iostream>
+#include <string>
+
+std::string operator"" _wow1(const char *wow1, size_t len) {
+        return std::string(wow1)+"woooooooooow, amazing";
+}
+
+std::string operator"" _wow2(unsigned long long i) {
+        return std::to_string(i)+"woooooooooow, amazing";
+}
+
+int main() {
+        std::string str = R"(C:\File\To\Path)";
+        std::cout << str << std::endl;
+
+        int value = 0b1001010101010;
+        std::cout << value << std::endl;
+
+        auto str2 = "abc"_wow1;
+        auto num = 1_wow2;
+        std::cout << str2 << std::endl;
+        std::cout << num << std::endl;
+
+        return 0;
+}
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ tree
+.
+├── 9.1.noexcept.cpp
+├── 9.2.literals.cpp
+└── Makefile
+
+0 directories, 3 files
+```
+
+---
+
+```shell
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ ls
+9.1.noexcept.cpp  9.2.literals.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ make
+clang++ 9.1.noexcept.cpp -o 9.1.noexcept.out -std=c++2a -pedantic
+clang++ 9.2.literals.cpp -o 9.2.literals.out -std=c++2a -pedantic
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ ls
+9.1.noexcept.cpp  9.2.literals.cpp  Makefile
+9.1.noexcept.out  9.2.literals.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ ./9.2.literals.out
+C:\File\To\Path
+4778
+abcwoooooooooow, amazing
+1woooooooooow, amazing
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ make clean
+rm *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$ ls
+9.1.noexcept.cpp  9.2.literals.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/9
+$
+```
+
 ### 内存对齐
 
 `C++11` 引入了两个新的关键字 `alignof` 和 `alignas` 来支持对`内存对齐`进行控制。`alignof` 关键字能够获得一个与平台相关的 `std::size_t` 类型的值，`用于查询该平台的对齐方式`。当然我们有时候并不满足于此，甚至希望自定定义结构的对齐方式，同样，`C++11` 还引入了 `alignas` 来重新修饰某个结构的对齐方式。我们来看两个例子：
