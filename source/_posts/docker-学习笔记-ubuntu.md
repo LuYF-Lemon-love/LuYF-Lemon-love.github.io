@@ -16,7 +16,7 @@ date: 2022-08-31 17:24:32
 
 原教学视频是[遇见狂神说](https://space.bilibili.com/95256449)的[【狂神说Java】Docker最新超详细版教程通俗易懂](https://www.bilibili.com/video/BV1og4y1q7M4)。
 
-原笔迹可以参考：[狂神说docker(最全笔记）](https://blog.csdn.net/qq_21197507/article/details/115071715?spm=1001.2014.3001.5506)。
+原笔记可以参考：[狂神说docker(最全笔记）](https://blog.csdn.net/qq_21197507/article/details/115071715?spm=1001.2014.3001.5506)。
 
 操作系统：Ubuntu 20.04.4 LTS
 
@@ -46,21 +46,23 @@ date: 2022-08-31 17:24:32
 
 `Docker` 的思想来自于集装箱！隔离机制（`容器`是完全使用`沙箱`机制，相互之间不会有任何接口。）使得 `Docker` 能够轻松的部署软件，并且各个软件不会相互冲突。
 
+`Docker` 通过隔离机制，使得服务器可以被利用到极致。
+
 ### Docker 的历史
 
 `Docker` 是 `PaaS` 提供商 `dotCloud` 开源的一个基于 `LXC` 的高级容器引擎，源代码托管在 `Github` 上, 基于 `go` 语言并遵从 `Apache2.0` 协议开源。
 
-与 `Docker` （容器技术）相对应是`虚拟机技术`（如 `VMware`）。
+与 `Docker` （`容器技术`）相对应是`虚拟机技术`（如 `VMware`）。
 
 - `虚拟机技术`: 在本地操作系统（如 `Windows`）装一个 `VMware`，通过 `VMware` 可以虚拟出来一个新的电脑（操作系统）。相当笨重！
 
-- `虚拟机技术`和 `Docker` （容器技术）都属于虚拟化技术！
+- `虚拟机技术`和 `Docker` （`容器技术`）都属于虚拟化技术！
 
 >`VMware`: `Linux centos` 原生镜像相当于一台完整的电脑，每个都需要几个 `G`，每次启动都需要几分钟。
 >
->`docker`: 镜像一般只有几 `M`或者几 `KB`，秒级启动。
+>`docker`: 镜像一般十分小巧，只有几 `M`或者几 `KB`，秒级启动。
 
-![](https://cos.luyf-lemon-love.space/images/20220831200854.png)
+![](https://cos.luyf-lemon-love.space/images/20220831211811.png)
 
 `Docker` 是基于 `Go` 语言开发的！是一个开源项目。
 
@@ -70,7 +72,7 @@ date: 2022-08-31 17:24:32
 
 `Docker Hub` 的地址为：https://hub.docker.com/ 。
 
-### 虚拟化技术和容器化技术对比
+### 虚拟机技术和容器化技术对比
 
 ### 结语
 
