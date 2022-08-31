@@ -69,6 +69,10 @@
       link: https://vercel.com/
       avatar: https://cos.luyf-lemon-love.space/images/vercel-icon-dark.png
       descr: Vercel combines the best developer experience with an obsessive focus on end-user performance
+    - name: docker
+      link: https://www.docker.com/
+      avatar: https://cos.luyf-lemon-love.space/images/20220831144834.png
+      descr: Develop faster. Run anywhere
 
 - class_name: Git
   class_desc:
@@ -269,6 +273,10 @@
       link: https://github.com/Anduin2017/HowToCook
       avatar: https://cos.luyf-lemon-love.space/images/20220718193641.png
       descr: 程序员做饭指南
+    - name: KuangStudy
+      link: https://www.kuangstudy.com/
+      avatar: https://cos.luyf-lemon-love.space/images/20220831145604.png
+      descr: 为每个想学习编程的人提供一个少走弯路的平台
     
     
     
