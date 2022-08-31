@@ -17,8 +17,7 @@ tags:
   - CMake
 categories: 学习笔记
 description: >-
-  现代 C++ 教程第 6 章、第 7 章、第 8 章、第 9 章和第 10 章（正则表达式、并行与并发、文件系统、其他杂项、展望：C++20
-  简介和附录）的学习笔记。
+  现代 C++ 教程第 6 章、第 7 章、第 8 章、第 9 章和第 10 章（正则表达式、并行与并发、文件系统、其他杂项、展望：C++20 简介和附录）的学习笔记。
 cover: 'https://cos.luyf-lemon-love.space/images/noxus_expansion_01.jpg'
 abbrlink: 539158218
 date: 2022-08-26 11:19:39
