@@ -5,7 +5,7 @@ tags:
   - Linux
 categories: 计算机基础
 description: 初步学习 docker 的笔记。
-cover: 'https://cos.luyf-lemon-love.space/images/20220604154620.png'
+cover: 'https://cos.luyf-lemon-love.space/images/docker.jpeg'
 abbrlink: 2218338558
 date: 2022-08-31 17:24:32
 ---
