@@ -28,6 +28,8 @@ date: 2022-08-31 17:24:32
 
 3. [狂神说docker(最全笔记）](https://blog.csdn.net/qq_21197507/article/details/115071715?spm=1001.2014.3001.5506)
 
+4. [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+
 ## Docker入门
 
 ### Docker 为什么会出现
@@ -135,6 +137,180 @@ date: 2022-08-31 17:24:32
 3. 仓库（repository）
 
    - 存放镜像的地方。如 `Docker Hub` 和阿里云镜像服务器。
+
+### 安装 docker
+
+`Ubuntu` 官方安装 `Docker Engine` 教程为：[Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)。
+
+为了在 `Ubuntu` 安装 `Docker Engine`，确保你满足 `prerequisites`，然后安装 `Docker`。
+
+#### Prerequisites
+
+##### OS requirements
+
+为了安装 `Docker Engine`，你需要这些 `Ubuntu` 版本之一的 `64` 位版本：
+
+- Ubuntu Jammy 22.04 (LTS)
+
+- Ubuntu Impish 21.10
+
+- Ubuntu Focal 20.04 (LTS)
+
+- Ubuntu Bionic 18.04 (LTS)
+
+Docker Engine is supported on x86_64 (or amd64), armhf, arm64, and s390x architectures.
+
+`Docker Engine` 支持 `x86_64` (or `amd64`)，`armhf`，`arm64`，和 `s390x` 体系结构。
+
+通过下面获得本机体系结构：
+
+```shell
+$ hostnamectl
+```
+
+##### Uninstall old versions
+
+旧版本的 `Docker` 被称为 `docker`，`docker.io` 或 `docker-engine`。如果安装了这些，请卸载它们：
+
+```shell
+$ sudo apt-get remove docker docker-engine docker.io containerd runc
+```
+
+>It’s OK if `apt-get` reports that none of these packages are installed.
+>
+>The contents of `/var/lib/docker/`, including `images`, `containers`, `volumes`, and `networks`, are preserved. If you do not need to save your existing data, and want to start with `a clean installation`, refer to the `uninstall Docker Engine` section.
+
+#### Installation methods
+
+You can install `Docker Engine` in different ways, depending on your needs:
+
+- Most users `set up Docker’s repositories` and install from them, for ease of installation and upgrade tasks. This is the recommended approach.
+
+- Some users download the DEB package and `install it manually` and manage upgrades completely manually. This is useful in situations such as installing Docker on air-gapped systems with no access to the internet.
+
+- In testing and development environments, some users choose to use automated `convenience scripts` to install Docker.
+
+##### Install using the repository
+
+Before you install `Docker Engine` for the first time on `a new host machine`, you need to `set up the Docker repository`. Afterward, you can `install` and `update` Docker from the repository.
+
+###### Set up the repository
+
+1. Update the `apt` package index and `install packages` to allow `apt` to use a repository over HTTPS:
+
+```shell
+$ sudo apt-get update
+
+$ sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+```
+
+2. Add Docker’s official GPG key:
+
+```shell
+$ sudo mkdir -p /etc/apt/keyrings
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+```
+
+3. Use the following command to set up the repository:
+
+```shell
+$ echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+###### Install Docker Engine
+
+1. Update the `apt` package index, and install the `latest version` of `Docker Engine`, `containerd`, and `Docker Compose`:
+
+```shell
+$ sudo apt-get update
+# 下面的安装命令第一次可能出错，需要再次运行一次
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+```
+
+2. Verify that Docker Engine is installed correctly by running the `hello-world` image.
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ sudo docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+2db29710123e: Pull complete 
+Digest: sha256:7d246653d0511db2a6b2e0436cfd0e52ac8c066000264b3ce63331ac66dca625
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+(base) lyfubuntu@lyfubuntu:~$ sudo docker run hello-world
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+(base) lyfubuntu@lyfubuntu:~$ 
+```
+
+This command `downloads` a test image and `runs` it in a container. When the container runs, it prints a message and exits.
+
+>`Docker Engine` is installed and running. The `docker` group is created but no users are added to it. You need to use `sudo` to run Docker commands.
+
+#### Uninstall Docker Engine
+
+1. Uninstall the `Docker Engine`, `CLI`, `Containerd`, and `Docker Compose` packages:
+
+```shell
+$ sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-compose-plugin
+```
+
+2. `Images`, `containers`, `volumes`, or `customized configuration files` on your host are not automatically removed. To delete all `images`, `containers`, and `volumes`:
+
+```shell
+$ sudo rm -rf /var/lib/docker
+$ sudo rm -rf /var/lib/containerd
+```
+
+`You must delete any edited configuration files manually`.
 
 ## 结语
 
