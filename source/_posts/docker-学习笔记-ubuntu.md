@@ -31,7 +31,7 @@ date: 2022-08-31 17:24:32
 
 4. [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
 
-## Docker入门
+## Docker 入门
 
 ### Docker 为什么会出现
 
@@ -345,6 +345,8 @@ For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
 
+输出上面这段提示以后，`hello-world` 就会停止运行，容器自动终止。
+
 ---
 
 ```shell
@@ -393,6 +395,128 @@ if (Docker 在本地寻找镜像, true)
 ![](https://cos.luyf-lemon-love.space/images/20200411132454634.png)
 
 ## Docker 基本命令
+
+### Docker 的常用命令
+
+![](https://cos.luyf-lemon-love.space/images/20200812093539341.png)
+
+官方的命令帮助文档为：https://docs.docker.com/engine/reference/commandline/docker/ 。
+
+1. {% label 帮助命令 pink %}
+
+```shell
+$ docker version          # docker 版本信息
+$ docker info             # 系统级别的信息，包括镜像和容器的数量
+$ docker 命令 --help
+```
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker version
+Client: Docker Engine - Community
+ Version:           20.10.17
+ API version:       1.41
+ Go version:        go1.17.11
+ Git commit:        100c701
+ Built:             Mon Jun  6 23:02:57 2022
+ OS/Arch:           linux/amd64
+ Context:           default
+ Experimental:      true
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          20.10.17
+  API version:      1.41 (minimum version 1.12)
+  Go version:       go1.17.11
+  Git commit:       a89b842
+  Built:            Mon Jun  6 23:01:03 2022
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          1.6.8
+  GitCommit:        9cd3357b7fd7218e4aec3eae239db1f68a5a6ec6
+ runc:
+  Version:          1.1.4
+  GitCommit:        v1.1.4-0-g5fd4c4d
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+(base) lyfubuntu@lyfubuntu:~$ docker info
+Client:
+ Context:    default
+ Debug Mode: false
+ Plugins:
+  app: Docker App (Docker Inc., v0.9.1-beta3)
+  buildx: Docker Buildx (Docker Inc., v0.8.2-docker)
+  compose: Docker Compose (Docker Inc., v2.6.0)
+  scan: Docker Scan (Docker Inc., v0.17.0)
+
+Server:
+ Containers: 2
+  Running: 0
+  Paused: 0
+  Stopped: 2
+ Images: 1
+ Server Version: 20.10.17
+ Storage Driver: overlay2
+  Backing Filesystem: extfs
+  Supports d_type: true
+  Native Overlay Diff: true
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: cgroupfs
+ Cgroup Version: 1
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog
+ Swarm: inactive
+ Runtimes: io.containerd.runc.v2 io.containerd.runtime.v1.linux runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: 9cd3357b7fd7218e4aec3eae239db1f68a5a6ec6
+ runc version: v1.1.4-0-g5fd4c4d
+ init version: de40ad0
+ Security Options:
+  apparmor
+  seccomp
+   Profile: default
+ Kernel Version: 5.15.0-46-generic
+ Operating System: Ubuntu 20.04.5 LTS
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 4
+ Total Memory: 7.659GiB
+ Name: lyfubuntu
+ ID: GSQI:CV5Z:MC5N:ODM5:XBVG:ZOJI:IQTJ:KJRY:7FC5:MFXA:GC6L:VNFQ
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Registry: https://index.docker.io/v1/
+ Labels:
+ Experimental: false
+ Insecure Registries:
+  127.0.0.0/8
+ Live Restore Enabled: false
+
+(base) lyfubuntu@lyfubuntu:~$ docker images --help
+
+Usage:  docker images [OPTIONS] [REPOSITORY[:TAG]]
+
+List images
+
+Options:
+  -a, --all             Show all images (default hides
+                        intermediate images)
+      --digests         Show digests
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print images using a Go template
+      --no-trunc        Don't truncate output
+  -q, --quiet           Only show image IDs
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+2. {% label 镜像命令 green %}
+
+
 
 ## 结语
 
