@@ -311,6 +311,89 @@ $ sudo rm -rf /var/lib/containerd
 
 `You must delete any edited configuration files manually`.
 
+### 底层原理
+
+**`hello-world` image**
+
+```shell
+$ sudo docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+2db29710123e: Pull complete 
+Digest: sha256:7d246653d0511db2a6b2e0436cfd0e52ac8c066000264b3ce63331ac66dca625
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+```
+
+---
+
+```shell
+# 由于本地没有 hello-world 镜像，因此需要下载 hello-world 镜像。通过镜像创建一个容器，并运行。
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+```
+
+---
+
+**`run` 命令背后的机制**
+
+```
+start;
+if (Docker 在本地寻找镜像, true)
+{
+   以该镜像为模板创建容器, 并运行;
+} else if (在 Docker Hub 中查找该镜像, true) {
+   下载该镜像到本地;
+   以该镜像为模板创建容器, 并运行;
+} else {
+   返回错误信息, 显示找不到该镜像;
+}
+```
+
+---
+
+{% label 底层原理 green %}
+
+`Docker Engine` 是一个`客户端-服务器`应用程序，具有以下主要组件：
+
+- 一个`服务器`，是一个长期运行的程序，被称为`守护进程`。
+
+- 一个 `REST API`，该 `API` 可以指定某些程序（如 `bash` ）与守护进程交互，进而向守护进程发出指令。
+
+`Docker` 是一个 `Client Server` 结构的系统。`Docker` 守护进程运行在宿主机上，客户端可以通过 `Socket` 访问`守护进程`，进而管理运行在宿主机上的容器（一个运行时环境）。
+
+---
+
+**为什么 `Docker` 比 `VMware` 快**
+
+- `docker` 有着比`虚拟机`更少的抽象层，`docker` 不需要 `Hypervisor` 实现`硬件虚拟化`，`docker` 容器上的程序直接使用宿主机上的硬件资源。因此，`docker` 更能充分利用宿主机上的 `CPU`、内存等资源。
+
+- `docker` 利用的是宿主机的内核，不需要 `Guest OS`。因此，当新建一个容器时，`docker` 不需要和`虚拟机`一样重新加载一个操作系统内核，因而只需几秒钟；`虚拟机`需要加载 `Guest OS`，需要几分钟。
+
+![](https://cos.luyf-lemon-love.space/images/20200411132454634.png)
+
+## Docker 基本命令
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
