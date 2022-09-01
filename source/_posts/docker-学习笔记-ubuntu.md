@@ -516,7 +516,51 @@ Options:
 
 2. {% label 镜像命令 green %}
 
+`docker images`：查看所有本地主机上的镜像。
 
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+hello-world   latest    feb5d9fea6a5   11 months ago   13.3kB
+(base) lyfubuntu@lyfubuntu:~$ docker images --help
+
+Usage:  docker images [OPTIONS] [REPOSITORY[:TAG]]
+
+List images
+
+Options:
+  -a, --all             Show all images (default hides
+                        intermediate images)
+      --digests         Show digests
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print images using a Go template
+      --no-trunc        Don't truncate output
+  -q, --quiet           Only show image IDs
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+```
+REPOSITORY                # 镜像的仓库
+TAG                       # 镜像的标签
+IMAGE ID                  # 镜像的 ID
+CREATED                   # 镜像的创建时间
+SIZE                      # 镜像的大小
+
+# docker images
+
+Usage:  docker images [OPTIONS] [REPOSITORY[:TAG]]
+
+Options:
+  -a, --all             Show all images (default hides
+                        intermediate images)
+      --digests         Show digests
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print images using a Go template
+      --no-trunc        Don't truncate output
+  -q, --quiet           Only show image IDs
+```
+
+`docker search`：查找镜像。
 
 ## 结语
 
