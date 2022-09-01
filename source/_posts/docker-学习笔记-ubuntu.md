@@ -560,7 +560,63 @@ Options:
   -q, --quiet           Only show image IDs
 ```
 
+---
+
 `docker search`：查找镜像。
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker search --help
+
+Usage:  docker search [OPTIONS] TERM
+
+Search the Docker Hub for images
+
+Options:
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print search using a Go template
+      --limit int       Max number of search results (default 25)
+      --no-trunc        Don't truncate output
+(base) lyfubuntu@lyfubuntu:~$ docker search mysql
+NAME                            DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+mysql                           MySQL is a widely used, open-source relation…   13110     [OK]       
+mariadb                         MariaDB Server is a high performing open sou…   5011      [OK]       
+phpmyadmin                      phpMyAdmin - A web interface for MySQL and M…   617       [OK]       
+percona                         Percona Server is a fork of the MySQL relati…   584       [OK]       
+bitnami/mysql                   Bitnami MySQL Docker Image                      76                   [OK]
+databack/mysql-backup           Back up mysql databases to... anywhere!         65                   
+linuxserver/mysql-workbench                                                     42                   
+linuxserver/mysql               A Mysql container, brought to you by LinuxSe…   37                   
+ubuntu/mysql                    MySQL open source fast, stable, multi-thread…   36                   
+circleci/mysql                  MySQL is a widely used, open-source relation…   27                   
+google/mysql                    MySQL server for Google Compute Engine          21                   [OK]
+rapidfort/mysql                 RapidFort optimized, hardened image for MySQL   13                   
+bitnami/mysqld-exporter                                                         3                    
+ibmcom/mysql-s390x              Docker image for mysql-s390x                    2                    
+newrelic/mysql-plugin           New Relic Plugin for monitoring MySQL databa…   1                    [OK]
+vitess/mysqlctld                vitess/mysqlctld                                1                    [OK]
+hashicorp/mysql-portworx-demo                                                   0                    
+docksal/mysql                   MySQL service images for Docksal - https://d…   0                    
+mirantis/mysql                                                                  0                    
+cimg/mysql                                                                      0                    
+drud/mysql                                                                      0                    
+silintl/mysql-backup-restore    Simple docker image to perform mysql backups…   0                    [OK]
+corpusops/mysql                 https://github.com/corpusops/docker-images/     0                    
+drud/mysql-local-57             ddev mysql local container                      0                    
+drud/mysql-docker-local-57      This repo has been deprecated, new tags are …   0                    
+(base) lyfubuntu@lyfubuntu:~$ docker search mysql --filter=STARS=3000
+NAME      DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+mysql     MySQL is a widely used, open-source relation…   13110     [OK]       
+mariadb   MariaDB Server is a high performing open sou…   5011      [OK]       
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+```
+--filter=STARS=3000     # 搜素出来的镜像是 STARS 大于 3000 的
+```
+
+---
+
+`docker pull`：下拉镜像。
 
 ## 结语
 
