@@ -3,6 +3,7 @@ title: docker 学习笔记-ubuntu
 tags:
   - docker
   - Linux
+  - Ubuntu
 categories: 计算机基础
 description: 初步学习 docker 的笔记。
 cover: 'https://cos.luyf-lemon-love.space/images/docker.jpeg'
@@ -140,7 +141,7 @@ date: 2022-08-31 17:24:32
 
 ### 安装 docker
 
-`Ubuntu` 官方安装 `Docker Engine` 教程为：[Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)。
+官方 `Ubuntu` 安装 `Docker Engine` 教程为：[Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)。
 
 为了在 `Ubuntu` 安装 `Docker Engine`，确保你满足 `prerequisites`，然后安装 `Docker`。
 
@@ -158,11 +159,9 @@ date: 2022-08-31 17:24:32
 
 - Ubuntu Bionic 18.04 (LTS)
 
-Docker Engine is supported on x86_64 (or amd64), armhf, arm64, and s390x architectures.
-
 `Docker Engine` 支持 `x86_64` (or `amd64`)，`armhf`，`arm64`，和 `s390x` 体系结构。
 
-通过下面获得本机体系结构：
+通过下面命令获得本机体系结构：
 
 ```shell
 $ hostnamectl
