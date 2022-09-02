@@ -1127,7 +1127,69 @@ exit
 
 ---
 
-`docker ps`：列出所有运行的容器
+`docker ps`：列出所有运行的容器。
+
+```shell
+$ docker ps 命令
+
+# 默认列出当前正在运行的容器
+-a  # 列出所有容器：正在运行和历史执行过的容器
+-n=n # n 为数字，Show n last created containers (includes all states) (default -1)
+-q  # 只显示容器 ID 
+```
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker ps --help
+
+Usage:  docker ps [OPTIONS]
+
+List containers
+
+Options:
+  -a, --all             Show all containers (default shows just running)
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print containers using a Go template
+  -n, --last int        Show n last created containers (includes all
+                        states) (default -1)
+  -l, --latest          Show the latest created container (includes all
+                        states)
+      --no-trunc        Don't truncate output
+  -q, --quiet           Only display container IDs
+  -s, --size            Display total file sizes
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+centos       latest    5d0da3dc9764   11 months ago   231MB
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -a
+CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS                      PORTS     NAMES
+85f35274de29   centos         "/bin/bash"   49 minutes ago   Exited (0) 48 minutes ago             charming_banach
+0a4d040ef05b   feb5d9fea6a5   "/hello"      21 hours ago     Exited (0) 21 hours ago               xenodochial_pare
+f3a477033d81   feb5d9fea6a5   "/hello"      21 hours ago     Exited (0) 21 hours ago               elastic_margulis
+(base) lyfubuntu@lyfubuntu:~$ docker ps -n=-1
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -n=1
+CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS                      PORTS     NAMES
+85f35274de29   centos    "/bin/bash"   51 minutes ago   Exited (0) 50 minutes ago             charming_banach
+(base) lyfubuntu@lyfubuntu:~$ docker ps -n=2
+CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS                      PORTS     NAMES
+85f35274de29   centos         "/bin/bash"   51 minutes ago   Exited (0) 50 minutes ago             charming_banach
+0a4d040ef05b   feb5d9fea6a5   "/hello"      21 hours ago     Exited (0) 21 hours ago               xenodochial_pare
+(base) lyfubuntu@lyfubuntu:~$ docker ps -n=3
+CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS                      PORTS     NAMES
+85f35274de29   centos         "/bin/bash"   51 minutes ago   Exited (0) 51 minutes ago             charming_banach
+0a4d040ef05b   feb5d9fea6a5   "/hello"      21 hours ago     Exited (0) 21 hours ago               xenodochial_pare
+f3a477033d81   feb5d9fea6a5   "/hello"      21 hours ago     Exited (0) 21 hours ago               elastic_margulis
+(base) lyfubuntu@lyfubuntu:~$ docker ps -qa
+85f35274de29
+0a4d040ef05b
+f3a477033d81
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+---
+
+退出容器。
 
 ## 结语
 
