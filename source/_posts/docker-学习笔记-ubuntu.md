@@ -1239,13 +1239,13 @@ f3a477033d81
 
 ```shell
 # 删除指定容器
-docker rm -f 容器id
+$ docker rm -f 容器id
 
 # 删除所有容器
-docker rm -f $(docker ps -aq)
+$ docker rm -f $(docker ps -aq)
 
 # 删除所有容器
-docker ps -a -q|xargs docker rm -f
+$ docker ps -a -q|xargs docker rm -f
 ```
 
 ```shell
@@ -1323,8 +1323,66 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
 ---
 
-启动和停止容器
+启动和停止容器。
 
+```shell
+$ docker start 容器id       # 启动容器
+$ docker restart 容器id     # 重启容器
+$ docker stop 容器id        # 停止当前正在运行的容器
+$ docker kill 容器id        # 强制停止当前的容器
+```
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+centos       latest    5d0da3dc9764   11 months ago   231MB
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+(base) lyfubuntu@lyfubuntu:~$ docker run -it centos /bin/bash
+[root@bca1af92f836 /]# exit
+exit
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+bca1af92f836
+(base) lyfubuntu@lyfubuntu:~$ docker start bca1af92f836
+bca1af92f836
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS         PORTS     NAMES
+bca1af92f836   centos    "/bin/bash"   42 seconds ago   Up 5 seconds             laughing_cohen
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+bca1af92f836
+(base) lyfubuntu@lyfubuntu:~$ docker stop bca1af92f836
+bca1af92f836
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+bca1af92f836
+(base) lyfubuntu@lyfubuntu:~$ docker restart bca1af92f836
+bca1af92f836
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS         PORTS     NAMES
+bca1af92f836   centos    "/bin/bash"   2 minutes ago   Up 3 seconds             laughing_cohen
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+bca1af92f836
+(base) lyfubuntu@lyfubuntu:~$ docker kill bca1af92f836
+bca1af92f836
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+bca1af92f836
+(base) lyfubuntu@lyfubuntu:~$ docker start bca1af92f836
+bca1af92f836
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS         PORTS     NAMES
+bca1af92f836   centos    "/bin/bash"   5 minutes ago   Up 8 seconds             laughing_cohen
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+bca1af92f836
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+4. {% label 常用的其他命令 purple %}
 
 ## 结语
 
