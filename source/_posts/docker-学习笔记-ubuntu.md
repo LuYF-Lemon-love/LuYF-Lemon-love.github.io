@@ -712,7 +712,7 @@ c3aceb7e4f48: Pull complete
 269002e5cf58: Pull complete 
 d5abeb1bd18e: Pull complete 
 cbd79da5fab6: Pull complete 
-Digest: sha256:cdf3b62d78d1bbb1d2bd6716895a84014e00716177cbb7e90f6c6a37a21dc796
+Digest: sha256:cdf3b62d78d1bbb1d2bd6716895a84014e00716177cbb7e90f6c6a37a21dc796  # 签名
 Status: Downloaded newer image for mysql:latest
 docker.io/library/mysql:latest  # 镜像的真实地址
 
@@ -895,13 +895,13 @@ REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
 ```
 
 ```shell
-# docker rmi -f IMAGE ID
+# 删除指定镜像：docker rmi -f IMAGE ID
 $ docker rmi -f daff57b7d2d1
 
-# docker rmi -f IMAGE ID1 IMAGE ID2 IMAGE ID3
+# 删除多个镜像：docker rmi -f IMAGE ID1 IMAGE ID2 IMAGE ID3
 $ docker rmi -f ff3b5098b416 daff57b7d2d1
 
-# docker rmi -f $(docker images -aq)
+# 删除所有镜像：docker rmi -f $(docker images -aq)
 $ docker rmi -f $(docker images -aq)
 ```
 
