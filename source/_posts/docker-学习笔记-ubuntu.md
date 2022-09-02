@@ -1447,6 +1447,7 @@ centos       latest    5d0da3dc9764   11 months ago   231MB
 (base) lyfubuntu@lyfubuntu:~$ docker ps
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 (base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+# 自己编写一段 shell 脚本
 (base) lyfubuntu@lyfubuntu:~$ docker run -d centos /bin/sh -c "while true;do echo lyf;sleep 1;done"
 c932288629d9005c4b437ca7a361fab76b734d9451fe5395de1bb2d60606b8dc
 (base) lyfubuntu@lyfubuntu:~$ docker ps
