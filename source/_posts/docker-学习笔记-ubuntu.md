@@ -1391,9 +1391,9 @@ bca1af92f836
 $ docker run -d 镜像名
 
 # 虽然后台启动 centos，但 centos 会立即停止
-# docker 容器后台运行，必须要有一个前台进程。
+# docker 容器后台运行，必须要有一个前台进程
 # 如果 docker 容器没有发现前台进程，会自动停止
-# eg: nginx 容器启动后，发现自己没有提供服务，就会立即停止。
+# eg: nginx 容器启动后，发现自己没有提供服务，就会立即停止
 $ docker run -d centos
 ```
 
