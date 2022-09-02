@@ -1191,6 +1191,52 @@ f3a477033d81
 
 退出容器。
 
+```shell
+# 直接退出容器并关闭容器
+$ exit
+
+# 退出但不关闭容器
+Ctrl + P + Q
+```
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+centos       latest    5d0da3dc9764   11 months ago   231MB
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker run -it centos /bin/bash
+[root@627bd6b5cd95 /]# exit
+exit
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -qa
+627bd6b5cd95
+91e1fd1452f2
+80d3d24027f6
+85f35274de29
+0a4d040ef05b
+f3a477033d81
+(base) lyfubuntu@lyfubuntu:~$ docker run -it centos /bin/bash
+[root@6e8be4eea04d /]# (base) lyfubuntu@lyfubuntu:~$ 
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS          PORTS     NAMES
+6e8be4eea04d   centos    "/bin/bash"   48 seconds ago   Up 46 seconds             romantic_jepsen
+(base) lyfubuntu@lyfubuntu:~$ docker ps -qa
+6e8be4eea04d
+627bd6b5cd95
+91e1fd1452f2
+80d3d24027f6
+85f35274de29
+0a4d040ef05b
+f3a477033d81
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+---
+
+`docker rm`：删除容器。
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
