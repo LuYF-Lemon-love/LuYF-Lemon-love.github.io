@@ -1532,7 +1532,7 @@ Error response from daemon: Container 74050c27a32ca42179063a7bc9cb44cc670282beed
 
 ---
 
-**查看``Docker objects` 的元数据**
+**查看 `Docker objects` 的元数据**
 
 ```shell
 (base) lyfubuntu@lyfubuntu:~$ docker inspect --help
