@@ -1384,6 +1384,37 @@ bca1af92f836
 
 4. {% label 常用的其他命令 purple %}
 
+**后台启动容器**
+
+```shell
+# 后台启动容器
+$ docker run -d 镜像名
+
+# 虽然后台启动 centos，但 centos 会立即停止
+# docker 容器后台运行，必须要有一个前台进程。
+# 如果 docker 容器没有发现前台进程，会自动停止
+# eg: nginx 容器启动后，发现自己没有提供服务，就会立即停止。
+$ docker run -d centos
+```
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+centos       latest    5d0da3dc9764   11 months ago   231MB
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+(base) lyfubuntu@lyfubuntu:~$ docker run -d centos
+309739215d97f874bde9247147dee7c3c175b9debbf18b516d1c81bbfe7a3079
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+309739215d97
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+**查看日志**
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
