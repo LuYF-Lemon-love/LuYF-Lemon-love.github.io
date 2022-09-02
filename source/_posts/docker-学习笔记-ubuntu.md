@@ -618,6 +618,120 @@ mariadb   MariaDB Server is a high performing open sou…   5011      [OK]
 
 `docker pull`：下拉镜像。
 
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker pull --help
+
+Usage:  docker pull [OPTIONS] NAME[:TAG|@DIGEST]
+
+Pull an image or a repository from a registry
+
+Options:
+  -a, --all-tags                Download all tagged images in the repository
+      --disable-content-trust   Skip image verification (default true)
+      --platform string         Set platform if server is multi-platform
+                                capable
+  -q, --quiet                   Suppress verbose output
+(base) lyfubuntu@lyfubuntu:~$ docker pull mysql
+Using default tag: latest
+latest: Pulling from library/mysql
+492d84e496ea: Pull complete 
+bbe20050901c: Pull complete 
+e3a5e171c2f8: Pull complete 
+c2cedd8aa061: Pull complete 
+d6a485af4cc9: Pull complete 
+ee16a57baf60: Pull complete 
+64bab9180d2a: Pull complete 
+c3aceb7e4f48: Pull complete 
+269002e5cf58: Pull complete 
+d5abeb1bd18e: Pull complete 
+cbd79da5fab6: Pull complete 
+Digest: sha256:cdf3b62d78d1bbb1d2bd6716895a84014e00716177cbb7e90f6c6a37a21dc796
+Status: Downloaded newer image for mysql:latest
+docker.io/library/mysql:latest
+(base) lyfubuntu@lyfubuntu:~$ docker pull docker.io/library/mysql:latest
+latest: Pulling from library/mysql
+Digest: sha256:cdf3b62d78d1bbb1d2bd6716895a84014e00716177cbb7e90f6c6a37a21dc796
+Status: Image is up to date for mysql:latest
+docker.io/library/mysql:latest
+(base) lyfubuntu@lyfubuntu:~$ docker pull mysql:latest
+latest: Pulling from library/mysql
+Digest: sha256:cdf3b62d78d1bbb1d2bd6716895a84014e00716177cbb7e90f6c6a37a21dc796
+Status: Image is up to date for mysql:latest
+docker.io/library/mysql:latest
+(base) lyfubuntu@lyfubuntu:~$ docker pull mysql:5.7
+5.7: Pulling from library/mysql
+9815334b7810: Pull complete 
+f85cb6fccbfd: Pull complete 
+b63612353671: Pull complete 
+447901201612: Pull complete 
+9b6bc806cc29: Pull complete 
+24ec1f4b3b0d: Pull complete 
+207ed1eb2fd4: Pull complete 
+27cbde3edd97: Pull complete 
+0a5aa35cc154: Pull complete 
+e6c92bf6471b: Pull complete 
+07b80de0d1af: Pull complete 
+Digest: sha256:c1bda6ecdbc63d3b0d3a3a3ce195de3dd755c4a0658ed782a16a0682216b9a48
+Status: Downloaded newer image for mysql:5.7
+docker.io/library/mysql:5.7
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+mysql         latest    ff3b5098b416   2 days ago      447MB
+mysql         5.7       daff57b7d2d1   8 days ago      430MB
+hello-world   latest    feb5d9fea6a5   11 months ago   13.3kB
+(base) lyfubuntu@lyfubuntu:~$ 
+```
+
+```shell
+# 下载镜像，docker pull 镜像名[:tag]
+$ docker pull --help
+
+Usage:  docker pull [OPTIONS] NAME[:TAG|@DIGEST]
+
+Pull an image or a repository from a registry
+
+Options:
+  -a, --all-tags                Download all tagged images in the repository
+      --disable-content-trust   Skip image verification (default true)
+      --platform string         Set platform if server is multi-platform
+                                capable
+  -q, --quiet                   Suppress verbose output
+
+# 如果不写 tag，默认是 latest
+$ docker pull mysql
+Using default tag: latest
+latest: Pulling from library/mysql
+492d84e496ea: Pull complete   # 分层下载，docker images 的核心，联合文件系统 
+bbe20050901c: Pull complete 
+e3a5e171c2f8: Pull complete 
+c2cedd8aa061: Pull complete 
+d6a485af4cc9: Pull complete 
+ee16a57baf60: Pull complete 
+64bab9180d2a: Pull complete 
+c3aceb7e4f48: Pull complete 
+269002e5cf58: Pull complete 
+d5abeb1bd18e: Pull complete 
+cbd79da5fab6: Pull complete 
+Digest: sha256:cdf3b62d78d1bbb1d2bd6716895a84014e00716177cbb7e90f6c6a37a21dc796
+Status: Downloaded newer image for mysql:latest
+docker.io/library/mysql:latest  # 镜像的真实地址
+
+# 下面两个命令都等价于 docker pull mysql
+$ docker pull docker.io/library/mysql:latest
+$ docker pull mysql:latest
+
+# 指定版本下载
+$ docker pull mysql:5.7
+```
+
+可以在 [Docker Hub](https://hub.docker.com/) 中搜索 `mysql` 查看支持的版本：https://hub.docker.com/_/mysql 。
+
+![](https://cos.luyf-lemon-love.space/images/20220902131341.png)
+
+---
+
+`docker rmi`：删除镜像。
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
