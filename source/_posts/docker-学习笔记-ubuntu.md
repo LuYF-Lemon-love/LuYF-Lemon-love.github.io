@@ -1419,7 +1419,7 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
 ```shell
 # 产看日志
-docker logs -tf --tail number 容器id
+$ docker logs -tf --tail number 容器id
 ```
 
 ```shell
@@ -1494,7 +1494,7 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
 ```shell
 # 查看容器中的进程信息
-docker top 容器id
+$ docker top 容器id
 ```
 
 ```shell
@@ -1858,7 +1858,88 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 (base) lyfubuntu@lyfubuntu:~$
 ```
 
+---
+
 **进入当前正在运行的容器**
+
+```shell
+# 当容器使用后台方式运行时，我们经常需要进入容器，修改一些配置
+
+# 进入容器后开启一个新的终端
+docker exec
+
+# 进入容器正在执行的终端
+docker attach
+
+docker exec -it 容器id /bin/bash
+```
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker exec --help
+
+Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Run a command in a running container
+
+Options:
+  -d, --detach               Detached mode: run command in the background
+      --detach-keys string   Override the key sequence for detaching a container
+  -e, --env list             Set environment variables
+      --env-file list        Read in a file of environment variables
+  -i, --interactive          Keep STDIN open even if not attached
+      --privileged           Give extended privileges to the command
+  -t, --tty                  Allocate a pseudo-TTY
+  -u, --user string          Username or UID (format: <name|uid>[:<group|gid>])
+  -w, --workdir string       Working directory inside the container
+(base) lyfubuntu@lyfubuntu:~$ docker attach --help
+
+Usage:  docker attach [OPTIONS] CONTAINER
+
+Attach local standard input, output, and error streams to a running container
+
+Options:
+      --detach-keys string   Override the key sequence for detaching a container
+      --no-stdin             Do not attach STDIN
+      --sig-proxy            Proxy all received signals to the process (default true)
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+centos       latest    5d0da3dc9764   11 months ago   231MB
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+(base) lyfubuntu@lyfubuntu:~$ docker run -it centos /bin/bash
+[root@00f83d56efbf /]# ls
+bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+[root@00f83d56efbf /]# (base) lyfubuntu@lyfubuntu:~$ 
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS          PORTS     NAMES
+00f83d56efbf   centos    "/bin/bash"   15 seconds ago   Up 13 seconds             stupefied_pike
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+00f83d56efbf
+(base) lyfubuntu@lyfubuntu:~$ docker exec -it 00f83d56efbf /bin/bash
+[root@00f83d56efbf /]# ls
+bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+[root@00f83d56efbf /]# read escape sequence
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED              STATUS              PORTS     NAMES
+00f83d56efbf   centos    "/bin/bash"   About a minute ago   Up About a minute             stupefied_pike
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+00f83d56efbf
+(base) lyfubuntu@lyfubuntu:~$ docker attach 00f83d56efbf
+[root@00f83d56efbf /]# ls
+bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+[root@00f83d56efbf /]# read escape sequence
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS         PORTS     NAMES
+00f83d56efbf   centos    "/bin/bash"   2 minutes ago   Up 2 minutes             stupefied_pike
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+00f83d56efbf
+(base) lyfubuntu@lyfubuntu:~$ docker rm -f $(docker ps -aq)
+00f83d56efbf
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+---
+
+**从容器中拷贝文件到主机**
 
 ## 结语
 
