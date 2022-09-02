@@ -1237,6 +1237,95 @@ f3a477033d81
 
 `docker rm`：删除容器。
 
+```shell
+# 删除指定容器
+docker rm -f 容器id
+
+# 删除所有容器
+docker rm -f $(docker ps -aq)
+
+# 删除所有容器
+docker ps -a -q|xargs docker rm -f
+```
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker rm --help
+
+Usage:  docker rm [OPTIONS] CONTAINER [CONTAINER...]
+
+Remove one or more containers
+
+Options:
+  -f, --force     Force the removal of a running container (uses SIGKILL)
+  -l, --link      Remove the specified link
+  -v, --volumes   Remove anonymous volumes associated with the container
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS          PORTS     NAMES
+6e8be4eea04d   centos    "/bin/bash"   21 minutes ago   Up 21 minutes             romantic_jepsen
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+6e8be4eea04d
+627bd6b5cd95
+91e1fd1452f2
+80d3d24027f6
+85f35274de29
+0a4d040ef05b
+f3a477033d81
+(base) lyfubuntu@lyfubuntu:~$ docker rm -f 6e8be4eea04d
+6e8be4eea04d
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+627bd6b5cd95
+91e1fd1452f2
+80d3d24027f6
+85f35274de29
+0a4d040ef05b
+f3a477033d81
+(base) lyfubuntu@lyfubuntu:~$ docker run -it centos /bin/bash
+[root@f4c57c4ec509 /]# (base) lyfubuntu@lyfubuntu:~$ 
+(base) lyfubuntu@lyfubuntu:~$ docker run -it centos /bin/bash
+[root@20519a4f87bb /]# (base) lyfubuntu@lyfubuntu:~$ 
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED              STATUS              PORTS     NAMES
+20519a4f87bb   centos    "/bin/bash"   13 seconds ago       Up 10 seconds                 focused_easley
+f4c57c4ec509   centos    "/bin/bash"   About a minute ago   Up About a minute             zen_taussig
+(base) lyfubuntu@lyfubuntu:~$ docker rm -f $(docker ps -aq)
+20519a4f87bb
+f4c57c4ec509
+627bd6b5cd95
+91e1fd1452f2
+80d3d24027f6
+85f35274de29
+0a4d040ef05b
+f3a477033d81
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+(base) lyfubuntu@lyfubuntu:~$ docker run -it centos /bin/bash
+[root@11636531fe99 /]# (base) lyfubuntu@lyfubuntu:~$ 
+(base) lyfubuntu@lyfubuntu:~$ docker run -it centos /bin/bash
+[root@6698ed716b2e /]# (base) lyfubuntu@lyfubuntu:~$ 
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS          PORTS     NAMES
+6698ed716b2e   centos    "/bin/bash"   11 seconds ago   Up 9 seconds              unruffled_yonath
+11636531fe99   centos    "/bin/bash"   27 seconds ago   Up 24 seconds             vibrant_visvesvaraya
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+6698ed716b2e
+11636531fe99
+(base) lyfubuntu@lyfubuntu:~$ docker ps -a -q|xargs docker rm -f
+6698ed716b2e
+11636531fe99
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+---
+
+启动和停止容器
+
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
