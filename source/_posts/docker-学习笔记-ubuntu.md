@@ -920,7 +920,7 @@ $ docker pull centos
 ```shell
 $ docker run [可选参数] image
 
-# 参数说明
+# 可选参数说明
 --name="Name" # 指定容器的名字来区分容器
 -d     # 后台方式运行
 -it    # 使用交互方式运行，进入容器查看内容
@@ -1113,10 +1113,13 @@ Options:
       --volumes-from list              Mount volumes from the specified
                                        container(s)
   -w, --workdir string                 Working directory inside the container
+# 测试，启动并进入容器
 (base) lyfubuntu@lyfubuntu:~$ docker run -it centos /bin/bash
+# 查看容器内的 centos，该 centos 是基础版本，很多命令都不支持
 [root@85f35274de29 /]# ls
 bin  etc   lib	  lost+found  mnt  proc  run   srv  tmp  var
 dev  home  lib64  media       opt  root  sbin  sys  usr
+# 从容器中退出
 [root@85f35274de29 /]# exit
 exit
 (base) lyfubuntu@lyfubuntu:~$
