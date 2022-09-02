@@ -1492,6 +1492,48 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
 **查看容器中进程信息**
 
+```shell
+# 查看容器中的进程信息
+docker top 容器id
+```
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker top --help
+
+Usage:  docker top CONTAINER [ps OPTIONS]
+
+Display the running processes of a container
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+centos       latest    5d0da3dc9764   11 months ago   231MB
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+(base) lyfubuntu@lyfubuntu:~$ docker run -it centos /bin/bash
+[root@74050c27a32c /]# (base) lyfubuntu@lyfubuntu:~$ 
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS          PORTS     NAMES
+74050c27a32c   centos    "/bin/bash"   30 seconds ago   Up 28 seconds             silly_feynman
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+74050c27a32c
+(base) lyfubuntu@lyfubuntu:~$ docker top 74050c27a32c
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+root                33557               33536               0                   21:29               pts/0               00:00:00            /bin/bash
+(base) lyfubuntu@lyfubuntu:~$ docker stop 74050c27a32c
+74050c27a32c
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+74050c27a32c
+(base) lyfubuntu@lyfubuntu:~$ docker top 74050c27a32c
+Error response from daemon: Container 74050c27a32ca42179063a7bc9cb44cc670282beed427455b3fb120bb917b07e is not running
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+---
+
+**查看容器的元数据**
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
