@@ -732,6 +732,181 @@ $ docker pull mysql:5.7
 
 `docker rmi`：删除镜像。
 
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker rmi --help
+
+Usage:  docker rmi [OPTIONS] IMAGE [IMAGE...]
+
+Remove one or more images
+
+Options:
+  -f, --force      Force removal of the image
+      --no-prune   Do not delete untagged parents
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+mysql         latest    ff3b5098b416   2 days ago      447MB
+mysql         5.7       daff57b7d2d1   8 days ago      430MB
+hello-world   latest    feb5d9fea6a5   11 months ago   13.3kB
+(base) lyfubuntu@lyfubuntu:~$ docker rmi -f daff57b7d2d1
+Untagged: mysql:5.7
+Untagged: mysql@sha256:c1bda6ecdbc63d3b0d3a3a3ce195de3dd755c4a0658ed782a16a0682216b9a48
+Deleted: sha256:daff57b7d2d1e009d0b271972f62dbf4de64b8cdb9cd646442aeda961e615f44
+Deleted: sha256:a2b6de0d8fad38b5d19b0207decce5994598e15ae6aaf974733924dcbd8f04de
+Deleted: sha256:f3bd23ad30ca816481c810885546988744e444e8b4f52c196c29d5e3f667157f
+Deleted: sha256:7789a0eac346070602d9fae747fb5d81952454c6e11d5381cbc12a4825198d6e
+Deleted: sha256:2cdfa876efe3302b715dad6bfd13cee0c512c58843200920953efe3355f5931c
+Deleted: sha256:8d4cf9ffb69b960e2a2ebb157660b37a15ea645a71791aefc2b1600f1f603ebb
+Deleted: sha256:d98069632a6bb3b2ba690a11cff2481a9b954aba58a7c3388484dd65ef8e1580
+Deleted: sha256:0295feed0657a087e23700dcf0e41069bf8c565a092eea9426be99d8de5a45dc
+Deleted: sha256:c9a9086bbafa8383c2002a50cce49e22bd060897dc121c18b41a9893b83816f5
+Deleted: sha256:ed4bd9721438e36a8667ddcb461b958473d7b5f155df32155e08764648486087
+Deleted: sha256:018f336482437233f5c9e135a18f5ba391448340d3ef2ec99fd88ab599906463
+Deleted: sha256:bcf2a1ad6472a891de95b5132d013c064a07ec9995cb61b0cc0f8d4a4ea855fb
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+mysql         latest    ff3b5098b416   2 days ago      447MB
+hello-world   latest    feb5d9fea6a5   11 months ago   13.3kB
+(base) lyfubuntu@lyfubuntu:~$ docker pull mysql:5.7
+5.7: Pulling from library/mysql
+9815334b7810: Pull complete 
+f85cb6fccbfd: Pull complete 
+b63612353671: Pull complete 
+447901201612: Pull complete 
+9b6bc806cc29: Pull complete 
+24ec1f4b3b0d: Pull complete 
+207ed1eb2fd4: Pull complete 
+27cbde3edd97: Pull complete 
+0a5aa35cc154: Pull complete 
+e6c92bf6471b: Pull complete 
+07b80de0d1af: Pull complete 
+Digest: sha256:c1bda6ecdbc63d3b0d3a3a3ce195de3dd755c4a0658ed782a16a0682216b9a48
+Status: Downloaded newer image for mysql:5.7
+docker.io/library/mysql:5.7
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+mysql         latest    ff3b5098b416   2 days ago      447MB
+mysql         5.7       daff57b7d2d1   8 days ago      430MB
+hello-world   latest    feb5d9fea6a5   11 months ago   13.3kB
+(base) lyfubuntu@lyfubuntu:~$ docker rmi -f ff3b5098b416 daff57b7d2d1
+Untagged: mysql:latest
+Untagged: mysql@sha256:cdf3b62d78d1bbb1d2bd6716895a84014e00716177cbb7e90f6c6a37a21dc796
+Deleted: sha256:ff3b5098b416cc4294d8d5c43c2f0f8251e91711347318e73cb290ffe2783bcb
+Deleted: sha256:905d309cb1263e8e4d25e6da210fb74fe83499efc9add5e6609126e7491fa678
+Deleted: sha256:e1b431304265185fa56b11948a66872cc51dca13c846103826a87bb388db697f
+Deleted: sha256:dac88f2d7418cdb9c78d704645fe67ec26aedf21663143a9fc61c5baa486190d
+Deleted: sha256:ed4a5f5c6fac6754cf2f2bde87c96b0021f6ce60b4b9e6fb3e564a420a2a9ae6
+Deleted: sha256:9a472987e016836271a64c41167b05cff6172d26f7b271e065d5529f91594e98
+Deleted: sha256:8b1abcaa1fee4c98f2524e103d606c9ace626ae1f12870b6d6192b03606d14bd
+Deleted: sha256:daf68c705b7040c9eb041965addd8c4c40c50e5117d7c57a574a0256d6ee6d3f
+Deleted: sha256:651b02e8a29597103968fdae60ae6edad338baeb73a70dc0365259573e3755ac
+Deleted: sha256:0af81bdae1055d2733abf41bd1aa7c16aadf0972b3e1aef6cdbc2122ea5d88f9
+Deleted: sha256:8975afc0aa296e98991c081554898a0e68f26f833b1f0ffb687a39225eb74f9b
+Deleted: sha256:0e64bf1a6285d2fb8ad6e30f3695bccfb48c51c526374e00304b5128f2724d19
+Untagged: mysql:5.7
+Untagged: mysql@sha256:c1bda6ecdbc63d3b0d3a3a3ce195de3dd755c4a0658ed782a16a0682216b9a48
+Deleted: sha256:daff57b7d2d1e009d0b271972f62dbf4de64b8cdb9cd646442aeda961e615f44
+Deleted: sha256:a2b6de0d8fad38b5d19b0207decce5994598e15ae6aaf974733924dcbd8f04de
+Deleted: sha256:f3bd23ad30ca816481c810885546988744e444e8b4f52c196c29d5e3f667157f
+Deleted: sha256:7789a0eac346070602d9fae747fb5d81952454c6e11d5381cbc12a4825198d6e
+Deleted: sha256:2cdfa876efe3302b715dad6bfd13cee0c512c58843200920953efe3355f5931c
+Deleted: sha256:8d4cf9ffb69b960e2a2ebb157660b37a15ea645a71791aefc2b1600f1f603ebb
+Deleted: sha256:d98069632a6bb3b2ba690a11cff2481a9b954aba58a7c3388484dd65ef8e1580
+Deleted: sha256:0295feed0657a087e23700dcf0e41069bf8c565a092eea9426be99d8de5a45dc
+Deleted: sha256:c9a9086bbafa8383c2002a50cce49e22bd060897dc121c18b41a9893b83816f5
+Deleted: sha256:ed4bd9721438e36a8667ddcb461b958473d7b5f155df32155e08764648486087
+Deleted: sha256:018f336482437233f5c9e135a18f5ba391448340d3ef2ec99fd88ab599906463
+Deleted: sha256:bcf2a1ad6472a891de95b5132d013c064a07ec9995cb61b0cc0f8d4a4ea855fb
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+hello-world   latest    feb5d9fea6a5   11 months ago   13.3kB
+(base) lyfubuntu@lyfubuntu:~$ docker pull mysql
+Using default tag: latest
+latest: Pulling from library/mysql
+492d84e496ea: Pull complete 
+bbe20050901c: Pull complete 
+e3a5e171c2f8: Pull complete 
+c2cedd8aa061: Pull complete 
+d6a485af4cc9: Pull complete 
+ee16a57baf60: Pull complete 
+64bab9180d2a: Pull complete 
+c3aceb7e4f48: Pull complete 
+269002e5cf58: Pull complete 
+d5abeb1bd18e: Pull complete 
+cbd79da5fab6: Pull complete 
+Digest: sha256:cdf3b62d78d1bbb1d2bd6716895a84014e00716177cbb7e90f6c6a37a21dc796
+Status: Downloaded newer image for mysql:latest
+docker.io/library/mysql:latest
+(base) lyfubuntu@lyfubuntu:~$ docker pull mysql:5.7
+5.7: Pulling from library/mysql
+9815334b7810: Pull complete 
+f85cb6fccbfd: Pull complete 
+b63612353671: Pull complete 
+447901201612: Pull complete 
+9b6bc806cc29: Pull complete 
+24ec1f4b3b0d: Pull complete 
+207ed1eb2fd4: Pull complete 
+27cbde3edd97: Pull complete 
+0a5aa35cc154: Pull complete 
+e6c92bf6471b: Pull complete 
+07b80de0d1af: Pull complete 
+Digest: sha256:c1bda6ecdbc63d3b0d3a3a3ce195de3dd755c4a0658ed782a16a0682216b9a48
+Status: Downloaded newer image for mysql:5.7
+docker.io/library/mysql:5.7
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+mysql         latest    ff3b5098b416   2 days ago      447MB
+mysql         5.7       daff57b7d2d1   8 days ago      430MB
+hello-world   latest    feb5d9fea6a5   11 months ago   13.3kB
+(base) lyfubuntu@lyfubuntu:~$ docker rmi -f $(docker images -aq)
+Untagged: mysql:latest
+Untagged: mysql@sha256:cdf3b62d78d1bbb1d2bd6716895a84014e00716177cbb7e90f6c6a37a21dc796
+Deleted: sha256:ff3b5098b416cc4294d8d5c43c2f0f8251e91711347318e73cb290ffe2783bcb
+Deleted: sha256:905d309cb1263e8e4d25e6da210fb74fe83499efc9add5e6609126e7491fa678
+Deleted: sha256:e1b431304265185fa56b11948a66872cc51dca13c846103826a87bb388db697f
+Deleted: sha256:dac88f2d7418cdb9c78d704645fe67ec26aedf21663143a9fc61c5baa486190d
+Deleted: sha256:ed4a5f5c6fac6754cf2f2bde87c96b0021f6ce60b4b9e6fb3e564a420a2a9ae6
+Deleted: sha256:9a472987e016836271a64c41167b05cff6172d26f7b271e065d5529f91594e98
+Deleted: sha256:8b1abcaa1fee4c98f2524e103d606c9ace626ae1f12870b6d6192b03606d14bd
+Deleted: sha256:daf68c705b7040c9eb041965addd8c4c40c50e5117d7c57a574a0256d6ee6d3f
+Deleted: sha256:651b02e8a29597103968fdae60ae6edad338baeb73a70dc0365259573e3755ac
+Deleted: sha256:0af81bdae1055d2733abf41bd1aa7c16aadf0972b3e1aef6cdbc2122ea5d88f9
+Deleted: sha256:8975afc0aa296e98991c081554898a0e68f26f833b1f0ffb687a39225eb74f9b
+Deleted: sha256:0e64bf1a6285d2fb8ad6e30f3695bccfb48c51c526374e00304b5128f2724d19
+Untagged: mysql:5.7
+Untagged: mysql@sha256:c1bda6ecdbc63d3b0d3a3a3ce195de3dd755c4a0658ed782a16a0682216b9a48
+Deleted: sha256:daff57b7d2d1e009d0b271972f62dbf4de64b8cdb9cd646442aeda961e615f44
+Deleted: sha256:a2b6de0d8fad38b5d19b0207decce5994598e15ae6aaf974733924dcbd8f04de
+Deleted: sha256:f3bd23ad30ca816481c810885546988744e444e8b4f52c196c29d5e3f667157f
+Deleted: sha256:7789a0eac346070602d9fae747fb5d81952454c6e11d5381cbc12a4825198d6e
+Deleted: sha256:2cdfa876efe3302b715dad6bfd13cee0c512c58843200920953efe3355f5931c
+Deleted: sha256:8d4cf9ffb69b960e2a2ebb157660b37a15ea645a71791aefc2b1600f1f603ebb
+Deleted: sha256:d98069632a6bb3b2ba690a11cff2481a9b954aba58a7c3388484dd65ef8e1580
+Deleted: sha256:0295feed0657a087e23700dcf0e41069bf8c565a092eea9426be99d8de5a45dc
+Deleted: sha256:c9a9086bbafa8383c2002a50cce49e22bd060897dc121c18b41a9893b83816f5
+Deleted: sha256:ed4bd9721438e36a8667ddcb461b958473d7b5f155df32155e08764648486087
+Deleted: sha256:018f336482437233f5c9e135a18f5ba391448340d3ef2ec99fd88ab599906463
+Deleted: sha256:bcf2a1ad6472a891de95b5132d013c064a07ec9995cb61b0cc0f8d4a4ea855fb
+Untagged: hello-world:latest
+Untagged: hello-world@sha256:7d246653d0511db2a6b2e0436cfd0e52ac8c066000264b3ce63331ac66dca625
+Deleted: sha256:feb5d9fea6a5e9606aa995e879d862b825965ba48de054caab5ef356dc6b3412
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+```shell
+# docker rmi -f IMAGE ID
+$ docker rmi -f daff57b7d2d1
+
+# docker rmi -f IMAGE ID1 IMAGE ID2 IMAGE ID3
+$ docker rmi -f ff3b5098b416 daff57b7d2d1
+
+# docker rmi -f $(docker images -aq)
+$ docker rmi -f $(docker images -aq)
+```
+
+3. {% label 容器命令 orange %}
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
