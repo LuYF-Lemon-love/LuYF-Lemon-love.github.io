@@ -1866,12 +1866,12 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 # 当容器使用后台方式运行时，我们经常需要进入容器，修改一些配置
 
 # 进入容器后开启一个新的终端
-docker exec
+$ docker exec
 
-# 进入容器正在执行的终端
-docker attach
+# 进入容器正在执行的终端，不会启动新的进程
+$ docker attach
 
-docker exec -it 容器id /bin/bash
+$ docker exec -it 容器id /bin/bash
 ```
 
 ```shell
