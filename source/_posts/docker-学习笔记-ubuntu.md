@@ -1413,7 +1413,83 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 (base) lyfubuntu@lyfubuntu:~$
 ```
 
+---
+
 **查看日志**
+
+```shell
+# 产看日志
+docker logs -tf --tail number 容器id
+```
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker logs --help
+
+Usage:  docker logs [OPTIONS] CONTAINER
+
+Fetch the logs of a container
+
+Options:
+      --details        Show extra details provided to logs
+  -f, --follow         Follow log output
+      --since string   Show logs since timestamp (e.g.
+                       2013-01-02T13:23:37Z) or relative (e.g. 42m for 42
+                       minutes)
+  -n, --tail string    Number of lines to show from the end of the logs
+                       (default "all")
+  -t, --timestamps     Show timestamps
+      --until string   Show logs before a timestamp (e.g.
+                       2013-01-02T13:23:37Z) or relative (e.g. 42m for 42
+                       minutes)
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+centos       latest    5d0da3dc9764   11 months ago   231MB
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+(base) lyfubuntu@lyfubuntu:~$ docker run -d centos /bin/sh -c "while true;do echo lyf;sleep 1;done"
+c932288629d9005c4b437ca7a361fab76b734d9451fe5395de1bb2d60606b8dc
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS     NAMES
+c932288629d9   centos    "/bin/sh -c 'while t…"   8 seconds ago   Up 6 seconds             magical_vaughan
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+c932288629d9
+(base) lyfubuntu@lyfubuntu:~$ docker logs -tf --tail 10 c932288629d9
+2022-09-02T10:36:31.262678127Z lyf
+2022-09-02T10:36:32.264323517Z lyf
+2022-09-02T10:36:33.267344527Z lyf
+2022-09-02T10:36:34.271134363Z lyf
+2022-09-02T10:36:35.275115881Z lyf
+2022-09-02T10:36:36.279852540Z lyf
+2022-09-02T10:36:37.280406750Z lyf
+2022-09-02T10:36:38.282420358Z lyf
+2022-09-02T10:36:39.284665474Z lyf
+2022-09-02T10:36:40.286341674Z lyf
+2022-09-02T10:36:41.289391202Z lyf
+2022-09-02T10:36:42.292997214Z lyf
+2022-09-02T10:36:43.294832286Z lyf
+2022-09-02T10:36:44.296896067Z lyf
+2022-09-02T10:36:45.299721966Z lyf
+2022-09-02T10:36:46.303165736Z lyf
+2022-09-02T10:36:47.305254231Z lyf
+2022-09-02T10:36:48.307091027Z lyf
+2022-09-02T10:36:49.308867983Z lyf
+^C
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS              PORTS     NAMES
+c932288629d9   centos    "/bin/sh -c 'while t…"   About a minute ago   Up About a minute             magical_vaughan
+(base) lyfubuntu@lyfubuntu:~$ docker ps -aq
+c932288629d9
+(base) lyfubuntu@lyfubuntu:~$ docker kill c932288629d9
+c932288629d9
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+---
+
+**查看容器中进程信息**
 
 ## 结语
 
