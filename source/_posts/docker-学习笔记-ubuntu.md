@@ -3623,6 +3623,40 @@ bf46371dea89   centos    "/bin/bash"              4 hours ago     Exited (0) 3 h
 
 ![](https://cos.luyf-lemon-love.space/images/20220903153002.png)
 
+---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+tomcat       9.0       d4488b7f8c9b   22 hours ago    475MB
+tomcat       latest    7a91e6f458bb   22 hours ago    475MB
+nginx        latest    2b7d6430f78d   11 days ago     142MB
+centos       latest    5d0da3dc9764   11 months ago   231MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND             CREATED             STATUS             PORTS                                       NAMES
+b96353caeec5   tomcat    "catalina.sh run"   About an hour ago   Up About an hour   0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   tomcat01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -aq
+b96353caeec5
+993053824a5a
+bf46371dea89
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED             STATUS                   PORTS                                       NAMES
+b96353caeec5   tomcat    "catalina.sh run"        About an hour ago   Up About an hour         0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   tomcat01
+993053824a5a   nginx     "/docker-entrypoint.…"   3 hours ago         Exited (0) 3 hours ago                                               nginx01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker stop tomcat01
+tomcat01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED             STATUS                        PORTS     NAMES
+b96353caeec5   tomcat    "catalina.sh run"        About an hour ago   Exited (143) 16 seconds ago             tomcat01
+993053824a5a   nginx     "/docker-entrypoint.…"   3 hours ago         Exited (0) 3 hours ago                  nginx01
+bf46371dea89   centos    "/bin/bash"              5 hours ago         Exited (0) 4 hours ago                  epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$
+```
+
+![](https://cos.luyf-lemon-love.space/images/20220903164714.png)
+
 ### Docker 部署 es + kibana
 
 ## 结语
