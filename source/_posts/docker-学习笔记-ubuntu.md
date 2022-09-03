@@ -3145,6 +3145,118 @@ Options:
 
 ## Docker 部署软件实战
 
+### Docker 安装 Nginx
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker search nginx
+NAME                                              DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+nginx                                             Official build of Nginx.                        17339     [OK]       
+linuxserver/nginx                                 An Nginx container, brought to you by LinuxS…   176                  
+bitnami/nginx                                     Bitnami nginx Docker Image                      140                  [OK]
+ubuntu/nginx                                      Nginx, a high-performance reverse proxy & we…   57                   
+bitnami/nginx-ingress-controller                  Bitnami Docker Image for NGINX Ingress Contr…   19                   [OK]
+rancher/nginx-ingress-controller                                                                  10                   
+webdevops/nginx                                   Nginx container                                 9                    [OK]
+ibmcom/nginx-ingress-controller                   Docker Image for IBM Cloud Private-CE (Commu…   4                    
+bitnami/nginx-ldap-auth-daemon                                                                    3                    
+vmware/nginx                                                                                      2                    
+rancher/nginx                                                                                     2                    
+bitnami/nginx-exporter                                                                            2                    
+kasmweb/nginx                                     An Nginx image based off nginx:alpine and in…   2                    
+rancher/nginx-ingress-controller-defaultbackend                                                   2                    
+rapidfort/nginx                                   RapidFort optimized, hardened image for NGINX   2                    
+wallarm/nginx-ingress-controller                  Kubernetes Ingress Controller with Wallarm e…   1                    
+bitnami/nginx-intel                                                                               1                    
+vmware/nginx-photon                                                                               1                    
+rapidfort/nginx-ib                                RapidFort optimized, hardened image for NGIN…   0                    
+rancher/nginx-conf                                                                                0                    
+ibmcom/nginx-ingress-controller-ppc64le           Docker Image for IBM Cloud Private-CE (Commu…   0                    
+rancher/nginx-ssl                                                                                 0                    
+rancher/nginx-ingress-controller-amd64                                                            0                    
+continuumio/nginx-ingress-ws                                                                      0                    
+ibmcom/nginx-ppc64le                              Docker image for nginx-ppc64le                  0                    
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker pull nginx
+Using default tag: latest
+latest: Pulling from library/nginx
+7a6db449b51b: Pull complete 
+ca1981974b58: Pull complete 
+d4019c921e20: Pull complete 
+7cb804d746d4: Pull complete 
+e7a561826262: Pull complete 
+7247f6e5c182: Pull complete 
+Digest: sha256:b95a99feebf7797479e0c5eb5ec0bdfa5d9f504bc94da550c2f58e839ea6914f
+Status: Downloaded newer image for nginx:latest
+docker.io/library/nginx:latest
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+nginx        latest    2b7d6430f78d   11 days ago     142MB
+centos       latest    5d0da3dc9764   11 months ago   231MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -aq
+bf46371dea89
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker run -d --name nginx01 -p 3344:80 nginx
+993053824a5a35ac78bb07d6f3d48a29370974b7ded679e538c9931e00472da6
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS         PORTS                                   NAMES
+993053824a5a   nginx     "/docker-entrypoint.…"   11 seconds ago   Up 7 seconds   0.0.0.0:3344->80/tcp, :::3344->80/tcp   nginx01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -aq
+993053824a5a
+bf46371dea89
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ curl localhost:3344
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker exec -it nginx01 /bin/bash
+root@993053824a5a:/# whereis nginx
+nginx: /usr/sbin/nginx /usr/lib/nginx /etc/nginx /usr/share/nginx
+root@993053824a5a:/# cd /etc/nginx/
+root@993053824a5a:/etc/nginx# ls
+conf.d		mime.types  nginx.conf	 uwsgi_params
+fastcgi_params	modules     scgi_params
+root@993053824a5a:/etc/nginx# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                                   NAMES
+993053824a5a   nginx     "/docker-entrypoint.…"   3 minutes ago   Up 3 minutes   0.0.0.0:3344->80/tcp, :::3344->80/tcp   nginx01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -aq
+993053824a5a
+bf46371dea89
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$
+```
+
+`docker hub` 搜索 `nginx` 获得的官方 `nginx` 主页：https://hub.docker.com/_/nginx 。
+
+`http://localhost:3344/` 的页面如下：
+
+![](https://cos.luyf-lemon-love.space/images/20220903134451.png)
+
+{% label 端口暴露概念 purple %}
+
+![](https://cos.luyf-lemon-love.space/images/20220903134555.png)
+
+### Docker 安装 Tomcat
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
