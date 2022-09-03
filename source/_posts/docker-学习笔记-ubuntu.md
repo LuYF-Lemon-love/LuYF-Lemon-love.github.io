@@ -3285,6 +3285,346 @@ bf46371dea89
 
 ### Docker 安装 Tomcat
 
+`docker hub` 中 `tomcat` 的主页：https://hub.docker.com/_/tomcat 。
+
+```shell
+# 官方的使用
+# 我们之前的启动都是后台的，停止了容器之后，容器还是可以查到
+# --rm 一般用来测试，用完就删
+$ docker run -it --rm tomcat:9.0
+
+# 下载
+$ docker pull tomcat
+
+# 启动运行
+$ docker run -d -p 3344:8080 --name tomcat01 tomcat
+
+# 测试访问没有问题
+
+# 进入容器
+$ docker exec -it tomcat01 /bin/bash
+
+# 发现的问题：
+# 该镜像默认是最小的镜像，所有不必要的都删除了，保证最小可运行环境即可
+# 1. linux 命令较少
+# 2. webapps 下内容为空
+```
+
+---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker run --help
+
+Usage:  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Run a command in a new container
+
+Options:
+      --add-host list                  Add a custom host-to-IP mapping
+                                       (host:ip)
+  -a, --attach list                    Attach to STDIN, STDOUT or STDERR
+      --blkio-weight uint16            Block IO (relative weight),
+                                       between 10 and 1000, or 0 to
+                                       disable (default 0)
+      --blkio-weight-device list       Block IO weight (relative device
+                                       weight) (default [])
+      --cap-add list                   Add Linux capabilities
+      --cap-drop list                  Drop Linux capabilities
+      --cgroup-parent string           Optional parent cgroup for the
+                                       container
+      --cgroupns string                Cgroup namespace to use
+                                       (host|private)
+                                       'host':    Run the container in
+                                       the Docker host's cgroup namespace
+                                       'private': Run the container in
+                                       its own private cgroup namespace
+                                       '':        Use the cgroup
+                                       namespace as configured by the
+                                                  default-cgroupns-mode
+                                       option on the daemon (default)
+      --cidfile string                 Write the container ID to the file
+      --cpu-period int                 Limit CPU CFS (Completely Fair
+                                       Scheduler) period
+      --cpu-quota int                  Limit CPU CFS (Completely Fair
+                                       Scheduler) quota
+      --cpu-rt-period int              Limit CPU real-time period in
+                                       microseconds
+      --cpu-rt-runtime int             Limit CPU real-time runtime in
+                                       microseconds
+  -c, --cpu-shares int                 CPU shares (relative weight)
+      --cpus decimal                   Number of CPUs
+      --cpuset-cpus string             CPUs in which to allow execution
+                                       (0-3, 0,1)
+      --cpuset-mems string             MEMs in which to allow execution
+                                       (0-3, 0,1)
+  -d, --detach                         Run container in background and
+                                       print container ID
+      --detach-keys string             Override the key sequence for
+                                       detaching a container
+      --device list                    Add a host device to the container
+      --device-cgroup-rule list        Add a rule to the cgroup allowed
+                                       devices list
+      --device-read-bps list           Limit read rate (bytes per second)
+                                       from a device (default [])
+      --device-read-iops list          Limit read rate (IO per second)
+                                       from a device (default [])
+      --device-write-bps list          Limit write rate (bytes per
+                                       second) to a device (default [])
+      --device-write-iops list         Limit write rate (IO per second)
+                                       to a device (default [])
+      --disable-content-trust          Skip image verification (default true)
+      --dns list                       Set custom DNS servers
+      --dns-option list                Set DNS options
+      --dns-search list                Set custom DNS search domains
+      --domainname string              Container NIS domain name
+      --entrypoint string              Overwrite the default ENTRYPOINT
+                                       of the image
+  -e, --env list                       Set environment variables
+      --env-file list                  Read in a file of environment variables
+      --expose list                    Expose a port or a range of ports
+      --gpus gpu-request               GPU devices to add to the
+                                       container ('all' to pass all GPUs)
+      --group-add list                 Add additional groups to join
+      --health-cmd string              Command to run to check health
+      --health-interval duration       Time between running the check
+                                       (ms|s|m|h) (default 0s)
+      --health-retries int             Consecutive failures needed to
+                                       report unhealthy
+      --health-start-period duration   Start period for the container to
+                                       initialize before starting
+                                       health-retries countdown
+                                       (ms|s|m|h) (default 0s)
+      --health-timeout duration        Maximum time to allow one check to
+                                       run (ms|s|m|h) (default 0s)
+      --help                           Print usage
+  -h, --hostname string                Container host name
+      --init                           Run an init inside the container
+                                       that forwards signals and reaps
+                                       processes
+  -i, --interactive                    Keep STDIN open even if not attached
+      --ip string                      IPv4 address (e.g., 172.30.100.104)
+      --ip6 string                     IPv6 address (e.g., 2001:db8::33)
+      --ipc string                     IPC mode to use
+      --isolation string               Container isolation technology
+      --kernel-memory bytes            Kernel memory limit
+  -l, --label list                     Set meta data on a container
+      --label-file list                Read in a line delimited file of labels
+      --link list                      Add link to another container
+      --link-local-ip list             Container IPv4/IPv6 link-local
+                                       addresses
+      --log-driver string              Logging driver for the container
+      --log-opt list                   Log driver options
+      --mac-address string             Container MAC address (e.g.,
+                                       92:d0:c6:0a:29:33)
+  -m, --memory bytes                   Memory limit
+      --memory-reservation bytes       Memory soft limit
+      --memory-swap bytes              Swap limit equal to memory plus
+                                       swap: '-1' to enable unlimited swap
+      --memory-swappiness int          Tune container memory swappiness
+                                       (0 to 100) (default -1)
+      --mount mount                    Attach a filesystem mount to the
+                                       container
+      --name string                    Assign a name to the container
+      --network network                Connect a container to a network
+      --network-alias list             Add network-scoped alias for the
+                                       container
+      --no-healthcheck                 Disable any container-specified
+                                       HEALTHCHECK
+      --oom-kill-disable               Disable OOM Killer
+      --oom-score-adj int              Tune host's OOM preferences (-1000
+                                       to 1000)
+      --pid string                     PID namespace to use
+      --pids-limit int                 Tune container pids limit (set -1
+                                       for unlimited)
+      --platform string                Set platform if server is
+                                       multi-platform capable
+      --privileged                     Give extended privileges to this
+                                       container
+  -p, --publish list                   Publish a container's port(s) to
+                                       the host
+  -P, --publish-all                    Publish all exposed ports to
+                                       random ports
+      --pull string                    Pull image before running
+                                       ("always"|"missing"|"never")
+                                       (default "missing")
+      --read-only                      Mount the container's root
+                                       filesystem as read only
+      --restart string                 Restart policy to apply when a
+                                       container exits (default "no")
+      --rm                             Automatically remove the container
+                                       when it exits
+      --runtime string                 Runtime to use for this container
+      --security-opt list              Security Options
+      --shm-size bytes                 Size of /dev/shm
+      --sig-proxy                      Proxy received signals to the
+                                       process (default true)
+      --stop-signal string             Signal to stop a container
+                                       (default "SIGTERM")
+      --stop-timeout int               Timeout (in seconds) to stop a
+                                       container
+      --storage-opt list               Storage driver options for the
+                                       container
+      --sysctl map                     Sysctl options (default map[])
+      --tmpfs list                     Mount a tmpfs directory
+  -t, --tty                            Allocate a pseudo-TTY
+      --ulimit ulimit                  Ulimit options (default [])
+  -u, --user string                    Username or UID (format:
+                                       <name|uid>[:<group|gid>])
+      --userns string                  User namespace to use
+      --uts string                     UTS namespace to use
+  -v, --volume list                    Bind mount a volume
+      --volume-driver string           Optional volume driver for the
+                                       container
+      --volumes-from list              Mount volumes from the specified
+                                       container(s)
+  -w, --workdir string                 Working directory inside the container
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+nginx        latest    2b7d6430f78d   11 days ago     142MB
+centos       latest    5d0da3dc9764   11 months ago   231MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -aq
+993053824a5a
+bf46371dea89
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker run -it --rm tomcat:9.0
+Unable to find image 'tomcat:9.0' locally
+9.0: Pulling from library/tomcat
+2b55860d4c66: Pull complete 
+49a58ffb4a94: Pull complete 
+8889343dc9d4: Pull complete 
+5c321d92dfdb: Pull complete 
+65e12e19b4c9: Pull complete 
+e3f37adac3fb: Pull complete 
+789171da50b5: Pull complete 
+Digest: sha256:a4fdb14ce5c97a6e03a825f1d8b381a78d7e93843cd3c71e27363fc07d254cfc
+Status: Downloaded newer image for tomcat:9.0
+Using CATALINA_BASE:   /usr/local/tomcat
+Using CATALINA_HOME:   /usr/local/tomcat
+Using CATALINA_TMPDIR: /usr/local/tomcat/temp
+Using JRE_HOME:        /opt/java/openjdk
+Using CLASSPATH:       /usr/local/tomcat/bin/bootstrap.jar:/usr/local/tomcat/bin/tomcat-juli.jar
+Using CATALINA_OPTS:   
+NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+03-Sep-2022 07:06:55.193 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.65
+03-Sep-2022 07:06:55.197 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Jul 14 2022 12:28:53 UTC
+03-Sep-2022 07:06:55.197 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.65.0
+03-Sep-2022 07:06:55.197 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+03-Sep-2022 07:06:55.197 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            5.15.0-46-generic
+03-Sep-2022 07:06:55.197 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+03-Sep-2022 07:06:55.197 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /opt/java/openjdk
+03-Sep-2022 07:06:55.198 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.4.1+1
+03-Sep-2022 07:06:55.198 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Eclipse Adoptium
+03-Sep-2022 07:06:55.198 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /usr/local/tomcat
+03-Sep-2022 07:06:55.198 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /usr/local/tomcat
+03-Sep-2022 07:06:55.203 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+03-Sep-2022 07:06:55.204 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+03-Sep-2022 07:06:55.204 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+03-Sep-2022 07:06:55.204 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+03-Sep-2022 07:06:55.204 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+03-Sep-2022 07:06:55.204 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/usr/local/tomcat/conf/logging.properties
+03-Sep-2022 07:06:55.204 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+03-Sep-2022 07:06:55.204 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+03-Sep-2022 07:06:55.204 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+03-Sep-2022 07:06:55.204 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+03-Sep-2022 07:06:55.204 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+03-Sep-2022 07:06:55.204 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/usr/local/tomcat
+03-Sep-2022 07:06:55.204 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/usr/local/tomcat
+03-Sep-2022 07:06:55.204 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/usr/local/tomcat/temp
+03-Sep-2022 07:06:55.272 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [1.2.35] using APR version [1.7.0].
+03-Sep-2022 07:06:55.272 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+03-Sep-2022 07:06:55.272 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+03-Sep-2022 07:06:55.336 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.2 15 Mar 2022]
+03-Sep-2022 07:06:55.629 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+03-Sep-2022 07:06:55.647 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [593] milliseconds
+03-Sep-2022 07:06:55.677 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+03-Sep-2022 07:06:55.677 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.65]
+03-Sep-2022 07:06:55.689 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+03-Sep-2022 07:06:55.698 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [50] milliseconds
+^C03-Sep-2022 07:17:39.029 INFO [Thread-2] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+03-Sep-2022 07:17:39.065 INFO [Thread-2] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+03-Sep-2022 07:17:39.066 INFO [Thread-2] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+03-Sep-2022 07:17:39.070 INFO [Thread-2] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -aq
+993053824a5a
+bf46371dea89
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED       STATUS                         PORTS     NAMES
+993053824a5a   nginx     "/docker-entrypoint.…"   2 hours ago   Exited (0) About an hour ago             nginx01
+bf46371dea89   centos    "/bin/bash"              4 hours ago   Exited (0) 3 hours ago                   epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker pull tomcat
+Using default tag: latest
+latest: Pulling from library/tomcat
+2b55860d4c66: Already exists 
+49a58ffb4a94: Already exists 
+8889343dc9d4: Already exists 
+5c321d92dfdb: Already exists 
+65e12e19b4c9: Already exists 
+31c5670ba66a: Pull complete 
+4196dee71f9b: Pull complete 
+Digest: sha256:bb81645575fef90e48e6f9fff50e06d5b78d4ac9d2683845401164ba1ddfe199
+Status: Downloaded newer image for tomcat:latest
+docker.io/library/tomcat:latest
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+tomcat       9.0       d4488b7f8c9b   21 hours ago    475MB
+tomcat       latest    7a91e6f458bb   21 hours ago    475MB
+nginx        latest    2b7d6430f78d   11 days ago     142MB
+centos       latest    5d0da3dc9764   11 months ago   231MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED       STATUS                         PORTS     NAMES
+993053824a5a   nginx     "/docker-entrypoint.…"   2 hours ago   Exited (0) About an hour ago             nginx01
+bf46371dea89   centos    "/bin/bash"              4 hours ago   Exited (0) 3 hours ago                   epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker run -d -p 3344:8080 --name tomcat01 tomcat
+b96353caeec5433eeabac81beeacd2e178e15f8e3fbe8cd5cd2480afe517af12
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND             CREATED         STATUS         PORTS                                       NAMES
+b96353caeec5   tomcat    "catalina.sh run"   7 seconds ago   Up 4 seconds   0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   tomcat01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS                         PORTS                                       NAMES
+b96353caeec5   tomcat    "catalina.sh run"        19 seconds ago   Up 16 seconds                  0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   tomcat01
+993053824a5a   nginx     "/docker-entrypoint.…"   2 hours ago      Exited (0) About an hour ago                                               nginx01
+bf46371dea89   centos    "/bin/bash"              4 hours ago      Exited (0) (((b((b((((b(b(((b((((b((((((((b((((((((base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker exec -it tomcat01 /bin/bash
+root@b96353caeec5:/usr/local/tomcat# ls
+bin           conf             lib      logs            NOTICE     RELEASE-NOTES  temp     webapps.dist
+BUILDING.txt  CONTRIBUTING.md  LICENSE  native-jni-lib  README.md  RUNNING.txt    webapps  work
+root@b96353caeec5:/usr/local/tomcat# cd webapps
+root@b96353caeec5:/usr/local/tomcat/webapps# ls
+root@b96353caeec5:/usr/local/tomcat/webapps# cd ../webapps.dist/
+root@b96353caeec5:/usr/local/tomcat/webapps.dist# ls
+docs  examples  host-manager  manager  ROOT
+root@b96353caeec5:/usr/local/tomcat/webapps.dist# cd ../webapps
+root@b96353caeec5:/usr/local/tomcat/webapps# ls
+root@b96353caeec5:/usr/local/tomcat/webapps# cp -r ../webapps.dist/* .
+root@b96353caeec5:/usr/local/tomcat/webapps# ls
+docs  examples  host-manager  manager  ROOT
+root@b96353caeec5:/usr/local/tomcat/webapps# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND             CREATED         STATUS         PORTS                                       NAMES
+b96353caeec5   tomcat    "catalina.sh run"   8 minutes ago   Up 8 minutes   0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   tomcat01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS                         PORTS                                       NAMES
+b96353caeec5   tomcat    "catalina.sh run"        9 minutes ago   Up 9 minutes                   0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   tomcat01
+993053824a5a   nginx     "/docker-entrypoint.…"   2 hours ago     Exited (0) About an hour ago                                               nginx01
+bf46371dea89   centos    "/bin/bash"              4 hours ago     Exited (0) 3 hours ago                                                     epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$
+```
+
+由于 `/usr/local/tomcat/webapps/` 是空的，所以`测试访问`没有问题，但没有内容。
+
+![](https://cos.luyf-lemon-love.space/images/20220903152335.png)
+
+将 `/usr/local/tomcat/webapps.dist/` 中的内容复制到 `/usr/local/tomcat/webapps/` 中，`测试访问`结果如下图。
+
+![](https://cos.luyf-lemon-love.space/images/20220903153002.png)
+
+### Docker 部署 es + kibana
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
