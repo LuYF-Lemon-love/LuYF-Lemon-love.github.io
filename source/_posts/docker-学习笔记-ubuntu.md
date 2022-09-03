@@ -3657,7 +3657,880 @@ bf46371dea89   centos    "/bin/bash"              5 hours ago         Exited (0)
 
 ![](https://cos.luyf-lemon-love.space/images/20220903164714.png)
 
-### Docker 部署 es + kibana
+### Docker 部署 elasticsearch
+
+`docker hub` 中 `elasticsearch` 的主页：https://hub.docker.com/_/elasticsearch 。
+
+{% label 官方使用方法 green %}
+
+#### How to use this image
+
+**Note**: Pulling an images requires `using a specific version number tag`. The `latest` tag is not supported.
+
+For Elasticsearch versions prior to `6.4.0` a full list of images, tags, and documentation can be found at [docker.elastic.co](https://www.docker.elastic.co/).
+
+For full Elasticsearch documentation see [here](https://www.elastic.co/guide/en/elasticsearch/reference/index.html).
+
+**The commands below are intended for deploying in a development context only. For production installation and configuration, see [Install Elasticsearch with Docker](https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html)**.
+
+##### Running in Development Mode
+
+Create user defined network (useful for connecting to other services attached to the same network (e.g. `Kibana`)):
+
+```shell
+$ docker network create somenetwork
+```
+
+Run Elasticsearch:
+
+```shell
+$ docker run -d --name elasticsearch --net somenetwork -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:tag
+```
+
+##### Running in Production Mode
+
+See [Install Elasticsearch with Docker](https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html)
+
+---
+
+```shell
+# es 暴露的端口很多
+# es 十分的耗内存
+# es 的数据一般需要放置到安全目录！ 挂载
+# --net somenetwork 网络配置
+ 
+# 启动 elasticsearch
+$ docker run -d --name elasticsearch --net somenetwork -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.6.2
+ 
+$ docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.6.2
+a920894a940b354d3c867079efada13d96cf9138712c76c8dea58fabd9c7e96f
+ 
+# 启动之后，linux 就卡住了，使用 docker stats 查看 cpu 状态
+ 
+# 测试一下 ，es 成功了
+[root@iZ2zeg4ytp0whqtmxbsqiiZ home]# curl localhost:9200
+{
+  "name" : "a920894a940b",
+  "cluster_name" : "docker-cluster",
+  "cluster_uuid" : "bxE1TJMEThKgwmk7Aa3fHQ",
+  "version" : {
+    "number" : "7.6.2",
+    "build_flavor" : "default",
+    "build_type" : "docker",
+    "build_hash" : "ef48eb35cf30adf4db14086e8aabd07ef6fb113f",
+    "build_date" : "2020-03-26T06:34:37.794943Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.4.0",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "You Know, for Search"
+}
+ 
+ 
+# 增加内存限制，修改配置文件，-e 环境配置修改
+docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e ES_JAVA_OPTS="-Xms64m -Xmx512m" elasticsearch:7.6.2
+```
+
+---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+tomcat       9.0       d4488b7f8c9b   23 hours ago    475MB
+tomcat       latest    7a91e6f458bb   23 hours ago    475MB
+nginx        latest    2b7d6430f78d   11 days ago     142MB
+centos       latest    5d0da3dc9764   11 months ago   231MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED       STATUS                           PORTS     NAMES
+b96353caeec5   tomcat    "catalina.sh run"        3 hours ago   Exited (143) About an hour ago             tomcat01
+993053824a5a   nginx     "/docker-entrypoint.…"   5 hours ago   Exited (0) 4 hours ago                     nginx01
+bf46371dea89   centos    "/bin/bash"              6 hours ago   Exited (0) 6 hours ago                     epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e ES_JAVA_OPTS="-Xms64m -Xmx512m" elasticsearch:7.6.2
+Unable to find image 'elasticsearch:7.6.2' locally
+7.6.2: Pulling from library/elasticsearch
+ab5ef0e58194: Pull complete 
+c4d1ca5c8a25: Pull complete 
+941a3cc8e7b8: Pull complete 
+43ec483d9618: Pull complete 
+c486fd200684: Pull complete 
+1b960df074b2: Pull complete 
+1719d48d6823: Pull complete 
+Digest: sha256:1b09dbd93085a1e7bca34830e77d2981521a7210e11f11eda997add1c12711fa
+Status: Downloaded newer image for elasticsearch:7.6.2
+f888868cb0f215e1a4cbadcd9ea8a1190aa41c37f6278b85e7934c20b09a71a7
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+tomcat          9.0       d4488b7f8c9b   23 hours ago    475MB
+tomcat          latest    7a91e6f458bb   23 hours ago    475MB
+nginx           latest    2b7d6430f78d   11 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS          PORTS                                                                                  NAMES
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   32 seconds ago   Up 22 seconds   0.0.0.0:9200->9200/tcp, :::9200->9200/tcp, 0.0.0.0:9300->9300/tcp, :::9300->9300/tcp   elasticsearch
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED              STATUS                           PORTS                                                                                  NAMES
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   About a minute ago   Up About a minute                0.0.0.0:9200->9200/tcp, :::9200->9200/tcp, 0.0.0.0:9300->9300/tcp, :::9300->9300/tcp   elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        3 hours ago          Exited (143) About an hour ago                                                                                          tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   5 hours ago          Exited (0) 4 hours ago                                                                                                  nginx01
+bf46371dea89   centos                "/bin/bash"              6 hours ago          Exited (0) 6 hours ago                                                                                                  epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ curl localhost:9200
+{
+  "name" : "f888868cb0f2",
+  "cluster_name" : "docker-cluster",
+  "cluster_uuid" : "TCeZo_lyToap2TJt_2EE8w",
+  "version" : {
+    "number" : "7.6.2",
+    "build_flavor" : "default",
+    "build_type" : "docker",
+    "build_hash" : "ef48eb35cf30adf4db14086e8aabd07ef6fb113f",
+    "build_date" : "2020-03-26T06:34:37.794943Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.4.0",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "You Know, for Search"
+}
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker stats
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.11%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.73%     369.5MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.73%     369.5MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.80%     369.5MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.80%     369.5MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.23%     369.5MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.23%     369.5MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.23%     369.5MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.21%     369.5MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.21%     369.5MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.18%     369.5MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.18%     369.5MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.49%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.49%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.31%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.31%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.19%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.19%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   1.69%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   1.69%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.20%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.20%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.74%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.74%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.47%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.47%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.43%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O        PIDS
+f888868cb0f2   elasticsearch   0.43%     369.4MiB / 7.659GiB   4.71%     6.95kB / 942B   4.86MB / 729kB   46
+^C
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS         PORTS                                                                                  NAMES
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   3 minutes ago   Up 3 minutes   0.0.0.0:9200->9200/tcp, :::9200->9200/tcp, 0.0.0.0:9300->9300/tcp, :::9300->9300/tcp   elasticsearch
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker stop f888868cb0f2
+f888868cb0f2
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+tomcat          9.0       d4488b7f8c9b   23 hours ago    475MB
+tomcat          latest    7a91e6f458bb   24 hours ago    475MB
+nginx           latest    2b7d6430f78d   11 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -aq
+f888868cb0f2
+b96353caeec5
+993053824a5a
+bf46371dea89
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                           PORTS     NAMES
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   4 minutes ago   Exited (143) 36 seconds ago                elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        3 hours ago     Exited (143) About an hour ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   5 hours ago     Exited (0) 4 hours ago                     nginx01
+bf46371dea89   centos                "/bin/bash"              6 hours ago     Exited (0) 6 hours ago                     epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$
+```
+
+### 可视化
 
 ## 结语
 
