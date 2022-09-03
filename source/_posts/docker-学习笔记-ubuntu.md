@@ -4550,32 +4550,145 @@ docker run -d -p 8088:9000 --restart=always -v /var/run/docker.sock:/var/run/doc
 
 ![](https://cos.luyf-lemon-love.space/images/20220903210642.png)
 
-## Docker原理
+## Docker 原理
 
-`Docker` 镜像都是`只读的`，当容器启动时，一个新的`可写层`被加载到镜像的顶部！这一层就是我们通常说的`容器层`，容器之下的都叫做`镜像层`。
+`Docker` 镜像都是`只读的`，当容器启动时，一个新的`可写层`被加载到镜像的顶部！这一层就是我们通常说的`容器层`，`容器层`之下的都叫做`镜像层`。
 
 ![](https://cos.luyf-lemon-love.space/images/20220903222251.png)
 
 **`commit` 镜像**
 
 ```shell
-docker commit 提交容器成为一个新的版本
+# 提交容器成为一个新的镜像
+docker commit
  
-# 命令和git 原理类似
-docker commit -m="提交的描述信息" -a="作者" 容器id 目标镜像名：[TAG]
+# 命令和 git 原理类似
+docker commit -m="提交的描述信息" -a="作者" 容器id 目标镜像名:[TAG]
  
 docker commit -a="xiaofan" -m="add webapps app" d798a5946c1f tomcat007:1.0
- 
 ```
 
 **实战测试**
 
 ```
-# 1. 启动一个默认的tomcat
-# 2. 发现这个默认的tomcat是没有webapps应用， 镜像的原因，官方镜像默认webapps下面是没有内容的
+# 1. 启动一个默认的 tomcat
+# 2. 发现这个默认的 tomcat 没有 webapps 应用，镜像的原因，官方镜像默认 webapps 下面是没有内容的
 # 3. 我自己拷贝进去了基本的文件
-# 4. 将我们操作过的容器通过commit提价为一个镜镜像！我们以后就使用我们自己制作的镜像了
+# 4. 将我们操作过的容器通过 commit 提交为一个镜像！我们以后就使用我们自己制作的镜像了
 ```
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker commit --help
+
+Usage:  docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+
+Create a new image from a container's changes
+
+Options:
+  -a, --author string    Author (e.g., "John Hannibal Smith
+                         <hannibal@a-team.com>")
+  -c, --change list      Apply Dockerfile instruction to the created image
+  -m, --message string   Commit message
+  -p, --pause            Pause container during commit (default true)
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+tomcat          9.0       d4488b7f8c9b   27 hours ago    475MB
+tomcat          latest    7a91e6f458bb   27 hours ago    475MB
+nginx           latest    2b7d6430f78d   11 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                     PORTS     NAMES
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   4 hours ago    Exited (143) 4 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        7 hours ago    Exited (143) 5 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   9 hours ago    Exited (0) 8 hours ago               nginx01
+bf46371dea89   centos                "/bin/bash"              10 hours ago   Exited (0) 10 hours ago              epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker run -d -p 3344:8080 --name tomcat02 tomcat
+3cae46866d9e321f33b2e006828fce76ad3dd2bb8c4d211e4b0b76acad105485
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND             CREATED          STATUS          PORTS                                       NAMES
+3cae46866d9e   tomcat    "catalina.sh run"   36 seconds ago   Up 32 seconds   0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   tomcat02
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                     PORTS                                       NAMES
+3cae46866d9e   tomcat                "catalina.sh run"        45 seconds ago   Up 41 seconds              0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   4 hours ago      Exited (143) 4 hours ago                                               elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        7 hours ago      Exited (143) 5 hours ago                                               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   9 hours ago      Exited (0) 8 hours ago                                                 nginx01
+bf46371dea89   centos                "/bin/bash"              10 hours ago     Exited (0) 10 hours ago                                                epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker exec -it tomcat02 /bin/bash
+root@3cae46866d9e:/usr/local/tomcat# ls
+bin              lib             NOTICE         temp
+BUILDING.txt     LICENSE         README.md      webapps
+conf             logs            RELEASE-NOTES  webapps.dist
+CONTRIBUTING.md  native-jni-lib  RUNNING.txt    work
+root@3cae46866d9e:/usr/local/tomcat# cd webapps
+root@3cae46866d9e:/usr/local/tomcat/webapps# ls
+root@3cae46866d9e:/usr/local/tomcat/webapps# cd ../webapps.dist/
+root@3cae46866d9e:/usr/local/tomcat/webapps.dist# ls
+docs  examples  host-manager  manager  ROOT
+root@3cae46866d9e:/usr/local/tomcat/webapps.dist# cd ../webapps
+root@3cae46866d9e:/usr/local/tomcat/webapps# ls
+root@3cae46866d9e:/usr/local/tomcat/webapps# cp -r ../webapps.dist/* .
+root@3cae46866d9e:/usr/local/tomcat/webapps# ls
+docs  examples  host-manager  manager  ROOT
+root@3cae46866d9e:/usr/local/tomcat/webapps# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND             CREATED         STATUS         PORTS                                       NAMES
+3cae46866d9e   tomcat    "catalina.sh run"   5 minutes ago   Up 5 minutes   0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   tomcat02
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                     PORTS                                       NAMES
+3cae46866d9e   tomcat                "catalina.sh run"        5 minutes ago   Up 5 minutes               0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   4 hours ago     Exited (143) 4 hours ago                                               elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        7 hours ago     Exited (143) 5 hours ago                                               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   9 hours ago     Exited (0) 8 hours ago                                                 nginx01
+bf46371dea89   centos                "/bin/bash"              10 hours ago    Exited (0) 10 hours ago                                                epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+tomcat          9.0       d4488b7f8c9b   27 hours ago    475MB
+tomcat          latest    7a91e6f458bb   28 hours ago    475MB
+nginx           latest    2b7d6430f78d   11 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker commit -(base(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker commit -a="lyf" -m="add webapps app" 3cae46866d9e my_tomcat:0.1
+sha256:82bf5ce1034c78fd2a93474b33c898b0b9a4bc66c0ed00c9af4a61ce57292d87
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+my_tomcat       0.1       82bf5ce1034c   8 seconds ago   480MB
+tomcat          9.0       d4488b7f8c9b   28 hours ago    475MB
+tomcat          latest    7a91e6f458bb   28 hours ago    475MB
+nginx           latest    2b7d6430f78d   11 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker stop 3cae46866d9e
+3cae46866d9e
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                        PORTS     NAMES
+3cae46866d9e   tomcat                "catalina.sh run"        8 minutes ago   Exited (143) 25 seconds ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   4 hours ago     Exited (143) 4 hours ago                elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        7 hours ago     Exited (143) 5 hours ago                tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   9 hours ago     Exited (0) 8 hours ago                  nginx01
+bf46371dea89   centos                "/bin/bash"              10 hours ago    Exited (0) 10 hours ago                 epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker run -d -p 3344:8080 --name my_tomcat01 my_tomcat:0.1
+7dfe274200321e17870f021fc8e648f8cc68266009679b7e46ca617a76839251
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE           COMMAND             CREATED         STATUS         PORTS                                       NAMES
+7dfe27420032   my_tomcat:0.1   "catalina.sh run"   6 seconds ago   Up 4 seconds   0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   my_tomcat01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                       PORTS                                       NAMES
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        12 seconds ago   Up 10 seconds                0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        10 minutes ago   Exited (143) 2 minutes ago                                               tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   4 hours ago      Exited (143) 4 hours ago                                                 elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        7 hours ago      Exited (143) 5 hours ago                                                 tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   9 hours ago      Exited (0) 8 hours ago                                                   nginx01
+bf46371dea89   centos                "/bin/bash"              10 hours ago     Exited (0) 10 hours ago                                                  epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$
+```
+
+![](https://cos.luyf-lemon-love.space/images/20220903225345.png)
 
 ## 容器数据卷
 
