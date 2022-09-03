@@ -4532,6 +4532,26 @@ bf46371dea89   centos                "/bin/bash"              6 hours ago     Ex
 
 ### 可视化
 
+`docker hub` 中 `portainer/portainer`( This Repo is now `deprecated`, use `portainer/portainer-ce` instead. ) 的主页：https://hub.docker.com/r/portainer/portainer 。
+
+`docker hub` 中 `portainer/portainer-ce`( `Portainer CE` - a lightweight service delivery platform for containerized applications ) 的主页：https://hub.docker.com/r/portainer/portainer-ce 。
+
+```shell
+docker run -d -p 8088:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --privileged=true portainer/portainer
+ 
+# 测试
+[root@iZ2zeg4ytp0whqtmxbsqiiZ home]# curl localhost:8088
+<!DOCTYPE html
+><html lang="en" ng-app="portainer">
+ 
+# 外网访问 http://ip:8088
+ 
+```
+
+![](https://cos.luyf-lemon-love.space/images/20220903210642.png)
+
+## Docker原理
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
