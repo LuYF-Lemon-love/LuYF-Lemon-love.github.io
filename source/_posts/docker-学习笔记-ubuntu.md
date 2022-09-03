@@ -3089,6 +3089,62 @@ exit
 
 ---
 
+```shell
+# 从容器中拷贝文件到主机
+$ docker cp 容器id:容器内路径 宿主机路径
+```
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+centos       latest    5d0da3dc9764   11 months ago   231MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -aq
+bf46371dea89
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker start bf46371dea89
+bf46371dea89
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker attach bf46371dea89
+[root@bf46371dea89 /]# ls
+bin   dev  home  lib64	     media  opt   root	sbin  sys  usr
+boot  etc  lib	 lost+found  mnt    proc  run	srv   tmp  var
+[root@bf46371dea89 /]# cd /home/
+[root@bf46371dea89 home]# ls
+[root@bf46371dea89 home]# vim centos_docker
+[root@bf46371dea89 home]# cat centos_docker 
+created by centos.
+[root@bf46371dea89 home]# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -aq
+bf46371dea89
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker cp bf46371dea89:/home/centos_docker .
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+centos_docker
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ cat centos_docker 
+created by centos.
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker cp --help
+
+Usage:  docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+	docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH
+
+Copy files/folders between a container and the local filesystem
+
+Use '-' as the source to read a tar archive from stdin
+and extract it to a directory destination in a container.
+Use '-' as the destination to stream a tar archive of a
+container source to stdout.
+
+Options:
+  -a, --archive       Archive mode (copy all uid/gid information)
+  -L, --follow-link   Always follow symbol link in SRC_PATH
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$
+```
+
+## Docker 部署软件实战
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
