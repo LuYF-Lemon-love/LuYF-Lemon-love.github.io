@@ -3148,6 +3148,7 @@ Options:
 ### Docker 安装 Nginx
 
 ```shell
+# 搜索 nginx 镜像(docker search nginx)；最好去 docker hub 搜索，因为可以看到帮助文档
 (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker search nginx
 NAME                                              DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
 nginx                                             Official build of Nginx.                        17339     [OK]       
@@ -3174,7 +3175,8 @@ ibmcom/nginx-ingress-controller-ppc64le           Docker Image for IBM Cloud Pri
 rancher/nginx-ssl                                                                                 0                    
 rancher/nginx-ingress-controller-amd64                                                            0                    
 continuumio/nginx-ingress-ws                                                                      0                    
-ibmcom/nginx-ppc64le                              Docker image for nginx-ppc64le                  0                    
+ibmcom/nginx-ppc64le                              Docker image for nginx-ppc64le                  0
+# 下载镜像(docker pull nginx)                    
 (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker pull nginx
 Using default tag: latest
 latest: Pulling from library/nginx
@@ -3195,6 +3197,10 @@ centos       latest    5d0da3dc9764   11 months ago   231MB
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -aq
 bf46371dea89
+# -d 后台运行
+# -name 给容器命名
+# -p 宿主机端口:容器内部端口
+# 后台方式启动镜像
 (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker run -d --name nginx01 -p 3344:80 nginx
 993053824a5a35ac78bb07d6f3d48a29370974b7ded679e538c9931e00472da6
 (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
@@ -3203,6 +3209,7 @@ CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS       
 (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -aq
 993053824a5a
 bf46371dea89
+# 本地访问测试
 (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ curl localhost:3344
 <!DOCTYPE html>
 <html>
@@ -3254,6 +3261,27 @@ bf46371dea89
 {% label 端口暴露概念 purple %}
 
 ![](https://cos.luyf-lemon-love.space/images/20220903134555.png)
+
+---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+993053824a5a   nginx     "/docker-entrypoint.…"   38 minutes ago   Up 38 minutes   0.0.0.0:3344->80/tcp, :::3344->80/tcp   nginx01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -aq
+993053824a5a
+bf46371dea89
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker stop 993053824a5a
+993053824a5a
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -aq
+993053824a5a
+bf46371dea89
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$
+```
+
+![](https://cos.luyf-lemon-love.space/images/20220903142150.png)
 
 ### Docker 安装 Tomcat
 
