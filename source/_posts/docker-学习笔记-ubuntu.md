@@ -3281,7 +3281,7 @@ bf46371dea89
 (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$
 ```
 
-![](https://cos.luyf-lemon-love.space/images/20220903142150.png)
+![](https://cos.luyf-lemon-love.space/images/20220903143855.png)
 
 ### Docker 安装 Tomcat
 
