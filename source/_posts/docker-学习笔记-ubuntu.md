@@ -37,6 +37,10 @@ date: 2022-08-31 17:24:32
 
 7. [Ubuntu20.04解决应用中心打不开的问题](https://blog.csdn.net/weixin_43798960/article/details/109391089)
 
+8. [ubuntu 版mysql客户端工具_5大常用MySQL客户端工具，入门数据库必备收藏](https://blog.csdn.net/weixin_42308943/article/details/112493290)
+
+9. [MySQL Workbench](https://www.mysql.com/products/workbench/)
+
 ## Docker 入门
 
 ### Docker 为什么会出现
@@ -5332,7 +5336,23 @@ $ sudo snap remove snap-store
 
 ![](https://cos.luyf-lemon-love.space/images/20220904182513.png)
 
-3. {% label 更换软件中心 green %}
+3. {% label MySQL图形化管理工具 purple %}
+
+   1. `MySQL Workbench` 是 `MySQL` 官方出品的一款客户端工具，`免费`，功能强大，可支持数据库建模和设计、查询开发和测试、服务器配置和监视、用户和安全管理、备份和恢复自动化、审计数据检查以及向导驱动的数据库迁移。
+
+   2. `MySQL Workbench` 可以从该地址 [MySQL Workbench](https://www.mysql.com/products/workbench/) 下载。
+
+   3. 打开上面安装的软件中心，搜索 `MySQL Workbench`。安装 `mysql-workbench-community`。
+
+   ![](https://cos.luyf-lemon-love.space/images/20220904185242.png)
+
+   ![](https://cos.luyf-lemon-love.space/images/20220904185353.png)
+
+   4. 安装 `mysql-workbench-community` 完成后，点击 `权限(P)`，打开 `读取、添加、修改或删除已保存的密码` 按钮。
+
+   ![](https://cos.luyf-lemon-love.space/images/20220904185912.png)
+
+#### 安装 MySQL
 
 ## 结语
 
