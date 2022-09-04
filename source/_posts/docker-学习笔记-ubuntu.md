@@ -5354,6 +5354,34 @@ $ sudo snap remove snap-store
 
 #### 安装 MySQL
 
+`docker hub` 中 `mysql` 的主页：https://hub.docker.com/_/mysql 。
+
+`问题`: `MySQL` 的数据持久化的问题！
+
+```shell
+# 获取镜像
+[root@iZ2zeg4ytp0whqtmxbsqiiZ home]# docker pull mysql:5.7
+ 
+# 运行容器， 需要做数据挂载！ # 安装启动mysql，需要配置密码（注意）
+# 官方测试， docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+ 
+# 启动我们的
+-d      # 后台运行
+-p      # 端口隐射
+-v      # 卷挂载
+-e      # 环境配置
+--name  # 容器的名字
+[root@iZ2zeg4ytp0whqtmxbsqiiZ home]# docker run -d -p 3344:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:5.7
+9552bf4eb2b69a2ccd344b5ba5965da4d97b19f2e1a78626ac1f2f8d276fc2ba
+ 
+# 启动成功之后，我们在本地使用navicat链接测试一下
+# navicat链接到服务器的3344 --- 3344 和 容器的3306映射，这个时候我们就可以连接上mysql喽！
+ 
+# 在本地测试创建一个数据库，查看下我们的路径是否ok！
+```
+
+### 匿名和具名挂载
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
