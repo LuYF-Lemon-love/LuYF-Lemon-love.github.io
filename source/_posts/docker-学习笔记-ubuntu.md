@@ -4731,6 +4731,99 @@ bf46371dea89   centos                "/bin/bash"              12 hours ago      
 
 ## 容器数据卷
 
+### 准备
+
+使用 `docker commit` 提交之前使用 `yum -y install vim` 安装 `vim` 的 `centos` 容器为新镜像: `my_centos`。
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+my_tomcat       0.1       82bf5ce1034c   14 hours ago    480MB
+tomcat          9.0       d4488b7f8c9b   41 hours ago    475MB
+tomcat          latest    7a91e6f458bb   41 hours ago    475MB
+nginx           latest    2b7d6430f78d   12 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        14 hours ago   Exited (143) 13 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        14 hours ago   Exited (143) 14 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   18 hours ago   Exited (143) 18 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        21 hours ago   Exited (143) 19 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   22 hours ago   Exited (0) 22 hours ago               nginx01
+bf46371dea89   centos                "/bin/bash"              24 hours ago   Exited (0) 3 minutes ago              epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker start bf46371dea89
+bf46371dea89
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED        STATUS          PORTS     NAMES
+bf46371dea89   centos    "/bin/bash"   24 hours ago   Up 10 seconds             epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        14 hours ago   Exited (143) 13 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        14 hours ago   Exited (143) 14 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   18 hours ago   Exited (143) 18 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        21 hours ago   Exited (143) 19 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   22 hours ago   Exited (0) 22 hours ago               nginx01
+bf46371dea89   centos                "/bin/bash"              24 hours ago   Up 16 seconds                         epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker attach bf46371dea89
+[root@bf46371dea89 /]# which vim
+/usr/bin/vim
+[root@bf46371dea89 /]# ls
+bin  boot  dev	etc  home  lib	lib64  lost+found  media  mnt  opt  proc  root	run  sbin  srv	sys  tmp  usr  var
+[root@bf46371dea89 /]# cd home/
+[root@bf46371dea89 home]# ls
+centos_docker
+[root@bf46371dea89 home]# cat centos_docker 
+created by centos.
+[root@bf46371dea89 home]# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        14 hours ago   Exited (143) 13 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        14 hours ago   Exited (143) 14 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   18 hours ago   Exited (143) 18 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        21 hours ago   Exited (143) 19 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   22 hours ago   Exited (0) 22 hours ago               nginx01
+bf46371dea89   centos                "/bin/bash"              24 hours ago   Exited (0) 9 seconds ago              epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker commit -a="lyf" -m="yum -y install vim" bf46371dea89 my_centos:0.1
+sha256:d3a84994963f87123bed823217972c17a5650a6c99b73b508624cfd920ff3c6c
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED          SIZE
+my_centos       0.1       d3a84994963f   41 seconds ago   559MB
+my_tomcat       0.1       82bf5ce1034c   14 hours ago     480MB
+tomcat          9.0       d4488b7f8c9b   41 hours ago     475MB
+tomcat          latest    7a91e6f458bb   41 hours ago     475MB
+nginx           latest    2b7d6430f78d   12 days ago      142MB
+centos          latest    5d0da3dc9764   11 months ago    231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago      791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        14 hours ago   Exited (143) 13 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        14 hours ago   Exited (143) 14 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   18 hours ago   Exited (143) 18 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        21 hours ago   Exited (143) 19 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   23 hours ago   Exited (0) 22 hours ago               nginx01
+bf46371dea89   centos                "/bin/bash"              24 hours ago   Exited (0) 5 minutes ago              epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ pwd
+/home/lyfubuntu/my_computer_language/docker
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+centos_docker
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ mkdir my_centos
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+centos_docker  my_centos
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ cd my_centos/
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ ls
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$
+```
+
+### docker 的回顾
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
