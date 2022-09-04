@@ -33,6 +33,8 @@ date: 2022-08-31 17:24:32
 
 5. [【已解决】Error: Failed to download metadata for repo ‘appstream‘: Cannot prepare internal mirrorlist](https://blog.csdn.net/weixin_43252521/article/details/124409151)
 
+6. [linux中运行ifconfig出现错误，不能sudo apt install net-tools，Linux不能联网](https://blog.csdn.net/qq_44629109/article/details/109187466)
+
 ## Docker 入门
 
 ### Docker 为什么会出现
@@ -5263,6 +5265,61 @@ bf46371dea89   centos                "/bin/bash"              26 hours ago      
 ```
 
 ### 实战：安装 MySQL
+
+#### 准备
+
+1. {% label 获得宿主机IP地址 pink %}
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ # 1. 安装 net-tools，之后可以使用 ifconfig 获得 IP 地址
+(base) lyfubuntu@lyfubuntu:~$ sudo apt install net-tools
+正在读取软件包列表... 完成
+正在分析软件包的依赖关系树       
+正在读取状态信息... 完成       
+net-tools 已经是最新版 (1.60+git20180626.aebd88e-1ubuntu1)。
+升级了 0 个软件包，新安装了 0 个软件包，要卸载 0 个软件包，有 8 个软件包未被升级。
+(base) lyfubuntu@lyfubuntu:~$ ifconfig
+docker0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        inet6 fe80::42:85ff:fe0b:dbd6  prefixlen 64  scopeid 0x20<link>
+        ether 02:42:85:0b:db:d6  txqueuelen 0  (以太网)
+        RX packets 1437  bytes 1649238 (1.6 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 2255  bytes 271969 (271.9 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp1s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.4.3.151  netmask 255.255.248.0  broadcast 10.4.7.255
+        inet6 fe80::39c7:dd87:8b0b:5357  prefixlen 64  scopeid 0x20<link>
+        inet6 2001:da8:1030:7::4848  prefixlen 128  scopeid 0x0<global>
+        ether 40:b0:34:3e:a2:10  txqueuelen 1000  (以太网)
+        RX packets 1305966  bytes 1802546317 (1.8 GB)
+        RX errors 0  dropped 1282  overruns 0  frame 0
+        TX packets 405627  bytes 50102678 (50.1 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (本地环回)
+        RX packets 24694  bytes 3187740 (3.1 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 24694  bytes 3187740 (3.1 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+veth330d41e: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet6 fe80::41d:6bff:fe13:ae92  prefixlen 64  scopeid 0x20<link>
+        ether 06:1d:6b:13:ae:92  txqueuelen 0  (以太网)
+        RX packets 1437  bytes 1669356 (1.6 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 2291  bytes 275923 (275.9 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+(base) lyfubuntu@lyfubuntu:~$ # IP: 10.4.3.151
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+2. {% label 获得宿主机IP地址 pink %}
 
 ## 结语
 
