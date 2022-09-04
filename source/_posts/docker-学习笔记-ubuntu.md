@@ -5020,6 +5020,248 @@ my_centos_docker  my_ubuntu_docker
 (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$
 ```
 
+---
+
+![](https://cos.luyf-lemon-love.space/images/20220904142005.png)
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+my_centos       0.1       d3a84994963f   2 hours ago     559MB
+my_tomcat       0.1       82bf5ce1034c   16 hours ago    480MB
+tomcat          9.0       d4488b7f8c9b   44 hours ago    475MB
+tomcat          latest    7a91e6f458bb   44 hours ago    475MB
+nginx           latest    2b7d6430f78d   12 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED             STATUS                         PORTS     NAMES
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              About an hour ago   Exited (0) About an hour ago             stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        16 hours ago        Exited (143) 15 hours ago                my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        16 hours ago        Exited (143) 16 hours ago                tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   20 hours ago        Exited (143) 20 hours ago                elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        23 hours ago        Exited (143) 22 hours ago                tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   25 hours ago        Exited (0) 24 hours ago                  nginx01
+bf46371dea89   centos                "/bin/bash"              26 hours ago        Exited (0) 2 hours ago                   epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker inspect b8a17c4278ee
+[
+    {
+        "Id": "b8a17c4278ee1047bbc95415d70288cad37e3279a3cc1a54e6ab8ad55efacff0",
+        "Created": "2022-09-04T04:49:24.138806621Z",
+        "Path": "/bin/bash",
+        "Args": [],
+        "State": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2022-09-04T05:09:31.512678417Z",
+            "FinishedAt": "2022-09-04T05:10:04.335839958Z"
+        },
+        "Image": "sha256:d3a84994963f87123bed823217972c17a5650a6c99b73b508624cfd920ff3c6c",
+        "ResolvConfPath": "/var/lib/docker/containers/b8a17c4278ee1047bbc95415d70288cad37e3279a3cc1a54e6ab8ad55efacff0/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/b8a17c4278ee1047bbc95415d70288cad37e3279a3cc1a54e6ab8ad55efacff0/hostname",
+        "HostsPath": "/var/lib/docker/containers/b8a17c4278ee1047bbc95415d70288cad37e3279a3cc1a54e6ab8ad55efacff0/hosts",
+        "LogPath": "/var/lib/docker/containers/b8a17c4278ee1047bbc95415d70288cad37e3279a3cc1a54e6ab8ad55efacff0/b8a17c4278ee1047bbc95415d70288cad37e3279a3cc1a54e6ab8ad55efacff0-json.log",
+        "Name": "/stupefied_ishizaka",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/home/lyfubuntu/my_computer_language/docker/my_centos/:/home/"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "host",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "KernelMemory": 0,
+            "KernelMemoryTCP": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": false,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/ac0df34d6acb5afbc2213d6333263002aaef25ce6c2d20395b42fe2adfdd5e17-init/diff:/var/lib/docker/overlay2/b360a1fae3d1896ad111cff9989dbff01057628349cefa95f28ec0a855eea506/diff:/var/lib/docker/overlay2/68c0bb331e495f19cce0129c91c6516051d2631b6d53982558d5c700237b7d64/diff",
+                "MergedDir": "/var/lib/docker/overlay2/ac0df34d6acb5afbc2213d6333263002aaef25ce6c2d20395b42fe2adfdd5e17/merged",
+                "UpperDir": "/var/lib/docker/overlay2/ac0df34d6acb5afbc2213d6333263002aaef25ce6c2d20395b42fe2adfdd5e17/diff",
+                "WorkDir": "/var/lib/docker/overlay2/ac0df34d6acb5afbc2213d6333263002aaef25ce6c2d20395b42fe2adfdd5e17/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/home/lyfubuntu/my_computer_language/docker/my_centos",
+                "Destination": "/home",
+                "Mode": "",
+                "RW": true,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "b8a17c4278ee",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": true,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "Tty": true,
+            "OpenStdin": true,
+            "StdinOnce": true,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "/bin/bash"
+            ],
+            "Image": "my_centos:0.1",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {
+                "org.label-schema.build-date": "20210915",
+                "org.label-schema.license": "GPLv2",
+                "org.label-schema.name": "CentOS Base Image",
+                "org.label-schema.schema-version": "1.0",
+                "org.label-schema.vendor": "CentOS"
+            }
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "e7966c1334467cd7d80be08487d080343106f4c808f8735c3142b42d1ecbbf3e",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {},
+            "SandboxKey": "/var/run/docker/netns/e7966c133446",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "7b6d8adfaacfe06394c48dae07f8d16d68cc268937f40f378c5b343c24d84fd8",
+                    "EndpointID": "",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$
+```
+
 ### 实战：安装 MySQL
 
 ## 结语
