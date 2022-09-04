@@ -35,6 +35,8 @@ date: 2022-08-31 17:24:32
 
 6. [linux中运行ifconfig出现错误，不能sudo apt install net-tools，Linux不能联网](https://blog.csdn.net/qq_44629109/article/details/109187466)
 
+7. [Ubuntu20.04解决应用中心打不开的问题](https://blog.csdn.net/weixin_43798960/article/details/109391089)
+
 ## Docker 入门
 
 ### Docker 为什么会出现
@@ -5319,7 +5321,18 @@ veth330d41e: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 (base) lyfubuntu@lyfubuntu:~$
 ```
 
-2. {% label 获得宿主机IP地址 pink %}
+2. {% label 更换软件中心 green %}
+
+```shell
+# Ubuntu 20.04.4 LTS 默认软件中心 snap 经常打不开
+# 更换软件中心
+$ sudo apt install ubuntu-software
+$ sudo snap remove snap-store
+```
+
+![](https://cos.luyf-lemon-love.space/images/20220904182513.png)
+
+3. {% label 更换软件中心 green %}
 
 ## 结语
 
