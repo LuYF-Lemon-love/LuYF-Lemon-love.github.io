@@ -5505,7 +5505,7 @@ ca.pem      ib_buffer_pool   ib_logfile1  mysql.sock  public_key.pem      server
 >
 >`Username`: `root`
 >
->`Password`: 123456
+>`Password`: `123456`
 
 ![](https://cos.luyf-lemon-love.space/images/20220904211136.png)
 
@@ -5516,6 +5516,49 @@ ca.pem      ib_buffer_pool   ib_logfile1  mysql.sock  public_key.pem      server
 ![](https://cos.luyf-lemon-love.space/images/20220904212717.png)
 
 ---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+my_centos       0.1       d3a84994963f   10 hours ago    559MB
+my_tomcat       0.1       82bf5ce1034c   24 hours ago    480MB
+tomcat          9.0       d4488b7f8c9b   2 days ago      475MB
+tomcat          latest    7a91e6f458bb   2 days ago      475MB
+mysql           5.7       daff57b7d2d1   10 days ago     430MB
+nginx           latest    2b7d6430f78d   12 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE       COMMAND                  CREATED       STATUS       PORTS                                                  NAMES
+e4462368fa6f   mysql:5.7   "docker-entrypoint.s…"   5 hours ago   Up 5 hours   33060/tcp, 0.0.0.0:3344->3306/tcp, :::3344->3306/tcp   mysql01
+(base) lyfubuntu@lyfubuntu:~$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS                                                  NAMES
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   5 hours ago    Up 5 hours                  33060/tcp, 0.0.0.0:3344->3306/tcp, :::3344->3306/tcp   mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              9 hours ago    Exited (0) 9 hours ago                                                             stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        24 hours ago   Exited (143) 23 hours ago                                                          my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        24 hours ago   Exited (143) 24 hours ago                                                          tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   28 hours ago   Exited (143) 28 hours ago                                                          elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        31 hours ago   Exited (143) 29 hours ago                                                          tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   33 hours ago   Exited (0) 32 hours ago                                                            nginx01
+bf46371dea89   centos                "/bin/bash"              34 hours ago   Exited (0) 10 hours ago                                                            epic_solomon
+(base) lyfubuntu@lyfubuntu:~$ docker stop e4462368fa6f
+e4462368fa6f
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   5 hours ago    Exited (0) 11 seconds ago             mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              9 hours ago    Exited (0) 9 hours ago                stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        24 hours ago   Exited (143) 23 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        24 hours ago   Exited (143) 24 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   28 hours ago   Exited (143) 28 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        31 hours ago   Exited (143) 29 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   33 hours ago   Exited (0) 32 hours ago               nginx01
+bf46371dea89   centos                "/bin/bash"              34 hours ago   Exited (0) 10 hours ago               epic_solomon
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+![](https://cos.luyf-lemon-love.space/images/20220904220523.png)
 
 ### 匿名和具名挂载
 
