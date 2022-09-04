@@ -5562,6 +5562,226 @@ bf46371dea89   centos                "/bin/bash"              34 hours ago   Exi
 
 ### 匿名和具名挂载
 
+```shell
+# 匿名挂载
+-v 容器内路径
+docker run -d -P --name nginx01 -v /etc/nginx nginx     # -P 随机指定端口
+ 
+# 查看所有volume的情况
+[root@iZ2zeg4ytp0whqtmxbsqiiZ ~]# docker volume ls
+DRIVER              VOLUME NAME
+local               561b81a03506f31d45ada3f9fb7bd8d7c9b5e0f826c877221a17e45d4c80e096
+local               36083fb6ca083005094cbd49572a0bffeec6daadfbc5ce772909bb00be760882
+ 
+# 这里发现，这种情况就是匿名挂载，我们在-v 后面只写了容器内的路径，没有写容器外的路径！
+ 
+# 具名挂载
+[root@iZ2zeg4ytp0whqtmxbsqiiZ ~]# docker run -d -P --name nginx02 -v juming-nginx:/etc/nginx nginx
+26da1ec7d4994c76e80134d24d82403a254a4e1d84ec65d5f286000105c3da17
+[root@iZ2zeg4ytp0whqtmxbsqiiZ ~]# docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                   NAMES
+26da1ec7d499        nginx               "/docker-entrypoint.…"   3 seconds ago       Up 2 seconds        0.0.0.0:32769->80/tcp   nginx02
+486de1da03cb        nginx               "/docker-entrypoint.…"   3 minutes ago       Up 3 minutes        0.0.0.0:32768->80/tcp   nginx01
+[root@iZ2zeg4ytp0whqtmxbsqiiZ ~]# docker volume ls
+DRIVER              VOLUME NAME
+local               561b81a03506f31d45ada3f9fb7bd8d7c9b5e0f826c877221a17e45d4c80e096
+local               36083fb6ca083005094cbd49572a0bffeec6daadfbc5ce772909bb00be760882
+local               juming-nginx
+ 
+# 通过-v 卷名：容器内的路径
+# 查看一下这个卷
+# docker volume inspect juming-nginx
+ 
+[root@iZ2zeg4ytp0whqtmxbsqiiZ ~]# docker volume inspect juming-nginx
+[
+  {
+      "CreatedAt": "2020-08-12T18:15:21+08:00",
+      "Driver": "local",
+      "Labels": null,
+      "Mountpoint": "/var/lib/docker/volumes/juming-nginx/_data",
+      "Name": "juming-nginx",
+      "Options": null,
+      "Scope": "local"
+  }
+]
+```
+
+所有docker容器内的卷，没有指定目录的情况下都是在/var/lib/docker/volumes/xxxxx/_data
+
+我们通过具名挂载可以方便的找到我们的一个卷，大多数情况下使用的是具名挂载
+
+```shell
+# 如何确定是具名挂载还是匿名挂载，还是指定路径挂载！
+-v  容器内路径                   # 匿名挂载
+-v  卷名:容器内路径               # 具名挂载
+-v /主机路径:容器内路径            # 指定路径挂载
+```
+
+---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ cd my_computer_language/docker/
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+centos_docker  my_centos  mysql
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ mkdir nginx
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+centos_docker  my_centos  mysql  nginx
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ cd nginx/
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ ls
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+my_centos       0.1       d3a84994963f   11 hours ago    559MB
+my_tomcat       0.1       82bf5ce1034c   25 hours ago    480MB
+tomcat          9.0       d4488b7f8c9b   2 days ago      475MB
+tomcat          latest    7a91e6f458bb   2 days ago      475MB
+mysql           5.7       daff57b7d2d1   10 days ago     430MB
+nginx           latest    2b7d6430f78d   12 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   6 hours ago    Exited (0) 46 minutes ago             mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              10 hours ago   Exited (0) 10 hours ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        25 hours ago   Exited (143) 23 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        25 hours ago   Exited (143) 25 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   29 hours ago   Exited (143) 29 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        31 hours ago   Exited (143) 30 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   33 hours ago   Exited (0) 33 hours ago               nginx01
+bf46371dea89   centos                "/bin/bash"              35 hours ago   Exited (0) 11 hours ago               epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker run -d -P --name nginx02 -v /etc/nginx nginx
+880d9b4349bc94ab50ba9c97420e0d4e2039806f81f81de89bc0bf814ac23ffd
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                                     NAMES
+880d9b4349bc   nginx     "/docker-entrypoint.…"   9 seconds ago   Up 5 seconds   0.0.0.0:49153->80/tcp, :::49153->80/tcp   nginx02
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                      PORTS                                     NAMES
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   19 seconds ago   Up 15 seconds               0.0.0.0:49153->80/tcp, :::49153->80/tcp   nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   6 hours ago      Exited (0) 51 minutes ago                                             mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              10 hours ago     Exited (0) 10 hours ago                                               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        25 hours ago     Exited (143) 24 hours ago                                             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        25 hours ago     Exited (143) 25 hours ago                                             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   29 hours ago     Exited (143) 29 hours ago                                             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        32 hours ago     Exited (143) 30 hours ago                                             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   33 hours ago     Exited (0) 33 hours ago                                               nginx01
+bf46371dea89   centos                "/bin/bash"              35 hours ago     Exited (0) 11 hours ago                                               epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker volume --help
+
+Usage:  docker volume COMMAND
+
+Manage volumes
+
+Commands:
+  create      Create a volume
+  inspect     Display detailed information on one or more volumes
+  ls          List volumes
+  prune       Remove all unused local volumes
+  rm          Remove one or more volumes
+
+Run 'docker volume COMMAND --help' for more information on a command.
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker volume ls
+DRIVER    VOLUME NAME
+local     0fc252014e7c36f69b52a5a37bed32d8f1f8e95371019512fbe91ae61c40f988
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker run -d -P --name nginx03 -v juming-nginx:/etc/nginx nginx
+6abbcb16d1f629928195d5050eb9624d72322de9e3a7a4fa7f7bb6e466be5f99
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+6abbcb16d1f6   nginx     "/docker-entrypoint.…"   24 seconds ago   Up 21 seconds   0.0.0.0:49154->80/tcp, :::49154->80/tcp   nginx03
+880d9b4349bc   nginx     "/docker-entrypoint.…"   3 minutes ago    Up 3 minutes    0.0.0.0:49153->80/tcp, :::49153->80/tcp   nginx02
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker volume ls
+DRIVER    VOLUME NAME
+local     0fc252014e7c36f69b52a5a37bed32d8f1f8e95371019512fbe91ae61c40f988
+local     juming-nginx
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker volume inspect juming-nginx
+[
+    {
+        "CreatedAt": "2022-09-04T22:56:38+08:00",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/juming-nginx/_data",
+        "Name": "juming-nginx",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ su root
+密码： 
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/nginx# cd /var/lib/docker/
+root@lyfubuntu:/var/lib/docker# ls
+buildkit  containers  image  network  overlay2  plugins  runtimes  swarm  tmp  trust  volumes
+root@lyfubuntu:/var/lib/docker# cd volumes/
+root@lyfubuntu:/var/lib/docker/volumes# ls
+0fc252014e7c36f69b52a5a37bed32d8f1f8e95371019512fbe91ae61c40f988  backingFsBlockDev  juming-nginx  metadata.db
+root@lyfubuntu:/var/lib/docker/volumes# cd juming-nginx/
+root@lyfubuntu:/var/lib/docker/volumes/juming-nginx# ls
+_data
+root@lyfubuntu:/var/lib/docker/volumes/juming-nginx# cd _data/
+root@lyfubuntu:/var/lib/docker/volumes/juming-nginx/_data# ls
+conf.d  fastcgi_params  mime.types  modules  nginx.conf  scgi_params  uwsgi_params
+root@lyfubuntu:/var/lib/docker/volumes/juming-nginx/_data# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ ls
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+my_centos       0.1       d3a84994963f   11 hours ago    559MB
+my_tomcat       0.1       82bf5ce1034c   25 hours ago    480MB
+tomcat          9.0       d4488b7f8c9b   2 days ago      475MB
+tomcat          latest    7a91e6f458bb   2 days ago      475MB
+mysql           5.7       daff57b7d2d1   10 days ago     430MB
+nginx           latest    2b7d6430f78d   12 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+6abbcb16d1f6   nginx     "/docker-entrypoint.…"   10 minutes ago   Up 10 minutes   0.0.0.0:49154->80/tcp, :::49154->80/tcp   nginx03
+880d9b4349bc   nginx     "/docker-entrypoint.…"   13 minutes ago   Up 13 minutes   0.0.0.0:49153->80/tcp, :::49153->80/tcp   nginx02
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                         PORTS                                     NAMES
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   10 minutes ago   Up 10 minutes                  0.0.0.0:49154->80/tcp, :::49154->80/tcp   nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   14 minutes ago   Up 13 minutes                  0.0.0.0:49153->80/tcp, :::49153->80/tcp   nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   6 hours ago      Exited (0) About an hour ago                                             mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              10 hours ago     Exited (0) 10 hours ago                                                  stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        25 hours ago     Exited (143) 24 hours ago                                                my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        25 hours ago     Exited (143) 25 hours ago                                                tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   29 hours ago     Exited (143) 29 hours ago                                                elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        32 hours ago     Exited (143) 30 hours ago                                                tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   34 hours ago     Exited (0) 33 hours ago                                                  nginx01
+bf46371dea89   centos                "/bin/bash"              35 hours ago     Exited (0) 11 hours ago                                                  epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker stop 6abbcb16d1f6 880d9b4349bc
+6abbcb16d1f6
+880d9b4349bc
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+my_centos       0.1       d3a84994963f   11 hours ago    559MB
+my_tomcat       0.1       82bf5ce1034c   25 hours ago    480MB
+tomcat          9.0       d4488b7f8c9b   2 days ago      475MB
+tomcat          latest    7a91e6f458bb   2 days ago      475MB
+mysql           5.7       daff57b7d2d1   10 days ago     430MB
+nginx           latest    2b7d6430f78d   12 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                         PORTS     NAMES
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   12 minutes ago   Exited (0) 17 seconds ago                nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   15 minutes ago   Exited (0) 17 seconds ago                nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   6 hours ago      Exited (0) About an hour ago             mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              10 hours ago     Exited (0) 10 hours ago                  stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        25 hours ago     Exited (143) 24 hours ago                my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        25 hours ago     Exited (143) 25 hours ago                tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   29 hours ago     Exited (143) 29 hours ago                elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        32 hours ago     Exited (143) 30 hours ago                tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   34 hours ago     Exited (0) 33 hours ago                  nginx01
+bf46371dea89   centos                "/bin/bash"              35 hours ago     Exited (0) 11 hours ago                  epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/nginx$
+```
+
+---
+
+拓展
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
