@@ -5360,25 +5360,162 @@ $ sudo snap remove snap-store
 
 ```shell
 # 获取镜像
-[root@iZ2zeg4ytp0whqtmxbsqiiZ home]# docker pull mysql:5.7
+$ docker pull mysql:5.7
  
-# 运行容器， 需要做数据挂载！ # 安装启动mysql，需要配置密码（注意）
-# 官方测试， docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
- 
-# 启动我们的
+# 运行容器，需要做数据挂载！ 
+# 安装启动 mysql，需要配置密码（注意）
+# 官方测试
+$ docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+
 -d      # 后台运行
--p      # 端口隐射
+-p      # 端口映射
 -v      # 卷挂载
 -e      # 环境配置
 --name  # 容器的名字
-[root@iZ2zeg4ytp0whqtmxbsqiiZ home]# docker run -d -p 3344:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:5.7
-9552bf4eb2b69a2ccd344b5ba5965da4d97b19f2e1a78626ac1f2f8d276fc2ba
+$ docker run -d -p 3344:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:5.7
  
-# 启动成功之后，我们在本地使用navicat链接测试一下
-# navicat链接到服务器的3344 --- 3344 和 容器的3306映射，这个时候我们就可以连接上mysql喽！
- 
-# 在本地测试创建一个数据库，查看下我们的路径是否ok！
+# 启动成功之后，我们在本地使用 MySQL Workbench 连接测试一下
+# MySQL Workbench 连接到服务器的 3344 --- 3344 和容器的 3306 映射，这个时候我们就可以连接上 mysql 喽！
+# 在本地测试创建一个数据库，查看下我们的路径是否 ok！
 ```
+
+---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+my_centos       0.1       d3a84994963f   5 hours ago     559MB
+my_tomcat       0.1       82bf5ce1034c   19 hours ago    480MB
+tomcat          9.0       d4488b7f8c9b   46 hours ago    475MB
+tomcat          latest    7a91e6f458bb   46 hours ago    475MB
+nginx           latest    2b7d6430f78d   12 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              4 hours ago    Exited (0) 4 hours ago                stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        19 hours ago   Exited (143) 17 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        19 hours ago   Exited (143) 19 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   23 hours ago   Exited (143) 23 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        25 hours ago   Exited (143) 24 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   27 hours ago   Exited (0) 27 hours ago               nginx01
+bf46371dea89   centos                "/bin/bash"              29 hours ago   Exited (0) 5 hours ago                epic_solomon
+(base) lyfubuntu@lyfubuntu:~$ docker pull mysql:5.7
+5.7: Pulling from library/mysql
+9815334b7810: Pull complete 
+f85cb6fccbfd: Pull complete 
+b63612353671: Pull complete 
+447901201612: Pull complete 
+9b6bc806cc29: Pull complete 
+24ec1f4b3b0d: Pull complete 
+207ed1eb2fd4: Pull complete 
+27cbde3edd97: Pull complete 
+0a5aa35cc154: Pull complete 
+e6c92bf6471b: Pull complete 
+07b80de0d1af: Pull complete 
+Digest: sha256:c1bda6ecdbc63d3b0d3a3a3ce195de3dd755c4a0658ed782a16a0682216b9a48
+Status: Downloaded newer image for mysql:5.7
+docker.io/library/mysql:5.7
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+my_centos       0.1       d3a84994963f   5 hours ago     559MB
+my_tomcat       0.1       82bf5ce1034c   19 hours ago    480MB
+tomcat          9.0       d4488b7f8c9b   46 hours ago    475MB
+tomcat          latest    7a91e6f458bb   46 hours ago    475MB
+mysql           5.7       daff57b7d2d1   10 days ago     430MB
+nginx           latest    2b7d6430f78d   12 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              4 hours ago    Exited (0) 4 hours ago                stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        19 hours ago   Exited (143) 17 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        19 hours ago   Exited (143) 19 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   23 hours ago   Exited (143) 23 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        25 hours ago   Exited (143) 24 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   27 hours ago   Exited (0) 27 hours ago               nginx01
+bf46371dea89   centos                "/bin/bash"              29 hours ago   Exited (0) 5 hours ago                epic_solomon
+(base) lyfubuntu@lyfubuntu:~$ cd my_computer_language/docker/
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+centos_docker  my_centos
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ mkdir mysql
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ cd mysql/
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql$ pwd
+/home/lyfubuntu/my_computer_language/docker/mysql
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql$ docker run -d -p 3344:3306 -v /home/lyfubuntu/my_computer_language/docker/mysql/conf:/etc/mysql/conf.d -v /home/lyfubuntu/my_computer_language/docker/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:5.7
+e4462368fa6f057db66d6ec8ae9e4d4f48a548b1e2c9d6db83871348b6042622
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql$ docker ps
+CONTAINER ID   IMAGE       COMMAND                  CREATED          STATUS          PORTS                                                  NAMES
+e4462368fa6f   mysql:5.7   "docker-entrypoint.s…"   24 seconds ago   Up 21 seconds   33060/tcp, 0.0.0.0:3344->3306/tcp, :::3344->3306/tcp   mysql01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                      PORTS                                                  NAMES
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   29 seconds ago   Up 26 seconds               33060/tcp, 0.0.0.0:3344->3306/tcp, :::3344->3306/tcp   mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              4 hours ago      Exited (0) 4 hours ago                                                             stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        19 hours ago     Exited (143) 18 hours ago                                                          my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        19 hours ago     Exited (143) 19 hours ago                                                          tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   23 hours ago     Exited (143) 23 hours ago                                                          elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        26 hours ago     Exited (143) 24 hours ago                                                          tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   27 hours ago     Exited (0) 27 hours ago                                                            nginx01
+bf46371dea89   centos                "/bin/bash"              29 hours ago     Exited (0) 5 hours ago                                                             epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql$ ls
+conf  data
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql$ cd conf/
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql/conf$ ls
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql/conf$ cd ../data/
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql/data$ ls
+auto.cnf    client-cert.pem  ibdata1      ibtmp1      performance_schema  server-cert.pem
+ca-key.pem  client-key.pem   ib_logfile0  mysql       private_key.pem     server-key.pem
+ca.pem      ib_buffer_pool   ib_logfile1  mysql.sock  public_key.pem      sys
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql/data$ ls
+auto.cnf    ca.pem           client-key.pem  ibdata1      ib_logfile1  mysql       performance_schema  public_key.pem   server-key.pem
+ca-key.pem  client-cert.pem  ib_buffer_pool  ib_logfile0  ibtmp1       mysql.sock  private_key.pem     server-cert.pem  sys
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql/data$ ls
+auto.cnf    ca.pem           client-key.pem  ibdata1      ib_logfile1  mysql       performance_schema  public_key.pem   server-key.pem
+ca-key.pem  client-cert.pem  ib_buffer_pool  ib_logfile0  ibtmp1       mysql.sock  private_key.pem     server-cert.pem  sys
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql/data$ ls
+auto.cnf    ca.pem           client-key.pem  ibdata1      ib_logfile1  mysql       performance_schema  public_key.pem   server-key.pem
+ca-key.pem  client-cert.pem  ib_buffer_pool  ib_logfile0  ibtmp1       mysql.sock  private_key.pem     server-cert.pem  sys
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql/data$ ls
+auto.cnf    ca.pem           client-key.pem  ibdata1      ib_logfile1  mysql       performance_schema  public_key.pem   server-key.pem
+ca-key.pem  client-cert.pem  ib_buffer_pool  ib_logfile0  ibtmp1       mysql.sock  private_key.pem     server-cert.pem  sys
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql/data$ ls
+auto.cnf    ca.pem           client-key.pem  ibdata1      ib_logfile1  mysql       performance_schema  public_key.pem   server-key.pem
+ca-key.pem  client-cert.pem  ib_buffer_pool  ib_logfile0  ibtmp1       mysql.sock  private_key.pem     server-cert.pem  sys
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql/data$ ls
+auto.cnf    ca.pem           client-key.pem  ibdata1      ib_logfile1  mysql       performance_schema  public_key.pem  server-cert.pem  sys
+ca-key.pem  client-cert.pem  ib_buffer_pool  ib_logfile0  ibtmp1       mysql.sock  private_key.pem     school          server-key.pem
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql/data$ # 1. 用 mysql-workbench-community 连接上 MySQL 后，创建名为 school 的数据库。
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql/data$ # 2. 我们在 data 目录下发现了 school 数据库目录
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql/data$ ls
+auto.cnf    client-cert.pem  ibdata1      ibtmp1      performance_schema  school           sys
+ca-key.pem  client-key.pem   ib_logfile0  mysql       private_key.pem     server-cert.pem
+ca.pem      ib_buffer_pool   ib_logfile1  mysql.sock  public_key.pem      server-key.pem
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/mysql/data$
+```
+
+用 `mysql-workbench-community` 连接 `MySQL` ，如下图。
+
+>`Hostname`: `10.4.3.151`
+>
+>`Port`: `3344`
+>
+>`Username`: `root`
+>
+>`Password`: 123456
+
+![](https://cos.luyf-lemon-love.space/images/20220904211136.png)
+
+点击如下按钮创建 `school` 数据库。
+
+![](https://cos.luyf-lemon-love.space/images/20220904212642.png)
+
+![](https://cos.luyf-lemon-love.space/images/20220904212717.png)
+
+---
 
 ### 匿名和具名挂载
 
