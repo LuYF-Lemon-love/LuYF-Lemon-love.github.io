@@ -4824,6 +4824,204 @@ centos_docker  my_centos
 
 ### docker 的回顾
 
+**`问题`**: 如果将`应用`和`环境`打包成一个`镜像`，那么容器被删除，容器中的`数据`就会丢失！
+
+**需求**: 数据需要持久化。
+
+**MySQL**: 容器删了 `==` **删库跑路**，**需求**: `MySQL` 数据需要存储到本地！
+
+**容器数据卷**: 数据共享技术，`Docker` 容器中产生的数据会`同步到本地`。
+
+**容器数据卷**: 就是目录挂载 -> 将`容器内目录`挂载到`宿主机目录`上面！
+
+**`总结`**: `容器数据卷` -> 数据持久化、同步( 宿主机和容器 )和共享( 容器间 )。
+
+### 数据卷
+
+> 使用 `docker run -v` 挂载目录
+
+```shell
+docker run -it -v 主机目录:容器目录
+
+$ docker run -it -v /home/ceshi:/home centos
+```
+
+---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ ls
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ pwd
+/home/lyfubuntu/my_computer_language/docker/my_centos
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED          SIZE
+my_centos       0.1       d3a84994963f   38 minutes ago   559MB
+my_tomcat       0.1       82bf5ce1034c   15 hours ago     480MB
+tomcat          9.0       d4488b7f8c9b   42 hours ago     475MB
+tomcat          latest    7a91e6f458bb   42 hours ago     475MB
+nginx           latest    2b7d6430f78d   12 days ago      142MB
+centos          latest    5d0da3dc9764   11 months ago    231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago      791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        14 hours ago   Exited (143) 13 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        15 hours ago   Exited (143) 15 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   19 hours ago   Exited (143) 19 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        21 hours ago   Exited (143) 20 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   23 hours ago   Exited (0) 23 hours ago               nginx01
+bf46371dea89   centos                "/bin/bash"              25 hours ago   Exited (0) 43 minutes ago             epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker run -it my_centos:0.1 /bin/bash
+[root@e8f9268f0ad5 /]# ls
+bin  boot  dev	etc  home  lib	lib64  lost+found  media  mnt  opt  proc  root	run  sbin  srv	sys  tmp  usr  var
+[root@e8f9268f0ad5 /]# which vim
+/usr/bin/vim
+[root@e8f9268f0ad5 /]# cd home/
+[root@e8f9268f0ad5 home]# ls
+centos_docker
+[root@e8f9268f0ad5 home]# cat centos_docker 
+created by centos.
+[root@e8f9268f0ad5 home]# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED              STATUS                      PORTS     NAMES
+e8f9268f0ad5   my_centos:0.1         "/bin/bash"              About a minute ago   Exited (0) 12 seconds ago             priceless_brattain
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        15 hours ago         Exited (143) 13 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        15 hours ago         Exited (143) 15 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   19 hours ago         Exited (143) 19 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        21 hours ago         Exited (143) 20 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   23 hours ago         Exited (0) 23 hours ago               nginx01
+bf46371dea89   centos                "/bin/bash"              25 hours ago         Exited (0) 46 minutes ago             epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker rm -f e8f9268f0ad5
+e8f9268f0ad5
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        15 hours ago   Exited (143) 13 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        15 hours ago   Exited (143) 15 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   19 hours ago   Exited (143) 19 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        21 hours ago   Exited (143) 20 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   23 hours ago   Exited (0) 23 hours ago               nginx01
+bf46371dea89   centos                "/bin/bash"              25 hours ago   Exited (0) 47 minutes ago             epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED          SIZE
+my_centos       0.1       d3a84994963f   42 minutes ago   559MB
+my_tomcat       0.1       82bf5ce1034c   15 hours ago     480MB
+tomcat          9.0       d4488b7f8c9b   42 hours ago     475MB
+tomcat          latest    7a91e6f458bb   42 hours ago     475MB
+nginx           latest    2b7d6430f78d   12 days ago      142MB
+centos          latest    5d0da3dc9764   11 months ago    231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago      791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ ls
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker run -it -v /home/lyfubuntu/my_computer_language/docker/my_centos/:/home/ my_centos:0.1 /bin/bash
+[root@b8a17c4278ee /]# ls
+bin  boot  dev	etc  home  lib	lib64  lost+found  media  mnt  opt  proc  root	run  sbin  srv	sys  tmp  usr  var
+[root@b8a17c4278ee /]# cd /home/
+[root@b8a17c4278ee home]# ls
+[root@b8a17c4278ee home]# which vim
+/usr/bin/vim
+[root@b8a17c4278ee home]# vim my_centos_docker
+[root@b8a17c4278ee home]# cat my_centos_docker 
+created by my_centos:0.1.
+[root@b8a17c4278ee home]# ls
+my_centos_docker
+[root@b8a17c4278ee home]# (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ 
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ ls
+my_centos_docker
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ cat my_centos_docker 
+created by my_centos:0.1.
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ # 注释
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ # 上面实验结果显示
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ # 1. -v 主机目录->容器目录
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ # 2. 容器第一次启动：数据是从宿主机映射到容器
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ # 3. 容器启动过程中，是可以从容器映射到宿主机中的
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker ps
+CONTAINER ID   IMAGE           COMMAND       CREATED         STATUS         PORTS     NAMES
+b8a17c4278ee   my_centos:0.1   "/bin/bash"   9 minutes ago   Up 9 minutes             stupefied_ishizaka
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                         PORTS     NAMES
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              10 minutes ago   Up 10 minutes                            stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        15 hours ago     Exited (143) 14 hours ago                my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        15 hours ago     Exited (143) 15 hours ago                tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   19 hours ago     Exited (143) 19 hours ago                elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        22 hours ago     Exited (143) 20 hours ago                tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   23 hours ago     Exited (0) 23 hours ago                  nginx01
+bf46371dea89   centos                "/bin/bash"              25 hours ago     Exited (0) About an hour ago             epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ ls
+my_centos_docker
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ vim my_ubuntu_docker
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ cat my_ubuntu_docker 
+created by ubuntu.
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker attach b8a17c4278ee
+[root@b8a17c4278ee home]# ls
+my_centos_docker  my_ubuntu_docker
+[root@b8a17c4278ee home]# cat my_ubuntu_docker 
+created by ubuntu.
+[root@b8a17c4278ee home]# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ ls
+my_centos_docker  my_ubuntu_docker
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ # 注释
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ # 上面实验结果显示
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ # 1. 容器运行过程中，是可以从宿主机映射到容器中的
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ ls
+my_centos_docker  my_ubuntu_docker
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ cat my_ubuntu_docker 
+created by ubuntu.
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ vim my_ubuntu_docker 
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ cat my_ubuntu_docker 
+created by ubuntu.
+modify on ubuntu when the container is exited.
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                         PORTS     NAMES
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              19 minutes ago   Exited (0) 7 minutes ago                 stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        15 hours ago     Exited (143) 14 hours ago                my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        15 hours ago     Exited (143) 15 hours ago                tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   19 hours ago     Exited (143) 19 hours ago                elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        22 hours ago     Exited (143) 20 hours ago                tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   24 hours ago     Exited (0) 23 hours ago                  nginx01
+bf46371dea89   centos                "/bin/bash"              25 hours ago     Exited (0) About an hour ago             epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker attach b8a17c4278ee
+You cannot attach to a stopped container, start it first
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker start b8a17c4278ee
+b8a17c4278ee
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker attach b8a17c4278ee
+[root@b8a17c4278ee /]# ls
+bin  boot  dev	etc  home  lib	lib64  lost+found  media  mnt  opt  proc  root	run  sbin  srv	sys  tmp  usr  var
+[root@b8a17c4278ee /]# cd /home/
+[root@b8a17c4278ee home]# ls
+my_centos_docker  my_ubuntu_docker
+[root@b8a17c4278ee home]# cat my_ubuntu_docker 
+created by ubuntu.
+modify on ubuntu when the container is exited.
+[root@b8a17c4278ee home]# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                         PORTS     NAMES
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              20 minutes ago   Exited (0) 9 seconds ago                 stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        15 hours ago     Exited (143) 14 hours ago                my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        15 hours ago     Exited (143) 15 hours ago                tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   19 hours ago     Exited (143) 19 hours ago                elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        22 hours ago     Exited (143) 20 hours ago                tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   24 hours ago     Exited (0) 23 hours ago                  nginx01
+bf46371dea89   centos                "/bin/bash"              25 hours ago     Exited (0) About an hour ago             epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ # 注释
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ # 上面实验结果显示
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ # 1. 容器关闭过程中，依旧是可以从宿主机映射到容器中的
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$ ls
+my_centos_docker  my_ubuntu_docker
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_centos$
+```
+
+### 实战：安装 MySQL
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
