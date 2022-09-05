@@ -5784,17 +5784,20 @@ bf46371dea89   centos                "/bin/bash"              35 hours ago     E
 {% label 拓展 pink %}
 
 ```shell
-# 通过 -v 容器内容路径 ro rw 改变读写权限
+# -v 容器内容路径 
+# ro rw 改变读写权限
 ro  readonly    # 只读
 rw  readwrite   # 可读可写
  
 docker run -d -P --name nginx02 -v juming-nginx:/etc/nginx:ro nginx
 docker run -d -P --name nginx02 -v juming-nginx:/etc/nginx:rw nginx
  
-# ro 只要看到ro就说明这个路径只能通过宿主机来操作，容器内容无法操作
+# ro 这个路径只能通过宿主机来操作，容器内部无法操作！
 ```
 
 ## DockerFile
+
+### 初始 DockerFile
 
 ## 结语
 
