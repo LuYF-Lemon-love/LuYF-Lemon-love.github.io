@@ -5799,6 +5799,34 @@ docker run -d -P --name nginx02 -v juming-nginx:/etc/nginx:rw nginx
 
 ### 初始 DockerFile
 
+---
+
+`docker hub` 中 `centos` 的主页：https://hub.docker.com/_/centos 。
+
+**Supported tags and respective Dockerfile links**
+
+- [centos7, 7, centos7.9.2009, 7.9.2009](https://github.com/CentOS/sig-cloud-instance-images/blob/b2d195220e1c5b181427c3172829c23ab9cd27eb/docker/Dockerfile)
+
+```dockerfile
+FROM scratch
+ADD centos-7-x86_64-docker.tar.xz /
+
+LABEL \
+    org.label-schema.schema-version="1.0" \
+    org.label-schema.name="CentOS Base Image" \
+    org.label-schema.vendor="CentOS" \
+    org.label-schema.license="GPLv2" \
+    org.label-schema.build-date="20201113" \
+    org.opencontainers.image.title="CentOS Base Image" \
+    org.opencontainers.image.vendor="CentOS" \
+    org.opencontainers.image.licenses="GPL-2.0-only" \
+    org.opencontainers.image.created="2020-11-13 00:00:00+00:00"
+
+CMD ["/bin/bash"]
+```
+
+---
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
