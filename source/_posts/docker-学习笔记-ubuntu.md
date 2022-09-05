@@ -5564,35 +5564,36 @@ bf46371dea89   centos                "/bin/bash"              34 hours ago   Exi
 
 ```shell
 # 匿名挂载
--v 容器内路径
-docker run -d -P --name nginx01 -v /etc/nginx nginx     # -P 随机指定端口
+# -v 容器内路径
+# -P 随机指定端口
+$ docker run -d -P --name nginx01 -v /etc/nginx nginx
  
-# 查看所有volume的情况
-[root@iZ2zeg4ytp0whqtmxbsqiiZ ~]# docker volume ls
+# 查看所有 volume 的情况
+$ docker volume ls
 DRIVER              VOLUME NAME
 local               561b81a03506f31d45ada3f9fb7bd8d7c9b5e0f826c877221a17e45d4c80e096
 local               36083fb6ca083005094cbd49572a0bffeec6daadfbc5ce772909bb00be760882
  
-# 这里发现，这种情况就是匿名挂载，我们在-v 后面只写了容器内的路径，没有写容器外的路径！
+# 匿名挂载，我们在 -v 后面只写了容器内的路径，没有写容器外的路径！
  
 # 具名挂载
-[root@iZ2zeg4ytp0whqtmxbsqiiZ ~]# docker run -d -P --name nginx02 -v juming-nginx:/etc/nginx nginx
+$ docker run -d -P --name nginx02 -v juming-nginx:/etc/nginx nginx
 26da1ec7d4994c76e80134d24d82403a254a4e1d84ec65d5f286000105c3da17
-[root@iZ2zeg4ytp0whqtmxbsqiiZ ~]# docker ps
+$ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                   NAMES
 26da1ec7d499        nginx               "/docker-entrypoint.…"   3 seconds ago       Up 2 seconds        0.0.0.0:32769->80/tcp   nginx02
 486de1da03cb        nginx               "/docker-entrypoint.…"   3 minutes ago       Up 3 minutes        0.0.0.0:32768->80/tcp   nginx01
-[root@iZ2zeg4ytp0whqtmxbsqiiZ ~]# docker volume ls
+$ docker volume ls
 DRIVER              VOLUME NAME
 local               561b81a03506f31d45ada3f9fb7bd8d7c9b5e0f826c877221a17e45d4c80e096
 local               36083fb6ca083005094cbd49572a0bffeec6daadfbc5ce772909bb00be760882
 local               juming-nginx
  
-# 通过-v 卷名：容器内的路径
+# 通过 -v 卷名:容器内的路径
 # 查看一下这个卷
 # docker volume inspect juming-nginx
  
-[root@iZ2zeg4ytp0whqtmxbsqiiZ ~]# docker volume inspect juming-nginx
+$ docker volume inspect juming-nginx
 [
   {
       "CreatedAt": "2020-08-12T18:15:21+08:00",
@@ -5606,9 +5607,9 @@ local               juming-nginx
 ]
 ```
 
-所有docker容器内的卷，没有指定目录的情况下都是在/var/lib/docker/volumes/xxxxx/_data
+所有 `docker` 容器内的卷，没有指定目录的情况下都是在 `/var/lib/docker/volumes/xxx/_data` 中。
 
-我们通过具名挂载可以方便的找到我们的一个卷，大多数情况下使用的是具名挂载
+我们通过`具名挂载`可以方便的找到我们的一个卷，大多数情况下使用的是`具名挂载`。
 
 ```shell
 # 如何确定是具名挂载还是匿名挂载，还是指定路径挂载！
