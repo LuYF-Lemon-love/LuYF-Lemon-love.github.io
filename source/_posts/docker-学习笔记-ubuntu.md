@@ -5827,6 +5827,499 @@ CMD ["/bin/bash"]
 
 ---
 
+`Dockerfile`: 用来构建 `docker` 镜像的构建文件！是一个命令脚本！
+
+通过下面的脚本可以生成镜像，镜像是一层层的。脚本也是由一个个的命令组成的，每个命令都是镜像的一层。
+
+```dockerfile
+# 创建一个 Dockerfile 文件，名字任意
+# 每个命令都是镜像的一层
+
+FROM centos
+
+VOLUME ["volume01", "volume02"]
+
+CMD echo "----end----"
+CMD /bin/bash
+```
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ cd my_computer_language/docker/
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+centos_docker  my_centos  mysql  nginx
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ mkdir my_Dockerfile
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+centos_docker  my_centos  my_Dockerfile  mysql  nginx
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ cd my_Dockerfile/
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ ls
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ vim dockerfile1
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ cat dockerfile1 
+# 创建一个 Dockerfile 文件，名字任意
+# 每个命令都是镜像的一层
+
+FROM centos
+
+VOLUME ["volume01", "volume02"]
+
+CMD echo "----end----"
+CMD /bin/bash
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker build --help
+
+Usage:  docker build [OPTIONS] PATH | URL | -
+
+Build an image from a Dockerfile
+
+Options:
+      --add-host list           Add a custom host-to-IP mapping (host:ip)
+      --build-arg list          Set build-time variables
+      --cache-from strings      Images to consider as cache sources
+      --cgroup-parent string    Optional parent cgroup for the container
+      --compress                Compress the build context using gzip
+      --cpu-period int          Limit the CPU CFS (Completely Fair
+                                Scheduler) period
+      --cpu-quota int           Limit the CPU CFS (Completely Fair
+                                Scheduler) quota
+  -c, --cpu-shares int          CPU shares (relative weight)
+      --cpuset-cpus string      CPUs in which to allow execution (0-3, 0,1)
+      --cpuset-mems string      MEMs in which to allow execution (0-3, 0,1)
+      --disable-content-trust   Skip image verification (default true)
+  -f, --file string             Name of the Dockerfile (Default is
+                                'PATH/Dockerfile')
+      --force-rm                Always remove intermediate containers
+      --iidfile string          Write the image ID to the file
+      --isolation string        Container isolation technology
+      --label list              Set metadata for an image
+  -m, --memory bytes            Memory limit
+      --memory-swap bytes       Swap limit equal to memory plus swap:
+                                '-1' to enable unlimited swap
+      --network string          Set the networking mode for the RUN
+                                instructions during build (default "default")
+      --no-cache                Do not use cache when building the image
+      --pull                    Always attempt to pull a newer version
+                                of the image
+  -q, --quiet                   Suppress the build output and print
+                                image ID on success
+      --rm                      Remove intermediate containers after a
+                                successful build (default true)
+      --security-opt strings    Security options
+      --shm-size bytes          Size of /dev/shm
+  -t, --tag list                Name and optionally a tag in the
+                                'name:tag' format
+      --target string           Set the target build stage to build.
+      --ulimit ulimit           Ulimit options (default [])
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker build -f dockerfile1 -t lyf/centos:1.0 .
+Sending build context to Docker daemon  2.048kB
+Step 1/4 : FROM centos
+ ---> 5d0da3dc9764
+Step 2/4 : VOLUME ["volume01", "volume02"]
+ ---> Running in c35ff88bf912
+Removing intermediate container c35ff88bf912
+ ---> 1f95015669bb
+Step 3/4 : CMD echo "----end----"
+ ---> Running in 70f063888f12
+Removing intermediate container 70f063888f12
+ ---> 5c988b11074b
+Step 4/4 : CMD /bin/bash
+ ---> Running in 9216630ec5a8
+Removing intermediate container 9216630ec5a8
+ ---> 967c603048b0
+Successfully built 967c603048b0
+Successfully tagged lyf/centos:1.0
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED          SIZE
+lyf/centos      1.0       967c603048b0   46 seconds ago   231MB
+my_centos       0.1       d3a84994963f   27 hours ago     559MB
+my_tomcat       0.1       82bf5ce1034c   41 hours ago     480MB
+tomcat          9.0       d4488b7f8c9b   2 days ago       475MB
+tomcat          latest    7a91e6f458bb   2 days ago       475MB
+mysql           5.7       daff57b7d2d1   11 days ago      430MB
+nginx           latest    2b7d6430f78d   13 days ago      142MB
+centos          latest    5d0da3dc9764   11 months ago    231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago      791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   17 hours ago   Exited (0) 16 hours ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   17 hours ago   Exited (0) 16 hours ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   23 hours ago   Exited (0) 17 hours ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              27 hours ago   Exited (0) 26 hours ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        41 hours ago   Exited (143) 40 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        41 hours ago   Exited (143) 41 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   45 hours ago   Exited (143) 45 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        2 days ago     Exited (143) 47 hours ago             tomcat01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   17 hours ago   Exited (0) 16 hours ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   17 hours ago   Exited (0) 16 hours ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   23 hours ago   Exited (0) 17 hours ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              27 hours ago   Exited (0) 26 hours ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        41 hours ago   Exited (143) 40 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        41 hours ago   Exited (143) 41 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   45 hours ago   Exited (143) 45 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        2 days ago     Exited (143) 47 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   2 days ago     Exited (0) 2 days ago                 nginx01
+bf46371dea89   centos                "/bin/bash"              2 days ago     Exited (0) 28 hours ago               epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   17 hours ago   Exited (0) 16 hours ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   17 hours ago   Exited (0) 16 hours ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   23 hours ago   Exited (0) 17 hours ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              27 hours ago   Exited (0) 26 hours ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        41 hours ago   Exited (143) 40 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        41 hours ago   Exited (143) 41 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   45 hours ago   Exited (143) 45 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        2 days ago     Exited (143) 47 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   2 days ago     Exited (0) 2 days ago                 nginx01
+bf46371dea89   centos                "/bin/bash"              2 days ago     Exited (0) 28 hours ago               epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+lyf/centos      1.0       967c603048b0   6 minutes ago   231MB
+my_centos       0.1       d3a84994963f   27 hours ago    559MB
+my_tomcat       0.1       82bf5ce1034c   41 hours ago    480MB
+tomcat          9.0       d4488b7f8c9b   2 days ago      475MB
+tomcat          latest    7a91e6f458bb   2 days ago      475MB
+mysql           5.7       daff57b7d2d1   11 days ago     430MB
+nginx           latest    2b7d6430f78d   13 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker run -it lyf/centos:1.0 /bin/bash
+[root@489086f92c85 /]# ls 
+bin  etc   lib	  lost+found  mnt  proc  run   srv  tmp  var	   volume02
+dev  home  lib64  media       opt  root  sbin  sys  usr  volume01
+[root@489086f92c85 /]# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                      PORTS     NAMES
+489086f92c85   lyf/centos:1.0        "/bin/bash"              44 seconds ago   Exited (0) 10 seconds ago             admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   17 hours ago     Exited (0) 16 hours ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   17 hours ago     Exited (0) 16 hours ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   23 hours ago     Exited (0) 18 hours ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              27 hours ago     Exited (0) 26 hours ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        41 hours ago     Exited (143) 40 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        42 hours ago     Exited (143) 41 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   46 hours ago     Exited (143) 45 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        2 days ago       Exited (143) 47 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   2 days ago       Exited (0) 2 days ago                 nginx01
+bf46371dea89   centos                "/bin/bash"              2 days ago       Exited (0) 28 hours ago               epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker inspect 489086f92c85
+[
+    {
+        "Id": "489086f92c85352aa4b59248e015e8698b474a9b395b967f1a5a46eac11a8d4e",
+        "Created": "2022-09-05T07:35:31.947167545Z",
+        "Path": "/bin/bash",
+        "Args": [],
+        "State": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2022-09-05T07:35:34.362946608Z",
+            "FinishedAt": "2022-09-05T07:36:05.143760819Z"
+        },
+        "Image": "sha256:967c603048b0d92fec03e8309d1147db088bfc9ff2e26ac4f174643ed0993f69",
+        "ResolvConfPath": "/var/lib/docker/containers/489086f92c85352aa4b59248e015e8698b474a9b395b967f1a5a46eac11a8d4e/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/489086f92c85352aa4b59248e015e8698b474a9b395b967f1a5a46eac11a8d4e/hostname",
+        "HostsPath": "/var/lib/docker/containers/489086f92c85352aa4b59248e015e8698b474a9b395b967f1a5a46eac11a8d4e/hosts",
+        "LogPath": "/var/lib/docker/containers/489086f92c85352aa4b59248e015e8698b474a9b395b967f1a5a46eac11a8d4e/489086f92c85352aa4b59248e015e8698b474a9b395b967f1a5a46eac11a8d4e-json.log",
+        "Name": "/admiring_dhawan",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "host",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "KernelMemory": 0,
+            "KernelMemoryTCP": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": false,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/6774b357bae1ee230ab9e2516a8b667fc4cd760db55a640176219144adb09a6b-init/diff:/var/lib/docker/overlay2/68c0bb331e495f19cce0129c91c6516051d2631b6d53982558d5c700237b7d64/diff",
+                "MergedDir": "/var/lib/docker/overlay2/6774b357bae1ee230ab9e2516a8b667fc4cd760db55a640176219144adb09a6b/merged",
+                "UpperDir": "/var/lib/docker/overlay2/6774b357bae1ee230ab9e2516a8b667fc4cd760db55a640176219144adb09a6b/diff",
+                "WorkDir": "/var/lib/docker/overlay2/6774b357bae1ee230ab9e2516a8b667fc4cd760db55a640176219144adb09a6b/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "d8e5241795da1452f01a568ed998539ea38636412506e108079fb428e2d5d014",
+                "Source": "/var/lib/docker/volumes/d8e5241795da1452f01a568ed998539ea38636412506e108079fb428e2d5d014/_data",
+                "Destination": "volume01",
+                "Driver": "local",
+                "Mode": "",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "volume",
+                "Name": "a82328860bc07355241e3a4ae3ca30d2aac218c8d7f892101f47f38947bc72cb",
+                "Source": "/var/lib/docker/volumes/a82328860bc07355241e3a4ae3ca30d2aac218c8d7f892101f47f38947bc72cb/_data",
+                "Destination": "volume02",
+                "Driver": "local",
+                "Mode": "",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "489086f92c85",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": true,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "Tty": true,
+            "OpenStdin": true,
+            "StdinOnce": true,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "/bin/bash"
+            ],
+            "Image": "lyf/centos:1.0",
+            "Volumes": {
+                "volume01": {},
+                "volume02": {}
+            },
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {
+                "org.label-schema.build-date": "20210915",
+                "org.label-schema.license": "GPLv2",
+                "org.label-schema.name": "CentOS Base Image",
+                "org.label-schema.schema-version": "1.0",
+                "org.label-schema.vendor": "CentOS"
+            }
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "b45948e64c6cc42888f2cc224f090977b3af053e64a5d1beb8d394160ee9c556",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {},
+            "SandboxKey": "/var/run/docker/netns/b45948e64c6c",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "ee080f3b5bbe9b14b9badcdb67f600dacd5ddc5a99c4e8fd0629226ad3c36d45",
+                    "EndpointID": "",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker start 489086f92c85
+489086f92c85
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps 
+CONTAINER ID   IMAGE            COMMAND       CREATED         STATUS         PORTS     NAMES
+489086f92c85   lyf/centos:1.0   "/bin/bash"   4 minutes ago   Up 2 seconds             admiring_dhawan
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docekr attach 489086f92c85
+
+找不到命令“docekr”，您的意思是：
+
+  command 'docker' from snap docker (20.10.14)
+  command 'docker' from deb docker.io (20.10.12-0ubuntu2~20.04.1)
+
+See 'snap info <snapname>' for additional versions.
+
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker attach 489086f92c85
+[root@489086f92c85 /]# ls
+bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var  volume01	volume02
+[root@489086f92c85 /]# cd volume01
+[root@489086f92c85 volume01]# ls
+[root@489086f92c85 volume01]# touch lyf/centos_v01
+touch: cannot touch 'lyf/centos_v01': No such file or directory
+[root@489086f92c85 volume01]# ls
+[root@489086f92c85 volume01]# touch lyf_centos_v01
+[root@489086f92c85 volume01]# ls
+lyf_centos_v01
+[root@489086f92c85 volume01]# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                      PORTS     NAMES
+489086f92c85   lyf/centos:1.0        "/bin/bash"              7 minutes ago   Exited (0) 8 seconds ago              admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   17 hours ago    Exited (0) 17 hours ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   17 hours ago    Exited (0) 17 hours ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   23 hours ago    Exited (0) 18 hours ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              27 hours ago    Exited (0) 27 hours ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        41 hours ago    Exited (143) 40 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        42 hours ago    Exited (143) 42 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   46 hours ago    Exited (143) 46 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        2 days ago      Exited (143) 47 hours ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   2 days ago      Exited (0) 2 days ago                 nginx01
+bf46371dea89   centos                "/bin/bash"              2 days ago      Exited (0) 28 hours ago               epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ su root
+密码： 
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/my_Dockerfile# cd /var/lib/docker/volumes/d8e5241795da1452f01a568ed998539ea38636412506e108079fb428e2d5d014/_data
+root@lyfubuntu:/var/lib/docker/volumes/d8e5241795da1452f01a568ed998539ea38636412506e108079fb428e2d5d014/_data# ls
+lyf_centos_v01
+root@lyfubuntu:/var/lib/docker/volumes/d8e5241795da1452f01a568ed998539ea38636412506e108079fb428e2d5d014/_data# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED          SIZE
+lyf/centos      1.0       967c603048b0   17 minutes ago   231MB
+my_centos       0.1       d3a84994963f   28 hours ago     559MB
+my_tomcat       0.1       82bf5ce1034c   42 hours ago     480MB
+tomcat          9.0       d4488b7f8c9b   2 days ago       475MB
+tomcat          latest    7a91e6f458bb   2 days ago       475MB
+mysql           5.7       daff57b7d2d1   11 days ago      430MB
+nginx           latest    2b7d6430f78d   13 days ago      142MB
+centos          latest    5d0da3dc9764   11 months ago    231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago      791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                          PORTS     NAMES
+489086f92c85   lyf/centos:1.0        "/bin/bash"              8 minutes ago   Exited (0) About a minute ago             admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   17 hours ago    Exited (0) 17 hours ago                   nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   17 hours ago    Exited (0) 17 hours ago                   nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   23 hours ago    Exited (0) 18 hours ago                   mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              27 hours ago    Exited (0) 27 hours ago                   stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        41 hours ago    Exited (143) 40 hours ago                 my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        42 hours ago    Exited (143) 42 hours ago                 tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   46 hours ago    Exited (143) 46 hours ago                 elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        2 days ago      Exited (143) 47 hours ago                 tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   2 days ago      Exited (0) 2 days ago                     nginx01
+bf46371dea89   centos                "/bin/bash"              2 days ago      Exited (0) 28 hours ago                   epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 通过上面的 实验得出：
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # volume01 和 volume02 这两个目录就是我们生成镜像的时候自动挂载的数据卷目录
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # volume01 和 volume02 是匿名挂载方式
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 这两个卷和 外部一定有一个同步的目录！
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 通过 `docker inspect 容器id` 可以找到与两个卷对应的宿主机目录
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 最终确定文 件已经同步到宿主机上了
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 这种方式很 方便，否则需要手动挂载目录 -> `-v 卷名:容器内路径
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$
+```
+
+### 数据卷容器
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
