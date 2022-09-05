@@ -6320,6 +6320,192 @@ bf46371dea89   centos                "/bin/bash"              2 days ago      Ex
 
 ### 数据卷容器
 
+> 多个mysql同步数据！
+
+![](https://cos.luyf-lemon-love.space/images/20220905174324.png)
+
+> 启动3个容器，通过我们刚才自己写的镜像启动
+
+![](https://cos.luyf-lemon-love.space/images/20220905174724.png)
+
+![](https://cos.luyf-lemon-love.space/images/20220905174737.png)
+
+---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+lyf/centos      1.0       967c603048b0   2 hours ago     231MB
+my_centos       0.1       d3a84994963f   29 hours ago    559MB
+my_tomcat       0.1       82bf5ce1034c   43 hours ago    480MB
+tomcat          9.0       d4488b7f8c9b   2 days ago      475MB
+tomcat          latest    7a91e6f458bb   2 days ago      475MB
+mysql           5.7       daff57b7d2d1   11 days ago     430MB
+nginx           latest    2b7d6430f78d   13 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+489086f92c85   lyf/centos:1.0        "/bin/bash"              2 hours ago    Exited (0) 2 hours ago                admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   19 hours ago   Exited (0) 18 hours ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   19 hours ago   Exited (0) 18 hours ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   25 hours ago   Exited (0) 19 hours ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              29 hours ago   Exited (0) 28 hours ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        43 hours ago   Exited (143) 42 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        43 hours ago   Exited (143) 43 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   47 hours ago   Exited (143) 47 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        2 days ago     Exited (143) 2 days ago               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   2 days ago     Exited (0) 2 days ago                 nginx01
+bf46371dea89   centos                "/bin/bash"              2 days ago     Exited (0) 30 hours ago               epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker run it(base(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker run -it --name docker01 lyf/centos:1.0
+[root@bff7cd75704f /]# ls
+bin  etc   lib	  lost+found  mnt  proc  run   srv  tmp  var	   volume02
+dev  home  lib64  media       opt  root  sbin  sys  usr  volume01
+[root@bff7cd75704f /]# cd volume01
+[root@bff7cd75704f volume01]# ls
+[root@bff7cd75704f volume01]# touch docker01
+[root@bff7cd75704f volume01]# l
+bash: l: command not found
+[root@bff7cd75704f volume01]# ls
+docker01
+[root@bff7cd75704f volume01]# (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ 
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+lyf/centos      1.0       967c603048b0   2 hours ago     231MB
+my_centos       0.1       d3a84994963f   29 hours ago    559MB
+my_tomcat       0.1       82bf5ce1034c   43 hours ago    480MB
+tomcat          9.0       d4488b7f8c9b   2 days ago      475MB
+tomcat          latest    7a91e6f458bb   2 days ago      475MB
+mysql           5.7       daff57b7d2d1   11 days ago     430MB
+nginx           latest    2b7d6430f78d   13 days ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE            COMMAND                  CREATED              STATUS              PORTS     NAMES
+bff7cd75704f   lyf/centos:1.0   "/bin/sh -c /bin/bash"   About a minute ago   Up About a minute             docker01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED              STATUS                      PORTS     NAMES
+bff7cd75704f   lyf/centos:1.0        "/bin/sh -c /bin/bash"   About a minute ago   Up About a minute                     docker01
+489086f92c85   lyf/centos:1.0        "/bin/bash"              2 hours ago          Exited (0) 2 hours ago                admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   19 hours ago         Exited (0) 18 hours ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   19 hours ago         Exited (0) 18 hours ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   25 hours ago         Exited (0) 19 hours ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              29 hours ago         Exited (0) 28 hours ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        43 hours ago         Exited (143) 42 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        43 hours ago         Exited (143) 43 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   47 hours ago         Exited (143) 47 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        2 days ago           Exited (143) 2 days ago               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   2 days ago           Exited (0) 2 days ago                 nginx01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker run (base(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker run -it --name docker02 --volumes-from docker01 lyf/centos:1.0
+[root@a85d30f34140 /]# ls
+bin  etc   lib	  lost+found  mnt  proc  run   srv  tmp  var	   volume02
+dev  home  lib64  media       opt  root  sbin  sys  usr  volume01
+[root@a85d30f34140 /]# cd volume01
+[root@a85d30f34140 volume01]# ls
+docker01
+[root@a85d30f34140 volume01]# touch docker02
+[root@a85d30f34140 volume01]# (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ 
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker run -it --name docker03 --volumes-from docker01 lyf/centos:1.0
+[root@3de864354aec /]# ls
+bin  etc   lib	  lost+found  mnt  proc  run   srv  tmp  var	   volume02
+dev  home  lib64  media       opt  root  sbin  sys  usr  volume01
+[root@3de864354aec /]# cd volume01
+[root@3de864354aec volume01]# ls
+docker01  docker02
+[root@3de864354aec volume01]# touch docker03
+[root@3de864354aec volume01]# ls
+docker01  docker02  docker03
+[root@3de864354aec volume01]# (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ ls
+dockerfile1
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS     NAMES
+3de864354aec   lyf/centos:1.0   "/bin/sh -c /bin/bash"   54 seconds ago   Up 52 seconds             docker03
+a85d30f34140   lyf/centos:1.0   "/bin/sh -c /bin/bash"   2 minutes ago    Up 2 minutes              docker02
+bff7cd75704f   lyf/centos:1.0   "/bin/sh -c /bin/bash"   5 minutes ago    Up 5 minutes              docker01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED              STATUS                      PORTS     NAMES
+3de864354aec   lyf/centos:1.0        "/bin/sh -c /bin/bash"   About a minute ago   Up 59 seconds                         docker03
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   2 minutes ago        Up 2 minutes                          docker02
+bff7cd75704f   lyf/centos:1.0        "/bin/sh -c /bin/bash"   6 minutes ago        Up 5 minutes                          docker01
+489086f92c85   lyf/centos:1.0        "/bin/bash"              2 hours ago          Exited (0) 2 hours ago                admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   19 hours ago         Exited (0) 18 hours ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   19 hours ago         Exited (0) 18 hours ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   25 hours ago         Exited (0) 20 hours ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              29 hours ago         Exited (0) 28 hours ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        43 hours ago         Exited (143) 42 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        44 hours ago         Exited (143) 43 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   2 days ago           Exited (143) 47 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        2 days ago           Exited (143) 2 days ago               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   2 days ago           Exited (0) 2 days ago                 nginx01
+bf46371dea89   centos                "/bin/bash"              2 days ago           Exited (0) 30 hours ago               epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker attach bff7cd75704f
+[root@bff7cd75704f volume01]# ls
+docker01  docker02  docker03
+[root@bff7cd75704f volume01]# read escape sequence
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker rm -f docker01 docker03
+docker01
+docker03
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE            COMMAND                  CREATED         STATUS         PORTS     NAMES
+a85d30f34140   lyf/centos:1.0   "/bin/sh -c /bin/bash"   3 minutes ago   Up 3 minutes             docker02
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                      PORTS     NAMES
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   3 minutes ago   Up 3 minutes                          docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              2 hours ago     Exited (0) 2 hours ago                admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   19 hours ago    Exited (0) 18 hours ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   19 hours ago    Exited (0) 18 hours ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   25 hours ago    Exited (0) 20 hours ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              29 hours ago    Exited (0) 28 hours ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        43 hours ago    Exited (143) 42 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        44 hours ago    Exited (143) 43 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   2 days ago      Exited (143) 47 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        2 days ago      Exited (143) 2 days ago               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   2 days ago      Exited (0) 2 days ago                 nginx01
+bf46371dea89   centos                "/bin/bash"              2 days ago      Exited (0) 30 hours ago               epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker attach docker02
+[root@a85d30f34140 volume01]# ls
+docker01  docker02  docker03
+[root@a85d30f34140 volume01]# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                      PORTS     NAMES
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   4 minutes ago   Exited (0) 14 seconds ago             docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              2 hours ago     Exited (0) 2 hours ago                admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   19 hours ago    Exited (0) 19 hours ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   19 hours ago    Exited (0) 19 hours ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   25 hours ago    Exited (0) 20 hours ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              29 hours ago    Exited (0) 28 hours ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        43 hours ago    Exited (143) 42 hours ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        44 hours ago    Exited (143) 43 hours ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   2 days ago      Exited (143) 47 hours ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        2 days ago      Exited (143) 2 days ago               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   2 days ago      Exited (0) 2 days ago                 nginx01
+bf46371dea89   centos                "/bin/bash"              2 days ago      Exited (0) 30 hours ago               epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$
+```
+
+---
+
+多个mysql实现数据共享
+
+```shell
+[root@iZ2zeg4ytp0whqtmxbsqiiZ home]# docker run -d -p 3344:3306 -v /etc/mysql/conf.d -v /var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:5.7
+ 
+[root@iZ2zeg4ytp0whqtmxbsqiiZ home]# docker run -d -p 3344:3306 -v /etc/mysql/conf.d -v /var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql02 --volumes-from mysql01 mysql:5.7
+```
+
+结论
+
+容器之间配置信息的传递， 数据卷容器的声明周期一直持续到没有容器使用为止。
+
+但是一旦你持久化到了本地，这个时候，本地的数据是不会删除的！
+
+### DockerFile
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
