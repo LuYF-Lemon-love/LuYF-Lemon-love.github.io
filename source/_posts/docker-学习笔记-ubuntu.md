@@ -5795,9 +5795,9 @@ docker run -d -P --name nginx02 -v juming-nginx:/etc/nginx:rw nginx
 # ro 这个路径只能通过宿主机来操作，容器内部无法操作！
 ```
 
-## DockerFile
+## Dockerfile
 
-### 初始 DockerFile
+### 初始 Dockerfile
 
 ---
 
@@ -6320,11 +6320,11 @@ bf46371dea89   centos                "/bin/bash"              2 days ago      Ex
 
 ### 数据卷容器
 
-> 多个mysql同步数据！
+> 多个 `mysql` 同步数据！
 
 ![](https://cos.luyf-lemon-love.space/images/20220905174324.png)
 
-> 启动3个容器，通过我们刚才自己写的镜像启动
+> 启动 `3` 个容器，启动我们刚才自己写的镜像
 
 ![](https://cos.luyf-lemon-love.space/images/20220905174724.png)
 
@@ -6490,21 +6490,23 @@ bf46371dea89   centos                "/bin/bash"              2 days ago      Ex
 
 ---
 
-多个mysql实现数据共享
+多个 `mysql` 实现数据共享
 
 ```shell
-[root@iZ2zeg4ytp0whqtmxbsqiiZ home]# docker run -d -p 3344:3306 -v /etc/mysql/conf.d -v /var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:5.7
+$ docker run -d -p 3344:3306 -v /etc/mysql/conf.d -v /var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:5.7
  
-[root@iZ2zeg4ytp0whqtmxbsqiiZ home]# docker run -d -p 3344:3306 -v /etc/mysql/conf.d -v /var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql02 --volumes-from mysql01 mysql:5.7
+$ docker run -d -p 3344:3306 -v /etc/mysql/conf.d -v /var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql02 --volumes-from mysql01 mysql:5.7
 ```
 
-结论
+**结论**
 
-容器之间配置信息的传递， 数据卷容器的声明周期一直持续到没有容器使用为止。
+1. `容器之间的配置信息`可以通过`数据卷容器`传递。
 
-但是一旦你持久化到了本地，这个时候，本地的数据是不会删除的！
+2. `数据卷容器`的`生命周期`一直持续到没有容器使用为止。
 
-### DockerFile
+3. 一旦你持久化到了`本地`，这个时候，`本地的数据是不会删除的`！
+
+### Dockerfile
 
 ## 结语
 
