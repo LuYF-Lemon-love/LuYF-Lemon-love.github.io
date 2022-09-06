@@ -6579,6 +6579,41 @@ ENV                 # 设置环境变量！
 
 ### 创建一个自己的 centos
 
+```shell
+# 1. 编写Dockerfile的文件
+[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# cat mydockerfile-centos 
+FROM centos
+MAINTAINER xiaofan<594042358@qq.com>
+ 
+ENV MYPATH /usr/local
+WORKDIR $MYPATH     # 镜像的工作目录
+ 
+RUN yum -y install vim
+RUN yum -y install net-tools
+ 
+EXPOSE 80
+ 
+CMD echo $MYPATH
+CMD echo "---end---"
+CMD /bin/bash
+ 
+# 2. 通过这个文件构建镜像
+# 命令 docker build -f dockerfile文件路径 -t 镜像名:[tag] .
+ 
+[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker build -f mydockerfile-centos -t mycentos:0.1 .
+ 
+Successfully built d2d9f0ea8cb2
+Successfully tagged mycentos:0.1
+```
+
+![](https://cos.luyf-lemon-love.space/images/20220906141824.png)
+
+我们可以列出本地进行的变更历史。
+
+![](https://cos.luyf-lemon-love.space/images/20220906141902.png)
+
+### `CMD` 和 `ENTRYPOINT` 区别
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
