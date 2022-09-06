@@ -6580,8 +6580,8 @@ ENV                 # 设置环境变量！
 ### 创建一个自己的 centos
 
 ```shell
-# 1. 编写Dockerfile的文件
-[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# cat mydockerfile-centos 
+# 1. 编写 Dockerfile
+$ cat mydockerfile-centos 
 FROM centos
 MAINTAINER xiaofan<594042358@qq.com>
  
@@ -6600,7 +6600,7 @@ CMD /bin/bash
 # 2. 通过这个文件构建镜像
 # 命令 docker build -f dockerfile文件路径 -t 镜像名:[tag] .
  
-[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker build -f mydockerfile-centos -t mycentos:0.1 .
+$ docker build -f mydockerfile-centos -t mycentos:0.1 .
  
 Successfully built d2d9f0ea8cb2
 Successfully tagged mycentos:0.1
@@ -6608,9 +6608,520 @@ Successfully tagged mycentos:0.1
 
 ![](https://cos.luyf-lemon-love.space/images/20220906141824.png)
 
-我们可以列出本地进行的变更历史。
+我们可以`列出本地进行的变更历史`。
 
 ![](https://cos.luyf-lemon-love.space/images/20220906141902.png)
+
+---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ ls -al
+总用量 12
+drwxrwxr-x 2 lyfubuntu lyfubuntu 4096 9月   6 13:14 .
+drwxrwxr-x 6 lyfubuntu lyfubuntu 4096 9月   5 15:16 ..
+-rw-rw-r-- 1 lyfubuntu lyfubuntu  168 9月   5 15:23 dockerfile1
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 1.  编写 Dockerfile
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ vim mydockerfile-centos
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ ls
+dockerfile1  mydockerfile-centos
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ cat mydockerfile-centos 
+# centos:8 已经停止维护，无法利用包管理器工具
+FROM centos:7
+MAINTAINER LuYF-Lemon-love<luyanfeng_nlp@qq.com>
+
+ENV MYPATH /usr/local
+
+# 镜像的工作目录
+WORKDIR $MYPATH
+
+RUN yum -y install vim
+RUN yum -y install net-tools
+
+EXPOSE 80
+
+CMD echo $MYPATH
+CMD echo "---end---"
+CMD /bin/bash
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+lyf/centos      1.0       967c603048b0   22 hours ago    231MB
+my_centos       0.1       d3a84994963f   2 days ago      559MB
+my_tomcat       0.1       82bf5ce1034c   2 days ago      480MB
+tomcat          9.0       d4488b7f8c9b   3 days ago      475MB
+tomcat          latest    7a91e6f458bb   3 days ago      475MB
+mysql           5.7       daff57b7d2d1   12 days ago     430MB
+nginx           latest    2b7d6430f78d   2 weeks ago     142MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                    PORTS     NAMES
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   20 hours ago   Exited (0) 20 hours ago             docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              22 hours ago   Exited (0) 22 hours ago             admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   39 hours ago   Exited (0) 39 hours ago             nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   39 hours ago   Exited (0) 39 hours ago             nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   45 hours ago   Exited (0) 40 hours ago             mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              2 days ago     Exited (0) 2 days ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        2 days ago     Exited (143) 2 days ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        2 days ago     Exited (143) 2 days ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   2 days ago     Exited (143) 2 days ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        2 days ago     Exited (143) 2 days ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   3 days ago     Exited (0) 3 days ago               nginx01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile(base(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker build -f mydockerfile-centos -t mycentos:0.2 .
+Sending build context to Docker daemon  3.072kB
+Step 1/10 : FROM centos:7
+7: Pulling from library/centos
+2d473b07cdd5: Pull complete 
+Digest: sha256:c73f515d06b0fa07bb18d8202035e739a494ce760aa73129f60f4bf2bd22b407
+Status: Downloaded newer image for centos:7
+ ---> eeb6ee3f44bd
+Step 2/10 : MAINTAINER LuYF-Lemon-love<luyanfeng_nlp@qq.com>
+ ---> Running in e1d3f3fffd64
+Removing intermediate container e1d3f3fffd64
+ ---> 2d2197dc0ab2
+Step 3/10 : ENV MYPATH /usr/local
+ ---> Running in 05258b5abeed
+Removing intermediate container 05258b5abeed
+ ---> 720923f64370
+Step 4/10 : WORKDIR $MYPATH
+ ---> Running in a1a8a0812e84
+Removing intermediate container a1a8a0812e84
+ ---> 594850a3a9cb
+Step 5/10 : RUN yum -y install vim
+ ---> Running in bd13a06d23b3
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: mirrors.nju.edu.cn
+ * extras: mirrors.nju.edu.cn
+ * updates: mirrors.nju.edu.cn
+Resolving Dependencies
+--> Running transaction check
+---> Package vim-enhanced.x86_64 2:7.4.629-8.el7_9 will be installed
+--> Processing Dependency: vim-common = 2:7.4.629-8.el7_9 for package: 2:vim-enhanced-7.4.629-8.el7_9.x86_64
+--> Processing Dependency: which for package: 2:vim-enhanced-7.4.629-8.el7_9.x86_64
+--> Processing Dependency: perl(:MODULE_COMPAT_5.16.3) for package: 2:vim-enhanced-7.4.629-8.el7_9.x86_64
+--> Processing Dependency: libperl.so()(64bit) for package: 2:vim-enhanced-7.4.629-8.el7_9.x86_64
+--> Processing Dependency: libgpm.so.2()(64bit) for package: 2:vim-enhanced-7.4.629-8.el7_9.x86_64
+--> Running transaction check
+---> Package gpm-libs.x86_64 0:1.20.7-6.el7 will be installed
+---> Package perl.x86_64 4:5.16.3-299.el7_9 will be installed
+--> Processing Dependency: perl(Socket) >= 1.3 for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Scalar::Util) >= 1.10 for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl-macros for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(threads::shared) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(threads) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(constant) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Time::Local) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Time::HiRes) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Storable) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Socket) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Scalar::Util) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Pod::Simple::XHTML) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Pod::Simple::Search) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Getopt::Long) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Filter::Util::Call) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(File::Temp) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(File::Spec::Unix) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(File::Spec::Functions) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(File::Spec) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(File::Path) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Exporter) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Cwd) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Carp) for package: 4:perl-5.16.3-299.el7_9.x86_64
+---> Package perl-libs.x86_64 4:5.16.3-299.el7_9 will be installed
+---> Package vim-common.x86_64 2:7.4.629-8.el7_9 will be installed
+--> Processing Dependency: vim-filesystem for package: 2:vim-common-7.4.629-8.el7_9.x86_64
+---> Package which.x86_64 0:2.20-7.el7 will be installed
+--> Running transaction check
+---> Package perl-Carp.noarch 0:1.26-244.el7 will be installed
+---> Package perl-Exporter.noarch 0:5.68-3.el7 will be installed
+---> Package perl-File-Path.noarch 0:2.09-2.el7 will be installed
+---> Package perl-File-Temp.noarch 0:0.23.01-3.el7 will be installed
+---> Package perl-Filter.x86_64 0:1.49-3.el7 will be installed
+---> Package perl-Getopt-Long.noarch 0:2.40-3.el7 will be installed
+--> Processing Dependency: perl(Pod::Usage) >= 1.14 for package: perl-Getopt-Long-2.40-3.el7.noarch
+--> Processing Dependency: perl(Text::ParseWords) for package: perl-Getopt-Long-2.40-3.el7.noarch
+---> Package perl-PathTools.x86_64 0:3.40-5.el7 will be installed
+---> Package perl-Pod-Simple.noarch 1:3.28-4.el7 will be installed
+--> Processing Dependency: perl(Pod::Escapes) >= 1.04 for package: 1:perl-Pod-Simple-3.28-4.el7.noarch
+--> Processing Dependency: perl(Encode) for package: 1:perl-Pod-Simple-3.28-4.el7.noarch
+---> Package perl-Scalar-List-Utils.x86_64 0:1.27-248.el7 will be installed
+---> Package perl-Socket.x86_64 0:2.010-5.el7 will be installed
+---> Package perl-Storable.x86_64 0:2.45-3.el7 will be installed
+---> Package perl-Time-HiRes.x86_64 4:1.9725-3.el7 will be installed
+---> Package perl-Time-Local.noarch 0:1.2300-2.el7 will be installed
+---> Package perl-constant.noarch 0:1.27-2.el7 will be installed
+---> Package perl-macros.x86_64 4:5.16.3-299.el7_9 will be installed
+---> Package perl-threads.x86_64 0:1.87-4.el7 will be installed
+---> Package perl-threads-shared.x86_64 0:1.43-6.el7 will be installed
+---> Package vim-filesystem.x86_64 2:7.4.629-8.el7_9 will be installed
+--> Running transaction check
+---> Package perl-Encode.x86_64 0:2.51-7.el7 will be installed
+---> Package perl-Pod-Escapes.noarch 1:1.04-299.el7_9 will be installed
+---> Package perl-Pod-Usage.noarch 0:1.63-3.el7 will be installed
+--> Processing Dependency: perl(Pod::Text) >= 3.15 for package: perl-Pod-Usage-1.63-3.el7.noarch
+--> Processing Dependency: perl-Pod-Perldoc for package: perl-Pod-Usage-1.63-3.el7.noarch
+---> Package perl-Text-ParseWords.noarch 0:3.29-4.el7 will be installed
+--> Running transaction check
+---> Package perl-Pod-Perldoc.noarch 0:3.20-4.el7 will be installed
+--> Processing Dependency: perl(parent) for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+--> Processing Dependency: perl(HTTP::Tiny) for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+--> Processing Dependency: groff-base for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+---> Package perl-podlators.noarch 0:2.5.1-3.el7 will be installed
+--> Running transaction check
+---> Package groff-base.x86_64 0:1.22.2-8.el7 will be installed
+---> Package perl-HTTP-Tiny.noarch 0:0.033-3.el7 will be installed
+---> Package perl-parent.noarch 1:0.225-244.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                    Arch       Version                Repository   Size
+================================================================================
+Installing:
+ vim-enhanced               x86_64     2:7.4.629-8.el7_9      updates     1.1 M
+Installing for dependencies:
+ gpm-libs                   x86_64     1.20.7-6.el7           base         32 k
+ groff-base                 x86_64     1.22.2-8.el7           base        942 k
+ perl                       x86_64     4:5.16.3-299.el7_9     updates     8.0 M
+ perl-Carp                  noarch     1.26-244.el7           base         19 k
+ perl-Encode                x86_64     2.51-7.el7             base        1.5 M
+ perl-Exporter              noarch     5.68-3.el7             base         28 k
+ perl-File-Path             noarch     2.09-2.el7             base         26 k
+ perl-File-Temp             noarch     0.23.01-3.el7          base         56 k
+ perl-Filter                x86_64     1.49-3.el7             base         76 k
+ perl-Getopt-Long           noarch     2.40-3.el7             base         56 k
+ perl-HTTP-Tiny             noarch     0.033-3.el7            base         38 k
+ perl-PathTools             x86_64     3.40-5.el7             base         82 k
+ perl-Pod-Escapes           noarch     1:1.04-299.el7_9       updates      52 k
+ perl-Pod-Perldoc           noarch     3.20-4.el7             base         87 k
+ perl-Pod-Simple            noarch     1:3.28-4.el7           base        216 k
+ perl-Pod-Usage             noarch     1.63-3.el7             base         27 k
+ perl-Scalar-List-Utils     x86_64     1.27-248.el7           base         36 k
+ perl-Socket                x86_64     2.010-5.el7            base         49 k
+ perl-Storable              x86_64     2.45-3.el7             base         77 k
+ perl-Text-ParseWords       noarch     3.29-4.el7             base         14 k
+ perl-Time-HiRes            x86_64     4:1.9725-3.el7         base         45 k
+ perl-Time-Local            noarch     1.2300-2.el7           base         24 k
+ perl-constant              noarch     1.27-2.el7             base         19 k
+ perl-libs                  x86_64     4:5.16.3-299.el7_9     updates     690 k
+ perl-macros                x86_64     4:5.16.3-299.el7_9     updates      44 k
+ perl-parent                noarch     1:0.225-244.el7        base         12 k
+ perl-podlators             noarch     2.5.1-3.el7            base        112 k
+ perl-threads               x86_64     1.87-4.el7             base         49 k
+ perl-threads-shared        x86_64     1.43-6.el7             base         39 k
+ vim-common                 x86_64     2:7.4.629-8.el7_9      updates     5.9 M
+ vim-filesystem             x86_64     2:7.4.629-8.el7_9      updates      11 k
+ which                      x86_64     2.20-7.el7             base         41 k
+
+Transaction Summary
+================================================================================
+Install  1 Package (+32 Dependent packages)
+
+Total download size: 19 M
+Installed size: 63 M
+Downloading packages:
+warning: /var/cache/yum/x86_64/7/base/packages/gpm-libs-1.20.7-6.el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
+Public key for gpm-libs-1.20.7-6.el7.x86_64.rpm is not installed
+Public key for perl-Pod-Escapes-1.04-299.el7_9.noarch.rpm is not installed
+--------------------------------------------------------------------------------
+Total                                              8.3 MB/s |  19 MB  00:02     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Importing GPG key 0xF4A80EB5:
+ Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ Package    : centos-release-7-9.2009.0.el7.centos.x86_64 (@CentOS)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : gpm-libs-1.20.7-6.el7.x86_64                                1/33 
+  Installing : 2:vim-filesystem-7.4.629-8.el7_9.x86_64                     2/33 
+  Installing : 2:vim-common-7.4.629-8.el7_9.x86_64                         3/33 
+  Installing : which-2.20-7.el7.x86_64                                     4/33 
+install-info: No such file or directory for /usr/share/info/which.info.gz
+  Installing : groff-base-1.22.2-8.el7.x86_64                              5/33 
+  Installing : 1:perl-parent-0.225-244.el7.noarch                          6/33 
+  Installing : perl-HTTP-Tiny-0.033-3.el7.noarch                           7/33 
+  Installing : perl-podlators-2.5.1-3.el7.noarch                           8/33 
+  Installing : perl-Pod-Perldoc-3.20-4.el7.noarch                          9/33 
+  Installing : 1:perl-Pod-Escapes-1.04-299.el7_9.noarch                   10/33 
+  Installing : perl-Encode-2.51-7.el7.x86_64                              11/33 
+  Installing : perl-Text-ParseWords-3.29-4.el7.noarch                     12/33 
+  Installing : perl-Pod-Usage-1.63-3.el7.noarch                           13/33 
+  Installing : 4:perl-macros-5.16.3-299.el7_9.x86_64                      14/33 
+  Installing : perl-Storable-2.45-3.el7.x86_64                            15/33 
+  Installing : perl-Exporter-5.68-3.el7.noarch                            16/33 
+  Installing : perl-constant-1.27-2.el7.noarch                            17/33 
+  Installing : perl-Socket-2.010-5.el7.x86_64                             18/33 
+  Installing : perl-Time-Local-1.2300-2.el7.noarch                        19/33 
+  Installing : perl-Carp-1.26-244.el7.noarch                              20/33 
+  Installing : perl-PathTools-3.40-5.el7.x86_64                           21/33 
+  Installing : perl-Scalar-List-Utils-1.27-248.el7.x86_64                 22/33 
+  Installing : 1:perl-Pod-Simple-3.28-4.el7.noarch                        23/33 
+  Installing : perl-File-Temp-0.23.01-3.el7.noarch                        24/33 
+  Installing : perl-File-Path-2.09-2.el7.noarch                           25/33 
+  Installing : perl-threads-shared-1.43-6.el7.x86_64                      26/33 
+  Installing : perl-threads-1.87-4.el7.x86_64                             27/33 
+  Installing : 4:perl-Time-HiRes-1.9725-3.el7.x86_64                      28/33 
+  Installing : perl-Filter-1.49-3.el7.x86_64                              29/33 
+  Installing : 4:perl-libs-5.16.3-299.el7_9.x86_64                        30/33 
+  Installing : perl-Getopt-Long-2.40-3.el7.noarch                         31/33 
+  Installing : 4:perl-5.16.3-299.el7_9.x86_64                             32/33 
+  Installing : 2:vim-enhanced-7.4.629-8.el7_9.x86_64                      33/33 
+  Verifying  : perl-HTTP-Tiny-0.033-3.el7.noarch                           1/33 
+  Verifying  : perl-threads-shared-1.43-6.el7.x86_64                       2/33 
+  Verifying  : perl-Storable-2.45-3.el7.x86_64                             3/33 
+  Verifying  : groff-base-1.22.2-8.el7.x86_64                              4/33 
+  Verifying  : perl-Exporter-5.68-3.el7.noarch                             5/33 
+  Verifying  : perl-constant-1.27-2.el7.noarch                             6/33 
+  Verifying  : perl-PathTools-3.40-5.el7.x86_64                            7/33 
+  Verifying  : 4:perl-macros-5.16.3-299.el7_9.x86_64                       8/33 
+  Verifying  : 2:vim-enhanced-7.4.629-8.el7_9.x86_64                       9/33 
+  Verifying  : 1:perl-parent-0.225-244.el7.noarch                         10/33 
+  Verifying  : perl-Socket-2.010-5.el7.x86_64                             11/33 
+  Verifying  : which-2.20-7.el7.x86_64                                    12/33 
+  Verifying  : 2:vim-filesystem-7.4.629-8.el7_9.x86_64                    13/33 
+  Verifying  : perl-File-Temp-0.23.01-3.el7.noarch                        14/33 
+  Verifying  : 1:perl-Pod-Simple-3.28-4.el7.noarch                        15/33 
+  Verifying  : perl-Time-Local-1.2300-2.el7.noarch                        16/33 
+  Verifying  : 1:perl-Pod-Escapes-1.04-299.el7_9.noarch                   17/33 
+  Verifying  : perl-Carp-1.26-244.el7.noarch                              18/33 
+  Verifying  : 2:vim-common-7.4.629-8.el7_9.x86_64                        19/33 
+  Verifying  : perl-Scalar-List-Utils-1.27-248.el7.x86_64                 20/33 
+  Verifying  : perl-Pod-Usage-1.63-3.el7.noarch                           21/33 
+  Verifying  : perl-Encode-2.51-7.el7.x86_64                              22/33 
+  Verifying  : perl-Pod-Perldoc-3.20-4.el7.noarch                         23/33 
+  Verifying  : perl-podlators-2.5.1-3.el7.noarch                          24/33 
+  Verifying  : 4:perl-5.16.3-299.el7_9.x86_64                             25/33 
+  Verifying  : perl-File-Path-2.09-2.el7.noarch                           26/33 
+  Verifying  : perl-threads-1.87-4.el7.x86_64                             27/33 
+  Verifying  : 4:perl-Time-HiRes-1.9725-3.el7.x86_64                      28/33 
+  Verifying  : gpm-libs-1.20.7-6.el7.x86_64                               29/33 
+  Verifying  : perl-Filter-1.49-3.el7.x86_64                              30/33 
+  Verifying  : perl-Getopt-Long-2.40-3.el7.noarch                         31/33 
+  Verifying  : perl-Text-ParseWords-3.29-4.el7.noarch                     32/33 
+  Verifying  : 4:perl-libs-5.16.3-299.el7_9.x86_64                        33/33 
+
+Installed:
+  vim-enhanced.x86_64 2:7.4.629-8.el7_9                                         
+
+Dependency Installed:
+  gpm-libs.x86_64 0:1.20.7-6.el7                                                
+  groff-base.x86_64 0:1.22.2-8.el7                                              
+  perl.x86_64 4:5.16.3-299.el7_9                                                
+  perl-Carp.noarch 0:1.26-244.el7                                               
+  perl-Encode.x86_64 0:2.51-7.el7                                               
+  perl-Exporter.noarch 0:5.68-3.el7                                             
+  perl-File-Path.noarch 0:2.09-2.el7                                            
+  perl-File-Temp.noarch 0:0.23.01-3.el7                                         
+  perl-Filter.x86_64 0:1.49-3.el7                                               
+  perl-Getopt-Long.noarch 0:2.40-3.el7                                          
+  perl-HTTP-Tiny.noarch 0:0.033-3.el7                                           
+  perl-PathTools.x86_64 0:3.40-5.el7                                            
+  perl-Pod-Escapes.noarch 1:1.04-299.el7_9                                      
+  perl-Pod-Perldoc.noarch 0:3.20-4.el7                                          
+  perl-Pod-Simple.noarch 1:3.28-4.el7                                           
+  perl-Pod-Usage.noarch 0:1.63-3.el7                                            
+  perl-Scalar-List-Utils.x86_64 0:1.27-248.el7                                  
+  perl-Socket.x86_64 0:2.010-5.el7                                              
+  perl-Storable.x86_64 0:2.45-3.el7                                             
+  perl-Text-ParseWords.noarch 0:3.29-4.el7                                      
+  perl-Time-HiRes.x86_64 4:1.9725-3.el7                                         
+  perl-Time-Local.noarch 0:1.2300-2.el7                                         
+  perl-constant.noarch 0:1.27-2.el7                                             
+  perl-libs.x86_64 4:5.16.3-299.el7_9                                           
+  perl-macros.x86_64 4:5.16.3-299.el7_9                                         
+  perl-parent.noarch 1:0.225-244.el7                                            
+  perl-podlators.noarch 0:2.5.1-3.el7                                           
+  perl-threads.x86_64 0:1.87-4.el7                                              
+  perl-threads-shared.x86_64 0:1.43-6.el7                                       
+  vim-common.x86_64 2:7.4.629-8.el7_9                                           
+  vim-filesystem.x86_64 2:7.4.629-8.el7_9                                       
+  which.x86_64 0:2.20-7.el7                                                     
+
+Complete!
+Removing intermediate container bd13a06d23b3
+ ---> cdbf32863310
+Step 6/10 : RUN yum -y install net-tools
+ ---> Running in 25dedc29010e
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: mirrors.nju.edu.cn
+ * extras: mirrors.nju.edu.cn
+ * updates: mirrors.nju.edu.cn
+Resolving Dependencies
+--> Running transaction check
+---> Package net-tools.x86_64 0:2.0-0.25.20131004git.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package         Arch         Version                          Repository  Size
+================================================================================
+Installing:
+ net-tools       x86_64       2.0-0.25.20131004git.el7         base       306 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 306 k
+Installed size: 917 k
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : net-tools-2.0-0.25.20131004git.el7.x86_64                    1/1 
+  Verifying  : net-tools-2.0-0.25.20131004git.el7.x86_64                    1/1 
+
+Installed:
+  net-tools.x86_64 0:2.0-0.25.20131004git.el7                                   
+
+Complete!
+Removing intermediate container 25dedc29010e
+ ---> b902cd1a4201
+Step 7/10 : EXPOSE 80
+ ---> Running in 04112dcf7898
+Removing intermediate container 04112dcf7898
+ ---> e33f98f59fe3
+Step 8/10 : CMD echo $MYPATH
+ ---> Running in cf539f0a6cea
+Removing intermediate container cf539f0a6cea
+ ---> 32589249b711
+Step 9/10 : CMD echo "---end---"
+ ---> Running in f03e8564b0ef
+Removing intermediate container f03e8564b0ef
+ ---> 5e36ac9809c5
+Step 10/10 : CMD /bin/bash
+ ---> Running in 595e7683fc52
+Removing intermediate container 595e7683fc52
+ ---> 5f2260ba4d08
+Successfully built 5f2260ba4d08
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerf(base(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ #
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 2. 通过 mydockerfile-centos 文件构建镜像
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Docker(base(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base) lyfubuntu@lyfubuntu(base) l(base) lyfubuntu@lyf(base) lyfubuntu@lyfubuntu:~/my_co(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfi(base) lyfubuntu@(base) lyfubuntu@(base) lyfubuntu@lyfubuntu:~/my_co(base) lyfubuntu@(base) lyfubuntu@(base) lyfubuntu@(base) lyfubuntu@(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 2. 通过 mydockerfile-centos 文件构建镜像
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+mycentos        0.2       5f2260ba4d08   4 minutes ago   624MB
+lyf/centos      1.0       967c603048b0   22 hours ago    231MB
+my_centos       0.1       d3a84994963f   2 days ago      559MB
+my_tomcat       0.1       82bf5ce1034c   2 days ago      480MB
+tomcat          9.0       d4488b7f8c9b   3 days ago      475MB
+tomcat          latest    7a91e6f458bb   3 days ago      475MB
+mysql           5.7       daff57b7d2d1   12 days ago     430MB
+nginx           latest    2b7d6430f78d   2 weeks ago     142MB
+centos          7         eeb6ee3f44bd   11 months ago   204MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                    PORTS     NAMES
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   20 hours ago   Exited (0) 20 hours ago             docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              22 hours ago   Exited (0) 22 hours ago             admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   39 hours ago   Exited (0) 39 hours ago             nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   39 hours ago   Exited (0) 39 hours ago             nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   45 hours ago   Exited (0) 40 hours ago             mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              2 days ago     Exited (0) 2 days ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        2 days ago     Exited (143) 2 days ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        2 days ago     Exited (143) 2 days ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   2 days ago     Exited (143) 2 days ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        2 days ago     Exited (143) 2 days ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   3 days ago     Exited (0) 3 days ago               nginx01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker run -it mycentos:0.2
+[root@db1c2bf8e3c8 local]# pwd
+/usr/local
+[root@db1c2bf8e3c8 local]# ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.17.0.2  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:ac:11:00:02  txqueuelen 0  (Ethernet)
+        RX packets 34  bytes 4327 (4.2 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[root@db1c2bf8e3c8 local]# which vim
+/usr/bin/vim
+[root@db1c2bf8e3c8 local]# vim test.txt
+[root@db1c2bf8e3c8 local]# cat test.txt 
+create a centos.
+[root@db1c2bf8e3c8 local]# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+mycentos        0.2       5f2260ba4d08   9 minutes ago   624MB
+lyf/centos      1.0       967c603048b0   23 hours ago    231MB
+my_centos       0.1       d3a84994963f   2 days ago      559MB
+my_tomcat       0.1       82bf5ce1034c   2 days ago      480MB
+tomcat          9.0       d4488b7f8c9b   3 days ago      475MB
+tomcat          latest    7a91e6f458bb   3 days ago      475MB
+mysql           5.7       daff57b7d2d1   12 days ago     430MB
+nginx           latest    2b7d6430f78d   2 weeks ago     142MB
+centos          7         eeb6ee3f44bd   11 months ago   204MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                          PORTS     NAMES
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   3 minutes ago   Exited (0) About a minute ago             stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   20 hours ago    Exited (0) 20 hours ago                   docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              22 hours ago    Exited (0) 22 hours ago                   admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   39 hours ago    Exited (0) 39 hours ago                   nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   39 hours ago    Exited (0) 39 hours ago                   nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   45 hours ago    Exited (0) 40 hours ago                   mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              2 days ago      Exited (0) 2 days ago                     stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        2 days ago      Exited (143) 2 days ago                   my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        2 days ago      Exited (143) 2 days ago                   tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   2 days ago      Exited (143) 2 days ago                   elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        2 days ago      Exited (143) 2 days ago                   tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   3 days ago      Exited (0) 3 days ago                     nginx01
+bf46371dea89   centos                "/bin/bash"              3 days ago      Exited (0) 2 days ago                     epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker history --help
+
+Usage:  docker history [OPTIONS] IMAGE
+
+Show the history of an image
+
+Options:
+      --format string   Pretty-print images using a Go template
+  -H, --human           Print sizes and dates in human readable format (default true)
+      --no-trunc        Don't truncate output
+  -q, --quiet           Only show image IDs
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker history 5f2260ba4d08
+IMAGE          CREATED          CREATED BY                                      SIZE      COMMENT
+5f2260ba4d08   12 minutes ago   /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "/bin…   0B        
+5e36ac9809c5   12 minutes ago   /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "echo…   0B        
+32589249b711   12 minutes ago   /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "echo…   0B        
+e33f98f59fe3   12 minutes ago   /bin/sh -c #(nop)  EXPOSE 80                    0B        
+b902cd1a4201   12 minutes ago   /bin/sh -c yum -y install net-tools             182MB     
+cdbf32863310   13 minutes ago   /bin/sh -c yum -y install vim                   237MB     
+594850a3a9cb   14 minutes ago   /bin/sh -c #(nop) WORKDIR /usr/local            0B        
+720923f64370   14 minutes ago   /bin/sh -c #(nop)  ENV MYPATH=/usr/local        0B        
+2d2197dc0ab2   14 minutes ago   /bin/sh -c #(nop)  MAINTAINER LuYF-Lemon-lov…   0B        
+eeb6ee3f44bd   11 months ago    /bin/sh -c #(nop)  CMD ["/bin/bash"]            0B        
+<missing>      11 months ago    /bin/sh -c #(nop)  LABEL org.label-schema.sc…   0B        
+<missing>      11 months ago    /bin/sh -c #(nop) ADD file:b3ebbe8bd304723d4…   204MB     
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 创建 一个自己的 centos
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 1. 编写 Dockerfile
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 2. 通过上面的 Dockerfile 构建镜像
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$(base(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 3. 通过 `docker history 镜像id` 可以列出本地进行的变更历史
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$
+```
 
 ### `CMD` 和 `ENTRYPOINT` 区别
 
