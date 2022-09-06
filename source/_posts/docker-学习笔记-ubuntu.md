@@ -7128,23 +7128,23 @@ eeb6ee3f44bd   11 months ago    /bin/sh -c #(nop)  CMD ["/bin/bash"]            
 ### `CMD` 和 `ENTRYPOINT` 区别
 
 ```dockerfile
-CMD         # 指定这个容器启动的时候要运行的命令，只有最后一个会生效可被替代
-ENTRYPOINT      # 指定这个容器启动的时候要运行的命令， 可以追加命令
+CMD         # 指定这个容器启动的时候要运行的命令，只有最后一个会生效，可被替代
+ENTRYPOINT      # 指定这个容器启动的时候要运行的命令，可以追加命令
 ```
 
-测试`CMD`
+**测试 `CMD`**
 
 ```shell
-# 1. 编写dockerfile文件
-[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# vim dockerfile-cmd-test 
+# 1. 编写 dockerfile
+$ vim dockerfile-cmd-test 
 FROM centos
 CMD ["ls", "-a"]
  
 # 2. 构建镜像
-[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker build -f dockerfile-cmd-test -t cmdtest .
+$ docker build -f dockerfile-cmd-test -t cmdtest .
  
-# 3. run运行， 发现我们的ls -a 命令生效
-[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker run ebe6a52bb125
+# 3. run 运行，发现我们的 ls -a 命令生效
+$ docker run ebe6a52bb125
 .
 ..
 .dockerenv
@@ -7155,27 +7155,27 @@ home
 lib
 lib64
  
-# 想追加一个命令 -l 变成 ls -al
-[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker run ebe6a52bb125 -l
+# 想追加一个参数 -l 变成 ls -al
+$ docker run ebe6a52bb125 -l
 docker: Error response from daemon: OCI runtime create failed: container_linux.go:349: starting container process caused "exec: \"-l\": executable file not found in $PATH": unknown.
-[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker run ebe6a52bb125 ls -l
+$ docker run ebe6a52bb125 ls -l
  
-# cmd的情况下 -l替换了CMD["ls", "-a"]命令， -l不是命令，所以报错了
+# CMD 的情况下，-l 替换了 CMD ["ls", "-a"] 命令，-l 不是命令，所以报错了
 ```
 
-测试ENTRYPOINT
+**测试 `ENTRYPOINT`**
 
 ```shell
-# 1. 编写dockerfile文件
-[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# vim dockerfile-entrypoint-test 
+# 1. 编写 dockerfile
+$ vim dockerfile-entrypoint-test 
 FROM centos
 ENTRYPOINT ["ls", "-a"]
  
 # 2. 构建文件
-[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker build -f dockerfile-entrypoint-test -t entrypoint-test .
+$ docker build -f dockerfile-entrypoint-test -t entrypoint-test .
  
-# 3. run运行 发现我们的ls -a 命令同样生效
-[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker run entrypoint-test
+# 3. run 运行，发现我们的 ls -a 命令同样生效
+$ docker run entrypoint-test
 .
 ..
 .dockerenv
@@ -7185,8 +7185,8 @@ etc
 home
 lib
  
-# 4. 我们的追加命令， 是直接拼接到ENTRYPOINT命令的后面的！
-[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker run entrypoint-test -l
+# 4. 我们的追加命令，是直接拼接到 ENTRYPOINT 命令后面的！
+$ docker run entrypoint-test -l
 total 56
 drwxr-xr-x  1 root root 4096 Aug 13 07:52 .
 drwxr-xr-x  1 root root 4096 Aug 13 07:52 ..
@@ -7198,8 +7198,372 @@ drwxr-xr-x  2 root root 4096 May 11  2019 home
 lrwxrwxrwx  1 root root    7 May 11  2019 lib -> usr/lib
 lrwxrwxrwx  1 root root    9 May 11  2019 lib64 -> usr/lib64
 drwx------  2 root root 4096 Aug  9 21:40 lost+found
- 
 ```
+
+---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ ls
+dockerfile1  mydockerfile-centos
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 1. 编写 Dockerfile 文件
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ vim dockerfile-cmd-test
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ ls
+dockerfile1  dockerfile-cmd-test  mydockerfile-centos
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ cat dockerfile-cmd-test 
+FROM centos
+CMD ["ls", "-a"]
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 2. 构建镜像
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker build -f dockerfile-cmd-test -t cmdtest .
+Sending build context to Docker daemon  4.096kB
+Step 1/2 : FROM centos
+ ---> 5d0da3dc9764
+Step 2/2 : CMD ["ls", "-a"]
+ ---> Running in c0113ecde94c
+Removing intermediate container c0113ecde94c
+ ---> e507939f0998
+Successfully built e507939f0998
+Successfully tagged cmdtest:latest
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 3. run 运行，发现我们的 ls -a 命令生效
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED              SIZE
+cmdtest         latest    e507939f0998   About a minute ago   231MB
+mycentos        0.2       5f2260ba4d08   2 hours ago          624MB
+lyf/centos      1.0       967c603048b0   24 hours ago         231MB
+my_centos       0.1       d3a84994963f   2 days ago           559MB
+my_tomcat       0.1       82bf5ce1034c   2 days ago           480MB
+tomcat          9.0       d4488b7f8c9b   3 days ago           475MB
+tomcat          latest    7a91e6f458bb   3 days ago           475MB
+mysql           5.7       daff57b7d2d1   12 days ago          430MB
+nginx           latest    2b7d6430f78d   2 weeks ago          142MB
+centos          7         eeb6ee3f44bd   11 months ago        204MB
+centos          latest    5d0da3dc9764   11 months ago        231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago          791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                    PORTS     NAMES
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   2 hours ago    Exited (0) 2 hours ago              stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   22 hours ago   Exited (0) 22 hours ago             docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              24 hours ago   Exited (0) 24 hours ago             admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   41 hours ago   Exited (0) 41 hours ago             nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   41 hours ago   Exited (0) 41 hours ago             nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   47 hours ago   Exited (0) 42 hours ago             mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              2 days ago     Exited (0) 2 days ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        2 days ago     Exited (143) 2 days ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        2 days ago     Exited (143) 2 days ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   2 days ago     Exited (143) 2 days ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        3 days ago     Exited (143) 2 days ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   3 days ago     Exited (0) 3 days ago               nginx01
+bf46371dea89   centos                "/bin/bash"              3 days ago     Exited (0) 2 days ago               epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker run cmdtest
+.
+..
+.dockerenv
+bin
+dev
+etc
+home
+lib
+lib64
+lost+found
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED              STATUS                          PORTS     NAMES
+2c58747c312a   cmdtest               "ls -a"                  About a minute ago   Exited (0) About a minute ago             objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   2 hours ago          Exited (0) 2 hours ago                    stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   22 hours ago         Exited (0) 22 hours ago                   docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              24 hours ago         Exited (0) 24 hours ago                   admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   41 hours ago         Exited (0) 41 hours ago                   nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   41 hours ago         Exited (0) 41 hours ago                   nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   47 hours ago         Exited (0) 42 hours ago                   mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              2 days ago           Exited (0) 2 days ago                     stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        2 days ago           Exited (143) 2 days ago                   my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        2 days ago           Exited (143) 2 days ago                   tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   2 days ago           Exited (143) 2 days ago                   elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        3 days ago           Exited (143) 2 days ago                   tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   3 days ago           Exited (0) 3 days ago                     nginx01
+bf46371dea89   centos                "/bin/bash"              3 days ago           Exited (0) 2 days ago                     epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker run 2c58747c312a -l
+Unable to find image '2c58747c312a:latest' locally
+docker: Error response from daemon: pull access denied for 2c58747c312a, repository does not exist or may require 'docker login': denied: requested access to the resource is denied.
+See 'docker run --help'.
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker run cmdtest -l
+docker: Error response from daemon: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "-l": executable file not found in $PATH: unknown.
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+cmdtest         latest    e507939f0998   6 minutes ago   231MB
+mycentos        0.2       5f2260ba4d08   2 hours ago     624MB
+lyf/centos      1.0       967c603048b0   25 hours ago    231MB
+my_centos       0.1       d3a84994963f   2 days ago      559MB
+my_tomcat       0.1       82bf5ce1034c   2 days ago      480MB
+tomcat          9.0       d4488b7f8c9b   3 days ago      475MB
+tomcat          latest    7a91e6f458bb   3 days ago      475MB
+mysql           5.7       daff57b7d2d1   12 days ago     430MB
+nginx           latest    2b7d6430f78d   2 weeks ago     142MB
+centos          7         eeb6ee3f44bd   11 months ago   204MB
+centos          latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                     PORTS     NAMES
+b01b8b2df80f   cmdtest               "-l"                     48 seconds ago   Created                              wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  4 minutes ago    Exited (0) 4 minutes ago             objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   2 hours ago      Exited (0) 2 hours ago               stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   22 hours ago     Exited (0) 22 hours ago              docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              24 hours ago     Exited (0) 24 hours ago              admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   41 hours ago     Exited (0) 41 hours ago              nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   41 hours ago     Exited (0) 41 hours ago              nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   47 hours ago     Exited (0) 42 hours ago              mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              2 days ago       Exited (0) 2 days ago                stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        2 days ago       Exited (143) 2 days ago              my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        2 days ago       Exited (143) 2 days ago              tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   2 days ago       Exited (143) 2 days ago              elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        3 days ago       Exited (143) 2 days ago              tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   3 days ago       Exited (0) 3 days ago                nginx01
+bf46371dea89   centos                "/bin/bash"              3 days ago       Exited (0) 2 days ago                epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker run cmdtest ls -l
+total 48
+lrwxrwxrwx   1 root root    7 Nov  3  2020 bin -> usr/bin
+drwxr-xr-x   5 root root  340 Sep  6 07:57 dev
+drwxr-xr-x   1 root root 4096 Sep  6 07:57 etc
+drwxr-xr-x   2 root root 4096 Nov  3  2020 home
+lrwxrwxrwx   1 root root    7 Nov  3  2020 lib -> usr/lib
+lrwxrwxrwx   1 root root    9 Nov  3  2020 lib64 -> usr/lib64
+drwx------   2 root root 4096 Sep 15  2021 lost+found
+drwxr-xr-x   2 root root 4096 Nov  3  2020 media
+drwxr-xr-x   2 root root 4096 Nov  3  2020 mnt
+drwxr-xr-x   2 root root 4096 Nov  3  2020 opt
+dr-xr-xr-x 377 root root    0 Sep  6 07:57 proc
+dr-xr-x---   2 root root 4096 Sep 15  2021 root
+drwxr-xr-x  11 root root 4096 Sep 15  2021 run
+lrwxrwxrwx   1 root root    8 Nov  3  2020 sbin -> usr/sbin
+drwxr-xr-x   2 root root 4096 Nov  3  2020 srv
+dr-xr-xr-x  13 root root    0 Sep  6 07:57 sys
+drwxrwxrwt   7 root root 4096 Sep 15  2021 tmp
+drwxr-xr-x  12 root root 4096 Sep 15  2021 usr
+drwxr-xr-x  20 root root 4096 Sep 15  2021 var
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 实验结果：
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 需求：想追加一个命令 -l 变成 ls -al
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # CMD: -l 替换了 CMD ["ls", "-a"], -l 不是命 令, 所以报错了
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ #######################################
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ 
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ #######################################
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 测试 ENTRYPOINT
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ #######################################
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ 
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ #######################################
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 1. 编写 Dockerfile 文件
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ ls
+dockerfile1  dockerfile-cmd-test  mydockerfile-centos
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ vim dockerfile-entrypoint-test
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ cat dockerfile-entrypoint-test 
+FROM centos
+ENTRYPOINT ["ls", "-a"]
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 2. 构建文件
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY      TAG       IMAGE ID       CREATED          SIZE
+cmdtest         latest    e507939f0998   23 minutes ago   231MB
+mycentos        0.2       5f2260ba4d08   2 hours ago      624MB
+lyf/centos      1.0       967c603048b0   25 hours ago     231MB
+my_centos       0.1       d3a84994963f   2 days ago       559MB
+my_tomcat       0.1       82bf5ce1034c   2 days ago       480MB
+tomcat          9.0       d4488b7f8c9b   3 days ago       475MB
+tomcat          latest    7a91e6f458bb   3 days ago       475MB
+mysql           5.7       daff57b7d2d1   12 days ago      430MB
+nginx           latest    2b7d6430f78d   2 weeks ago      142MB
+centos          7         eeb6ee3f44bd   11 months ago    204MB
+centos          latest    5d0da3dc9764   11 months ago    231MB
+elasticsearch   7.6.2     f29a1ee41030   2 years ago      791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                      PORTS     NAMES
+2c00ada1000f   cmdtest               "ls -l"                  16 minutes ago   Exited (0) 16 minutes ago             exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     17 minutes ago   Created                               wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  20 minutes ago   Exited (0) 20 minutes ago             objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   2 hours ago      Exited (0) 2 hours ago                stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   23 hours ago     Exited (0) 23 hours ago               docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              25 hours ago     Exited (0) 25 hours ago               admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   41 hours ago     Exited (0) 41 hours ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   41 hours ago     Exited (0) 41 hours ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   47 hours ago     Exited (0) 42 hours ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              2 days ago       Exited (0) 2 days ago                 stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        2 days ago       Exited (143) 2 days ago               my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        2 days ago       Exited (143) 2 days ago               tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   2 days ago       Exited (143) 2 days ago               elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        3 days ago       Exited (143) 2 days ago               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   3 days ago       Exited (0) 3 days ago                 nginx01
+bf46371dea89   centos                "/bin/bash"              3 days ago       Exited (0) 2 days ago                 epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker build -f dockerfile-entrypoint-test -t entrypoint-test .
+Sending build context to Docker daemon   5.12kB
+Step 1/2 : FROM centos
+ ---> 5d0da3dc9764
+Step 2/2 : ENTRYPOINT ["ls", "-a"]
+ ---> Running in 5fa092cdae89
+Removing intermediate container 5fa092cdae89
+ ---> 293b60111edb
+Successfully built 293b60111edb
+Successfully tagged entrypoint-test:latest
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY        TAG       IMAGE ID       CREATED          SIZE
+entrypoint-test   latest    293b60111edb   2 minutes ago    231MB
+cmdtest           latest    e507939f0998   28 minutes ago   231MB
+mycentos          0.2       5f2260ba4d08   2 hours ago      624MB
+lyf/centos        1.0       967c603048b0   25 hours ago     231MB
+my_centos         0.1       d3a84994963f   2 days ago       559MB
+my_tomcat         0.1       82bf5ce1034c   2 days ago       480MB
+tomcat            9.0       d4488b7f8c9b   3 days ago       475MB
+tomcat            latest    7a91e6f458bb   3 days ago       475MB
+mysql             5.7       daff57b7d2d1   12 days ago      430MB
+nginx             latest    2b7d6430f78d   2 weeks ago      142MB
+centos            7         eeb6ee3f44bd   11 months ago    204MB
+centos            latest    5d0da3dc9764   11 months ago    231MB
+elasticsearch     7.6.2     f29a1ee41030   2 years ago      791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                      PORTS     NAMES
+2c00ada1000f   cmdtest               "ls -l"                  21 minutes ago   Exited (0) 21 minutes ago             exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     22 minutes ago   Created                               wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  26 minutes ago   Exited (0) 25 minutes ago             objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   2 hours ago      Exited (0) 2 hours ago                stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   23 hours ago     Exited (0) 23 hours ago               docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              25 hours ago     Exited (0) 25 hours ago               admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   41 hours ago     Exited (0) 41 hours ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   41 hours ago     Exited (0) 41 hours ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   47 hours ago     Exited (0) 42 hours ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              2 days ago       Exited (0) 2 days ago                 stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        2 days ago       Exited (143) 2 days ago               my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        2 days ago       Exited (143) 2 days ago               tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   2 days ago       Exited (143) 2 days ago               elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        3 days ago       Exited (143) 3 days ago               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   3 days ago       Exited (0) 3 days ago                 nginx01
+bf46371dea89   centos                "/bin/bash"              3 days ago       Exited (0) 2 days ago                 epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 3. run 运行，发现我们的 ls -a 命令同样生效
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker run entrypoint-test
+.
+..
+.dockerenv
+bin
+dev
+etc
+home
+lib
+lib64
+lost+found
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                      PORTS     NAMES
+90d672f69b18   entrypoint-test       "ls -a"                  43 seconds ago   Exited (0) 41 seconds ago             eager_burnell
+2c00ada1000f   cmdtest               "ls -l"                  26 minutes ago   Exited (0) 26 minutes ago             exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     27 minutes ago   Created                               wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  31 minutes ago   Exited (0) 31 minutes ago             objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   2 hours ago      Exited (0) 2 hours ago                stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   23 hours ago     Exited (0) 23 hours ago               docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              25 hours ago     Exited (0) 25 hours ago               admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   41 hours ago     Exited (0) 41 hours ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   42 hours ago     Exited (0) 41 hours ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   47 hours ago     Exited (0) 42 hours ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              2 days ago       Exited (0) 2 days ago                 stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        2 days ago       Exited (143) 2 days ago               my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        2 days ago       Exited (143) 2 days ago               tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   2 days ago       Exited (143) 2 days ago               elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        3 days ago       Exited (143) 3 days ago               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   3 days ago       Exited (0) 3 days ago                 nginx01
+bf46371dea89   centos                "/bin/bash"              3 days ago       Exited (0) 2 days ago                 epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ # 4. 我们的追加命令，是直接拼接到 ENTRYPOINT 命令的后面的！
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker run entrypoint-test -l
+total 56
+drwxr-xr-x   1 root root 4096 Sep  6 08:28 .
+drwxr-xr-x   1 root root 4096 Sep  6 08:28 ..
+-rwxr-xr-x   1 root root    0 Sep  6 08:28 .dockerenv
+lrwxrwxrwx   1 root root    7 Nov  3  2020 bin -> usr/bin
+drwxr-xr-x   5 root root  340 Sep  6 08:28 dev
+drwxr-xr-x   1 root root 4096 Sep  6 08:28 etc
+drwxr-xr-x   2 root root 4096 Nov  3  2020 home
+lrwxrwxrwx   1 root root    7 Nov  3  2020 lib -> usr/lib
+lrwxrwxrwx   1 root root    9 Nov  3  2020 lib64 -> usr/lib64
+drwx------   2 root root 4096 Sep 15  2021 lost+found
+drwxr-xr-x   2 root root 4096 Nov  3  2020 media
+drwxr-xr-x   2 root root 4096 Nov  3  2020 mnt
+drwxr-xr-x   2 root root 4096 Nov  3  2020 opt
+dr-xr-xr-x 368 root root    0 Sep  6 08:28 proc
+dr-xr-x---   2 root root 4096 Sep 15  2021 root
+drwxr-xr-x  11 root root 4096 Sep 15  2021 run
+lrwxrwxrwx   1 root root    8 Nov  3  2020 sbin -> usr/sbin
+drwxr-xr-x   2 root root 4096 Nov  3  2020 srv
+dr-xr-xr-x  13 root root    0 Sep  6 08:28 sys
+drwxrwxrwt   7 root root 4096 Sep 15  2021 tmp
+drwxr-xr-x  12 root root 4096 Sep 15  2021 usr
+drwxr-xr-x  20 root root 4096 Sep 15  2021 var
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                      PORTS     NAMES
+f876c324441f   entrypoint-test       "ls -a -l"               25 seconds ago   Exited (0) 23 seconds ago             jolly_shaw
+90d672f69b18   entrypoint-test       "ls -a"                  5 minutes ago    Exited (0) 5 minutes ago              eager_burnell
+2c00ada1000f   cmdtest               "ls -l"                  31 minutes ago   Exited (0) 31 minutes ago             exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     32 minutes ago   Created                               wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  35 minutes ago   Exited (0) 35 minutes ago             objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   3 hours ago      Exited (0) 2 hours ago                stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   23 hours ago     Exited (0) 23 hours ago               docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              25 hours ago     Exited (0) 25 hours ago               admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   42 hours ago     Exited (0) 41 hours ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   42 hours ago     Exited (0) 41 hours ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   2 days ago       Exited (0) 42 hours ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              2 days ago       Exited (0) 2 days ago                 stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        2 days ago       Exited (143) 2 days ago               my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        2 days ago       Exited (143) 2 days ago               tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   2 days ago       Exited (143) 2 days ago               elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        3 days ago       Exited (143) 3 days ago               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   3 days ago       Exited (0) 3 days ago                 nginx01
+bf46371dea89   centos                "/bin/bash"              3 days ago       Exited (0) 2 days ago                 epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY        TAG       IMAGE ID       CREATED          SIZE
+entrypoint-test   latest    293b60111edb   12 minutes ago   231MB
+cmdtest           latest    e507939f0998   38 minutes ago   231MB
+mycentos          0.2       5f2260ba4d08   3 hours ago      624MB
+lyf/centos        1.0       967c603048b0   25 hours ago     231MB
+my_centos         0.1       d3a84994963f   2 days ago       559MB
+my_tomcat         0.1       82bf5ce1034c   2 days ago       480MB
+tomcat            9.0       d4488b7f8c9b   3 days ago       475MB
+tomcat            latest    7a91e6f458bb   3 days ago       475MB
+mysql             5.7       daff57b7d2d1   12 days ago      430MB
+nginx             latest    2b7d6430f78d   2 weeks ago      142MB
+centos            7         eeb6ee3f44bd   11 months ago    204MB
+centos            latest    5d0da3dc9764   11 months ago    231MB
+elasticsearch     7.6.2     f29a1ee41030   2 years ago      791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$
+```
+
+---
 
 ## `Dockerfile` 制作 `tomcat` 镜像
 
