@@ -6514,7 +6514,7 @@ $ docker run -d -p 3344:3306 -v /etc/mysql/conf.d -v /var/lib/mysql -e MYSQL_ROO
 
 1. 编写一个 `dockerFile` 文件。
 
-2. `docker build` 使用 `dockerFile` 构建一个镜像。
+2. `docker build` 使用 `dockerFile` 构建一个`镜像`。
 
 3. `docker run` 运行镜像。
 
@@ -6536,27 +6536,27 @@ $ docker run -d -p 3344:3306 -v /etc/mysql/conf.d -v /var/lib/mysql -e MYSQL_ROO
 
 **基础知识**:
 
-1. 每个`保留关键字`（指令）都必须是`大写字母`。
+1. 每个`保留关键字`（`指令`）都必须是`大写字母`。
 
-2. `从上到下`顺序执行。
+2. `从上到下顺序执行`。
 
 3. `#` 表示注释。
 
-4. 每个`指令`都会创建一个新的镜像层。
+4. 每个`指令`都会创建一个`新的镜像层`。
 
 ![](https://cos.luyf-lemon-love.space/images/20220905231827.png)
 
->`Dockerfile` 是`面向开发的`，我们以后要发布项目，做镜像，就需要编写 `Dockerfile` 文件，这个文件十分简单！
+>`Dockerfile` 是`面向开发的`，我们以后要`发布项目` -> `镜像` -> 编写 `Dockerfile` 文件。
 >
 >`Docker` 镜像逐渐成为企业的交付标准，必须要掌握！
 >
->`步骤`：开发、步骤、运维... 缺一不可！
+>`步骤`：开发、部署、运维... 缺一不可！
 >
 >`Dockerfile`: 构建文件，定义了一切的步骤（源代码）。
 >
->`DockerImages`: 通过 `Dockerfile` 构建生成的镜像，最终发布和运行的产品！
+>`DockerImages`: 通过 `Dockerfile` 构建生成的镜像，最终发布的产品！
 >
->`DockerContainer`: 容器就是镜像运行起来创建的服务器。
+>`DockerContainer`: 容器就是`镜像`运行起来`创建的服务器`。
 
 ### Dockerfile 指令说明
 
@@ -6566,14 +6566,15 @@ $ docker run -d -p 3344:3306 -v /etc/mysql/conf.d -v /var/lib/mysql -e MYSQL_ROO
 FROM                # 基础镜像，一切从这里开始构建
 MAINTAINER          # 镜像的作者，姓名+邮箱
 RUN                 # 镜像构建的时候需要运行的命令
-ADD                 # 步骤， tomcat 镜像，这个 tomcat 压缩包！添加内容
+ADD                 # COPY 文件，会自动解压
 WORKDIR             # 镜像的工作目录
 VOLUME              # 挂载的目录
-EXPOSE              # 保留端口配置
+EXPOSE              # 暴露的端口
 CMD                 # 指定这个容器启动的时候要运行的命令，只有最后一个会生效，可以被替代
 ENTRYPOINT          # 指定这个容器启动的时候要运行的命令，可以追加命令
-ONBUILD             # 当构建一个被继承 DockerFile，这个时候就会运行 ONBUILD 的指令，触发指令
-ENV                 # 构建的时候设置环境变量！
+ONBUILD             # 该 dockerfile 文件创建的镜像被当做基础镜像创建一个新镜像时，会运行 ONBUILD 的指令，是一个触发指令
+COPY                # 将文件拷贝到镜像中
+ENV                 # 设置环境变量！
 ```
 
 ### 创建一个自己的 centos
