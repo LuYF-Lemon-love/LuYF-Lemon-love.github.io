@@ -41,6 +41,8 @@ date: 2022-08-31 17:24:32
 
 9. [MySQL Workbench](https://www.mysql.com/products/workbench/)
 
+10. [制作Tomcat镜像](https://blog.csdn.net/qq_41021000/article/details/124262796)
+
 ## Docker 入门
 
 ### Docker 为什么会出现
@@ -7124,6 +7126,82 @@ eeb6ee3f44bd   11 months ago    /bin/sh -c #(nop)  CMD ["/bin/bash"]            
 ```
 
 ### `CMD` 和 `ENTRYPOINT` 区别
+
+```dockerfile
+CMD         # 指定这个容器启动的时候要运行的命令，只有最后一个会生效可被替代
+ENTRYPOINT      # 指定这个容器启动的时候要运行的命令， 可以追加命令
+```
+
+测试`CMD`
+
+```shell
+# 1. 编写dockerfile文件
+[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# vim dockerfile-cmd-test 
+FROM centos
+CMD ["ls", "-a"]
+ 
+# 2. 构建镜像
+[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker build -f dockerfile-cmd-test -t cmdtest .
+ 
+# 3. run运行， 发现我们的ls -a 命令生效
+[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker run ebe6a52bb125
+.
+..
+.dockerenv
+bin
+dev
+etc
+home
+lib
+lib64
+ 
+# 想追加一个命令 -l 变成 ls -al
+[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker run ebe6a52bb125 -l
+docker: Error response from daemon: OCI runtime create failed: container_linux.go:349: starting container process caused "exec: \"-l\": executable file not found in $PATH": unknown.
+[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker run ebe6a52bb125 ls -l
+ 
+# cmd的情况下 -l替换了CMD["ls", "-a"]命令， -l不是命令，所以报错了
+```
+
+测试ENTRYPOINT
+
+```shell
+# 1. 编写dockerfile文件
+[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# vim dockerfile-entrypoint-test 
+FROM centos
+ENTRYPOINT ["ls", "-a"]
+ 
+# 2. 构建文件
+[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker build -f dockerfile-entrypoint-test -t entrypoint-test .
+ 
+# 3. run运行 发现我们的ls -a 命令同样生效
+[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker run entrypoint-test
+.
+..
+.dockerenv
+bin
+dev
+etc
+home
+lib
+ 
+# 4. 我们的追加命令， 是直接拼接到ENTRYPOINT命令的后面的！
+[root@iZ2zeg4ytp0whqtmxbsqiiZ dockerfile]# docker run entrypoint-test -l
+total 56
+drwxr-xr-x  1 root root 4096 Aug 13 07:52 .
+drwxr-xr-x  1 root root 4096 Aug 13 07:52 ..
+-rwxr-xr-x  1 root root    0 Aug 13 07:52 .dockerenv
+lrwxrwxrwx  1 root root    7 May 11  2019 bin -> usr/bin
+drwxr-xr-x  5 root root  340 Aug 13 07:52 dev
+drwxr-xr-x  1 root root 4096 Aug 13 07:52 etc
+drwxr-xr-x  2 root root 4096 May 11  2019 home
+lrwxrwxrwx  1 root root    7 May 11  2019 lib -> usr/lib
+lrwxrwxrwx  1 root root    9 May 11  2019 lib64 -> usr/lib64
+drwx------  2 root root 4096 Aug  9 21:40 lost+found
+ 
+```
+
+## `Dockerfile` 制作 `tomcat` 镜像
 
 ## 结语
 
