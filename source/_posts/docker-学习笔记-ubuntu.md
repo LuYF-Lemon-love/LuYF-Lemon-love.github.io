@@ -8449,6 +8449,196 @@ bf46371dea89   centos                "/bin/bash"              4 days ago     Exi
 
 ### 发布自己的镜像到 `Docker Hub`
 
+1. `注册登录` `Docker Hub`: https://hub.docker.com/ 。
+
+![](https://cos.luyf-lemon-love.space/images/20220907153333.png)
+
+![](https://cos.luyf-lemon-love.space/images/20220907153357.png)
+
+2. 登录 `Docker Hub`。
+
+```shell
+$ docker login -u luyanfeng123
+Password: 
+WARNING! Your password will be stored unencrypted in /home/lyfubuntu/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+```
+
+3. 将我们的镜像提交到 `Docker Hub` 上。
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY        TAG       IMAGE ID       CREATED         SIZE
+diytomcat         latest    531449811312   3 hours ago     827MB
+entrypoint-test   latest    293b60111edb   24 hours ago    231MB
+cmdtest           latest    e507939f0998   24 hours ago    231MB
+mycentos          0.2       5f2260ba4d08   26 hours ago    624MB
+lyf/centos        1.0       967c603048b0   2 days ago      231MB
+my_centos         0.1       d3a84994963f   3 days ago      559MB
+my_tomcat         0.1       82bf5ce1034c   3 days ago      480MB
+tomcat            9.0       d4488b7f8c9b   4 days ago      475MB
+tomcat            latest    7a91e6f458bb   4 days ago      475MB
+mysql             5.7       daff57b7d2d1   13 days ago     430MB
+nginx             latest    2b7d6430f78d   2 weeks ago     142MB
+centos            7         eeb6ee3f44bd   11 months ago   204MB
+centos            latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch     7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker tag diytomcat luyanfeng123/diytomcat:1.0
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY               TAG       IMAGE ID       CREATED         SIZE
+diytomcat                latest    531449811312   3 hours ago     827MB
+luyanfeng123/diytomcat   1.0       531449811312   3 hours ago     827MB
+entrypoint-test          latest    293b60111edb   24 hours ago    231MB
+cmdtest                  latest    e507939f0998   24 hours ago    231MB
+mycentos                 0.2       5f2260ba4d08   26 hours ago    624MB
+lyf/centos               1.0       967c603048b0   2 days ago      231MB
+my_centos                0.1       d3a84994963f   3 days ago      559MB
+my_tomcat                0.1       82bf5ce1034c   3 days ago      480MB
+tomcat                   9.0       d4488b7f8c9b   4 days ago      475MB
+tomcat                   latest    7a91e6f458bb   4 days ago      475MB
+mysql                    5.7       daff57b7d2d1   13 days ago     430MB
+nginx                    latest    2b7d6430f78d   2 weeks ago     142MB
+centos                   7         eeb6ee3f44bd   11 months ago   204MB
+centos                   latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch            7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker push luyanfeng123/diytomcat:1.0
+The push refers to repository [docker.io/luyanfeng123/diytomcat]
+73c5982fe8f5: Pushed 
+7471dd5f44a7: Pushed 
+838281d0086f: Pushed 
+4af9aa88955b: Pushed 
+174f56854903: Mounted from library/centos 
+1.0: digest: sha256:188e4bb260c7db6c48187e8793d07187b9b1a0094d3cef1c78bf0e34d1130fab size: 1373
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$
+```
+
+>注意：提交到 `Docker Hub` 上的镜像的前缀一定要是你的 `Docker Hub` `账号名`（ `docker push luyanfeng123/diytomcat:1.0` ）。镜像的 `TAG` 可以通过 `docker tag` 修改。
+
+---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker login --help
+
+Usage:  docker login [OPTIONS] [SERVER]
+
+Log in to a Docker registry.
+If no server is specified, the default is defined by the daemon.
+
+Options:
+  -p, --password string   Password
+      --password-stdin    Take the password from stdin
+  -u, --username string   Username
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY        TAG       IMAGE ID       CREATED         SIZE
+diytomcat         latest    531449811312   3 hours ago     827MB
+entrypoint-test   latest    293b60111edb   23 hours ago    231MB
+cmdtest           latest    e507939f0998   24 hours ago    231MB
+mycentos          0.2       5f2260ba4d08   26 hours ago    624MB
+lyf/centos        1.0       967c603048b0   2 days ago      231MB
+my_centos         0.1       d3a84994963f   3 days ago      559MB
+my_tomcat         0.1       82bf5ce1034c   3 days ago      480MB
+tomcat            9.0       d4488b7f8c9b   4 days ago      475MB
+tomcat            latest    7a91e6f458bb   4 days ago      475MB
+mysql             5.7       daff57b7d2d1   13 days ago     430MB
+nginx             latest    2b7d6430f78d   2 weeks ago     142MB
+centos            7         eeb6ee3f44bd   11 months ago   204MB
+centos            latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch     7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                           PORTS     NAMES
+aa57776789ca   diytomcat             "/bin/sh -c '/usr/lo…"   3 hours ago    Exited (137) About an hour ago             luyanfengtomcat1
+f876c324441f   entrypoint-test       "ls -a -l"               23 hours ago   Exited (0) 23 hours ago                    jolly_shaw
+90d672f69b18   entrypoint-test       "ls -a"                  23 hours ago   Exited (0) 23 hours ago                    eager_burnell
+2c00ada1000f   cmdtest               "ls -l"                  24 hours ago   Exited (0) 24 hours ago                    exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     24 hours ago   Created                                    wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  24 hours ago   Exited (0) 24 hours ago                    objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   26 hours ago   Exited (0) 26 hours ago                    stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   46 hours ago   Exited (0) 46 hours ago                    docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              2 days ago     Exited (0) 2 days ago                      admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   2 days ago     Exited (0) 2 days ago                      nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   2 days ago     Exited (0) 2 days ago                      nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   2 days ago     Exited (0) 2 days ago                      mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              3 days ago     Exited (0) 3 days ago                      stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        3 days ago     Exited (143) 3 days ago                    my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        3 days ago     Exited (143) 3 days ago                    tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   3 days ago     Exited (143) 3 days ago                    elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        4 days ago     Exited (143) 3 days ago                    tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   4 days ago     Exited (0) 4 days ago                      nginx01
+bf46371dea89   centos                "/bin/bash"              4 days ago     Exited (0) 3 days ago                      epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker login -u luyanfeng123
+Password: 
+WARNING! Your password will be stored unencrypted in /home/lyfubuntu/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker push --help
+
+Usage:  docker push [OPTIONS] NAME[:TAG]
+
+Push an image or a repository to a registry
+
+Options:
+  -a, --all-tags                Push all tagged images in the repository
+      --disable-content-trust   Skip image signing (default true)
+  -q, --quiet                   Suppress verbose output
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker tag --help
+
+Usage:  docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+
+Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY        TAG       IMAGE ID       CREATED         SIZE
+diytomcat         latest    531449811312   3 hours ago     827MB
+entrypoint-test   latest    293b60111edb   24 hours ago    231MB
+cmdtest           latest    e507939f0998   24 hours ago    231MB
+mycentos          0.2       5f2260ba4d08   26 hours ago    624MB
+lyf/centos        1.0       967c603048b0   2 days ago      231MB
+my_centos         0.1       d3a84994963f   3 days ago      559MB
+my_tomcat         0.1       82bf5ce1034c   3 days ago      480MB
+tomcat            9.0       d4488b7f8c9b   4 days ago      475MB
+tomcat            latest    7a91e6f458bb   4 days ago      475MB
+mysql             5.7       daff57b7d2d1   13 days ago     430MB
+nginx             latest    2b7d6430f78d   2 weeks ago     142MB
+centos            7         eeb6ee3f44bd   11 months ago   204MB
+centos            latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch     7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker tag diytomcat luyanfeng123/diytomcat:1.0
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY               TAG       IMAGE ID       CREATED         SIZE
+diytomcat                latest    531449811312   3 hours ago     827MB
+luyanfeng123/diytomcat   1.0       531449811312   3 hours ago     827MB
+entrypoint-test          latest    293b60111edb   24 hours ago    231MB
+cmdtest                  latest    e507939f0998   24 hours ago    231MB
+mycentos                 0.2       5f2260ba4d08   26 hours ago    624MB
+lyf/centos               1.0       967c603048b0   2 days ago      231MB
+my_centos                0.1       d3a84994963f   3 days ago      559MB
+my_tomcat                0.1       82bf5ce1034c   3 days ago      480MB
+tomcat                   9.0       d4488b7f8c9b   4 days ago      475MB
+tomcat                   latest    7a91e6f458bb   4 days ago      475MB
+mysql                    5.7       daff57b7d2d1   13 days ago     430MB
+nginx                    latest    2b7d6430f78d   2 weeks ago     142MB
+centos                   7         eeb6ee3f44bd   11 months ago   204MB
+centos                   latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch            7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker push luyanfeng123/diytomcat:1.0
+The push refers to repository [docker.io/luyanfeng123/diytomcat]
+73c5982fe8f5: Pushed 
+7471dd5f44a7: Pushed 
+838281d0086f: Pushed 
+4af9aa88955b: Pushed 
+174f56854903: Mounted from library/centos 
+1.0: digest: sha256:188e4bb260c7db6c48187e8793d07187b9b1a0094d3cef1c78bf0e34d1130fab size: 1373
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$
+```
+
+### 发布到阿里云镜像服务上
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
