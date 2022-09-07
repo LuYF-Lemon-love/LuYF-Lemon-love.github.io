@@ -7580,7 +7580,7 @@ elasticsearch     7.6.2     f29a1ee41030   2 years ago      791MB
 
 2. 编写 `Dockerfile` 文件。`官方命名`: `Dockerfile`，`docker build` 会`自动寻找`这个文件，不需要 `-f` 指定。
 
-```shell
+```dockerfile
 FROM centos:7
 MAINTAINER LuYF-Lemon-love<luyanfeng_nlp@qq.com>
 
@@ -7683,7 +7683,7 @@ docker run -d -p 3344:8080 --name luyanfengtomcat1 -v /home/lyfubuntu/my_compute
 
 7. 访问测试: http://localhost:3344/ 。
 
-![](https://cos.luyf-lemon-love.space/images/20220907125100.png)
+![](https://cos.luyf-lemon-love.space/images/20220907134937.png)
 
 8. 由于做了`卷挂载`，因此在本地编写项目。编写 `web.xml` 和 `index.jsp` 文件。编写这些文件需要使用 `root` 用户操作。
 
