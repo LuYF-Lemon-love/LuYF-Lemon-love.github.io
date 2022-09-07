@@ -8517,6 +8517,10 @@ The push refers to repository [docker.io/luyanfeng123/diytomcat]
 
 >注意：提交到 `Docker Hub` 上的镜像的前缀一定要是你的 `Docker Hub` `账号名`（ `docker push luyanfeng123/diytomcat:1.0` ）。镜像的 `TAG` 可以通过 `docker tag` 修改。
 
+![](https://cos.luyf-lemon-love.space/images/20220907161113.png)
+
+![](https://cos.luyf-lemon-love.space/images/20220907161342.png)
+
 ---
 
 ```shell
@@ -8637,7 +8641,13 @@ The push refers to repository [docker.io/luyanfeng123/diytomcat]
 (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$
 ```
 
-### 发布到阿里云镜像服务上
+### 总结
+
+![](https://cos.luyf-lemon-love.space/images/20220907171452.png)
+
+![](https://cos.luyf-lemon-love.space/images/20220907171513.png)
+
+## `Docker` 网络
 
 ## 结语
 
