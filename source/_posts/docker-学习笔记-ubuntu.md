@@ -7567,6 +7567,795 @@ elasticsearch     7.6.2     f29a1ee41030   2 years ago      791MB
 
 ## `Dockerfile` 制作 `tomcat` 镜像
 
+### `Dockerfile` 制作 `tomcat` 镜像
+
+1. 准备镜像文件：`tomcat` 压缩包和 `jdk` 压缩包。`apache-tomcat-9.0.37.tar.gz` 可以从 https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.37/bin/ 处下载。`jdk-8u341-linux-x64.tar.gz` 可以从 https://www.oracle.com/java/technologies/downloads/ 处下载。
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ ll *.gz
+-rw-rw-r-- 1 lyfubuntu lyfubuntu  11211292 9月   6 22:07 apache-tomcat-9.0.37.tar.gz
+-rw-rw-r-- 1 lyfubuntu lyfubuntu 148162542 9月   6 21:47 jdk-8u341-linux-x64.tar.gz
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$
+```
+
+2. 编写 `Dockerfile` 文件。`官方命名`: `Dockerfile`，`docker build` 会`自动寻找`这个文件，不需要 `-f` 指定。
+
+```shell
+FROM centos:7
+MAINTAINER LuYF-Lemon-love<luyanfeng_nlp@qq.com>
+
+COPY readme.txt /usr/local/readme.txt
+
+ADD jdk-8u341-linux-x64.tar.gz /usr/local/
+ADD apache-tomcat-9.0.37.tar.gz /usr/local/
+
+RUN yum -y install vim
+
+ENV MYPATH /usr/local
+WORKDIR $MYPATH
+
+ENV JAVA_HOME /usr/local/jdk1.8.0_341
+ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+ENV CATALINA_HOME /usr/local/apache-tomcat-9.0.37
+ENV CATALINA_BASH /usr/local/apache-tomcat-9.0.37
+ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/lib:$CATALINA_HOME/bin
+
+EXPOSE 8080
+
+CMD /usr/local/apache-tomcat-9.0.37/bin/startup.sh && tail -F /usr/local/apache-tomcat-9.0.37/bin/logs/catalina.out
+```
+
+3. 编写 `readme.txt`。
+
+```
+readme.txt
+created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+```
+
+4. 构建镜像。
+
+```shell
+docker build -t diytomcat .
+```
+
+5. 创建`本地挂载目录`: `diytomcat`。
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ cd ..
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+centos_docker  files  my_centos  my_Dockerfile  mysql  nginx
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ tree
+.
+├── centos_docker
+├── files
+│   ├── 无标题文档 1
+│   ├── apache-tomcat-9.0.37.tar.gz
+│   └── jdk-8u341-linux-x64.tar.gz
+├── my_centos
+│   ├── my_centos_docker
+│   └── my_ubuntu_docker
+├── my_Dockerfile
+│   ├── apache-tomcat-9.0.37.tar.gz
+│   ├── Dockerfile
+│   ├── dockerfile1
+│   ├── dockerfile-cmd-test
+│   ├── dockerfile-entrypoint-test
+│   ├── jdk-8u341-linux-x64.tar.gz
+│   ├── mydockerfile-centos
+│   └── readme.txt
+├── mysql
+│   ├── conf
+│   └── data
+│       ├── auto.cnf
+│       ├── ca-key.pem
+│       ├── ca.pem
+│       ├── client-cert.pem
+│       ├── client-key.pem
+│       ├── ib_buffer_pool
+│       ├── ibdata1
+│       ├── ib_logfile0
+│       ├── ib_logfile1
+│       ├── mysql [error opening dir]
+│       ├── mysql.sock -> /var/run/mysqld/mysqld.sock
+│       ├── performance_schema [error opening dir]
+│       ├── private_key.pem
+│       ├── public_key.pem
+│       ├── school [error opening dir]
+│       ├── server-cert.pem
+│       ├── server-key.pem
+│       └── sys [error opening dir]
+└── nginx
+
+11 directories, 28 files
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ mkdir diytomcat
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ cd diytomcat/
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/diytomcat$ pwd
+/home/lyfubuntu/my_computer_language/docker/diytomcat
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/diytomcat$ ls
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/diytomcat$
+```
+
+6. 启动镜像。
+
+```shell
+docker run -d -p 3344:8080 --name luyanfengtomcat1 -v /home/lyfubuntu/my_computer_language/docker/diytomcat/test:/usr/local/apache-tomcat-9.0.37/webapps/test -v /home/lyfubuntu/my_computer_language/docker/diytomcat/tomcatlogs/:/usr/local/apache-tomcat-9.0.37/logs diytomcat
+```
+
+7. 访问测试: http://localhost:3344/ 。
+
+![](https://cos.luyf-lemon-love.space/images/20220907125100.png)
+
+8. 由于做了`卷挂载`，因此在本地编写项目。编写 `web.xml` 和 `index.jsp` 文件。编写这些文件需要使用 `root` 用户操作。
+
+`diytomcat/test/index.jsp`
+
+```html
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>hello. xiaofan</title>
+</head>
+<body>
+Hello World!<br/>
+<%
+System.out.println("-----my test web logs------");
+%>
+</body>
+</html>
+```
+
+---
+
+![](https://cos.luyf-lemon-love.space/images/20220907130713.png)
+
+---
+
+`diytomcat/test/WEB-INF/web.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+    xmlns="http://java.sun.com/xml/ns/j2ee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+        http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+        
+</web-app>
+```
+
+---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ ls
+apache-tomcat-9.0.37.tar.gz  dockerfile-cmd-test         mydockerfile-centos
+Dockerfile                   dockerfile-entrypoint-test  readme.txt
+dockerfile1                  jdk-8u341-linux-x64.tar.gz
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ ll *.gz
+-rw-rw-r-- 1 lyfubuntu lyfubuntu  11211292 9月   6 22:07 apache-tomcat-9.0.37.tar.gz
+-rw-rw-r-- 1 lyfubuntu lyfubuntu 148162542 9月   6 21:47 jdk-8u341-linux-x64.tar.gz
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ cat Dockerfile 
+FROM centos:7
+MAINTAINER LuYF-Lemon-love<luyanfeng_nlp@qq.com>
+
+COPY readme.txt /usr/local/readme.txt
+
+ADD jdk-8u341-linux-x64.tar.gz /usr/local/
+ADD apache-tomcat-9.0.37.tar.gz /usr/local/
+
+RUN yum -y install vim
+
+ENV MYPATH /usr/local
+WORKDIR $MYPATH
+
+ENV JAVA_HOME /usr/local/jdk1.8.0_341
+ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+ENV CATALINA_HOME /usr/local/apache-tomcat-9.0.37
+ENV CATALINA_BASH /usr/local/apache-tomcat-9.0.37
+ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/lib:$CATALINA_HOME/bin
+
+EXPOSE 8080
+
+CMD /usr/local/apache-tomcat-9.0.37/bin/startup.sh && tail -F /usr/local/apache-tomcat-9.0.37/bin/logs/catalina.out
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ ls
+apache-tomcat-9.0.37.tar.gz  dockerfile-cmd-test         mydockerfile-centos
+Dockerfile                   dockerfile-entrypoint-test  readme.txt
+dockerfile1                  jdk-8u341-linux-x64.tar.gz
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ cat readme.txt 
+readme.txt
+created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY        TAG       IMAGE ID       CREATED         SIZE
+entrypoint-test   latest    293b60111edb   20 hours ago    231MB
+cmdtest           latest    e507939f0998   20 hours ago    231MB
+mycentos          0.2       5f2260ba4d08   22 hours ago    624MB
+lyf/centos        1.0       967c603048b0   45 hours ago    231MB
+my_centos         0.1       d3a84994963f   3 days ago      559MB
+my_tomcat         0.1       82bf5ce1034c   3 days ago      480MB
+tomcat            9.0       d4488b7f8c9b   4 days ago      475MB
+tomcat            latest    7a91e6f458bb   4 days ago      475MB
+mysql             5.7       daff57b7d2d1   13 days ago     430MB
+nginx             latest    2b7d6430f78d   2 weeks ago     142MB
+centos            7         eeb6ee3f44bd   11 months ago   204MB
+centos            latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch     7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                    PORTS     NAMES
+f876c324441f   entrypoint-test       "ls -a -l"               20 hours ago   Exited (0) 20 hours ago             jolly_shaw
+90d672f69b18   entrypoint-test       "ls -a"                  20 hours ago   Exited (0) 20 hours ago             eager_burnell
+2c00ada1000f   cmdtest               "ls -l"                  20 hours ago   Exited (0) 20 hours ago             exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     20 hours ago   Created                             wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  20 hours ago   Exited (0) 20 hours ago             objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   22 hours ago   Exited (0) 22 hours ago             stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   43 hours ago   Exited (0) 43 hours ago             docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              45 hours ago   Exited (0) 45 hours ago             admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   2 days ago     Exited (0) 2 days ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   2 days ago     Exited (0) 2 days ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   2 days ago     Exited (0) 2 days ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              3 days ago     Exited (0) 2 days ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        3 days ago     Exited (143) 3 days ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        3 days ago     Exited (143) 3 days ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   3 days ago     Exited (143) 3 days ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        3 days ago     Exited (143) 3 days ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   3 days ago     Exited (0) 3 days ago               nginx01
+bf46371dea89   centos                "/bin/bash"              4 days ago     Exited (0) 3 days ago               epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker build -t diytomcat .
+Sending build context to Docker daemon  159.4MB
+Step 1/15 : FROM centos:7
+ ---> eeb6ee3f44bd
+Step 2/15 : MAINTAINER LuYF-Lemon-love<luyanfeng_nlp@qq.com>
+ ---> Using cache
+ ---> 2d2197dc0ab2
+Step 3/15 : COPY readme.txt /usr/local/readme.txt
+ ---> c62e58bd0d8d
+Step 4/15 : ADD jdk-8u341-linux-x64.tar.gz /usr/local/
+ ---> 9db77dd27ce7
+Step 5/15 : ADD apache-tomcat-9.0.37.tar.gz /usr/local/
+ ---> 914c93a25c59
+Step 6/15 : RUN yum -y install vim
+ ---> Running in 6daa761306ac
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: mirrors.njupt.edu.cn
+ * extras: mirrors.nju.edu.cn
+ * updates: mirrors.nju.edu.cn
+Resolving Dependencies
+--> Running transaction check
+---> Package vim-enhanced.x86_64 2:7.4.629-8.el7_9 will be installed
+--> Processing Dependency: vim-common = 2:7.4.629-8.el7_9 for package: 2:vim-enhanced-7.4.629-8.el7_9.x86_64
+--> Processing Dependency: which for package: 2:vim-enhanced-7.4.629-8.el7_9.x86_64
+--> Processing Dependency: perl(:MODULE_COMPAT_5.16.3) for package: 2:vim-enhanced-7.4.629-8.el7_9.x86_64
+--> Processing Dependency: libperl.so()(64bit) for package: 2:vim-enhanced-7.4.629-8.el7_9.x86_64
+--> Processing Dependency: libgpm.so.2()(64bit) for package: 2:vim-enhanced-7.4.629-8.el7_9.x86_64
+--> Running transaction check
+---> Package gpm-libs.x86_64 0:1.20.7-6.el7 will be installed
+---> Package perl.x86_64 4:5.16.3-299.el7_9 will be installed
+--> Processing Dependency: perl(Socket) >= 1.3 for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Scalar::Util) >= 1.10 for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl-macros for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(threads::shared) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(threads) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(constant) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Time::Local) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Time::HiRes) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Storable) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Socket) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Scalar::Util) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Pod::Simple::XHTML) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Pod::Simple::Search) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Getopt::Long) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Filter::Util::Call) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(File::Temp) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(File::Spec::Unix) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(File::Spec::Functions) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(File::Spec) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(File::Path) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Exporter) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Cwd) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Carp) for package: 4:perl-5.16.3-299.el7_9.x86_64
+---> Package perl-libs.x86_64 4:5.16.3-299.el7_9 will be installed
+---> Package vim-common.x86_64 2:7.4.629-8.el7_9 will be installed
+--> Processing Dependency: vim-filesystem for package: 2:vim-common-7.4.629-8.el7_9.x86_64
+---> Package which.x86_64 0:2.20-7.el7 will be installed
+--> Running transaction check
+---> Package perl-Carp.noarch 0:1.26-244.el7 will be installed
+---> Package perl-Exporter.noarch 0:5.68-3.el7 will be installed
+---> Package perl-File-Path.noarch 0:2.09-2.el7 will be installed
+---> Package perl-File-Temp.noarch 0:0.23.01-3.el7 will be installed
+---> Package perl-Filter.x86_64 0:1.49-3.el7 will be installed
+---> Package perl-Getopt-Long.noarch 0:2.40-3.el7 will be installed
+--> Processing Dependency: perl(Pod::Usage) >= 1.14 for package: perl-Getopt-Long-2.40-3.el7.noarch
+--> Processing Dependency: perl(Text::ParseWords) for package: perl-Getopt-Long-2.40-3.el7.noarch
+---> Package perl-PathTools.x86_64 0:3.40-5.el7 will be installed
+---> Package perl-Pod-Simple.noarch 1:3.28-4.el7 will be installed
+--> Processing Dependency: perl(Pod::Escapes) >= 1.04 for package: 1:perl-Pod-Simple-3.28-4.el7.noarch
+--> Processing Dependency: perl(Encode) for package: 1:perl-Pod-Simple-3.28-4.el7.noarch
+---> Package perl-Scalar-List-Utils.x86_64 0:1.27-248.el7 will be installed
+---> Package perl-Socket.x86_64 0:2.010-5.el7 will be installed
+---> Package perl-Storable.x86_64 0:2.45-3.el7 will be installed
+---> Package perl-Time-HiRes.x86_64 4:1.9725-3.el7 will be installed
+---> Package perl-Time-Local.noarch 0:1.2300-2.el7 will be installed
+---> Package perl-constant.noarch 0:1.27-2.el7 will be installed
+---> Package perl-macros.x86_64 4:5.16.3-299.el7_9 will be installed
+---> Package perl-threads.x86_64 0:1.87-4.el7 will be installed
+---> Package perl-threads-shared.x86_64 0:1.43-6.el7 will be installed
+---> Package vim-filesystem.x86_64 2:7.4.629-8.el7_9 will be installed
+--> Running transaction check
+---> Package perl-Encode.x86_64 0:2.51-7.el7 will be installed
+---> Package perl-Pod-Escapes.noarch 1:1.04-299.el7_9 will be installed
+---> Package perl-Pod-Usage.noarch 0:1.63-3.el7 will be installed
+--> Processing Dependency: perl(Pod::Text) >= 3.15 for package: perl-Pod-Usage-1.63-3.el7.noarch
+--> Processing Dependency: perl-Pod-Perldoc for package: perl-Pod-Usage-1.63-3.el7.noarch
+---> Package perl-Text-ParseWords.noarch 0:3.29-4.el7 will be installed
+--> Running transaction check
+---> Package perl-Pod-Perldoc.noarch 0:3.20-4.el7 will be installed
+--> Processing Dependency: perl(parent) for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+--> Processing Dependency: perl(HTTP::Tiny) for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+--> Processing Dependency: groff-base for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+---> Package perl-podlators.noarch 0:2.5.1-3.el7 will be installed
+--> Running transaction check
+---> Package groff-base.x86_64 0:1.22.2-8.el7 will be installed
+---> Package perl-HTTP-Tiny.noarch 0:0.033-3.el7 will be installed
+---> Package perl-parent.noarch 1:0.225-244.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                    Arch       Version                Repository   Size
+================================================================================
+Installing:
+ vim-enhanced               x86_64     2:7.4.629-8.el7_9      updates     1.1 M
+Installing for dependencies:
+ gpm-libs                   x86_64     1.20.7-6.el7           base         32 k
+ groff-base                 x86_64     1.22.2-8.el7           base        942 k
+ perl                       x86_64     4:5.16.3-299.el7_9     updates     8.0 M
+ perl-Carp                  noarch     1.26-244.el7           base         19 k
+ perl-Encode                x86_64     2.51-7.el7             base        1.5 M
+ perl-Exporter              noarch     5.68-3.el7             base         28 k
+ perl-File-Path             noarch     2.09-2.el7             base         26 k
+ perl-File-Temp             noarch     0.23.01-3.el7          base         56 k
+ perl-Filter                x86_64     1.49-3.el7             base         76 k
+ perl-Getopt-Long           noarch     2.40-3.el7             base         56 k
+ perl-HTTP-Tiny             noarch     0.033-3.el7            base         38 k
+ perl-PathTools             x86_64     3.40-5.el7             base         82 k
+ perl-Pod-Escapes           noarch     1:1.04-299.el7_9       updates      52 k
+ perl-Pod-Perldoc           noarch     3.20-4.el7             base         87 k
+ perl-Pod-Simple            noarch     1:3.28-4.el7           base        216 k
+ perl-Pod-Usage             noarch     1.63-3.el7             base         27 k
+ perl-Scalar-List-Utils     x86_64     1.27-248.el7           base         36 k
+ perl-Socket                x86_64     2.010-5.el7            base         49 k
+ perl-Storable              x86_64     2.45-3.el7             base         77 k
+ perl-Text-ParseWords       noarch     3.29-4.el7             base         14 k
+ perl-Time-HiRes            x86_64     4:1.9725-3.el7         base         45 k
+ perl-Time-Local            noarch     1.2300-2.el7           base         24 k
+ perl-constant              noarch     1.27-2.el7             base         19 k
+ perl-libs                  x86_64     4:5.16.3-299.el7_9     updates     690 k
+ perl-macros                x86_64     4:5.16.3-299.el7_9     updates      44 k
+ perl-parent                noarch     1:0.225-244.el7        base         12 k
+ perl-podlators             noarch     2.5.1-3.el7            base        112 k
+ perl-threads               x86_64     1.87-4.el7             base         49 k
+ perl-threads-shared        x86_64     1.43-6.el7             base         39 k
+ vim-common                 x86_64     2:7.4.629-8.el7_9      updates     5.9 M
+ vim-filesystem             x86_64     2:7.4.629-8.el7_9      updates      11 k
+ which                      x86_64     2.20-7.el7             base         41 k
+
+Transaction Summary
+================================================================================
+Install  1 Package (+32 Dependent packages)
+
+Total download size: 19 M
+Installed size: 63 M
+Downloading packages:
+warning: /var/cache/yum/x86_64/7/base/packages/perl-Carp-1.26-244.el7.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
+Public key for perl-Carp-1.26-244.el7.noarch.rpm is not installed
+Public key for perl-Pod-Escapes-1.04-299.el7_9.noarch.rpm is not installed
+http://mirrors.nju.edu.cn/centos/7.9.2009/updates/x86_64/Packages/perl-5.16.3-299.el7_9.x86_64.rpm: [Errno 14] curl#7 - "Failed to connect to 2001:da8:1007:4011::3: Cannot assign requested address"
+Trying other mirror.
+--------------------------------------------------------------------------------
+Total                                              1.2 MB/s |  19 MB  00:15     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Importing GPG key 0xF4A80EB5:
+ Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ Package    : centos-release-7-9.2009.0.el7.centos.x86_64 (@CentOS)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : gpm-libs-1.20.7-6.el7.x86_64                                1/33 
+  Installing : 2:vim-filesystem-7.4.629-8.el7_9.x86_64                     2/33 
+  Installing : 2:vim-common-7.4.629-8.el7_9.x86_64                         3/33 
+  Installing : which-2.20-7.el7.x86_64                                     4/33 
+install-info: No such file or directory for /usr/share/info/which.info.gz
+  Installing : groff-base-1.22.2-8.el7.x86_64                              5/33 
+  Installing : 1:perl-parent-0.225-244.el7.noarch                          6/33 
+  Installing : perl-HTTP-Tiny-0.033-3.el7.noarch                           7/33 
+  Installing : perl-podlators-2.5.1-3.el7.noarch                           8/33 
+  Installing : perl-Pod-Perldoc-3.20-4.el7.noarch                          9/33 
+  Installing : 1:perl-Pod-Escapes-1.04-299.el7_9.noarch                   10/33 
+  Installing : perl-Encode-2.51-7.el7.x86_64                              11/33 
+  Installing : perl-Text-ParseWords-3.29-4.el7.noarch                     12/33 
+  Installing : perl-Pod-Usage-1.63-3.el7.noarch                           13/33 
+  Installing : 4:perl-macros-5.16.3-299.el7_9.x86_64                      14/33 
+  Installing : perl-Storable-2.45-3.el7.x86_64                            15/33 
+  Installing : perl-Exporter-5.68-3.el7.noarch                            16/33 
+  Installing : perl-constant-1.27-2.el7.noarch                            17/33 
+  Installing : perl-Socket-2.010-5.el7.x86_64                             18/33 
+  Installing : perl-Time-Local-1.2300-2.el7.noarch                        19/33 
+  Installing : perl-Carp-1.26-244.el7.noarch                              20/33 
+  Installing : perl-PathTools-3.40-5.el7.x86_64                           21/33 
+  Installing : perl-Scalar-List-Utils-1.27-248.el7.x86_64                 22/33 
+  Installing : 1:perl-Pod-Simple-3.28-4.el7.noarch                        23/33 
+  Installing : perl-File-Temp-0.23.01-3.el7.noarch                        24/33 
+  Installing : perl-File-Path-2.09-2.el7.noarch                           25/33 
+  Installing : perl-threads-shared-1.43-6.el7.x86_64                      26/33 
+  Installing : perl-threads-1.87-4.el7.x86_64                             27/33 
+  Installing : 4:perl-Time-HiRes-1.9725-3.el7.x86_64                      28/33 
+  Installing : perl-Filter-1.49-3.el7.x86_64                              29/33 
+  Installing : 4:perl-libs-5.16.3-299.el7_9.x86_64                        30/33 
+  Installing : perl-Getopt-Long-2.40-3.el7.noarch                         31/33 
+  Installing : 4:perl-5.16.3-299.el7_9.x86_64                             32/33 
+  Installing : 2:vim-enhanced-7.4.629-8.el7_9.x86_64                      33/33 
+  Verifying  : perl-HTTP-Tiny-0.033-3.el7.noarch                           1/33 
+  Verifying  : perl-threads-shared-1.43-6.el7.x86_64                       2/33 
+  Verifying  : perl-Storable-2.45-3.el7.x86_64                             3/33 
+  Verifying  : groff-base-1.22.2-8.el7.x86_64                              4/33 
+  Verifying  : perl-Exporter-5.68-3.el7.noarch                             5/33 
+  Verifying  : perl-constant-1.27-2.el7.noarch                             6/33 
+  Verifying  : perl-PathTools-3.40-5.el7.x86_64                            7/33 
+  Verifying  : 4:perl-macros-5.16.3-299.el7_9.x86_64                       8/33 
+  Verifying  : 2:vim-enhanced-7.4.629-8.el7_9.x86_64                       9/33 
+  Verifying  : 1:perl-parent-0.225-244.el7.noarch                         10/33 
+  Verifying  : perl-Socket-2.010-5.el7.x86_64                             11/33 
+  Verifying  : which-2.20-7.el7.x86_64                                    12/33 
+  Verifying  : 2:vim-filesystem-7.4.629-8.el7_9.x86_64                    13/33 
+  Verifying  : perl-File-Temp-0.23.01-3.el7.noarch                        14/33 
+  Verifying  : 1:perl-Pod-Simple-3.28-4.el7.noarch                        15/33 
+  Verifying  : perl-Time-Local-1.2300-2.el7.noarch                        16/33 
+  Verifying  : 1:perl-Pod-Escapes-1.04-299.el7_9.noarch                   17/33 
+  Verifying  : perl-Carp-1.26-244.el7.noarch                              18/33 
+  Verifying  : 2:vim-common-7.4.629-8.el7_9.x86_64                        19/33 
+  Verifying  : perl-Scalar-List-Utils-1.27-248.el7.x86_64                 20/33 
+  Verifying  : perl-Pod-Usage-1.63-3.el7.noarch                           21/33 
+  Verifying  : perl-Encode-2.51-7.el7.x86_64                              22/33 
+  Verifying  : perl-Pod-Perldoc-3.20-4.el7.noarch                         23/33 
+  Verifying  : perl-podlators-2.5.1-3.el7.noarch                          24/33 
+  Verifying  : 4:perl-5.16.3-299.el7_9.x86_64                             25/33 
+  Verifying  : perl-File-Path-2.09-2.el7.noarch                           26/33 
+  Verifying  : perl-threads-1.87-4.el7.x86_64                             27/33 
+  Verifying  : 4:perl-Time-HiRes-1.9725-3.el7.x86_64                      28/33 
+  Verifying  : gpm-libs-1.20.7-6.el7.x86_64                               29/33 
+  Verifying  : perl-Filter-1.49-3.el7.x86_64                              30/33 
+  Verifying  : perl-Getopt-Long-2.40-3.el7.noarch                         31/33 
+  Verifying  : perl-Text-ParseWords-3.29-4.el7.noarch                     32/33 
+  Verifying  : 4:perl-libs-5.16.3-299.el7_9.x86_64                        33/33 
+
+Installed:
+  vim-enhanced.x86_64 2:7.4.629-8.el7_9                                         
+
+Dependency Installed:
+  gpm-libs.x86_64 0:1.20.7-6.el7                                                
+  groff-base.x86_64 0:1.22.2-8.el7                                              
+  perl.x86_64 4:5.16.3-299.el7_9                                                
+  perl-Carp.noarch 0:1.26-244.el7                                               
+  perl-Encode.x86_64 0:2.51-7.el7                                               
+  perl-Exporter.noarch 0:5.68-3.el7                                             
+  perl-File-Path.noarch 0:2.09-2.el7                                            
+  perl-File-Temp.noarch 0:0.23.01-3.el7                                         
+  perl-Filter.x86_64 0:1.49-3.el7                                               
+  perl-Getopt-Long.noarch 0:2.40-3.el7                                          
+  perl-HTTP-Tiny.noarch 0:0.033-3.el7                                           
+  perl-PathTools.x86_64 0:3.40-5.el7                                            
+  perl-Pod-Escapes.noarch 1:1.04-299.el7_9                                      
+  perl-Pod-Perldoc.noarch 0:3.20-4.el7                                          
+  perl-Pod-Simple.noarch 1:3.28-4.el7                                           
+  perl-Pod-Usage.noarch 0:1.63-3.el7                                            
+  perl-Scalar-List-Utils.x86_64 0:1.27-248.el7                                  
+  perl-Socket.x86_64 0:2.010-5.el7                                              
+  perl-Storable.x86_64 0:2.45-3.el7                                             
+  perl-Text-ParseWords.noarch 0:3.29-4.el7                                      
+  perl-Time-HiRes.x86_64 4:1.9725-3.el7                                         
+  perl-Time-Local.noarch 0:1.2300-2.el7                                         
+  perl-constant.noarch 0:1.27-2.el7                                             
+  perl-libs.x86_64 4:5.16.3-299.el7_9                                           
+  perl-macros.x86_64 4:5.16.3-299.el7_9                                         
+  perl-parent.noarch 1:0.225-244.el7                                            
+  perl-podlators.noarch 0:2.5.1-3.el7                                           
+  perl-threads.x86_64 0:1.87-4.el7                                              
+  perl-threads-shared.x86_64 0:1.43-6.el7                                       
+  vim-common.x86_64 2:7.4.629-8.el7_9                                           
+  vim-filesystem.x86_64 2:7.4.629-8.el7_9                                       
+  which.x86_64 0:2.20-7.el7                                                     
+
+Complete!
+Removing intermediate container 6daa761306ac
+ ---> 385c463cae22
+Step 7/15 : ENV MYPATH /usr/local
+ ---> Running in 581452cd1ddd
+Removing intermediate container 581452cd1ddd
+ ---> 588719a7a072
+Step 8/15 : WORKDIR $MYPATH
+ ---> Running in 24bbc61298f1
+Removing intermediate container 24bbc61298f1
+ ---> 990dbcdaee73
+Step 9/15 : ENV JAVA_HOME /usr/local/jdk1.8.0_341
+ ---> Running in e8cb4dfc433e
+Removing intermediate container e8cb4dfc433e
+ ---> 941ca6d85234
+Step 10/15 : ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+ ---> Running in 6d21f1238ccd
+Removing intermediate container 6d21f1238ccd
+ ---> b599bd987423
+Step 11/15 : ENV CATALINA_HOME /usr/local/apache-tomcat-9.0.37
+ ---> Running in 4ad0392f30d9
+Removing intermediate container 4ad0392f30d9
+ ---> 2f1f4cf776c3
+Step 12/15 : ENV CATALINA_BASH /usr/local/apache-tomcat-9.0.37
+ ---> Running in b1a66f213375
+Removing intermediate container b1a66f213375
+ ---> f1ef859c3a6c
+Step 13/15 : ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/lib:$CATALINA_HOME/bin
+ ---> Running in dd8e1f69133a
+Removing intermediate container dd8e1f69133a
+ ---> 3223e2025e90
+Step 14/15 : EXPOSE 8080
+ ---> Running in fa842714f0af
+Removing intermediate container fa842714f0af
+ ---> 8e19301a1d35
+Step 15/15 : CMD /usr/local/apache-tomcat-9.0.37/bin/startup.sh && tail -F /usr/local/apache-tomcat-9.0.37/bin/logs/catalina.out
+ ---> Running in 8f75efc30c80
+Removing intermediate container 8f75efc30c80
+ ---> 531449811312
+Successfully built 531449811312
+Successfully tagged diytomcat:latest
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker images
+REPOSITORY        TAG       IMAGE ID       CREATED              SIZE
+diytomcat         latest    531449811312   About a minute ago   827MB
+entrypoint-test   latest    293b60111edb   20 hours ago         231MB
+cmdtest           latest    e507939f0998   21 hours ago         231MB
+mycentos          0.2       5f2260ba4d08   23 hours ago         624MB
+lyf/centos        1.0       967c603048b0   45 hours ago         231MB
+my_centos         0.1       d3a84994963f   3 days ago           559MB
+my_tomcat         0.1       82bf5ce1034c   3 days ago           480MB
+tomcat            9.0       d4488b7f8c9b   4 days ago           475MB
+tomcat            latest    7a91e6f458bb   4 days ago           475MB
+mysql             5.7       daff57b7d2d1   13 days ago          430MB
+nginx             latest    2b7d6430f78d   2 weeks ago          142MB
+centos            7         eeb6ee3f44bd   11 months ago        204MB
+centos            latest    5d0da3dc9764   11 months ago        231MB
+elasticsearch     7.6.2     f29a1ee41030   2 years ago          791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                    PORTS     NAMES
+f876c324441f   entrypoint-test       "ls -a -l"               20 hours ago   Exited (0) 20 hours ago             jolly_shaw
+90d672f69b18   entrypoint-test       "ls -a"                  20 hours ago   Exited (0) 20 hours ago             eager_burnell
+2c00ada1000f   cmdtest               "ls -l"                  21 hours ago   Exited (0) 21 hours ago             exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     21 hours ago   Created                             wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  21 hours ago   Exited (0) 21 hours ago             objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   23 hours ago   Exited (0) 23 hours ago             stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   43 hours ago   Exited (0) 43 hours ago             docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              45 hours ago   Exited (0) 45 hours ago             admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   2 days ago     Exited (0) 2 days ago               nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   2 days ago     Exited (0) 2 days ago               nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   2 days ago     Exited (0) 2 days ago               mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              3 days ago     Exited (0) 2 days ago               stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        3 days ago     Exited (143) 3 days ago             my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        3 days ago     Exited (143) 3 days ago             tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   3 days ago     Exited (143) 3 days ago             elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        3 days ago     Exited (143) 3 days ago             tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   3 days ago     Exited (0) 3 days ago               nginx01
+bf46371dea89   centos                "/bin/bash"              4 days ago     Exited (0) 3 days ago               epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/my_Dockerfile$ cd ..
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+centos_docker  files  my_centos  my_Dockerfile  mysql  nginx
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ tree
+.
+├── centos_docker
+├── files
+│   ├── 无标题文档 1
+│   ├── apache-tomcat-9.0.37.tar.gz
+│   └── jdk-8u341-linux-x64.tar.gz
+├── my_centos
+│   ├── my_centos_docker
+│   └── my_ubuntu_docker
+├── my_Dockerfile
+│   ├── apache-tomcat-9.0.37.tar.gz
+│   ├── Dockerfile
+│   ├── dockerfile1
+│   ├── dockerfile-cmd-test
+│   ├── dockerfile-entrypoint-test
+│   ├── jdk-8u341-linux-x64.tar.gz
+│   ├── mydockerfile-centos
+│   └── readme.txt
+├── mysql
+│   ├── conf
+│   └── data
+│       ├── auto.cnf
+│       ├── ca-key.pem
+│       ├── ca.pem
+│       ├── client-cert.pem
+│       ├── client-key.pem
+│       ├── ib_buffer_pool
+│       ├── ibdata1
+│       ├── ib_logfile0
+│       ├── ib_logfile1
+│       ├── mysql [error opening dir]
+│       ├── mysql.sock -> /var/run/mysqld/mysqld.sock
+│       ├── performance_schema [error opening dir]
+│       ├── private_key.pem
+│       ├── public_key.pem
+│       ├── school [error opening dir]
+│       ├── server-cert.pem
+│       ├── server-key.pem
+│       └── sys [error opening dir]
+└── nginx
+
+11 directories, 28 files
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ mkdir diytomcat
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ cd diytomcat/
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/diytomcat$ pwd
+/home/lyfubuntu/my_computer_language/docker/diytomcat
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/diytomcat$ ls
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/diytomcat$ docker run -d -p 3344:8080 --name luyanfengtomcat1 -v /home/lyfubuntu/my_computer_language/docker/diytomcat/test:/usr/local/apache-tomcat-9.0.37/webapps/test -v /home/lyfubuntu/my_computer_language/docker/diytomcat/tomcatlogs/:/usr/local/apache-tomcat-9.0.37/logs diytomcat
+aa57776789cae348f5f8136620f4dec5f1b57454798e57c97517e099677a8b2c
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/diytomcat$ docker images
+REPOSITORY        TAG       IMAGE ID       CREATED          SIZE
+diytomcat         latest    531449811312   18 minutes ago   827MB
+entrypoint-test   latest    293b60111edb   21 hours ago     231MB
+cmdtest           latest    e507939f0998   21 hours ago     231MB
+mycentos          0.2       5f2260ba4d08   23 hours ago     624MB
+lyf/centos        1.0       967c603048b0   45 hours ago     231MB
+my_centos         0.1       d3a84994963f   3 days ago       559MB
+my_tomcat         0.1       82bf5ce1034c   3 days ago       480MB
+tomcat            9.0       d4488b7f8c9b   4 days ago       475MB
+tomcat            latest    7a91e6f458bb   4 days ago       475MB
+mysql             5.7       daff57b7d2d1   13 days ago      430MB
+nginx             latest    2b7d6430f78d   2 weeks ago      142MB
+centos            7         eeb6ee3f44bd   11 months ago    204MB
+centos            latest    5d0da3dc9764   11 months ago    231MB
+elasticsearch     7.6.2     f29a1ee41030   2 years ago      791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/diytomcat$ docker ps
+CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS         PORTS                                       NAMES
+aa57776789ca   diytomcat   "/bin/sh -c '/usr/lo…"   2 minutes ago   Up 2 minutes   0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   luyanfengtomcat1
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/diytomcat$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                    PORTS                                       NAMES
+aa57776789ca   diytomcat             "/bin/sh -c '/usr/lo…"   2 minutes ago   Up 2 minutes              0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   luyanfengtomcat1
+f876c324441f   entrypoint-test       "ls -a -l"               20 hours ago    Exited (0) 20 hours ago                                               jolly_shaw
+90d672f69b18   entrypoint-test       "ls -a"                  20 hours ago    Exited (0) 20 hours ago                                               eager_burnell
+2c00ada1000f   cmdtest               "ls -l"                  21 hours ago    Exited (0) 21 hours ago                                               exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     21 hours ago    Created                                                               wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  21 hours ago    Exited (0) 21 hours ago                                               objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   23 hours ago    Exited (0) 23 hours ago                                               stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   43 hours ago    Exited (0) 43 hours ago                                               docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              45 hours ago    Exited (0) 45 hours ago                                               admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   2 days ago      Exited (0) 2 days ago                                                 nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   2 days ago      Exited (0) 2 days ago                                                 nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   2 days ago      Exited (0) 2 days ago                                                 mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              3 days ago      Exited (0) 3 days ago                                                 stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        3 days ago      Exited (143) 3 days ago                                               my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        3 days ago      Exited (143) 3 days ago                                               tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   3 days ago      Exited (143) 3 days ago                                               elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        3 days ago      Exited (143) 3 days ago                                               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   3 days ago      Exited (0) 3 days ago                                                 nginx01
+bf46371dea89   centos                "/bin/bash"              4 days ago      Exited (0) 3 days ago                                                 epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/diytomcat$ ls
+test  tomcatlogs
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/diytomcat$ tree
+.
+├── test
+└── tomcatlogs
+    ├── catalina.2022-09-07.log
+    ├── catalina.out
+    ├── host-manager.2022-09-07.log
+    ├── localhost.2022-09-07.log
+    ├── localhost_access_log.2022-09-07.txt
+    └── manager.2022-09-07.log
+
+2 directories, 6 files
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/diytomcat$ su root
+密码： 
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat# ls
+test  tomcatlogs
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat# cd test/
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat/test# vim index.jsp
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat/test# cat index.jsp 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>hello. xiaofan</title>
+</head>
+<body>
+Hello World!<br/>
+<%
+System.out.println("-----my test web logs------");
+%>
+</body>
+</html>
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat/test# ls
+index.jsp
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat/test# mkdir WEB-INF
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat/test# LS
+LS：未找到命令
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat/test# ls
+index.jsp  WEB-INF
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat/test# cd WEB-INF/
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat/test/WEB-INF# ls
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat/test/WEB-INF# vim web.xml
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat/test/WEB-INF# ls
+web.xml
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat/test/WEB-INF# cat web.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+    xmlns="http://java.sun.com/xml/ns/j2ee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+        http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+        
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat/test/WEB-INF# ls
+web.xml
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat/test/WEB-INF# cd ../..
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat# ls
+test  tomcatlogs
+root@lyfubuntu:/home/lyfubuntu/my_computer_language/docker/diytomcat# exit
+exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/diytomcat$ cd ..
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+centos_docker  diytomcat  files  my_centos  my_Dockerfile  mysql  nginx
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY        TAG       IMAGE ID       CREATED          SIZE
+diytomcat         latest    531449811312   50 minutes ago   827MB
+entrypoint-test   latest    293b60111edb   21 hours ago     231MB
+cmdtest           latest    e507939f0998   22 hours ago     231MB
+mycentos          0.2       5f2260ba4d08   24 hours ago     624MB
+lyf/centos        1.0       967c603048b0   46 hours ago     231MB
+my_centos         0.1       d3a84994963f   3 days ago       559MB
+my_tomcat         0.1       82bf5ce1034c   3 days ago       480MB
+tomcat            9.0       d4488b7f8c9b   4 days ago       475MB
+tomcat            latest    7a91e6f458bb   4 days ago       475MB
+mysql             5.7       daff57b7d2d1   13 days ago      430MB
+nginx             latest    2b7d6430f78d   2 weeks ago      142MB
+centos            7         eeb6ee3f44bd   11 months ago    204MB
+centos            latest    5d0da3dc9764   11 months ago    231MB
+elasticsearch     7.6.2     f29a1ee41030   2 years ago      791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE       COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+aa57776789ca   diytomcat   "/bin/sh -c '/usr/lo…"   34 minutes ago   Up 34 minutes   0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   luyanfengtomcat1
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                    PORTS                                       NAMES
+aa57776789ca   diytomcat             "/bin/sh -c '/usr/lo…"   34 minutes ago   Up 34 minutes             0.0.0.0:3344->8080/tcp, :::3344->8080/tcp   luyanfengtomcat1
+f876c324441f   entrypoint-test       "ls -a -l"               21 hours ago     Exited (0) 21 hours ago                                               jolly_shaw
+90d672f69b18   entrypoint-test       "ls -a"                  21 hours ago     Exited (0) 21 hours ago                                               eager_burnell
+2c00ada1000f   cmdtest               "ls -l"                  21 hours ago     Exited (0) 21 hours ago                                               exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     21 hours ago     Created                                                               wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  21 hours ago     Exited (0) 21 hours ago                                               objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   23 hours ago     Exited (0) 23 hours ago                                               stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   44 hours ago     Exited (0) 44 hours ago                                               docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              46 hours ago     Exited (0) 46 hours ago                                               admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   2 days ago       Exited (0) 2 days ago                                                 nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   2 days ago       Exited (0) 2 days ago                                                 nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   2 days ago       Exited (0) 2 days ago                                                 mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              3 days ago       Exited (0) 3 days ago                                                 stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        3 days ago       Exited (143) 3 days ago                                               my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        3 days ago       Exited (143) 3 days ago                                               tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   3 days ago       Exited (143) 3 days ago                                               elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        3 days ago       Exited (143) 3 days ago                                               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   4 days ago       Exited (0) 3 days ago                                                 nginx01
+bf46371dea89   centos                "/bin/bash"              4 days ago       Exited (0) 3 days ago                                                 epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$
+```
+
+### 发布自己的镜像到 `Docker Hub`
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
