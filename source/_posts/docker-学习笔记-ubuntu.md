@@ -10072,6 +10072,361 @@ bf46371dea89   centos                "/bin/bash"              5 days ago        
 
 ### link
 
+>`问题`: 有一个`微服务`，`database url = ip`；`ip` 更换了。我们希望可以按照`名字`进行访问容器。
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker exec -it tomcat_ip_ping02 ping tomcat_ip_ping01
+ping: tomcat_ip_ping01: Name or service not known
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ # 如何解决呢？
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ # 通过 --link 可以解决网络连通问题
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker run -d -P --name tomcat_ip_ping03 --link tomcat_ip_ping02 tomcat_ip_ping
+c921ea0a887ba99ed875b4b553f99fffbe19c6d4bc6e314259ad532a96341944
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker ps
+CONTAINER ID   IMAGE            COMMAND             CREATED         STATUS         PORTS                                         NAMES
+c921ea0a887b   tomcat_ip_ping   "catalina.sh run"   8 seconds ago   Up 6 seconds   0.0.0.0:49156->8080/tcp, :::49156->8080/tcp   tomcat_ip_ping03
+027b83bd07b4   tomcat_ip_ping   "catalina.sh run"   5 minutes ago   Up 5 minutes   0.0.0.0:49155->8080/tcp, :::49155->8080/tcp   tomcat_ip_ping02
+0b4ad3916256   tomcat_ip_ping   "catalina.sh run"   5 hours ago     Up 5 hours     0.0.0.0:49153->8080/tcp, :::49153->8080/tcp   tomcat_ip_ping01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker exec -it tomcat_ip_ping03 ping tomcat_ip_ping02
+PING tomcat_ip_ping02 (172.17.0.3) 56(84) bytes of data.
+64 bytes from tomcat_ip_ping02 (172.17.0.3): icmp_seq=1 ttl=64 time=0.103 ms
+64 bytes from tomcat_ip_ping02 (172.17.0.3): icmp_seq=2 ttl=64 time=0.053 ms
+64 bytes from tomcat_ip_ping02 (172.17.0.3): icmp_seq=3 ttl=64 time=0.061 ms
+64 bytes from tomcat_ip_ping02 (172.17.0.3): icmp_seq=4 ttl=64 time=0.061 ms
+64 bytes from tomcat_ip_ping02 (172.17.0.3): icmp_seq=5 ttl=64 time=0.053 ms
+64 bytes from tomcat_ip_ping02 (172.17.0.3): icmp_seq=6 ttl=64 time=0.061 ms
+64 bytes from tomcat_ip_ping02 (172.17.0.3): icmp_seq=7 ttl=64 time=0.047 ms
+^C
+--- tomcat_ip_ping02 ping statistics ---
+7 packets transmitted, 7 received, 0% packet loss, time 6126ms
+rtt min/avg/max/mdev = 0.047/0.062/0.103/0.017 ms
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ # 反向不可以 ping 通
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker exec -it tomcat_ip_ping02 ping tomcat_ip_ping03
+ping: tomcat_ip_ping03: Name or service not known
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$
+```
+
+{% label inspect green %}
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+f28dbaf8eb28   bridge    bridge    local
+d7654904ecb4   host      host      local
+ea359b44df52   none      null      local
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker inspect f28dbaf8eb28
+[
+    {
+        "Name": "bridge",
+        "Id": "f28dbaf8eb286ea84cce094a08aa3a7d8acafacb919361f43695d192b6fb3e17",
+        "Created": "2022-09-08T11:29:55.472155874+08:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16",
+                    "Gateway": "172.17.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "027b83bd07b4aed228d66ffe8baea0c6d11fc4756daeefdea9c92ea24dab7b2f": {
+                "Name": "tomcat_ip_ping02",
+                "EndpointID": "55c0b292c2899a835e5eae4b4aff8a76076c64cb957d4ff5cb3fc03ee105735b",
+                "MacAddress": "02:42:ac:11:00:03",
+                "IPv4Address": "172.17.0.3/16",
+                "IPv6Address": ""
+            },
+            "0b4ad39162568878ce57127efd68f499d1ca2db758e1a10b75848ec733f5d068": {
+                "Name": "tomcat_ip_ping01",
+                "EndpointID": "28e2e10a29dad227604631495cf77dae04f9f1c37675d5d4f14a0f964c946ce8",
+                "MacAddress": "02:42:ac:11:00:02",
+                "IPv4Address": "172.17.0.2/16",
+                "IPv6Address": ""
+            },
+            "c921ea0a887ba99ed875b4b553f99fffbe19c6d4bc6e314259ad532a96341944": {
+                "Name": "tomcat_ip_ping03",
+                "EndpointID": "5fe1a6055a1ee2cda21791fb5dae9d5a8df8760c872bbd4c653b7495aeccc9d1",
+                "MacAddress": "02:42:ac:11:00:04",
+                "IPv4Address": "172.17.0.4/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {}
+    }
+]
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$
+```
+
+---
+
+`--link` -> `tomcat_ip_ping03` 本地配置了 `tomcat_ip_ping02` 。
+
+```shell
+$ docker exec -it tomcat_ip_ping03 cat /etc/hosts
+127.0.0.1	localhost
+::1	localhost ip6-localhost ip6-loopback
+fe00::0	ip6-localnet
+ff00::0	ip6-mcastprefix
+ff02::1	ip6-allnodes
+ff02::2	ip6-allrouters
+172.17.0.3	tomcat_ip_ping02 027b83bd07b4
+172.17.0.4	c921ea0a887b
+```
+
+`本质探究`: `--link` 在 `host` 配置中增加了一个 `172.17.0.3	tomcat_ip_ping02 027b83bd07b4`
+
+`docker` 不建议使用 `--link` 。也不建议使用 `docker0`，因为 `docker0` 不支持容器名连接访问。建议使用`自定义网络`。
+
+---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker images
+REPOSITORY               TAG       IMAGE ID       CREATED         SIZE
+tomcat_ip_ping           latest    49e7365dc2c9   5 hours ago     519MB
+diytomcat                latest    531449811312   32 hours ago    827MB
+luyanfeng123/diytomcat   1.0       531449811312   32 hours ago    827MB
+entrypoint-test          latest    293b60111edb   2 days ago      231MB
+cmdtest                  latest    e507939f0998   2 days ago      231MB
+mycentos                 0.2       5f2260ba4d08   2 days ago      624MB
+lyf/centos               1.0       967c603048b0   3 days ago      231MB
+my_centos                0.1       d3a84994963f   4 days ago      559MB
+my_tomcat                0.1       82bf5ce1034c   4 days ago      480MB
+tomcat                   9.0       d4488b7f8c9b   6 days ago      475MB
+tomcat                   latest    7a91e6f458bb   6 days ago      475MB
+mysql                    5.7       daff57b7d2d1   2 weeks ago     430MB
+nginx                    latest    2b7d6430f78d   2 weeks ago     142MB
+centos                   7         eeb6ee3f44bd   11 months ago   204MB
+centos                   latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch            7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker ps
+CONTAINER ID   IMAGE            COMMAND             CREATED       STATUS       PORTS                                         NAMES
+0b4ad3916256   tomcat_ip_ping   "catalina.sh run"   5 hours ago   Up 5 hours   0.0.0.0:49153->8080/tcp, :::49153->8080/tcp   tomcat_ip_ping01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS                                         NAMES
+0b4ad3916256   tomcat_ip_ping        "catalina.sh run"        5 hours ago    Up 5 hours                  0.0.0.0:49153->8080/tcp, :::49153->8080/tcp   tomcat_ip_ping01
+aa57776789ca   diytomcat             "/bin/sh -c '/usr/lo…"   32 hours ago   Exited (137) 30 hours ago                                                 luyanfengtomcat1
+f876c324441f   entrypoint-test       "ls -a -l"               2 days ago     Exited (0) 2 days ago                                                     jolly_shaw
+90d672f69b18   entrypoint-test       "ls -a"                  2 days ago     Exited (0) 2 days ago                                                     eager_burnell
+2c00ada1000f   cmdtest               "ls -l"                  2 days ago     Exited (0) 2 days ago                                                     exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     2 days ago     Created                                                                   wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  2 days ago     Exited (0) 2 days ago                                                     objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   2 days ago     Exited (0) 2 days ago                                                     stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   3 days ago     Exited (0) 3 days ago                                                     docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              3 days ago     Exited (0) 3 days ago                                                     admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   3 days ago     Exited (0) 3 days ago                                                     nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   3 days ago     Exited (0) 3 days ago                                                     nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   4 days ago     Exited (0) 3 days ago                                                     mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              4 days ago     Exited (0) 4 days ago                                                     stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        4 days ago     Exited (143) 4 days ago                                                   my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        4 days ago     Exited (143) 4 days ago                                                   tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   5 days ago     Exited (143) 5 days ago                                                   elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        5 days ago     Exited (143) 5 days ago                                                   tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   5 days ago     Exited (0) 5 days ago                                                     nginx01
+bf46371dea89   centos                "/bin/bash"              5 days ago     Exited (0) 4 days ago                                                     epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker run -d -P --name tomcat_ip_ping02 tomcat_ip_ping
+027b83bd07b4aed228d66ffe8baea0c6d11fc4756daeefdea9c92ea24dab7b2f
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker ps
+CONTAINER ID   IMAGE            COMMAND             CREATED         STATUS         PORTS                                         NAMES
+027b83bd07b4   tomcat_ip_ping   "catalina.sh run"   9 seconds ago   Up 5 seconds   0.0.0.0:49155->8080/tcp, :::49155->8080/tcp   tomcat_ip_ping02
+0b4ad3916256   tomcat_ip_ping   "catalina.sh run"   5 hours ago     Up 5 hours     0.0.0.0:49153->8080/tcp, :::49153->8080/tcp   tomcat_ip_ping01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                      PORTS                                         NAMES
+027b83bd07b4   tomcat_ip_ping        "catalina.sh run"        14 seconds ago   Up 11 seconds               0.0.0.0:49155->8080/tcp, :::49155->8080/tcp   tomcat_ip_ping02
+0b4ad3916256   tomcat_ip_ping        "catalina.sh run"        5 hours ago      Up 5 hours                  0.0.0.0:49153->8080/tcp, :::49153->8080/tcp   tomcat_ip_ping01
+aa57776789ca   diytomcat             "/bin/sh -c '/usr/lo…"   32 hours ago     Exited (137) 30 hours ago                                                 luyanfengtomcat1
+f876c324441f   entrypoint-test       "ls -a -l"               2 days ago       Exited (0) 2 days ago                                                     jolly_shaw
+90d672f69b18   entrypoint-test       "ls -a"                  2 days ago       Exited (0) 2 days ago                                                     eager_burnell
+2c00ada1000f   cmdtest               "ls -l"                  2 days ago       Exited (0) 2 days ago                                                     exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     2 days ago       Created                                                                   wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  2 days ago       Exited (0) 2 days ago                                                     objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   2 days ago       Exited (0) 2 days ago                                                     stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   3 days ago       Exited (0) 3 days ago                                                     docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              3 days ago       Exited (0) 3 days ago                                                     admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   3 days ago       Exited (0) 3 days ago                                                     nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   3 days ago       Exited (0) 3 days ago                                                     nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   4 days ago       Exited (0) 3 days ago                                                     mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              4 days ago       Exited (0) 4 days ago                                                     stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        4 days ago       Exited (143) 4 days ago                                                   my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        4 days ago       Exited (143) 4 days ago                                                   tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   5 days ago       Exited (143) 5 days ago                                                   elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        5 days ago       Exited (143) 5 days ago                                                   tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   5 days ago       Exited (0) 5 days ago                                                     nginx01
+bf46371dea89   centos                "/bin/bash"              5 days ago       Exited (0) 4 days ago                                                     epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker exec -it tomcat_ip_ping02 ping tomcat_ip_ping01
+ping: tomcat_ip_ping01: Name or service not known
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ # 如何解决呢？
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ # 通过 --link 可以解决网络连通问题
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker run -d -P --name tomcat_ip_ping03 --link tomcat_ip_ping02 tomcat_ip_ping
+c921ea0a887ba99ed875b4b553f99fffbe19c6d4bc6e314259ad532a96341944
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker ps
+CONTAINER ID   IMAGE            COMMAND             CREATED         STATUS         PORTS                                         NAMES
+c921ea0a887b   tomcat_ip_ping   "catalina.sh run"   8 seconds ago   Up 6 seconds   0.0.0.0:49156->8080/tcp, :::49156->8080/tcp   tomcat_ip_ping03
+027b83bd07b4   tomcat_ip_ping   "catalina.sh run"   5 minutes ago   Up 5 minutes   0.0.0.0:49155->8080/tcp, :::49155->8080/tcp   tomcat_ip_ping02
+0b4ad3916256   tomcat_ip_ping   "catalina.sh run"   5 hours ago     Up 5 hours     0.0.0.0:49153->8080/tcp, :::49153->8080/tcp   tomcat_ip_ping01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker exec -it tomcat_ip_ping03 ping tomcat_ip_ping02
+PING tomcat_ip_ping02 (172.17.0.3) 56(84) bytes of data.
+64 bytes from tomcat_ip_ping02 (172.17.0.3): icmp_seq=1 ttl=64 time=0.103 ms
+64 bytes from tomcat_ip_ping02 (172.17.0.3): icmp_seq=2 ttl=64 time=0.053 ms
+64 bytes from tomcat_ip_ping02 (172.17.0.3): icmp_seq=3 ttl=64 time=0.061 ms
+64 bytes from tomcat_ip_ping02 (172.17.0.3): icmp_seq=4 ttl=64 time=0.061 ms
+64 bytes from tomcat_ip_ping02 (172.17.0.3): icmp_seq=5 ttl=64 time=0.053 ms
+64 bytes from tomcat_ip_ping02 (172.17.0.3): icmp_seq=6 ttl=64 time=0.061 ms
+64 bytes from tomcat_ip_ping02 (172.17.0.3): icmp_seq=7 ttl=64 time=0.047 ms
+^C
+--- tomcat_ip_ping02 ping statistics ---
+7 packets transmitted, 7 received, 0% packet loss, time 6126ms
+rtt min/avg/max/mdev = 0.047/0.062/0.103/0.017 ms
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ # 反向不可以 ping 通
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker exec -it tomcat_ip_ping02 ping tomcat_ip_ping03
+ping: tomcat_ip_ping03: Name or service not known
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+f28dbaf8eb28   bridge    bridge    local
+d7654904ecb4   host      host      local
+ea359b44df52   none      null      local
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker inspect f28dbaf8eb28
+[
+    {
+        "Name": "bridge",
+        "Id": "f28dbaf8eb286ea84cce094a08aa3a7d8acafacb919361f43695d192b6fb3e17",
+        "Created": "2022-09-08T11:29:55.472155874+08:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16",
+                    "Gateway": "172.17.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "027b83bd07b4aed228d66ffe8baea0c6d11fc4756daeefdea9c92ea24dab7b2f": {
+                "Name": "tomcat_ip_ping02",
+                "EndpointID": "55c0b292c2899a835e5eae4b4aff8a76076c64cb957d4ff5cb3fc03ee105735b",
+                "MacAddress": "02:42:ac:11:00:03",
+                "IPv4Address": "172.17.0.3/16",
+                "IPv6Address": ""
+            },
+            "0b4ad39162568878ce57127efd68f499d1ca2db758e1a10b75848ec733f5d068": {
+                "Name": "tomcat_ip_ping01",
+                "EndpointID": "28e2e10a29dad227604631495cf77dae04f9f1c37675d5d4f14a0f964c946ce8",
+                "MacAddress": "02:42:ac:11:00:02",
+                "IPv4Address": "172.17.0.2/16",
+                "IPv6Address": ""
+            },
+            "c921ea0a887ba99ed875b4b553f99fffbe19c6d4bc6e314259ad532a96341944": {
+                "Name": "tomcat_ip_ping03",
+                "EndpointID": "5fe1a6055a1ee2cda21791fb5dae9d5a8df8760c872bbd4c653b7495aeccc9d1",
+                "MacAddress": "02:42:ac:11:00:04",
+                "IPv4Address": "172.17.0.4/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {}
+    }
+]
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ # --link -> tomcat_ip_ping03 本地配置了 tomcat_ip_ping02
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker exec -it tomcat_ip_ping03 cat /etc/hosts
+127.0.0.1	localhost
+::1	localhost ip6-localhost ip6-loopback
+fe00::0	ip6-localnet
+ff00::0	ip6-mcastprefix
+ff02::1	ip6-allnodes
+ff02::2	ip6-allrouters
+172.17.0.3	tomcat_ip_ping02 027b83bd07b4
+172.17.0.4	c921ea0a887b
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker images
+REPOSITORY               TAG       IMAGE ID       CREATED         SIZE
+tomcat_ip_ping           latest    49e7365dc2c9   6 hours ago     519MB
+diytomcat                latest    531449811312   32 hours ago    827MB
+luyanfeng123/diytomcat   1.0       531449811312   32 hours ago    827MB
+entrypoint-test          latest    293b60111edb   2 days ago      231MB
+cmdtest                  latest    e507939f0998   2 days ago      231MB
+mycentos                 0.2       5f2260ba4d08   2 days ago      624MB
+lyf/centos               1.0       967c603048b0   3 days ago      231MB
+my_centos                0.1       d3a84994963f   4 days ago      559MB
+my_tomcat                0.1       82bf5ce1034c   4 days ago      480MB
+tomcat                   9.0       d4488b7f8c9b   6 days ago      475MB
+tomcat                   latest    7a91e6f458bb   6 days ago      475MB
+mysql                    5.7       daff57b7d2d1   2 weeks ago     430MB
+nginx                    latest    2b7d6430f78d   2 weeks ago     142MB
+centos                   7         eeb6ee3f44bd   11 months ago   204MB
+centos                   latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch            7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker ps
+CONTAINER ID   IMAGE            COMMAND             CREATED          STATUS          PORTS                                         NAMES
+c921ea0a887b   tomcat_ip_ping   "catalina.sh run"   8 minutes ago    Up 8 minutes    0.0.0.0:49156->8080/tcp, :::49156->8080/tcp   tomcat_ip_ping03
+027b83bd07b4   tomcat_ip_ping   "catalina.sh run"   13 minutes ago   Up 13 minutes   0.0.0.0:49155->8080/tcp, :::49155->8080/tcp   tomcat_ip_ping02
+0b4ad3916256   tomcat_ip_ping   "catalina.sh run"   5 hours ago      Up 5 hours      0.0.0.0:49153->8080/tcp, :::49153->8080/tcp   tomcat_ip_ping01
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                      PORTS                                         NAMES
+c921ea0a887b   tomcat_ip_ping        "catalina.sh run"        9 minutes ago    Up 9 minutes                0.0.0.0:49156->8080/tcp, :::49156->8080/tcp   tomcat_ip_ping03
+027b83bd07b4   tomcat_ip_ping        "catalina.sh run"        14 minutes ago   Up 14 minutes               0.0.0.0:49155->8080/tcp, :::49155->8080/tcp   tomcat_ip_ping02
+0b4ad3916256   tomcat_ip_ping        "catalina.sh run"        5 hours ago      Up 5 hours                  0.0.0.0:49153->8080/tcp, :::49153->8080/tcp   tomcat_ip_ping01
+aa57776789ca   diytomcat             "/bin/sh -c '/usr/lo…"   32 hours ago     Exited (137) 30 hours ago                                                 luyanfengtomcat1
+f876c324441f   entrypoint-test       "ls -a -l"               2 days ago       Exited (0) 2 days ago                                                     jolly_shaw
+90d672f69b18   entrypoint-test       "ls -a"                  2 days ago       Exited (0) 2 days ago                                                     eager_burnell
+2c00ada1000f   cmdtest               "ls -l"                  2 days ago       Exited (0) 2 days ago                                                     exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     2 days ago       Created                                                                   wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  2 days ago       Exited (0) 2 days ago                                                     objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   2 days ago       Exited (0) 2 days ago                                                     stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   3 days ago       Exited (0) 3 days ago                                                     docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              3 days ago       Exited (0) 3 days ago                                                     admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   3 days ago       Exited (0) 3 days ago                                                     nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   3 days ago       Exited (0) 3 days ago                                                     nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   4 days ago       Exited (0) 3 days ago                                                     mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              4 days ago       Exited (0) 4 days ago                                                     stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        4 days ago       Exited (143) 4 days ago                                                   my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        4 days ago       Exited (143) 4 days ago                                                   tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   5 days ago       Exited (143) 5 days ago                                                   elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        5 days ago       Exited (143) 5 days ago                                                   tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   5 days ago       Exited (0) 5 days ago                                                     nginx01
+bf46371dea89   centos                "/bin/bash"              5 days ago       Exited (0) 4 days ago                                                     epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$
+```
+
+---
+
+### 自定义网络
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
