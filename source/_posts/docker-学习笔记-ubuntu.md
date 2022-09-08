@@ -8901,6 +8901,8 @@ bf46371dea89   centos                "/bin/bash"              5 days ago     Exi
 
 ---
 
+`问题`: `docker` 是如何处理`容器网络访问`的？
+
 ```shell
 (base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/tomcat_ip_ping$ docker run -d -P --name tomcat_ip_ping01 tomcat_ip_ping
 0b4ad39162568878ce57127efd68f499d1ca2db758e1a10b75848ec733f5d068
