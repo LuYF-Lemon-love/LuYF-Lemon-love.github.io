@@ -9024,7 +9024,7 @@ rtt min/avg/max/mdev = 0.047/0.054/0.088/0.012 ms
 
 ---
 
-我们每启动一个 `docker` 容器，`docker` 就会给 `docker` 容器分配一个 `ip` 地址。我们只要安装了 `docker`，就会有一个 `docker0` 网卡，该网卡使用的技术是 `veth-pair` 技术！
+我们每启动一个 `docker` 容器，`docker` 就会给 `docker` 容器分配一个 `IP` 地址。我们只要安装了 `docker`，就会有一个 `docker0` 网卡，该网卡使用的技术是 `veth-pair` 技术！
 
 再次运行 `ip addr` 。
 
