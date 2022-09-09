@@ -11627,6 +11627,377 @@ bf46371dea89   centos                "/bin/bash"              6 days ago      Ex
 
 ### 网络连通
 
+打通 `tomcat01` 和 `mynet`。
+
+![](https://cos.luyf-lemon-love.space/images/20220909184833.png)
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ docker images
+REPOSITORY               TAG       IMAGE ID       CREATED         SIZE
+tomcat_ip_ping           latest    49e7365dc2c9   27 hours ago    519MB
+diytomcat                latest    531449811312   2 days ago      827MB
+luyanfeng123/diytomcat   1.0       531449811312   2 days ago      827MB
+entrypoint-test          latest    293b60111edb   3 days ago      231MB
+cmdtest                  latest    e507939f0998   3 days ago      231MB
+mycentos                 0.2       5f2260ba4d08   3 days ago      624MB
+lyf/centos               1.0       967c603048b0   4 days ago      231MB
+my_centos                0.1       d3a84994963f   5 days ago      559MB
+my_tomcat                0.1       82bf5ce1034c   5 days ago      480MB
+tomcat                   9.0       d4488b7f8c9b   7 days ago      475MB
+tomcat                   latest    7a91e6f458bb   7 days ago      475MB
+mysql                    5.7       daff57b7d2d1   2 weeks ago     430MB
+nginx                    latest    2b7d6430f78d   2 weeks ago     142MB
+centos                   7         eeb6ee3f44bd   11 months ago   204MB
+centos                   latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch            7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~$ docker ps
+CONTAINER ID   IMAGE            COMMAND             CREATED          STATUS          PORTS                                         NAMES
+6229c08593d1   tomcat_ip_ping   "catalina.sh run"   34 minutes ago   Up 34 minutes   0.0.0.0:49161->8080/tcp, :::49161->8080/tcp   tomcat_net05
+04948421ca0e   tomcat_ip_ping   "catalina.sh run"   35 minutes ago   Up 35 minutes   0.0.0.0:49160->8080/tcp, :::49160->8080/tcp   tomcat_net04
+ee5c5cf1180d   tomcat_ip_ping   "catalina.sh run"   38 minutes ago   Up 38 minutes   0.0.0.0:49159->8080/tcp, :::49159->8080/tcp   tomcat_net03
+756c9c351b2e   tomcat_ip_ping   "catalina.sh run"   2 hours ago      Up 2 hours      0.0.0.0:49158->8080/tcp, :::49158->8080/tcp   tomcat-net-02
+27a5e5c233d6   tomcat_ip_ping   "catalina.sh run"   2 hours ago      Up 2 hours      0.0.0.0:49157->8080/tcp, :::49157->8080/tcp   tomcat-net-01
+c14bfab1fc0f   tomcat_ip_ping   "catalina.sh run"   3 hours ago      Up 3 hours      0.0.0.0:49156->8080/tcp, :::49156->8080/tcp   tomcat_net02
+239795cbc8a4   tomcat_ip_ping   "catalina.sh run"   3 hours ago      Up 3 hours      0.0.0.0:49155->8080/tcp, :::49155->8080/tcp   tomcat_net01
+(base) lyfubuntu@lyfubuntu:~$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                      PORTS                                         NAMES
+6229c08593d1   tomcat_ip_ping        "catalina.sh run"        35 minutes ago   Up 35 minutes               0.0.0.0:49161->8080/tcp, :::49161->8080/tcp   tomcat_net05
+04948421ca0e   tomcat_ip_ping        "catalina.sh run"        35 minutes ago   Up 35 minutes               0.0.0.0:49160->8080/tcp, :::49160->8080/tcp   tomcat_net04
+ee5c5cf1180d   tomcat_ip_ping        "catalina.sh run"        38 minutes ago   Up 38 minutes               0.0.0.0:49159->8080/tcp, :::49159->8080/tcp   tomcat_net03
+756c9c351b2e   tomcat_ip_ping        "catalina.sh run"        2 hours ago      Up 2 hours                  0.0.0.0:49158->8080/tcp, :::49158->8080/tcp   tomcat-net-02
+27a5e5c233d6   tomcat_ip_ping        "catalina.sh run"        2 hours ago      Up 2 hours                  0.0.0.0:49157->8080/tcp, :::49157->8080/tcp   tomcat-net-01
+c14bfab1fc0f   tomcat_ip_ping        "catalina.sh run"        3 hours ago      Up 3 hours                  0.0.0.0:49156->8080/tcp, :::49156->8080/tcp   tomcat_net02
+239795cbc8a4   tomcat_ip_ping        "catalina.sh run"        3 hours ago      Up 3 hours                  0.0.0.0:49155->8080/tcp, :::49155->8080/tcp   tomcat_net01
+c921ea0a887b   tomcat_ip_ping        "catalina.sh run"        22 hours ago     Exited (143) 20 hours ago                                                 tomcat_ip_ping03
+027b83bd07b4   tomcat_ip_ping        "catalina.sh run"        22 hours ago     Exited (143) 20 hours ago                                                 tomcat_ip_ping02
+0b4ad3916256   tomcat_ip_ping        "catalina.sh run"        27 hours ago     Exited (143) 20 hours ago                                                 tomcat_ip_ping01
+aa57776789ca   diytomcat             "/bin/sh -c '/usr/lo…"   2 days ago       Exited (137) 2 days ago                                                   luyanfengtomcat1
+f876c324441f   entrypoint-test       "ls -a -l"               3 days ago       Exited (0) 3 days ago                                                     jolly_shaw
+90d672f69b18   entrypoint-test       "ls -a"                  3 days ago       Exited (0) 3 days ago                                                     eager_burnell
+2c00ada1000f   cmdtest               "ls -l"                  3 days ago       Exited (0) 3 days ago                                                     exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     3 days ago       Created                                                                   wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  3 days ago       Exited (0) 3 days ago                                                     objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   3 days ago       Exited (0) 3 days ago                                                     stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   4 days ago       Exited (0) 4 days ago                                                     docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              4 days ago       Exited (0) 4 days ago                                                     admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   4 days ago       Exited (0) 4 days ago                                                     nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   4 days ago       Exited (0) 4 days ago                                                     nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   5 days ago       Exited (0) 4 days ago                                                     mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              5 days ago       Exited (0) 5 days ago                                                     stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        5 days ago       Exited (143) 5 days ago                                                   my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        5 days ago       Exited (143) 5 days ago                                                   tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   6 days ago       Exited (143) 6 days ago                                                   elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        6 days ago       Exited (143) 6 days ago                                                   tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   6 days ago       Exited (0) 6 days ago                                                     nginx01
+bf46371dea89   centos                "/bin/bash"              6 days ago       Exited (0) 5 days ago                                                     epic_solomon
+(base) lyfubuntu@lyfubuntu:~$ docker network --help
+
+Usage:  docker network COMMAND
+
+Manage networks
+
+Commands:
+  connect     Connect a container to a network
+  create      Create a network
+  disconnect  Disconnect a container from a network
+  inspect     Display detailed information on one or more networks
+  ls          List networks
+  prune       Remove all unused networks
+  rm          Remove one or more networks
+
+Run 'docker network COMMAND --help' for more information on a command.
+(base) lyfubuntu@lyfubuntu:~$ docker network connect --help
+
+Usage:  docker network connect [OPTIONS] NETWORK CONTAINER
+
+Connect a container to a network
+
+Options:
+      --alias strings           Add network-scoped alias for the container
+      --driver-opt strings      driver options for the network
+      --ip string               IPv4 address (e.g., 172.30.100.104)
+      --ip6 string              IPv6 address (e.g., 2001:db8::33)
+      --link list               Add link to another container
+      --link-local-ip strings   Add a link-local address for the container
+(base) lyfubuntu@lyfubuntu:~$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+97d8bd3a09c6   bridge    bridge    local
+d7654904ecb4   host      host      local
+3a1f3caf97a6   mynet     bridge    local
+ea359b44df52   none      null      local
+(base) lyfubuntu@lyfubuntu:~$ docker network inspect bridge 
+[
+    {
+        "Name": "bridge",
+        "Id": "97d8bd3a09c68632f36a4cd367384a2fabb398bf8f8c4680a6ebaf6192ed9a3c",
+        "Created": "2022-09-09T15:09:52.087458644+08:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16",
+                    "Gateway": "172.17.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "04948421ca0e889223b14f1e7cd6f8304a8f8705fb4b2831d028d45eb4b6c1e9": {
+                "Name": "tomcat_net04",
+                "EndpointID": "8cdb6d6de56a0de05287cab85ded85a39f7da56b8a5dc7e2ac48fafd01935d05",
+                "MacAddress": "02:42:ac:11:00:05",
+                "IPv4Address": "172.17.0.5/16",
+                "IPv6Address": ""
+            },
+            "239795cbc8a40c4742eef268e30497cbf5ffd9c8ca32aec16778b4970cab7714": {
+                "Name": "tomcat_net01",
+                "EndpointID": "d118f4354b82ee8ad48632d5c076e58e316d5d23b28d0ea51623205988465490",
+                "MacAddress": "02:42:ac:11:00:02",
+                "IPv4Address": "172.17.0.2/16",
+                "IPv6Address": ""
+            },
+            "6229c08593d165c1c09d8d6ab3a58866cecc3a69633d16471b7a00e93b35d782": {
+                "Name": "tomcat_net05",
+                "EndpointID": "1f033a9ff2321c941e58885ff1b8a8d61787c1c49bf1a6e3c807a2cdb1cd97aa",
+                "MacAddress": "02:42:ac:11:00:06",
+                "IPv4Address": "172.17.0.6/16",
+                "IPv6Address": ""
+            },
+            "c14bfab1fc0fa60002ba5daa01f2edcaa31042b13d01e9a0db1bf012ce0842d8": {
+                "Name": "tomcat_net02",
+                "EndpointID": "26f64b6509ce8a290c9d6de3d90dab28fea3f3715ca5758a7934ebe01d71d88c",
+                "MacAddress": "02:42:ac:11:00:03",
+                "IPv4Address": "172.17.0.3/16",
+                "IPv6Address": ""
+            },
+            "ee5c5cf1180df5514755a052ef8a4a0e75b8767cb6a06e68d8d05a0300ef5a75": {
+                "Name": "tomcat_net03",
+                "EndpointID": "561d6008fcacbc005f6e999f937d1a65d44a1d201022dd7e7b8d7442761a6e75",
+                "MacAddress": "02:42:ac:11:00:04",
+                "IPv4Address": "172.17.0.4/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {}
+    }
+]
+(base) lyfubuntu@lyfubuntu:~$ docker network inspect mynet 
+[
+    {
+        "Name": "mynet",
+        "Id": "3a1f3caf97a6e635a0c31227b7a19b6b100f990591ea68e8b463de18da619b6e",
+        "Created": "2022-09-09T16:02:33.067386187+08:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.0.0/16",
+                    "Gateway": "192.168.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "27a5e5c233d63273d87f209f6e6b70a21179abfeb29488842be40cef5e05164f": {
+                "Name": "tomcat-net-01",
+                "EndpointID": "4199acc6c4d4be4dfe1cc6cb5ebd7fb57442b6265651141d76892ededf3ba79b",
+                "MacAddress": "02:42:c0:a8:00:02",
+                "IPv4Address": "192.168.0.2/16",
+                "IPv6Address": ""
+            },
+            "756c9c351b2e2081ac7445c9f6c9cd1bd683dce64d497471a4662fc4dc17b04a": {
+                "Name": "tomcat-net-02",
+                "EndpointID": "5fe0a53471b43d7ee900cc03f5f6b3920af68f7cd058e469f7fd61fd72d89778",
+                "MacAddress": "02:42:c0:a8:00:03",
+                "IPv4Address": "192.168.0.3/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+(base) lyfubuntu@lyfubuntu:~$ docker network connect mynet tomcat_net01
+(base) lyfubuntu@lyfubuntu:~$ docker network inspect bridge 
+[
+    {
+        "Name": "bridge",
+        "Id": "97d8bd3a09c68632f36a4cd367384a2fabb398bf8f8c4680a6ebaf6192ed9a3c",
+        "Created": "2022-09-09T15:09:52.087458644+08:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16",
+                    "Gateway": "172.17.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "04948421ca0e889223b14f1e7cd6f8304a8f8705fb4b2831d028d45eb4b6c1e9": {
+                "Name": "tomcat_net04",
+                "EndpointID": "8cdb6d6de56a0de05287cab85ded85a39f7da56b8a5dc7e2ac48fafd01935d05",
+                "MacAddress": "02:42:ac:11:00:05",
+                "IPv4Address": "172.17.0.5/16",
+                "IPv6Address": ""
+            },
+            "239795cbc8a40c4742eef268e30497cbf5ffd9c8ca32aec16778b4970cab7714": {
+                "Name": "tomcat_net01",
+                "EndpointID": "d118f4354b82ee8ad48632d5c076e58e316d5d23b28d0ea51623205988465490",
+                "MacAddress": "02:42:ac:11:00:02",
+                "IPv4Address": "172.17.0.2/16",
+                "IPv6Address": ""
+            },
+            "6229c08593d165c1c09d8d6ab3a58866cecc3a69633d16471b7a00e93b35d782": {
+                "Name": "tomcat_net05",
+                "EndpointID": "1f033a9ff2321c941e58885ff1b8a8d61787c1c49bf1a6e3c807a2cdb1cd97aa",
+                "MacAddress": "02:42:ac:11:00:06",
+                "IPv4Address": "172.17.0.6/16",
+                "IPv6Address": ""
+            },
+            "c14bfab1fc0fa60002ba5daa01f2edcaa31042b13d01e9a0db1bf012ce0842d8": {
+                "Name": "tomcat_net02",
+                "EndpointID": "26f64b6509ce8a290c9d6de3d90dab28fea3f3715ca5758a7934ebe01d71d88c",
+                "MacAddress": "02:42:ac:11:00:03",
+                "IPv4Address": "172.17.0.3/16",
+                "IPv6Address": ""
+            },
+            "ee5c5cf1180df5514755a052ef8a4a0e75b8767cb6a06e68d8d05a0300ef5a75": {
+                "Name": "tomcat_net03",
+                "EndpointID": "561d6008fcacbc005f6e999f937d1a65d44a1d201022dd7e7b8d7442761a6e75",
+                "MacAddress": "02:42:ac:11:00:04",
+                "IPv4Address": "172.17.0.4/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {}
+    }
+]
+(base) lyfubuntu@lyfubuntu:~$ docker network inspect mynet 
+[
+    {
+        "Name": "mynet",
+        "Id": "3a1f3caf97a6e635a0c31227b7a19b6b100f990591ea68e8b463de18da619b6e",
+        "Created": "2022-09-09T16:02:33.067386187+08:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.0.0/16",
+                    "Gateway": "192.168.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "239795cbc8a40c4742eef268e30497cbf5ffd9c8ca32aec16778b4970cab7714": {
+                "Name": "tomcat_net01",
+                "EndpointID": "712d9aacb9b192f3ab16942ffaacabd47b127b7168dabfeeffacc1510ab6443f",
+                "MacAddress": "02:42:c0:a8:00:04",
+                "IPv4Address": "192.168.0.4/16",
+                "IPv6Address": ""
+            },
+            "27a5e5c233d63273d87f209f6e6b70a21179abfeb29488842be40cef5e05164f": {
+                "Name": "tomcat-net-01",
+                "EndpointID": "4199acc6c4d4be4dfe1cc6cb5ebd7fb57442b6265651141d76892ededf3ba79b",
+                "MacAddress": "02:42:c0:a8:00:02",
+                "IPv4Address": "192.168.0.2/16",
+                "IPv6Address": ""
+            },
+            "756c9c351b2e2081ac7445c9f6c9cd1bd683dce64d497471a4662fc4dc17b04a": {
+                "Name": "tomcat-net-02",
+                "EndpointID": "5fe0a53471b43d7ee900cc03f5f6b3920af68f7cd058e469f7fd61fd72d89778",
+                "MacAddress": "02:42:c0:a8:00:03",
+                "IPv4Address": "192.168.0.3/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+(base) lyfubuntu@lyfubuntu:~$ # 连通之后，将 tomcat_net01 放到了 mynet 网络下
+(base) lyfubuntu@lyfubuntu:~$ # 一个容器两个 ip 地址：
+(base) lyfubuntu@lyfubuntu:~$ # tomcat_net01 bridge: 172.17.0.2/16, mynet: 192.168.0.4/16
+(base) lyfubuntu@lyfubuntu:~$ #########################################
+(base) lyfubuntu@lyfubuntu:~$ # 连通 ok
+(base) lyfubuntu@lyfubuntu:~$ docker exec -it tomcat_net01 ping tomcat-net-01
+PING tomcat-net-01 (192.168.0.2) 56(84) bytes of data.
+64 bytes from tomcat-net-01.mynet (192.168.0.2): icmp_seq=1 ttl=64 time=0.125 ms
+64 bytes from tomcat-net-01.mynet (192.168.0.2): icmp_seq=2 ttl=64 time=0.042 ms
+64 bytes from tomcat-net-01.mynet (192.168.0.2): icmp_seq=3 ttl=64 time=0.064 ms
+64 bytes from tomcat-net-01.mynet (192.168.0.2): icmp_seq=4 ttl=64 time=0.068 ms
+64 bytes from tomcat-net-01.mynet (192.168.0.2): icmp_seq=5 ttl=64 time=0.065 ms
+^C
+--- tomcat-net-01 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4104ms
+rtt min/avg/max/mdev = 0.042/0.072/0.125/0.027 ms
+(base) lyfubuntu@lyfubuntu:~$ # 没有 connect 的无法连通
+(base) lyfubuntu@lyfubuntu:~$ docker exec -it tomcat_net02 ping tomcat-net-01
+ping: tomcat-net-01: Name or service not known
+(base) lyfubuntu@lyfubuntu:~$ # 假设要跨网络连接，请使用 docker network connect
+(base) lyfubuntu@lyfubuntu:~$
+```
+
+### 实战：部署 `redis`
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
