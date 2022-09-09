@@ -75,6 +75,14 @@
       descr: Develop faster. Run anywhere
       siteshot: https://cos.luyf-lemon-love.space/images/20220831150510.png
 
+- class_name: 云计算
+  class_desc:
+  link_list:
+    - name: LeanCloud
+      link: https://www.leancloud.cn/
+      avatar: https://cos.luyf-lemon-love.space/images/20220909132801.png
+      descr: 领先的 Serverless 云服务，为产品开发提供强有力的后端支持
+
 - class_name: Git
   class_desc:
   link_list:
@@ -174,6 +182,10 @@
       link: https://d2l.ai/
       avatar: https://cos.luyf-lemon-love.space/images/20220718214518.png
       descr: 最优秀的 Pytorch 深度学习入门书籍
+    - name: THUNLP
+      link: https://nlp.csai.tsinghua.edu.cn/
+      avatar: https://cos.luyf-lemon-love.space/images/20220909131258.png
+      descr: 清华大学 -> 自然语言处理与社会人文计算实验室
 
 - class_name: Markdown
   class_desc:
@@ -270,6 +282,11 @@
       avatar: https://cos.luyf-lemon-love.space/images/20220830221120.png
       descr: Convert media files online from one format into another
       siteshot: https://cos.luyf-lemon-love.space/images/20220830222815.png
+    - name: 搬书匠
+      link: http://www.banshujiang.cn/
+      avatar: https://cos.luyf-lemon-love.space/images/20220909133016.png
+      descr: 搬书匠
+      siteshot: https://cos.luyf-lemon-love.space/images/20220909133301.png
 
 - class_name: 娱乐和学习
   class_desc:
