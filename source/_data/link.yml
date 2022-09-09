@@ -279,6 +279,21 @@
       avatar: https://cos.luyf-lemon-love.space/images/20220831145604.png
       descr: 为每个想学习编程的人提供一个少走弯路的平台
       siteshot: https://cos.luyf-lemon-love.space/images/20220831150640.png
+    - name: 廖雪峰的官方网站
+      link: https://www.liaoxuefeng.com/
+      avatar: https://cos.luyf-lemon-love.space/images/20220909114010.png
+      descr: 包括 Java 教程、Python 教程、JavaScript 教程、区块链教程、SQL 教程和 Git 教程
+      siteshot: https://cos.luyf-lemon-love.space/images/20220909114559.png
+    - name: W3Cschool
+      link: https://www.w3cschool.cn/tutorial
+      avatar: https://cos.luyf-lemon-love.space/images/20220909115005.png
+      descr: W3Cschool -> tutorial
+      siteshot: https://cos.luyf-lemon-love.space/images/20220909115150.png
+    - name: RUNOOB
+      link: https://www.runoob.com/
+      avatar: https://cos.luyf-lemon-love.space/images/20220909115839.png
+      descr: RUNOOB
+      siteshot: https://cos.luyf-lemon-love.space/images/20220909120039.png
     
     
     
