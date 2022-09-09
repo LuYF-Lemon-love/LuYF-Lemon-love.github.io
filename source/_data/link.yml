@@ -130,6 +130,10 @@
       link: https://docs.python.org/3/tutorial/index.html
       avatar: https://cos.luyf-lemon-love.space/images/20220718194903.png
       descr: The Python Tutorial
+    - name: Visual Studio | Python 文档
+      link: https://docs.microsoft.com/zh-cn/visualstudio/python/?view=vs-2022
+      avatar: https://cos.luyf-lemon-love.space/images/20220909121817.png
+      descr: 有关通过 Visual Studio 开发 Python 应用的教程和概念性文章
 
 - class_name: 混合编程
   class_desc:
@@ -154,6 +158,10 @@
       link: https://keras.io/
       avatar: https://cos.luyf-lemon-love.space/images/20220718214041.png
       descr: Simple. Flexible. Powerful.
+    - name: PyTorch Lightning
+      link: https://pytorch-lightning.readthedocs.io/en/latest/
+      avatar: https://cos.luyf-lemon-love.space/images/20220909122502.png
+      descr: PyTorch Lightning is the deep learning framework for professional AI researchers and machine learning engineers who need maximal flexibility without sacrificing performance at scale
     - name: Tianshou (天授)
       link: https://github.com/thu-ml/tianshou
       avatar: https://cos.luyf-lemon-love.space/images/20220718211150.png
@@ -174,6 +182,10 @@
       link: https://katex.org/docs/supported.html
       avatar: https://cos.luyf-lemon-love.space/images/20220716143055.png
       descr: This is a list of TeX functions supported by KaTeX
+    - name: Emoji 大全
+      link: https://www.emojidaquan.com/
+      avatar: https://cos.luyf-lemon-love.space/images/20220909122754.png
+      descr: Emoji 大全
 
 - class_name: 编程风格
   class_desc:
@@ -283,7 +295,7 @@
       link: https://www.liaoxuefeng.com/
       avatar: https://cos.luyf-lemon-love.space/images/20220909114010.png
       descr: 包括 Java 教程、Python 教程、JavaScript 教程、区块链教程、SQL 教程和 Git 教程
-      siteshot: https://cos.luyf-lemon-love.space/images/20220909114559.png
+      siteshot: https://cos.luyf-lemon-love.space/images/20220909121506.png
     - name: W3Cschool
       link: https://www.w3cschool.cn/tutorial
       avatar: https://cos.luyf-lemon-love.space/images/20220909115005.png
