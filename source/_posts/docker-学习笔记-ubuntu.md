@@ -43,6 +43,8 @@ date: 2022-08-31 17:24:32
 
 10. [制作Tomcat镜像](https://blog.csdn.net/qq_41021000/article/details/124262796)
 
+11. [redis集群的三种方式](https://baijiahao.baidu.com/s?id=1739276119927050514&wfr=spider&for=pc)
+
 ## Docker 入门
 
 ### Docker 为什么会出现
@@ -12971,8 +12973,6 @@ ea359b44df52   none      null      local
 ```
 
 ---
-
-### `SpringBoot` 微服务打包 `Docker` 镜像
 
 ## 结语
 
