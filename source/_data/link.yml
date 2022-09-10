@@ -102,6 +102,10 @@
       link: https://coding.net/
       avatar: https://cos.luyf-lemon-love.space/images/20220718210842.png
       descr: 提供一站式开发协作工具，帮助研发团队快速落地敏捷开发与 DevOps 开发方式，实现研发效能升级
+    - name: GitHub Docs
+      link: https://docs.github.com/en
+      avatar: https://cos.luyf-lemon-love.space/images/20220511134710.png
+      descr: Help for wherever you are on your GitHub journey.
 
 - class_name: C++
   class_desc:
@@ -194,6 +198,10 @@
       link: https://distill.pub/
       avatar: https://cos.luyf-lemon-love.space/images/20220910204709.png
       descr: Machine Learning Research Should Be Clear, Dynamic and Vivid. Distill Is Here to Help.
+    - name: spaCy
+      link: https://spacy.io/
+      avatar: https://cos.luyf-lemon-love.space/images/20220910211340.png
+      descr: Industrial-Strength Natural Language Processing IN PYTHON
 
 - class_name: Markdown
   class_desc:
