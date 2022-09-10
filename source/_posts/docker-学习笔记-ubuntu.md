@@ -12203,6 +12203,681 @@ ea359b44df52   none      null      local
 
 ### 实战：部署 `redis`
 
+`docker hub` 中 `redis` 的主页：https://hub.docker.com/_/redis 。
+
+![](https://cos.luyf-lemon-love.space/images/20220910131129.png)
+
+```shell
+# 创建网卡
+$ docker network create redis --subnet 172.38.0.0/16
+ 
+# 通过脚本创建六个 redis 配置
+for port in $(seq 1 6); \
+do \
+mkdir -p /home/lyfubuntu/my_computer_language/docker/redis/node-${port}/conf
+touch /home/lyfubuntu/my_computer_language/docker/redis/node-${port}/conf/redis.conf
+cat << EOF >/home/lyfubuntu/my_computer_language/docker/redis/node-${port}/conf/redis.conf
+port 6379
+bind 0.0.0.0
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+cluster-announce-ip 172.38.0.1${port}
+cluster-announce-port 6379
+cluster-announce-bus-port 16379
+appendonly yes
+EOF
+done
+
+# 创建结点 1
+$ docker run -p 6371:6379 -p 16371:16379 --name redis-1 \
+-v /home/lyfubuntu/my_computer_language/docker/redis/node-1/data:/data \
+-v /home/lyfubuntu/my_computer_language/docker/redis/node-1/conf/redis.conf:/etc/redis/redis.conf \
+-d --net redis --ip 172.38.0.11 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+ 
+# 创建结点 2
+$ docker run -p 6372:6379 -p 16372:16379 --name redis-2 \
+-v /home/lyfubuntu/my_computer_language/docker/redis/node-2/data:/data \
+-v /home/lyfubuntu/my_computer_language/docker/redis/node-2/conf/redis.conf:/etc/redis/redis.conf \
+-d --net redis --ip 172.38.0.12 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+
+# 创建结点 3
+$ docker run -p 6373:6379 -p 16373:16379 --name redis-3 \
+-v /home/lyfubuntu/my_computer_language/docker/redis/node-3/data:/data \
+-v /home/lyfubuntu/my_computer_language/docker/redis/node-3/conf/redis.conf:/etc/redis/redis.conf \
+-d --net redis --ip 172.38.0.13 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+
+# 创建结点 4
+$ docker run -p 6374:6379 -p 16374:16379 --name redis-4 \
+-v /home/lyfubuntu/my_computer_language/docker/redis/node-4/data:/data \
+-v /home/lyfubuntu/my_computer_language/docker/redis/node-4/conf/redis.conf:/etc/redis/redis.conf \
+-d --net redis --ip 172.38.0.14 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+
+# 创建结点 5
+$ docker run -p 6375:6379 -p 16375:16379 --name redis-5 \
+-v /home/lyfubuntu/my_computer_language/docker/redis/node-5/data:/data \
+-v /home/lyfubuntu/my_computer_language/docker/redis/node-5/conf/redis.conf:/etc/redis/redis.conf \
+-d --net redis --ip 172.38.0.15 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+
+# 创建结点 6
+$ docker run -p 6376:6379 -p 16376:16379 --name redis-6 \
+-v /home/lyfubuntu/my_computer_language/docker/redis/node-6/data:/data \
+-v /home/lyfubuntu/my_computer_language/docker/redis/node-6/conf/redis.conf:/etc/redis/redis.conf \
+-d --net redis --ip 172.38.0.16 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+
+# 创建集群
+$ docker exec -it redis-1 /bin/sh
+$ ls
+$ redis-cli --cluster create 172.38.0.11:6379 172.38.0.12:6379 172.38.0.13:6379 172.38.0.14:6379 172.38.0.15:6379 172.38.0.16:6379 --cluster-replicas 1
+$ redis-cli -c
+$ cluster info
+$ cluster nodes
+$ set a b
+$ get a
+$ exit
+$ exit
+$ docker stop redis-3
+$
+$ docker exec -it redis-1 /bin/sh
+$ redis-cli -c
+$ get a
+$ cluster nodes
+```
+
+---
+
+```shell
+(base) lyfubuntu@lyfubuntu:~$ cd my_computer_language/docker/
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+centos_docker  diytomcat  files  my_centos  my_Dockerfile  mysql  nginx  tomcat_ip_ping
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ pwd
+/home/lyfubuntu/my_computer_language/docker
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY               TAG       IMAGE ID       CREATED         SIZE
+tomcat_ip_ping           latest    49e7365dc2c9   46 hours ago    519MB
+diytomcat                latest    531449811312   3 days ago      827MB
+luyanfeng123/diytomcat   1.0       531449811312   3 days ago      827MB
+entrypoint-test          latest    293b60111edb   3 days ago      231MB
+cmdtest                  latest    e507939f0998   3 days ago      231MB
+mycentos                 0.2       5f2260ba4d08   4 days ago      624MB
+lyf/centos               1.0       967c603048b0   4 days ago      231MB
+my_centos                0.1       d3a84994963f   6 days ago      559MB
+my_tomcat                0.1       82bf5ce1034c   6 days ago      480MB
+tomcat                   9.0       d4488b7f8c9b   7 days ago      475MB
+tomcat                   latest    7a91e6f458bb   7 days ago      475MB
+mysql                    5.7       daff57b7d2d1   2 weeks ago     430MB
+nginx                    latest    2b7d6430f78d   2 weeks ago     142MB
+centos                   7         eeb6ee3f44bd   11 months ago   204MB
+centos                   latest    5d0da3dc9764   11 months ago   231MB
+elasticsearch            7.6.2     f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+c921ea0a887b   tomcat_ip_ping        "catalina.sh run"        41 hours ago   Exited (143) 39 hours ago             tomcat_ip_ping03
+027b83bd07b4   tomcat_ip_ping        "catalina.sh run"        41 hours ago   Exited (143) 39 hours ago             tomcat_ip_ping02
+0b4ad3916256   tomcat_ip_ping        "catalina.sh run"        46 hours ago   Exited (143) 39 hours ago             tomcat_ip_ping01
+aa57776789ca   diytomcat             "/bin/sh -c '/usr/lo…"   3 days ago     Exited (137) 2 days ago               luyanfengtomcat1
+f876c324441f   entrypoint-test       "ls -a -l"               3 days ago     Exited (0) 3 days ago                 jolly_shaw
+90d672f69b18   entrypoint-test       "ls -a"                  3 days ago     Exited (0) 3 days ago                 eager_burnell
+2c00ada1000f   cmdtest               "ls -l"                  3 days ago     Exited (0) 3 days ago                 exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     3 days ago     Created                               wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  3 days ago     Exited (0) 3 days ago                 objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   4 days ago     Exited (0) 3 days ago                 stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   4 days ago     Exited (0) 4 days ago                 docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              4 days ago     Exited (0) 4 days ago                 admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   5 days ago     Exited (0) 5 days ago                 nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   5 days ago     Exited (0) 5 days ago                 nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   5 days ago     Exited (0) 5 days ago                 mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              6 days ago     Exited (0) 6 days ago                 stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        6 days ago     Exited (143) 6 days ago               my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        6 days ago     Exited (143) 6 days ago               tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   6 days ago     Exited (143) 6 days ago               elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        6 days ago     Exited (143) 6 days ago               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   7 days ago     Exited (0) 6 days ago                 nginx01
+bf46371dea89   centos                "/bin/bash"              7 days ago     Exited (0) 6 days ago                 epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+b6f811e6f982   bridge    bridge    local
+d7654904ecb4   host      host      local
+ea359b44df52   none      null      local
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker network create redis --subnet 172.38.0.0/16
+8e538ff00b005691a59627fad933b20a0516c3c7523db7dac1733f4f3e056445
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+b6f811e6f982   bridge    bridge    local
+d7654904ecb4   host      host      local
+ea359b44df52   none      null      local
+8e538ff00b00   redis     bridge    local
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker network inspect redis 
+[
+    {
+        "Name": "redis",
+        "Id": "8e538ff00b005691a59627fad933b20a0516c3c7523db7dac1733f4f3e056445",
+        "Created": "2022-09-10T14:26:46.89553025+08:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.38.0.0/16"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ for port in $(seq 1 6); \
+> do \
+> mkdir -p /home/lyfubuntu/my_computer_language/docker/redis/node-${port}/conf
+> touch /home/lyfubuntu/my_computer_language/docker/redis/node-${port}/conf/redis.conf
+> cat << EOF >/home/lyfubuntu/my_computer_language/docker/redis/node-${port}/conf/redis.conf
+> port 6379
+> bind 0.0.0.0
+> cluster-enabled yes
+> cluster-config-file nodes.conf
+> cluster-node-timeout 5000
+> cluster-announce-ip 172.38.0.1${port}
+> cluster-announce-port 6379
+> cluster-announce-bus-port 16379
+> appendonly yes
+> EOF
+> done
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+centos_docker  files      my_Dockerfile  nginx  tomcat_ip_ping
+diytomcat      my_centos  mysql          redis
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ cd redis/
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/redis$ ls
+node-1  node-2  node-3  node-4  node-5  node-6
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/redis$ cd node-
+bash: cd: node-: 没有那个文件或目录
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/redis$ cd node-1
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/redis/node-1$ ls
+conf
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/redis/node-1$ cd conf/
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/redis/node-1/conf$ ls
+redis.conf
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/redis/node-1/conf$ cat redis.conf 
+port 6379
+bind 0.0.0.0
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+cluster-announce-ip 172.38.0.11
+cluster-announce-port 6379
+cluster-announce-bus-port 16379
+appendonly yes
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker/redis/node-1/conf$ cd ../../..
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ ls
+centos_docker  files      my_Dockerfile  nginx  tomcat_ip_ping
+diytomcat      my_centos  mysql          redis
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker run -p 6371:6379 -p 16371:16379 --name redis-1 \
+> -v /home/lyfubuntu/my_computer_language/docker/redis/node-1/data:/data \
+> -v /home/lyfubuntu/my_computer_language/docker/redis/node-1/conf/redis.conf:/etc/redis/redis.conf \
+> -d --net redis --ip 172.38.0.11 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+Unable to find image 'redis:5.0.9-alpine3.11' locally
+5.0.9-alpine3.11: Pulling from library/redis
+cbdbe7a5bc2a: Pull complete 
+dc0373118a0d: Pull complete 
+cfd369fe6256: Pull complete 
+3e45770272d9: Pull complete 
+558de8ea3153: Pull complete 
+a2c652551612: Pull complete 
+Digest: sha256:83a3af36d5e57f2901b4783c313720e5fa3ecf0424ba86ad9775e06a9a5e35d0
+Status: Downloaded newer image for redis:5.0.9-alpine3.11
+a19cc36a21a9b9ffa21eeb4bcd230009d7dade8e77756cc39adaadb4a7f689b5
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker run -p 6372:6379 -p 16372:16379 --name redis-2 \
+> -v /home/lyfubuntu/my_computer_language/docker/redis/node-2/data:/data \
+> -v /home/lyfubuntu/my_computer_language/docker/redis/node-2/conf/redis.conf:/etc/redis/redis.conf \
+> -d --net redis --ip 172.38.0.12 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+2a057de70811d6fa8b2365e5bf246d21987f555e9558356651b360d549a69479
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker run -p 6373:6379 -p 16373:16379 --name redis-3 \
+> -v /home/lyfubuntu/my_computer_language/docker/redis/node-3/data:/data \
+> -v /home/lyfubuntu/my_computer_language/docker/redis/node-3/conf/redis.conf:/etc/redis/redis.conf \
+> -d --net redis --ip 172.38.0.13 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+02c1f950759a9fe69502b7ab60faba8d11334464a6f69c099aa31b51d8a9e97c
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker run -p 6374:6379 -p 16374:16379 --name redis-4 \
+> -v /home/lyfubuntu/my_computer_language/docker/redis/node-4/data:/data \
+> -v /home/lyfubuntu/my_computer_language/docker/redis/node-4/conf/redis.conf:/etc/redis/redis.conf \
+> -d --net redis --ip 172.38.0.14 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+95a446f6769c50d8270ce20b922444078e5f41460ad1d4e659aa5d84705dc460
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker run -p 6375:6379 -p 16375:16379 --name redis-5 \
+> -v /home/lyfubuntu/my_computer_language/docker/redis/node-5/data:/data \
+> -v /home/lyfubuntu/my_computer_language/docker/redis/node-5/conf/redis.conf:/etc/redis/redis.conf \
+> -d --net redis --ip 172.38.0.15 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+70efa21aff57c7968628c6852cb6d2453caaf5e056ed440eed844ae3a1a353ce
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker run -p 6376:6379 -p 16376:16379 --name redis-6 \
+> -v /home/lyfubuntu/my_computer_language/docker/redis/node-6/data:/data \
+> -v /home/lyfubuntu/my_computer_language/docker/redis/node-6/conf/redis.conf:/etc/redis/redis.conf \
+> -d --net redis --ip 172.38.0.16 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+81037c0b832e3f4ef2bcaf66d995526ac7838f0dce575c632e92e8fdcb791540
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY               TAG                IMAGE ID       CREATED         SIZE
+tomcat_ip_ping           latest             49e7365dc2c9   47 hours ago    519MB
+diytomcat                latest             531449811312   3 days ago      827MB
+luyanfeng123/diytomcat   1.0                531449811312   3 days ago      827MB
+entrypoint-test          latest             293b60111edb   3 days ago      231MB
+cmdtest                  latest             e507939f0998   3 days ago      231MB
+mycentos                 0.2                5f2260ba4d08   4 days ago      624MB
+lyf/centos               1.0                967c603048b0   4 days ago      231MB
+my_centos                0.1                d3a84994963f   6 days ago      559MB
+my_tomcat                0.1                82bf5ce1034c   6 days ago      480MB
+tomcat                   9.0                d4488b7f8c9b   7 days ago      475MB
+tomcat                   latest             7a91e6f458bb   7 days ago      475MB
+mysql                    5.7                daff57b7d2d1   2 weeks ago     430MB
+nginx                    latest             2b7d6430f78d   2 weeks ago     142MB
+centos                   7                  eeb6ee3f44bd   11 months ago   204MB
+centos                   latest             5d0da3dc9764   11 months ago   231MB
+redis                    5.0.9-alpine3.11   3661c84ee9d0   2 years ago     29.8MB
+elasticsearch            7.6.2              f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE                    COMMAND                  CREATED              STATUS              PORTS                                                                                      NAMES
+81037c0b832e   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   35 seconds ago       Up 33 seconds       0.0.0.0:6376->6379/tcp, :::6376->6379/tcp, 0.0.0.0:16376->16379/tcp, :::16376->16379/tcp   redis-6
+70efa21aff57   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   56 seconds ago       Up 54 seconds       0.0.0.0:6375->6379/tcp, :::6375->6379/tcp, 0.0.0.0:16375->16379/tcp, :::16375->16379/tcp   redis-5
+95a446f6769c   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:6374->6379/tcp, :::6374->6379/tcp, 0.0.0.0:16374->16379/tcp, :::16374->16379/tcp   redis-4
+02c1f950759a   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:6373->6379/tcp, :::6373->6379/tcp, 0.0.0.0:16373->16379/tcp, :::16373->16379/tcp   redis-3
+2a057de70811   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   2 minutes ago        Up 2 minutes        0.0.0.0:6372->6379/tcp, :::6372->6379/tcp, 0.0.0.0:16372->16379/tcp, :::16372->16379/tcp   redis-2
+a19cc36a21a9   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   2 minutes ago        Up 2 minutes        0.0.0.0:6371->6379/tcp, :::6371->6379/tcp, 0.0.0.0:16371->16379/tcp, :::16371->16379/tcp   redis-1
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                    COMMAND                  CREATED              STATUS                      PORTS                                                                                      NAMES
+81037c0b832e   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   45 seconds ago       Up 43 seconds               0.0.0.0:6376->6379/tcp, :::6376->6379/tcp, 0.0.0.0:16376->16379/tcp, :::16376->16379/tcp   redis-6
+70efa21aff57   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   About a minute ago   Up About a minute           0.0.0.0:6375->6379/tcp, :::6375->6379/tcp, 0.0.0.0:16375->16379/tcp, :::16375->16379/tcp   redis-5
+95a446f6769c   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   About a minute ago   Up About a minute           0.0.0.0:6374->6379/tcp, :::6374->6379/tcp, 0.0.0.0:16374->16379/tcp, :::16374->16379/tcp   redis-4
+02c1f950759a   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   2 minutes ago        Up 2 minutes                0.0.0.0:6373->6379/tcp, :::6373->6379/tcp, 0.0.0.0:16373->16379/tcp, :::16373->16379/tcp   redis-3
+2a057de70811   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   2 minutes ago        Up 2 minutes                0.0.0.0:6372->6379/tcp, :::6372->6379/tcp, 0.0.0.0:16372->16379/tcp, :::16372->16379/tcp   redis-2
+a19cc36a21a9   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   2 minutes ago        Up 2 minutes                0.0.0.0:6371->6379/tcp, :::6371->6379/tcp, 0.0.0.0:16371->16379/tcp, :::16371->16379/tcp   redis-1
+c921ea0a887b   tomcat_ip_ping           "catalina.sh run"        42 hours ago         Exited (143) 40 hours ago                                                                                              tomcat_ip_ping03
+027b83bd07b4   tomcat_ip_ping           "catalina.sh run"        42 hours ago         Exited (143) 40 hours ago                                                                                              tomcat_ip_ping02
+0b4ad3916256   tomcat_ip_ping           "catalina.sh run"        47 hours ago         Exited (143) 40 hours ago                                                                                              tomcat_ip_ping01
+aa57776789ca   diytomcat                "/bin/sh -c '/usr/lo…"   3 days ago           Exited (137) 3 days ago                                                                                                luyanfengtomcat1
+f876c324441f   entrypoint-test          "ls -a -l"               3 days ago           Exited (0) 3 days ago                                                                                                  jolly_shaw
+90d672f69b18   entrypoint-test          "ls -a"                  3 days ago           Exited (0) 3 days ago                                                                                                  eager_burnell
+2c00ada1000f   cmdtest                  "ls -l"                  3 days ago           Exited (0) 3 days ago                                                                                                  exciting_mahavira
+b01b8b2df80f   cmdtest                  "-l"                     3 days ago           Created                                                                                                                wonderful_dewdney
+2c58747c312a   cmdtest                  "ls -a"                  3 days ago           Exited (0) 3 days ago                                                                                                  objective_leakey
+db1c2bf8e3c8   mycentos:0.2             "/bin/sh -c /bin/bash"   4 days ago           Exited (0) 4 days ago                                                                                                  stupefied_swanson
+a85d30f34140   lyf/centos:1.0           "/bin/sh -c /bin/bash"   4 days ago           Exited (0) 4 days ago                                                                                                  docker02
+489086f92c85   lyf/centos:1.0           "/bin/bash"              4 days ago           Exited (0) 4 days ago                                                                                                  admiring_dhawan
+6abbcb16d1f6   nginx                    "/docker-entrypoint.…"   5 days ago           Exited (0) 5 days ago                                                                                                  nginx03
+880d9b4349bc   nginx                    "/docker-entrypoint.…"   5 days ago           Exited (0) 5 days ago                                                                                                  nginx02
+e4462368fa6f   mysql:5.7                "docker-entrypoint.s…"   5 days ago           Exited (0) 5 days ago                                                                                                  mysql01
+b8a17c4278ee   my_centos:0.1            "/bin/bash"              6 days ago           Exited (0) 6 days ago                                                                                                  stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1            "catalina.sh run"        6 days ago           Exited (143) 6 days ago                                                                                                my_tomcat01
+3cae46866d9e   tomcat                   "catalina.sh run"        6 days ago           Exited (143) 6 days ago                                                                                                tomcat02
+f888868cb0f2   elasticsearch:7.6.2      "/usr/local/bin/dock…"   6 days ago           Exited (143) 6 days ago                                                                                                elasticsearch
+b96353caeec5   tomcat                   "catalina.sh run"        6 days ago           Exited (143) 6 days ago                                                                                                tomcat01
+993053824a5a   nginx                    "/docker-entrypoint.…"   7 days ago           Exited (0) 7 days ago                                                                                                  nginx01
+bf46371dea89   centos                   "/bin/bash"              7 days ago           Exited (0) 6 days ago                                                                                                  epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+b6f811e6f982   bridge    bridge    local
+d7654904ecb4   host      host      local
+ea359b44df52   none      null      local
+8e538ff00b00   redis     bridge    local
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker network inspect redis 
+[
+    {
+        "Name": "redis",
+        "Id": "8e538ff00b005691a59627fad933b20a0516c3c7523db7dac1733f4f3e056445",
+        "Created": "2022-09-10T14:26:46.89553025+08:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.38.0.0/16"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "02c1f950759a9fe69502b7ab60faba8d11334464a6f69c099aa31b51d8a9e97c": {
+                "Name": "redis-3",
+                "EndpointID": "bf351c0642ee6ac6a79c0e1ce4ecaeaa9ed4e5064366d41a47f7f04998155105",
+                "MacAddress": "02:42:ac:26:00:0d",
+                "IPv4Address": "172.38.0.13/16",
+                "IPv6Address": ""
+            },
+            "2a057de70811d6fa8b2365e5bf246d21987f555e9558356651b360d549a69479": {
+                "Name": "redis-2",
+                "EndpointID": "439514b65000eb8bf5781ab936893d51a15b1fa163ef625c0e68f9472e707f51",
+                "MacAddress": "02:42:ac:26:00:0c",
+                "IPv4Address": "172.38.0.12/16",
+                "IPv6Address": ""
+            },
+            "70efa21aff57c7968628c6852cb6d2453caaf5e056ed440eed844ae3a1a353ce": {
+                "Name": "redis-5",
+                "EndpointID": "21d799e08f0bbf1d166032776b8555cb223a4a838875b46f8af9a3871db9560c",
+                "MacAddress": "02:42:ac:26:00:0f",
+                "IPv4Address": "172.38.0.15/16",
+                "IPv6Address": ""
+            },
+            "81037c0b832e3f4ef2bcaf66d995526ac7838f0dce575c632e92e8fdcb791540": {
+                "Name": "redis-6",
+                "EndpointID": "7347d08b1b2b88c5464958ca9411181a2738ad783a8830fe75586d15f2a26c09",
+                "MacAddress": "02:42:ac:26:00:10",
+                "IPv4Address": "172.38.0.16/16",
+                "IPv6Address": ""
+            },
+            "95a446f6769c50d8270ce20b922444078e5f41460ad1d4e659aa5d84705dc460": {
+                "Name": "redis-4",
+                "EndpointID": "840d99c5ad56dc560a32d51c2fe25e97704bfe674d8e480b10c2f4da0834ae3f",
+                "MacAddress": "02:42:ac:26:00:0e",
+                "IPv4Address": "172.38.0.14/16",
+                "IPv6Address": ""
+            },
+            "a19cc36a21a9b9ffa21eeb4bcd230009d7dade8e77756cc39adaadb4a7f689b5": {
+                "Name": "redis-1",
+                "EndpointID": "ca4cd10ad186b867eb8269c7b25e3b40b9b62cb82f0e2a2d98c93dcead3f1146",
+                "MacAddress": "02:42:ac:26:00:0b",
+                "IPv4Address": "172.38.0.11/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker exec -it redis-1 /bin/sh
+/data # ls
+appendonly.aof  nodes.conf
+/data # redis-cli --cluster create 172.38.0.11:6379 172.38.0.12:6379 172.38.
+0.13:6379 172.38.0.14:6379 172.38.0.15:6379 172.38.0.16:6379 --cluster-repli
+cas 1
+>>> Performing hash slots allocation on 6 nodes...
+Master[0] -> Slots 0 - 5460
+Master[1] -> Slots 5461 - 10922
+Master[2] -> Slots 10923 - 16383
+Adding replica 172.38.0.15:6379 to 172.38.0.11:6379
+Adding replica 172.38.0.16:6379 to 172.38.0.12:6379
+Adding replica 172.38.0.14:6379 to 172.38.0.13:6379
+M: 6f6d9b542b621a4d83bec0da73452fd83732b23c 172.38.0.11:6379
+   slots:[0-5460] (5461 slots) master
+M: 7a28e81d134dea64fc5b3f0ff4d7899a403a906f 172.38.0.12:6379
+   slots:[5461-10922] (5462 slots) master
+M: 6d828714fa38154a845a0688c70fb99ba516001c 172.38.0.13:6379
+   slots:[10923-16383] (5461 slots) master
+S: 3f2cde001f1495586c28cd1f05be5f52a087cc66 172.38.0.14:6379
+   replicates 6d828714fa38154a845a0688c70fb99ba516001c
+S: f7bdfc3ab2fb79c93d1760f75f24bc2289281cbd 172.38.0.15:6379
+   replicates 6f6d9b542b621a4d83bec0da73452fd83732b23c
+S: 38605bfb73c2153eb92f9cfb805e03927d8075e6 172.38.0.16:6379
+   replicates 7a28e81d134dea64fc5b3f0ff4d7899a403a906f
+Can I set the above configuration? (type 'yes' to accept): yes
+>>> Nodes configuration updated
+>>> Assign a different config epoch to each node
+>>> Sending CLUSTER MEET messages to join the cluster
+Waiting for the cluster to join
+...
+>>> Performing Cluster Check (using node 172.38.0.11:6379)
+M: 6f6d9b542b621a4d83bec0da73452fd83732b23c 172.38.0.11:6379
+   slots:[0-5460] (5461 slots) master
+   1 additional replica(s)
+M: 6d828714fa38154a845a0688c70fb99ba516001c 172.38.0.13:6379
+   slots:[10923-16383] (5461 slots) master
+   1 additional replica(s)
+S: 38605bfb73c2153eb92f9cfb805e03927d8075e6 172.38.0.16:6379
+   slots: (0 slots) slave
+   replicates 7a28e81d134dea64fc5b3f0ff4d7899a403a906f
+M: 7a28e81d134dea64fc5b3f0ff4d7899a403a906f 172.38.0.12:6379
+   slots:[5461-10922] (5462 slots) master
+   1 additional replica(s)
+S: f7bdfc3ab2fb79c93d1760f75f24bc2289281cbd 172.38.0.15:6379
+   slots: (0 slots) slave
+   replicates 6f6d9b542b621a4d83bec0da73452fd83732b23c
+S: 3f2cde001f1495586c28cd1f05be5f52a087cc66 172.38.0.14:6379
+   slots: (0 slots) slave
+   replicates 6d828714fa38154a845a0688c70fb99ba516001c
+[OK] All nodes agree about slots configuration.
+>>> Check for open slots...
+>>> Check slots coverage...
+[OK] All 16384 slots covered.
+/data # redis-cli -c
+127.0.0.1:6379> cluster info
+cluster_state:ok
+cluster_slots_assigned:16384
+cluster_slots_ok:16384
+cluster_slots_pfail:0
+cluster_slots_fail:0
+cluster_known_nodes:6
+cluster_size:3
+cluster_current_epoch:6
+cluster_my_epoch:1
+cluster_stats_messages_ping_sent:114
+cluster_stats_messages_pong_sent:111
+cluster_stats_messages_sent:225
+cluster_stats_messages_ping_received:106
+cluster_stats_messages_pong_received:114
+cluster_stats_messages_meet_received:5
+cluster_stats_messages_received:225
+127.0.0.1:6379> cluster nodes
+6f6d9b542b621a4d83bec0da73452fd83732b23c 172.38.0.11:6379@16379 myself,master - 0 1662791759000 1 connected 0-5460
+6d828714fa38154a845a0688c70fb99ba516001c 172.38.0.13:6379@16379 master - 0 1662791761280 3 connected 10923-16383
+38605bfb73c2153eb92f9cfb805e03927d8075e6 172.38.0.16:6379@16379 slave 7a28e81d134dea64fc5b3f0ff4d7899a403a906f 0 1662791760578 6 connected
+7a28e81d134dea64fc5b3f0ff4d7899a403a906f 172.38.0.12:6379@16379 master - 0 1662791761000 2 connected 5461-10922
+f7bdfc3ab2fb79c93d1760f75f24bc2289281cbd 172.38.0.15:6379@16379 slave 6f6d9b542b621a4d83bec0da73452fd83732b23c 0 1662791762582 5 connected
+3f2cde001f1495586c28cd1f05be5f52a087cc66 172.38.0.14:6379@16379 slave 6d828714fa38154a845a0688c70fb99ba516001c 0 1662791762282 4 connected
+127.0.0.1:6379> set a b
+-> Redirected to slot [15495] located at 172.38.0.13:6379
+OK
+172.38.0.13:6379> get a
+"b"
+172.38.0.13:6379> exit
+/data # exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE                    COMMAND                  CREATED         STATUS         PORTS                                                                                      NAMES
+81037c0b832e   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   7 minutes ago   Up 7 minutes   0.0.0.0:6376->6379/tcp, :::6376->6379/tcp, 0.0.0.0:16376->16379/tcp, :::16376->16379/tcp   redis-6
+70efa21aff57   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   7 minutes ago   Up 7 minutes   0.0.0.0:6375->6379/tcp, :::6375->6379/tcp, 0.0.0.0:16375->16379/tcp, :::16375->16379/tcp   redis-5
+95a446f6769c   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   8 minutes ago   Up 8 minutes   0.0.0.0:6374->6379/tcp, :::6374->6379/tcp, 0.0.0.0:16374->16379/tcp, :::16374->16379/tcp   redis-4
+02c1f950759a   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   8 minutes ago   Up 8 minutes   0.0.0.0:6373->6379/tcp, :::6373->6379/tcp, 0.0.0.0:16373->16379/tcp, :::16373->16379/tcp   redis-3
+2a057de70811   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   8 minutes ago   Up 8 minutes   0.0.0.0:6372->6379/tcp, :::6372->6379/tcp, 0.0.0.0:16372->16379/tcp, :::16372->16379/tcp   redis-2
+a19cc36a21a9   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   9 minutes ago   Up 9 minutes   0.0.0.0:6371->6379/tcp, :::6371->6379/tcp, 0.0.0.0:16371->16379/tcp, :::16371->16379/tcp   redis-1
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker stop redis-3
+redis-3
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY               TAG                IMAGE ID       CREATED         SIZE
+tomcat_ip_ping           latest             49e7365dc2c9   2 days ago      519MB
+diytomcat                latest             531449811312   3 days ago      827MB
+luyanfeng123/diytomcat   1.0                531449811312   3 days ago      827MB
+entrypoint-test          latest             293b60111edb   3 days ago      231MB
+cmdtest                  latest             e507939f0998   3 days ago      231MB
+mycentos                 0.2                5f2260ba4d08   4 days ago      624MB
+lyf/centos               1.0                967c603048b0   4 days ago      231MB
+my_centos                0.1                d3a84994963f   6 days ago      559MB
+my_tomcat                0.1                82bf5ce1034c   6 days ago      480MB
+tomcat                   9.0                d4488b7f8c9b   7 days ago      475MB
+tomcat                   latest             7a91e6f458bb   7 days ago      475MB
+mysql                    5.7                daff57b7d2d1   2 weeks ago     430MB
+nginx                    latest             2b7d6430f78d   2 weeks ago     142MB
+centos                   7                  eeb6ee3f44bd   11 months ago   204MB
+centos                   latest             5d0da3dc9764   11 months ago   231MB
+redis                    5.0.9-alpine3.11   3661c84ee9d0   2 years ago     29.8MB
+elasticsearch            7.6.2              f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS          PORTS                                                                                      NAMES
+81037c0b832e   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   8 minutes ago    Up 8 minutes    0.0.0.0:6376->6379/tcp, :::6376->6379/tcp, 0.0.0.0:16376->16379/tcp, :::16376->16379/tcp   redis-6
+70efa21aff57   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   9 minutes ago    Up 9 minutes    0.0.0.0:6375->6379/tcp, :::6375->6379/tcp, 0.0.0.0:16375->16379/tcp, :::16375->16379/tcp   redis-5
+95a446f6769c   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   9 minutes ago    Up 9 minutes    0.0.0.0:6374->6379/tcp, :::6374->6379/tcp, 0.0.0.0:16374->16379/tcp, :::16374->16379/tcp   redis-4
+2a057de70811   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   10 minutes ago   Up 10 minutes   0.0.0.0:6372->6379/tcp, :::6372->6379/tcp, 0.0.0.0:16372->16379/tcp, :::16372->16379/tcp   redis-2
+a19cc36a21a9   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   10 minutes ago   Up 10 minutes   0.0.0.0:6371->6379/tcp, :::6371->6379/tcp, 0.0.0.0:16371->16379/tcp, :::16371->16379/tcp   redis-1
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS                      PORTS                                                                                      NAMES
+81037c0b832e   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   8 minutes ago    Up 8 minutes                0.0.0.0:6376->6379/tcp, :::6376->6379/tcp, 0.0.0.0:16376->16379/tcp, :::16376->16379/tcp   redis-6
+70efa21aff57   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   9 minutes ago    Up 9 minutes                0.0.0.0:6375->6379/tcp, :::6375->6379/tcp, 0.0.0.0:16375->16379/tcp, :::16375->16379/tcp   redis-5
+95a446f6769c   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   9 minutes ago    Up 9 minutes                0.0.0.0:6374->6379/tcp, :::6374->6379/tcp, 0.0.0.0:16374->16379/tcp, :::16374->16379/tcp   redis-4
+02c1f950759a   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   10 minutes ago   Exited (0) 12 seconds ago                                                                                              redis-3
+2a057de70811   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   10 minutes ago   Up 10 minutes               0.0.0.0:6372->6379/tcp, :::6372->6379/tcp, 0.0.0.0:16372->16379/tcp, :::16372->16379/tcp   redis-2
+a19cc36a21a9   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   10 minutes ago   Up 10 minutes               0.0.0.0:6371->6379/tcp, :::6371->6379/tcp, 0.0.0.0:16371->16379/tcp, :::16371->16379/tcp   redis-1
+c921ea0a887b   tomcat_ip_ping           "catalina.sh run"        42 hours ago     Exited (143) 40 hours ago                                                                                              tomcat_ip_ping03
+027b83bd07b4   tomcat_ip_ping           "catalina.sh run"        42 hours ago     Exited (143) 40 hours ago                                                                                              tomcat_ip_ping02
+0b4ad3916256   tomcat_ip_ping           "catalina.sh run"        47 hours ago     Exited (143) 40 hours ago                                                                                              tomcat_ip_ping01
+aa57776789ca   diytomcat                "/bin/sh -c '/usr/lo…"   3 days ago       Exited (137) 3 days ago                                                                                                luyanfengtomcat1
+f876c324441f   entrypoint-test          "ls -a -l"               3 days ago       Exited (0) 3 days ago                                                                                                  jolly_shaw
+90d672f69b18   entrypoint-test          "ls -a"                  3 days ago       Exited (0) 3 days ago                                                                                                  eager_burnell
+2c00ada1000f   cmdtest                  "ls -l"                  3 days ago       Exited (0) 3 days ago                                                                                                  exciting_mahavira
+b01b8b2df80f   cmdtest                  "-l"                     3 days ago       Created                                                                                                                wonderful_dewdney
+2c58747c312a   cmdtest                  "ls -a"                  3 days ago       Exited (0) 3 days ago                                                                                                  objective_leakey
+db1c2bf8e3c8   mycentos:0.2             "/bin/sh -c /bin/bash"   4 days ago       Exited (0) 4 days ago                                                                                                  stupefied_swanson
+a85d30f34140   lyf/centos:1.0           "/bin/sh -c /bin/bash"   4 days ago       Exited (0) 4 days ago                                                                                                  docker02
+489086f92c85   lyf/centos:1.0           "/bin/bash"              4 days ago       Exited (0) 4 days ago                                                                                                  admiring_dhawan
+6abbcb16d1f6   nginx                    "/docker-entrypoint.…"   5 days ago       Exited (0) 5 days ago                                                                                                  nginx03
+880d9b4349bc   nginx                    "/docker-entrypoint.…"   5 days ago       Exited (0) 5 days ago                                                                                                  nginx02
+e4462368fa6f   mysql:5.7                "docker-entrypoint.s…"   5 days ago       Exited (0) 5 days ago                                                                                                  mysql01
+b8a17c4278ee   my_centos:0.1            "/bin/bash"              6 days ago       Exited (0) 6 days ago                                                                                                  stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1            "catalina.sh run"        6 days ago       Exited (143) 6 days ago                                                                                                my_tomcat01
+3cae46866d9e   tomcat                   "catalina.sh run"        6 days ago       Exited (143) 6 days ago                                                                                                tomcat02
+f888868cb0f2   elasticsearch:7.6.2      "/usr/local/bin/dock…"   6 days ago       Exited (143) 6 days ago                                                                                                elasticsearch
+b96353caeec5   tomcat                   "catalina.sh run"        6 days ago       Exited (143) 6 days ago                                                                                                tomcat01
+993053824a5a   nginx                    "/docker-entrypoint.…"   7 days ago       Exited (0) 7 days ago                                                                                                  nginx01
+bf46371dea89   centos                   "/bin/bash"              7 days ago       Exited (0) 6 days ago                                                                                                  epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker exec -it redis-1 /bin/sh
+/data # redis-cli -c
+127.0.0.1:6379> get a
+-> Redirected to slot [15495] located at 172.38.0.14:6379
+"b"
+172.38.0.14:6379> cluster nodes
+f7bdfc3ab2fb79c93d1760f75f24bc2289281cbd 172.38.0.15:6379@16379 slave 6f6d9b542b621a4d83bec0da73452fd83732b23c 0 1662792217266 5 connected
+7a28e81d134dea64fc5b3f0ff4d7899a403a906f 172.38.0.12:6379@16379 master - 0 1662792218771 2 connected 5461-10922
+38605bfb73c2153eb92f9cfb805e03927d8075e6 172.38.0.16:6379@16379 slave 7a28e81d134dea64fc5b3f0ff4d7899a403a906f 0 1662792218270 6 connected
+6d828714fa38154a845a0688c70fb99ba516001c 172.38.0.13:6379@16379 master,fail - 1662792034690 1662792033000 3 connected
+3f2cde001f1495586c28cd1f05be5f52a087cc66 172.38.0.14:6379@16379 myself,master - 0 1662792217000 7 connected 10923-16383
+6f6d9b542b621a4d83bec0da73452fd83732b23c 172.38.0.11:6379@16379 master - 0 1662792218000 1 connected 0-5460
+172.38.0.14:6379> exit
+/data # exit
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS          PORTS                                                                                      NAMES
+81037c0b832e   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   13 minutes ago   Up 13 minutes   0.0.0.0:6376->6379/tcp, :::6376->6379/tcp, 0.0.0.0:16376->16379/tcp, :::16376->16379/tcp   redis-6
+70efa21aff57   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   14 minutes ago   Up 14 minutes   0.0.0.0:6375->6379/tcp, :::6375->6379/tcp, 0.0.0.0:16375->16379/tcp, :::16375->16379/tcp   redis-5
+95a446f6769c   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   14 minutes ago   Up 14 minutes   0.0.0.0:6374->6379/tcp, :::6374->6379/tcp, 0.0.0.0:16374->16379/tcp, :::16374->16379/tcp   redis-4
+2a057de70811   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   15 minutes ago   Up 15 minutes   0.0.0.0:6372->6379/tcp, :::6372->6379/tcp, 0.0.0.0:16372->16379/tcp, :::16372->16379/tcp   redis-2
+a19cc36a21a9   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   15 minutes ago   Up 15 minutes   0.0.0.0:6371->6379/tcp, :::6371->6379/tcp, 0.0.0.0:16371->16379/tcp, :::16371->16379/tcp   redis-1
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS                      PORTS                                                                                      NAMES
+81037c0b832e   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   13 minutes ago   Up 13 minutes               0.0.0.0:6376->6379/tcp, :::6376->6379/tcp, 0.0.0.0:16376->16379/tcp, :::16376->16379/tcp   redis-6
+70efa21aff57   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   14 minutes ago   Up 14 minutes               0.0.0.0:6375->6379/tcp, :::6375->6379/tcp, 0.0.0.0:16375->16379/tcp, :::16375->16379/tcp   redis-5
+95a446f6769c   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   14 minutes ago   Up 14 minutes               0.0.0.0:6374->6379/tcp, :::6374->6379/tcp, 0.0.0.0:16374->16379/tcp, :::16374->16379/tcp   redis-4
+02c1f950759a   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   15 minutes ago   Exited (0) 5 minutes ago                                                                                               redis-3
+2a057de70811   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   15 minutes ago   Up 15 minutes               0.0.0.0:6372->6379/tcp, :::6372->6379/tcp, 0.0.0.0:16372->16379/tcp, :::16372->16379/tcp   redis-2
+a19cc36a21a9   redis:5.0.9-alpine3.11   "docker-entrypoint.s…"   15 minutes ago   Up 15 minutes               0.0.0.0:6371->6379/tcp, :::6371->6379/tcp, 0.0.0.0:16371->16379/tcp, :::16371->16379/tcp   redis-1
+c921ea0a887b   tomcat_ip_ping           "catalina.sh run"        42 hours ago     Exited (143) 40 hours ago                                                                                              tomcat_ip_ping03
+027b83bd07b4   tomcat_ip_ping           "catalina.sh run"        42 hours ago     Exited (143) 40 hours ago                                                                                              tomcat_ip_ping02
+0b4ad3916256   tomcat_ip_ping           "catalina.sh run"        47 hours ago     Exited (143) 40 hours ago                                                                                              tomcat_ip_ping01
+aa57776789ca   diytomcat                "/bin/sh -c '/usr/lo…"   3 days ago       Exited (137) 3 days ago                                                                                                luyanfengtomcat1
+f876c324441f   entrypoint-test          "ls -a -l"               3 days ago       Exited (0) 3 days ago                                                                                                  jolly_shaw
+90d672f69b18   entrypoint-test          "ls -a"                  3 days ago       Exited (0) 3 days ago                                                                                                  eager_burnell
+2c00ada1000f   cmdtest                  "ls -l"                  3 days ago       Exited (0) 3 days ago                                                                                                  exciting_mahavira
+b01b8b2df80f   cmdtest                  "-l"                     3 days ago       Created                                                                                                                wonderful_dewdney
+2c58747c312a   cmdtest                  "ls -a"                  3 days ago       Exited (0) 3 days ago                                                                                                  objective_leakey
+db1c2bf8e3c8   mycentos:0.2             "/bin/sh -c /bin/bash"   4 days ago       Exited (0) 4 days ago                                                                                                  stupefied_swanson
+a85d30f34140   lyf/centos:1.0           "/bin/sh -c /bin/bash"   4 days ago       Exited (0) 4 days ago                                                                                                  docker02
+489086f92c85   lyf/centos:1.0           "/bin/bash"              4 days ago       Exited (0) 4 days ago                                                                                                  admiring_dhawan
+6abbcb16d1f6   nginx                    "/docker-entrypoint.…"   5 days ago       Exited (0) 5 days ago                                                                                                  nginx03
+880d9b4349bc   nginx                    "/docker-entrypoint.…"   5 days ago       Exited (0) 5 days ago                                                                                                  nginx02
+e4462368fa6f   mysql:5.7                "docker-entrypoint.s…"   5 days ago       Exited (0) 5 days ago                                                                                                  mysql01
+b8a17c4278ee   my_centos:0.1            "/bin/bash"              6 days ago       Exited (0) 6 days ago                                                                                                  stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1            "catalina.sh run"        6 days ago       Exited (143) 6 days ago                                                                                                my_tomcat01
+3cae46866d9e   tomcat                   "catalina.sh run"        6 days ago       Exited (143) 6 days ago                                                                                                tomcat02
+f888868cb0f2   elasticsearch:7.6.2      "/usr/local/bin/dock…"   6 days ago       Exited (143) 6 days ago                                                                                                elasticsearch
+b96353caeec5   tomcat                   "catalina.sh run"        6 days ago       Exited (143) 6 days ago                                                                                                tomcat01
+993053824a5a   nginx                    "/docker-entrypoint.…"   7 days ago       Exited (0) 7 days ago                                                                                                  nginx01
+bf46371dea89   centos                   "/bin/bash"              7 days ago       Exited (0) 6 days ago                                                                                                  epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY               TAG                IMAGE ID       CREATED         SIZE
+tomcat_ip_ping           latest             49e7365dc2c9   2 days ago      519MB
+diytomcat                latest             531449811312   3 days ago      827MB
+luyanfeng123/diytomcat   1.0                531449811312   3 days ago      827MB
+entrypoint-test          latest             293b60111edb   3 days ago      231MB
+cmdtest                  latest             e507939f0998   3 days ago      231MB
+mycentos                 0.2                5f2260ba4d08   4 days ago      624MB
+lyf/centos               1.0                967c603048b0   4 days ago      231MB
+my_centos                0.1                d3a84994963f   6 days ago      559MB
+my_tomcat                0.1                82bf5ce1034c   6 days ago      480MB
+tomcat                   9.0                d4488b7f8c9b   7 days ago      475MB
+tomcat                   latest             7a91e6f458bb   7 days ago      475MB
+mysql                    5.7                daff57b7d2d1   2 weeks ago     430MB
+nginx                    latest             2b7d6430f78d   2 weeks ago     142MB
+centos                   7                  eeb6ee3f44bd   11 months ago   204MB
+centos                   latest             5d0da3dc9764   11 months ago   231MB
+redis                    5.0.9-alpine3.11   3661c84ee9d0   2 years ago     29.8MB
+elasticsearch            7.6.2              f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker rm -f redis-1 redis-2 redis-3 redis-4 redis-5 redis-6
+redis-1
+redis-2
+redis-3
+redis-4
+redis-5
+redis-6
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker images
+REPOSITORY               TAG                IMAGE ID       CREATED         SIZE
+tomcat_ip_ping           latest             49e7365dc2c9   2 days ago      519MB
+diytomcat                latest             531449811312   3 days ago      827MB
+luyanfeng123/diytomcat   1.0                531449811312   3 days ago      827MB
+entrypoint-test          latest             293b60111edb   3 days ago      231MB
+cmdtest                  latest             e507939f0998   3 days ago      231MB
+mycentos                 0.2                5f2260ba4d08   4 days ago      624MB
+lyf/centos               1.0                967c603048b0   4 days ago      231MB
+my_centos                0.1                d3a84994963f   6 days ago      559MB
+my_tomcat                0.1                82bf5ce1034c   6 days ago      480MB
+tomcat                   9.0                d4488b7f8c9b   7 days ago      475MB
+tomcat                   latest             7a91e6f458bb   7 days ago      475MB
+mysql                    5.7                daff57b7d2d1   2 weeks ago     430MB
+nginx                    latest             2b7d6430f78d   2 weeks ago     142MB
+centos                   7                  eeb6ee3f44bd   11 months ago   204MB
+centos                   latest             5d0da3dc9764   11 months ago   231MB
+redis                    5.0.9-alpine3.11   3661c84ee9d0   2 years ago     29.8MB
+elasticsearch            7.6.2              f29a1ee41030   2 years ago     791MB
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$ docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS     NAMES
+c921ea0a887b   tomcat_ip_ping        "catalina.sh run"        42 hours ago   Exited (143) 40 hours ago             tomcat_ip_ping03
+027b83bd07b4   tomcat_ip_ping        "catalina.sh run"        42 hours ago   Exited (143) 40 hours ago             tomcat_ip_ping02
+0b4ad3916256   tomcat_ip_ping        "catalina.sh run"        2 days ago     Exited (143) 40 hours ago             tomcat_ip_ping01
+aa57776789ca   diytomcat             "/bin/sh -c '/usr/lo…"   3 days ago     Exited (137) 3 days ago               luyanfengtomcat1
+f876c324441f   entrypoint-test       "ls -a -l"               3 days ago     Exited (0) 3 days ago                 jolly_shaw
+90d672f69b18   entrypoint-test       "ls -a"                  3 days ago     Exited (0) 3 days ago                 eager_burnell
+2c00ada1000f   cmdtest               "ls -l"                  3 days ago     Exited (0) 3 days ago                 exciting_mahavira
+b01b8b2df80f   cmdtest               "-l"                     3 days ago     Created                               wonderful_dewdney
+2c58747c312a   cmdtest               "ls -a"                  3 days ago     Exited (0) 3 days ago                 objective_leakey
+db1c2bf8e3c8   mycentos:0.2          "/bin/sh -c /bin/bash"   4 days ago     Exited (0) 4 days ago                 stupefied_swanson
+a85d30f34140   lyf/centos:1.0        "/bin/sh -c /bin/bash"   4 days ago     Exited (0) 4 days ago                 docker02
+489086f92c85   lyf/centos:1.0        "/bin/bash"              4 days ago     Exited (0) 4 days ago                 admiring_dhawan
+6abbcb16d1f6   nginx                 "/docker-entrypoint.…"   5 days ago     Exited (0) 5 days ago                 nginx03
+880d9b4349bc   nginx                 "/docker-entrypoint.…"   5 days ago     Exited (0) 5 days ago                 nginx02
+e4462368fa6f   mysql:5.7             "docker-entrypoint.s…"   5 days ago     Exited (0) 5 days ago                 mysql01
+b8a17c4278ee   my_centos:0.1         "/bin/bash"              6 days ago     Exited (0) 6 days ago                 stupefied_ishizaka
+7dfe27420032   my_tomcat:0.1         "catalina.sh run"        6 days ago     Exited (143) 6 days ago               my_tomcat01
+3cae46866d9e   tomcat                "catalina.sh run"        6 days ago     Exited (143) 6 days ago               tomcat02
+f888868cb0f2   elasticsearch:7.6.2   "/usr/local/bin/dock…"   6 days ago     Exited (143) 6 days ago               elasticsearch
+b96353caeec5   tomcat                "catalina.sh run"        6 days ago     Exited (143) 6 days ago               tomcat01
+993053824a5a   nginx                 "/docker-entrypoint.…"   7 days ago     Exited (0) 7 days ago                 nginx01
+bf46371dea89   centos                "/bin/bash"              7 days ago     Exited (0) 6 days ago                 epic_solomon
+(base) lyfubuntu@lyfubuntu:~/my_computer_language/docker$
+```
+
+### `SpringBoot` 微服务打包 `Docker` 镜像
+
 ## 结语
 
 第二十七篇博文写完，开心！！！！
