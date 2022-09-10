@@ -44,6 +44,10 @@
       avatar: https://cos.luyf-lemon-love.space/images/20220602215147.png
       descr: 前途似海渺渺来，日方长漫漫，与其互为人间，不如自成宇宙
       siteshot: https://cos.luyf-lemon-love.space/images/20220602215211.png
+    - name: THOMAS KIPF
+      link: https://tkipf.github.io/
+      avatar: https://cos.luyf-lemon-love.space/images/20220910205156.png
+      descr: I am a Senior Research Scientist at Google Brain.
 
 - class_name: 博客
   class_desc:
@@ -186,6 +190,10 @@
       link: https://nlp.csai.tsinghua.edu.cn/
       avatar: https://cos.luyf-lemon-love.space/images/20220909131258.png
       descr: 清华大学 -> 自然语言处理与社会人文计算实验室
+    - name: Distill
+      link: https://distill.pub/
+      avatar: https://cos.luyf-lemon-love.space/images/20220910204709.png
+      descr: Machine Learning Research Should Be Clear, Dynamic and Vivid. Distill Is Here to Help.
 
 - class_name: Markdown
   class_desc:
