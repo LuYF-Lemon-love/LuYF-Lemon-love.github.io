@@ -210,6 +210,18 @@
       link: https://spacy.io/
       avatar: https://cos.luyf-lemon-love.space/images/20220910211340.png
       descr: Industrial-Strength Natural Language Processing IN PYTHON
+    - name: ACL Anthology
+      link: https://aclanthology.org/
+      avatar: https://cos.luyf-lemon-love.space/images/20220910215909.png
+      descr: Welcome to the ACL Anthology!
+    - name: fastText
+      link: https://fasttext.cc/
+      avatar: https://cos.luyf-lemon-love.space/images/20220910220109.png
+      descr: Library for efficient text classification and representation learning
+    - name: 阿里云天池
+      link: https://tianchi.aliyun.com/
+      avatar: https://cos.luyf-lemon-love.space/images/20220910220737.png
+      descr: 开放真实场景数据与赛题，助力科技人才成长
 
 - class_name: Markdown
   class_desc:
