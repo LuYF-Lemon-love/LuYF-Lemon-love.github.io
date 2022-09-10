@@ -45,6 +45,10 @@ date: 2022-08-31 17:24:32
 
 11. [redis集群的三种方式](https://baijiahao.baidu.com/s?id=1739276119927050514&wfr=spider&for=pc)
 
+12. [Linux 虚拟网络设备 veth-pair 详解，这篇料很足](http://www.muzhuangnet.com/show/81813.html)
+
+13. [Docker在官网下载Tomcat镜像，执行ip addr，ping报错](https://blog.csdn.net/weixin_40750633/article/details/123056052)
+
 ## Docker 入门
 
 ### Docker 为什么会出现
