@@ -158,6 +158,10 @@
       link: http://www.zengyuetian.com/
       avatar: https://cos.luyf-lemon-love.space/images/20220910213128.png
       descr: 自动化测试实践
+    - name: NumPy
+      link: https://numpy.org/
+      avatar: https://cos.luyf-lemon-love.space/images/20220928114956.png
+      descr: NumPy 官网
 
 - class_name: 混合编程
   class_desc:
@@ -182,6 +186,10 @@
       link: https://keras.io/
       avatar: https://cos.luyf-lemon-love.space/images/20220718214041.png
       descr: Simple. Flexible. Powerful.
+    - name: scikit-learn
+      link: https://scikit-learn.org/stable/
+      avatar: https://cos.luyf-lemon-love.space/images/20220928115228.png
+      descr: scikit-learn 官网
     - name: PyTorch Lightning
       link: https://pytorch-lightning.readthedocs.io/en/latest/
       avatar: https://cos.luyf-lemon-love.space/images/20220909122502.png
