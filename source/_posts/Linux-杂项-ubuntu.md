@@ -19,11 +19,11 @@ date: 2022-09-28 12:04:25
 
 ## 参考文档
 
-1. [Docker](https://baike.baidu.com/item/Docker/13344470)
+1. [Linux wget 命令详解](https://juejin.cn/post/7026184288198459406)
 
 ## wget 命令
 
-`wget` 命令是 `Linux` 系统用于从 `Web` 下载文件的命令行工具，支持 `HTTP`，`HTTPS` 和 `FTP` 协议下载文件。
+`wget` 命令是 `Linux` 系统用于从 `Web` 上下载文件的命令行工具，支持 `HTTP`，`HTTPS` 和 `FTP` 协议。
 
 ### 安装
 
@@ -237,7 +237,7 @@ $ wget [选项]... [URL]...
 
 ---
 
-使用 wget 下载 redis 的 tar.gz 文件 (https://download.redis.io/releases/):
+使用 `wget` 下载 `redis` 的 `tar.gz` 文件 (https://download.redis.io/releases/):
 
 ```bash
 $ wget https://download.redis.io/releases/redis-6.0.8.tar.gz
