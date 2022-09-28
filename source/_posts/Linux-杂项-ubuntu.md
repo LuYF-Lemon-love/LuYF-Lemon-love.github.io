@@ -3,6 +3,7 @@ title: Linux 杂项-ubuntu
 tags:
   - Linux
   - Ubuntu
+  - Python
 categories: 杂项
 description: 介绍一些 Linux 杂项，包括：Linux 命令、Linux 系统问题。
 cover: 'https://cos.luyf-lemon-love.space/images/不朽堡垒.png'
