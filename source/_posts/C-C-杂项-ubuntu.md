@@ -34,7 +34,9 @@ date: 2022-09-28 14:52:14
 
 5. [fclose](https://cplusplus.com/reference/cstdio/fclose/)
 
-6. [fputc](https://cplusplus.com/reference/cstdio/fputc/) 。
+6. [fputc](https://cplusplus.com/reference/cstdio/fputc/)
+
+7. [rewind](https://cplusplus.com/reference/cstdio/rewind/)
 
 ## <cstdio> (stdio.h)
 
@@ -219,6 +221,64 @@ int main ()
 ```
 
 This program `creates a file` called `alphabet.txt` and writes `ABCDEFGHIJKLMNOPQRSTUVWXYZ` to it.
+
+### File positioning
+
+- `rewind`: Set position of stream to the beginning (function)
+
+#### rewind - `<cstdio>`
+
+`rewind`: https://cplusplus.com/reference/cstdio/rewind/ 。
+
+`void rewind ( FILE * stream );`
+
+##### Set position of stream to the beginning
+
+Sets `the position indicator` associated with stream to `the beginning of the file`.
+
+The `end-of-file` and `error` internal indicators associated to the `stream` are cleared after `a successful call` to this function, and all effects from previous calls to `ungetc` on this stream are dropped.
+
+On streams open for `update (read+write)`, a call to `rewind` allows to `switch between reading and writing`.
+
+##### Parameters
+
+**stream**
+
+1. `Pointer` to `a FILE object` that identifies the stream.
+
+##### Return Value
+
+`none`
+
+##### Example
+
+```c++
+/* rewind example */
+#include <stdio.h>
+
+int main ()
+{
+  int n;
+  FILE * pFile;
+  char buffer [27];
+
+  pFile = fopen ("myfile.txt","w+");
+  for ( n='A' ; n<='Z' ; n++)
+    fputc ( n, pFile);
+  rewind (pFile);
+  fread (buffer,1,26,pFile);
+  fclose (pFile);
+  buffer[26]='\0';
+  puts (buffer);
+  return 0;
+}
+```
+
+A file called `myfile.txt` is created for `reading and writing` and `filled with the alphabet`. The file is then `rewinded`, `read and its content is stored in a buffer`, that then is written to `the standard output`:
+
+```bash
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+```
 
 ## 结语
 
