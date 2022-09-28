@@ -32,6 +32,8 @@ date: 2022-09-28 14:52:14
 
 4. [fopen](https://cplusplus.com/reference/cstdio/fopen/)
 
+5. [fclose](https://cplusplus.com/reference/cstdio/fclose/)
+
 ## <cstdio> (stdio.h)
 
 `<cstdio> (stdio.h)`: https://cplusplus.com/reference/cstdio/ 。
@@ -41,6 +43,8 @@ date: 2022-09-28 14:52:14
 ### File access
 
 - `fopen`: Open file (function)
+
+- `fclose`: Close file (function)
 
 #### fopen - `<cstdio>`
 
@@ -111,6 +115,49 @@ int main ()
   return 0;
 }
 ```
+
+#### fclose - `<cstdio>`
+
+`fclose`: https://cplusplus.com/reference/cstdio/fclose/ 。
+
+`int fclose ( FILE * stream );`
+
+##### 关闭文件
+
+`Closes the file` associated with the `stream` and `disassociates` it.
+
+`All internal buffers associated with the stream` are disassociated from it and `flushed`: `the content of any unwritten output buffer is written` and `the content of any unread input buffer is discarded`.
+
+Even if the call `fails`, the stream passed as parameter will `no longer be associated with the file` nor its buffers.
+
+##### 参数
+
+**stream**
+
+`Pointer` to a `FILE` object that specifies the stream to be closed.
+
+##### 返回值
+
+If the stream is `successfully closed`, a `zero value` is returned.
+
+On `failure`, `EOF` is returned.
+
+##### 例子
+
+```c++
+/* fclose example */
+#include <stdio.h>
+int main ()
+{
+  FILE * pFile;
+  pFile = fopen ("myfile.txt","wt");
+  fprintf (pFile, "fclose example");
+  fclose (pFile);
+  return 0;
+}
+```
+
+This simple code `creates a new text file`, then `writes` a sentence to it, and then `closes` it.
 
 ## 结语
 
