@@ -21,6 +21,8 @@ date: 2022-09-28 12:04:25
 
 1. [Linux wget 命令详解](https://juejin.cn/post/7026184288198459406)
 
+2. [pip3安装pillow失败](https://blog.csdn.net/weixin_50008473/article/details/119676343)
+
 ## wget 命令
 
 `wget` 命令是 `Linux` 系统用于从 `Web` 上下载文件的命令行工具，支持 `HTTP`，`HTTPS` 和 `FTP` 协议。
@@ -509,6 +511,13 @@ $ tree
 ```
 
 注：`wget` 命令默认以全速下载，占用大量宽带。`--limit-rate=1m` 将下载速度限制为 `1m/s`。
+
+## pip3 安装 pillow 失败
+
+```bash
+sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
+sudo apt-get install python3-dev
+```
 
 ## 结语
 
