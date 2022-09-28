@@ -34,6 +34,8 @@ date: 2022-09-28 14:52:14
 
 5. [fclose](https://cplusplus.com/reference/cstdio/fclose/)
 
+6. [fputc](https://cplusplus.com/reference/cstdio/fputc/) 。
+
 ## <cstdio> (stdio.h)
 
 `<cstdio> (stdio.h)`: https://cplusplus.com/reference/cstdio/ 。
@@ -158,6 +160,65 @@ int main ()
 ```
 
 This simple code `creates a new text file`, then `writes` a sentence to it, and then `closes` it.
+
+### Character input/output
+
+- `fputc`: Write character to stream (function)
+
+#### fputc - `<cstdio>`
+
+`fputc`: https://cplusplus.com/reference/cstdio/fputc/ 。
+
+`int fputc ( int character, FILE * stream );`
+
+##### 将字符写入流
+
+`Writes a character` to `the stream` and `advances` the position indicator.
+
+The character is written `at the position indicated by the internal position indicator of the stream`, which is then automatically advanced by `one`.
+
+##### 参数
+
+**character**
+
+1. The `int promotion of the character` to be written.
+
+2. The value is internally converted to `an unsigned char` when written.
+
+**stream**
+
+1. Pointer to a `FILE` object that identifies `an output stream`.
+
+##### 返回值
+
+On success, the `character` written is `returned`.
+
+If a writing `error` occurs, `EOF` is returned and the error indicator (ferror) is set.
+
+##### 例子
+
+```c++
+/* fputc example: alphabet writer */
+#include <stdio.h>
+
+int main ()
+{
+  FILE * pFile;
+  char c;
+
+  pFile = fopen ("alphabet.txt","w");
+  if (pFile!=NULL) {
+
+    for (c = 'A' ; c <= 'Z' ; c++)
+      fputc ( c , pFile );
+
+    fclose (pFile);
+  }
+  return 0;
+}
+```
+
+This program `creates a file` called `alphabet.txt` and writes `ABCDEFGHIJKLMNOPQRSTUVWXYZ` to it.
 
 ## 结语
 
