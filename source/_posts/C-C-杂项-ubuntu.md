@@ -356,69 +356,6 @@ This program `creates a file` called `alphabet.txt` and writes `ABCDEFGHIJKLMNOP
 
 - `fwrite`: Write block of data to stream (function)
 
-#### fwrite - `<cstdio>`
-
-`fwrite`: https://cplusplus.com/reference/cstdio/fwrite/ 。
-
-`size_t fwrite ( const void * ptr, size_t size, size_t count, FILE * stream );`
-
-##### Write block of data to stream
-
-Writes `an array of count elements`, each one with `a size of size bytes`, from `the block of memory pointed by ptr` to `the current position in the stream`.
-
-The `position indicator` of the stream is advanced by `the total number of bytes written`.
-
-Internally, `the function interprets the block pointed by ptr as if it was an array of (size*count) elements of type unsigned char`, and `writes them sequentially to stream` as if `fputc was called for each byte`.
-
-##### Parameters
-
-**ptr**
-
-1. `Pointer to the array of elements to be written`, converted to a const `void*`.
-
-**size**
-
-1. `Size in bytes of each element` to be written. `size_t` is an unsigned integral type.
-
-**count**
-
-1. `Number of elements`, each one with a `size` of size bytes. `size_t` is an unsigned integral type.
-
-**stream**
-
-1. `Pointer` to `a FILE object` that specifies an output stream.
-
-##### Return Value
-
-The `total number of elements` **successfully** written is returned.
-
-If `this number` differs from the `count` parameter, `a writing error prevented the function from completing`. In this case, `the error indicator (ferror)` will be set for the stream.
-
-If either `size` or `count` is `zero`, the function returns `zero` and `the error indicator remains unchanged.`
-
-`size_t` is an unsigned integral type.
-
-##### Example
-
-```c++
-/* fwrite example : write buffer */
-#include <stdio.h>
-
-int main ()
-{
-  FILE * pFile;
-  char buffer[] = { 'x' , 'y' , 'z' };
-  pFile = fopen ("myfile.bin", "wb");
-  fwrite (buffer , sizeof(char), sizeof(buffer), pFile);
-  fclose (pFile);
-  return 0;
-}
-```
-
-A file called `myfile.bin` is created and `the content of the buffer is stored into it`. For `simplicity`, the `buffer` contains `char elements` but **`it can contain any other type`**.
-
-`sizeof(buffer)` is the length of the array `in bytes` (in this case it is `three`, because the array has `three` elements of `one byte each`).
-
 #### fread - `<cstdio>`
 
 `fread`: https://cplusplus.com/reference/cstdio/fread/ 。
@@ -506,6 +443,69 @@ This code loads `myfile.bin` into a `dynamically` allocated `memory buffer`, whi
 ```bash
 File error 
 ```
+
+#### fwrite - `<cstdio>`
+
+`fwrite`: https://cplusplus.com/reference/cstdio/fwrite/ 。
+
+`size_t fwrite ( const void * ptr, size_t size, size_t count, FILE * stream );`
+
+##### Write block of data to stream
+
+Writes `an array of count elements`, each one with `a size of size bytes`, from `the block of memory pointed by ptr` to `the current position in the stream`.
+
+The `position indicator` of the stream is advanced by `the total number of bytes written`.
+
+Internally, `the function interprets the block pointed by ptr as if it was an array of (size*count) elements of type unsigned char`, and `writes them sequentially to stream` as if `fputc was called for each byte`.
+
+##### Parameters
+
+**ptr**
+
+1. `Pointer to the array of elements to be written`, converted to a const `void*`.
+
+**size**
+
+1. `Size in bytes of each element` to be written. `size_t` is an unsigned integral type.
+
+**count**
+
+1. `Number of elements`, each one with a `size` of size bytes. `size_t` is an unsigned integral type.
+
+**stream**
+
+1. `Pointer` to `a FILE object` that specifies an output stream.
+
+##### Return Value
+
+The `total number of elements` **successfully** written is returned.
+
+If `this number` differs from the `count` parameter, `a writing error prevented the function from completing`. In this case, `the error indicator (ferror)` will be set for the stream.
+
+If either `size` or `count` is `zero`, the function returns `zero` and `the error indicator remains unchanged.`
+
+`size_t` is an unsigned integral type.
+
+##### Example
+
+```c++
+/* fwrite example : write buffer */
+#include <stdio.h>
+
+int main ()
+{
+  FILE * pFile;
+  char buffer[] = { 'x' , 'y' , 'z' };
+  pFile = fopen ("myfile.bin", "wb");
+  fwrite (buffer , sizeof(char), sizeof(buffer), pFile);
+  fclose (pFile);
+  return 0;
+}
+```
+
+A file called `myfile.bin` is created and `the content of the buffer is stored into it`. For `simplicity`, the `buffer` contains `char elements` but **`it can contain any other type`**.
+
+`sizeof(buffer)` is the length of the array `in bytes` (in this case it is `three`, because the array has `three` elements of `one byte each`).
 
 ### File positioning
 
