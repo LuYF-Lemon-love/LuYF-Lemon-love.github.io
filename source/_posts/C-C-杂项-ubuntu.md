@@ -175,13 +175,13 @@ This simple code `creates a new text file`, then `writes` a sentence to it, and 
 
 `int fscanf ( FILE * stream, const char * format, ... );`
 
-#### Read `formatted data` from `stream`
+##### Read `formatted data` from `stream`
 
 Reads data from the stream and `stores` them `according to the parameter format` into the locations pointed by the `additional arguments`.
 
 The `additional arguments` should point to already `allocated objects` of the type specified by their corresponding format specifier within the format string.
 
-#### Parameters
+##### Parameters
 
 **stream**
 
