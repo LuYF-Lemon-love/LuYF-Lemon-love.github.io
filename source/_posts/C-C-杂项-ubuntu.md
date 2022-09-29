@@ -42,7 +42,9 @@ date: 2022-09-28 14:52:14
 
 9. [fwrite](https://cplusplus.com/reference/cstdio/fwrite/)
 
-## <cstdio> (stdio.h)
+10. [fread](https://cplusplus.com/reference/cstdio/fread/)
+
+## `<cstdio>` (stdio.h)
 
 `<cstdio> (stdio.h)`: https://cplusplus.com/reference/cstdio/ 。
 
@@ -350,6 +352,8 @@ This program `creates a file` called `alphabet.txt` and writes `ABCDEFGHIJKLMNOP
 
 ### Direct input/output
 
+- `fread`: Read block of data from stream (function)
+
 - `fwrite`: Write block of data to stream (function)
 
 #### fwrite - `<cstdio>`
@@ -414,6 +418,94 @@ int main ()
 A file called `myfile.bin` is created and `the content of the buffer is stored into it`. For `simplicity`, the `buffer` contains `char elements` but **`it can contain any other type`**.
 
 `sizeof(buffer)` is the length of the array `in bytes` (in this case it is `three`, because the array has `three` elements of `one byte each`).
+
+#### fread - `<cstdio>`
+
+`fread`: https://cplusplus.com/reference/cstdio/fread/ 。
+
+`size_t fread ( void * ptr, size_t size, size_t count, FILE * stream );`
+
+##### Read block of data from stream
+
+`Reads an array of count elements`, each one with `a size of size bytes`, from the stream and `stores them in the block of memory specified by ptr`.
+
+The position indicator of the stream is `advanced` by the `total amount of bytes read`.
+
+The `total amount of bytes read` if successful is (`size*count`).
+
+##### Parameters
+
+**ptr**
+
+1. `Pointer to a block of memory` with a size of at least (`size*count`) bytes, converted to a `void*`.
+
+**size**
+
+1. `Size`, `in bytes`, of each element to be read. `size_t` is an unsigned integral type.
+
+**count**
+
+1. `Number of elements`, each one with `a size of size bytes`. `size_t` is an unsigned integral type.
+
+**stream**
+
+2. `Pointer` to a `FILE object` that specifies an input stream.
+
+##### Return Value
+
+`The total number of elements` successfully read is returned.
+
+If this number `differs` from the `count` parameter, either a reading `error` occurred or the `end-of-file` was reached while reading. In both cases, the proper indicator is set, which can be checked with `ferror` and `feof`, respectively.
+
+If either `size` or `count` is zero, the function returns `zero` and both the stream state and the content pointed by `ptr` remain `unchanged`.
+
+`size_t` is an unsigned integral type.
+
+##### Example
+
+```c++
+/* fread example: read an entire file */
+#include <stdio.h>
+#include <stdlib.h>
+
+int main () {
+  FILE * pFile;
+  long lSize;
+  char * buffer;
+  size_t result;
+
+  pFile = fopen ( "myfile.bin" , "rb" );
+  if (pFile==NULL) {fputs ("File error",stderr); exit (1);}
+
+  // obtain file size:
+  fseek (pFile , 0 , SEEK_END);
+  lSize = ftell (pFile);
+  rewind (pFile);
+
+  // allocate memory to contain the whole file:
+  buffer = (char*) malloc (sizeof(char)*lSize);
+  if (buffer == NULL) {fputs ("Memory error",stderr); exit (2);}
+
+  // copy the file into the buffer:
+  result = fread (buffer,1,lSize,pFile);
+  if (result != lSize) {fputs ("Reading error",stderr); exit (3);}
+
+  /* the whole file is now loaded in the memory buffer. */
+
+  // terminate
+  fclose (pFile);
+  free (buffer);
+  return 0;
+}
+```
+
+This code loads `myfile.bin` into a `dynamically` allocated `memory buffer`, which can be used to `manipulate` the content of a file as `an array`.
+
+{% label 输出 pink %}
+
+```bash
+File error 
+```
 
 ### File positioning
 
