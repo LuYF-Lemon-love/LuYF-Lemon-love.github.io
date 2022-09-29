@@ -386,7 +386,7 @@ The `total amount of bytes read` if successful is (`size*count`).
 
 **stream**
 
-2. `Pointer` to a `FILE object` that specifies an input stream.
+1. `Pointer` to a `FILE object` that specifies an input stream.
 
 ##### Return Value
 
