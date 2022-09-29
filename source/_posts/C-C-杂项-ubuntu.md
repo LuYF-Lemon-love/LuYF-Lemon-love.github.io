@@ -38,6 +38,8 @@ date: 2022-09-28 14:52:14
 
 7. [rewind](https://cplusplus.com/reference/cstdio/rewind/)
 
+8. [fscanf](https://cplusplus.com/reference/cstdio/fscanf/)
+
 ## <cstdio> (stdio.h)
 
 `<cstdio> (stdio.h)`: https://cplusplus.com/reference/cstdio/ 。
@@ -162,6 +164,128 @@ int main ()
 ```
 
 This simple code `creates a new text file`, then `writes` a sentence to it, and then `closes` it.
+
+### Formatted input/output
+
+- `fscanf`: Read formatted data from stream (function)
+
+#### fscanf - `<cstdio>`
+
+`fscanf`: https://cplusplus.com/reference/cstdio/fscanf/ 。
+
+`int fscanf ( FILE * stream, const char * format, ... );`
+
+#### Read `formatted data` from `stream`
+
+Reads data from the stream and `stores` them `according to the parameter format` into the locations pointed by the `additional arguments`.
+
+The `additional arguments` should point to already `allocated objects` of the type specified by their corresponding format specifier within the format string.
+
+#### Parameters
+
+**stream**
+
+1. `Pointer` to `a FILE object` that identifies `the input stream to read data from`.
+
+**format**
+
+`C string` that contains a sequence of characters that `control how characters extracted from the stream` are treated:
+
+- `Whitespace character`: the function will `read` and `ignore` `any whitespace characters` encountered before `the next non-whitespace character` (`whitespace characters` include `spaces`, `newline` and `tab characters`). **`A single whitespace in the format string validates any quantity of whitespace characters extracted from the stream (including none).`**
+
+- `Non-whitespace character, except format specifier (%)`: `Any character` that is not either `a whitespace character` (blank, newline or tab) or part of `a format specifier` (which begin with a % character) causes the function to `read the next character from the stream`, `compare it to this non-whitespace character and if it matches`, it is `discarded` and the function continues with the next character of format. `If the character does not match, the function fails, returning and leaving subsequent characters of the stream unread.`
+
+- `Format specifiers`: A sequence formed by `an initial percentage sign (%) indicates a format specifier`, which is used to specify `the type` and `format` of the data to be retrieved from the stream and `stored` into the locations pointed by the additional arguments.
+
+---
+
+A format specifier for `fscanf` follows this `prototype`:
+
+`%[*][width][length]specifier`
+
+Where `the specifier character` at the end is `the most significant component`, since it defines which characters are extracted, their `interpretation` and `the type of its corresponding argument`:
+
+|specifier|Description|Characters extracted|
+|:-:|:-:|:-:|
+|`i`, `u`|`Integer`|Any number of `digits`, optionally preceded by a sign (`+` or `-`). `Decimal digits` assumed by default (0-9), but a `0` prefix introduces `octal digits` (0-7), and `0x` `hexadecimal digits` (0-f).|
+|`d`|`Decimal integer`|Any number of decimal digits (0-9), optionally preceded by a sign (+ or -).|
+|`o`|`Octal integer`|Any number of `octal digits` (0-7), optionally preceded by a sign (+ or -).|
+|`x`|`Hexadecimal integer`|Any number of `hexadecimal digits` (0-9, a-f, A-F), optionally preceded by 0x or 0X, and all optionally preceded by a sign (+ or -).|
+|`f`, `e`, `g`, `a`|`Floating point number`|`A series of decimal digits`, `optionally containing a decimal point`, optionally preceeded by a sign (`+` or `-`) and optionally followed by the `e` or `E` character and `a decimal integer`. Implementations complying with `C99` also `support hexadecimal floating-point format` when preceded by `0x` or `0X`.|
+|`c`|`Character`|`The next character`. `If a width other than 1 is specified, the function reads exactly width characters `and stores them in the successive locations of the array passed as argument. `No null character is appended at the end.`|
+|`s`|`String of characters`|`Any number of non-whitespace characters`, stopping at `the first whitespace character` found. `A terminating null character` is automatically added `at the end of the stored sequence`.|
+|`p`|`Pointer address`|`A sequence of characters` representing `a pointer`.|
+|`[characters]`|Scanset|`Any number of the characters specified between the brackets`.|
+|`[^characters]`|`Negated` scanset|Any number of characters `none` of them specified as characters between the brackets.|
+|`n`|Count|`No input is consumed`. `The number of characters read so far from stream is stored in the pointed location.`|
+|`%`|`%`|A `%` followed by another `%` matches a single `%`.|
+
+Except for `n`, `at least one character` shall be `consumed` by any specifier. Otherwise the match fails, and the scan ends there.
+
+The format specifier can also contain sub-specifiers: `asterisk (*)`, `width` and `length` (in that order), which are optional and follow these specifications:
+
+|sub-specifier|description|
+|:-:|:-:|
+|`*`|An optional starting `asterisk` indicates that the data is to be read from the stream `but ignored` (i.e. it is not stored in the location pointed by an argument).|
+|`width`|Specifiesthe `maximum number of characters` to be read in the current reading operation (`optional`).|
+|`length`|One of `hh`, `h`, `l`, `ll`, `j`, `z`, `t`, `L` (optional). This `alters` the expected type of the storage pointed by the corresponding argument.|
+
+|**length**`\`**specifiers**|d i|u o x|f e g a|c s [] [^]|p|n|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|`(none)`|`int*`|`unsigned int*`|`float*`|`char*`|`void**`|`int*`|
+|`hh`|`signed char*`|`unsigned char*`||||`signed char*`|
+|`h`|`short int*`|`unsigned short int*`||||`short int*`|
+|`l`|`long int*`|`unsigned long int*`|`double*`|`wchar_t*`||`long int*`|
+|`ll`|`long long int*`|`unsigned long long int*`||||`long long int*`|
+|`j`|`intmax_t*`|`uintmax_t*`||||`intmax_t*`|
+|`z`|`size_t*`|`size_t*`||||`size_t*`|
+|`t`|`ptrdiff_t*`|`ptrdiff_t*`||||`ptrdiff_t*`|
+|`L`|||`long double*`||||
+
+**... (additional arguments)**
+
+Depending on the format string, the function may expect a sequence of additional arguments, `each containing a pointer to allocated storage` where `the interpretation of the extracted characters is stored with the appropriate type`.
+
+There should be at least `as many of these arguments as` the number of values stored by the format specifiers. `Additional arguments are ignored by the function.`
+
+These arguments are expected to be `pointers`: to store the result of a fscanf operation on `a regular variable`, its name should be preceded by `the reference operator (&)`.
+
+##### Return Value
+
+On `success`, the function returns `the number of items of the argument list` successfully filled. This count can match the expected number of items or be less (even zero) due to a matching failure, a reading error, or the reach of the end-of-file.
+
+If a reading error happens or the end-of-file is reached while reading, the proper indicator is set (`feof` or `ferror`). And, `if either happens before any data could be successfully read, EOF is returned`.
+
+##### Example
+
+```c++
+/* fscanf example */
+#include <stdio.h>
+
+int main ()
+{
+  char str [80];
+  float f;
+  FILE * pFile;
+
+  pFile = fopen ("myfile.txt","w+");
+  fprintf (pFile, "%f %s", 3.1416, "PI");
+  rewind (pFile);
+  fscanf (pFile, "%f", &f);
+  fscanf (pFile, "%s", str);
+  fclose (pFile);
+  printf ("I have read: %f and %s \n",f,str);
+  return 0;
+}
+```
+
+This sample code creates `a file called myfile.txt` and writes `a float number` and `a string` to it. Then, the stream is `rewinded` and both values are read with `fscanf`.
+
+{% label 输出 pink %}
+
+```bash
+I have read: 3.141600 and PI
+```
 
 ### Character input/output
 
