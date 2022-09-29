@@ -382,7 +382,7 @@ Internally, `the function interprets the block pointed by ptr as if it was an ar
 
 **stream**
 
-`Pointer` to `a FILE object` that specifies an output stream.
+1. `Pointer` to `a FILE object` that specifies an output stream.
 
 ##### Return Value
 
