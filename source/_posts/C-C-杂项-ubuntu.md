@@ -52,6 +52,8 @@ date: 2022-09-28 14:52:14
 
 14. [`std::to_string`](https://cplusplus.com/reference/string/to_string/)
 
+15. [puts](https://cplusplus.com/reference/cstdio/puts/)
+
 # `C Library`
 
 ## `<cstdio>` (stdio.h)
@@ -305,6 +307,8 @@ I have read: 3.141600 and PI
 
 - `fputc`: Write character to stream (function)
 
+- `puts`: Write string to stdout (function)
+
 #### fputc - `<cstdio>`
 
 `fputc`: https://cplusplus.com/reference/cstdio/fputc/ 。
@@ -359,6 +363,51 @@ int main ()
 ```
 
 This program `creates a file` called `alphabet.txt` and writes `ABCDEFGHIJKLMNOPQRSTUVWXYZ` to it.
+
+#### puts - `<cstdio>`
+
+`puts`: https://cplusplus.com/reference/cstdio/puts/ 。
+
+`int puts ( const char * str );`
+
+##### Write string to stdout
+
+Writes the `C string` pointed by `str` to the standard output (`stdout`) and `appends a newline character ('\n')`.
+
+The function begins copying from the address specified (`str`) until it reaches the `terminating null character` ('\0'). `This terminating null-character is not copied to the stream.`
+
+Notice that `puts` not only differs from `fputs` in that it uses `stdout as destination`, but `it also appends a newline character at the end automatically` (which `fputs` does not).
+
+##### Parameters
+
+**str**
+
+1. `C string` to be printed.
+
+##### Return Value
+
+On `success`, a `non-negative value` is returned.
+
+On `error`, the function returns `EOF` and `sets the error indicator (ferror)`.
+
+##### Example
+
+```c++
+/* puts example : hello world! */
+#include <stdio.h>
+
+int main ()
+{
+  char string [] = "Hello world!";
+  puts (string);
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+Hello world!
+```
 
 ### Direct input/output
 
