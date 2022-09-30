@@ -54,6 +54,8 @@ date: 2022-09-28 14:52:14
 
 15. [puts](https://cplusplus.com/reference/cstdio/puts/)
 
+16. [fputs](https://cplusplus.com/reference/cstdio/fputs/)
+
 # `C Library`
 
 ## `<cstdio>` (stdio.h)
@@ -307,6 +309,8 @@ I have read: 3.141600 and PI
 
 - `fputc`: Write character to stream (function)
 
+- `fputs`: Write string to stream (function)
+
 - `puts`: Write string to stdout (function)
 
 #### fputc - `<cstdio>`
@@ -363,6 +367,58 @@ int main ()
 ```
 
 This program `creates a file` called `alphabet.txt` and writes `ABCDEFGHIJKLMNOPQRSTUVWXYZ` to it.
+
+#### fputs - `<cstdio>`
+
+`fputs`: https://cplusplus.com/reference/cstdio/fputs/ 。
+
+`int fputs ( const char * str, FILE * stream );`
+
+##### Write string to stream
+
+Writes the `C string` pointed by `str` to the stream.
+
+The function begins `copying from the address` specified (`str`) until it reaches `the terminating null character` ('\0'). `This terminating null-character is not copied to the stream.`
+
+Notice that `fputs` not only differs from `puts` in that the destination `stream` can be specified, but also `fputs` does not write additional characters, while `puts` appends `a newline character` at the end automatically.
+
+##### Parameters
+
+**str**
+
+1. `C string` with the content to be written to `stream`.
+
+**stream**
+
+2. `Pointer to a FILE object` that identifies an output stream.
+
+##### Return Value
+
+On `success`, a `non-negative` value is returned.
+
+On `error`, the function returns `EOF` and sets the error indicator (`ferror`).
+
+##### Example
+
+```c++
+/* fputs example */
+#include <stdio.h>
+
+int main ()
+{
+   FILE * pFile;
+   char sentence [256];
+
+   printf ("Enter sentence to append: ");
+   fgets (sentence,256,stdin);
+   pFile = fopen ("mylog.txt","a");
+   fputs (sentence,pFile);
+   fclose (pFile);
+   return 0;
+}
+```
+
+This program allows to `append a line` to a file called `mylog.txt` each time it is run.
 
 #### puts - `<cstdio>`
 
