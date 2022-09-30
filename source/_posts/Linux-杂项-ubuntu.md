@@ -520,6 +520,42 @@ sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblc
 sudo apt-get install python3-dev
 ```
 
+## hostnamectl -- 查看/修改当前主机的信息
+
+```bash
+luyanfeng@amax:~$ hostnamectl --help
+hostnamectl [OPTIONS...] COMMAND ...
+
+Query or change system hostname.
+
+  -h --help              Show this help
+     --version           Show package version
+     --no-ask-password   Do not prompt for password
+  -H --host=[USER@]HOST  Operate on remote host
+  -M --machine=CONTAINER Operate on local container
+     --transient         Only set transient hostname
+     --static            Only set static hostname
+     --pretty            Only set pretty hostname
+
+Commands:
+  status                 Show current hostname settings
+  set-hostname NAME      Set system hostname
+  set-icon-name NAME     Set icon name for host
+  set-chassis NAME       Set chassis type for host
+  set-deployment NAME    Set deployment environment for host
+  set-location NAME      Set location for host
+luyanfeng@amax:~$ hostnamectl
+   Static hostname: amax
+         Icon name: computer-server
+           Chassis: server
+        Machine ID: 9e3f9b2c17f34ec498bbe99396f0597d
+           Boot ID: 045903c8f58741f1b1862515b085885b
+  Operating System: Ubuntu 18.04.6 LTS
+            Kernel: Linux 5.4.0-126-generic
+      Architecture: x86-64
+luyanfeng@amax:~$
+```
+
 ## 结语
 
 第二十八篇博文写完，开心！！！！
