@@ -28,7 +28,7 @@ date: 2022-09-28 14:52:14
 
 2. [C/C++ Reference](https://cplusplus.com/reference/)
 
-3. [<cstdio> (stdio.h)](https://cplusplus.com/reference/cstdio/)
+3. [`<cstdio>` (stdio.h)](https://cplusplus.com/reference/cstdio/)
 
 4. [fopen](https://cplusplus.com/reference/cstdio/fopen/)
 
@@ -44,7 +44,7 @@ date: 2022-09-28 14:52:14
 
 10. [fread](https://cplusplus.com/reference/cstdio/fread/)
 
-11. [<cstring> (string.h)](https://cplusplus.com/reference/cstring/)
+11. [`<cstring>` (string.h)](https://cplusplus.com/reference/cstring/)
 
 12. [strcmp](https://cplusplus.com/reference/cstring/strcmp/)
 
