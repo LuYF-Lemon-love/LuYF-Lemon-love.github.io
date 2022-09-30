@@ -44,6 +44,10 @@ date: 2022-09-28 14:52:14
 
 10. [fread](https://cplusplus.com/reference/cstdio/fread/)
 
+11. [<cstring> (string.h)](https://cplusplus.com/reference/cstring/)
+
+12. [strcmp](https://cplusplus.com/reference/cstring/strcmp/)
+
 ## `<cstdio>` (stdio.h)
 
 `<cstdio> (stdio.h)`: https://cplusplus.com/reference/cstdio/ 。
@@ -563,6 +567,78 @@ A file called `myfile.txt` is created for `reading and writing` and `filled with
 
 ```bash
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
+```
+
+## `<cstring>` (string.h)
+
+`<cstring> (string.h)`: https://cplusplus.com/reference/cstring/ 。
+
+`<cstring> (string.h)`: C Strings.
+
+### Comparison
+
+- `strcmp`: Compare two strings (function)
+
+#### strcmp - `<cstring>`
+
+`strcmp`: https://cplusplus.com/reference/cstring/strcmp/ 。
+
+`int strcmp ( const char * str1, const char * str2 );`
+
+##### Compare two strings
+
+Compares the `C string str1` to the `C string str2`.
+
+This function starts comparing the `first character` of each string. If they `are equal to` each other, it `continues` with the following pairs until `the characters differ` or until a `terminating null-character` is reached.
+
+This function performs `a binary comparison of the characters`.
+
+##### Parameters
+
+**str1**
+
+1. `C string` to be compared.
+
+**str2**
+
+2. `C string` to be compared.
+
+##### Return Value
+
+Returns an `integral value` indicating the `relationship` between the strings:
+
+|**return value**|**indicates**|
+|:-:|:-:|
+|`<0`|the `first character` that does not match has a lower value in `ptr1` than in `ptr2`|
+|`0`|the contents of both strings are `equal`|
+|`>0`|the first character that does not match has a `greater value` in `ptr1` than in `ptr2`|
+
+##### Example
+
+```c++
+#include <stdio.h>
+#include <string.h>
+
+int main ()
+{
+  char key[] = "apple";
+  char buffer[80];
+  do {
+     printf ("Guess my favorite fruit? ");
+     fflush (stdout);
+     scanf ("%79s",buffer);
+  } while (strcmp (key,buffer) != 0);
+  puts ("Correct answer!");
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+Guess my favourite fruit? orange
+Guess my favourite fruit? apple
+Correct answer!
 ```
 
 ## 结语
