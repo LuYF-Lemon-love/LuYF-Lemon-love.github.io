@@ -48,6 +48,12 @@ date: 2022-09-28 14:52:14
 
 12. [strcmp](https://cplusplus.com/reference/cstring/strcmp/)
 
+13. [`<string>`](https://cplusplus.com/reference/string/)
+
+14. [`std::to_string`](https://cplusplus.com/reference/string/to_string/)
+
+# `C Library`
+
 ## `<cstdio>` (stdio.h)
 
 `<cstdio> (stdio.h)`: https://cplusplus.com/reference/cstdio/ 。
@@ -641,7 +647,63 @@ Guess my favourite fruit? apple
 Correct answer!
 ```
 
-## 结语
+# Miscellaneous headers
+
+## `<string>`
+
+`<string>`: https://cplusplus.com/reference/string/ 。
+
+`<string>`: Strings.
+
+### Convert to strings
+
+- `to_string`: Convert numerical value to string (function)
+
+#### `std::to_string` - `<string>`
+
+`std::to_string`: https://cplusplus.com/reference/string/to_string/ 。
+
+`string to_string (int val);string to_string (long val);string to_string (long long val);string to_string (unsigned val);string to_string (unsigned long val);string to_string (unsigned long long val);string to_string (float val);string to_string (double val);string to_string (long double val);`
+
+##### Convert numerical value to string
+
+Returns a `string` with `the representation of val`.
+
+##### Parameters
+
+**val**
+
+1. Numerical value.
+
+##### Return Value
+
+A `string object` containing the representation of `val` as `a sequence of characters`.
+
+##### Example
+
+```c++
+// to_string example
+#include <iostream>   // std::cout
+#include <string>     // std::string, std::to_string
+
+int main ()
+{
+  std::string pi = "pi is " + std::to_string(3.1415926);
+  std::string perfect = std::to_string(1+2+4+7+14) + " is a perfect number";
+  std::cout << pi << '\n';
+  std::cout << perfect << '\n';
+  return 0;
+}
+```
+
+{% label 可能的输出 pink %}
+
+```bash
+pi is 3.141593
+28 is a perfect number
+```
+
+# 结语
 
 第二十九篇博文写完，开心！！！！
 
