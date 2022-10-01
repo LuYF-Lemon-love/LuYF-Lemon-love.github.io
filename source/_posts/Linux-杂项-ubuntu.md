@@ -26,6 +26,8 @@ date: 2022-09-28 12:04:25
 
 3. [GET STARTED](https://pytorch.org/get-started/locally/)
 
+4. [普通用户添加 sudo 权限](https://subingwen.cn/linux/sudoers/)
+
 ## wget 命令
 
 `wget` 命令是 `Linux` 系统用于从 `Web` 上下载文件的命令行工具，支持 `HTTP`，`HTTPS` 和 `FTP` 协议。
@@ -564,6 +566,34 @@ While `Python 3.x` is installed by default on `Linux`, `pip` is not installed by
 
 ```bash
 sudo apt install python3-pip
+```
+
+## 为普通用户添加 `sudo` 权限
+
+```bash
+$ cd /etc/
+$ ll sudoers
+-r-------- 1 root root 4382 Jan 21 23:16 sudoers
+# 1. 切换到root用户
+$ su root
+Password: 		# 输入root用户的密码
+
+# 2. 修改文件权限, 暴力一点没有关系, 反正还需要改回去, 直接 777 就行
+$ chmod 777 sudoers
+
+# 3. 使用 vim 打开这个文件
+$ vim sudoers
+
+# 4. 在文件中找到这一行, 在文件偏尾部的位置
+root    ALL=(ALL)       ALL
+
+# 5. 照葫芦画瓢, 在下边新添加一行内容如下:
+root    ALL=(ALL)       ALL           # 原来的内容
+susu    ALL=(ALL)       ALL          # 新添加的行, susu 是需要添加 sudo 权限的用户名
+
+# 6. 保存退出 (先按esc, 然后输入 :wq)
+# 7. 将文件改回原来的权限
+$ chmod 400 sudoers
 ```
 
 ## 结语
