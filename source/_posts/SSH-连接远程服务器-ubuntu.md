@@ -75,11 +75,11 @@ sudo apt-get install openssh-client
 
 ![](https://cos.luyf-lemon-love.space/images/20220930212214.png)
 
-`Remote - SSH` 插件还为你的左侧活动栏添加了一个新的图标，点击它将展示 `Remote explorer`。你能保存经常连接的主机，这样就不需要收入 `user` 和 `hostname` 连接服务器了。
+`Remote - SSH` 插件还为你的左侧活动栏添加了一个新的图标，点击它将展示 `Remote explorer`。你能保存经常连接的主机，这样就不需要输入 `user` 和 `hostname` 连接服务器了。
 
 ![](https://cos.luyf-lemon-love.space/images/20220930212915.png)
 
-连接到 `SSH` 主机后，即可与`远程计算机上的文件和文件夹进行交互`。你将打开集成的终端 (Ctrl+`)，它将显示远程服务器的 **bash shell**。
+连接到 `SSH` 主机后，即可与`远程计算机上的文件和文件夹进行交互`。打开集成的终端 (Ctrl+`)，它将显示远程服务器的 **bash shell**。
 
 ![](https://cos.luyf-lemon-love.space/images/20220930214150.png)
 
