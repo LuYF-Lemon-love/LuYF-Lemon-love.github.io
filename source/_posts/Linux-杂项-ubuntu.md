@@ -24,6 +24,8 @@ date: 2022-09-28 12:04:25
 
 2. [pip3安装pillow失败](https://blog.csdn.net/weixin_50008473/article/details/119676343)
 
+3. [GET STARTED](https://pytorch.org/get-started/locally/)
+
 ## wget 命令
 
 `wget` 命令是 `Linux` 系统用于从 `Web` 上下载文件的命令行工具，支持 `HTTP`，`HTTPS` 和 `FTP` 协议。
@@ -554,6 +556,14 @@ luyanfeng@amax:~$ hostnamectl
             Kernel: Linux 5.4.0-126-generic
       Architecture: x86-64
 luyanfeng@amax:~$
+```
+
+## pip
+
+While `Python 3.x` is installed by default on `Linux`, `pip` is not installed by default.
+
+```bash
+sudo apt install python3-pip
 ```
 
 ## 结语
