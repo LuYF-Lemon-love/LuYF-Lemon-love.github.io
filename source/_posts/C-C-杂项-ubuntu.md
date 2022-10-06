@@ -64,6 +64,8 @@ date: 2022-09-28 14:52:14
 
 20. [memcpy](https://cplusplus.com/reference/cstring/memcpy/)
 
+21. [memset](https://cplusplus.com/reference/cstring/memset/)
+
 # `C Library`
 
 ## `<cmath>` (math.h)
@@ -965,6 +967,63 @@ int main ()
 Guess my favourite fruit? orange
 Guess my favourite fruit? apple
 Correct answer!
+```
+
+### Other
+
+- `memset`: Fill block of memory (function)
+
+#### memset - `<cstring>`
+
+`memset`: https://cplusplus.com/reference/cstring/memset/ 。
+
+`void * memset ( void * ptr, int value, size_t num );`
+
+##### Fill block of memory
+
+Sets the first `num` bytes of the block of memory pointed by `ptr` to the specified `value` (interpreted as an `unsigned char`).
+
+##### Parameters
+
+**ptr**
+
+1. `Pointer` to the block of memory to fill.
+
+**value**
+
+1. `Value to be set`. The value is passed as an `int`, but the function `fills` the block of memory using the `unsigned char` conversion of this `value`.
+
+**num**
+
+1. `Number of bytes` to be set to the `value`.
+
+2. `size_t` is an `unsigned integral type`.
+
+##### Return Value
+
+`ptr` is returned.
+
+##### Example
+
+```c++
+/* memset example */
+#include <stdio.h>
+#include <string.h>
+
+int main ()
+{
+  char str[] = "almost every programmer should know memset!";
+  memset (str,'-',6);
+  puts (str);
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+------ every programmer should know memset!
+
 ```
 
 # Miscellaneous headers
