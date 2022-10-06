@@ -60,6 +60,8 @@ date: 2022-09-28 14:52:14
 
 18. [exp](https://cplusplus.com/reference/cmath/exp/)
 
+19. [calloc](https://cplusplus.com/reference/cstdlib/calloc/)
+
 # `C Library`
 
 ## `<cmath>` (math.h)
@@ -736,6 +738,85 @@ A file called `myfile.txt` is created for `reading and writing` and `filled with
 ```bash
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 ```
+
+## `<cstdlib>` (stdlib.h)
+
+`<cstdlib> (stdlib.h)`: https://cplusplus.com/reference/cstdlib/ 。
+
+`<cstdlib> (stdlib.h)`: C Standard General Utilities Library.
+
+### Dynamic memory management
+
+- `calloc`: Allocate and zero-initialize array (function)
+
+#### calloc - `<cstdlib>`
+
+`calloc`: https://cplusplus.com/reference/cstdlib/calloc/ 。
+
+`void* calloc (size_t num, size_t size);`
+
+##### Allocate and zero-initialize array
+
+`Allocates` a block of memory for `an array of num elements`, each of them `size` bytes long, and `initializes all its bits to zero`.
+
+`The effective result` is the `allocation` of `a zero-initialized memory block` of (`num*size`) bytes.
+
+If `size` is `zero`, the return value depends on `the particular library implementation` (it may or may not be `a null pointer`), but `the returned pointer shall not be dereferenced`.
+
+##### Parameters
+
+**num**
+
+1. Number of elements to allocate.
+
+**size**
+
+1. Size of each element.
+
+`size_t` is an unsigned integral type.
+
+##### Return Value
+
+On `success`, a `pointer` to `the memory block allocated by the function`.
+
+The type of `this pointer` is always `void*`, which can be cast to `the desired type of data pointer` in order to be `dereferenceable`.
+
+If the function `failed` to `allocate the requested block of memory`, `a null pointer` is returned.
+
+##### Example
+
+```c++
+/* calloc example */
+#include <stdio.h>      /* printf, scanf, NULL */
+#include <stdlib.h>     /* calloc, exit, free */
+
+int main ()
+{
+  int i,n;
+  int * pData;
+  printf ("Amount of numbers to be entered: ");
+  scanf ("%d",&i);
+  pData = (int*) calloc (i,sizeof(int));
+  if (pData==NULL) exit (1);
+  for (n=0;n<i;n++)
+  {
+    printf ("Enter number #%d: ",n+1);
+    scanf ("%d",&pData[n]);
+  }
+  printf ("You have entered: ");
+  for (n=0;n<i;n++) printf ("%d ",pData[n]);
+  free (pData);
+  return 0;
+}
+```
+
+This program simply `stores numbers` and then `prints them out`. But the number of items it stores can be adapted each time the program is executed because it allocates the needed memory during runtime.
+
+##### Data races
+
+`Only the storage referenced by the returned pointer is modified.` No other storage locations are accessed by the call.
+
+If the function `reuses the same unit of storage released` by `a deallocation function` (such as `free` or `realloc`), the functions are synchronized `in such a way that the deallocation happens entirely before the next allocation`.
 
 ## `<cstring>` (string.h)
 
