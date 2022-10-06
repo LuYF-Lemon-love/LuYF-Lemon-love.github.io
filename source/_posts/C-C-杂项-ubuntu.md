@@ -58,7 +58,62 @@ date: 2022-09-28 14:52:14
 
 17. [右移运算符](https://baike.baidu.com/item/%E5%8F%B3%E7%A7%BB%E8%BF%90%E7%AE%97%E7%AC%A6)
 
+18. [exp](https://cplusplus.com/reference/cmath/exp/)
+
 # `C Library`
+
+## `<cmath>` (math.h)
+
+`<cmath> (math.h)`: https://cplusplus.com/reference/cmath/ 。
+
+`<cmath> (math.h)`: C numerics library.
+
+### Exponential and logarithmic functions
+
+- `exp`: Compute exponential function (function)
+
+#### exp - `<cmath>`
+
+`exp`: https://cplusplus.com/reference/cmath/exp/ 。
+
+`double exp (double x);`
+
+##### Compute exponential function
+
+`Returns` the `base-e` exponential function of `x`, which is `e` raised to the power $x: e^x$.
+
+##### Parameters
+
+**x**
+
+1. Value of the exponent.
+
+##### Return Value
+
+Exponential value of `x`.
+
+##### Example
+
+```c++
+/* exp example */
+#include <stdio.h>      /* printf */
+#include <math.h>       /* exp */
+
+int main ()
+{
+  double param, result;
+  param = 5.0;
+  result = exp (param);
+  printf ("The exponential value of %f is %f.\n", param, result );
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+The exponential value of 5.000000 is 148.413159.
+```
 
 ## `<cstdio>` (stdio.h)
 
