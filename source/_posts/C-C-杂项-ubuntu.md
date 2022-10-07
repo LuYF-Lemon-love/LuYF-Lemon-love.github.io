@@ -68,6 +68,8 @@ date: 2022-09-28 14:52:14
 
 22. [free](https://cplusplus.com/reference/cstdlib/free/)
 
+23. [atof](https://cplusplus.com/reference/cstdlib/atof/)
+
 # `C Library`
 
 ## `<cmath>` (math.h)
@@ -750,6 +752,76 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
 `<cstdlib> (stdlib.h)`: https://cplusplus.com/reference/cstdlib/ 。
 
 `<cstdlib> (stdlib.h)`: C Standard General Utilities Library.
+
+### String conversion
+
+- `atof`: Convert string to double (function)
+
+#### atof - `<cstdlib>`
+
+`atof`: https://cplusplus.com/reference/cstdlib/atof/ 。
+
+`double atof (const char* str);`
+
+##### Convert string to double
+
+`Parses the C string str`, interpreting its content as `a floating point number` and returns its value as `a double`.
+
+The function first `discards as many whitespace characters` (as in `isspace`) as necessary until `the first non-whitespace character is found`. Then, starting from this character, `takes as many characters as possible that are valid following a syntax resembling that of floating point literals`, and interprets them as `a numerical value`. `The rest of the string after the last valid character` is `ignored` and has no effect on the behavior of this function.
+
+If `the first sequence of non-whitespace characters` in str `does not form a valid floating-point number` as just defined, or if `no such sequence exists` because either `str` is `empty` or contains only `whitespace characters`, no conversion is performed and `the function returns 0.0`.
+
+##### Parameters
+
+**str**
+
+1. `C-string` beginning with the representation of `a floating-point number`.
+
+##### Return Value
+
+On `success`, the function returns the converted floating point number as a `double value`.
+
+If `no valid conversion` could be performed, the function returns `zero (0.0)`.
+
+If the converted value would be out of the range of representable values by `a double`, it causes `undefined behavior`.
+
+See `strtod` for a more `robust cross-platform alternative` when this is a possibility.
+
+##### Example
+
+```c++
+/* atof example: sine calculator */
+#include <stdio.h>      /* printf, fgets */
+#include <stdlib.h>     /* atof */
+#include <math.h>       /* sin */
+
+int main ()
+{
+  double n,m;
+  double pi=3.1415926535;
+  char buffer[256];
+  printf ("Enter degrees: ");
+  fgets (buffer,256,stdin);
+  n = atof (buffer);
+  m = sin (n*pi/180);
+  printf ("The sine of %f degrees is %f\n" , n, m);
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+Enter degrees: 45
+The sine of 45.000000 degrees is 0.707101
+
+```
+
+##### Exceptions (C++)
+
+`No-throw guarantee`: this function `never` throws exceptions.
+
+If `str` does not point to `a valid C-string`, or if the converted value would be out of the range of values representable by `a double`, it causes `undefined behavior`.
 
 ### Dynamic memory management
 
