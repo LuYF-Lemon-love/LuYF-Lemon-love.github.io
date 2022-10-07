@@ -72,6 +72,8 @@ date: 2022-09-28 14:52:14
 
 24. [atoi](https://cplusplus.com/reference/cstdlib/atoi/)
 
+25. [memcmp](https://cplusplus.com/reference/cstring/memcmp/)
+
 # `C Library`
 
 ## `<cmath>` (math.h)
@@ -1106,7 +1108,78 @@ person_copy: Pierre de Fermat, 46
 
 ### Comparison
 
+- `memcmp`: Compare two blocks of memory (function)
+
 - `strcmp`: Compare two strings (function)
+
+#### memcmp - `<cstring>`
+
+`memcmp`: https://cplusplus.com/reference/cstring/memcmp/ 。
+
+`int memcmp ( const void * ptr1, const void * ptr2, size_t num );`
+
+##### Compare two blocks of memory
+
+Compares the `first num bytes` of `the block of memory` pointed by `ptr1` to `the first num bytes` pointed by `ptr2`, returning `zero` if they all `match` or `a value different from zero representing which is greater if they do not`.
+
+Notice that, unlike `strcmp`, `the function does not stop comparing after finding a null character`.
+
+##### Parameters
+
+**ptr1**
+
+1. `Pointer` to block of memory.
+
+**ptr2**
+
+1. `Pointer` to block of memory.
+
+**num**
+
+1. `Number of bytes` to compare.
+
+##### Return Value
+
+Returns an `integral value` indicating `the relationship between the content of the memory blocks`:
+
+|**return value**|**indicates**|
+|:-:|:-:|
+|`<0`|`the first byte` that does not match in both memory blocks `has a lower value` in `ptr1` than in `ptr2` (if evaluated as `unsigned char` values)|
+|`0`|`the contents of both memory blocks` are `equal`|
+|`>0`|`the first byte` that does not match in both memory blocks `has a greater value` in `ptr1` than in `ptr2` (if evaluated as `unsigned char` values)|
+
+##### Example
+
+```c++
+/* memcmp example */
+#include <stdio.h>
+#include <string.h>
+
+int main ()
+{
+  char buffer1[] = "DWgaOtP12df0";
+  char buffer2[] = "DWGAOTP12DF0";
+
+  int n;
+
+  n=memcmp ( buffer1, buffer2, sizeof(buffer1) );
+
+  if (n>0) printf ("'%s' is greater than '%s'.\n",buffer1,buffer2);
+  else if (n<0) printf ("'%s' is less than '%s'.\n",buffer1,buffer2);
+  else printf ("'%s' is the same as '%s'.\n",buffer1,buffer2);
+
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+'DWgaOtP12df0' is greater than 'DWGAOTP12DF0'.
+
+```
+
+`DWgAOtp12Df0` is `greater` than `DWGAOTP12DF0` because `the first non-matching character` in both words are `'g'` and `'G'` respectively, and `'g' (103) evaluates as greater than 'G' (71)`.
 
 #### strcmp - `<cstring>`
 
