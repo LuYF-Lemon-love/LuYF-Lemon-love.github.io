@@ -83,7 +83,7 @@ $$
 ---
 
 $$
-log_a^b * log_b^a = 1
+log_ab * log_ba = 1
 $$
 
 ---
