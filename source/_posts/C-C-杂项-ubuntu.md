@@ -70,6 +70,8 @@ date: 2022-09-28 14:52:14
 
 23. [atof](https://cplusplus.com/reference/cstdlib/atof/)
 
+24. [atoi](https://cplusplus.com/reference/cstdlib/atoi/)
+
 # `C Library`
 
 ## `<cmath>` (math.h)
@@ -757,6 +759,8 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
 - `atof`: Convert string to double (function)
 
+- `atoi`: Convert string to integer (function)
+
 #### atof - `<cstdlib>`
 
 `atof`: https://cplusplus.com/reference/cstdlib/atof/ 。
@@ -822,6 +826,69 @@ The sine of 45.000000 degrees is 0.707101
 `No-throw guarantee`: this function `never` throws exceptions.
 
 If `str` does not point to `a valid C-string`, or if the converted value would be out of the range of values representable by `a double`, it causes `undefined behavior`.
+
+#### atoi - `<cstdlib>`
+
+`atoi`: https://cplusplus.com/reference/cstdlib/atoi/ 。
+
+`int atoi (const char * str);`
+
+##### Convert string to integer
+
+Parses the C-string `str` interpreting its content as `an integral number`, which is returned as a value of type `int`.
+
+The function first `discards as many whitespace characters` (as in `isspace`) as necessary until `the first non-whitespace character is found`. Then, starting from this character, takes an optional initial `plus` or `minus` sign followed by as `many base-10 digits` as possible, and interprets them as `a numerical value`.
+
+The string can contain `additional characters` after those that `form the integral number`, which are `ignored` and `have no effect on the behavior of this function`.
+
+If `the first sequence of non-whitespace characters` in `str` is `not a valid integral number`, or if `no such sequence` exists because either `str is empty` or it contains only `whitespace characters`, no conversion is performed and `zero is returned`.
+
+##### Parameters
+
+**str**
+
+1. `C-string` beginning with the representation of an integral number.
+
+##### Return Value
+
+On `success`, the function returns the converted integral number as an `int` value.
+
+If the converted value would be out of the range of representable values by `an int`, it causes `undefined behavior`.
+
+See `strtol` for a more `robust cross-platform alternative` when this is a possibility.
+
+##### Example
+
+```c++
+/* atoi example */
+#include <stdio.h>      /* printf, fgets */
+#include <stdlib.h>     /* atoi */
+
+int main ()
+{
+  int i;
+  char buffer[256];
+  printf ("Enter a number: ");
+  fgets (buffer, 256, stdin);
+  i = atoi (buffer);
+  printf ("The value entered is %d. Its double is %d.\n",i,i*2);
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+Enter a number: 73
+The value entered is 73. Its double is 146.
+
+```
+
+##### Exceptions (C++)
+
+`No-throw guarantee`: this function never throws exceptions.
+
+If `str` does not point to a valid C-string, or if the converted value would be out of the range of values representable by an `int`, it causes `undefined behavior`.
 
 ### Dynamic memory management
 
