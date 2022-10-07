@@ -22,6 +22,8 @@ date: 2022-09-29 11:36:43
 
 2. [Python strip()方法](https://www.runoob.com/python/att-string-strip.html)
 
+3. [Python readline()和readlines()函数：按行读取文件](https://blog.csdn.net/ccc369639963/article/details/123987000)
+
 ## Python 注释
 
 1. 使用 `#` 进行单行注释：
@@ -112,6 +114,36 @@ Type "help", "copyright", "credits" or "license" for more information.
 'urpl e'
 >>>
 ```
+
+## Python readline() 和 readlines() 方法
+
+`readline()` 和 `readlines()` 按`行`读取文件。`二进制文件`以 `\n` 作为`行结束`的标志。
+
+### Python readline() 方法
+
+`Python readline() 方法`读取文件中的一行，包含 `\n`，语法如下：
+
+```python
+file.readline([size])
+```
+
+- `file`: 打开的`文件对象`，如 `open()` 返回的文件对象。
+
+- `size`: 可选参数，一次`最多读取的字符数`。
+
+- `前提`: `open()` 指定的模式为`可读模式` (`r`、`rb`、`r+`、`rb+`)。
+
+### Python readlines() 方法
+
+`Python readlines() 方法`读取文件中的所有行，返回`一个字符串列表` (每一个元素为`文件中的一行内容`，包含行尾的 `\n`)，语法如下:
+
+```python
+file.readlines()
+```
+
+- `file`: 打开的`文件对象`，如 `open()` 返回的文件对象。
+
+- `前提`: `open()` 指定的模式为`可读模式` (`r`、`rb`、`r+`、`rb+`)。
 
 ## 结语
 
