@@ -66,6 +66,8 @@ date: 2022-09-28 14:52:14
 
 21. [memset](https://cplusplus.com/reference/cstring/memset/)
 
+22. [free](https://cplusplus.com/reference/cstdlib/free/)
+
 # `C Library`
 
 ## `<cmath>` (math.h)
@@ -753,6 +755,8 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
 - `calloc`: Allocate and zero-initialize array (function)
 
+- `free`: Deallocate memory block (function)
+
 #### calloc - `<cstdlib>`
 
 `calloc`: https://cplusplus.com/reference/cstdlib/calloc/ 。
@@ -821,6 +825,64 @@ This program simply `stores numbers` and then `prints them out`. But the number 
 `Only the storage referenced by the returned pointer is modified.` No other storage locations are accessed by the call.
 
 If the function `reuses the same unit of storage released` by `a deallocation function` (such as `free` or `realloc`), the functions are synchronized `in such a way that the deallocation happens entirely before the next allocation`.
+
+#### free - `<cstdlib>`
+
+`free`: https://cplusplus.com/reference/cstdlib/free/ 。
+
+`void free (void* ptr);`
+
+##### Deallocate memory block
+
+`A block of memory` previously `allocated` by a call to `malloc`, `calloc` or `realloc` is `deallocated`, making it available again for `further allocations`.
+
+If `ptr` does not point to `a block of memory allocated with the above functions`, it causes `undefined behavior`.
+
+If `ptr` is a `null pointer`, the function `does nothing`.
+
+Notice that `this function does not change the value of ptr itself`, hence it still points to `the same (now invalid) location`.
+
+##### Parameters
+
+**ptr**
+
+1. `Pointer` to a memory block previously allocated with `malloc`, `calloc` or `realloc`.
+
+##### Return Value
+
+none
+
+##### Example
+
+```c++
+/* free example */
+#include <stdlib.h>     /* malloc, calloc, realloc, free */
+
+int main ()
+{
+  int * buffer1, * buffer2, * buffer3;
+  buffer1 = (int*) malloc (100*sizeof(int));
+  buffer2 = (int*) calloc (100,sizeof(int));
+  buffer3 = (int*) realloc (buffer2,500*sizeof(int));
+  free (buffer1);
+  free (buffer3);
+  return 0;
+}
+```
+
+`This program has no output`. It just demonstrates some ways to `allocate and free dynamic memory` using the `C stdlib` functions.
+
+##### Data races
+
+Only the storage referenced by `ptr` is modified. `No other storage locations are accessed by the call`.
+
+If the function releases `a unit of storage` that is `reused` by a call to `allocation functions` (such as `calloc` or `malloc`), the functions are synchronized `in such a way` that `the deallocation happens entirely before the next allocation`.
+
+##### Exceptions (C++)
+
+`No-throw guarantee`: this function never throws exceptions.
+
+If `ptr` does not point to a memory block previously allocated with `malloc`, `calloc` or `realloc`, and is not a `null pointer`, it causes `undefined behavior`.
 
 ## `<cstring>` (string.h)
 
