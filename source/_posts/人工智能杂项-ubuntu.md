@@ -28,6 +28,8 @@ date: 2022-10-07 17:48:54
 
 3. [Sigmoid函数](https://baike.baidu.com/item/Sigmoid%E5%87%BD%E6%95%B0/7981407)
 
+4. [对数公式](https://baike.baidu.com/item/%E5%AF%B9%E6%95%B0%E5%85%AC%E5%BC%8F/5557846)
+
 ## 双曲正切函数
 
 `双曲正切函数`（$tanh$）是`双曲正弦函数`（$sinh$）与`双曲余弦函数`（$cosh$）的比值，其解析形式为：
@@ -63,6 +65,76 @@ $$
 {% label 图像 pink %}
 
 ![](https://cos.luyf-lemon-love.space/images/20221007190111.png)
+
+## 对数公式
+
+---
+
+$$
+log_a(1) = 0
+$$
+
+---
+
+$$
+log_a(a) = 1
+$$
+
+---
+
+$$
+log_a^b * log_b^a = 1
+$$
+
+---
+
+$$
+-log_c\frac{a}{b} = log_c\frac{b}{a}
+$$
+
+---
+
+$$
+log_a(MN) = log_aM + log_aN
+$$
+
+---
+
+$$
+log_a(\frac{M}{N}) = log_aM - log_aN
+$$
+
+---
+
+$$
+log_a(\frac{1}{N}) = -log_aN
+$$
+
+---
+
+$$
+log_aM^n = nlog_aM
+$$
+
+---
+
+$$
+log_a\sqrt[n]{M} = \frac{1}{n}log_aM
+$$
+
+---
+
+$$
+log_a(a^k) = k
+$$
+
+---
+
+$$
+log_ab = \frac{log_cb}{log_ca}
+$$
+
+---
 
 ## 结语
 
