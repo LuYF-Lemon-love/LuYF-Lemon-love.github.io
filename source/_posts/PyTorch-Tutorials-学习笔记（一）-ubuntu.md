@@ -6,6 +6,7 @@ tags:
   - PyTorch
   - Python
   - jupyter
+  - Anaconda
 categories: 学习笔记
 description: 官方 PyTorch Tutorials 的学习笔记。
 cover: 'https://cos.luyf-lemon-love.space/images/20221008161018.png'
