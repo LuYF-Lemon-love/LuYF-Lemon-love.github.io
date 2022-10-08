@@ -4,9 +4,10 @@ tags:
   - 人工智能
   - 深度学习
   - PyTorch
+  - Python
 categories: 学习笔记
 description: 官方 PyTorch Tutorials 的学习笔记。
-cover: 'https://cos.luyf-lemon-love.space/images/20221008142956.png'
+cover: 'https://cos.luyf-lemon-love.space/images/20221008161018.png'
 abbrlink: 4206674756
 date: 2022-10-08 14:24:50
 ---
