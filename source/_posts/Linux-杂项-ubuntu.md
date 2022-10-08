@@ -28,6 +28,12 @@ date: 2022-09-28 12:04:25
 
 4. [普通用户添加 sudo 权限](https://subingwen.cn/linux/sudoers/)
 
+5. [ubuntu 修改用户权限，不小心修改了sudoers文件](https://blog.csdn.net/qq_28488285/article/details/117462370)
+
+6. [ubuntu 16.04 忘记root密码的处理方法](https://www.cnblogs.com/jefflee168/p/5583456.html)
+
+7. [Ubuntu 重置密码](https://blog.csdn.net/qq_44721831/article/details/122182958)
+
 ## wget 命令
 
 `wget` 命令是 `Linux` 系统用于从 `Web` 上下载文件的命令行工具，支持 `HTTP`，`HTTPS` 和 `FTP` 协议。
@@ -593,6 +599,55 @@ susu    ALL=(ALL)       ALL          # 新添加的行, susu 是需要添加 sud
 
 # 6. 保存退出 (先按esc, 然后输入 :wq)
 # 7. 将文件改回原来的权限
+$ chmod 400 sudoers
+```
+
+## `Ubuntu 18.04.6 LTS` 没有 `root` 用户但修改了 `sudoers`
+
+### 参考文档
+
+1. [ubuntu 修改用户权限，不小心修改了sudoers文件](https://blog.csdn.net/qq_28488285/article/details/117462370)
+
+2. [ubuntu 16.04 忘记root密码的处理方法](https://www.cnblogs.com/jefflee168/p/5583456.html)
+
+3. [Ubuntu 重置密码](https://blog.csdn.net/qq_44721831/article/details/122182958)
+
+### 问题介绍
+
+在 `Ubuntu 18.04.6 LTS`  上，为`新建的用户`添加 `sudo` 权限，需要修改 `sudoers` 文件，因此 `sudoers` 文件的权限被更改为 `777`，修改完成后，由于该系统上还没有设置 `root` 用户，无法将 `sudoers` 文件的权限更改回 `400`。
+
+### 解决办法
+
+#### 第一步：进入 `recovery` 模式，创建 `root` 用户，设置密码
+
+1. 重启计算机，出现如下界面，选中如下选项，按 `Enter` 键。
+
+![](https://cos.luyf-lemon-love.space/images/20221008121631.png)
+
+2. 然后选中最后有（`recovery mode`）的选项，推荐选择版本较高的一个。`按 e `，请不要使用 `Enter` 键。
+
+![](https://cos.luyf-lemon-love.space/images/20221008122027.png)
+
+3. 找到图中红色框的 `recovery nomodeset` 并将其删掉，再在这一行的后面输入 `quiet splash rw init=/bin/bash`。完成后按 `F10` 键。
+
+![](https://cos.luyf-lemon-love.space/images/20221008122159.png)
+
+![](https://cos.luyf-lemon-love.space/images/20221008122212.png)
+
+4. 在命令行输入 `passwd`，修改 `root` 用户密码。然后，按`电源`键，关机，然后按`电源`键，重启计算机。
+
+![](https://cos.luyf-lemon-love.space/images/20221008122654.png)
+
+#### 第二步：用 `root` 用户，修改 `sudoers` 文件权限
+
+```bash
+$ cd /etc/
+
+# 1. 切换到root用户
+$ su root
+Password: 		# 输入root用户的密码
+
+# 2. 将文件改回原来的权限
 $ chmod 400 sudoers
 ```
 

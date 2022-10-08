@@ -142,6 +142,10 @@
       link: https://changkun.de/modern-cpp/
       avatar: https://cos.luyf-lemon-love.space/images/cover-2nd.png
       descr: 高速上手 C++ 11/14/17/20
+    - name: C++ shell
+      link: https://cpp.sh/
+      avatar: https://cos.luyf-lemon-love.space/images/20221008115041.png
+      descr: 在线 C++ 编译器
 
 - class_name: Python
   class_desc:
