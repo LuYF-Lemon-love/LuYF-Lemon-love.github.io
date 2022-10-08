@@ -7,7 +7,6 @@ tags:
 categories: 杂项
 description: 介绍一些 Linux 杂项，包括：Linux 命令、Linux 系统问题。
 cover: 'https://cos.luyf-lemon-love.space/images/不朽堡垒.png'
-swiper_index: 1
 abbrlink: 3132979103
 date: 2022-09-28 12:04:25
 ---

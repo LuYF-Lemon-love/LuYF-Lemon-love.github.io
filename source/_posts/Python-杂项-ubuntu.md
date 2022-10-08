@@ -5,7 +5,6 @@ tags:
 categories: 杂项
 description: 介绍一些 Python 杂项，包括：Python 语法等问题。
 cover: 'https://cos.luyf-lemon-love.space/images/比尔吉沃特湾.png'
-swiper_index: 1
 abbrlink: 3206677790
 date: 2022-09-29 11:36:43
 ---

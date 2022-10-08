@@ -9,7 +9,6 @@ tags:
 categories: 杂项
 description: 介绍一些人工智能杂项，包括：激活函数等问题。
 cover: 'https://cos.luyf-lemon-love.space/images/noxus_creatures_01.jpg'
-swiper_index: 1
 abbrlink: 1059991633
 date: 2022-10-07 17:48:54
 ---

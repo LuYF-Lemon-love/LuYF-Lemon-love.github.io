@@ -9,7 +9,6 @@ tags:
 categories: 杂项
 description: 介绍一些 C/C++ 标准库和可移植操作系统接口（Portable Operating System Interface，缩写为 POSIX）。
 cover: 'https://cos.luyf-lemon-love.space/images/以绪塔尔.png'
-swiper_index: 1
 abbrlink: 116460760
 date: 2022-09-28 14:52:14
 ---
