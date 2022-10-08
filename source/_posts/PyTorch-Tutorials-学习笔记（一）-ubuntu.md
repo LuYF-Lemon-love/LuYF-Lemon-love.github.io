@@ -38,7 +38,7 @@ date: 2022-10-08 14:24:50
 
 1. 本地操作系统信息。
 
-```bash
+```shell
 $ hostnamectl
    Static hostname: amax
          Icon name: computer-server
@@ -52,7 +52,7 @@ $ hostnamectl
 
 2. 本地 `NVIDIA System Management Interface`。其中 `CUDA Version: 11.6`。
 
-```bash
+```shell
 $ nvidia-smi
 Sat Oct  8 14:45:37 2022       
 +-----------------------------------------------------------------------------+
@@ -82,7 +82,7 @@ Sat Oct  8 14:45:37 2022
 
 3. 安装 `Anaconda`。
 
-```bash
+```shell
 $ curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 $ sh Miniconda3-latest-Linux-x86_64.sh
 
@@ -366,7 +366,7 @@ $ rm -rf Miniconda3-latest-Linux-x86_64.sh
 
 4. 安装 `PyTorch` 并验证。
 
-```bash
+```shell
 $ conda env list
 # conda environments:
 #
