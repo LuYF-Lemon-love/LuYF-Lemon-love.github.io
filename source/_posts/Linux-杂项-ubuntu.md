@@ -33,6 +33,22 @@ date: 2022-09-28 12:04:25
 
 7. [Ubuntu 重置密码](https://blog.csdn.net/qq_44721831/article/details/122182958)
 
+8. [Ubuntu卸载Pyhon3无法进入图形界面](https://blog.csdn.net/qq_41008154/article/details/121590775)
+
+9. [ubuntu下获取apt-get离线安装包的通用方法](https://blog.csdn.net/qq_29852231/article/details/126056228)
+
+10. [Linux之ubuntu离线安装软件包](https://zongxp.blog.csdn.net/article/details/105994450)
+
+11. [Ubuntu Packages Search](https://packages.ubuntu.com/)
+
+12. [Ubuntu 如何离线安装软件包](https://luhuadong.blog.csdn.net/article/details/52183076)
+
+13. [dpkg -i 安装软件出现各种依赖等问题解决办法](https://blog.csdn.net/qinshanjy/article/details/109014356)
+
+14. [Index of /ubuntu/pool/main](http://cz.archive.ubuntu.com/ubuntu/pool/main/)
+
+15. [当你的Ubuntu UI界面消失时该怎么做](https://blog.csdn.net/liluan_sama/article/details/123503708)
+
 ## wget 命令
 
 `wget` 命令是 `Linux` 系统用于从 `Web` 上下载文件的命令行工具，支持 `HTTP`，`HTTPS` 和 `FTP` 协议。
@@ -649,6 +665,149 @@ Password: 		# 输入root用户的密码
 # 2. 将文件改回原来的权限
 $ chmod 400 sudoers
 ```
+
+## `Ubuntu 18.04.6 LTS` 卸载 `Python3` 无法进入图形界面
+
+### 问题描述
+
+1. `Ubuntu` 的桌面依赖自带的 `Python3`，因此请不要卸载自带的 `Python3`。如果卸载了自带的 `Python3`，将不能使用`图形界面`，只能使用`命令行`。
+
+>如果能够`连网`，可以使用下面的步骤解决。
+>
+>1. 重启电脑，在终端登录。
+>2. 执行 `sudo dhclient` 获取 `ip` 地址进行网络连接，通过 `ping baidu.com` 验证是否能够连网。
+>3. 执行 `sudo apt-get install ubuntu-minimal ubuntu-standard ubuntu-desktop` 安装桌面。
+>4. 执行 `sudo reboot` 重启电脑。
+
+2. 由于学校的服务器需要通过`图形界面`，登录`账号密码`进行连网，因此，服务器不能连网，进而不能使用上面的解决办法。
+
+### 解决
+
+1. 首先通过 `sudo dhclient` 获取 `ip` 地址，然后通过 `ip addr` 或者 `ifconfig` 查看到服务器的`内网地址`，如 `10.4.3.155`。
+
+2. 通过 `hostnamectl` 查看服务器的操作系统和架构。显示服务器的操作系统为 `Ubuntu 18.04.6 LTS`，架构为 `x86-64`。
+
+```bash
+$ hostnamectl 
+   Static hostname: amax
+         Icon name: computer-server
+           Chassis: server
+        Machine ID: 9e3f9b2c17f34ec498bbe99396f0597d
+           Boot ID: 045903c8f58741f1b1862515b085885b
+  Operating System: Ubuntu 18.04.6 LTS
+            Kernel: Linux 5.4.0-126-generic
+      Architecture: x86-64
+```
+
+3. 在本地的电脑访问 [Ubuntu Packages Search](https://packages.ubuntu.com/)，由于服务器的操作系统为 `Ubuntu 18.04.6 LTS`，因此 `Distribution` 选择 `bionic`，我们以 `ubuntu-minimal` 包为例，如下图。
+
+![](https://cos.luyf-lemon-love.space/images/20221009140437.png)
+
+4. 点击搜索，结果如下图。
+
+![](https://cos.luyf-lemon-love.space/images/20221009140540.png)
+
+5. 点击搜索结果的链接 (`bionic (18.04LTS)`)，如下图。
+
+![](https://cos.luyf-lemon-love.space/images/20221009140734.png)
+
+![](https://cos.luyf-lemon-love.space/images/20221009140804.png)
+
+6. 由于服务器的架构为 `x86-64`，因此，我们选择 `amd64` 版本，如下图。
+
+![](https://cos.luyf-lemon-love.space/images/20221009140927.png)
+
+7. 点击 `amd64`，结果如下图。可以发现我们需要的包名为 `ubuntu-minimal_1.417_amd64.deb`，可以在`镜像服务器`的 `pool/main/u/ubuntu-meta/` 子目录中下载这个包:
+
+![](https://cos.luyf-lemon-love.space/images/20221009141044.png)
+
+8. 其中一个镜像服务器地址为：`http://cz.archive.ubuntu.com/ubuntu/pool/main/`。依次找到 `ubuntu-minimal_1.417_amd64.deb` 包，如下图。
+
+![](https://cos.luyf-lemon-love.space/images/20221009141735.png)
+
+![](https://cos.luyf-lemon-love.space/images/20221009141857.png)
+
+![](https://cos.luyf-lemon-love.space/images/20221009141930.png)
+
+9. 点击 `ubuntu-minimal_1.417_amd64.deb` 并下载到本地电脑。进入到下载目录，执行 `scp` 命令将下载的包传输到服务器中。
+
+```bash
+# scp 本地文件地址 服务器帐号@内网 IP:服务器文件地址
+$ scp * luyanfeng@10.4.3.155:/home/luyanfeng/programs/
+```
+
+10. 通过内网 `IP` 用 `ssh` 连接服务器，执行下面命令安装 `ubuntu-minimal` 包。
+
+```bash
+$ sudo dpkg -i ubuntu-minimal_1.417_amd64.deb
+```
+
+11. 一般情况下是不能安装成功的，因为 `ubuntu-minimal` 需要一些依赖包，需要先安装依赖包，再安装 `ubuntu-minimal`。可以根据 `sudo dpkg -i ubuntu-minimal_1.417_amd64.deb` 命令给出的提示，像上面那样在 [Ubuntu Packages Search](https://packages.ubuntu.com/) 中找到需要的依赖包，并下载，传输到服务器，安装。
+
+12. 类似的，我们需要按照上面步骤安装 `ubuntu-minimal ubuntu-standard ubuntu-desktop`，但是当安装 `ubuntu-desktop` 的依赖包时会显示 `xxx 包未被配置` 的错误。不要管它，安装其他的包。
+
+13. 下面是我总共安装的包。
+
+```bash
+$ tree programs/
+programs/
+├── aptdaemon_1.1.1+bzr982-0ubuntu19.5_all.deb
+├── foomatic-db-compressed-ppds_20180306-1_all.deb
+├── gdm3_3.28.3-0ubuntu18.04.6_amd64.deb
+├── gir1.2-ibus-1.0_1.5.17-3ubuntu5.3_amd64.deb
+├── gnome-control-center_3.28.1-0ubuntu1_amd64.deb
+├── gnome-menus_3.13.3-11ubuntu1_amd64.deb
+├── gnome-session-common_3.28.1-0ubuntu2_all.deb
+├── gnome-shell_3.28.3+git20190124-0ubuntu18.04.2_amd64.deb
+├── gnome-shell-common_3.28.3+git20190124-0ubuntu18.04.2_all.deb
+├── language-selector-common_0.188_all.deb
+├── language-selector-gnome_0.188_all.deb
+├── lsb-release_9.20170808ubuntu1_all.deb
+├── microsoft-edge-stable_105.0.1343.42-1_amd64.deb
+├── netplan.io_0.40.1_18.04.4_amd64.deb
+├── nplan_0.40.1_18.04.4_all.deb
+├── openprinting-ppds_20180306-1_all.deb
+├── python3-apport_2.20.9-0ubuntu7.28_all.deb
+├── python3-apt_1.6.5ubuntu0.5_amd64.deb
+├── python3-aptdaemon_1.1.1+bzr982-0ubuntu19.5_all.deb
+├── python3-aptdaemon.gtk3widgets_1.1.1+bzr982-0ubuntu19.5_all.deb
+├── python3-defer_1.0.6-2build1_all.deb
+├── python3-distupgrade_18.04.17_all.deb
+├── python3-netifaces_0.10.4-0.1build4_amd64.deb
+├── python3-software-properties_0.96.24.32.14_all.deb
+├── python3-xkit_0.5.0ubuntu2_all.deb
+├── python3-yaml_3.12-1build2_amd64.deb
+├── software-properties-gtk_0.96.24.32.14_all.deb
+├── system-config-printer-common_1.5.11-1ubuntu2_all.deb
+├── ubuntu-advantage-tools_17_all.deb
+├── ubuntu-desktop_1.417_amd64.deb
+├── ubuntu-drivers-common_0.5.2_amd64.deb
+├── ubuntu-minimal_1.417_amd64.deb
+├── ubuntu-release-upgrader-core_18.04.17_all.deb
+├── ubuntu-release-upgrader-gtk_18.04.17_all.deb
+├── ubuntu-session_3.28.1-0ubuntu2_amd64.deb
+├── ubuntu-standard_1.417_amd64.deb
+├── update-manager_18.04.11_all.deb
+├── update-notifier_3.192_amd64.deb
+├── xorg_7.7+19ubuntu7_amd64.deb
+└── xserver-xorg_7.7+19ubuntu7_amd64.deb
+
+0 directories, 40 files
+$
+```
+
+14. `microsoft-edge-stable_105.0.1343.42-1_amd64.deb` 这个包是 `edge` 浏览器的安装包 (可以从 https://www.microsoft.com/zh-cn/edge 处下载)，因为我需要浏览器，才能通过学校的账号连网。
+
+15. 这是服务器的`图形界面`应该可以使用了，但还是`卡卡的感觉`，通过 `edge` 连网，输入下面命令再次安装桌面。
+
+```bash
+$ sudo apt-get install -f -y
+$ sudo apt-get update
+$ sudo apt-get install ubuntu-minimal ubuntu-standard ubuntu-desktop
+$ sudo reboot
+```
+
+16. 电脑重启后，应该就会直接进入到图形界面了。
 
 ## 结语
 
