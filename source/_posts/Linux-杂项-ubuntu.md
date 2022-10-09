@@ -742,9 +742,9 @@ $ scp * luyanfeng@10.4.3.155:/home/luyanfeng/programs/
 $ sudo dpkg -i ubuntu-minimal_1.417_amd64.deb
 ```
 
-11. 一般情况下是不能安装成功的，因为 `ubuntu-minimal` 需要一些依赖包，需要先安装依赖包，再安装 `ubuntu-minimal`。可以根据 `sudo dpkg -i ubuntu-minimal_1.417_amd64.deb` 命令给出的提示，像上面那样在 [Ubuntu Packages Search](https://packages.ubuntu.com/) 中找到需要的依赖包，并下载，传输到服务器，安装。
+11. 一般情况下是不能安装成功的，因为 `ubuntu-minimal` 需要一些依赖包，需要先安装依赖包，再安装 `ubuntu-minimal` 包。可以根据 `sudo dpkg -i ubuntu-minimal_1.417_amd64.deb` 命令给出的提示，像上面那样在 [Ubuntu Packages Search](https://packages.ubuntu.com/) 中找到需要的依赖包，并下载，传输到服务器，安装。
 
-12. 类似的，我们需要按照上面步骤安装 `ubuntu-minimal ubuntu-standard ubuntu-desktop`，但是当安装 `ubuntu-desktop` 的依赖包时会显示 `xxx 包未被配置` 的错误。不要管它，安装其他的包。
+12. 类似的，我们需要按照上面步骤安装 `ubuntu-minimal`、`ubuntu-standard`、`ubuntu-desktop` 这些包，但是当安装 `ubuntu-desktop` 的依赖包时会显示 `xxx 包未被配置` 的错误。不要管它，安装其他的包。
 
 13. 下面是我总共安装的包。
 
