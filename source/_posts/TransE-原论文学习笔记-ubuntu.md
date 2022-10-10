@@ -36,7 +36,7 @@ date: 2022-10-10 11:56:26
 
 <div id = "1"></div>
 
-1. [Translating Embeddings for Modeling Multi-relational Data](https://proceedings.neurips.cc/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf)
+1. [Translating Embeddings for Modeling Multi-relational Data](https://proceedings.neurips.cc/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf).
 
 <div id = "2"></div>
 
@@ -53,6 +53,18 @@ date: 2022-10-10 11:56:26
 <div id = "5"></div>
 
 5. R. Socher, D. Chen, C. D. Manning, and A. Y. Ng. Learning new facts from knowledge bases with neural tensor networks and semantic word vectors. In Advances in Neural Information Processing Systems (NIPS 26), 2013.
+
+<div id = "6"></div>
+
+6. M. Nickel, V. Tresp, and H.-P. Kriegel. A three-way model for collective learning on multi-relational data. In Proceedings of the 28th International Conference on Machine Learning (ICML), 2011.
+
+<div id = "7"></div>
+
+7. R. Jenatton, N. Le Roux, A. Bordes, G. Obozinski, et al. A latent factor model for highly multi-relational data. In Advances in Neural Information Processing Systems (NIPS 25), 2012.
+
+<div id = "8"></div>
+
+8. A. Bordes, X. Glorot, J. Weston, and Y. Bengio. A semantic matching energy function for learning with multi-relational data. Machine Learning, 2013.
 
 ## TransE 原论文学习笔记
 
@@ -137,36 +149,69 @@ training process to `trivially` minimize $\mathcal{L}$ by artificially increasin
    - 在`嵌入模型`中, 优化是异常困难的.
    - 对于 `SE` 来说, `更大的表现力`似乎更像是`欠拟合`的同义词，而不是`更好的性能`.
 
-2. `the Neural Tensor Model`[<sup>5</sup>](#5),
+2. 相比于 `the Neural Tensor Model`[<sup>5</sup>](#5), `TransE` 的有较少的参数: 这可以`简化训练`并防止`欠拟合`, 并可能`弥补较低的表现力`.
 
+3. `TransE`，可以看作是`编码一系列 2-way 交互`. 对于 $h$, $\ell$ 和 $t$ 之间存在的 `3-way` 依赖是相当重要的数据, `TransE` 不能够很好地建模 (相比于 `RESCAL`[<sup>6</sup>](#6) `LFM`[<sup>7</sup>](#7) `SME`[<sup>8</sup>](#8))
 
+4. 为了处理像 `Freebase` 这样的通用大规模知识图谱, 人们应该首先正确地建模`最常见的连接模式`, 就像 `TransE` 所做的那样.
 
+### 实验
 
+### 数据集
 
+数据来自于 `Wordnet` 和 `Freebase`. 数据集的统计如下:
 
+|DATA SET|WN|FB15K|FB1M|
+|:-:|:-:|:-:|:-:|
+|ENTITIES|40,943|14,951|1×10<sup>6</sup>|
+|RELATIONSHIPS|18|1,345|23,382|
+|TRAIN. EX.|141,442|483,142|17.5×10<sup>6</sup>|
+|VALID EX.|5,000|50,000|50,000|
+|TEST EX.|5,000|59,071|177,404|
 
+>**`Wordnet`**: This `KB` is designed to `produce an intuitively usable dictionary and thesaurus`, and support `automatic text analysis`. Its entities (termed synsets) correspond to `word senses`, and relationships define lexical relations between them. We considered the data version used in [8](#8), which we denote WN in the following. Examples of triplets are `(_score_NN_1, _hypernym, _evaluation_NN_1)` or `(_score_NN_2, _has_part, _musical_notation_NN_1)`. WN is `composed of senses`, its entities are denoted by `the concatenation of a word, its part-of-speech tag and a digit` indicating which sense it refers to i.e. `_score_NN_1` encodes the first meaning of the noun “score”.
+>
+>**`Freebase`**: Freebase is a huge and growing KB of general facts; there are currently around **1.2 billion triplets** and **more than 80 million entities**. We created two data sets with Freebase.
 
+实验数据集为 [FB15K](https://github.com/LuYF-Lemon-love/susu-knowledge-graph/tree/main/knowledge-representation-learning/C%2B%2B/data/FB15K). 该数据集是 `Wikilinks database` 的`实体子集`, 该子集中的实体和关系在 `Freebase` 至少出现了 `100` 次. 并且移除了像 ’!/people/person/nationality’ 这样的关系, 因为它是关系 ’/people/person/nationality’ `head` 和 `tail` 的颠倒. 一共 **592,213** 个三元组, **14,951** 个实体, **1,345** 个关系, 被`随机地`分成了训练集 (**483,142** 个), 验证集 (**50,000** 个), 测试集 (**59,071** 个).
 
+`FB1M`: 是从 `Freebase` 创建了`另一个数据集`, 方法是`选择最常出现的 100 万个实体`. 该数据大约有 `25k` 个关系和超过 `1700` 万训练三元组.
 
+### 实验设置
 
+**评估准则**: 测试集中的三元组全部都是`正三元组`. 对于每一个测试三元组, `head` 被`所有实体`依次替换, 通过模型计算各个负三组的能量 **$d(h^{'} + \ell, t)$**, 然后用升序排序. 测试三元组 (正三元组) 的名次被保存. 替换 `tail` 而不是 `head` 重复上面的过程. 最终报告`测试三元组的平均排名`和 *`hits@10`* (`测试三元组`排在`前 10` 的比例).
 
+上面的指标`可能存在缺陷`, 因为一些`"负三元组"`可能存在于`训练集`和`验证集`. 在这种情况下,这些`"负三元组"`的排名可能`高于`测试三元组, 但这种`"负三元组"`不应该归类为错误, 因为`测试三元组`和`负三元组`都是正确的. **为了排除指标的缺陷, 移除了出现在数据集 (训练集, 验证集, 测试集) 中的`负三元组`. 确保了负三元组不属于数据集**. 因此有两种设置的指标 (`平均排名`和 *`hits@10`*): 原始 (存在缺陷) 被标记为 *raw*, 新的被标记为 *`filtered`* (or *`filt.`*).
 
+{% label Baselines  pink %}
 
+1. `Unstructured`: a version of `TransE` which considers the data as `mono-relational` and sets all `translations` to 0.
 
+2. `RESCAL`: the collective matrix factorization model.
 
+3. `SE`: energy-based models.
 
+4. `SME(linear)/SME(bilinear)`: energy-based models.
 
+5. `LFM`: energy-based models.
 
+{% folding red, 基线模型的额外信息 %}
 
->Freebase is a huge and growing KB of general facts; there are currently around **1.2 billion triplets** and **more than 80 million entities**. -- TransE paper **2013**
+`RESCAL` is trained via `an alternating least-square method`, whereas `the others` are trained by `stochastic gradient descent`, like `TransE`.
 
-实验数据集为 [FB15K](https://github.com/LuYF-Lemon-love/susu-knowledge-graph/tree/main/knowledge-embedding/C%2B%2B/data/FB15K). 该数据集是 Wikilinks database 的实体子集, 该子集中的实体和关系在 Freebase 至少出现了 100 次. 并且移除了 ’!/people/person/nationality’ 的关系, 因为它是关系 ’/people/person/nationality’ head 和 tail 的颠倒. 一共 **592,213** 个三元组, **14,951** 种实体, **1,345** 种关系, 被随机分成了训练集 (**483,142** 个), 验证集 (**50,000** 个), 测试集 (**59,071** 个).
+`SME(linear)`, `SME(bilinear)`, `LFM` and `TransE` have about `the same number of parameters` as `Unstructured` for `low dimensional embeddings`, the other algorithms `SE` and `RESCAL`, which learn at least `one k × k matrix` for each relationship rapidly need to `learn many parameters`.
 
----
+`RESCAL` needs `about 87 times more parameters` on `FB15k` because it requires `a much larger embedding space` than other models to achieve good performance.
 
-**评估准则**: 测试集中的三元组全部都是正三元组. 对于每一个测试三元组, head 被所有的实体依次替换, 通过模型计算各个负三组的 **$d(h^{'} + \ell, t)$**, 然后用升序排序. 测试三元组 (正三元组) 的名次被保存. 替换 tail 而不是 head 重复上面的过程. 最终报告测试三元组的平均排名和 *hits@10* (测试三元组排在前 10 的比例).
+{% endfolding %}
 
-上面的指标可能存在缺陷, 因为一些负三元组可能存在于训练集和验证集. 在这种情况下,这些负三元组的排名可能高于测试三元组, 但这种不应该归类为错误, 因为测试三元组和负三元组都是正确的. **为了排除指标的缺陷, 移除了出现在数据集 (训练集, 验证集, 测试集) 中的负三元组. 确保了负三元组不属于数据集**. 因此有两种设置的指标 (平均排名和 *hits@10*): 原始 (存在缺陷) 被标记为 *raw*, 新的被标记为 *filter*.
+{% label Implementation  green %}
+
+{% folding red, TransE 超参数选择 %}
+
+For experiments with `TransE`, we selected the learning rate $\lambda$ for `the stochastic gradient descent` among `{0.001, 0.01, 0.1}`, the margin $\gamma$ among `{1, 2, 10}` and the latent dimension $k$ among `{20, 50}` on `the validation set` of `each data set`.
+
+{% endfolding %}
 
 **FB15K 的最佳参数**: 嵌入维度 **$k = 50$**, 学习率 **$\lambda = 0.01$**, **margin $\gamma = 1$**, 能量函数 **$d = L_1$**. 最多训练 1000 epochs, 可以参考验证集上的平均排名 (raw) 使用提前停止获得最佳模型.
 
