@@ -80,15 +80,15 @@ date: 2022-10-10 11:56:26
 
 **TransE** 是一个将**关系**建模成**实体低维度嵌入向量**的**平移**的方法.
 
-**TransE** `成功地`在一个大型知识图谱 (`1M` 个实体, `25k` 个关系, 超过 `17M` 个训练三元组)上完成训练 (学习).
+**TransE** `成功地`在一个大型知识图谱 (`1M` 个实体, `25k` 个关系, 超过 `17M` 个训练三元组) 上完成训练 (学习).
 
 ### **介绍**
 
-**Multi-relational data** 是指**有向图**, 它的**节点**被称为**实体**, *(head, label, tail)* 形式的**边** (标注为 *$(h, \ell, t)$*)能够指示在 *head* 和 *tail* 实体之间存在一个名为 *label* 的**关系**.
+**Multi-relational data** 是指**有向图**, 它的**节点**被称为**实体**, *(head, label, tail)* 形式的**边** (标注为 *$(h, \ell, t)$*) 能够指示在 *head* 和 *tail* 实体之间存在一个名为 *label* 的**关系**.
 
 `TransE` 在论文中`建模`了来自 `Wordnet` 和 `Freebase` 的 `Multi-relational data`.
 
- **TransE** 是一个不需要**额外知识**，**自动**加新事实 (三元组) **补全**知识图谱的高效工具.
+ **TransE** 是一个不需要**额外知识**, **自动**加新事实 (三元组) **补全**知识图谱的高效工具.
 
 通过`对比`其他类型`知识表示学习`模型`表明`, 即使在`复杂`和`异构`的`多关系领域`中，`简单`而`适当`的`建模假设`可以在`准确性`和`可扩展性`之间实现更好的`权衡`。
 
@@ -126,7 +126,7 @@ $$
 
 **负三元组** (`corrupted triplets`) 集合是`根据上面的公式`构造的, 是将`训练集三元组`中的 `head` 或者 `tail` 实体用`随机的实体`替换得到的 (**`head` 和 `tail` 不同时替换**). **损失函数会使`训练集中的三元组的能量`比`负三元组`低**. 实体作为三元组的 `head` 和 `tail` 时的嵌入向量相同.
 
-优化方法是**随机梯度下降** (`SGD`), 并且使用 **$L_2-norm$** 将`实体`和`关系`的`嵌入向量`限制为 `1` (it prevents the training process to `trivially` minimize $\mathcal{L}$ by artificially increasing entity embeddings norms.[<sup>2</sup>](#2)).
+优化方法是**随机梯度下降** (`SGD`), 并且使用 **$L_2-norm$** 将`实体`和`关系`的`嵌入向量`限制为 `1` (it prevents the training process to `trivially` minimize $\mathcal{L}$ by artificially increasing entity embeddings norms.[<sup>1</sup>](#1)).
 
 详细的训练过程如下图. 首先, 实体和关系的嵌入被随机初始化 (使用 `Xavier 初始值` 进行初始化[<sup>3</sup>](#3)). 每一轮 (epoch) 迭代, `实体和关系`的嵌入首先被**归一化 ( `normalized`)**, 然后从训练集中采样 `1 batch` 三元组作为`正三元组`; 对于每一个采样得到的正三元组, 随机替换 `head` 或 `tail` (**使用伯努利分布（Bernoulli distribution) 可以更加高效的选择替换 head 或 tail**)得到一个`负三元组`. 然后**采用`固定学习率`的梯度`更新`实体和关系的嵌入向量**. 该迭代过程`基于验证集上表现`停止.
 
