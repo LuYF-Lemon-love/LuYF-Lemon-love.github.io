@@ -26,7 +26,7 @@ date: 2022-10-10 11:56:26
 
 本博文是 `TransE` 原论文学习笔记，包括代码实现。
 
-**TransE** 原论文链接：[Translating Embeddings for Modeling Multi-relational Data](https://proceedings.neurips.cc/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf)
+**TransE** 原论文链接：[Translating Embeddings for Modeling Multi-relational Data](https://proceedings.neurips.cc/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf).
 
 **代码仓库地址**：https://github.com/LuYF-Lemon-love/susu-knowledge-graph/tree/main/knowledge-representation-learning/C%2B%2B .
 
@@ -92,16 +92,14 @@ date: 2022-10-10 11:56:26
 
 通过`对比`其他类型`知识表示学习`模型`表明`, 即使在`复杂`和`异构`的`多关系领域`中，`简单`而`适当`的`建模假设`可以在`准确性`和`可扩展性`之间实现更好的`权衡`。
 
-**TransE** 是一个基于能量 *(energy-based)* 的学习**实体低维度嵌入向量**的模型. **关系**被表示为**嵌入空间**的**平移**: 如果 *$(h, \ell, t)$* 成立, *t* 的嵌入应该接近于 *h* 的嵌入加上某个**向量**, 某个向量就是**关系的嵌入** ($\ell$).
-
-我们基于翻译的参数化背后的主要动机是，分层关系在KB中非常普遍，而翻译是表示它们的自然转换。
+**TransE** 是一个基于能量 *(energy-based)* 的学习**实体低维度嵌入向量**的模型. **关系**被表示为**嵌入空间**的**平移**: 如果 *$(h, \ell, t)$* 成立, *t* 的嵌入应该接近于 *h* 的嵌入加上某个**向量**, 某个向量就是**关系的嵌入向量** ($\ell$).
 
 基于`平移` 的 `TransE` 主要`设计动机`是: `层次性关系`在知识图谱中非常普遍, `平移`是`表示实体`的`自然转换`. 如, `null` `平移向量`对应于`实体之间的等价关系`, 因此`平移`也可以表示`同级关系` (`父子关系`中的`兄弟关系`). 因此, 可以使用`每个关系`的 `parameter budget`（一个`低维向量`）来表示`知识图谱`中的关键 (`关系`).
 
 `TransE` 的`第二个设计动机`是: `Mikolov` 等研究者于 `2013` 年提出了`词表示学习模型` —— `word2vec`[<sup>2</sup>](#2), 并发现 `word2vec` 学习到的`词向量`之间有着`有趣的语义平移现象`, 如:
 
 $$
-\nu(国王) - \nu(男人) \simeq \nu(王后) - \nu(女人)
+\nu(king) - \nu(man) \simeq \nu(queen) - \nu(woman)
 $$
 
 其中, $\nu(x)$ 表示 $x$ 的词向量, 这种`语义平移现象`表明了`词和词之间的隐含语义关系`被成功地`编码进了词向量中`. `word2vec` 表明存在`不同类型实体`之间的 `1-to-1` 关系能够表示成`嵌入向量空间`的平移.
@@ -128,16 +126,15 @@ $$
 
 **负三元组** (`corrupted triplets`) 集合是`根据上面的公式`构造的, 是将`训练集三元组`中的 `head` 或者 `tail` 实体用`随机的实体`替换得到的 (**`head` 和 `tail` 不同时替换**). **损失函数会使`训练集中的三元组的能量`比`负三元组`低**. 实体作为三元组的 `head` 和 `tail` 时的嵌入向量相同.
 
-优化方法是**随机梯度下降** (`SGD`), 并且使用 **$L_2-norm$** 将`实体`和`关系`的`嵌入向量`限制为 `1` (it prevents the
-training process to `trivially` minimize $\mathcal{L}$ by artificially increasing entity embeddings norms.[<sup>2</sup>](#2)).
+优化方法是**随机梯度下降** (`SGD`), 并且使用 **$L_2-norm$** 将`实体`和`关系`的`嵌入向量`限制为 `1` (it prevents the training process to `trivially` minimize $\mathcal{L}$ by artificially increasing entity embeddings norms.[<sup>2</sup>](#2)).
 
-详细的训练过程如下图. 首先, 实体和关系的嵌入被随机初始化 (使用 `Xavier 初始值` 进行初始化[<sup>3</sup>](#3)). 每一轮 (epoch) 迭代, `实体和关系`的嵌入首先被**归一化 ( `normalized`)**, 然后从训练集中采样 `1 batch` 三元组作为`正三元组`; 对于每一个采样得到的正三元组, 随机替换 `head` 或 `tail` (**使用伯努利分布（Bernoulli distribution) 可以更加高效的选择替换 head 或 tail**)得到一个`负三元组`. 然后采用**`固定学习率`**的梯度`更新`实体和关系的嵌入向量. 该迭代过程`基于验证集上表现`停止.
+详细的训练过程如下图. 首先, 实体和关系的嵌入被随机初始化 (使用 `Xavier 初始值` 进行初始化[<sup>3</sup>](#3)). 每一轮 (epoch) 迭代, `实体和关系`的嵌入首先被**归一化 ( `normalized`)**, 然后从训练集中采样 `1 batch` 三元组作为`正三元组`; 对于每一个采样得到的正三元组, 随机替换 `head` 或 `tail` (**使用伯努利分布（Bernoulli distribution) 可以更加高效的选择替换 head 或 tail**)得到一个`负三元组`. 然后**采用`固定学习率`的梯度`更新`实体和关系的嵌入向量**. 该迭代过程`基于验证集上表现`停止.
 
 ![](https://cos.luyf-lemon-love.space/images/20220926131142.png)
 
-{% folding red, Xavier 初始值简介[<sup>9</sup>](#9) %}
+{% folding red, Xavier 初始值简介 %}
 
-该模型层的`激活函数`为 `None`, `tanh`, `logistic`, `softmax` 时, 神经元初始化准则为:
+该模型层的`激活函数`为 `None`, `tanh`, `logistic`, `softmax` 时, 神经元初始化准则[<sup>9</sup>](#9)为:
 
 1. `正态分布`, 均值为 `0`, 方差为 $\sigma^2 = \frac{1}{fan_{avg}}$
 
@@ -154,7 +151,7 @@ training process to `trivially` minimize $\mathcal{L}$ by artificially increasin
 1. `Structured Embeddings or SE`[<sup>4</sup>](#4), 虽然 `SE` 能够重现 `TransE` 的 `平移`, 但是 `TransE` 在实验中表现的更好. 主要原因如下:
    
    - `TransE` 更直接的表达`关系的特性` (`平移`).
-   - 在`嵌入模型`中, 优化是异常困难的.
+   - 在`嵌入向量模型`中, 优化是异常困难的.
    - 对于 `SE` 来说, `更大的表现力`似乎更像是`欠拟合`的同义词，而不是`更好的性能`.
 
 2. 相比于 `the Neural Tensor Model`[<sup>5</sup>](#5), `TransE` 的有较少的参数: 这可以`简化训练`并防止`欠拟合`, 并可能`弥补较低的表现力`.
@@ -189,7 +186,7 @@ training process to `trivially` minimize $\mathcal{L}$ by artificially increasin
 
 **评估准则**: 测试集中的三元组全部都是`正三元组`. 对于每一个测试三元组, `head` 被`所有实体`依次替换, 通过模型计算各个负三组的能量 **$d(h^{'} + \ell, t)$**, 然后用升序排序. 测试三元组 (正三元组) 的名次被保存. 替换 `tail` 而不是 `head` 重复上面的过程. 最终报告`测试三元组的平均排名`和 *`hits@10`* (`测试三元组`排在`前 10` 的比例).
 
-上面的指标`可能存在缺陷`, 因为一些`"负三元组"`可能存在于`训练集`和`验证集`. 在这种情况下,这些`"负三元组"`的排名可能`高于`测试三元组, 但这种`"负三元组"`不应该归类为错误, 因为`测试三元组`和`负三元组`都是正确的. **为了排除指标的缺陷, 移除了出现在数据集 (训练集, 验证集, 测试集) 中的`负三元组`. 确保了负三元组不属于数据集**. 因此有两种设置的指标 (`平均排名`和 *`hits@10`*): 原始 (存在缺陷) 被标记为 *raw*, 新的被标记为 *`filtered`* (or *`filt.`*).
+上面的指标`可能存在缺陷`, 因为一些`"负三元组"`可能存在于`训练集`和`验证集`. 在这种情况下,这些`"负三元组"`的排名可能`高于`测试三元组, 但这种`"负三元组"`不应该归类为错误, 因为`测试三元组`和`负三元组`都是正确的. **为了排除指标的缺陷, 移除了出现在数据集 (训练集, 验证集, 测试集) 中的`负三元组`. 确保了负三元组不属于数据集**. 因此有两种设置的指标 (`平均排名`和 *`hits@10`*): 原始 (存在缺陷) 被标记为 *`raw`*, 新的被标记为 *`filtered`* (or *`filt.`*).
 
 {% label Baselines  pink %}
 
@@ -279,8 +276,7 @@ On `FB1M`, `the mean ranks of TransE` and `Unstructured` are almost `similar`, b
 
 {% folding green, 关系划分方法 %}
 
-We classified the relationships into these `four classes` by computing, for `each relationship` $\ell$, the `averaged number of heads` $h$ (respect. tails $t$) appearing in the `FB15k` data set, given a pair $(\ell, t)$ (respect. a pair $(h, \ell)$). If `this average number` was below `1.5` then the argument was labeled as `1` and `MANY` otherwise. For example, a `relationship` having `an average of 1.2 head per tail` and
-of `3.2 tails per head` was classified as `1-to-Many`.
+We classified the relationships into these `four classes` by computing, for `each relationship` $\ell$, the `averaged number of heads` $h$ (respect. tails $t$) appearing in the `FB15k` data set, given a pair $(\ell, t)$ (respect. a pair $(h, \ell)$). If `this average number` was below `1.5` then the argument was labeled as `1` and `MANY` otherwise. For example, a `relationship` having `an average of 1.2 head per tail` and of `3.2 tails per head` was classified as `1-to-Many`.
 
 {% endfolding %}
 
@@ -288,7 +284,7 @@ of `3.2 tails per head` was classified as `1-to-Many`.
 
 可以发现类型为 **1-TO-MANY** 和 **MANY-TO-1** 的关系, 从 **MANY** 侧边预测 **1** 侧边具有很高的利用价值, 因为这种训练数据较多.
 
-{% folding cyan, 关系划分方法 %}
+{% folding cyan, 平移的重要性 %}
 
 Adding the `translation term` (i.e. upgrading `Unstructured` into `TransE`) brings the ability to `move in the embeddings space`, from `one entity cluster to another` by following relationships.
 
@@ -322,9 +318,7 @@ We `repeated` this procedure while using `0`, `10`, `100` and `1000` examples of
 
 ![](https://cos.luyf-lemon-love.space/images/20221011144348.png)
 
-The performance of `Unstructured` is `the best` when `no example` of the unknown relationship is provided, because it `does not use this information to predict`.
-
-But, of course, this performance `does not improve` while `providing labeled examples`.
+The performance of `Unstructured` is `the best` when `no example` of the unknown relationship is provided, because it `does not use this information to predict`. But, of course, this performance `does not improve` while `providing labeled examples`.
 
 `TransE` is the `fastest` method to learn: with only `10 examples` of a new relationship, the *hits@10* is already `18%` and it improves `monotonically` with the number of provided samples.
 
