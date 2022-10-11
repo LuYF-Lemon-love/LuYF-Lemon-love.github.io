@@ -28,7 +28,7 @@ date: 2022-10-10 11:56:26
 
 **TransE** 原论文链接：[Translating Embeddings for Modeling Multi-relational Data](https://proceedings.neurips.cc/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf).
 
-**代码仓库地址**：https://github.com/LuYF-Lemon-love/susu-knowledge-graph/tree/main/knowledge-representation-learning/C%2B%2B .
+**代码仓库地址**: https://github.com/LuYF-Lemon-love/susu-knowledge-graph/tree/main/knowledge-representation-learning/C%2B%2B .
 
 操作系统：Ubuntu 18.04.6 LTS
 
@@ -73,6 +73,8 @@ date: 2022-10-10 11:56:26
 <div id = "10"></div>
 
 10. J. Weston, A. Bordes, O. Yakhnenko, and N. Usunier. Connecting language and knowledge bases with embedding models for relation extraction. In Proceedings of the Conference on Empirical Methods in Natural Language Processing (EMNLP), 2013.
+
+11. Yankai Lin, Zhiyuan Liu, Maosong Sun, Yang Liu, Xuan Zhu. Learning entity and relation embeddings for knowledge graph completion. The 29th AAAI Conference on Artificial Intelligence, 2015.
 
 ## TransE 原论文学习笔记
 
@@ -339,6 +341,120 @@ Future work could analyze this model further, and also concentrates on exploitin
 {% endfolding %}
 
 ## 代码实现
+
+### 文件
+
+**代码仓库地址**: https://github.com/LuYF-Lemon-love/susu-knowledge-graph/tree/main/knowledge-representation-learning/C%2B%2B .
+
+```shell
+$ tree
+.
+├── data
+│   └── FB15K
+│       ├── entity2id.txt
+│       ├── relation2id.txt
+│       ├── test2id.txt
+│       ├── train2id.txt
+│       └── valid2id.txt
+├── papers
+│   └── TransE.pdf
+├── README.md
+└── TransE
+    ├── clean.sh
+    ├── data_preprocessing.py
+    ├── run.sh
+    ├── test_transE.cpp
+    └── transE.cpp
+
+4 directories, 12 files
+```
+
+### 数据
+
+#### [FB15K](https://github.com/LuYF-Lemon-love/susu-knowledge-graph/tree/main/knowledge-representation-learning/C%2B%2B/data/FB15K/)
+
+该数据集是 `Wikilinks database` 的实体子集, 该子集中的实体和关系在 `Freebase` 至少出现了 `100` 次. 并且移除了像 `’!/people/person/nationality’` 这样的关系, 因为它是关系 `’/people/person/nationality’` `head` 和 `tail` 的颠倒. 一共 `592,213` 个三元组, `14,951` 个实体, `1,345` 个关系, 被随机地分成了训练集 (`483,142` 个), 验证集 (`50,000` 个), 测试集 (`59,071` 个).
+
+- [entity2id.txt](https://github.com/LuYF-Lemon-love/susu-knowledge-graph/tree/main/knowledge-representation-learning/C%2B%2B/data/FB15K/entity2id.txt): 第一行是实体个数. 其余行是实体名和对应的实体 ID, 每行一个.
+
+- [relation2id.txt](https://github.com/LuYF-Lemon-love/susu-knowledge-graph/tree/main/knowledge-representation-learning/C%2B%2B/data/FB15K/relation2id.txt): 第一行是关系个数. 其余行是关系名和对应的关系 ID, 每行一个.
+
+- [train2id.txt](https://github.com/LuYF-Lemon-love/susu-knowledge-graph/tree/main/knowledge-representation-learning/C%2B%2B/data/FB15K/train2id.txt): 训练文件. 第一行是训练集三元组的个数. 其余行是 (e1, e2, rel) 格式的三元组, 每行一个. e1, e2 是实体 ID, rel 是关系 ID.
+
+- [valid2id.txt](https://github.com/LuYF-Lemon-love/susu-knowledge-graph/tree/main/knowledge-representation-learning/C%2B%2B/data/FB15K/valid2id.txt): 验证文件. 第一行是验证集三元组的个数. 其余行是 (e1, e2, rel) 格式的三元组, 每行一个. e1, e2 是实体 ID, rel 是关系 ID.
+
+- [test2id.txt](https://github.com/LuYF-Lemon-love/susu-knowledge-graph/tree/main/knowledge-representation-learning/C%2B%2B/data/FB15K/test2id.txt): 测试文件. 第一行是测试集三元组的个数. 其余行是 (e1, e2, rel) 格式的三元组, 每行一个. e1, e2 是实体 ID, rel 是关系 ID.
+
+```shell
+$ tree
+.
+├── entity2id.txt
+├── relation2id.txt
+├── test2id.txt
+├── train2id.txt
+└── valid2id.txt
+
+0 directories, 5 files
+$ head entity2id.txt 
+14951
+/m/027rn	0
+/m/06cx9	1
+/m/017dcd	2
+/m/06v8s0	3
+/m/07s9rl0	4
+/m/0170z3	5
+/m/01sl1q	6
+/m/044mz_	7
+/m/0cnk2q	8
+$ head relation2id.txt 
+1345
+/location/country/form_of_government	0
+/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor	1
+/media_common/netflix_genre/titles	2
+/award/award_winner/awards_won./award/award_honor/award_winner	3
+/soccer/football_team/current_roster./sports/sports_team_roster/position	4
+/sports/sports_position/players./soccer/football_roster_position/team	5
+/government/political_district/representatives./government/government_position_held/legislative_sessions	6
+/film/film/starring./film/performance/actor	7
+/soccer/football_team/current_roster./soccer/football_roster_position/position	8
+$ head test2id.txt 
+59071
+453 1347 37
+3136 4357 588
+8663 4522 307
+2404 8386 186
+722 806 37
+1248 10937 26
+9182 1043 20
+706 14564 28
+706 14004 28
+$ head train2id.txt 
+483142
+0 1 0
+2 3 1
+4 5 2
+6 7 3
+8 9 4
+10 11 5
+12 13 6
+14 15 7
+16 17 8
+$ head valid2id.txt 
+50000
+5167 1427 52
+239 2379 326
+837 9339 3
+7674 4431 272
+4528 8708 155
+71 5412 32
+5041 5979 26
+11273 3632 390
+10994 36 168
+```
+
+### [TransE](https://github.com/LuYF-Lemon-love/susu-knowledge-graph/tree/main/knowledge-representation-learning/C%2B%2B/TransE)
+
+---
 
 运行结果显示：训练集中的关系一共为 *1345* 种，实体一共为 *14951* 种，三元组一共 *483142* 个。训练一共用时 **50.386622** 秒。
 
