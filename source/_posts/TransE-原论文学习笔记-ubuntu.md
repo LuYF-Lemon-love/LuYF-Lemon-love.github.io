@@ -66,6 +66,14 @@ date: 2022-10-10 11:56:26
 
 8. A. Bordes, X. Glorot, J. Weston, and Y. Bengio. A semantic matching energy function for learning with multi-relational data. Machine Learning, 2013.
 
+<div id = "9"></div>
+
+9. [torch.nn.init.xavier_uniform_](https://pytorch.org/docs/stable/nn.init.html#torch.nn.init.xavier_uniform_).
+
+<div id = "10"></div>
+
+10. J. Weston, A. Bordes, O. Yakhnenko, and N. Usunier. Connecting language and knowledge bases with embedding models for relation extraction. In Proceedings of the Conference on Empirical Methods in Natural Language Processing (EMNLP), 2013.
+
 ## TransE 原论文学习笔记
 
 **TransE** 提出于 *2013* 年, 发表于 [NeurIPS](https://neurips.cc/) 会议论文. 为什么介绍 *2013* 年的 **TransE**, 因为 **TransE** 相对于它的变体, **简洁, 高效, 又不失准确**.
@@ -127,7 +135,7 @@ training process to `trivially` minimize $\mathcal{L}$ by artificially increasin
 
 ![](https://cos.luyf-lemon-love.space/images/20220926131142.png)
 
-{% folding red, Xavier 初始值简介 %}
+{% folding red, Xavier 初始值简介[<sup>9</sup>](#9) %}
 
 该模型层的`激活函数`为 `None`, `tanh`, `logistic`, `softmax` 时, 神经元初始化准则为:
 
@@ -157,7 +165,7 @@ training process to `trivially` minimize $\mathcal{L}$ by artificially increasin
 
 ### 实验
 
-### 数据集
+#### 数据集
 
 数据来自于 `Wordnet` 和 `Freebase`. 数据集的统计如下:
 
@@ -177,7 +185,7 @@ training process to `trivially` minimize $\mathcal{L}$ by artificially increasin
 
 `FB1M`: 是从 `Freebase` 创建了`另一个数据集`, 方法是`选择最常出现的 100 万个实体`. 该数据大约有 `25k` 个关系和超过 `1700` 万训练三元组.
 
-### 实验设置
+#### 实验设置
 
 **评估准则**: 测试集中的三元组全部都是`正三元组`. 对于每一个测试三元组, `head` 被`所有实体`依次替换, 通过模型计算各个负三组的能量 **$d(h^{'} + \ell, t)$**, 然后用升序排序. 测试三元组 (正三元组) 的名次被保存. 替换 `tail` 而不是 `head` 重复上面的过程. 最终报告`测试三元组的平均排名`和 *`hits@10`* (`测试三元组`排在`前 10` 的比例).
 
@@ -211,487 +219,138 @@ training process to `trivially` minimize $\mathcal{L}$ by artificially increasin
 
 For experiments with `TransE`, we selected the learning rate $\lambda$ for `the stochastic gradient descent` among `{0.001, 0.01, 0.1}`, the margin $\gamma$ among `{1, 2, 10}` and the latent dimension $k$ among `{20, 50}` on `the validation set` of `each data set`.
 
+The `dissimilarity measure` $d$ was set either to the $L_1$ or $L_2$ distance according to `validation performance` as well.
+
 {% endfolding %}
 
-**FB15K 的最佳参数**: 嵌入维度 **$k = 50$**, 学习率 **$\lambda = 0.01$**, **margin $\gamma = 1$**, 能量函数 **$d = L_1$**. 最多训练 1000 epochs, 可以参考验证集上的平均排名 (raw) 使用提前停止获得最佳模型.
+**WN 的最佳参数**: 嵌入维度 **$k = 20$**, 学习率 **$\lambda = 0.01$**, **margin $\gamma = 2$**, 能量函数 **$d = L_1$**.
+
+**FB15K 的最佳参数**: 嵌入维度 **$k = 50$**, 学习率 **$\lambda = 0.01$**, **margin $\gamma = 1$**, 能量函数 **$d = L_1$**.
+
+**FB1M 的最佳参数**: 嵌入维度 **$k = 50$**, 学习率 **$\lambda = 0.01$**, **margin $\gamma = 1$**, 能量函数 **$d = L_2$**.
+
+对于所有数据集, 最多训练 `1000 epochs`, 可以参考验证集上的平均排名 (raw) 使用提前停止获得最佳模型.
+
+#### 链接预测
+
+{% folding red, TransE 总体实验结果 %}
+
+As expected, the `filtered` setting provides `lower mean ranks` and `higher` *hits@10*, which we believe are `a clearer evaluation of the performance of the methods in link prediction`.
+
+`The trends` between `raw` and `filtered` are the same.
+
+`TransE`, outperforms all counterparts on all metrics, usually with a wide margin.
+
+The good performance of `TransE` is due to an appropriate design of the model according to the data, but also to its `relative simplicity`. This means that it can be `optimized efficiently with stochastic gradient`.
+
+`SE` is `more expressive` than our proposal. However, its `complexity` may make it `quite hard to learn`, resulting in worse performance.
+
+`TransE` is indeed less subject to `underfitting` and that this could explain its better performances.
+
+{% folding red, 基线模型详细的总体实验结果 %}
+
+`SME(bilinear)` and `LFM` suffer from the same training issue: we `never managed to train them well enough` so that they could exploit their full capabilities.
+
+The poor results of `LFM` might also be explained by `our evaluation setting`, `based on ranking entities`, whereas `LFM` was `originally` proposed to `predict relationships`.
+
+`RESCAL` can achieve quite good *hits@10* on FB15k but `yields poor mean ranks`, especially on `WN`, even when we used `large latent dimensions` (`2, 000` on `Wordnet`).
+
+{% endfolding %}
+
+The impact of the translation term is `huge`.
+
+`Unstructured` simply `clusters` all entities cooccurring together, `independent of the relationships involved`, and hence can only make guesses of which entities are related.
+
+On `FB1M`, `the mean ranks of TransE` and `Unstructured` are almost `similar`, but `TransE` places `10 times more predictions` in `the top 10`.
+
+{% endfolding %}
 
 ---
 
-根据 **head** 和 **tail** 的基数 (cardinalities) 能够将关系分成以下四种: **1-TO-1**, **1-TO-MANY**, **MANY-TO-1**, **MANY-TO-MANY**
+根据 **head** 和 **tail** 的基数 (cardinalities) 能够将`关系`分成以下`四种`: **1-TO-1**, **1-TO-MANY**, **MANY-TO-1**, **MANY-TO-MANY**
 
-1. 1-TO-1: 一个 head 至多有一个 tail.
+1. `1-TO-1`: 一个 `head` 至多有一个 `tail`.
 
-2. 1-TO-MANY: 一个 head 有很多 tail.
+2. `1-TO-MANY`: 一个 `head` 有很多 `tail`.
   
-3. MANY-TO-1: 许多 head 有很多相同 tail.
+3. `MANY-TO-1`: 许多 `head` 有很多相同 `tail`.
 
-4. MANY-TO-MANY: 多个 head 和多个 tail 同时出现.
+4. `MANY-TO-MANY`: 多个 `head` 和多个 `tail` 同时出现.
 
-FB15k 有 26.2% 的 1-TO-1, 22.7% 的 1-TO-MANY, 28.3% 的 MANY-TO-1, 22.8% 的 MANY-TO-MANY.具体实现可以参考 [<sup>2</sup>](#2)
+{% folding green, 关系划分方法 %}
+
+We classified the relationships into these `four classes` by computing, for `each relationship` $\ell$, the `averaged number of heads` $h$ (respect. tails $t$) appearing in the `FB15k` data set, given a pair $(\ell, t)$ (respect. a pair $(h, \ell)$). If `this average number` was below `1.5` then the argument was labeled as `1` and `MANY` otherwise. For example, a `relationship` having `an average of 1.2 head per tail` and
+of `3.2 tails per head` was classified as `1-to-Many`.
+
+{% endfolding %}
+
+`FB15k` 有 `26.2%` 的 `1-TO-1`, `22.7%` 的 `1-TO-MANY`, `28.3%` 的 `MANY-TO-1`, `22.8%` 的 `MANY-TO-MANY`.
+
+可以发现类型为 **1-TO-MANY** 和 **MANY-TO-1** 的关系, 从 **MANY** 侧边预测 **1** 侧边具有很高的利用价值, 因为这种训练数据较多.
+
+{% folding cyan, 关系划分方法 %}
+
+Adding the `translation term` (i.e. upgrading `Unstructured` into `TransE`) brings the ability to `move in the embeddings space`, from `one entity cluster to another` by following relationships.
+
+{% endfolding %}
 
 ---
 
 ![](https://cos.luyf-lemon-love.space/images/20220926171344.png)
 
-上图使用 **TransE** 预测的 **tails** 中，黑体和斜体都是知识图谱已有的知识 (三元组), 其余就是模型补全的, 即**知识图谱的补全**。**我就是想把 TransE 用到我的未来的工具中，进行知识图谱补全**.
+上图使用 **TransE** 预测的 **tails** 中，黑体和斜体都是知识图谱已有的知识 (正三元组), 其余就是模型补全的, 即**知识图谱的补全**.
+
+#### Learning to predict new relationships with few examples
+
+{% folding yellow, 实验细节 %}
+
+Using `FB15k`, we wanted to test how well methods could generalize to new facts by checking `how fast they were learning new relationships`.
+
+To that end, we `randomly` selected `40` relationships and `split the data into two sets`: a set (named `FB15k-40rel`) containing all triplets with these `40` relationships and another set (`FB15k-rest`) containing the rest. We made sure that `both sets` contained all entities.
+
+`FB15k-rest` has then been split into `a training set of 353,788 triplets` and `a validation set of 53,266`, and `FB15k-40rel` into `a training set of 40,000 triplets` (`1,000` for each relationship) and a test set of `45,159`.
+
+Using these data sets, we conducted the following experiment: (1) models were `trained` and `selected` using `FB15k-rest training and validation sets`, (2) they were subsequently `trained` on `the training set FB15k-40rel` but only to learn the parameters related to `the fresh 40 relationships`, (3) they were evaluated in link prediction `on the test set of FB15k-40rel` (containing only relationships `unseen` during phase (1)).
+
+We `repeated` this procedure while using `0`, `10`, `100` and `1000` examples of `each relationship` in phase (2).
+
+{% endfolding %}
 
 ---
+
+{% folding blue, 实验结果 %}
+
+![](https://cos.luyf-lemon-love.space/images/20221011144348.png)
+
+The performance of `Unstructured` is `the best` when `no example` of the unknown relationship is provided, because it `does not use this information to predict`.
+
+But, of course, this performance `does not improve` while `providing labeled examples`.
+
+`TransE` is the `fastest` method to learn: with only `10 examples` of a new relationship, the *hits@10* is already `18%` and it improves `monotonically` with the number of provided samples.
+
+We believe the `simplicity` of the `TransE` model makes it able to `generalize` well, without having to `modify` any of `the already trained embeddings`.
+
+{% endfolding %}
+
+### Conclusion and future work
 
 **TransE** 应用一共有三个: **知识图谱补全** (Link prediction), 知识表示, 嵌入到关系抽取模型中.
 
----
+{% folding blue, 原论文 %}
 
-### **实验**
+We proposed `a new approach` to learn embeddings of KBs, focusing on the minimal parametrization of the model to `primarily represent hierarchical relationships`. We showed that it works very well `compared to competing methods` on `two different knowledge bases`, and is also `a highly scalable model`, whereby we applied it to `a very large-scale chunk of Freebase data`. Although it remains `unclear` to us if all relationship types can be `modeled adequately` by our approach, by breaking down the evaluation into `categories` (`1-to-1`, `1-to-Many`, . . . ) it `appears to be performing well` compared to other approaches across all settings.
 
-下面是在服务器上运行的结果。
+Future work could analyze this model further, and also concentrates on exploiting it in more tasks, in particular, applications such as `learning word representations` inspired by [2](#2). `Combining KBs with text` as in [8](#8) is `another important direction` where our approach could prove useful. Hence, we recently fruitfully `inserted TransE into a framework for relation extraction` from text [10](#10).
 
-```shell
-$ ls
-clean.sh  data_preprocessing.py  run.sh  test_transE.cpp  transE.cpp
-$ bash run.sh 
+{% endfolding %}
 
-##################################################
-
-数据预处理开始...
-
-../data/FB15K/type_constrain.txt 创建成功.
-
-../data/FB15K/1-1.txt ../data/FB15K/1-n.txt ../data/FB15K/n-1.txt ../data/FB15K/n-n.txt ../data/FB15K/test2id_all.txt 创建成功.
-
-数据预处理结束.
-
-##################################################
-
-./build 目录创建成功.
-
-##################################################
-
-训练开始:
-
-relation_total: 1345
-entity_total: 14951
-train_triple_total: 483142
-
-Epoch 50/1000 - loss: 4254.677734
-Epoch 100/1000 - loss: 3452.187988
-Epoch 150/1000 - loss: 3018.641113
-Epoch 200/1000 - loss: 2960.243408
-Epoch 250/1000 - loss: 2882.189209
-Epoch 300/1000 - loss: 2870.555420
-Epoch 350/1000 - loss: 2682.759277
-Epoch 400/1000 - loss: 2600.209229
-Epoch 450/1000 - loss: 2621.255371
-Epoch 500/1000 - loss: 2612.536133
-Epoch 550/1000 - loss: 2447.342529
-Epoch 600/1000 - loss: 2606.887695
-Epoch 650/1000 - loss: 2414.228760
-Epoch 700/1000 - loss: 2550.244141
-Epoch 750/1000 - loss: 2453.343018
-Epoch 800/1000 - loss: 2515.363037
-Epoch 850/1000 - loss: 2455.265137
-Epoch 900/1000 - loss: 2484.796631
-Epoch 950/1000 - loss: 2418.574219
-Epoch 1000/1000 - loss: 2373.793945
-
-输出预训练实体嵌入 (./build/entity2vec.vec) 成功.
-输出预训练关系嵌入 (./build/relation2vec.vec) 成功.
-
-训练结束, 用时 50.864228 秒.
-
-##################################################
-
-测试开始:
-
-加载预训练实体嵌入 (./build/entity2vec.vec) 成功.
-加载预训练关系嵌入 (./build/relation2vec.vec) 成功.
-
-总体结果：
-
-heads(raw) 		平均排名: 306.326965, 	Hits@10: 0.372924
-heads(filter) 		平均排名: 191.934326, 	Hits@10: 0.495946
-tails(raw) 		平均排名: 222.083633, 	Hits@10: 0.446649
-tails(filter) 		平均排名: 150.873444, 	Hits@10: 0.563000
-
-通过 type_constrain.txt 限制的总体结果：
-
-heads(raw) 		平均排名: 202.505310, 	Hits@10: 0.399011
-heads(filter) 		平均排名: 88.112625, 	Hits@10: 0.560614
-tails(raw) 		平均排名: 138.922943, 	Hits@10: 0.473650
-tails(filter) 		平均排名: 67.712753, 	Hits@10: 0.606389
-
-(关系: 1-1, 1-n, n-1, n-n) 测试三元组的结果：
-
-关系: 1-1:
-
-heads(raw) 		平均排名: 124.536644, 	Hits@10: 0.712766
-heads(filter) 		平均排名: 124.309692, 	Hits@10: 0.718676
-tails(raw) 		平均排名: 147.830963, 	Hits@10: 0.687943
-tails(filter) 		平均排名: 147.565018, 	Hits@10: 0.693853
-
-关系: 1-n:
-
-heads(raw) 		平均排名: 22.789383, 	Hits@10: 0.836019
-heads(filter) 		平均排名: 22.579716, 	Hits@10: 0.840000
-tails(raw) 		平均排名: 1221.926880, 	Hits@10: 0.188057
-tails(filter) 		平均排名: 831.402466, 	Hits@10: 0.241517
-
-关系: n-1:
-
-heads(raw) 		平均排名: 1148.632812, 	Hits@10: 0.133086
-heads(filter) 		平均排名: 701.605835, 	Hits@10: 0.197778
-tails(raw) 		平均排名: 31.964703, 	Hits@10: 0.850365
-tails(filter) 		平均排名: 31.795856, 	Hits@10: 0.852795
-
-关系: n-n:
-
-heads(raw) 		平均排名: 179.289429, 	Hits@10: 0.358076
-heads(filter) 		平均排名: 113.992714, 	Hits@10: 0.508881
-tails(raw) 		平均排名: 141.546097, 	Hits@10: 0.394096
-tails(filter) 		平均排名: 93.141548, 	Hits@10: 0.542260
-
-测试结束, 用时 12.604605 秒.
-
-##################################################
-
-$ tree
-.
-├── build
-│   ├── entity2vec.vec
-│   ├── relation2vec.vec
-│   ├── test_transE
-│   └── transE
-├── clean.sh
-├── data_preprocessing.py
-├── run.sh
-├── test_transE.cpp
-└── transE.cpp
-
-1 directory, 9 files
-$ bash clean.sh 
-
-##################################################
-
-./build 目录递归删除成功.
-
-已删除 ../data/FB15K/1-1.txt ../data/FB15K/1-n.txt ../data/FB15K/n-1.txt ../data/FB15K/n-n.txt ../data/FB15K/test2id_all.txt ../data/FB15K/type_constrain.txt.
-
-##################################################
-
-$ ls
-clean.sh  data_preprocessing.py  run.sh  test_transE.cpp  transE.cpp
-```
+## 代码实现
 
 运行结果显示：训练集中的关系一共为 *1345* 种，实体一共为 *14951* 种，三元组一共 *483142* 个。训练一共用时 **50.386622** 秒。
 
 可以发现类型为 **1-n** 和 **n-1** 的关系, 从 **n** 面预测 **1** 面具有很高的利用价值, 因为这种训练数据较多.
 
-对于大型知识图谱, 用全部种类的实体构建负三元组是极其耗时的, 因此用 **type_constrain.txt** 来构造负三元组. 该文件记录了**数据集** (训练集, 验证集, 测试集) 中各个关系 **head** 和 **tail** 出现过的种类. 具体实现可以参考 [<sup>2</sup>](#2)
-
-参数:
-
-```
-./transE [-bern 0/1] [-load-binary 0/1] [-out-binary 0/1]
-         [-size SIZE] [-alpha ALPHA] [-margin MARGIN]
-         [-nbatches NBATCHES] [-epochs EPOCHS]
-         [-threads THREAD] [-input INPUT] [-output OUTPUT]
-         [-load LOAD] [-note NOTE]
-
-optional arguments:
--bern [0/1]          [1] 使用 bern 算法进行负采样，默认值为 [1]
--load-binary [0/1]   [1] 以二进制形式加载预训练嵌入，默认值为 [0]
--out-binary [0/1]    [1] 以二进制形式输出嵌入，默认值为 [0]
--size SIZE           实体和关系嵌入维度，默认值为 [50]
--alpha ALPHA         学习率，默认值为 0.01
--margin MARGIN       margin in max-margin loss for pairwise training，默认值为 1.0
--nbatches NBATCHES   number of batches for each epoch. if unspecified, nbatches will default to 1
--epochs EPOCHS       number of epochs. if unspecified, epochs will default to 1000
--threads THREAD      number of worker threads. if unspecified, threads will default to 32
--input INPUT         folder of training data. if unspecified, in_path will default to "../data/FB15K/"
--output OUTPUT       folder of outputing results. if unspecified, out_path will default to "./build/"
--load LOAD           folder of pretrained data. if unspecified, load_path will default to ""
--note NOTE           information you want to add to the filename. if unspecified, note will default to ""
-```
-
----
-
-```
-./test_transE [-load-binary 0/1] [-size SIZE]
-         [-threads THREAD] [-input INPUT]
-         [-load LOAD] [-note NOTE]
-
-optional arguments:
--load-binary [0/1]   [1] 以二进制形式加载预训练嵌入，默认值为 [0]
--size SIZE           实体和关系嵌入维度，默认值为 [50]
--threads THREAD      number of worker threads. if unspecified, threads will default to 32
--input INPUT         folder of training data. if unspecified, in_path will default to "../data/FB15K/"
--load LOAD           folder of pretrained data. if unspecified, load_path will default to "./build/"
--note NOTE           information you want to add to the filename. if unspecified, note will default to ""
-```
-
-下图是服务器**没有运行任何程序**的 *cpu* 利用率 (*htop* 命令)
-
-![](https://cos.luyf-lemon-love.space/images/20220926115831.png)
-
-下图是服务器**训练时**的 *cpu* 利用率 (*htop* 命令)
-
-![](https://cos.luyf-lemon-love.space/images/20220926115716.png)
-
-下图是服务器**测试时**的 *cpu* 利用率 (*htop* 命令)
-
-![](https://cos.luyf-lemon-love.space/images/20220926115747.png)
-
-**因此，我想利用 C++ 版本的 TransE 作为未来工具中的补全知识图谱的工具.**
-
-### **附录**
----
-
-<div id = "2"></div>
-
-```python
-# data_preprocessing.py
-# 使用方法: $ python3 data_preprocessing.py
-# created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
-#
-# 该 Python 脚本用于创建下面这些临时数据文件
-# ../data/FB15K/1-1.txt ../data/FB15K/1-n.txt ../data/FB15K/n-1.txt ../data/FB15K/n-n.txt ../data/FB15K/test2id_all.txt ../data/FB15K/type_constrain.txt
-#
-# prerequisites: 
-#     train2id.txt, valid2id.txt、test2id.txt
-
-print("\n##################################################")
-print("\n数据预处理开始...")
-
-##################################################
-# 从 train2id.txt, valid2id.txt、test2id.txt 读取三元组
-##################################################
-
-# lef 和 rig 类型为 {[]}, 外层是 <class 'dict'>, 内层是 <class 'list'>
-# lef 外层的 key 为三元组 (训练集、验证集、测试集) (h, r)
-# lef 外层的 value 为 (h, r) 对应的 t 的 list
-# rig 外层的 key 为三元组 (训练集、验证集、测试集) (r, t)
-# rig 外层的 value 为 (r, t) 对应的 h 的 list  
-lef = {}
-rig = {}
-
-# rel_lef 和 rel_rig 类型为 {{}}, 外层是 <class 'dict'>, 内层是 <class 'dict'>
-# rel_lef 外层的 key 为三元组 (训练集、验证集、测试集) r
-# rel_lef 内层的 key 为 r 对应的 h, 内层的 value 为 1
-# rel_rig 外层的 key 为三元组 (训练集、验证集、测试集) r
-# rel_rig 内层的 key 为 r 对应的 t, 内层的 value 为 1
-rel_lef = {}
-rel_rig = {}
-
-train_list = open("../data/FB15K/train2id.txt", "r")
-valid_list = open("../data/FB15K/valid2id.txt", "r")
-test_list = open("../data/FB15K/test2id.txt", "r")
-
-tot = (int)(train_list.readline())
-for i in range(tot):
-
-	content = train_list.readline()
-	h, t, r = content.strip().split()
-
-	if not (h, r) in lef:
-		lef[(h, r)] = []
-	if not (r,t) in rig:
-		rig[(r, t)] = []
-	lef[(h, r)].append(t)
-	rig[(r, t)].append(h)
-	
-	if not r in rel_lef:
-		rel_lef[r] = {}
-	if not r in rel_rig:
-		rel_rig[r] = {}
-	rel_lef[r][h] = 1
-	rel_rig[r][t] = 1
-
-tot = (int)(valid_list.readline())
-for i in range(tot):
-
-	content = valid_list.readline()
-	h,t,r = content.strip().split()
-
-	if not (h,r) in lef:
-		lef[(h,r)] = []
-	if not (r,t) in rig:
-		rig[(r,t)] = []
-	lef[(h,r)].append(t)
-	rig[(r,t)].append(h)
-
-	if not r in rel_lef:
-		rel_lef[r] = {}
-	if not r in rel_rig:
-		rel_rig[r] = {}
-	rel_lef[r][h] = 1
-	rel_rig[r][t] = 1
-
-tot = (int)(test_list.readline())
-for i in range(tot):
-
-	content = test_list.readline()
-	h,t,r = content.strip().split()
-
-	if not (h,r) in lef:
-		lef[(h,r)] = []
-	if not (r,t) in rig:
-		rig[(r,t)] = []
-	lef[(h,r)].append(t)
-	rig[(r,t)].append(h)
-
-	if not r in rel_lef:
-		rel_lef[r] = {}
-	if not r in rel_rig:
-		rel_rig[r] = {}
-	rel_lef[r][h] = 1
-	rel_rig[r][t] = 1
-
-test_list.close()
-valid_list.close()
-train_list.close()
-
-##################################################
-# 创建 type_constrain.txt
-# type_constrain.txt: 类型约束文件, 第一行是关系的个数
-# 下面的行是每个关系的类型限制 (训练集、验证集、测试集中每个关系存在的 head 和 tail 的类型)
-# 每个关系有两行：
-# 第一行：`id of relation` `Number of head types` `head1` `head2` ...
-# 第二行: `id of relation` `number of tail types` `tail1` `tail2` ...
-#
-# For example, the relation with id 1200 has 4 types of head entities, which are 3123, 1034, 58 and 5733
-# The relation with id 1200 has 4 types of tail entities, which are 12123, 4388, 11087 and 11088
-# 1200	4	3123	1034	58	5733
-# 1200	4	12123	4388	11087	11088
-##################################################
-
-f = open("../data/FB15K/type_constrain.txt", "w")
-f.write("%d\n"%(len(rel_lef)))
-for i in rel_lef:
-	f.write("%s\t%d"%(i, len(rel_lef[i])))
-	for j in rel_lef[i]:
-		f.write("\t%s"%(j))
-	f.write("\n")
-	f.write("%s\t%d"%(i, len(rel_rig[i])))
-	for j in rel_rig[i]:
-		f.write("\t%s"%(j))
-	f.write("\n")
-f.close()
-print("\n../data/FB15K/type_constrain.txt 创建成功.")
-
-
-##################################################
-# 创建 1-1.txt、1-n.txt、n-1.txt、n-n.txt、test2id_all.txt
-##################################################
-
-# rel_lef, tot_lef, rel_rig, tot_rig 类型为 <class 'dict'>
-# rel_lef 的 key 为 r, value 为相应 (关系为 r) 三元组 (训练集、验证集、测试集) tail 的个数
-# tot_lef 的 key 为 r, value 为相应 (关系为 r) 三元组 (训练集、验证集、测试集) head 的种类数
-# rel_rig 的 key 为 r, value 为相应 (关系为 r) 三元组 (训练集、验证集、测试集) head 的个数
-# tot_rig 的 key 为 r, value 为相应 (关系为 r) 三元组 (训练集、验证集、测试集) tail 的种类数
-rel_lef = {}
-tot_lef = {}
-rel_rig = {}
-tot_rig = {}
-
-for i in lef:
-	if not i[1] in rel_lef:
-		rel_lef[i[1]] = 0
-		tot_lef[i[1]] = 0
-	rel_lef[i[1]] += len(lef[i])
-	tot_lef[i[1]] += 1.0
-
-for i in rig:
-	if not i[0] in rel_rig:
-		rel_rig[i[0]] = 0
-		tot_rig[i[0]] = 0
-	rel_rig[i[0]] += len(rig[i])
-	tot_rig[i[0]] += 1.0
-
-# 统计测试集中各种三元组 (关系: 1-1, 1-n, n-1, n-n) 的数量
-# s11: 1-1
-# s1n: 1-n
-# sn1: n-1
-# snn: n-n
-s11 = 0
-s1n = 0
-sn1 = 0
-snn = 0
-
-f = open("../data/FB15K/test2id.txt", "r")
-tot = (int)(f.readline())
-
-for i in range(tot):
-
-	content = f.readline()
-	h, t, r = content.strip().split()
-
-	rign = rel_lef[r] / tot_lef[r]
-	lefn = rel_rig[r] / tot_rig[r]
-
-	if (rign <= 1.5 and lefn <= 1.5):
-		s11 += 1
-	if (rign > 1.5 and lefn <= 1.5):
-		s1n += 1
-	if (rign <= 1.5 and lefn > 1.5):
-		sn1 += 1
-	if (rign > 1.5 and lefn > 1.5):
-		snn += 1
-
-f.close()
-
-# 创建 1-1.txt、1-n.txt、n-1.txt、n-n.txt、test2id_all.txt
-# 1-1.txt: 第一行是测试集中关系为 1-1 的三元组的个数，其余行为 (e1, e2, rel) 格式的三元组
-# 1-n.txt: 第一行是测试集中关系为 1-n 的三元组的个数，其余行为 (e1, e2, rel) 格式的三元组
-# n-1.txt: 第一行是测试集中关系为 n-1 的三元组的个数，其余行为 (e1, e2, rel) 格式的三元组
-# n-n.txt: 第一行是测试集中关系为 n-n 的三元组的个数，其余行为 (e1, e2, rel) 格式的三元组
-# test2id_all.txt:
-#     第一行是测试集中三元组的个数
-#     其余行为 `label` `(e1, e2, rel)`
-#     label:
-#         0: 1-1, 1: 1-n, 2: n-1, 3: n-n
-f = open("../data/FB15K/test2id.txt", "r")
-f11 = open("../data/FB15K/1-1.txt", "w")
-f1n = open("../data/FB15K/1-n.txt", "w")
-fn1 = open("../data/FB15K/n-1.txt", "w")
-fnn = open("../data/FB15K/n-n.txt", "w")
-fall = open("../data/FB15K/test2id_all.txt", "w")
-
-tot = (int)(f.readline())
-fall.write("%d\n"%(tot))
-f11.write("%d\n"%(s11))
-f1n.write("%d\n"%(s1n))
-fn1.write("%d\n"%(sn1))
-fnn.write("%d\n"%(snn))
-
-for i in range(tot):
-
-	content = f.readline()
-	h, t, r = content.strip().split()
-
-	rign = rel_lef[r] / tot_lef[r]
-	lefn = rel_rig[r] / tot_rig[r]
-
-	if (rign <= 1.5 and lefn <= 1.5):
-		f11.write(content)
-		fall.write("0"+"\t"+content)
-	if (rign > 1.5 and lefn <= 1.5):
-		f1n.write(content)
-		fall.write("1"+"\t"+content)
-	if (rign <= 1.5 and lefn > 1.5):
-		fn1.write(content)
-		fall.write("2"+"\t"+content)
-	if (rign > 1.5 and lefn > 1.5):
-		fnn.write(content)
-		fall.write("3"+"\t"+content)
-
-fall.close()
-f.close()
-f11.close()
-f1n.close()
-fn1.close()
-fnn.close()
-print("\n../data/FB15K/1-1.txt ../data/FB15K/1-n.txt ../data/FB15K/n-1.txt ../data/FB15K/n-n.txt ../data/FB15K/test2id_all.txt 创建成功.")
-print("\n数据预处理结束.\n")
-```
+对于大型知识图谱, 用全部种类的实体构建`负三元组`是极其耗时的, 因此用 **type_constrain.txt** 来构造负三元组. 该文件记录了**数据集** (训练集, 验证集, 测试集) 中各个关系 **head** 和 **tail** 出现过的种类.
 
 ## 结语
 
