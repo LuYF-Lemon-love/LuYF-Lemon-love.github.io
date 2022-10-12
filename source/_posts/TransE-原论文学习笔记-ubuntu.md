@@ -76,6 +76,10 @@ date: 2022-10-10 11:56:26
 
 11. Yankai Lin, Zhiyuan Liu, Maosong Sun, Yang Liu, Xuan Zhu. Learning entity and relation embeddings for knowledge graph completion. The 29th AAAI Conference on Artificial Intelligence, 2015.
 
+12. [transE(Translating Embedding)详解+简单python实现](https://blog.csdn.net/shunaoxi2313/article/details/89766467).
+
+13. [Fast-TransX](https://github.com/thunlp/Fast-TransX).
+
 ## TransE 原论文学习笔记
 
 **TransE** 提出于 *2013* 年, 发表于 [NeurIPS](https://neurips.cc/) 会议论文. 为什么介绍 *2013* 年的 **TransE**, 因为 **TransE** 相对于它的变体, **简洁, 高效, 又不失准确**.
