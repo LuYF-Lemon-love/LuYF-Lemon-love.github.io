@@ -49,6 +49,8 @@ date: 2022-09-28 12:04:25
 
 15. [当你的Ubuntu UI界面消失时该怎么做](https://blog.csdn.net/liluan_sama/article/details/123503708)
 
+16. [Linux 或 Mac OS 系统通过 SCP 上传文件到 Linux 轻量应用服务器](https://cloud.tencent.com/document/product/1207/53215)
+
 ## wget 命令
 
 `wget` 命令是 `Linux` 系统用于从 `Web` 上下载文件的命令行工具，支持 `HTTP`，`HTTPS` 和 `FTP` 协议。
@@ -808,6 +810,32 @@ $ sudo reboot
 ```
 
 16. 电脑重启后，应该就会直接进入到图形界面了。
+
+## Linux 系统通过 SCP 上传文件到 Linux 服务器 (包括下载文件)
+
+### 上传文件
+
+在本地机器执行以下命令，向 `Linux` 服务器上传文件。
+
+```shell
+$ scp 本地文件地址 服务器帐号@服务器 IP:服务器文件地址
+$ scp foo luyanfeng@10.4.6.15:/home/luyanfeng/my_code/temp/
+luyanfeng@10.4.6.15's password: 
+foo                                           100%    0     0.0KB/s   00:00    
+$ 
+```
+
+### 下载文件
+
+在本地机器执行以下命令，将 `Linux` 服务器上的文件下载至本地。
+
+```shell
+$ scp 服务器帐号@服务器 IP:服务器文件地址 本地文件地址 
+$ scp luyanfeng@10.4.6.15:/home/luyanfeng/my_code/temp/lyf .
+luyanfeng@10.4.6.15's password: 
+lyf                                           100%    0     0.0KB/s   00:00    
+$
+```
 
 ## 结语
 
