@@ -2173,6 +2173,249 @@ INT main(INT argc, char **argv) {
 
 #### [run.sh](https://github.com/LuYF-Lemon-love/susu-knowledge-graph/blob/main/knowledge-representation-learning/C%2B%2B/TransE/run.sh)
 
+```bash
+#!/bin/bash
+
+##################################################
+# run.sh
+# 使用方法：$ bash run.sh
+# created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+#
+# 该 Shell 脚本用于模型训练和模型测试
+##################################################
+
+# 生成临时数据文件
+python3 data_preprocessing.py
+
+# 创建 build 目录
+echo "##################################################"
+echo ""
+mkdir build
+echo "./build 目录创建成功."
+echo ""
+
+# train
+g++ transE.cpp -o ./build/transE -pthread -O3 -march=native
+./build/transE
+ 
+# test
+g++ test_transE.cpp -o ./build/test_transE -pthread -O3 -march=native
+./build/test_transE
+```
+
+#### [clean.sh](https://github.com/LuYF-Lemon-love/susu-knowledge-graph/blob/main/knowledge-representation-learning/C%2B%2B/TransE/clean.sh)
+
+```bash
+#!/bin/bash
+
+##################################################
+# clean.sh
+# 使用方法：$ bash clean.sh
+# created by LuYF-Lemon-love <luyanfeng_nlp@qq.com>
+#
+# 该 Shell 脚本用于清理临时文件
+##################################################
+
+# 删除目标文件和嵌入文件
+echo ""
+echo "##################################################"
+echo ""
+rm -rf ./build
+echo "./build 目录递归删除成功."
+echo ""
+
+# 删除临时的数据文件
+rm -f ../data/FB15K/1-1.txt ../data/FB15K/1-n.txt ../data/FB15K/n-1.txt ../data/FB15K/n-n.txt ../data/FB15K/test2id_all.txt ../data/FB15K/type_constrain.txt
+echo "已删除 ../data/FB15K/1-1.txt ../data/FB15K/1-n.txt ../data/FB15K/n-1.txt ../data/FB15K/n-n.txt ../data/FB15K/test2id_all.txt ../data/FB15K/type_constrain.txt."
+echo ""
+echo "##################################################"
+echo ""
+```
+
+### 使用
+
+```shell
+$ ls
+data  papers  README.md  TransE
+$ cd TransE/
+$ ls
+clean.sh  data_preprocessing.py  run.sh  test_transE.cpp  transE.cpp
+$ bash run.sh 
+
+##################################################
+
+数据预处理开始...
+
+../data/FB15K/type_constrain.txt 创建成功.
+
+../data/FB15K/1-1.txt ../data/FB15K/1-n.txt ../data/FB15K/n-1.txt ../data/FB15K/n-n.txt ../data/FB15K/test2id_all.txt 创建成功.
+
+数据预处理结束.
+
+##################################################
+
+./build 目录创建成功.
+
+##################################################
+
+训练开始:
+
+relation_total: 1345
+entity_total: 14951
+train_triple_total: 483142
+
+Epoch 50/1000 - loss: 4220.165039
+Epoch 100/1000 - loss: 3433.874268
+Epoch 150/1000 - loss: 3082.582031
+Epoch 200/1000 - loss: 2955.229492
+Epoch 250/1000 - loss: 2860.262695
+Epoch 300/1000 - loss: 2755.290527
+Epoch 350/1000 - loss: 2776.718506
+Epoch 400/1000 - loss: 2601.110596
+Epoch 450/1000 - loss: 2654.754883
+Epoch 500/1000 - loss: 2641.694824
+Epoch 550/1000 - loss: 2517.212891
+Epoch 600/1000 - loss: 2625.712402
+Epoch 650/1000 - loss: 2474.082764
+Epoch 700/1000 - loss: 2581.359863
+Epoch 750/1000 - loss: 2460.039062
+Epoch 800/1000 - loss: 2542.918213
+Epoch 850/1000 - loss: 2456.383057
+Epoch 900/1000 - loss: 2467.666748
+Epoch 950/1000 - loss: 2437.669434
+Epoch 1000/1000 - loss: 2396.724121
+
+输出预训练实体嵌入 (./build/entity2vec.vec) 成功.
+输出预训练关系嵌入 (./build/relation2vec.vec) 成功.
+
+训练结束, 用时 49.974742 秒.
+
+##################################################
+
+测试开始:
+
+加载预训练实体嵌入 (./build/entity2vec.vec) 成功.
+加载预训练关系嵌入 (./build/relation2vec.vec) 成功.
+
+总体结果：
+
+heads(raw) 		平均排名: 307.290955, 	Hits@10: 0.376293
+heads(filter) 		平均排名: 193.796234, 	Hits@10: 0.499619
+tails(raw) 		平均排名: 226.710876, 	Hits@10: 0.452726
+tails(filter) 		平均排名: 155.753433, 	Hits@10: 0.567791
+
+通过 type_constrain.txt 限制的总体结果：
+
+heads(raw) 		平均排名: 201.278839, 	Hits@10: 0.403362
+heads(filter) 		平均排名: 87.784126, 	Hits@10: 0.563898
+tails(raw) 		平均排名: 138.802917, 	Hits@10: 0.480710
+tails(filter) 		平均排名: 67.845474, 	Hits@10: 0.611315
+
+(关系: 1-1, 1-n, n-1, n-n) 测试三元组的结果：
+
+关系: 1-1:
+
+heads(raw) 		平均排名: 122.549644, 	Hits@10: 0.698582
+heads(filter) 		平均排名: 122.320328, 	Hits@10: 0.702128
+tails(raw) 		平均排名: 143.882980, 	Hits@10: 0.692671
+tails(filter) 		平均排名: 143.633575, 	Hits@10: 0.699764
+
+关系: 1-n:
+
+heads(raw) 		平均排名: 30.182560, 	Hits@10: 0.833934
+heads(filter) 		平均排名: 29.975924, 	Hits@10: 0.838294
+tails(raw) 		平均排名: 1288.020142, 	Hits@10: 0.184645
+tails(filter) 		平均排名: 895.189941, 	Hits@10: 0.239621
+
+关系: n-1:
+
+heads(raw) 		平均排名: 1173.232788, 	Hits@10: 0.132855
+heads(filter) 		平均排名: 732.672363, 	Hits@10: 0.200555
+tails(raw) 		平均排名: 33.063072, 	Hits@10: 0.844115
+tails(filter) 		平均排名: 32.890060, 	Hits@10: 0.846893
+
+关系: n-n:
+
+heads(raw) 		平均排名: 174.934845, 	Hits@10: 0.363132
+heads(filter) 		平均排名: 109.573875, 	Hits@10: 0.513756
+tails(raw) 		平均排名: 139.707718, 	Hits@10: 0.403733
+tails(filter) 		平均排名: 91.915115, 	Hits@10: 0.549911
+
+测试结束, 用时 12.542188 秒.
+
+##################################################
+
+$ tree
+.
+├── build
+│   ├── entity2vec.vec
+│   ├── relation2vec.vec
+│   ├── test_transE
+│   └── transE
+├── clean.sh
+├── data_preprocessing.py
+├── run.sh
+├── test_transE.cpp
+└── transE.cpp
+
+1 directory, 9 files
+$ bash clean.sh 
+
+##################################################
+
+./build 目录递归删除成功.
+
+已删除 ../data/FB15K/1-1.txt ../data/FB15K/1-n.txt ../data/FB15K/n-1.txt ../data/FB15K/n-n.txt ../data/FB15K/test2id_all.txt ../data/FB15K/type_constrain.txt.
+
+##################################################
+
+$ ls
+clean.sh  data_preprocessing.py  run.sh  test_transE.cpp  transE.cpp
+```
+
+### 训练和测试的参数
+
+#### transE.cpp
+
+```shell
+./transE [-bern 0/1] [-load-binary 0/1] [-out-binary 0/1]
+         [-size SIZE] [-alpha ALPHA] [-margin MARGIN]
+         [-nbatches NBATCHES] [-epochs EPOCHS]
+         [-threads THREAD] [-input INPUT] [-output OUTPUT]
+         [-load LOAD] [-note NOTE]
+
+optional arguments:
+-bern [0/1]          [1] 使用 bern 算法进行负采样，默认值为 [1]
+-load-binary [0/1]   [1] 以二进制形式加载预训练嵌入，默认值为 [0]
+-out-binary [0/1]    [1] 以二进制形式输出嵌入，默认值为 [0]
+-size SIZE           实体和关系嵌入维度，默认值为 [50]
+-alpha ALPHA         学习率，默认值为 0.01
+-margin MARGIN       margin in max-margin loss for pairwise training，默认值为 1.0
+-nbatches NBATCHES   number of batches for each epoch. if unspecified, nbatches will default to 1
+-epochs EPOCHS       number of epochs. if unspecified, epochs will default to 1000
+-threads THREAD      number of worker threads. if unspecified, threads will default to 32
+-input INPUT         folder of training data. if unspecified, in_path will default to "../data/FB15K/"
+-output OUTPUT       folder of outputing results. if unspecified, out_path will default to "./build/"
+-load LOAD           folder of pretrained data. if unspecified, load_path will default to ""
+-note NOTE           information you want to add to the filename. if unspecified, note will default to ""
+```
+
+#### test_transE.cpp
+
+```shell
+./test_transE [-load-binary 0/1] [-size SIZE]
+         [-threads THREAD] [-input INPUT]
+         [-load LOAD] [-note NOTE]
+
+optional arguments:
+-load-binary [0/1]   [1] 以二进制形式加载预训练嵌入，默认值为 [0]
+-size SIZE           实体和关系嵌入维度，默认值为 [50]
+-threads THREAD      number of worker threads. if unspecified, threads will default to 32
+-input INPUT         folder of training data. if unspecified, in_path will default to "../data/FB15K/"
+-load LOAD           folder of pretrained data. if unspecified, load_path will default to "./build/"
+-note NOTE           information you want to add to the filename. if unspecified, note will default to ""
+```
+
 ---
 
 运行结果显示：训练集中的关系一共为 *1345* 种，实体一共为 *14951* 种，三元组一共 *483142* 个。训练一共用时 **50.386622** 秒。
