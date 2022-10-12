@@ -91,21 +91,21 @@ date: 2022-09-28 14:52:14
 
 `double exp (double x);`
 
-##### Compute exponential function
+**`Compute exponential function`**
 
 `Returns` the `base-e` exponential function of `x`, which is `e` raised to the power $x: e^x$.
 
-##### Parameters
+**`Parameters`**
 
 **x**
 
 1. Value of the exponent.
 
-##### Return Value
+**`Return Value`**
 
 Exponential value of `x`.
 
-##### Example
+**`Example`**
 
 ```c++
 /* exp example */
