@@ -2373,6 +2373,12 @@ $ ls
 clean.sh  data_preprocessing.py  run.sh  test_transE.cpp  transE.cpp
 ```
 
+运行结果显示: 训练集中的关系一共为 *1345* 个，实体一共为 *14951* 个，三元组一共 *483142* 个。训练一共用时 **49.974742** 秒。
+
+可以发现类型为 **1-TO-MANY** 和 **MANY-TO-1** 的关系, 从 **MANY** 侧边预测 **1** 侧边具有很高的利用价值, 因为这种训练数据较多.
+
+对于大型知识图谱, 用全部实体构建`负三元组`是极其耗时的, 因此用 **type_constrain.txt** 来构造负三元组. 该文件记录了**数据集** (训练集, 验证集, 测试集) 中各个关系 **head** 和 **tail** 出现过的种类.
+
 ### 训练和测试的参数
 
 #### transE.cpp
@@ -2415,14 +2421,6 @@ optional arguments:
 -load LOAD           folder of pretrained data. if unspecified, load_path will default to "./build/"
 -note NOTE           information you want to add to the filename. if unspecified, note will default to ""
 ```
-
----
-
-运行结果显示：训练集中的关系一共为 *1345* 种，实体一共为 *14951* 种，三元组一共 *483142* 个。训练一共用时 **50.386622** 秒。
-
-可以发现类型为 **1-n** 和 **n-1** 的关系, 从 **n** 面预测 **1** 面具有很高的利用价值, 因为这种训练数据较多.
-
-对于大型知识图谱, 用全部种类的实体构建`负三元组`是极其耗时的, 因此用 **type_constrain.txt** 来构造负三元组. 该文件记录了**数据集** (训练集, 验证集, 测试集) 中各个关系 **head** 和 **tail** 出现过的种类.
 
 ## 结语
 
