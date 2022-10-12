@@ -383,19 +383,19 @@ I have read: 3.141600 and PI
 
 - `puts`: Write string to stdout (function)
 
-#### fputc - `<cstdio>`
+#### fputc
 
 `fputc`: https://cplusplus.com/reference/cstdio/fputc/ 。
 
 `int fputc ( int character, FILE * stream );`
 
-##### 将字符写入流
+**`将字符写入流`**
 
 `Writes a character` to `the stream` and `advances` the position indicator.
 
 The character is written `at the position indicated by the internal position indicator of the stream`, which is then automatically advanced by `one`.
 
-##### 参数
+**`参数`**
 
 **character**
 
@@ -407,13 +407,13 @@ The character is written `at the position indicated by the internal position ind
 
 1. Pointer to a `FILE` object that identifies `an output stream`.
 
-##### 返回值
+**`返回值`**
 
 On success, the `character` written is `returned`.
 
 If a writing `error` occurs, `EOF` is returned and the error indicator (ferror) is set.
 
-##### 例子
+**`例子`**
 
 ```c++
 /* fputc example: alphabet writer */
@@ -438,13 +438,13 @@ int main ()
 
 This program `creates a file` called `alphabet.txt` and writes `ABCDEFGHIJKLMNOPQRSTUVWXYZ` to it.
 
-#### fputs - `<cstdio>`
+#### fputs
 
 `fputs`: https://cplusplus.com/reference/cstdio/fputs/ 。
 
 `int fputs ( const char * str, FILE * stream );`
 
-##### Write string to stream
+**`Write string to stream`**
 
 Writes the `C string` pointed by `str` to the stream.
 
@@ -452,7 +452,7 @@ The function begins `copying from the address` specified (`str`) until it reache
 
 Notice that `fputs` not only differs from `puts` in that the destination `stream` can be specified, but also `fputs` does not write additional characters, while `puts` appends `a newline character` at the end automatically.
 
-##### Parameters
+**`Parameters`**
 
 **str**
 
@@ -462,13 +462,13 @@ Notice that `fputs` not only differs from `puts` in that the destination `stream
 
 2. `Pointer to a FILE object` that identifies an output stream.
 
-##### Return Value
+**`Return Value`**
 
 On `success`, a `non-negative` value is returned.
 
 On `error`, the function returns `EOF` and sets the error indicator (`ferror`).
 
-##### Example
+**`Example`**
 
 ```c++
 /* fputs example */
@@ -490,13 +490,13 @@ int main ()
 
 This program allows to `append a line` to a file called `mylog.txt` each time it is run.
 
-#### puts - `<cstdio>`
+#### puts
 
 `puts`: https://cplusplus.com/reference/cstdio/puts/ 。
 
 `int puts ( const char * str );`
 
-##### Write string to stdout
+**`Write string to stdout`**
 
 Writes the `C string` pointed by `str` to the standard output (`stdout`) and `appends a newline character ('\n')`.
 
@@ -504,19 +504,19 @@ The function begins copying from the address specified (`str`) until it reaches 
 
 Notice that `puts` not only differs from `fputs` in that it uses `stdout as destination`, but `it also appends a newline character at the end automatically` (which `fputs` does not).
 
-##### Parameters
+**`Parameters`**
 
 **str**
 
 1. `C string` to be printed.
 
-##### Return Value
+**`Return Value`**
 
 On `success`, a `non-negative value` is returned.
 
 On `error`, the function returns `EOF` and `sets the error indicator (ferror)`.
 
-##### Example
+**`Example`**
 
 ```c++
 /* puts example : hello world! */
@@ -541,13 +541,13 @@ Hello world!
 
 - `fwrite`: Write block of data to stream (function)
 
-#### fread - `<cstdio>`
+#### fread
 
 `fread`: https://cplusplus.com/reference/cstdio/fread/ 。
 
 `size_t fread ( void * ptr, size_t size, size_t count, FILE * stream );`
 
-##### Read block of data from stream
+**`Read block of data from stream`**
 
 `Reads an array of count elements`, each one with `a size of size bytes`, from the stream and `stores them in the block of memory specified by ptr`.
 
@@ -555,7 +555,7 @@ The position indicator of the stream is `advanced` by the `total amount of bytes
 
 The `total amount of bytes read` if successful is (`size*count`).
 
-##### Parameters
+**`Parameters`**
 
 **ptr**
 
@@ -573,7 +573,7 @@ The `total amount of bytes read` if successful is (`size*count`).
 
 1. `Pointer` to a `FILE object` that specifies an input stream.
 
-##### Return Value
+**`Return Value`**
 
 `The total number of elements` successfully read is returned.
 
@@ -583,7 +583,7 @@ If either `size` or `count` is zero, the function returns `zero` and both the st
 
 `size_t` is an unsigned integral type.
 
-##### Example
+**`Example`**
 
 ```c++
 /* fread example: read an entire file */
@@ -629,13 +629,13 @@ This code loads `myfile.bin` into a `dynamically` allocated `memory buffer`, whi
 File error 
 ```
 
-#### fwrite - `<cstdio>`
+#### fwrite
 
 `fwrite`: https://cplusplus.com/reference/cstdio/fwrite/ 。
 
 `size_t fwrite ( const void * ptr, size_t size, size_t count, FILE * stream );`
 
-##### Write block of data to stream
+**`Write block of data to stream`**
 
 Writes `an array of count elements`, each one with `a size of size bytes`, from `the block of memory pointed by ptr` to `the current position in the stream`.
 
@@ -643,7 +643,7 @@ The `position indicator` of the stream is advanced by `the total number of bytes
 
 Internally, `the function interprets the block pointed by ptr as if it was an array of (size*count) elements of type unsigned char`, and `writes them sequentially to stream` as if `fputc was called for each byte`.
 
-##### Parameters
+**`Parameters`**
 
 **ptr**
 
@@ -661,7 +661,7 @@ Internally, `the function interprets the block pointed by ptr as if it was an ar
 
 1. `Pointer` to `a FILE object` that specifies an output stream.
 
-##### Return Value
+**`Return Value`**
 
 The `total number of elements` **successfully** written is returned.
 
@@ -671,7 +671,7 @@ If either `size` or `count` is `zero`, the function returns `zero` and `the erro
 
 `size_t` is an unsigned integral type.
 
-##### Example
+**`Example`**
 
 ```c++
 /* fwrite example : write buffer */
@@ -696,13 +696,13 @@ A file called `myfile.bin` is created and `the content of the buffer is stored i
 
 - `rewind`: Set position of stream to the beginning (function)
 
-#### rewind - `<cstdio>`
+#### rewind
 
 `rewind`: https://cplusplus.com/reference/cstdio/rewind/ 。
 
 `void rewind ( FILE * stream );`
 
-##### Set position of stream to the beginning
+**`Set position of stream to the beginning`**
 
 Sets `the position indicator` associated with stream to `the beginning of the file`.
 
@@ -710,17 +710,17 @@ The `end-of-file` and `error` internal indicators associated to the `stream` are
 
 On streams open for `update (read+write)`, a call to `rewind` allows to `switch between reading and writing`.
 
-##### Parameters
+**`Parameters`**
 
 **stream**
 
 1. `Pointer` to `a FILE object` that identifies the stream.
 
-##### Return Value
+**`Return Value`**
 
 `none`
 
-##### Example
+**`Example`**
 
 ```c++
 /* rewind example */
@@ -762,13 +762,13 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
 - `atoi`: Convert string to integer (function)
 
-#### atof - `<cstdlib>`
+#### atof
 
 `atof`: https://cplusplus.com/reference/cstdlib/atof/ 。
 
 `double atof (const char* str);`
 
-##### Convert string to double
+**`Convert string to double`**
 
 `Parses the C string str`, interpreting its content as `a floating point number` and returns its value as `a double`.
 
@@ -776,13 +776,13 @@ The function first `discards as many whitespace characters` (as in `isspace`) as
 
 If `the first sequence of non-whitespace characters` in str `does not form a valid floating-point number` as just defined, or if `no such sequence exists` because either `str` is `empty` or contains only `whitespace characters`, no conversion is performed and `the function returns 0.0`.
 
-##### Parameters
+**`Parameters`**
 
 **str**
 
 1. `C-string` beginning with the representation of `a floating-point number`.
 
-##### Return Value
+**`Return Value`**
 
 On `success`, the function returns the converted floating point number as a `double value`.
 
@@ -792,7 +792,7 @@ If the converted value would be out of the range of representable values by `a d
 
 See `strtod` for a more `robust cross-platform alternative` when this is a possibility.
 
-##### Example
+**`Example`**
 
 ```c++
 /* atof example: sine calculator */
@@ -822,19 +822,19 @@ The sine of 45.000000 degrees is 0.707101
 
 ```
 
-##### Exceptions (C++)
+**`Exceptions (C++)`**
 
 `No-throw guarantee`: this function `never` throws exceptions.
 
 If `str` does not point to `a valid C-string`, or if the converted value would be out of the range of values representable by `a double`, it causes `undefined behavior`.
 
-#### atoi - `<cstdlib>`
+#### atoi
 
 `atoi`: https://cplusplus.com/reference/cstdlib/atoi/ 。
 
 `int atoi (const char * str);`
 
-##### Convert string to integer
+**`Convert string to integer`**
 
 Parses the C-string `str` interpreting its content as `an integral number`, which is returned as a value of type `int`.
 
@@ -844,13 +844,13 @@ The string can contain `additional characters` after those that `form the integr
 
 If `the first sequence of non-whitespace characters` in `str` is `not a valid integral number`, or if `no such sequence` exists because either `str is empty` or it contains only `whitespace characters`, no conversion is performed and `zero is returned`.
 
-##### Parameters
+**`Parameters`**
 
 **str**
 
 1. `C-string` beginning with the representation of an integral number.
 
-##### Return Value
+**`Return Value`**
 
 On `success`, the function returns the converted integral number as an `int` value.
 
@@ -858,7 +858,7 @@ If the converted value would be out of the range of representable values by `an 
 
 See `strtol` for a more `robust cross-platform alternative` when this is a possibility.
 
-##### Example
+**`Example`**
 
 ```c++
 /* atoi example */
@@ -885,7 +885,7 @@ The value entered is 73. Its double is 146.
 
 ```
 
-##### Exceptions (C++)
+**`Exceptions (C++)`**
 
 `No-throw guarantee`: this function never throws exceptions.
 
@@ -897,13 +897,13 @@ If `str` does not point to a valid C-string, or if the converted value would be 
 
 - `free`: Deallocate memory block (function)
 
-#### calloc - `<cstdlib>`
+#### calloc
 
 `calloc`: https://cplusplus.com/reference/cstdlib/calloc/ 。
 
 `void* calloc (size_t num, size_t size);`
 
-##### Allocate and zero-initialize array
+**`Allocate and zero-initialize array`**
 
 `Allocates` a block of memory for `an array of num elements`, each of them `size` bytes long, and `initializes all its bits to zero`.
 
@@ -911,7 +911,7 @@ If `str` does not point to a valid C-string, or if the converted value would be 
 
 If `size` is `zero`, the return value depends on `the particular library implementation` (it may or may not be `a null pointer`), but `the returned pointer shall not be dereferenced`.
 
-##### Parameters
+**`Parameters`**
 
 **num**
 
@@ -923,7 +923,7 @@ If `size` is `zero`, the return value depends on `the particular library impleme
 
 `size_t` is an unsigned integral type.
 
-##### Return Value
+**`Return Value`**
 
 On `success`, a `pointer` to `the memory block allocated by the function`.
 
@@ -931,7 +931,7 @@ The type of `this pointer` is always `void*`, which can be cast to `the desired 
 
 If the function `failed` to `allocate the requested block of memory`, `a null pointer` is returned.
 
-##### Example
+**`Example`**
 
 ```c++
 /* calloc example */
@@ -960,19 +960,19 @@ int main ()
 
 This program simply `stores numbers` and then `prints them out`. But the number of items it stores can be adapted each time the program is executed because it allocates the needed memory during runtime.
 
-##### Data races
+**`Data races`**
 
 `Only the storage referenced by the returned pointer is modified.` No other storage locations are accessed by the call.
 
 If the function `reuses the same unit of storage released` by `a deallocation function` (such as `free` or `realloc`), the functions are synchronized `in such a way that the deallocation happens entirely before the next allocation`.
 
-#### free - `<cstdlib>`
+#### free
 
 `free`: https://cplusplus.com/reference/cstdlib/free/ 。
 
 `void free (void* ptr);`
 
-##### Deallocate memory block
+**`Deallocate memory block`**
 
 `A block of memory` previously `allocated` by a call to `malloc`, `calloc` or `realloc` is `deallocated`, making it available again for `further allocations`.
 
@@ -982,17 +982,17 @@ If `ptr` is a `null pointer`, the function `does nothing`.
 
 Notice that `this function does not change the value of ptr itself`, hence it still points to `the same (now invalid) location`.
 
-##### Parameters
+**`Parameters`**
 
 **ptr**
 
 1. `Pointer` to a memory block previously allocated with `malloc`, `calloc` or `realloc`.
 
-##### Return Value
+**`Return Value`**
 
 none
 
-##### Example
+**`Example`**
 
 ```c++
 /* free example */
@@ -1012,13 +1012,13 @@ int main ()
 
 `This program has no output`. It just demonstrates some ways to `allocate and free dynamic memory` using the `C stdlib` functions.
 
-##### Data races
+**`Data races`**
 
 Only the storage referenced by `ptr` is modified. `No other storage locations are accessed by the call`.
 
 If the function releases `a unit of storage` that is `reused` by a call to `allocation functions` (such as `calloc` or `malloc`), the functions are synchronized `in such a way` that `the deallocation happens entirely before the next allocation`.
 
-##### Exceptions (C++)
+**`Exceptions (C++)`**
 
 `No-throw guarantee`: this function never throws exceptions.
 
@@ -1034,13 +1034,13 @@ If `ptr` does not point to a memory block previously allocated with `malloc`, `c
 
 - `memcpy`: Copy block of memory (function)
 
-#### memcpy - `<cstring>`
+#### memcpy
 
 `memcpy`: https://cplusplus.com/reference/cstring/memcpy/ 。
 
 `void * memcpy ( void * destination, const void * source, size_t num );`
 
-##### Copy block of memory
+**`Copy block of memory`**
 
 `Copies` the values of `num` bytes from the location pointed to by `source` directly to the memory block pointed to by `destination`.
 
@@ -1050,7 +1050,7 @@ The function does not check for any terminating null character `in source` - it 
 
 To avoid `overflows`, the size of the arrays pointed to by both the `destination` and `source` parameters, shall be at least `num` bytes, and should not overlap (for `overlapping memory blocks`, `memmove` is a safer approach).
 
-##### Parameters
+**`Parameters`**
 
 **destination**
 
@@ -1066,11 +1066,11 @@ To avoid `overflows`, the size of the arrays pointed to by both the `destination
 
 2. `size_t` is an unsigned integral type.
 
-##### Return Value
+**`Return Value`**
 
 `destination` is returned.
 
-##### Example
+**`Example`**
 
 ```c++
 /* memcpy example */
@@ -1111,19 +1111,19 @@ person_copy: Pierre de Fermat, 46
 
 - `strcmp`: Compare two strings (function)
 
-#### memcmp - `<cstring>`
+#### memcmp
 
 `memcmp`: https://cplusplus.com/reference/cstring/memcmp/ 。
 
 `int memcmp ( const void * ptr1, const void * ptr2, size_t num );`
 
-##### Compare two blocks of memory
+**`Compare two blocks of memory`**
 
 Compares the `first num bytes` of `the block of memory` pointed by `ptr1` to `the first num bytes` pointed by `ptr2`, returning `zero` if they all `match` or `a value different from zero representing which is greater if they do not`.
 
 Notice that, unlike `strcmp`, `the function does not stop comparing after finding a null character`.
 
-##### Parameters
+**`Parameters`**
 
 **ptr1**
 
@@ -1137,7 +1137,7 @@ Notice that, unlike `strcmp`, `the function does not stop comparing after findin
 
 1. `Number of bytes` to compare.
 
-##### Return Value
+**`Return Value`**
 
 Returns an `integral value` indicating `the relationship between the content of the memory blocks`:
 
@@ -1147,7 +1147,7 @@ Returns an `integral value` indicating `the relationship between the content of 
 |`0`|`the contents of both memory blocks` are `equal`|
 |`>0`|`the first byte` that does not match in both memory blocks `has a greater value` in `ptr1` than in `ptr2` (if evaluated as `unsigned char` values)|
 
-##### Example
+**`Example`**
 
 ```c++
 /* memcmp example */
@@ -1180,13 +1180,13 @@ int main ()
 
 `DWgAOtp12Df0` is `greater` than `DWGAOTP12DF0` because `the first non-matching character` in both words are `'g'` and `'G'` respectively, and `'g' (103) evaluates as greater than 'G' (71)`.
 
-#### strcmp - `<cstring>`
+#### strcmp
 
 `strcmp`: https://cplusplus.com/reference/cstring/strcmp/ 。
 
 `int strcmp ( const char * str1, const char * str2 );`
 
-##### Compare two strings
+**`Compare two strings`**
 
 Compares the `C string str1` to the `C string str2`.
 
@@ -1194,7 +1194,7 @@ This function starts comparing the `first character` of each string. If they `ar
 
 This function performs `a binary comparison of the characters`.
 
-##### Parameters
+**`Parameters`**
 
 **str1**
 
@@ -1204,7 +1204,7 @@ This function performs `a binary comparison of the characters`.
 
 2. `C string` to be compared.
 
-##### Return Value
+**`Return Value`**
 
 Returns an `integral value` indicating the `relationship` between the strings:
 
@@ -1214,7 +1214,7 @@ Returns an `integral value` indicating the `relationship` between the strings:
 |`0`|the contents of both strings are `equal`|
 |`>0`|the first character that does not match has a `greater value` in `ptr1` than in `ptr2`|
 
-##### Example
+**`Example`**
 
 ```c++
 #include <stdio.h>
@@ -1246,17 +1246,17 @@ Correct answer!
 
 - `memset`: Fill block of memory (function)
 
-#### memset - `<cstring>`
+#### memset
 
 `memset`: https://cplusplus.com/reference/cstring/memset/ 。
 
 `void * memset ( void * ptr, int value, size_t num );`
 
-##### Fill block of memory
+**`Fill block of memory`**
 
 Sets the first `num` bytes of the block of memory pointed by `ptr` to the specified `value` (interpreted as an `unsigned char`).
 
-##### Parameters
+**`Parameters`**
 
 **ptr**
 
@@ -1272,11 +1272,11 @@ Sets the first `num` bytes of the block of memory pointed by `ptr` to the specif
 
 2. `size_t` is an `unsigned integral type`.
 
-##### Return Value
+**`Return Value`**
 
 `ptr` is returned.
 
-##### Example
+**`Example`**
 
 ```c++
 /* memset example */
@@ -1311,27 +1311,27 @@ int main ()
 
 - `to_string`: Convert numerical value to string (function)
 
-#### `std::to_string` - `<string>`
+#### `std::to_string`
 
 `std::to_string`: https://cplusplus.com/reference/string/to_string/ 。
 
 `string to_string (int val);string to_string (long val);string to_string (long long val);string to_string (unsigned val);string to_string (unsigned long val);string to_string (unsigned long long val);string to_string (float val);string to_string (double val);string to_string (long double val);`
 
-##### Convert numerical value to string
+**`Convert numerical value to string`**
 
 Returns a `string` with `the representation of val`.
 
-##### Parameters
+**`Parameters`**
 
 **val**
 
 1. Numerical value.
 
-##### Return Value
+**`Return Value`**
 
 A `string object` containing the representation of `val` as `a sequence of characters`.
 
-##### Example
+**`Example`**
 
 ```c++
 // to_string example
