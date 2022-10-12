@@ -85,7 +85,7 @@ date: 2022-09-28 14:52:14
 
 - `exp`: Compute exponential function (function)
 
-#### exp - `<cmath>`
+#### exp
 
 `exp`: https://cplusplus.com/reference/cmath/exp/ 。
 
@@ -140,13 +140,13 @@ The exponential value of 5.000000 is 148.413159.
 
 - `fclose`: Close file (function)
 
-#### fopen - `<cstdio>`
+#### fopen
 
 `fopen`: https://cplusplus.com/reference/cstdio/fopen/ 。
 
 `FILE * fopen ( const char * filename, const char * mode );`
 
-##### 打开文件
+**`打开文件`**
 
 `Opens the file` whose name is specified in `the parameter filename` and `associates it with a stream` that can be identified in future operations by `the FILE pointer` returned.
 
@@ -154,7 +154,7 @@ The `operations` that are allowed on `the stream` and how these are performed ar
 
 The returned pointer can be `disassociated` from the file by calling `fclose` or `freopen`. `All opened files are automatically closed on normal program termination`.
 
-##### 参数
+**`参数`**
 
 **filename**
 
@@ -186,13 +186,13 @@ With the mode specifiers above the file is open `as a text file`. In order to op
 
 For files open for update (those which include a `"+"` sign), on which `both input and output operations are allowed`, `the stream shall be flushed (fflush) or repositioned (fseek, fsetpos, rewind) before a reading operation that follows a writing operation`. The stream shall `be repositioned (fseek, fsetpos, rewind) before a writing operation` that follows a `reading operation`(whenever that operation `did not reach the end-of-file`).
 
-##### 返回值
+**`返回值`**
 
 If the file is `successfully opened`, the function returns `a pointer to a FILE object` that can be used to identify the `stream` on future operations.
 
 Otherwise, `a null pointer` is returned.
 
-##### 例子
+**`例子`**
 
 ```c++
 /* fopen example */
@@ -210,13 +210,13 @@ int main ()
 }
 ```
 
-#### fclose - `<cstdio>`
+#### fclose
 
 `fclose`: https://cplusplus.com/reference/cstdio/fclose/ 。
 
 `int fclose ( FILE * stream );`
 
-##### 关闭文件
+**`关闭文件`**
 
 `Closes the file` associated with the `stream` and `disassociates` it.
 
@@ -224,19 +224,19 @@ int main ()
 
 Even if the call `fails`, the stream passed as parameter will `no longer be associated with the file` nor its buffers.
 
-##### 参数
+**`参数`**
 
 **stream**
 
 `Pointer` to a `FILE` object that specifies the stream to be closed.
 
-##### 返回值
+**`返回值`**
 
 If the stream is `successfully closed`, a `zero value` is returned.
 
 On `failure`, `EOF` is returned.
 
-##### 例子
+**`例子`**
 
 ```c++
 /* fclose example */
@@ -257,19 +257,19 @@ This simple code `creates a new text file`, then `writes` a sentence to it, and 
 
 - `fscanf`: Read formatted data from stream (function)
 
-#### fscanf - `<cstdio>`
+#### fscanf
 
 `fscanf`: https://cplusplus.com/reference/cstdio/fscanf/ 。
 
 `int fscanf ( FILE * stream, const char * format, ... );`
 
-##### Read `formatted data` from `stream`
+**`Read formatted data from stream`**
 
 Reads data from the stream and `stores` them `according to the parameter format` into the locations pointed by the `additional arguments`.
 
 The `additional arguments` should point to already `allocated objects` of the type specified by their corresponding format specifier within the format string.
 
-##### Parameters
+**`Parameters`**
 
 **stream**
 
@@ -338,13 +338,13 @@ There should be at least `as many of these arguments as` the number of values st
 
 These arguments are expected to be `pointers`: to store the result of a fscanf operation on `a regular variable`, its name should be preceded by `the reference operator (&)`.
 
-##### Return Value
+**`Return Value`**
 
 On `success`, the function returns `the number of items of the argument list` successfully filled. This count can match the expected number of items or be less (even zero) due to a matching failure, a reading error, or the reach of the end-of-file.
 
 If a reading error happens or the end-of-file is reached while reading, the proper indicator is set (`feof` or `ferror`). And, `if either happens before any data could be successfully read, EOF is returned`.
 
-##### Example
+**`Example`**
 
 ```c++
 /* fscanf example */
