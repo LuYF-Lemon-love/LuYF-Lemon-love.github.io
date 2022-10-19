@@ -52,9 +52,14 @@ date: 2022-10-19 12:23:16
 
 4. Daojian Zeng, Kang Liu, Yubo Chen, and Jun Zhao. 2015. Distant supervision for relation extraction via piecewise convolutional neural networks. In Proceedings of EMNLP.
 
-<div id = "4"></div>
+<div id = "5"></div>
 
 5. 知识图谱与深度学习, 作者 刘知远, 韩旭, 孙茂松, 由 清华大学出版社 出版, 书号 978-7-302-53852-3, 豆瓣链接: https://book.douban.com/subject/35093204/ .
+
+<div id = "6"></div>
+
+6. Daojian Zeng, Kang Liu, Siwei Lai, Guangyou Zhou, and Jun Zhao. 2014. Relation classification via convolutional deep neural network. In Proceedings of COLING, pages 2335–2344.
+
 
 ## CNN+ATT 原论文学习笔记
 
@@ -90,7 +95,65 @@ date: 2022-10-19 12:23:16
 
 ### 相关工作
 
-### **`Translation-based` model**
+**关系抽取**是一个重要的 **NLP** 任务, 很多人研究有监督的关系抽取. (Mintz et al., 2009)[<sup>3</sup>](#3) 提出**远程监督**, 通过**对齐知识库和纯文本**自动生成训练数据.
+
+>1. (Riedel et al., 2010) models distant supervision for relation extraction as a **multi-instance single-label problem**.
+>
+>2. (Hoffmann et al., 2011; Surdeanu et al., 2012) adopt **multi-instance multi-label learning in relation extraction**.
+
+---
+
+>Multi-instance learning was originally proposed to address the issue of **ambiguously-labelled training data** when predicting the activity of **drugs** (Dietterich et al., 1997)
+>
+>(Bunescu and Mooney, 2007) connects weak supervision with multi-instance learning and extends it to relation extraction.
+
+所有**基于特征的方法**严重依赖 NLP 工具生成的**特征的质量**, 这将遭受错误传播问题 (**error propagation problem**) 的困扰.
+
+> **deep learning** (Bengio, 2009) has been widely used for various areas, including **computer vision**, **speech recognition** and so on.
+> 
+>NLP tasks (successfully applied):
+>
+>1. part-of-speech tagging (Collobert et al., 2011)
+>
+>2. sentiment analysis (dos Santos and Gatti, 2014)
+>
+>3. parsing (Socher et al., 2013)
+>
+>4. machine translation (Sutskever et al., 2014)
+
+---
+
+>1. (Socher et al., 2012) uses a **recursive neural network** in relation extraction.They parse the sentences first and then represent each node in the parsing tree as a vector.
+>
+>2. (Zeng et al., 2014[<sup>6</sup>](#6); dos Santos et al., 2015) adopt **an end-to-end convolutional neural network for relation extraction**.
+>
+>3. (Xie et al., 2016) attempts to **incorporate the text information of entities for relation extraction**.
+
+---
+
+虽然深度学习的方法取得了极大的成功, 这些模型仍然**在句子级别上抽取关系**, 并且**缺乏足够的训练数据**. 此外, **传统方法的多实例学习策略不容易应用于神经网络模型**.
+
+>(Zeng et al., 2015)[<sup>4</sup>](#4) **combines at-least-one multi-instance learning with neural network model** to extract relations on distant supervision data. However, they **assume that only one sentence is active for each entity pair**. Hence, it will **lose a large amount of rich information containing in those neglected sentences**.
+
+因此, 本论文提出了**对多个实例 (句子) 的语句级别选择性注意力机制**, 它能**充分利用每个实体对的所有实例 (句子) 的信息**.
+
+>1. The attention-based models have attracted a lot of interests of researchers recently.
+>
+>2. **The selectivity of attention-based models** allows them to **learn alignments between different modalities**.
+>
+>It has been applied to various areas:
+>  
+>1. image classification (Mnih et al., 2014)
+>
+>2. speech recognition (Chorowski et al., 2014)
+>
+>3. image caption generation (Xu et al., 2015)
+>
+>4. machine translation (Bahdanau et al., 2014).
+>
+>To the best of our knowledge, this is **the first effort to adopt attention-based model in distant supervised relation extraction**.
+
+### 方法
 
 训练集 *$S$* 是由`三元组` *$(h, \ell, t)$* 组成, *$h, t \in E$* (实体集合), *$\ell \in L$* (关系集合), **TransE** 学习`实体`和`关系`的`嵌入向量`. 嵌入向量的值为 *$R^k$* (*$k$* 是超参数).
 
@@ -110,34 +173,10 @@ $$
 
 **负三元组** (`corrupted triplets`) 集合是`根据上面的公式`构造的, 是将`训练集三元组`中的 `head` 或者 `tail` 实体用`随机的实体`替换得到的 (**`head` 和 `tail` 不同时替换**). **损失函数会使`训练集中的三元组的能量`比`负三元组`低**. 实体作为三元组的 `head` 和 `tail` 时的嵌入向量相同.
 
-
 {% folding red, Xavier 初始值简介 %}
 
-该模型层的`激活函数`为 `None`, `tanh`, `logistic`, `softmax` 时, 神经元初始化准则[<sup>9</sup>](#9)为:
-
-1. `正态分布`, 均值为 `0`, 方差为 $\sigma^2 = \frac{1}{fan_{avg}}$
-
-`or`
-
-2. $-r$ 和 $+r$ 之间的`均匀分布`, 其中 $r = \sqrt{\frac{3}{fan_{avg}}}$
-
-其中, $fan_{avg} = \frac{(fan_{in} + fan_{out})}{2}$, $fan_{in}$ 是`前一层的节点数`, $fan_{out}$ 是`下一层的节点数`.
 
 {% endfolding %}
-
-### 相关工作
-
-1. `Structured Embeddings or SE`[<sup>4</sup>](#4), 虽然 `SE` 能够重现 `TransE` 的 `平移`, 但是 `TransE` 在实验中表现的更好. 主要原因如下:
-   
-   - `TransE` 更直接的表达`关系的特性` (`平移`).
-   - 在`嵌入向量模型`中, 优化是异常困难的.
-   - 对于 `SE` 来说, `更大的表现力`似乎更像是`欠拟合`的同义词，而不是`更好的性能`.
-
-2. 相比于 `the Neural Tensor Model`[<sup>5</sup>](#5), `TransE` 的有较少的参数: 这可以`简化训练`并防止`欠拟合`, 并可能`弥补较低的表现力`.
-
-3. `TransE`，可以看作是`编码一系列 2-way 交互`. 对于 $h$, $\ell$ 和 $t$ 之间存在的 `3-way` 依赖是相当重要的数据, `TransE` 不能够很好地建模 (相比于 `RESCAL`[<sup>6</sup>](#6) `LFM`[<sup>7</sup>](#7) `SME`[<sup>8</sup>](#8))
-
-4. 为了处理像 `Freebase` 这样的通用大规模知识图谱, 人们应该首先正确地建模`最常见的连接模式`, 就像 `TransE` 所做的那样.
 
 ### 实验
 
