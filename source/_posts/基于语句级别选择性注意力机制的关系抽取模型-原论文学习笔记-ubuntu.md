@@ -107,7 +107,7 @@ date: 2022-10-19 12:23:16
 >
 >(Bunescu and Mooney, 2007) connects weak supervision with multi-instance learning and extends it to relation extraction.
 
-所有**基于特征的方法**严重依赖 NLP 工具生成的**特征的质量**, 这将遭受错误传播问题 (**error propagation problem**) 的困扰.
+所有**基于特征的方法**严重依赖 NLP 工具生成的**特征的质量**, 这将受到错误传播问题 (**error propagation problem**) 的困扰.
 
 > **deep learning** (Bengio, 2009) has been widely used for various areas, including **computer vision**, **speech recognition** and so on.
 > 
