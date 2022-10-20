@@ -353,7 +353,6 @@ $$
 
 #### 与基于人工特征工程的方法的性能比较
 
-{% endfolding %}
 
 **WN 的最佳参数**: 嵌入维度 **$k = 20$**, 学习率 **$\lambda = 0.01$**, **margin $\gamma = 2$**, 能量函数 **$d = L_1$**.
 
@@ -365,11 +364,8 @@ $$
 
 #### 链接预测
 
-{% folding red, TransE 总体实验结果 %}
-
 As expected, the `filtered` setting provides `lower mean ranks` and `higher` *hits@10*, which we believe are `a clearer evaluation of the performance of the methods in link prediction`.
 
-`
 
 ### Conclusion and future work
 
