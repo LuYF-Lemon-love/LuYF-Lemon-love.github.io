@@ -389,9 +389,17 @@ Precion/recall curves of PCNN, PCNN+ONE, PCNN+AVE, PCNN+ATT
 
 #### 实例数量的影响分析
 
+![](https://cos.luyf-lemon-love.space/images/20221020203352.png)
+
 #### 与基于人工特征工程的方法的性能比较
 
-### Conclusion and future work
+![](https://cos.luyf-lemon-love.space/images/20221020203439.png)
+
+#### 案例分析
+
+![](https://cos.luyf-lemon-love.space/images/20221020203630.png)
+
+### Conclusion and Future Works
 
 ## 代码实现
 
