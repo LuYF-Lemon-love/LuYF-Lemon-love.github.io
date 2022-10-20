@@ -68,7 +68,9 @@ date: 2022-10-19 12:23:16
 
 8. Sebastian Riedel, Limin Yao, and Andrew McCallum. 2010. Modeling relations and their mentions without labeled text. In Proceedings of ECML-PKDD, pages 148–163.
 
+<div id = "9"></div>
 
+9. https://code.google.com/p/word2vec/ .
 
 ## CNN+ATT 原论文学习笔记
 
@@ -347,30 +349,33 @@ $$
 
 ##### 词嵌入
 
+使用 **word2vec**[<sup>9</sup>](#9) 工具在 **NYT 语料库**训练**词嵌入**. 将**语料库**中**出现超过 100 次的单词**保留为**词汇**. 当一个实体有多个单词时, **连接** (**concatenate**) 它的单词.
+
+##### 参数设置
+
+在**训练集**上使用**三折交叉验证** (**three-fold validation**) 调整模型, 使用网格搜索 **(grid search)** 确定最优参数.
+
+对于**训练**, 将**所有训练数据**的**迭代次数**设置为 **25**.
+
+最优超参数设置如下:
+
+|参数|值|
+|:-:|:-:|
+|卷积窗口大小  $l$|3|
+|句子表示维度  $d^c$|230|
+|词向量维度  $d^a$|50|
+|位置向量维度  $d^b$|5|
+|训练批次大小  $B$|160|
+|学习率  $\lambda$|0.01|
+|Dropout probability  $p$|0.5|
+
 #### 选择性注意力机制的有效性验证
 
 #### 实例数量的影响分析
 
 #### 与基于人工特征工程的方法的性能比较
 
-
-**WN 的最佳参数**: 嵌入维度 **$k = 20$**, 学习率 **$\lambda = 0.01$**, **margin $\gamma = 2$**, 能量函数 **$d = L_1$**.
-
-**FB15K 的最佳参数**: 嵌入维度 **$k = 50$**, 学习率 **$\lambda = 0.01$**, **margin $\gamma = 1$**, 能量函数 **$d = L_1$**.
-
-**FB1M 的最佳参数**: 嵌入维度 **$k = 50$**, 学习率 **$\lambda = 0.01$**, **margin $\gamma = 1$**, 能量函数 **$d = L_2$**.
-
-对于所有数据集, 最多训练 `1000 epochs`, 可以参考验证集上的平均排名 (raw) 使用提前停止获得最佳模型.
-
-#### 链接预测
-
-As expected, the `filtered` setting provides `lower mean ranks` and `higher` *hits@10*, which we believe are `a clearer evaluation of the performance of the methods in link prediction`.
-
-
 ### Conclusion and future work
-
-**TransE** 应用一共有三个: **知识图谱补全** (Link prediction), 知识表示, 嵌入到关系抽取模型中.
-
 
 ## 代码实现
 
