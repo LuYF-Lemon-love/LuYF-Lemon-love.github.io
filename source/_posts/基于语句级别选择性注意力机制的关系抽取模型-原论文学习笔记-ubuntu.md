@@ -371,6 +371,22 @@ $$
 
 #### 选择性注意力机制的有效性验证
 
+**句子编码器**:
+
+1. the **CNN** model proposed in (Zeng et al., 2014)[<sup>6</sup>](#6)
+
+2. the **PCNN** model proposed in (Zeng et al., 2015)[<sup>4</sup>](#4)
+
+比较了**两种 CNN**, 它们**带有句子级别注意力机制的版本 (ATT)**, 它们的**朴素版本 (AVE)**, 它们的**多实例学习方法**[<sup>4</sup>](#4) (the at-least-one multi-instance learning, ONE) 的**表现**.
+
+Precion/recall curves of CNN, CNN+ONE, CNN+AVE, CNN+ATT
+
+![](https://cos.luyf-lemon-love.space/images/20221020185854.png)
+
+Precion/recall curves of PCNN, PCNN+ONE, PCNN+AVE, PCNN+ATT
+
+![](https://cos.luyf-lemon-love.space/images/20221020185913.png)
+
 #### 实例数量的影响分析
 
 #### 与基于人工特征工程的方法的性能比较
