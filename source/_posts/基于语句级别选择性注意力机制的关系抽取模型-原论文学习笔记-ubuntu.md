@@ -60,6 +60,10 @@ date: 2022-10-19 12:23:16
 
 6. Daojian Zeng, Kang Liu, Siwei Lai, Guangyou Zhou, and Jun Zhao. 2014. Relation classification via convolutional deep neural network. In Proceedings of COLING, pages 2335–2344.
 
+<div id = "7"></div>
+
+7. Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov. 2014. Dropout: A simple way to prevent neural networks from overfitting. JMLR, 15(1):1929–1958.
+
 
 ## CNN+ATT 原论文学习笔记
 
@@ -173,11 +177,11 @@ date: 2022-10-19 12:23:16
 
 **CNN** 的输入是句子 $x$ 的**原始单词**. 首先将**单词**转换成**低维向量**. 本论文的模型通过**词嵌入矩阵**将**输入的每一个单词**转换成一个**向量**. 此外, 为了**指定每个实体对的位置**, 为句子中的**每个单词**使用了**位置嵌入**.
 
-**词嵌入** (**Word Embeddings**). **词嵌入**旨在将**离散字符形式的单词**转换为**连续向量空间中分布式表示**, 从而**捕捉到单词句法和所对应的语义信息**. 给定一个包含 $m$ 个单词的句子 $x = \{w_1,w_2,\cdot\cdot\cdot,w_m\}$, 每一个单词 $w_i$ 都用一个**实值向量**表示. **单词的表示**用一个**词嵌入矩阵** **$V \in R^{d^a\times\mid V\mid}$** 的**列向量**来编码, 其中 **$V$** 是一个**固定大小的词汇表** (单词的总数固定).
+**词嵌入** (**Word Embeddings**). **词嵌入**旨在将**离散字符形式的单词**转换为**连续向量空间中分布式表示**, 从而**捕捉到单词句法和所对应的语义信息**. 给定一个包含 $m$ 个单词的句子 $x = \{w_1,w_2,\cdot\cdot\cdot,w_m\}$, 每一个单词 $w_i$ 都用一个**实值向量**表示. **单词的表示**用一个**词嵌入矩阵** **$V \in \mathbb{R}^{d^a\times\mid V\mid}$** 的**列向量**来编码, 其中 **$V$** 是一个**固定大小的词汇表** (单词的总数固定).
 
 **位置嵌入** (**Position Embeddings**). 在关系抽取的任务中, **靠近目标实体的单词**通常具有**决定目标实体间关系的信息**. 类似于 (Zeng et al., 2014)[<sup>6</sup>](#6) 的处理方法, **由实体对指定的位置嵌入**帮助 **CNN** 观察**每一单词**相对**头实体**或**尾实体**的**相对距离**, **位置嵌入被定义为当前词相对头实体或尾实体的相对距离的组合**. 例如, **“Bill_Gates is the founder of Microsoft.”**, **单词 “founder” 到头实体 “Bill_Gates” 的相对距离是 3**, **到尾实体 “Microsoft” 的相对距离是 2**.
 
-上图中, 假定**词嵌入的维度** $d^a$ 是 *3*, **位置嵌入的维度** $d^b$ 是 *1*. 最后, 将**所有单词的词嵌入和位置嵌入**拼接 (**concatenate**) 起来, 表示成一个**向量序列** $w = \{w_1,w_2,\cdot\cdot\cdot,w_m\}$, 其中 $w_i \in R^d$ ($d = d^a + d^b \times 2$).
+上图中, 假定**词嵌入的维度** $d^a$ 是 *3*, **位置嵌入的维度** $d^b$ 是 *1*. 最后, 将**所有单词的词嵌入和位置嵌入**拼接 (**concatenate**) 起来, 表示成一个**向量序列** $w = \{w_1,w_2,\cdot\cdot\cdot,w_m\}$, 其中 $w_i \in \mathbb{R}^d$ ($d = d^a + d^b \times 2$).
 
 ##### 卷积层, Max 池化层 和 非线性激活函数
 
@@ -191,7 +195,7 @@ date: 2022-10-19 12:23:16
 
 **卷积层**首先使用一个在句子上滑动的长度为 $l$ 的窗口**提取局部特征** (**一维卷积**), 上图中, 假定**滑动窗口的长度**是 *3*. 然后, 通过一个 **Max 池化层**结合**所有的局部特征**, 进而为**每一个输入的句子**得到**一个固定大小的向量**.
 
-**卷积**被定义为**一个向量序列** $w$ 和**一个卷积矩阵** $W \in R^{d^c \times (l \times d)}$ 间的操作, 其中 $d^c$ 是**句子嵌入的维度**. 向量 $q_i \in R^{l \times d}$ 是第 $i$ 个窗口中的**词嵌入 $w$ 序列**的**拼接**.
+**卷积**被定义为**一个向量序列** $w$ 和**一个卷积矩阵** $W \in \mathbb{R}^{d^c \times (l \times d)}$ 间的操作, 其中 $d^c$ 是**句子嵌入的维度**. 向量 $q_i \in \mathbb{R}^{l \times d}$ 是第 $i$ 个窗口中的**词嵌入 $w$ 序列**的**拼接**.
 
 $$
 q_i = w_{i - l + 1 : i}\quad\quad(1 \leq i \leq m + l - 1). \tag{1}
@@ -205,13 +209,13 @@ $$
 p_i = [Wq + b]_i \tag{2}
 $$
 
-其中 $b$ 是偏置向量. **句子向量** $x \in R^{d^c}$ 的第 $i$ 个元素:
+其中 $b$ 是偏置向量. **句子向量** $x \in \mathbb{R}^{d^c}$ 的第 $i$ 个元素:
 
 $$
 [x]_i = max(p_i), \tag{3}
 $$
 
-其中 $[x]_i$ 中的 $i$ 是**句子向量** $x \in R^{d^c}$ 的第 $i$ 个元素, $p_i$ 中的 $i$ 是第 $i$ 窗口.
+其中 $[x]_i$ 中的 $i$ 是**句子向量** $x \in \mathbb{R}^{d^c}$ 的第 $i$ 个元素, $p_i$ 中的 $i$ 是第 $i$ 窗口.
 
 进一步, PCNN (Zeng et al., 2015)[<sup>4</sup>](#4), 是一个 **CNN** 的变体, 采用了分段 Max 池化操作来进行关系抽取, 每一个卷积输出 $p_i$ 被头实体和尾实体划分成三个片段 $p_{i1},p_{i2},p_{i3})$. **最大池化过程**分别在三个片段中执行. 定义如下:
 
@@ -219,32 +223,97 @@ $$
 [x]_{ij} = max(p_{ij}), \tag{4}
 $$
 
-句子向量 $[x]_i$ 是三部分池化结果 $[x]_{ij}$ 的拼接.
+句子向量 $[x]_i$ 是三部分池化结果 $[x]_{ij}$ 的拼接 (concatenation).
 
-最终,
+最后, 是一个**非线性激活函数**, 如**双曲切线函数** (**the hyperbolic tangent**).
 
-训练集 *$S$* 是由`三元组` *$(h, \ell, t)$* 组成, *$h, t \in E$* (实体集合), *$\ell \in L$* (关系集合), **TransE** 学习`实体`和`关系`的`嵌入向量`. 嵌入向量的值为 *$R^k$* (*$k$* 是超参数).
-
-模型的基本思想是关系 *$\ell$* 是嵌入向量的平移, 例如: 如果 *$(h, \ell, t)$* 成立, *$h + \ell \approx t$*, 即 *$t$* 应该是 *$h + \ell$* 最近的邻居, 如果不成立, *$h + \ell$* 应该远离 *$t$*. 根据`能量框架` (`energy-based framework`), `三元组的能量`应该等价于 *$d(h + \ell, t)$*, `差异性度量`函数 *$d$* 是 **$L_1$** 或者 **$L_2-norm$**.
-
-为了`学习嵌入向量`, 在训练集上`最小化` **margin-based ranking criterion** 损失函数:
+**双曲正切函数**（$tanh$）是**双曲正弦函数**（$sinh$）与**双曲余弦函数**（$cosh$）的比值，其解析形式为：
 
 $$
-\mathcal{L} = \sum_{(h, \ell, t) \in S} \sum_{(h^{'}, \ell, t^{'}) \in S^{'}_{(h, \ell, t)}} [\gamma + d(h + \ell, t) - d(h^{'} + \ell, t^{'})]_{+}
+tanh x = \frac{sinh x}{cosh x} = \frac{e^x - e^{-x}}{e^x + e^{-x}}
 $$
 
-*$[x]_+$* 显示 *$x$* 正的部分, *$\gamma > 0$* 是一个 **margin** 超参数.
+**导数**
 
 $$
-S^{'}_{(h, \ell, t)} = \{(h^{'}, \ell, t)|h^{'} \in E\} \cup \{(h, \ell, t^{'})|t^{'} \in E\}.
+(tanh x)^{'} = sech^2x = \frac{1}{cosh^2x} = 1 - tanh^2x
 $$
 
-**负三元组** (`corrupted triplets`) 集合是`根据上面的公式`构造的, 是将`训练集三元组`中的 `head` 或者 `tail` 实体用`随机的实体`替换得到的 (**`head` 和 `tail` 不同时替换**). **损失函数会使`训练集中的三元组的能量`比`负三元组`低**. 实体作为三元组的 `head` 和 `tail` 时的嵌入向量相同.
+**图像**
 
-{% folding red, Xavier 初始值简介 %}
+![](https://cos.luyf-lemon-love.space/images/20221007184613.png)
 
+##### 面向多实例的选择性注意力机制
 
-{% endfolding %}
+假设有一个包含 $n$ 个句子的集合 $S = \{x_1,x_2,\cdot\cdot\cdot,x_n\}$, 每一个句子都包含**实体对** $(head,tail)$.
+
+为了**利用所有句子的信息**, 本论文的模型在预测关系 $r$ 时, 用**实值向量** $s$ 表示集合 $S$. 很简单，集合 $S$ 的表示取决于所有句子的表示 $x_1,x_2,\cdot\cdot\cdot,x_n$. 每个句子表示 **$x_i$** 包含对于输入句子 $x_i$ 其中实体对 $(head,tail)$ 是否包含关系 $r$ 的信息.
+
+集合向量 $s$ 被计算为这些句子向量 $x_i$ 的加权和:
+
+$$
+s = \sum_i a_ix_i, \tag{5}
+$$
+
+其中 $a_i$ 是每一个句子向量 $x_i$ 的权重.
+
+本论文中, $a_i$ 有两种方式的定义:
+
+**Average:** 假定所有的句子对于 $s$ 有相同的贡献, 所以集合 $S$ 的嵌入向量 $s$ 是所有句子向量的平均值:
+
+$$
+s = \sum_i \frac{1}{n}x_i, \tag{6}
+$$
+
+这是选择性注意力机制**最朴素的基线**.
+
+**Selective Attention:** 远程监督不可避免的带来**错误标注**的问题, 因此, 如果简单将每个句子视为**等价的**, 错误标注的句子将在训练和测试过程中带来**大量的噪声**. 因此, 本论文的模型使用选择性注意力机制降噪 (**de-emphasize the noisy sentence**). $a_i$ 进一步被定义为:
+
+$$
+a_i = \frac{exp(e_i)}{\sum_kexp(e_k)} \tag{7}
+$$
+
+其中, $e_i$ 被称为基于查询 (query-based) 的函数, 它**对输入句子 $x_i$ 和预测关系 $r$ 的匹配程度进行评分**. 本论文的模型选择在不同替代方案中**实现最佳性能的双线性形式** (the bilinear form):
+
+$$
+e_i = x_iAr, \tag{8}
+$$
+
+其中, **$A$** 是一个**加权对角矩阵** (a weighted diagonal matrix), **$r$ 是与关系 $r$ 相关联的查询向量**, 它指示了关系 $r$ 的表示.
+
+最终, 通过一个 **softmax** 层定义了**条件概率** $p(r\mid S, θ)$:
+
+$$
+p(r\mid S, θ) = \frac{exp(o_r)}{\sum_{k=1}^{n_r} exp(o_k)}, \tag{9}
+$$
+
+其中, $n_r$ 是**关系的总数**, $o$ 是神经网络的**最终输出**, 它表示对**所有关系类型**的**预测评分**, 被定义为:
+
+$$
+o = Ms + d. \tag{10}
+$$
+
+其中 $d \in \mathbb{R}^{n_r}$ 是一个**偏置向量**, $M$ 是**所有关系类型的表示矩阵** (即**所有关系类型对应的特征向量**所构成的**矩阵**).
+
+>(Zeng et al., 2015)[<sup>4</sup>](#4)follows the assumption that **at least one mention of the entity pair will reflect their relation**, and **only uses the sentence with the highest probability in each set for training**. Hence, the method which they adopted for multi-instance learning can be regarded as **a special case as our selective attention** when **the weight of the sentence with the highest probability is set to 1 and others to 0**.
+
+##### 优化和实现细节
+
+**目标函数**. **交叉熵误差** (cross entropy error), 定义如下:
+
+$$
+J(θ) = \sum_{i=1}^{s} log p(r_i \mid S_i, θ), \tag{11}
+$$
+
+其中, $s$ 是句子的个数, $θ$ 是模型的全部参数, $r_i$ 中的 $i$ 是第 $i$ 个关系, $S_i$ 中的 $i$ 是第 $i$ 个句子. 优化方法是**随机梯度下降** (stochastic gradient descent, **SGD**). 从训练集中**随机选择一个小批次** (mini-batch) 迭代训练直到模型收敛.
+
+在最终的输出层使用 **dropout** (Srivastava et al., 2014)[<sup>7</sup>](#7) 预防过拟合. **dropout** 被定义为与一个向量 $h$ 的**对应元素的乘法** (**element-wise multiplication**), 该向量的元素是概率为 $p$ 的伯努利随机变量 (**Bernoulli random variables**), 因此公式 $(10)$ 被重写为:
+
+$$
+o = M(s \circ h) + d. \tag{12}
+$$
+
+在测试阶段, 学习到的集合表示被 $p$ 缩放, 即 $\hat{s_i} = ps_i$. 缩放过的集合向量 $\hat{o_i}$ 最终被用于预测关系.
 
 ### 实验
 
