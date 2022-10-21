@@ -250,7 +250,7 @@ $$
 
 ![](https://cos.luyf-lemon-love.space/images/20221007184613.png)
 
-##### 面向多实例的选择性注意力机制
+#### 面向多实例的选择性注意力机制
 
 假设有一个包含 $n$ 个句子的集合 $S = \{x_1,x_2,\cdot\cdot\cdot,x_n\}$, 每一个句子都包含**实体对** $(head,tail)$.
 
@@ -304,7 +304,7 @@ $$
 
 >(Zeng et al., 2015)[<sup>4</sup>](#4)follows the assumption that **at least one mention of the entity pair will reflect their relation**, and **only uses the sentence with the highest probability in each set for training**. Hence, the method which they adopted for multi-instance learning can be regarded as **a special case as our selective attention** when **the weight of the sentence with the highest probability is set to 1 and others to 0**.
 
-##### 优化和实现细节
+#### 优化和实现细节
 
 **目标函数**. **交叉熵误差** (cross entropy error), 定义如下:
 
