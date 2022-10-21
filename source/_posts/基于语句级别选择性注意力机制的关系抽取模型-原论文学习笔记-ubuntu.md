@@ -84,7 +84,7 @@ date: 2022-10-19 12:23:16
 
 ### **介绍**
 
-最近几年, 各种大型知识库 (**Freebae**, **DBpedia**, **YAGO**) 已经被建立和广泛地应用于许多**自然语言处理** (natural language processing, NLP) 任务, 包括 **web search** 和 **question answering**. 这些知识库是由大量三元组 (格式为 (*Microsoft*, *founder*, *Bill Gates*)) 组成的.
+最近几年, 各种大型知识库 (**Freebase**, **DBpedia**, **YAGO**) 已经被建立和广泛地应用于许多**自然语言处理** (natural language processing, NLP) 任务, 包括 **web search** 和 **question answering**. 这些知识库是由大量三元组 (格式为 (*Microsoft*, *founder*, *Bill Gates*)) 组成的.
 
 **关系抽取** (relation extraction, RE) —— 从纯文本生成关系数据的过程, 是一个自然语言处理的重要任务.
 
