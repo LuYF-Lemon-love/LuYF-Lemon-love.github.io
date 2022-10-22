@@ -77,6 +77,8 @@ date: 2022-09-28 14:52:14
 
 27. [sort](https://cplusplus.com/reference/algorithm/sort/)
 
+28. [fabs](https://cplusplus.com/reference/cmath/fabs/)
+
 # `C Library`
 
 ## `<cmath>` (math.h)
@@ -130,6 +132,52 @@ int main ()
 
 ```bash
 The exponential value of 5.000000 is 148.413159.
+```
+
+### Other functions
+
+- `fabs`: Compute absolute value (function)
+
+#### fabs
+
+`fabs`: https://cplusplus.com/reference/cmath/fabs/ 。
+
+`double fabs (double x);`
+
+**`Compute absolute value`**
+
+Returns the `absolute value` of `x: |x|`.
+
+**`Parameters`**
+
+**x**
+
+1. Value whose absolute value is returned.
+
+**`Return Value`**
+
+The absolute value of `x`.
+
+**`Example`**
+
+```c++
+/* fabs example */
+#include <stdio.h>      /* printf */
+#include <math.h>       /* fabs */
+
+int main ()
+{
+  printf ("The absolute value of 3.1416 is %f\n", fabs (3.1416) );
+  printf ("The absolute value of -10.6 is %f\n", fabs (-10.6) );
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+The absolute value of 3.1416 is 3.141600
+The absolute value of -10.6 is 10.600000
 ```
 
 ## `<cstdio>` (stdio.h)
