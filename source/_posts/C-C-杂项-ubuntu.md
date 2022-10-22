@@ -73,6 +73,10 @@ date: 2022-09-28 14:52:14
 
 25. [memcmp](https://cplusplus.com/reference/cstring/memcmp/)
 
+26. [`<algorithm>`](https://cplusplus.com/reference/algorithm/)
+
+27. [sort](https://cplusplus.com/reference/algorithm/sort/)
+
 # `C Library`
 
 ## `<cmath>` (math.h)
@@ -1354,6 +1358,106 @@ int main ()
 pi is 3.141593
 28 is a perfect number
 ```
+
+## `<algorithm>`
+
+`<algorithm>`: https://cplusplus.com/reference/algorithm/ 。
+
+`<algorithm>`: Standard Template Library: Algorithms.
+
+### Sorting
+
+- `sort`: Sort elements in range (function template)
+
+#### `std::sort`
+
+`std::sort`: https://cplusplus.com/reference/algorithm/sort/ 。
+
+```c++
+default (1)	
+template <class RandomAccessIterator>  void sort (RandomAccessIterator first, RandomAccessIterator last);
+custom (2)	
+template <class RandomAccessIterator, class Compare>  void sort (RandomAccessIterator first, RandomAccessIterator last, Compare comp);
+```
+
+**`Sort elements in range`**
+
+`Sorts` the elements in the range `[first,last)` into `ascending order`.
+
+The elements are compared using `operator<` for the `first` version, and `comp` for the `second`.
+
+Equivalent elements `are not guaranteed to keep their original relative order` (see `stable_sort`).
+
+**`Parameters`**
+
+**first, last**
+
+1. `Random-access iterators` to the initial and final positions of the sequence to be sorted. The range used is `[first,last)`, which contains all the elements between `first` and `last`, including the element pointed by `first` but not the element pointed by `last`.
+
+2. `RandomAccessIterator` shall point to a type for which `swap` is properly defined and which is both `move-constructible` and `move-assignable`.
+
+**comp**
+
+1. Binary function that accepts `two elements` in the range as arguments, and returns a value convertible to `bool`. `The value returned indicates whether the element passed as first argument is considered to go before the second in the specific strict weak ordering it defines`.
+
+2. The function `shall not modify any of its arguments`.
+
+3. This can either be `a function pointer or a function object`.
+
+**`Return Value`**
+
+none.
+
+**`Example`**
+
+```c++
+// sort algorithm example
+#include <iostream>     // std::cout
+#include <algorithm>    // std::sort
+#include <vector>       // std::vector
+
+bool myfunction (int i,int j) { return (i<j); }
+
+struct myclass {
+  bool operator() (int i,int j) { return (i<j);}
+} myobject;
+
+int main () {
+  int myints[] = {32,71,12,45,26,80,53,33};
+  std::vector<int> myvector (myints, myints+8);               // 32 71 12 45 26 80 53 33
+
+  // using default comparison (operator <):
+  std::sort (myvector.begin(), myvector.begin()+4);           //(12 32 45 71)26 80 53 33
+
+  // using function as comp
+  std::sort (myvector.begin()+4, myvector.end(), myfunction); // 12 32 45 71(26 33 53 80)
+
+  // using object as comp
+  std::sort (myvector.begin(), myvector.end(), myobject);     //(12 26 32 33 45 53 71 80)
+
+  // print out content:
+  std::cout << "myvector contains:";
+  for (std::vector<int>::iterator it=myvector.begin(); it!=myvector.end(); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
+
+  return 0;
+}
+```
+
+{% label 可能的输出 pink %}
+
+```bash
+myvector contains: 12 26 32 33 45 53 71 80
+```
+
+**`Complexity`**
+
+On average, `linearithmic` in the distance between `first` and `last`: `Performs approximately N*log2(N) (where N is this distance) comparisons of elements, and up to that many element swaps (or moves)`.
+
+**`Data races`**
+
+The objects in the range `[first,last)` are `modified`.
 
 # C++ 语法
 
