@@ -4,6 +4,8 @@ tags:
   - Linux
   - Ubuntu
   - Python
+  - Git
+  - Github
 categories: 杂项
 description: 介绍一些 Linux 杂项，包括：Linux 命令、Linux 系统问题。
 cover: 'https://cos.luyf-lemon-love.space/images/不朽堡垒.png'
@@ -52,6 +54,8 @@ date: 2022-09-28 12:04:25
 16. [Linux 或 Mac OS 系统通过 SCP 上传文件到 Linux 轻量应用服务器](https://cloud.tencent.com/document/product/1207/53215)
 
 17. [Ubuntu22 超nice的QQ(Icalingua++)安装步骤，拒绝走弯路！！](https://blog.csdn.net/qq_47933705/article/details/127713870)
+
+18. [详解Github的.gitignore忽略文件](https://blog.csdn.net/ytusdc/article/details/122189073)
 
 ## wget 命令
 
@@ -864,6 +868,46 @@ sudo dpkg -i icalingua_2.7.7_amd64.deb
 6. 输入账号密码登录 (其他选项都默认).
 
 ![](https://cos.luyf-lemon-love.space/images/20221126182735.png)
+
+## `.gitignore` 文件
+
+在 `Git` 中, 如果想忽略掉某个文件, 不让这个文件提交到版本库中, 可以使用 `.gitignore` 文件.
+
+`.gitignore` 文件的创建:
+
+```shell
+# 在相应仓库的根目录中
+vim    .gitignore
+```
+
+该文件的每一行保存了一个匹配的规则, `e.g.`:
+
+```
+# 此为注释 – 将被 Git 忽略
+*.a       # 忽略所有 .a 结尾的文件
+!lib.a    # 但 lib.a 除外
+/TODO     # 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO
+build/    # 忽略 build/ 目录下的所有文件
+doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
+```
+
+`.gitignore` 文件的格式规范:
+
+1. `#` 为注释.
+
+2. 可以使用 `shell` 的`正则表达式`来进行模式匹配.
+
+3. `匹配模式`最后为 `/` 表示`忽略的是目录`.
+
+4. 使用 `!` 表示取反, (例如, 目录中包含 `test.a`, 并且 `gitignore` 文件包含 `*.[oa]`, 如果加入 `!test.a` 表明`忽略除 test.a 文件以外的所有后缀名为 .a 或者 .o 的文件`).
+
+>`.gitignore` 文件只能忽略没有被 `track` 的文件, 如果某些文件已经被纳入了版本管理中，则 `.gitignore` 文件是无效的.
+>
+>解决方法: 使用下面命令先把本地缓存删除 (改变成未被 track 的状态）.
+
+```shell
+git rm -r --cached 文件/文件夹名字
+```
 
 ## 结语
 
