@@ -51,6 +51,8 @@ date: 2022-09-28 12:04:25
 
 16. [Linux 或 Mac OS 系统通过 SCP 上传文件到 Linux 轻量应用服务器](https://cloud.tencent.com/document/product/1207/53215)
 
+17. [Ubuntu22 超nice的QQ(Icalingua++)安装步骤，拒绝走弯路！！](https://blog.csdn.net/qq_47933705/article/details/127713870)
+
 ## wget 命令
 
 `wget` 命令是 `Linux` 系统用于从 `Web` 上下载文件的命令行工具，支持 `HTTP`，`HTTPS` 和 `FTP` 协议。
@@ -836,6 +838,32 @@ luyanfeng@10.4.6.15's password:
 lyf                                           100%    0     0.0KB/s   00:00    
 $
 ```
+
+## Ubuntu 安装 QQ
+
+操作系统: Ubuntu 20.04.5 LTS
+
+### 步骤
+
+1. 进入 `Icalingua-plus-plus` 项目: https://github.com/Icalingua-plus-plus/Icalingua-plus-plus .
+
+2. 进入其 [Releases](https://github.com/Icalingua-plus-plus/Icalingua-plus-plus/releases).
+
+3. 下载相应 (操作系统) 的发行版本, 如 [icalingua_2.7.7_amd64.deb](https://github.com/Icalingua-plus-plus/Icalingua-plus-plus/releases/download/v2.7.7/icalingua_2.7.7_amd64.deb)
+
+4. 进入下载目录, 运行下面命令安装程序:
+
+```shell
+sudo dpkg -i icalingua_2.7.7_amd64.deb
+```
+
+5. 安装完成后，应用程序的图标如下:
+
+![](https://cos.luyf-lemon-love.space/images/20221126182329.png)
+
+6. 输入账号密码登录 (其他选项都默认).
+
+![](https://cos.luyf-lemon-love.space/images/20221126182735.png)
 
 ## 结语
 
