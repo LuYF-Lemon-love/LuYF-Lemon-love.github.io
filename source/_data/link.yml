@@ -379,6 +379,10 @@
       link: https://www.microsoft.com/zh-cn/edge
       avatar: https://cos.luyf-lemon-love.space/images/20220930175752.png
       descr: Microsoft Edge 是一款快速而安全的浏览器，可帮助您保护数据，节省时间和金钱
+    - name: Icalingua++
+      link: https://github.com/Icalingua-plus-plus/Icalingua-plus-plus
+      avatar: https://cos.luyf-lemon-love.space/images/20221126182329.png
+      descr: A client for QQ and more.electron
 
 - class_name: 娱乐和学习
   class_desc:
