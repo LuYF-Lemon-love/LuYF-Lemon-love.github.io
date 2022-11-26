@@ -146,7 +146,7 @@ file.readlines()
 
 - `前提`: `open()` 指定的模式为`可读模式` (`r`、`rb`、`r+`、`rb+`)。
 
-### np.unique() 方法
+## np.unique() 方法
 
 Returns the `sorted` `unique elements` of `an array`.
 
