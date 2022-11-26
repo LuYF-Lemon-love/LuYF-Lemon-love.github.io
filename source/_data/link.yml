@@ -222,6 +222,10 @@
       link: https://scikit-learn.org/stable/
       avatar: https://cos.luyf-lemon-love.space/images/20220928115228.png
       descr: scikit-learn 官网
+    - name: Hugging Face
+      link: https://huggingface.co/
+      avatar: https://cos.luyf-lemon-love.space/images/20221126220118.png
+      descr: The AI community building the future.
     - name: PyTorch Lightning
       link: https://pytorch-lightning.readthedocs.io/en/latest/
       avatar: https://cos.luyf-lemon-love.space/images/20220909122502.png
