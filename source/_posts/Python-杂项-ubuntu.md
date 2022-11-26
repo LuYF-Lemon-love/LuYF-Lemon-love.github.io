@@ -25,6 +25,8 @@ date: 2022-09-29 11:36:43
 
 4. [【Python】np.unique() 介绍与使用](https://blog.csdn.net/weixin_44211968/article/details/123772201)
 
+5. [fig.add_subplot(111)或者fig.add_subplot(234)的意义以及由来](https://blog.csdn.net/suanfajiegou/article/details/122609676)
+
 ## Python 注释
 
 1. 使用 `#` 进行单行注释：
@@ -278,6 +280,36 @@ unique(ar, return_index=False, return_inverse=False, return_counts=False, axis=N
     >>> np.repeat(values, counts)
     array([1, 2, 2, 2, 3, 4, 6])    # original order not preserved
 (END)
+```
+
+## fig.add_subplot() 方法
+
+`fig.add_subplot(xyz)` 是 `fig.add_subplot(ROW,COLUMN,POSITION)` 的简写形式, 其第一个参数表示`行数`, 第二个参数表示`列数`, 第三个参数表示你正在绘制图的`位置`.
+
+![](https://cos.luyf-lemon-love.space/images/20221126221354.png)
+
+生成上图的代码是:
+
+```python
+import matplotlib.pyplot as plt
+fig = plt.figure()
+fig.add_subplot(221)   # top left
+fig.add_subplot(222)   # top right
+fig.add_subplot(223)   # bottom left
+fig.add_subplot(224)   # bottom right 
+plt.show()
+```
+
+上面代码与下面代码是等效的:
+
+```python
+import matplotlib.pyplot as plt
+fig = plt.figure()
+fig.add_subplot(2,2,1)   # top left
+fig.add_subplot(2,2,2)   # top right
+fig.add_subplot(2,2,3)   # bottom left
+fig.add_subplot(2,2,4)   # bottom right
+plt.show()
 ```
 
 ## 结语
