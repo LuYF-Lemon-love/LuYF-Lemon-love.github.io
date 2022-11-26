@@ -52,6 +52,14 @@
       link: https://nlp.csai.tsinghua.edu.cn/~lzy/index_cn.html
       avatar: https://cos.luyf-lemon-love.space/images/20220910213547.png
       descr: 研究兴趣 -> 知识图谱与语义计算, 社会计算与计算社会科学.
+    - name: 西西嘛呦
+      link: https://www.cnblogs.com/xiximayou/
+      avatar: https://cos.luyf-lemon-love.space/images/20221126121540.png
+      descr: 你好，我是西西嘛呦.
+    - name: 闫令琪
+      link: https://sites.cs.ucsb.edu/~lingqi/index.html
+      avatar: https://cos.luyf-lemon-love.space/images/20221126122417.png
+      descr: 渲染界大佬.
 
 - class_name: 博客
   class_desc:
@@ -174,6 +182,14 @@
       link: https://github.com/pybind/pybind11
       avatar: https://cos.luyf-lemon-love.space/images/20220716142629.png
       descr: Seamless operability between C++11 and Python
+
+- class_name: 计算机图形学
+  class_desc:
+  link_list:
+    - name: GAMES101 - 现代计算机图形学入门
+      link: https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html
+      avatar: https://cos.luyf-lemon-love.space/images/20221126122219.png
+      descr: 全面而系统地介绍现代计算机图形学的四大组成部分.
 
 - class_name: 人工智能
   class_desc:
