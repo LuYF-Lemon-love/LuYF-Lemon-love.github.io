@@ -57,6 +57,8 @@ date: 2022-09-28 12:04:25
 
 18. [详解Github的.gitignore忽略文件](https://blog.csdn.net/ytusdc/article/details/122189073)
 
+19. [重定向符号> >>](https://blog.csdn.net/jpmsdn/article/details/86303615)
+
 ## wget 命令
 
 `wget` 命令是 `Linux` 系统用于从 `Web` 上下载文件的命令行工具，支持 `HTTP`，`HTTPS` 和 `FTP` 协议。
@@ -908,6 +910,14 @@ doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 ```shell
 git rm -r --cached 文件/文件夹名字
 ```
+
+## 重定向符号
+
+在 `linux` 系统中, `shell` 命令有重定向符号 `>` 和 `>>`.
+
+- `shell 命令 > test.txt`，表示向 `test.txt` 文件`重新添加内容`, `test.txt` 文件的内容会首先被清空.
+
+- `shell 命令 >> test.txt`，表示向 `test.txt` 文件追加内容, `test.txt` 文件原来的内容不会被清理掉.
 
 ## 结语
 
