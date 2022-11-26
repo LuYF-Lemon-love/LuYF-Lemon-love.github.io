@@ -79,6 +79,8 @@ date: 2022-09-28 14:52:14
 
 28. [fabs](https://cplusplus.com/reference/cmath/fabs/)
 
+29. [c_str](https://cplusplus.com/reference/string/string/c_str/)
+
 # `C Library`
 
 ## `<cmath>` (math.h)
@@ -1358,6 +1360,70 @@ int main ()
 `<string>`: https://cplusplus.com/reference/string/ 。
 
 `<string>`: Strings.
+
+### string
+
+- `c_str`: Get C string equivalent (public member function)
+
+#### `std::string::c_str`
+
+`std::string::c_str`: https://cplusplus.com/reference/string/string/c_str/ 。
+
+`const char* c_str() const;`
+
+**`Get C string equivalent`**
+
+Returns `a pointer` to `an array` that contains `a null-terminated sequence of characters` (i.e., a C-string) representing the current value of the string object.
+
+This array includes the same sequence of characters that make up `the value of the string object plus an additional terminating null-character ('\0') at the end`.
+
+**`Parameters`**
+
+**none**
+
+**`Return Value`**
+
+`A pointer` to `the c-string representation` of the string object's value..
+
+**`Example`**
+
+```c++
+// strings and c-strings
+#include <iostream>
+#include <cstring>
+#include <string>
+
+int main ()
+{
+  std::string str ("Please split this sentence into tokens");
+
+  char * cstr = new char [str.length()+1];
+  std::strcpy (cstr, str.c_str());
+
+  // cstr now contains a c-string copy of str
+
+  char * p = std::strtok (cstr," ");
+  while (p!=0)
+  {
+    std::cout << p << '\n';
+    p = std::strtok(NULL," ");
+  }
+
+  delete[] cstr;
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+Please
+split
+this
+sentence
+into
+tokens
+```
 
 ### Convert to strings
 
