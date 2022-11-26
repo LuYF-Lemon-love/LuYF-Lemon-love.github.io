@@ -158,6 +158,14 @@
       link: https://doc.qt.io/
       avatar: https://cos.luyf-lemon-love.space/images/20221126123456.png
       descr: QT 的官方文档.
+    - name: OpenCV
+      link: https://opencv.org/
+      avatar: https://cos.luyf-lemon-love.space/images/20221126144246.png
+      descr: OpenCV 官网.
+    - name: Eigen
+      link: https://eigen.tuxfamily.org/index.php?title=Main_Page
+      avatar: https://cos.luyf-lemon-love.space/images/20221126144801.png
+      descr: Eigen is a C++ template library for linear algebra.
 
 - class_name: Python
   class_desc:
