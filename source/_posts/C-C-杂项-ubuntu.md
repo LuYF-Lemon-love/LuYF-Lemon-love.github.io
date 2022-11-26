@@ -21,6 +21,16 @@ date: 2022-09-28 14:52:14
 
 操作系统：Ubuntu 20.04.4 LTS
 
+下面是各个章节的`快速索引`:
+
+1. [C Library](#1)
+
+2. [Miscellaneous headers](#2)
+
+3. [C++ 语法](#3)
+
+4. [计算机基础](#4)
+
 # 参考文档
 
 1. [可移植操作系统接口](https://baike.baidu.com/item/%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%8F%A3/12718298?fromtitle=POSIX&fromid=3792413&fr=aladdin)
@@ -82,6 +92,10 @@ date: 2022-09-28 14:52:14
 29. [c_str](https://cplusplus.com/reference/string/string/c_str/)
 
 30. [rand](https://cplusplus.com/reference/cstdlib/rand/)
+
+31. [ASCII](https://baike.baidu.com/item/ASCII/309296?fr=aladdin)
+
+<div id = "1"></div>
 
 # `C Library`
 
@@ -1436,6 +1450,8 @@ int main ()
 
 ```
 
+<div id = "2"></div>
+
 # Miscellaneous headers
 
 ## `<string>`
@@ -1656,6 +1672,8 @@ On average, `linearithmic` in the distance between `first` and `last`: `Performs
 
 The objects in the range `[first,last)` are `modified`.
 
+<div id = "3"></div>
+
 # C++ 语法
 
 ## 移位运算符
@@ -1665,6 +1683,16 @@ The objects in the range `[first,last)` are `modified`.
 `左移运算`是将一个`二进制位的操作数`按指定`移动的位数`向`左移位`，`移出位被丢弃`，右边的空位一律`补 0`。
 
 `右移运算`是将一个`二进制位的操作数`按指定`移动的位数`向`右移动`，`移出位被丢弃`，左边移出的空位或者`一律补 0`，或者`补符号位`，这`由不同的机器而定`。在使用`补码`作为`机器数`的机器中，正数的符号位为 `0`，负数的符号位为 `1`。`右移`对于`无符号类型`强制补 `0`，对于`有符号类型`续补`符号位`。
+
+<div id = "4"></div>
+
+# 计算机基础
+
+## ASCII
+
+`ASCII` (American Standard Code for Information Interchange)：`美国信息交换标准代码`是基于拉丁字母的一套电脑编码系统，主要用于显示`现代英语`和`其他西欧语言`。它是`最通用的信息交换标准`，并等同于国际标准 ISO/IEC 646。ASCII第一次以规范标准的类型发表是在 `1967` 年，最后一次更新则是在 `1986` 年，到目前为止共定义了 `128` 个字符。
+
+![](https://cos.luyf-lemon-love.space/images/20221126225117.png)
 
 # 结语
 
