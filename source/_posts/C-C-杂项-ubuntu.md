@@ -1383,7 +1383,7 @@ This array includes the same sequence of characters that make up `the value of t
 
 **`Return Value`**
 
-`A pointer` to `the c-string representation` of the string object's value..
+`A pointer` to `the c-string representation` of the string object's value.
 
 **`Example`**
 
