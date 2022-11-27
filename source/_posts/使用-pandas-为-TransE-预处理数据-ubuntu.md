@@ -41,7 +41,7 @@ date: 2022-11-27 14:06:55
 ## 生成目录
 
 ```shell
-!mkdir -p ../final_data
+$ mkdir -p ../final_data
 ```
 
 ## 导入第三方库
