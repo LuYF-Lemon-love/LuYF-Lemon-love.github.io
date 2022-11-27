@@ -59,6 +59,8 @@ date: 2022-09-28 12:04:25
 
 19. [重定向符号> >>](https://blog.csdn.net/jpmsdn/article/details/86303615)
 
+20. [ubuntu下常用apt命令介绍](https://www.jb51.net/article/250336.htm)
+
 ## wget 命令
 
 `wget` 命令是 `Linux` 系统用于从 `Web` 上下载文件的命令行工具，支持 `HTTP`，`HTTPS` 和 `FTP` 协议。
@@ -918,6 +920,62 @@ git rm -r --cached 文件/文件夹名字
 - `shell 命令 > test.txt`，表示向 `test.txt` 文件`重新添加内容`, `test.txt` 文件的内容会首先被清空.
 
 - `shell 命令 >> test.txt`，表示向 `test.txt` 文件追加内容, `test.txt` 文件原来的内容不会被清理掉.
+
+## apt 命令
+
+`apt-get` 全称 `Advanced Package Tool`, 是一款适用于 `Unix` 和 `Linux` 系统的高级包管理器. 主要用于自动从`互联网的软件仓库`中`搜索`、`安装`、`升级`、`卸载软件`或`操作系统`.
+
+>使用 `apt` 的主流 `Linux` 系统包括 `Debian` 和 `Ubuntu` 变异版本.
+
+### apt-get 和 apt-cache
+
+`apt-get` 和 `apt-cache` 命令一般需要 `root` 权限.
+
+|apt 命令|命令的功能|
+|:-:|:-:|
+|sudo apt-get update|更新源|
+|sudo apt-get install package|安装包|
+|sudo apt-get install package --reinstall|重新安装包|
+|sudo apt-get remove package|删除包|
+|sudo apt-get -f install|修复安装|
+|sudo apt-get remove package --purge|删除包，包括配置文件等|
+|sudo apt-get build-dep package|安装相关的编译环境|
+|sudo apt-get upgrade|更新已安装的包|
+|sudo apt-get dist-upgrade|升级系统|
+|sudo apt-get source package|下载该包的源代码|
+|sudo apt-get clean && sudo apt-get autoclean|清理无用的包|
+|sudo apt-get check|检查是否有损坏的依赖|
+|sudo apt-cache search package|搜索软件包|
+|sudo apt-cache show package|获取包的相关信息，如说明、大小、版本等|
+|sudo apt-cache depends package|了解使用该包依赖那些包|
+|sudo apt-cache rdepends package|查看该包被哪些包依赖|
+
+### apt
+
+`apt = apt-get、apt-cache 和 apt-config 中最常用命令选项的集合`. `apt` 可以看作 `apt-get` 和 `apt-cache` 命令的子集.
+
+### apt 和 apt-get 命令之间的区别
+
+虽然 `apt` 与 `apt-get` 有一些类似的命令选项, 但它并不能完全向下兼容 `apt-get` 命令. 也就是说, 可以用 `apt` 替换部分 `apt-get` 系列命令, 但不是全部.
+
+|apt 命令|取代的命令|命令的功能|
+|:-:|:-:|:-:|
+|apt install|apt-get install|安装软件包|
+|apt remove|apt-get remove|移除软件包|
+|apt purge|apt-get purge|移除软件包及配置文件|
+|apt update|apt-get update|刷新存储库索引|
+|apt upgrade|apt-get upgrade|升级所有可升级的软件包|
+|apt autoremove|apt-get autoremove|自动删除不需要的包|
+|apt full-upgrade|apt-get dist-upgrade|在升级软件包时自动处理依赖关系|
+|apt search|apt-cache search|搜索应用程序|
+|apt show|apt-cache show|显示安装细节|
+
+当然，`apt` 还有一些自己的命令：
+
+|新的 apt 命令|命令的功能|
+|:-:|:-:|
+|apt list|根据名称列出软件包|
+|apt edit-sources|编辑软件源信息文件|
 
 ## 结语
 
