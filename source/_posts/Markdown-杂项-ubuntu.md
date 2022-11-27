@@ -19,6 +19,8 @@ date: 2022-11-26 19:59:54
 
 1. [CSDN Markdown 公式编号](https://blog.csdn.net/chengyq116/article/details/91175054)
 
+2. [MarkDown数学公式基本语法](https://blog.csdn.net/qq_38342510/article/details/124064158)
+
 ## 数学公式编号
 
 `\tag{n}` 标签为`数学公式`设置编号, `n` 为编号, 公式编号`右对齐`.
