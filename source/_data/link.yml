@@ -186,6 +186,10 @@
       link: https://numpy.org/
       avatar: https://cos.luyf-lemon-love.space/images/20220928114956.png
       descr: NumPy 官网
+    - name: Pandas
+      link: https://www.pypandas.cn/
+      avatar: https://cos.luyf-lemon-love.space/images/20221127152326.png
+      descr: Pandas中文网、Pandas官方中文文档。
 
 - class_name: 混合编程
   class_desc:
