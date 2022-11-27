@@ -29,6 +29,8 @@ date: 2022-10-07 17:48:54
 
 4. [对数公式](https://baike.baidu.com/item/%E5%AF%B9%E6%95%B0%E5%85%AC%E5%BC%8F/5557846)
 
+5. [导数表](https://baike.baidu.com/item/%E5%AF%BC%E6%95%B0%E8%A1%A8/10889755?fr=aladdin)
+
 ## 双曲正切函数
 
 `双曲正切函数`（$tanh$）是`双曲正弦函数`（$sinh$）与`双曲余弦函数`（$cosh$）的比值，其解析形式为：
@@ -140,6 +142,12 @@ log_ab = \frac{log_cb}{log_ca}
 $$
 
 ---
+
+## 基本初等函数求导公式
+
+更详细的求导公式可以参考: [导数表](https://baike.baidu.com/item/%E5%AF%BC%E6%95%B0%E8%A1%A8/10889755?fr=aladdin).
+
+![](https://cos.luyf-lemon-love.space/images/20221127154639.png)
 
 ## 结语
 
