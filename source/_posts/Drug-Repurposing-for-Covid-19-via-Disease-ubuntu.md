@@ -23,7 +23,7 @@ date: 2022-11-30 13:13:08
 
 Figure: **Interactions in the DRKG**. The number next to an edge indicates **the number of relation-types for that entity-pair** in DRKG.
 
-项目地址: https://github.com/gnn4dr/DRKG .
+原项目地址: https://github.com/gnn4dr/DRKG .
 
 操作系统：**Ubuntu 20.04.5 LTS**
 
@@ -63,14 +63,14 @@ $ wget https://dgl-data.s3-us-west-2.amazonaws.com/dataset/DRKG/drkg.tar.gz
 
 ### 版本
 
-参考的 Python 版本:
+Python 版本 (参考):
 
 ```shell
 $ python --version
 Python 3.9.7
 ```
 
-参考的 Python 包版本:
+Python 包版本 (参考):
 
 ```shell
 Package                            Version
