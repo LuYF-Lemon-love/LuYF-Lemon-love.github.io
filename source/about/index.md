@@ -5,9 +5,7 @@ type: "about"
 top_img: https://cos.luyf-lemon-love.space/images/20220511161907.png
 ---
 
-Hi，我是卢艳峰，中国药科大学理学院研究生，知识图谱实验室，师从侯凤贞老师，我喜欢 C++ 编程！
-
-
+Hi，我是卢艳峰，中国药科大学理学院研究生，知识图谱实验室，师从侯凤贞教授，我喜欢 C++ 编程！
 
 邮箱：luyanfeng_nlp@qq.com
 
