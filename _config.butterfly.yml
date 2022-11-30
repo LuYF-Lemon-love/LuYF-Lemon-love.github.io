@@ -227,7 +227,7 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img: https://cos.luyf-lemon-love.space/images/wallpaper.jpg
+index_img: https://cos.luyf-lemon-love.space/images/home.jpg # https://cos.luyf-lemon-love.space/images/wallpaper.jpg
 
 # If the banner of page not setting, it will show the top_img
 default_top_img: https://cos.luyf-lemon-love.space/images/20220511161548.png
@@ -765,6 +765,7 @@ subtitle:
   sub:
     - 我宁愿犯错，也不愿什么都不做。
     - 弱小和无知不是生存的障碍，傲慢才是！
+    - 世界上只有一种真正的英雄主义，那就是在认清生活的真相后依然热爱生活。
     #- I'd rather make a mistake than do nothing.
 
 # Loading Animation (加載動畫)
