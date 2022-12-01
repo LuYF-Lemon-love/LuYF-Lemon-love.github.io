@@ -1772,6 +1772,7 @@ Type of member `second`, aliased as `second_type`.
 **`Member variables`**
 
 |member variable|definition|
+|:-:|:-:|
 |first|The first value in the pair|
 |second|The second value in the pair|
 
