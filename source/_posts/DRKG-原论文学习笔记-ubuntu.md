@@ -16,7 +16,7 @@ date: 2022-11-30 20:13:30
 
 ## 前言
 
-**DRKG** 是一个由 **Amazon Web Services Shanghai AI Lab** 联合多家科研机构**开源的综合生物知识图谱**, 涉及**基因**、**药物**、**疾病**、**生物学过程**、**副作用和症状**. **DRKG** 包括 **DrugBank**、**Hetionet**、**GNBR**、**String**、**IntAct** 和 **DGIdb** 六个现有数据库的信息, 以及**近期新冠病毒的相关医学文献中挖掘的数据**. **DRKG** 知识图谱包含属于 **13** 种实体类型的 **97,238** 个实体, 以及属于 **107** 种关系类型的 **5,874,261** 个三元组数据. 同一实体对之间可能存在多种交互类型.
+**DRKG** 是一个由 **Amazon Web Services Shanghai AI Lab** 联合多家科研机构**开源的综合生物知识图谱**, 涉及**基因**、**药物**、**疾病**、**生物学过程**、**副作用和症状**. **DRKG** 包括 **DrugBank**、**Hetionet**、**GNBR**、**String**、**IntAct** 和 **DGIdb** 六个现有数据库的信息, 以及**从近期新冠病毒的相关医学文献中挖掘的数据**. **DRKG** 知识图谱包含属于 **13** 种实体类型的 **97,238** 个实体, 以及属于 **107** 种关系类型的 **5,874,261** 个三元组. 同一实体对之间可能存在多种交互类型.
 
 **DRKG** 原论文链接: [DRKG Drug Repurposing Knowledge Graph](https://github.com/gnn4dr/DRKG/blob/master/DRKG%20Drug%20Repurposing%20Knowledge%20Graph.pdf).
 
