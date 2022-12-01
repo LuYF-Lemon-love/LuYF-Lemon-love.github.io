@@ -1659,7 +1659,7 @@ Conversely, `begin` is `overloaded` (with a different definition) in headers `<i
 
 **arr**
 
-An array.
+1. An array.
 
 **`Return Value`**
 
