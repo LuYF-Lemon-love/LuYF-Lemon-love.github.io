@@ -105,6 +105,8 @@ date: 2022-09-28 14:52:14
 
 33. [pair](https://cplusplus.com/reference/utility/pair/)
 
+34. [begin](https://cplusplus.com/reference/iterator/begin/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -1609,6 +1611,98 @@ On average, `linearithmic` in the distance between `first` and `last`: `Performs
 **`Data races`**
 
 The objects in the range `[first,last)` are `modified`.
+
+## `<iterator>`
+
+`<iterator>`: https://cplusplus.com/reference/iterator/ 。
+
+`<iterator>`: Iterator definitions (header).
+
+### Iterator operations
+
+- `begin`: Iterator to beginning (function template)
+
+#### `std::begin`
+
+`std::begin`: https://cplusplus.com/reference/iterator/begin/ 。
+
+```c++
+container (1)	
+template <class Container>  auto begin (Container& cont) -> decltype (cont.begin());template <class Container>  auto begin (const Container& cont) -> decltype (cont.begin());
+array (2)	
+template <class T, size_t N>  T* begin (T(&arr)[N]);
+```
+
+**`Iterator to beginning`**
+
+Returns `an iterator pointing` to `the first element` in the sequence:
+
+**(1) Container**
+
+The function returns `cont.begin().`
+
+**(2) Array**
+
+The function returns `the array-to-pointer conversion` of its argument.
+
+If the sequence is `empty`, the returned value `shall not be dereferenced`.
+
+These function templates `are defined in multiple headers`: Each of these headers includes the generic templates for all container and array types and not simply a specific overload. The headers are: `<iterator>`, `<array>`, `<deque>`, `<forward_list>`, `<list>`, `<map>`, `<regex>`, `<set>`, `<string>`, `<unordered_map>`, `<unordered_set>` and `<vector>`.
+
+Conversely, `begin` is `overloaded` (with a different definition) in headers `<initializer_list>` and `<valarray>`.
+
+**`Parameters`**
+
+**cont**
+
+1. An object of a class type for which member `begin` is defined.
+
+**arr**
+
+An array.
+
+**`Return Value`**
+
+For `(1)`, the same as returned by `cont.begin()`.
+
+For `(2)`, `a pointer to the first element in the array`.
+
+**`Example`**
+
+```c++
+// std::begin / std::end example
+#include <iostream>     // std::cout
+#include <vector>       // std::vector, std::begin, std::end
+
+int main () {
+  int foo[] = {10,20,30,40,50};
+  std::vector<int> bar;
+
+  // iterate foo: inserting into bar
+  for (auto it = std::begin(foo); it!=std::end(foo); ++it)
+    bar.push_back(*it);
+
+  // iterate bar: print contents:
+  std::cout << "bar contains:";
+  for (auto it = std::begin(bar); it!=std::end(bar); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
+
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+bar contains: 10 20 30 40 50
+```
+
+**`Data races`**
+
+The argument is `accessed` but `not modified`.
+
+`None of the elements` in the sequence are accessed by the call, but `the iterator returned` can be used to `access or modify them`.
 
 ## `<string>`
 
