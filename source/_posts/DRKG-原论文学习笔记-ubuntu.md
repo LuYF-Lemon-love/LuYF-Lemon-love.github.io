@@ -178,7 +178,7 @@ sudo pip3 install torch==1.5.0+cu101 torchvision==0.6.0+cu101 -f https://downloa
 
 使用下面命令安装 [DGL](https://www.dgl.ai/) (一个图神经网络框架). 它会安装支持 **CUDA** 的 **DGL**.
 
-```
+```shell
 sudo pip3 install dgl-cu101
 ```
 
@@ -186,53 +186,69 @@ sudo pip3 install dgl-cu101
 
 #### Install DGL-KE
 
-If you want to training the model with notebooks (e.g., using Train_embeddings.ipynb or Edge_score_analysis.ipynb) at [knowledge-graph-embedding-based-analysis-of-drkg], you need to install both DGL and [DGL-KE](https://github.com/awslabs/dgl-ke) package here.
-DGL-KE can work with DGL >= 0.4.3 (either CPU or GPU)
-```
+如果你想用这些位于 **embedding_analysis** 的 notebooks (Train_embeddings.ipynb or Edge_score_analysis.ipynb) 训练模型, 你需要安装 DGL and [DGL-KE](https://github.com/awslabs/dgl-ke), DGL-KE 能够和 DGL (版本 >= 0.4.3, either CPU or GPU) 一起工作.
+
+```shell
 sudo pip3 install dglke
 ```
 
-## Notebooks for analyzing DRKG
-We provide a set of notebooks to analyze DRKG. Some of the notebooks use the tools installed in the previous section.
+### Notebooks for analyzing DRKG
 
-### Basic Graph Analysis of DRKG
-To evaluate the structural similarity among a pair of relation types we compute their Jaccard similarity coefficient and the overlap among the two edge types via the overlap coeffcient. This analysis is given in
- - [Jaccard_scores_among_all_edge_types_in_DRKG.ipynb](raw_graph_analysis/Jaccard_scores_among_all_edge_types_in_DRKG.ipynb)
+提供了很多 notebooks 分析 DRKG. 其中一些 notebooks 使用前面安装的工具.
 
-### Knowledge Graph Embedding Based Analysis of DRKG
-We analyze the extracted DRKG by learning a TransE KGE model that utilizes the ![$\ell_2$](https://render.githubusercontent.com/render/math?math=%24%5Cell_2%24) distance. As DRKG combines information from different data sources, we want to verify that meaningful entity and relation embeddings can be generated using knowledge graph embedding technology.
+#### Basic Graph Analysis of DRKG
 
-We split the edge triplets in training, validation and test sets as follows 90%, 5%, and 5% and train the KGE model as shown in following notebook:
-- [Train_embeddings.ipynb](embedding_analysis/Train_embeddings.ipynb)
+为了评估一对关系类型之间的结构相似性, 通过重叠系数计算两个边类型的 Jaccard 相似系数和重叠.
 
-Finally, we obtain the entity and relation embeddings for the DRKG. We can do various embedding based analysis as provided in the following notebooks:
- - [Relation_similarity_analysis.ipynb](embedding_analysis/Relation_similarity_analysis.ipynb), analyzing the generate relation embedding similarity.
- - [Entity_similarity_analysis.ipynb](embedding_analysis/Entity_similarity_analysis.ipynb), analyzing the generate entity embedding similarity.
- - [Edge_score_analysis.ipynb](embedding_analysis/Edge_score_analysis.ipynb), evaluating whether the learned KGE model can predict the edges of DRGK
- - [Edge_similarity_based_on_link_recommendation_results.ipynb](embedding_analysis/Edge_similarity_based_on_link_recommendation_results.ipynb), evaluating how similar are the predicted links among different relation types.
+分析的脚本在:
 
-### Drug Repurposing Using Pretrained Model for COVID-19
-We present an example of using pretrained DRKG model for drug repurposing for COVID-19. In the example, we directly use the pretrained model provided at [DRKG dataset](#drkg-dataset) and proposed 100 drugs for COVID-19. The following notebook provides the details:
+- [Jaccard_scores_among_all_edge_types_in_DRKG.ipynb](https://github.com/gnn4dr/DRKG/blob/master/raw_graph_analysis/Jaccard_scores_among_all_edge_types_in_DRKG.ipynb)
 
- - [COVID-19_drug_repurposing.ipynb](drug_repurpose/COVID-19_drug_repurposing.ipynb)
+#### Knowledge Graph Embedding Based Analysis of DRKG
 
-### DRKG with DGL
-We provide a notebook, with example of using DRKG with Deep Graph Library (DGL).
+通过学习一个利用 ![$\ell_2$](https://render.githubusercontent.com/render/math?math=%24%5Cell_2%24) 距离的 TransE KGE 模型分析 DRKG. 由于 DRKG 结合了来自不同数据源的信息, 我们希望验证使用知识图谱嵌入技术可以生成有意义的实体和关系嵌入.
 
-The following notebook provides an example of building a heterograph from DRKG in DGL; and some examples of queries on the DGL heterograph:
- - [loading_drkg_in_dgl.ipynb](drkg_with_dgl/loading_drkg_in_dgl.ipynb)
+将三元组分成训练集 (90%), 验证集 (5%), 测试集 (5%), 使用下面的 notebook 训练 KGE 模型:
 
-## Additional Information for DrugBank
+- [Train_embeddings.ipynb](https://github.com/gnn4dr/DRKG/blob/master/embedding_analysis/Train_embeddings.ipynb)
 
-Some additional information about compounds from DrugBank is included in [drugbank_info](/drugbank_info), including the 
-type and weight of drugs, and the SMILES of small-molecule drugs.
+最终, 得到了 DRKG 实体和关系的嵌入. 能使用下面的 notebooks 进行嵌入分析.
 
-## Licence
-This project is licensed under the Apache-2.0 License. However, the DRKG integrates data from many resources and users should consider the licensing of each source (see this [table](https://github.com/shuix007/COVID-19-KG/blob/master/licenses/Readme.md)) . We apply a license attribute on a per node and per edge basis for sources with defined licenses. 
+- [Relation_similarity_analysis.ipynb](https://github.com/gnn4dr/DRKG/blob/master/embedding_analysis/Relation_similarity_analysis.ipynb), 分析生成的关系嵌入相似性.
 
-## Cite
+- [Entity_similarity_analysis.ipynb](https://github.com/gnn4dr/DRKG/blob/master/embedding_analysis/Entity_similarity_analysis.ipynb), 分析生成的实体嵌入相似性.
 
-Please cite our dataset if you use this code and data in your work.
+- [Edge_score_analysis.ipynb](https://github.com/gnn4dr/DRKG/blob/master/embedding_analysis/Edge_score_analysis.ipynb), 评估学习到 KGE 模型能否预测 DRKG 的关系 (edges).
+
+- [Edge_similarity_based_on_link_recommendation_results.ipynb](https://github.com/gnn4dr/DRKG/blob/master/embedding_analysis/Edge_similarity_based_on_link_recommendation_results.ipynb), 评估不同关系类型之间的预测链接的相似程度.
+
+#### Drug Repurposing Using Pretrained Model for COVID-19
+
+使用预训练模型进行 COVID-19 的药物再利用的例子, 在这个例子中, 直接使用 [DRKG dataset](#drkg-dataset) 的预训练模型推荐 COVID-19 的 100 个药物. 对应的 notebook:
+
+- [COVID-19_drug_repurposing.ipynb](https://github.com/gnn4dr/DRKG/blob/master/drug_repurpose/COVID-19_drug_repurposing.ipynb)
+
+#### DRKG with DGL
+
+一个使用 Deep Graph Library (DGL) 分析 DRKG 的 notebook.
+
+以下 notebook 提供了在 DGL 中从 DRKG 构建异构图的示例, 以及一些关于 DGL 异构图的查询示例:
+
+- [loading_drkg_in_dgl.ipynb](https://github.com/gnn4dr/DRKG/blob/master/drkg_with_dgl/loading_drkg_in_dgl.ipynb)
+
+### Additional Information for DrugBank
+
+drugbank_info中包括有关DrugBank化合物的一些其他信息，包括药物的类型和重量，以及小分子药物的微笑。
+
+[drugbank_info](https://github.com/gnn4dr/DRKG/tree/master/drugbank_info) 包括来自 DrugBank 药物的额外信息, 包含药物的类型和重量, 小分子药物的 SMILES.
+
+### Licence
+
+>This project is licensed under the Apache-2.0 License. However, the DRKG integrates data from many resources and users should consider the licensing of each source (see this [table](https://github.com/shuix007/COVID-19-KG/blob/master/licenses/Readme.md)) . We apply a license attribute on a per node and per edge basis for sources with defined licenses.
+
+### Cite
+
+>Please cite our dataset if you use this code and data in your work.
 
 ```
 @misc{drkg2020,
@@ -243,7 +259,6 @@ Please cite our dataset if you use this code and data in your work.
   year = {2020}
 }
 ```
-A preprint describing this work will be available soon.
 
 ## TransE 原论文学习笔记
 
