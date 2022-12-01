@@ -101,6 +101,8 @@ date: 2022-09-28 14:52:14
 
 31. [ASCII](https://baike.baidu.com/item/ASCII/309296?fr=aladdin)
 
+32. [cout](https://cplusplus.com/reference/iostream/cout/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -1463,6 +1465,40 @@ int main ()
 <div id = "3"></div>
 
 # `Input/Output Stream Library`
+
+## `<iostream>`
+
+`<iostream>`: https://cplusplus.com/reference/iostream/ 。
+
+`<iostream>`: Standard Input / Output Streams Library.
+
+### Narrow characters (char)
+
+- `cout`: Standard output stream (object)
+
+#### `std::cout`
+
+`std::cout`: https://cplusplus.com/reference/iostream/cout/ 。
+
+`extern ostream cout;`
+
+**`Standard output stream`**
+
+Object of class `ostream` that represents `the standard output stream` oriented to `narrow characters` (of `type char`). It corresponds to `the C stream stdout`.
+
+The `standard output stream` is `the default destination` of characters determined by the environment. `This destination may be shared with more standard objects` (such as `cerr` or `clog`).
+
+As an object of class `ostream`, characters can be written to it either as formatted data using the insertion operator (`operator<<`) or as unformatted data, using member functions such as `write`.
+
+The object is declared in header **`<iostream>`** with `external linkage` and `static duration`: `it lasts the entire duration of the program`.
+
+---
+
+`cout` is not tied to any other output stream.
+
+By default, `cout` is synchronized with `stdout`.
+
+A program should not mix output operations on `cout` with output operations on `wcout` (or with other wide-oriented output operations on `stdout`): `Once an output operation has been performed on either, the standard output stream acquires an orientation (either narrow or wide) that can only be safely changed by calling freopen on stdout`.
 
 <div id = "4"></div>
 
