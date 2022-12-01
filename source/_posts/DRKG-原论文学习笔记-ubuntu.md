@@ -32,7 +32,7 @@ date: 2022-11-30 20:13:30
 
 ## 项目仓库 - Drug Repurposing Knowledge Graph (DRKG)
 
-**药物再利用知识图谱** (Drug Repurposing Knowledge Graph, DRKG) [<sup>1</sup>](#1)是一个涉及**基因**、**药物**、**疾病**、**生物过程**、**副作用**和**症状**的**综合生物知识图谱**. **DRKG** 包括来自 **DrugBank**、**Hetionet**、**GNBR**、**String**、**IntAct** 和 **DGIdb** 等**六个现有数据库的信息**, 以及从最近发表的 **Covid19** 出版物中收集的数据. 它包含属于 **13** 种实体类型的 **97,238** 个实体; 以及属于 **107** 种关系类型的 **5,874,261** 个三元组. 这 **107** 种关系类型显示了 **13** 种实体类型之间的交互类型（**同一种实体对之间可能存在多种交互类型**), 如下图所示. 它还包括很多关于如何使用**统计方法**或使用*机器学习方法*（如**知识图谱嵌入**）探索和分析 DRKG 的 notebooks.
+**药物再利用知识图谱** (Drug Repurposing Knowledge Graph, DRKG) [<sup>1</sup>](#1)是一个涉及**基因**、**药物**、**疾病**、**生物过程**、**副作用**和**症状**的**综合生物知识图谱**. **DRKG** 包括来自 **DrugBank**、**Hetionet**、**GNBR**、**String**、**IntAct** 和 **DGIdb** 等**六个现有数据库的信息**, 以及从最近发表的 **Covid19** 出版物中收集的数据. 它包含属于 **13** 种实体类型的 **97,238** 个实体; 以及属于 **107** 种关系类型的 **5,874,261** 个三元组. 这 **107** 种关系类型显示了 **13** 种实体类型之间的交互类型（**同一种实体对之间可能存在多种交互类型**), 如下图所示. 它还包括很多关于如何使用**统计方法**或使用**机器学习方法**（如**知识图谱嵌入**）探索和分析 DRKG 的 notebooks.
 
 ![](https://cos.luyf-lemon-love.space/images/20221130135805.png)
 
@@ -90,7 +90,7 @@ The following table shows **the number of triplets** between **different entity-
 wget https://dgl-data.s3-us-west-2.amazonaws.com/dataset/DRKG/drkg.tar.gz
 ```
 
-(不推荐) 如果你使用原仓库提供的 **notebooks**, 不需要手动下载 **DRKG**.
+(**不推荐**) 如果你使用原仓库提供的 **notebooks**, 不需要手动下载 **DRKG**.
 
 解压 **drkg.tar.gz**, 会得到下面的文件:
 
@@ -124,11 +124,11 @@ wget https://dgl-data.s3-us-west-2.amazonaws.com/dataset/DRKG/drkg.tar.gz
 
 #### Pretrained DRKG embedding
 
-这些 **DRKG** 嵌入是使用 **400** 维度的 TransE\_l2 模型训练的, 有 **4** 个文件:
+这些 **DRKG** 嵌入是使用 **400** 维度的 **TransE\_l2** 模型训练的, 有 **4** 个文件:
 
-- **DRKG\_TransE\_l2\_entity.npy**, 二进制的 **NumPy** 的数据, 存储实体嵌入.
+- **DRKG\_TransE\_l2\_entity.npy**, 二进制的 **NumPy** 的数据, 存储**实体嵌入**.
 
-- **DRKG\_TransE\_l2\_relation.npy**, 二进制 **NumPy** 的数据, 存储关系嵌入.
+- **DRKG\_TransE\_l2\_relation.npy**, 二进制 **NumPy** 的数据, 存储**关系嵌入**.
 
 - **entities.tsv**, 映射实体名到实体 ID.
 
@@ -160,7 +160,7 @@ rel_emb = np.load('./embed/DRKG_TransE_l2_relation.npy')
 
 #### Install PyTorch
 
-所有的 **notebooks** 都使用 PyTorch 作为深度学习后端. 可以去 [Pytorch 官网](https://pytorch.org/) 安装其他版本.
+所有的 **notebooks** 都使用 **PyTorch** 作为深度学习后端. 可以去 [Pytorch 官网](https://pytorch.org/) 安装其他版本.
 
 ```shell
 sudo pip3 install torch==1.5.0+cu101 torchvision==0.6.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
@@ -178,7 +178,7 @@ sudo pip3 install dgl-cu101
 
 #### Install DGL-KE
 
-如果你想用这些位于 **embedding_analysis** 的 notebooks (**Train_embeddings.ipynb** or **Edge_score_analysis.ipynb**) 训练模型, 你需要安装 **DGL** and [DGL-KE](https://github.com/awslabs/dgl-ke), **DGL-KE** 能够和 **DGL** (版本 **>= 0.4.3**, either **CPU** or **GPU**) 一起工作.
+如果你想用这些位于 [embedding_analysis](https://github.com/gnn4dr/DRKG/tree/master/embedding_analysis) 的 notebooks (**Train_embeddings.ipynb** or **Edge_score_analysis.ipynb**) 训练模型, 你需要安装 **DGL** and [DGL-KE](https://github.com/awslabs/dgl-ke), **DGL-KE** 能够和 **DGL** (版本 **>= 0.4.3**, either **CPU** or **GPU**) 一起工作.
 
 ```shell
 sudo pip3 install dglke
@@ -194,7 +194,7 @@ sudo pip3 install dglke
 
 #### Knowledge Graph Embedding Based Analysis of DRKG
 
-通过学习一个利用 $\ell_2$ 距离的 **TransE KGE 模型**分析 **DRKG**. 由于 **DRKG** 结合了**来自不同数据源**的信息, 我们希望**验证**使用知识图谱嵌入技术可以**生成有意义的实体和关系嵌入**.
+通过学习一个利用 $\ell_2$ 距离的 **TransE KGE 模型**分析 **DRKG**. 由于 **DRKG** 结合了**来自不同数据源**的信息, 我们希望**验证**使用**知识图谱嵌入技术**可以**生成有意义的实体和关系嵌入**.
 
 将数据集分成**训练集** (90%), **验证集** (5%), **测试集** (5%), 使用下面的 **notebook** 训练 **KGE** 模型:
 
@@ -206,7 +206,7 @@ sudo pip3 install dglke
 
 - [Entity_similarity_analysis.ipynb](https://github.com/gnn4dr/DRKG/blob/master/embedding_analysis/Entity_similarity_analysis.ipynb), 分析**生成的实体嵌入相似性**.
 
-- [Edge_score_analysis.ipynb](https://github.com/gnn4dr/DRKG/blob/master/embedding_analysis/Edge_score_analysis.ipynb), 评估学习到 KGE 模型**能否预测 DRKG 的关系** (edges).
+- [Edge_score_analysis.ipynb](https://github.com/gnn4dr/DRKG/blob/master/embedding_analysis/Edge_score_analysis.ipynb), 评估学习到的 KGE 模型**能否预测 DRKG 的关系** (edges).
 
 - [Edge_similarity_based_on_link_recommendation_results.ipynb](https://github.com/gnn4dr/DRKG/blob/master/embedding_analysis/Edge_similarity_based_on_link_recommendation_results.ipynb), 评估**不同关系类型之间的预测链接的相似程度**.
 
@@ -218,7 +218,7 @@ sudo pip3 install dglke
 
 #### DRKG with DGL
 
-下面的 **notebook** 提供了利用 DGL 从 DRKG 中构建异构图的示例, 以及一些异构图的查询示例:
+下面的 **notebook** 提供了利用 **DGL** 从 **DRKG** 中构建异构图的示例, 以及一些异构图的查询示例:
 
 - [loading_drkg_in_dgl.ipynb](https://github.com/gnn4dr/DRKG/blob/master/drkg_with_dgl/loading_drkg_in_dgl.ipynb)
 
