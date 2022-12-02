@@ -27,6 +27,8 @@ date: 2022-09-29 11:36:43
 
 5. [fig.add_subplot(111)或者fig.add_subplot(234)的意义以及由来](https://blog.csdn.net/suanfajiegou/article/details/122609676)
 
+6. [np.random.permutation](https://numpy.org/doc/stable/reference/random/generated/numpy.random.permutation.html?highlight=permutation#numpy.random.permutation)
+
 ## Python 注释
 
 1. 使用 `#` 进行单行注释：
@@ -310,6 +312,46 @@ fig.add_subplot(2,2,2)   # top right
 fig.add_subplot(2,2,3)   # bottom left
 fig.add_subplot(2,2,4)   # bottom right
 plt.show()
+```
+
+## np.random.permutation() 方法
+
+### numpy.random.permutation(x)
+
+Randomly `permute` a sequence, or return `a permuted range`.
+
+If `x` is `a multi-dimensional array`, it is `only shuffled` along `its first index`.
+
+{% note info simple %}
+New code should use the permutation method of a `default_rng()` instance instead; please see the [Quick Start](https://numpy.org/doc/stable/reference/random/index.html#random-quick-start).
+{% endnote %}
+
+**Parameters**
+
+**x**: **int** or **array_like**, If **x** is an **integer**, randomly permute **np.arange(x)**. If **x** is an **array**, make a `copy` and `shuffle the elements randomly`.
+
+**Returns**
+
+**out**: **ndarray**, **Permuted** sequence or array range.
+
+**Examples**
+
+```python
+>>> np.random.permutation(10)
+array([1, 7, 4, 3, 0, 9, 2, 5, 8, 6]) # random
+```
+
+```python
+>>> np.random.permutation([1, 4, 9, 12, 15])
+array([15,  1,  9,  4, 12]) # random
+```
+
+```python
+>>> arr = np.arange(9).reshape((3, 3))
+>>> np.random.permutation(arr)
+array([[6, 7, 8], # random
+       [0, 1, 2],
+       [3, 4, 5]])
 ```
 
 ## 结语
