@@ -354,6 +354,27 @@ array([[6, 7, 8], # random
        [3, 4, 5]])
 ```
 
+## np.unique() 方法
+
+Returns the `sorted` `unique elements` of `an array`.
+
+```python
+>>> help(str.isspace)
+```
+
+---
+
+```python
+Help on method_descriptor:
+
+isspace(self, /)
+    Return True if the string is a whitespace string, False otherwise.
+    
+    A string is whitespace if all characters in the string are whitespace and there
+    is at least one character in the string.
+(END)
+```
+
 ## 结语
 
 第三十篇博文写完，开心！！！！
