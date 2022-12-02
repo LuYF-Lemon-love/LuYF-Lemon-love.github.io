@@ -113,6 +113,8 @@ date: 2022-09-28 14:52:14
 
 37. [feof](https://cplusplus.com/reference/cstdio/feof/)
 
+38. [cerr](https://cplusplus.com/reference/iostream/cerr/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -1688,6 +1690,8 @@ int main ()
 
 - `cout`: Standard output stream (object)
 
+- `cerr`: Standard output stream for errors (object)
+
 #### `std::cout`
 
 `std::cout`: https://cplusplus.com/reference/iostream/cout/ 。
@@ -1712,13 +1716,37 @@ By default, `cout` is synchronized with `stdout`.
 
 A program should not mix output operations on `cout` with output operations on `wcout` (or with other wide-oriented output operations on `stdout`): `Once an output operation has been performed on either, the standard output stream acquires an orientation (either narrow or wide) that can only be safely changed by calling freopen on stdout`.
 
+#### `std::cerr`
+
+`std::cerr`: https://cplusplus.com/reference/iostream/cerr/ 。
+
+`extern ostream cerr;`
+
+**`Standard output stream for errors`**
+
+Object of class `ostream` that represents `the standard error stream` oriented to `narrow characters` (of type `char`). It corresponds to the C stream stderr.
+
+`The standard error stream` is a destination of characters determined by the environment. This destination may be shared by `more than one standard object` (such as `cout` or `clog`).
+
+As an object of class `ostream`, characters can be written to it either as formatted data using the insertion operator (`operator<<`) or as unformatted data, using member functions such as `write`.
+
+The object is declared in header `<iostream>` with `external linkage` and `static duration`: it lasts the entire duration of the program.
+
+---
+
+`cerr` is not `tied` to any other output stream.
+
+By default, `cerr` is `synchronized` with `stderr`.
+
+A program should not `mix` output operations on `cerr` with output operations on `wcerr` or `wclog` (or with other wide-oriented output operations on `stderr`): `Once an output operation has been performed on either, the standard error stream acquires an orientation (either narrow or wide) that can only be safely changed by calling freopen on stderr`.
+
 <div id = "4"></div>
 
 # `Atomics and threading library`
 
 <div id = "5"></div>
 
-# Miscellaneous headers
+# `Miscellaneous headers`
 
 ## `<algorithm>`
 
