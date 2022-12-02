@@ -115,6 +115,8 @@ date: 2022-09-28 14:52:14
 
 38. [cerr](https://cplusplus.com/reference/iostream/cerr/)
 
+39. [min](https://cplusplus.com/reference/algorithm/min/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -1847,6 +1849,94 @@ On average, `linearithmic` in the distance between `first` and `last`: `Performs
 **`Data races`**
 
 The objects in the range `[first,last)` are `modified`.
+
+### Min/max
+
+- `min`: Return the smallest (function template)
+
+#### `std::min`
+
+`std::min`: https://cplusplus.com/reference/algorithm/min/ 。
+
+```c++
+default (1)	
+template <class T> const T& min (const T& a, const T& b);
+custom (2)	
+template <class T, class Compare>  const T& min (const T& a, const T& b, Compare comp);
+initializer list (3)	
+template <class T> T min (initializer_list<T> il);template <class T, class Compare>  T min (initializer_list<T> il, Compare comp);
+```
+
+**`Return the smallest`**
+
+Returns the smallest of `a` and `b`. If both are equivalent, `a` is returned.
+
+The versions for `initializer lists (3)` return `the smallest` of all the elements in the list. Returning the first of them if these are more than one.
+
+The function uses `operator<` (or `comp`, if provided) to compare the values.
+
+The behavior of this function template (C++98) is equivalent to:
+
+```c++
+template <class T> const T& min (const T& a, const T& b) {
+  return !(b<a)?a:b;     // or: return !comp(b,a)?a:b; for version (2)
+}
+```
+
+**`Parameters`**
+
+**a, b**
+
+1. `Values` to compare.
+
+**comp**
+
+1. `Binary function` that accepts `two values` of type `T` as arguments, and returns `a value convertible to bool`. The value returned `indicates` whether the element passed as `first argument` is considered `less than` the second.
+
+2. The function `shall not modify` any of its arguments.
+
+3. This can either be `a function pointer` or `a function object`.
+
+**il**
+
+1. An `initializer_list` object.
+
+2. These objects are automatically constructed from `initializer list` declarators.
+
+`T` shall support being compared with `operator<`.
+
+**`Return Value`**
+
+The `lesser` of the values passed as arguments.
+
+**`Example`**
+
+```c++
+// min example
+#include <iostream>     // std::cout
+#include <algorithm>    // std::min
+
+int main () {
+  std::cout << "min(1,2)==" << std::min(1,2) << '\n';
+  std::cout << "min(2,1)==" << std::min(2,1) << '\n';
+  std::cout << "min('a','z')==" << std::min('a','z') << '\n';
+  std::cout << "min(3.14,2.72)==" << std::min(3.14,2.72) << '\n';
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+min(1,2)==1
+min(2,1)==1
+min('a','z')==a
+min(3.14,2.72)==2.72
+```
+
+**`Complexity`**
+
+`Linear` in one less than the number of elements compared (constant for `(1)` and `(2)`).
 
 ## `<iterator>`
 
