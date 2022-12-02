@@ -107,6 +107,8 @@ date: 2022-09-28 14:52:14
 
 34. [begin](https://cplusplus.com/reference/iterator/begin/)
 
+35. [fprintf](https://cplusplus.com/reference/cstdio/fprintf/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -337,7 +339,86 @@ This simple code `creates a new text file`, then `writes` a sentence to it, and 
 
 ### Formatted input/output
 
+- `fprintf`: Write formatted data to stream (function)
+
 - `fscanf`: Read formatted data from stream (function)
+
+#### fprintf
+
+`fprintf`: https://cplusplus.com/reference/cstdio/fprintf/ 。
+
+`int fprintf ( FILE * stream, const char * format, ... );`
+
+**`Write formatted data to stream`**
+
+Writes the `C` string pointed by `format` to the `stream`. If `format` includes `format specifiers` (subsequences beginning with `%`), the additional arguments following format are `formatted` and inserted in the resulting string replacing their respective specifiers.
+
+After the `format` parameter, the function expects at least as many additional arguments as specified by `format`.
+
+**`Parameters`**
+
+**stream**
+
+1. `Pointer` to a `FILE` object that identifies `an output stream`.
+
+**format**
+
+`C string` that contains the text to be written to the stream.
+
+It can optionally contain embedded `format specifiers` that are replaced by the values specified in subsequent additional arguments and formatted as requested.
+
+`A format specifier` follows this prototype:
+
+`%[flags][width][.precision][length]specifier`
+
+**`Return Value`**
+
+`On success`, `the total number of characters written` is returned.
+
+If a writing error occurs, the `error indicator` (`ferror`) is set and `a negative number is returned`.
+
+If a multibyte character encoding error occurs while writing wide characters, `errno` is set to EILSEQ and a negative number is returned.
+
+**`Example`**
+
+```c++
+/* fprintf example */
+#include <stdio.h>
+
+int main ()
+{
+   FILE * pFile;
+   int n;
+   char name [100];
+
+   pFile = fopen ("myfile.txt","w");
+   for (n=0 ; n<3 ; n++)
+   {
+     puts ("please, enter a name: ");
+     gets (name);
+     fprintf (pFile, "Name %d [%-10.10s]\n",n+1,name);
+   }
+   fclose (pFile);
+
+   return 0;
+}
+```
+
+This example prompts `3 times` the user for `a name` and then writes them to `myfile.txt` each one in a line with a fixed length (a total of 19 characters + newline).
+
+Two format tags are used:
+
+`%d` : `Signed decimal integer`
+
+`%-10.10s` : `left-justified (-)`, `minimum of ten characters (10)`, `maximum of ten characters (.10)`, `string (s)`.
+
+Assuming that we have entered `John`, `Jean-Francois` and `Yoko` as the 3 names, `myfile.txt` would contain:
+
+```
+Name 1 [John      ] 
+Name 2 [Jean-Franc] 
+Name 3 [Yoko      ]
+```
 
 #### fscanf
 
