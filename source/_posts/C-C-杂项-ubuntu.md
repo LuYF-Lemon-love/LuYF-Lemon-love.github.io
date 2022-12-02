@@ -111,6 +111,8 @@ date: 2022-09-28 14:52:14
 
 36. [fgetc](https://cplusplus.com/reference/cstdio/fgetc/)
 
+37. [feof](https://cplusplus.com/reference/cstdio/feof/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -975,6 +977,68 @@ A file called `myfile.txt` is created for `reading and writing` and `filled with
 ```bash
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 ```
+
+### Error-handling
+
+- `feof`: Check end-of-file indicator (function)
+
+#### feof
+
+`feof`: https://cplusplus.com/reference/cstdio/feof/ 。
+
+`int feof ( FILE * stream );`
+
+**`Check end-of-file indicator`**
+
+Checks whether the `end-of-File indicator` associated with `stream` is set, `returning a value different from zero` if it is.
+
+This `indicator` is generally set by a previous operation on the `stream` that attempted to read at or past `the end-of-file`.
+
+Notice that stream's internal position indicator may point to the `end-of-file` for the next operation, but still, the `end-of-file` indicator may not be set until an operation attempts to read at that point.
+
+This indicator is cleared by a call to `clearerr`, `rewind`, `fseek`, `fsetpos` or `freopen`. Although if `the position indicator` is not repositioned by such a call, the next i/o operation is likely to set the indicator again.
+
+**`Parameters`**
+
+**stream**
+
+1. `Pointer` to a `FILE` object that identifies the stream.
+
+**`Return Value`**
+
+`A non-zero value` is returned in the case that the `end-of-file` indicator associated with the stream is set.
+
+Otherwise, `zero is returned`.
+
+**`Example`**
+
+```c++
+/* feof example: byte counter */
+#include <stdio.h>
+
+int main ()
+{
+  FILE * pFile;
+  int n = 0;
+  pFile = fopen ("myfile.txt","rb");
+  if (pFile==NULL) perror ("Error opening file");
+  else
+  {
+    while (fgetc(pFile) != EOF) {
+      ++n;
+    }
+    if (feof(pFile)) {
+      puts ("End-of-File reached.");
+      printf ("Total number of bytes read: %d\n", n);
+    }
+    else puts ("End-of-File was not reached.");
+    fclose (pFile);
+  }
+  return 0;
+}
+```
+
+This `code` opens the file called `myfile.txt`, and counts the number of characters that it contains by reading all of them one by one. The program `checks` whether `the end-of-file` was reached, and if so, `prints the total number of bytes read`.
 
 ## `<cstdlib>` (stdlib.h)
 
