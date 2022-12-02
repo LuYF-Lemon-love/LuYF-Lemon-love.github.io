@@ -1,5 +1,5 @@
-- class_name: 友情链接
-  class_desc: 大佬博客
+- class_name: 大佬主页
+  class_desc: 
   link_list:
     - name: 冯乐乐
       link: https://candycat1992.github.io/
@@ -106,6 +106,10 @@
       link: https://docs.github.com/en
       avatar: https://cos.luyf-lemon-love.space/images/20220511134710.png
       descr: Help for wherever you are on your GitHub journey.
+    - name: dev-sidecar
+      link: https://github.com/docmirror/dev-sidecar
+      avatar: https://cos.luyf-lemon-love.space/images/20221202125304.png
+      descr: github 加速.
 
 - class_name: C++
   class_desc:
@@ -258,6 +262,14 @@
       link: https://tianchi.aliyun.com/
       avatar: https://cos.luyf-lemon-love.space/images/20220910220737.png
       descr: 开放真实场景数据与赛题，助力科技人才成长
+
+- class_name: Web
+  class_desc:
+  link_list:
+    - name: MDN
+      link: https://developer.mozilla.org/zh-CN/
+      avatar: https://cos.luyf-lemon-love.space/images/20221202124810.png
+      descr: Documenting web technologies, including CSS, HTML, and JavaScript, since 2005.
 
 - class_name: Markdown
   class_desc:
