@@ -109,6 +109,8 @@ date: 2022-09-28 14:52:14
 
 35. [fprintf](https://cplusplus.com/reference/cstdio/fprintf/)
 
+36. [fgetc](https://cplusplus.com/reference/cstdio/fgetc/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -540,11 +542,72 @@ I have read: 3.141600 and PI
 
 ### Character input/output
 
+- `fgetc`: Get character from stream (function)
+
 - `fputc`: Write character to stream (function)
 
 - `fputs`: Write string to stream (function)
 
 - `puts`: Write string to stdout (function)
+
+#### fgetc
+
+`fgetc`: https://cplusplus.com/reference/cstdio/fgetc/ 。
+
+`int fgetc ( FILE * stream );`
+
+**`Get character from stream`**
+
+Returns `the character` currently pointed by the internal file position indicator of the specified stream. `The internal file position indicator is then advanced to the next character`.
+
+If the stream is at `the end-of-file` when called, the function returns `EOF` and `sets the end-of-file indicator` for the stream (`feof`).
+
+If a read error occurs, the function returns `EOF` and sets `the error indicator` for the stream (`ferror`).
+
+`fgetc` and `getc` are equivalent, except that `getc` may be implemented as a `macro` in `some libraries`.
+
+**`Parameters`**
+
+**stream**
+
+1. Pointer to a `FILE` object that `identifies an input stream`.
+
+**`Return Value`**
+
+On success, `the character read is returned` (promoted to `an int value`).
+
+`The return type` is int to accommodate for the special value `EOF`, which indicates failure:
+
+1. If the position indicator was at `the end-of-file`, the function returns `EOF` and `sets the eof indicator (feof) of stream`.
+
+2. If `some other reading error happens`, the function also returns `EOF`, but `sets its error indicator (ferror)` instead.
+
+**`Example`**
+
+```c++
+/* fgetc example: money counter */
+#include <stdio.h>
+int main ()
+{
+  FILE * pFile;
+  int c;
+  int n = 0;
+  pFile=fopen ("myfile.txt","r");
+  if (pFile==NULL) perror ("Error opening file");
+  else
+  {
+    do {
+      c = fgetc (pFile);
+      if (c == '$') n++;
+    } while (c != EOF);
+    fclose (pFile);
+    printf ("The file contains %d dollar sign characters ($).\n",n);
+  }
+  return 0;
+}
+```
+
+This program reads an existing file called `myfile.txt` character by character and uses the `n` variable to `count` how many dollar characters (`$`) the file contains.
 
 #### fputc
 
