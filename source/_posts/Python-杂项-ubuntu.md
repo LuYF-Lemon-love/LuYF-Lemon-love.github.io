@@ -354,9 +354,9 @@ array([[6, 7, 8], # random
        [3, 4, 5]])
 ```
 
-## np.unique() 方法
+## str.isspace() 方法
 
-Returns the `sorted` `unique elements` of `an array`.
+Return `True` if the string is a `whitespace` string, `False` otherwise.
 
 ```python
 >>> help(str.isspace)
