@@ -127,6 +127,8 @@ date: 2022-09-28 14:52:14
 
 44. [clear](https://cplusplus.com/reference/map/map/clear/)
 
+45. [clear](https://cplusplus.com/reference/vector/vector/clear/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -1970,6 +1972,10 @@ b => 2202
 
 - `operator[]`: Access element (public member function)
 
+**Modifiers:**
+
+- `clear`: Clear content (public member function)
+
 #### `std::vector::size`
 
 `std::vector::size`: https://cplusplus.com/reference/vector/vector/size/ 。
@@ -2139,6 +2145,91 @@ No changes.
 1. If the container size is greater than `n`, the function `never throws exceptions` (no-throw guarantee).
 
 2. Otherwise, the behavior is undefined.
+
+#### `std::vector::clear`
+
+`std::vector::clear`: https://cplusplus.com/reference/vector/vector/clear/ 。
+
+```c++
+void clear() noexcept;
+```
+
+**`Clear content`**
+
+`Removes all elements from the vector` (which are destroyed), leaving the container with `a size of 0`.
+
+`A reallocation is not guaranteed to happen`, and the `vector capacity` is not guaranteed to change due to calling this function. A typical alternative that `forces a reallocation` is to use swap:
+
+```c++
+vector<T>().swap(x);   // clear x reallocating
+```
+
+**`Parameters`**
+
+none
+
+**`Return Value`**
+
+none
+
+**`Example`**
+
+```c++
+// clearing vectors
+#include <iostream>
+#include <vector>
+
+int main ()
+{
+  std::vector<int> myvector;
+  myvector.push_back (100);
+  myvector.push_back (200);
+  myvector.push_back (300);
+
+  std::cout << "myvector contains:";
+  for (unsigned i=0; i<myvector.size(); i++)
+    std::cout << ' ' << myvector[i];
+  std::cout << '\n';
+
+  myvector.clear();
+  myvector.push_back (1101);
+  myvector.push_back (2202);
+
+  std::cout << "myvector contains:";
+  for (unsigned i=0; i<myvector.size(); i++)
+    std::cout << ' ' << myvector[i];
+  std::cout << '\n';
+
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+myvector contains: 100 200 300
+myvector contains: 1101 2202
+```
+
+**`Complexity`**
+
+1. `Linear` in size (destructions).
+
+2. This may be optimized to constant complexity for `trivially-destructible types` (such as scalar or PODs), where elements need not be destroyed.
+
+**`Iterator validity`**
+
+`All iterators`, `pointers` and `references` related to this container are `invalidated`.
+
+**`Data races`**
+
+1. The container is modified.
+
+2. All contained elements are modified.
+
+**`Exception safety`**
+
+`No-throw guarantee`: this member function `never` throws exceptions.
 
 <div id = "3"></div>
 
