@@ -123,6 +123,8 @@ date: 2022-09-28 14:52:14
 
 42. [size](https://cplusplus.com/reference/map/map/size/)
 
+43. [size](https://cplusplus.com/reference/vector/vector/size/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -1873,7 +1875,89 @@ No changes.
 
 ### vector
 
+**Capacity:**
+
+- `size`: Return size (public member function)
+
+**Element access:**
+
 - `operator[]`: Access element (public member function)
+
+#### `std::vector::size`
+
+`std::vector::size`: https://cplusplus.com/reference/vector/vector/size/ 。
+
+```c++
+size_type size() const noexcept;
+```
+
+**`Return size`**
+
+Returns `the number of elements` in the `vector`.
+
+This is `the number of actual objects` held in the `vector`, which is not necessarily equal to its storage `capacity`.
+
+**`Parameters`**
+
+none
+
+**`Return Value`**
+
+1. `The number of elements` in the container.
+
+2. Member type `size_type` is `an unsigned integral type`.
+
+**`Example`**
+
+```c++
+// vector::size
+#include <iostream>
+#include <vector>
+
+int main ()
+{
+  std::vector<int> myints;
+  std::cout << "0. size: " << myints.size() << '\n';
+
+  for (int i=0; i<10; i++) myints.push_back(i);
+  std::cout << "1. size: " << myints.size() << '\n';
+
+  myints.insert (myints.end(),10,100);
+  std::cout << "2. size: " << myints.size() << '\n';
+
+  myints.pop_back();
+  std::cout << "3. size: " << myints.size() << '\n';
+
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+0. size: 0
+1. size: 10
+2. size: 20
+3. size: 19
+```
+
+**`Complexity`**
+
+Constant.
+
+**`Iterator validity`**
+
+No changes.
+
+**`Data races`**
+
+1. The container is `accessed`.
+
+2. No contained elements are accessed: concurrently accessing or modifying them is `safe`.
+
+**`Exception safety`**
+
+`No-throw guarantee`: this member function `never` throws exceptions.
 
 #### `std::vector::operator[]`
 
