@@ -129,6 +129,8 @@ date: 2022-09-28 14:52:14
 
 45. [clear](https://cplusplus.com/reference/vector/vector/clear/)
 
+46. [count](https://cplusplus.com/reference/map/map/count/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -1710,6 +1712,10 @@ int main ()
 
 - `clear`: Clear content (public member function)
 
+**Operations:**
+
+- `count`: Count elements with a specific key (public member function)
+
 #### `std::map::size`
 
 `std::map::size`: https://cplusplus.com/reference/map/map/size/ 。
@@ -1955,6 +1961,95 @@ b => 2202
 **`Exception safety`**
 
 `No-throw guarantee`: this member function `never throws` exceptions.
+
+#### `std::map::count`
+
+`std::map::count`: https://cplusplus.com/reference/map/map/count/ 。
+
+```c++
+size_type count (const key_type& k) const;
+```
+
+**`Count elements with a specific key`**
+
+Searches the container for elements with `a key equivalent to k` and `returns the number of matches`.
+
+Because all elements in a map container are `unique`, `the function can only return 1` (if the element is found) or `zero` (otherwise).
+
+Two keys are considered equivalent if the container's `comparison object` returns false reflexively (i.e., no matter the order in which the keys are passed as arguments).
+
+**`Parameters`**
+
+**k**
+
+1. `Key` to search for.
+
+2. Member type `key_type` is the type of the element keys in the container, defined in `map` as an alias of `its first template parameter` (Key).
+
+**`Return Value`**
+
+`1` if the container contains an element whose key is equivalent to `k`, or `zero` otherwise.
+
+Member type `size_type` is `an unsigned integral type`.
+
+**`Example`**
+
+```c++
+// map::count
+#include <iostream>
+#include <map>
+
+int main ()
+{
+  std::map<char,int> mymap;
+  char c;
+
+  mymap ['a']=101;
+  mymap ['c']=202;
+  mymap ['f']=303;
+
+  for (c='a'; c<'h'; c++)
+  {
+    std::cout << c;
+    if (mymap.count(c)>0)
+      std::cout << " is an element of mymap.\n";
+    else 
+      std::cout << " is not an element of mymap.\n";
+  }
+
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+a is an element of mymap.
+b is not an element of mymap.
+c is an element of mymap.
+d is not an element of mymap.
+e is not an element of mymap.
+f is an element of mymap.
+g is not an element of mymap.
+```
+
+**`Complexity`**
+
+`Logarithmic` in size.
+
+**`Iterator validity`**
+
+No changes.
+
+**`Data races`**
+
+1. The container is accessed.
+
+2. No mapped values are accessed: concurrently accessing or modifying elements is `safe`.
+
+**`Exception safety`**
+
+`Strong guarantee`: if an exception is thrown, there are `no changes` in the container.
 
 ## `<vector>`
 
