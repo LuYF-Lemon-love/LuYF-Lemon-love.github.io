@@ -35,6 +35,8 @@ date: 2022-09-29 11:36:43
 
 9. [pip install -i 国内镜像地址](https://blog.csdn.net/qq_52671379/article/details/123392484)
 
+10. [os.environ¶](https://docs.python.org/zh-cn/3/library/os.html#os.environ)
+
 ## Python 注释
 
 1. 使用 `#` 进行单行注释：
@@ -503,6 +505,24 @@ http://pypi.sdutlinux.org/
 ```
 http://pypi.douban.com/simple/
 ```
+
+## os.environ() 方法
+
+源教程链接: https://docs.python.org/zh-cn/3/library/os.html#os.environ .
+
+一个 `mapping` 对象，其中`键值`是代表`进程环境的字符串`。例如，`environ['HOME']` 是你的`主目录`（在某些平台上）的路径名，相当于 `C` 中的 `getenv("HOME")`。
+
+`这个映射是在第一次导入 os 模块时捕获的`，通常作为 `Python` 启动时处理 `site.py` 的一部分。除了通过直接修改 `os.environ` 之外，`在此之后对环境所做的更改不会反映在 os.environ 中`。
+
+该映射除了可以用于`查询环境`外，还能用于`修改环境`。当该映射被修改时，将自动调用 `putenv()`。
+
+在 `Unix` 系统上，键和值会使用 `sys.getfilesystemencoding()` 和 `'surrogateescape'` 的错误处理。如果你想使用其他的编码，使用 `environb`。
+
+>备注: 直接调用 `putenv()` 并不会影响 `os.environ`，所以推荐直接修改 `os.environ`。
+>
+>备注: 在某些平台上，包括 `FreeBSD` 和 `macOS`，设置 `environ` 可能导致内存泄漏。请参阅 `putenv()` 的系统文档。
+
+`可以删除映射中的元素来删除对应的环境变量`。当从 `os.environ` 删除元素时，以及调用 `pop()` 或 `clear()` 之一时，将自动调用 `unsetenv()`。
 
 ## 结语
 
