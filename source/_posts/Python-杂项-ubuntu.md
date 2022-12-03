@@ -33,6 +33,8 @@ date: 2022-09-29 11:36:43
 
 8. [python基础教程：startswith()和endswith()的用法](https://zhuanlan.zhihu.com/p/420740908)
 
+9. [pip install -i 国内镜像地址](https://blog.csdn.net/qq_52671379/article/details/123392484)
+
 ## Python 注释
 
 1. 使用 `#` 进行单行注释：
@@ -455,6 +457,51 @@ endswith(...)
     With optional end, stop comparing S at that position.
     suffix can also be a tuple of strings to try.
 (END)
+```
+
+## pip install -i 国内镜像地址
+
+```shell
+# pip install 包名 -i 国内镜像地址
+$ pip install pygame -i https://mirrors.aliyun.com/pypi/simple/
+```
+
+### 国内常用源镜像地址
+
+{% label 清华 pink %}
+
+```
+https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+{% label 阿里云 blue %}
+
+```
+http://mirrors.aliyun.com/pypi/simple/
+```
+
+{% label 中国科技大学 red %}
+
+```
+https://pypi.mirrors.ustc.edu.cn/simple/
+```
+
+{% label 华中理工大学 purple %}
+
+```
+http://pypi.hustunique.com/
+```
+
+{% label 山东理工大学 orange %}
+
+```
+http://pypi.sdutlinux.org/
+```
+
+{% label 豆瓣 green %}
+
+```
+http://pypi.douban.com/simple/
 ```
 
 ## 结语
