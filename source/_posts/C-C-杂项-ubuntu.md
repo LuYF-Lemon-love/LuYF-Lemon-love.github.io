@@ -121,6 +121,8 @@ date: 2022-09-28 14:52:14
 
 41. [std::vector::operator[]](https://cplusplus.com/reference/vector/vector/operator[]/)
 
+42. [size](https://cplusplus.com/reference/map/map/size/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -1690,7 +1692,79 @@ int main ()
 
 ### map
 
+**Capacity:**
+
+- `size`: Return container size (public member function)
+
+**Element access:**
+
 - `operator[]`: Access element (public member function)
+
+#### `std::map::size`
+
+`std::map::size`: https://cplusplus.com/reference/map/map/size/ 。
+
+```c++
+size_type size() const noexcept;
+```
+
+**`Return container size`**
+
+Returns `the number of elements` in the map container.
+
+**`Parameters`**
+
+**none**
+
+**`Return Value`**
+
+`The number of elements` in the container.
+
+Member type `size_type` is `an unsigned integral type`.
+
+**`Example`**
+
+```c++
+// map::size
+#include <iostream>
+#include <map>
+
+int main ()
+{
+  std::map<char,int> mymap;
+  mymap['a']=101;
+  mymap['b']=202;
+  mymap['c']=302;
+
+  std::cout << "mymap.size() is " << mymap.size() << '\n';
+
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+mymap.size() is 3
+```
+
+**`Complexity`**
+
+Constant.
+
+**`Iterator validity`**
+
+No changes.
+
+**`Data races`**
+
+1. The container is `accessed`.
+
+2. No elements are accessed: concurrently accessing or modifying them is safe.
+
+**`Exception safety`**
+
+`No-throw guarantee`: this member function `never throws exceptions`.
 
 #### `std::map::operator[]`
 
