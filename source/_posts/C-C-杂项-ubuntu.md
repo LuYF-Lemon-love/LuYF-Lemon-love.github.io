@@ -119,6 +119,8 @@ date: 2022-09-28 14:52:14
 
 40. [std::map::operator[]](https://cplusplus.com/reference/map/map/operator[]/)
 
+41. [std::vector::operator[]](https://cplusplus.com/reference/vector/vector/operator[]/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -1788,6 +1790,110 @@ No changes.
 1. Strong guarantee: `if an exception is thrown, there are no changes in the container`.
 
 2. If a new element is inserted and `allocator_traits::construct` cannot construct an element with `k` and a default-constructed `mapped_type` (or if `mapped_type` is not `default constructible`), it causes `undefined behavior`.
+
+## `<vector>`
+
+`<vector>`: https://cplusplus.com/reference/vector/ 。
+
+`<vector>`: Vector header (header).
+
+### vector
+
+- `operator[]`: Access element (public member function)
+
+#### `std::vector::operator[]`
+
+`std::vector::operator[]`: https://cplusplus.com/reference/vector/vector/operator[]/ 。
+
+```c++
+reference operator[] (size_type n);const_reference operator[] (size_type n) const;
+```
+
+**`Access element`**
+
+Returns a reference to the element at position `n` in the `vector` container.
+
+A similar member function, `vector::at`, has the same behavior as this operator function, except that `vector::at` is `bound-checked` and signals `if the requested position is out of range by throwing an out_of_range exception`.
+
+Portable programs should never call this function with an argument `n` that is out of range, since this causes `undefined behavior`.
+
+**`Parameters`**
+
+**n**
+
+1. `Position of an element` in the container.
+
+2. Notice that `the first element` has a position of `0` (not `1`).
+
+3. Member type `size_type` is an `unsigned integral type`.
+
+**`Return Value`**
+
+1. `The element at the specified position` in the `vector`.
+
+2. If the `vector` object is `const-qualified`, the function returns a `const_reference`. Otherwise, it returns a `reference`.
+
+3. Member types `reference` and `const_reference` are the reference types to the elements of the container (see `vector member types`).
+
+**`Example`**
+
+```c++
+// vector::operator[]
+#include <iostream>
+#include <vector>
+
+int main ()
+{
+  std::vector<int> myvector (10);   // 10 zero-initialized elements
+
+  std::vector<int>::size_type sz = myvector.size();
+
+  // assign some values:
+  for (unsigned i=0; i<sz; i++) myvector[i]=i;
+
+  // reverse vector using operator[]:
+  for (unsigned i=0; i<sz/2; i++)
+  {
+    int temp;
+    temp = myvector[sz-1-i];
+    myvector[sz-1-i]=myvector[i];
+    myvector[i]=temp;
+  }
+
+  std::cout << "myvector contains:";
+  for (unsigned i=0; i<sz; i++)
+    std::cout << ' ' << myvector[i];
+  std::cout << '\n';
+
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+myvector contains: 9 8 7 6 5 4 3 2 1 0
+```
+
+**`Complexity`**
+
+`Constant`.
+
+**`Iterator validity`**
+
+No changes.
+
+**`Data races`**
+
+1. The `container` is `accessed` (neither the `const` nor the `non-const` versions modify the container).
+
+2. The reference returned can be used to `access` or `modify elements`. Concurrently accessing or modifying different elements is `safe`.
+
+**`Exception safety`**
+
+1. If the container size is greater than `n`, the function `never throws exceptions` (no-throw guarantee).
+
+2. Otherwise, the behavior is undefined.
 
 <div id = "3"></div>
 
