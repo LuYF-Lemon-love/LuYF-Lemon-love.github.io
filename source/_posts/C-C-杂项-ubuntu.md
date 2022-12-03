@@ -117,6 +117,8 @@ date: 2022-09-28 14:52:14
 
 39. [min](https://cplusplus.com/reference/algorithm/min/)
 
+40. [std::map::operator[]](https://cplusplus.com/reference/map/map/operator[]/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -1677,6 +1679,117 @@ int main ()
 <div id = "2"></div>
 
 # `Containers`
+
+## `<map>`
+
+`<map>`: https://cplusplus.com/reference/map/ 。
+
+`<map>`: Map header (header).
+
+### map
+
+- `operator[]`: Access element (public member function)
+
+#### `std::map::operator[]`
+
+`std::map::operator[]`: https://cplusplus.com/reference/map/map/operator[]/ 。
+
+```c++
+mapped_type& operator[] (const key_type& k);mapped_type& operator[] (key_type&& k);
+```
+
+**`Access element`**
+
+If `k` matches `the key of an element` in the container, the function returns `a reference to its mapped value`.
+
+`If k does not match the key of any element in the container, the function inserts a new element with that key and returns a reference to its mapped value.` Notice that this always `increases the container size by one`, even if `no mapped value is assigned to the element` (`the element is constructed using its default constructor`).
+
+A similar member function, `map::at`, has `the same behavior when an element with the key exists`, but `throws an exception when it does not`.
+
+A call to this function is equivalent to:
+
+```c++
+(*((this->insert(make_pair(k,mapped_type()))).first)).
+```
+
+**`Parameters`**
+
+**k**
+
+1. `Key value of the element` whose mapped value is accessed.
+
+2. Member type `key_type` is the type of the keys for the elements stored in the container, defined in map as an alias of its first template parameter (`Key`).
+
+3. If an `rvalue (second version)`, the key is `moved instead of copied` when a new element is inserted.
+
+**`Return Value`**
+
+A `reference` to the mapped value of the element with a `key` value equivalent to `k`.
+
+Member type `mapped_type` is the type of the mapped values in the container, defined in `map` as an alias of its `second template parameter` (`T`).
+
+**`Example`**
+
+```c++
+// accessing mapped values
+#include <iostream>
+#include <map>
+#include <string>
+
+int main ()
+{
+  std::map<char,std::string> mymap;
+
+  mymap['a']="an element";
+  mymap['b']="another element";
+  mymap['c']=mymap['b'];
+
+  std::cout << "mymap['a'] is " << mymap['a'] << '\n';
+  std::cout << "mymap['b'] is " << mymap['b'] << '\n';
+  std::cout << "mymap['c'] is " << mymap['c'] << '\n';
+  std::cout << "mymap['d'] is " << mymap['d'] << '\n';
+
+  std::cout << "mymap now contains " << mymap.size() << " elements.\n";
+
+  return 0;
+}
+```
+
+Notice how `the last access` (to element `'d'`) inserts a new element in the `map` with that key and `initialized to its default value` (an empty string) even though it is accessed only to retrieve its value. `Member function map::find does not produce this effect`.
+
+{% label 输出 pink %}
+
+```bash
+mymap['a'] is an element
+mymap['b'] is another element
+mymap['c'] is another element
+mymap['d'] is
+mymap now contains 4 elements.
+```
+
+**`Complexity`**
+
+`Logarithmic` in size.
+
+**`Iterator validity`**
+
+No changes.
+
+**`Data races`**
+
+1. The container is `accessed`, and `potentially modified`.
+
+2. The function accesses an element and returns a reference that can be used to modify its mapped value.
+
+3. Concurrently accessing other elements is safe.
+
+4. If the function inserts `a new element`, concurrently iterating ranges in the container is not safe.
+
+**`Exception safety`**
+
+1. Strong guarantee: `if an exception is thrown, there are no changes in the container`.
+
+2. If a new element is inserted and `allocator_traits::construct` cannot construct an element with `k` and a default-constructed `mapped_type` (or if `mapped_type` is not `default constructible`), it causes `undefined behavior`.
 
 <div id = "3"></div>
 
