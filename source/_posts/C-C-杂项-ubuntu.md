@@ -1779,11 +1779,9 @@ No changes.
 
 1. The container is `accessed`, and `potentially modified`.
 
-2. The function accesses an element and returns a reference that can be used to modify its mapped value.
+2. The function accesses an element and returns a reference that can be used to modify its mapped value. Concurrently accessing other elements is safe.
 
-3. Concurrently accessing other elements is safe.
-
-4. If the function inserts `a new element`, concurrently iterating ranges in the container is not safe.
+3. If the function inserts `a new element`, concurrently iterating ranges in the container is not safe.
 
 **`Exception safety`**
 
