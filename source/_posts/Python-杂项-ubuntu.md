@@ -31,6 +31,8 @@ date: 2022-09-29 11:36:43
 
 7. [copy --- 浅层 (shallow) 和深层 (deep) 复制操作](https://docs.python.org/zh-cn/3/library/copy.html)
 
+8. [python基础教程：startswith()和endswith()的用法](https://zhuanlan.zhihu.com/p/420740908)
+
 ## Python 注释
 
 1. 使用 `#` 进行单行注释：
@@ -416,6 +418,44 @@ isspace(self, /)
 类可以使用与`控制序列化`（pickling）操作相同的接口来控制复制操作，关于这些方法的描述信息请参考 `pickle` 模块。实际上，`copy` 模块使用的正是从 `copyreg` 模块中注册的 `pickle` 函数。
 
 想要`为一个类定义它自己的拷贝操作实现`，可以通过定义特殊方法 `__copy__()` 和 `__deepcopy__()`。 `调用前者以实现浅层拷贝操作`；`该方法不必传入额外参数`。 `调用后者以实现深层拷贝操作`；`它应转入一个参数`，即 `memo` 字典。如果 `__deepcopy__()` 实现需要创建一个组件的`深层拷贝`，它应当调用 `deepcopy()` 函数并以`该组件作为第一个参数`而以该 `memo` 字典作为`第二个参数`。`memo` 字典应当被当作`不透明对象`来处理。
+
+## str.startswith() 方法和 str.endswith() 方法
+
+```python
+>>> help(str.startswith)
+```
+
+```python
+Help on method_descriptor:
+
+startswith(...)
+    S.startswith(prefix[, start[, end]]) -> bool
+    
+    Return True if S starts with the specified prefix, False otherwise.
+    With optional start, test S beginning at that position.
+    With optional end, stop comparing S at that position.
+    prefix can also be a tuple of strings to try.
+(END)
+```
+
+---
+
+```python
+help(str.endswith)
+```
+
+```python
+Help on method_descriptor:
+
+endswith(...)
+    S.endswith(suffix[, start[, end]]) -> bool
+    
+    Return True if S ends with the specified suffix, False otherwise.
+    With optional start, test S beginning at that position.
+    With optional end, stop comparing S at that position.
+    suffix can also be a tuple of strings to try.
+(END)
+```
 
 ## 结语
 
