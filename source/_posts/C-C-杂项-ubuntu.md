@@ -125,6 +125,8 @@ date: 2022-09-28 14:52:14
 
 43. [size](https://cplusplus.com/reference/vector/vector/size/)
 
+44. [clear](https://cplusplus.com/reference/map/map/clear/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -1702,6 +1704,10 @@ int main ()
 
 - `operator[]`: Access element (public member function)
 
+**Modifiers:**
+
+- `clear`: Clear content (public member function)
+
 #### `std::map::size`
 
 `std::map::size`: https://cplusplus.com/reference/map/map/size/ 。
@@ -1866,6 +1872,87 @@ No changes.
 1. Strong guarantee: `if an exception is thrown, there are no changes in the container`.
 
 2. If a new element is inserted and `allocator_traits::construct` cannot construct an element with `k` and a default-constructed `mapped_type` (or if `mapped_type` is not `default constructible`), it causes `undefined behavior`.
+
+#### `std::map::clear`
+
+`std::map::clear`: https://cplusplus.com/reference/map/map/clear/ 。
+
+```c++
+void clear() noexcept;
+```
+
+**`Clear content`**
+
+`Removes` all elements from `the map container` (which are destroyed), `leaving the container with a size of 0`.
+
+**`Parameters`**
+
+**none**
+
+**`Return Value`**
+
+**none**
+
+**`Example`**
+
+```c++
+// map::clear
+#include <iostream>
+#include <map>
+
+int main ()
+{
+  std::map<char,int> mymap;
+
+  mymap['x']=100;
+  mymap['y']=200;
+  mymap['z']=300;
+
+  std::cout << "mymap contains:\n";
+  for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  mymap.clear();
+  mymap['a']=1101;
+  mymap['b']=2202;
+
+  std::cout << "mymap contains:\n";
+  for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+mymap contains:
+x => 100
+y => 200
+z => 300
+mymap contains:
+a => 1101
+b => 2202
+```
+
+**`Complexity`**
+
+`Linear` in size (destructions).
+
+**`Iterator validity`**
+
+`All iterators, pointers and references` related to this container are `invalidated`.
+
+**`Data races`**
+
+1. The container is modified.
+
+2. `All contained elements are modified`.
+
+**`Exception safety`**
+
+`No-throw guarantee`: this member function `never throws` exceptions.
 
 ## `<vector>`
 
