@@ -35,7 +35,7 @@ date: 2022-09-29 11:36:43
 
 9. [pip install -i 国内镜像地址](https://blog.csdn.net/qq_52671379/article/details/123392484)
 
-10. [os.environ¶](https://docs.python.org/zh-cn/3/library/os.html#os.environ)
+10. [os.environ](https://docs.python.org/zh-cn/3/library/os.html#os.environ)
 
 ## Python 注释
 
