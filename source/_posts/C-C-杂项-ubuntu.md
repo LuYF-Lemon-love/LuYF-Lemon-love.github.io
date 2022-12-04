@@ -137,6 +137,8 @@ date: 2022-09-28 14:52:14
 
 49. [push_back](https://cplusplus.com/reference/vector/vector/push_back/)
 
+50. [fseek](https://cplusplus.com/reference/cstdio/fseek/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -946,7 +948,85 @@ A file called `myfile.bin` is created and `the content of the buffer is stored i
 
 ### File positioning
 
+- `fseek`: Reposition stream position indicator (function)
+
 - `rewind`: Set position of stream to the beginning (function)
+
+#### fseek
+
+`fseek`: https://cplusplus.com/reference/cstdio/fseek/ 。
+
+`int fseek ( FILE * stream, long int offset, int origin );`
+
+**`Reposition stream position indicator`**
+
+Sets `the position indicator` associated with the stream to `a new position`.
+
+For streams `open in binary mode`, the new position is defined by adding `offset` to a reference position specified by `origin`.
+
+For streams `open in text mode`, offset shall either be `zero` or a value returned by a previous call to `ftell`, and origin shall necessarily be `SEEK_SET`.
+
+If the function is called with other values for these arguments, support depends on `the particular system` and `library implementation` (non-portable).
+
+The `end-of-file internal indicator` of the `stream` is cleared after a successful call to this function, and all effects from previous calls to `ungetc` on this `stream` are dropped.
+
+On streams open for update (`read+write`), a call to `fseek` allows to switch between reading and writing.
+
+**`Parameters`**
+
+**stream**
+
+1. `Pointer` to a `FILE` object that identifies the stream.
+
+**offset**
+
+1. `Binary files`: Number of bytes to offset from `origin`.
+
+2. `Text files`: Either `zero`, or a `value` returned by `ftell`.
+
+**origin**
+
+Position used as reference for the `offset`. It is specified by one of the following constants defined in `<cstdio>` exclusively to be used as arguments for this function:
+
+|Constant|Reference position|
+|:-:|:-:|
+|SEEK_SET|Beginning of file|
+|SEEK_CUR|Current position of the file pointer|
+|SEEK_END|`End of file *`|
+
+`* Library` implementations are allowed to not meaningfully support `SEEK_END` (therefore, code using it has no real standard portability).
+
+**`Return Value`**
+
+1. If successful, the function returns `zero`.
+
+2. Otherwise, it returns `non-zero` value.
+
+3. If a read or write error occurs, the `error indicator` (`ferror`) is set.
+
+**`Example`**
+
+```c++
+/* fseek example */
+#include <stdio.h>
+
+int main ()
+{
+  FILE * pFile;
+  pFile = fopen ( "example.txt" , "wb" );
+  fputs ( "This is an apple." , pFile );
+  fseek ( pFile , 9 , SEEK_SET );
+  fputs ( " sam" , pFile );
+  fclose ( pFile );
+  return 0;
+}
+```
+
+After this code is successfully executed, the file `example.txt` contains:
+
+```bash
+This is a sample.
+```
 
 #### rewind
 
