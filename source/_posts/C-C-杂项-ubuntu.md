@@ -133,6 +133,8 @@ date: 2022-09-28 14:52:14
 
 47. [resize](https://cplusplus.com/reference/vector/vector/resize/)
 
+48. [operator=](https://cplusplus.com/reference/vector/vector/operator=/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -2061,6 +2063,8 @@ No changes.
 
 ### vector
 
+- `operator=`: Assign content (public member function)
+
 **Capacity:**
 
 - `size`: Return size (public member function)
@@ -2074,6 +2078,105 @@ No changes.
 **Modifiers:**
 
 - `clear`: Clear content (public member function)
+
+#### `std::vector::operator=`
+
+`std::vector::operator=`: https://cplusplus.com/reference/vector/vector/operator=/ 。
+
+```c++
+copy (1)	
+vector& operator= (const vector& x);
+move (2)	
+vector& operator= (vector&& x);
+initializer list (3)	
+vector& operator= (initializer_list<value_type> il);
+```
+
+**`Assign content`**
+
+`Assigns` new contents to the container, replacing its current contents, and modifying its `size` accordingly.
+
+{% folding red, C++11 %}
+
+The `copy assignment (1)` copies all the elements from `x` into the container (with `x` preserving its contents).
+
+The `move assignment (2)` moves the elements of `x` into the container (`x` is left in an unspecified but valid state).
+
+The `initializer list assignment (3)` copies the elements of `il` into the container.
+
+The container preserves its `current allocator`, except if the `allocator traits` indicate that x's allocator should `propagate`. This `allocator` is used (through its `traits`) to `allocate` and `deallocate` storage if a reallocation happens, and to `construct` or `destroy` elements, if needed.
+
+{% endfolding %}
+
+Any elements held in the container before the call are either `assigned` to or `destroyed`.
+
+**`Parameters`**
+
+**x**
+
+1. A `vector` object of the same type (i.e., with the same template parameters, `T` and `Alloc`).
+
+**il**
+
+1. An `initializer_list` object. The compiler will automatically construct such objects from `initializer list` declarators.
+
+2. Member type `value_type` is the type of the elements in the container, defined in `vector` as an alias of its first template parameter (`T`).
+
+**`Return Value`**
+
+*this
+
+**`Example`**
+
+```c++
+// vector assignment
+#include <iostream>
+#include <vector>
+
+int main ()
+{
+  std::vector<int> foo (3,0);
+  std::vector<int> bar (5,0);
+
+  bar = foo;
+  foo = std::vector<int>();
+
+  std::cout << "Size of foo: " << int(foo.size()) << '\n';
+  std::cout << "Size of bar: " << int(bar.size()) << '\n';
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+Size of foo: 0
+Size of bar: 3
+```
+
+**`Complexity`**
+
+`Linear` in size.
+
+**`Iterator validity`**
+
+All `iterators`, `references` and `pointers` related to this container before the call are invalidated.
+
+In the `move assignment`, iterators, pointers and references referring to elements in `x` are also invalidated.
+
+**`Data races`**
+
+1. `All copied elements` are accessed.
+
+2. The `move assignment (2)` modifies x.
+
+3. The container and all its elements are modified.
+
+**`Exception safety`**
+
+1. `Basic guarantee`: if an exception is thrown, the container is in a valid state.
+
+2. If `allocator_traits::construct` is not supported with the appropriate arguments for the element constructions, or if `value_type` is `not copy assignable` (or `move assignable` for (2)), it causes `undefined behavior`.
 
 #### `std::vector::size`
 
