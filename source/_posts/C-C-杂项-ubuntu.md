@@ -135,6 +135,8 @@ date: 2022-09-28 14:52:14
 
 48. [operator=](https://cplusplus.com/reference/vector/vector/operator=/)
 
+49. [push_back](https://cplusplus.com/reference/vector/vector/push_back/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -2077,6 +2079,8 @@ No changes.
 
 **Modifiers:**
 
+- `push_back`: Add element at the end (public member function)
+
 - `clear`: Clear content (public member function)
 
 #### `std::vector::operator=`
@@ -2450,6 +2454,92 @@ No changes.
 1. If the container size is greater than `n`, the function `never throws exceptions` (no-throw guarantee).
 
 2. Otherwise, the behavior is undefined.
+
+#### `std::vector::push_back`
+
+`std::vector::push_back`: https://cplusplus.com/reference/vector/vector/push_back/ 。
+
+```c++
+void push_back (const value_type& val);
+void push_back (value_type&& val);
+```
+
+**`Add element at the end`**
+
+`Adds a new element at the end of the vector`, after its current `last` element. The content of val is `copied` (or `moved`) to the new element.
+
+This effectively increases the container `size` by one, `which causes an automatic reallocation of the allocated storage space if -and only if- the new vector size surpasses the current vector capacity`.
+
+**`Parameters`**
+
+**val**
+
+1. `Value` to be `copied` (or `moved`) to the new element.
+
+2. Member type `value_type` is the type of the elements in the container, defined in vector as an alias of `its first template parameter (T)`.
+
+**`Return Value`**
+
+none
+
+If a `reallocation` happens, the storage is `allocated` `using the container's allocator`, which may throw exceptions on failure (for the default allocator, `bad_alloc` is thrown if the allocation request does not succeed).
+
+**`Example`**
+
+```c++
+// vector::push_back
+#include <iostream>
+#include <vector>
+
+int main ()
+{
+  std::vector<int> myvector;
+  int myint;
+
+  std::cout << "Please enter some integers (enter 0 to end):\n";
+
+  do {
+    std::cin >> myint;
+    myvector.push_back (myint);
+  } while (myint);
+
+  std::cout << "myvector stores " << int(myvector.size()) << " numbers.\n";
+
+  return 0;
+}
+```
+
+The example uses `push_back` to add a new element to the vector each time a new integer is read.
+
+**`Complexity`**
+
+`Constant` (amortized time, `reallocation` may happen).
+
+If a `reallocation` happens, the reallocation is itself up to linear `in the entire size`.
+
+**`Iterator validity`**
+
+1. If a `reallocation` happens, all iterators, pointers and references related to the container are `invalidated`.
+
+2. `Otherwise`, only `the end iterator` is `invalidated`, and all iterators, pointers and references to elements are guaranteed to keep referring to the same elements they were referring to before the call.
+
+**`Data races`**
+
+1. The container is `modified`.
+
+2. If a `reallocation` happens, all contained elements are modified.
+
+3. Otherwise, no existing element is accessed, and concurrently accessing or modifying them is safe.
+
+**`Exception safety`**
+
+1. If `no reallocations` happen, there are `no changes` in the container in case of exception (strong guarantee).
+
+2. If a `reallocation` happens, the strong guarantee is also given if the type of the elements is either `copyable` or `no-throw moveable`.
+
+3. Otherwise, the `container` is guaranteed to `end in a valid state` (basic guarantee).
+
+4. If `allocator_traits::construct` is not supported with `val` as argument, it causes `undefined behavior`.
 
 #### `std::vector::clear`
 
