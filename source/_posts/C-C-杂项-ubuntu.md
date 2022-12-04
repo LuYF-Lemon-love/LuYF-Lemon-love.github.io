@@ -131,6 +131,8 @@ date: 2022-09-28 14:52:14
 
 46. [count](https://cplusplus.com/reference/map/map/count/)
 
+47. [resize](https://cplusplus.com/reference/vector/vector/resize/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -2063,6 +2065,8 @@ No changes.
 
 - `size`: Return size (public member function)
 
+- `resize`: Change size (public member function)
+
 **Element access:**
 
 - `operator[]`: Access element (public member function)
@@ -2146,6 +2150,109 @@ No changes.
 **`Exception safety`**
 
 `No-throw guarantee`: this member function `never` throws exceptions.
+
+#### `std::vector::resize`
+
+`std::vector::resize`: https://cplusplus.com/reference/vector/vector/resize/ 。
+
+```c++
+void resize (size_type n);void resize (size_type n, const value_type& val);
+```
+
+**`Change size`**
+
+`Resizes` the container so that it contains `n` elements.
+
+If `n` is smaller than the current container size, the content is `reduced to its first n element`s, removing those beyond (and destroying them).
+
+If `n` is greater than the current container size, the content is expanded by inserting at the end as many elements as needed to reach a size of n. `If val is specified, the new elements are initialized as copies of val`, `otherwise, they are value-initialized`.
+
+If `n` is also greater than the current container `capacity`, an `automatic reallocation` of the allocated storage space takes place.
+
+Notice that this function changes the actual content of the container by inserting or erasing elements from it.
+
+**`Parameters`**
+
+**n**
+
+1. New container size, expressed in number of elements.
+
+2. Member type `size_type` is an unsigned integral type.
+
+**val**
+
+1. `Object` whose content is copied to the added elements in case that `n` is greater than `the current container size`.
+
+2. If `not specified`, `the default constructor` is used instead.
+
+3. Member type `value_type` is the type of the elements in the container, defined in `vector` as an alias of the first template parameter (`T`).
+
+**`Return Value`**
+
+none
+
+If a `reallocation` happens, the storage is allocated using the container's `allocator`, which may throw exceptions on failure (for the default `allocator`, `bad_alloc` is thrown if the allocation request does not succeed).
+
+**`Example`**
+
+```c++
+// resizing vector
+#include <iostream>
+#include <vector>
+
+int main ()
+{
+  std::vector<int> myvector;
+
+  // set some initial content:
+  for (int i=1;i<10;i++) myvector.push_back(i);
+
+  myvector.resize(5);
+  myvector.resize(8,100);
+  myvector.resize(12);
+
+  std::cout << "myvector contains:";
+  for (int i=0;i<myvector.size();i++)
+    std::cout << ' ' << myvector[i];
+  std::cout << '\n';
+
+  return 0;
+}
+```
+
+{% label 输出 pink %}
+
+```bash
+myvector contains: 1 2 3 4 5 100 100 100 0 0 0 0
+```
+
+**`Complexity`**
+
+1. `Linear` on the number of elements inserted/erased (`constructions/destructions`).
+
+2. If a `reallocation` happens, the reallocation is itself up to linear in `the entire vector size`.
+
+**`Iterator validity`**
+
+1. In case the container `shrinks`, `all iterators`, `pointers` and `references` to elements that have not been removed remain valid after the resize and `refer to the same elements` they were referring to before the call.
+
+2. If the container `expands`, `the end iterator` is `invalidated` and, if it has to `reallocate storage`, all `iterators`, `pointers` and `references` related to this container are also `invalidated`.
+
+**`Data races`**
+
+1. The container is `modified`.
+
+2. If a reallocation happens, all contained elements are modified.
+
+3. Otherwise, none of the elements before `n` is accessed, and concurrently accessing or modifying them is `safe`.
+
+**`Exception safety`**
+
+1. If `n` is less than or equal to the size of the container, the function `never` throws exceptions (`no-throw guarantee`).
+
+2. If `n` is greater and a reallocation happens, there are `no changes` in the container `in case of exception` (`strong guarantee`) if the type of the elements is either copyable or no-throw moveable.
+
+3. Otherwise, if an exception is thrown, the container is left with a valid state (basic guarantee).
 
 #### `std::vector::operator[]`
 
