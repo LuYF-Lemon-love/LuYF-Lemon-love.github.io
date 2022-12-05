@@ -371,6 +371,10 @@ $$
 
 #### 选择性注意力机制的有效性验证
 
+为了证明`语句级别选择性注意力机制`的有效性, 通过`保留评估` ( **held-out evaluation**) 比较不同的方法. 选择 `Zeng` 等人[<sup>4</sup>](#4)[<sup>6</sup>](#6)提出的`卷积神经网路模型` `CNN` 及其变种模型 `PCNN` 作为句子编码器 (implement them by ourselves which achieve comparable results as the authors reported). 作者将`两种不同类型`的`卷积神经网络`分别与`句子级别注意力机制 ATT`、`ATT 的基线版本 AVE` (在该版本中, `每个实例集合的向量`表示为`集合内部实例的平均向量`) 及 Zeng 等人[<sup>4</sup>](#4)提出的`多实例学习方法 ONE` 进行了结合, 并比较了它们的表现.
+
+---
+
 **句子编码器**:
 
 1. the **CNN** model proposed in (Zeng et al., 2014)[<sup>6</sup>](#6)
@@ -379,27 +383,91 @@ $$
 
 比较了**两种 CNN**, 它们**带有句子级别注意力机制的版本 (ATT)**, 它们的**朴素版本 (AVE)**, 它们的**多实例学习方法**[<sup>4</sup>](#4) (the at-least-one multi-instance learning, ONE) 的**表现**.
 
-Precion/recall curves of CNN, CNN+ONE, CNN+AVE, CNN+ATT
+---
+
+`Precion/recall curves` of `CNN`, `CNN+ONE`, `CNN+AVE`, `CNN+ATT`
 
 ![](https://cos.luyf-lemon-love.space/images/20221020185854.png)
 
-Precion/recall curves of PCNN, PCNN+ONE, PCNN+AVE, PCNN+ATT
+`Precion/recall curves` of `PCNN`, `PCNN+ONE`, `PCNN+AVE`, `PCNN+ATT`
 
 ![](https://cos.luyf-lemon-love.space/images/20221020185913.png)
 
+从上图, 作者得到了如下`观察结果`:
+
+1. 对于 `CNN` 和 `PCNN`, `ONE` 方法与 `CNN/PCNN` 相比`具有更好的性能`. 原因在于`原始的基于远程监督得到的训练数据`包含`大量的噪声数据`, 而`噪声数据`会损害`关系抽取的性能`. **`ONE 方法`引入`多实例学习`, 这`在一定程度上`减缓了该问题.**
+
+2. 对于 `CNN` 和 `PCNN`, 与 `CNN/PCNN` 相比, `AVE 方法`对`关系抽取模型`的`效果提升`是有作用的. 这表明`考虑更多的实例`有利于`关系抽取`, 因为`噪声信息`可以通过`信息的互补`来`减少负面影响`, **`更多的实例也带来了更多的信息`.**
+
+3. 对于 `CNN` 和 `PCNN`, `AVE 方法`与 `ONE 方法`相比具有`相似`的性能. 这说明, 尽管 `AVE` 方法引入了`更多的实例信息`, 但由于它将`每个句子`赋予`同等的权重`, 它也会`从错误标注的语句中得到负面的噪声信息`, 从而`损害`关系抽取的性能. **所以 `AVE` 方法与 `ONE` 方法`难以分出优劣`.**
+
+4. 对于 `CNN` 和 `PCNN`, 与包括 `AVE` 方法在内的`其他方法`相比, `ATT 方法`在`整个召回范围内`实现了`最高的精度`. 它表明, 所提出的**选择性注意力机制**是有益的. 它`可以有效地滤除无意义的句子`, 解决基于远程监督的关系抽取中的错误标注问题, **并尽可能地充分利用每一个实例的信息进行关系抽取.**
+
 #### 实例数量的影响分析
+
+在`原始测试数据集`中, 有 `74,857` 个实体对`仅对应于一个句子`, 几乎占所有实体对的 `3/4`. 由于`选择性注意力机制的优势`在于`处理包含多个实例的实体对`, 所以实验比较了 `CNN/PCNN+ONE`、`CNN/PCNN+AVE`、以及采用了`注意力机制`的 `CNN/PCNN+ATT` 在`具有不同实例数量的实体对集合`上的表现. 具体有以下 `3` 个实验场景.
+
+- **One**: 对于`每个测试实体对`, `随机选择`其对应的实例集合中的`一个实例`, 并将`这个实例`用作关系预测.
+
+- **Two**: 对于`每个测试实体对`, `随机选择`其对应的实例集合中的`两个实例`, 并将`这两个实例`用作关系预测.
+
+- **All**: 对于`每个测试实体对`, 使用其对应的实例集合中的`所有实例`进行`关系预测`.
+
+**值得注意的是**, 在训练过程中, **`使用了所有实例`**. 实验汇报了`所有预测中评分最高的 N 项预测`的`预测精度 P@N`, 具体有 `P@100`、`P@200`、`P@300` 及它们的`平均值`. 各个模型`在实体对拥有不同实例数目情况下`的 `P@N 的效果对比`如下表所示.
 
 ![](https://cos.luyf-lemon-love.space/images/20221020203352.png)
 
+从上表中, 可以观察到:
+
+1. 对于 `CNN` 和 `PCNN`, `ATT 方法`在`所有测试设置`中`均达到最佳性能`. 它表明了`句子级选择性注意力机制`对于`多实例学习`的`有效性`.
+
+2. 对于 `CNN` 和 `PCNN`, `AVE 方法`在 `One` 测试设置下, `效果与 ATT 方法相当`. 然而, 当`每个实体对`的`测试实例数量`增加时, `AVE 方法的性能`几乎没有改善. 随着`实例的增加`, 它甚至在 `P@100`、`P@200` 中`逐渐下降`. 原因在于, 由于 `AVE` 方法`对每个实例同等看待`, `实例包含的不表达任何关系的噪声数据`对于`关系抽取`的表现`会产生负面影响`.
+
+3. 在 `One` 测试设置下, `CNN+AVE` 和 `CNN+ATT` 与 `CNN+ONE` 相比有 `5 ～ 8` 个百分点的改进. `每个实体对`在这个测试设置中`只有一个实例`, 这些方法的`唯一区别`来自`训练方式的不同`. 因此, 实验结果表明`利用所有的实例会带来更多的信息`, 尽管这也可能`带来一些额外的噪声`. **`这些附带的信息`在训练过程中`提升了模型效果`.**
+
+4. 对于 `CNN` 和 `PCNN`, `ATT 方法`在 `Two` 和 `All` 测试设置中`优于`其他两个基线 (over `5%` and `9%`). 这表明, 通过`考虑更多有用的信息`, `CNN+ATT 排名较高的关系事实`更可靠, 更有利于`关系提取`.
+
 #### 与基于人工特征工程的方法的性能比较
+
+为了`验证`所提出的方法, 作者选择了`以下 3 种基于人工特征的方法`来进行`性能比较`.
+
+- **Mintz** (Mintz et al., 2009) 是一个`传统的基于远程监督`的模型.
+
+- **MultiR** (Hoffmann et al., 2011) 提出了`一个概率图模型`用于`多实例学习`, 它的特点`在于可以处理关系类型之间的重合`.
+
+- **MIML** (Surdeanu et al., 2012) 同时考虑了`多实例`和`多关系类型`两种情况 (即`每个实体对`可能有`多个句子`, 也可能有`多个关系类型`).
+
+>We implement them with the source codes released by the authors.
+
+每个方法的`精度-召回率曲线`如下图所示.
 
 ![](https://cos.luyf-lemon-love.space/images/20221020203439.png)
 
+从上图中, 可以观察到:
+
+1. 在`整个召回率范围`内, `CNN/PCNN+ATT` **显著优于**所有基于人工特征的方法. 当`召回率 > 0.1` 时, `基于特征的方法`的性能`迅速下降`. 相比之下, 在`召回率达到约 0.3 之前`, 该论文的模型`都具有合理的准确率`. 这表明`人工设计的特征`不能简洁地`表达实例的语义含义`, 而`自然语言处理工具`带来的`错误`则会`损害`关系抽取的性能. 相比之下, 可以`自主学习每个实例向量表示`的 `CNN/PCNN+ATT 模型`可以很好地`表达每个实例的语义信息`.
+
+2. 在`整个召回率范围`内, `PCNN+ATT` 与 `CNN+ATT` 相比`表现要好得多`. 这意味着`选择性注意力机制`可以很好地`考虑所有实例的全局信息`, 但无法使模型`对于单个实例`的理解和表示变好. 因此, 如果有`更好的句子编码器`, 那么`模型的性能`可以`进一步提高`.
+
 #### 案例分析
+
+下表显示了`测试数据`中`选择性注意力机制`的`两个示例`. `对于每个关系`, 展示了其对应的`拥有高注意力权值的句子`和`拥有低注意力权值的句子`, 并且对`每个实体对`都进行了`加粗显示`.
 
 ![](https://cos.luyf-lemon-love.space/images/20221020203630.png)
 
+>From the table we find that: `The former example` is related to `the relation employer of`. `The sentence with low attention weight` does not express the relation between two entities, while `the high one` shows that **`Mel Karmazin is the chief executive of Sirius Satellite Radio`**. `The later example` is related to `the relation place of birth`. `The sentence with low attention weight` expresses `where Ernst Haefliger is died in`, while `the high one` expresses `where he is born in`.
+
 ### Conclusion and Future Works
+
+>In this paper, we develop `CNN with sentence-level selective attention`. Our model can `make full use of all informative sentences` and `alleviate the wrong labelling problem for distant supervised relation extraction`. In experiments, we `evaluate our model on relation extraction task`. The experimental results show that `our model significantly and consistently outperforms state-of-the-art feature-based methods and neural network methods`.
+
+---
+
+>In the future, we will explore the following directions:
+>
+> - Our model `incorporates multi-instance learning with neural network via instance-level selective attention`. `It can be used in not only distant supervised relation extraction but also other multi-instance learning tasks.` We will `explore our model in other area` such as `text categorization`.
+>
+> - `CNN` is one of the effective neural networks for neural relation extraction. Researchers also propose many other neural network models for relation extraction. In the future, we will `incorporate our instance-level selective attention technique with those models for relation extraction`.
 
 ## 代码实现
 
