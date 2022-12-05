@@ -22,7 +22,7 @@ TIOBE Index 地址: https://www.tiobe.com/tiobe-index/ .
 
 ## C++ 首次超过 Java
 
-`**TIOBE Index for December 2022**`
+**`TIOBE Index for December 2022`**
 
 **December Headline: Python, C and C++ competing for language of the year award**
 
@@ -37,6 +37,8 @@ TIOBE Index 地址: https://www.tiobe.com/tiobe-index/ .
 |3|4|**$\wedge$**|C++|11.94%|+4.21%|
 |4|3|**$\vee$**|Java|11.82%|+1.70%|
 |5|5||C#|4.92%|-1.48%|
+
+![](https://cos.luyf-lemon-love.space/images/20221205123215.png)
 
 ## 结语
 

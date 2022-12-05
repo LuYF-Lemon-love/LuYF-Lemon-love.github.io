@@ -31,6 +31,12 @@ $$Dets = \mathcal{H(\Phi_{det})} \tag{1}$$
 
 $$Dets = \mathcal{H(\Phi_{det})} \tag{1}$$
 
+## 常用符号
+
+|符号|TeX|符号|TeX|符号|TeX|
+|:-:|:-:|:-:|:-:|:-:|:-:|
+|$\vee$|`$\vee$ or $\lor$`|$\wedge$|`$\wedge$ or $\land$`|||
+
 ## 结语
 
 第三十八篇博文写完，开心！！！！
