@@ -30,9 +30,13 @@ date: 2022-11-30 20:13:30
 
 1. [DRKG Drug Repurposing Knowledge Graph](https://github.com/gnn4dr/DRKG/blob/master/DRKG%20Drug%20Repurposing%20Knowledge%20Graph.pdf).
 
+<div id = "2"></div>
+
+2. B. Kotnis and V. Nastase, “Analysis of the impact of negative sampling on link prediction in knowledge graphs,” 2017.
+
 ## 项目仓库 - Drug Repurposing Knowledge Graph (DRKG)
 
-**药物再利用知识图谱** (Drug Repurposing Knowledge Graph, DRKG) [<sup>1</sup>](#1)是一个涉及**基因**、**药物**、**疾病**、**生物过程**、**副作用**和**症状**的**综合生物知识图谱**. **DRKG** 包括来自 **DrugBank**、**Hetionet**、**GNBR**、**String**、**IntAct** 和 **DGIdb** 等**六个现有数据库的信息**, 以及从最近发表的 **Covid19** 出版物中收集的数据. 它包含属于 **13** 种实体类型的 **97,238** 个实体; 以及属于 **107** 种关系类型的 **5,874,261** 个三元组. 这 **107** 种关系类型显示了 **13** 种实体类型之间的交互类型（**同一种实体对之间可能存在多种交互类型**), 如下图所示. 它还包括很多关于如何使用**统计方法**或使用**机器学习方法**（如**知识图谱嵌入**）探索和分析 DRKG 的 notebooks.
+**药物再利用知识图谱** (Drug Repurposing Knowledge Graph, DRKG)[<sup>1</sup>](#1) 是一个涉及**基因**、**药物**、**疾病**、**生物过程**、**副作用**和**症状**的**综合生物知识图谱**. **DRKG** 包括来自 **DrugBank**、**Hetionet**、**GNBR**、**String**、**IntAct** 和 **DGIdb** 等**六个现有数据库的信息**, 以及从最近发表的 **Covid19** 出版物中收集的数据. 它包含属于 **13** 种实体类型的 **97,238** 个实体; 以及属于 **107** 种关系类型的 **5,874,261** 个三元组. 这 **107** 种关系类型显示了 **13** 种实体类型之间的交互类型（**同一种实体对之间可能存在多种交互类型**), 如下图所示. 它还包括很多关于如何使用**统计方法**或使用**机器学习方法**（如**知识图谱嵌入**）探索和分析 DRKG 的 notebooks.
 
 ![](https://cos.luyf-lemon-love.space/images/20221130135805.png)
 
@@ -244,13 +248,306 @@ sudo pip3 install dglke
 }
 ```
 
-## TransE 原论文学习笔记
+## DRKG 原论文学习笔记
 
-**TransE** 提出于 *2013* 年, 发表于 [NeurIPS](https://neurips.cc/) 会议论文. 为什么介绍 *2013* 年的 **TransE**, 因为 **TransE** 相对于它的变体, **简洁, 高效, 又不失准确**.
+论文题目: DRKG - Drug Repurposing Knowledge Graph for Covid-19
+
+`Covid-19` 大流行的时间表表明`迫切需要`快速开发针对`新疾病`的`有效治疗方法`. `药物再利用` (Drug Repurposing, DR) 是一种`来自现有药物的药物发现策略`, 与从头发现药物相比, 该策略`显著缩短了时间`并`降低了成本`. 本文详细介绍了创建一个与`基因`、`药物`、`疾病`、`生物过程`、`副作用`和`症状`相关的`综合生物知识图谱`的工作, 该知识图谱被称为`药物再利用知识图谱` (`Drug Repurposing Knowledge Graph`, `DRKG`). `DRKG` 包括来自`不同数据库`的信息, 例如 `DrugBank`, `String`, `GNBR`, 以及从最近出版物中收集的数据, 特别是与 `Covid19` 相关的数据. `DR` 可以通过`预测基因和化合物之间的新相互作用`来解决, 这可以表述为 `DRKG` 上的`链接预测任务`. 提供了`分析构建的 DRKG`, `过滤噪声链路和节点`的方法. `图机器学习模型`可以利用 `DRKG` 进行 `DR`, 并`预测现有药物是否成功抑制与 Covid-19 宿主蛋白相关的某些途径`. 使用`最先进的知识图嵌入模型`, 学习 `DRKG` 中`实体和关系的嵌入`. 还进行分析以`验证图结构`和`学习嵌入是否具有高质量`. 最后, 利用在 `DRKG` 上`学习到的 KGE`, 评估了`新冠肺炎的药物再利用`. 结果证实, `临床试验中使用的几种药物`被确定为`可能的候选药物`. 最后, 通过将 `DRKG` 的`药物再利用结果`与`组成数据库的结果`进行比较, 确认`值得构建一个全面的 DRKG`.
+
+>The methods presented in this paper are implemented in `the efficient deep graph learning` (DGL) library ( https://www.dgl.ai/ ).
+>
+>The `DRKG`, `entity & relation embeddings`, and `the source code` for the analysis presented in this paper is `publicly available` ( https://github.com/gnn4dr/DRKG/ ).
 
 ### **介绍**
 
-**Multi-relational data** 是指**有向图**, 它的**节点**被称为**实体**, *(head, label, tail)* 形式的**边** (标注为 *$(h, \ell, t)$*) 能够指示在 *head* 和 *tail* 实体之间存在一个名为 *label* 的**关系**.
+`2019` 年冠状病毒病 (`COVID-19`) 国际突发公共卫生事件说明了`提高`发现新疗法的`效率`和`速度`的紧迫性. 不幸的是, 从头药物发现是一个`漫长`而`昂贵`的过程, 通常需要 `10-15` 年, 每种 `FDA` 批准的新药的成本超过 `26` 亿美元.
+
+>An alternate approach that can dramatically reduce the time to discover new treatments is `drug repurposing (DR)` (or `repositioning`), `which seeks to redevelop existing drugs for use in different diseases`.
+
+---
+
+>`DR` leverages the fact that `common molecular pathways contribute to different diseases` and hence `some drugs may be reused`.
+>
+>It capitalizes on `the existence of detailed information on approved drugs and many abandoned compounds` related to their `pharmacology` (药理学), `formulation` (制剂), `dose` (剂量), and `potential toxicity` (潜在毒性).
+
+---
+
+`药物再利用`依赖于`识别`基因和化合物等`生物实体之间`的`新相互作用`.
+
+>`Traditional approaches` for doing that rely on `costly and time-consuming` experimental methodologies.
+>
+>As a result, `several approaches` have been developed that aim to `leverage the diverse types of information` that already exists about the `drugs`, their `targets`, and the `diseases` in order to `reduce the cost and speedup drug repurposing`.
+>
+>Among them, `approaches` that `represent the existing information` in a form of `a knowledge graph` and deploy graph-based machine learning techniques based on `graph neural networks` and `knowledge graph embedding models` have gained popularity.
+
+#### 贡献
+
+在这个项目中, 构建了`一个称为 DRKG 的多样化药物再利用知识图谱`, 并提供了`一套机器学习工具`, 用于`加快药物再利用`.
+
+>We `collect interactions` from the following `publicly-available` data sources: (i) `Drugbank`, (ii) `Global Network of Biomedical Relationships (GNBR)`, (iii) `Hetionet`, (iv) `STRING`, (v) `IntAct`, (vi) `DGIdb`, and (vii) `relations from bibliographic sources`.
+
+---
+
+>We map `the biological entities of the different databases` to `a common ID space`, which `allows us to link entities across databases`, and we `filter the initial data to remove noisy links and entities`.
+
+---
+
+>In total, `DRKG` contains `97,055` vertices belonging to `13` types of entities, and `5,869,294` edges belonging to `107` types of relations.
+
+---
+
+> In addition, `DRKG` contains `a number of Covid-19 related proteins and genes`, as `extracted from recent publications`.
+
+---
+---
+
+>To analyze DRKG, we `formulate` and `solve` the link prediction task using models that compute `knowledge graph embedding (KGE)`.
+
+---
+
+>We `perform analysis` to validate that `the graph structure` and `the learned embeddings are of high quality`.
+
+---
+
+>Our analysis shows that **`similar biological entities and relations have similar embeddings`** that corroborates insights from biology and hence **`DRKG can be used for developing machine learning models`**.
+
+---
+
+>Finally, we `used these embeddings to evaluate how well DRKG can be used to identify drugs` that can be repurposed for Covid-19. **`Our results show that among the highest scoring drugs, there are several drugs undergoing clinical trials`**.
+
+---
+---
+
+>These results illustrate that `using the DRKG, one can apply machine learning models to predict new links` and `facilitate drug repurposing for novel diseases`.
+
+---
+
+>Finally, by comparing `the drug repurposing results of DRKG` with `those of the constituent databases`, we confirm he `merits to constructing a comprehensive DRKG`.
+
+---
+---
+
+>The `DRKG`, `entity & relation embeddings`, and `the source code` for the analysis presented in this paper is publicly made available ( https://github.com/gnn4dr/DRKG/ ).
+
+### 背景
+
+#### 定义和符号
+
+>A graph $G = (V, E)$ is composed of `two sets`—the set of nodes $V$ (also called `vertices`) and the set of edges $E$ (also called `arcs`). `Each edge` connects `a pair of nodes` indicating that `there is a relation between them`.
+
+---
+
+>`This relation` can either be `undirected`, e.g., **`capturing symmetric relations between nodes`**, or `directed`, **`capturing asymmetric relations`**. Depending on `the edges’ directionality`, a graph can be `directed` or `undirected`.
+>
+>Graphs can be either `homogeneous` or `heterogeneous`. In `a homogeneous graph`, `all the nodes represent instances of the same type` and `all the edges represent relations of the same type`. In contrast, `in a heterogeneous graph`, `the nodes and edges can be of different types`.
+>
+>Finally, a `graph` can either be `a simple graph` or `a multigraph`. In `a simple graph` there is `only a single directed edge` connecting a pair of nodes and `it does not have loops`. In contrast, `in a multigraph` there can be `multiple (directed) edges` between `the same pair of nodes` and can also `contain loops`.
+>
+>**`These multiple edges` are `typically of different types` and as `such most multigraphs are heterogeneous`.**
+
+---
+---
+
+>`A knowledge graph (KG)` is a `directed heterogeneous multi-graph` whose node and relation types have `domain-specific semantics`.
+>
+>`KGs` allow us to `encode the knowledge into a form that is human interpretable` and amenable to automated `analysis` and `inference`.
+>
+>`A node` in a knowledge graph represents `an entity` and `an edge` represents `a relation between two entities`.
+>
+>The edges are usually in the form of triplets $(h, r, t)$, each of which indicates that a pair of entities $h$ (head) and $t$ (tail) are coupled via a relation $r$.
+
+---
+---
+
+>`Knowledge graph embeddings` are `low-dimensional representation of entities and relations`.
+>
+>`These embeddings` carry `the information of the entities and relations` in the knowledge graph and are widely used in tasks, such as **`knowledge graph completion`** and **`recommendation`**.
+>
+>Throughput the paper, we denote `the embedding vector of head entity, tail entity and relation` with $h$, $t$ and $r$, respectively; `all embeddings have the same dimension size` of $d$.
+
+#### 知识图谱嵌入 (KGE) 模型
+
+>`The knowledge graph embeddings` are computed so that `they satisfy certain properties`; i.e., they follow `a given KGE model`. A KGE model `defines a score function` that `measures the distance of two entities relative to its relation type` in the low-dimensional embedding space.
+>
+>`This score function` is `defined on the triplets` and `during training it optimizes a loss function` that `maximizes the scores on triplets that exist in the knowledge graph (positive triplets)` and `minimizes the scores on triplets that do not exist (negative triplets)`.
+
+---
+---
+
+>use `the logistic loss` for `KGE model training` given by
+
+$$
+min\sum_{h, r, t \in \mathbb{D}^+ \cup \mathbb{D}^-} log(1+exp(-y \times f(h,r,t))) \tag{1}
+$$
+
+>where $\mathbb{D}^+$ and $\mathbb{D}^-$ are `the positive and negative sets of triplets`, and $y = 1$ if the triplet corresponds to a positive example and $−1$ otherwise.
+>
+>`The negative triplets` are usually `constructed` by replacing `the entities or relations in positive triplets` with `entities and relations randomly sampled from the knowledge graph`.
+>
+>For `a review of negative sampling strategies` see [<sup>2</sup>](#2).
+
+---
+---
+
+>`Many score functions` have been developed to `train knowledge graph embeddings` and `Table I` lists `the score functions of some of them`.
+
+![](https://cos.luyf-lemon-love.space/images/20221206180047.png)
+
+>`TransE` and `TransR` are `representative translational models` that `explore the Euclidean distance-based scoring functions`, while `DistMult`, `ComplEx`, and `RESCAL` are `semantic matching models` that `exploit similarity-based scoring functions`.
+
+---
+---
+
+>`Obtaining embeddings of entities and relations` in the DRKG `is beneficial for` a number of `downstream tasks`.
+>
+>First, **`the embeddings may be used to clean the DRKG from noisy triplets`** that may appear due to erroneous entries in the `data sources`.
+>
+>Second, **`the embeddings can be used to establish the similarity of different entities and relation types`** such as **diseases**, **drugs**, **interaction types**, and **obtain clusters of similar entities**.
+>
+>Third, **`the embeddings can be used to predict putative new links between the DRKG’s entities`**, which can contribute to `our overall knowledge about the diseasome`.
+>
+>For example, **`embeddings`** can be used to **`discover new side-effects of drugs`** and **`identify alternate therapuetic uses of existing drugs`** (see bellow).
+
+### 药物再利用知识图谱
+
+#### 药物来源
+
+{% label 1) pink %}
+
+>**`Drugbank`**: **`The DrugBank database`** is `a bioinformatics and cheminformatics knowledge base` with `rich drug data information` as well as `comprehensive drug target information`.
+>
+>used `the latest version (version 5.1.5)` which contains **`13563`** drug entries.
+>
+>used `Bio2RDF` ( https://github.com/bio2rdf/bio2rdf-scripts ) to **`extract the triplets corresponding to the relations`** shown in **`Table II`** from Drugbank’s original XML format.
+
+![](https://cos.luyf-lemon-love.space/images/20221206185622.png)
+
+>Note that **`the treats relation corresponds to Drugbank’s associated conditions`**.
+>
+>`since the ATC classification is hierarchical`, for each triplet `involving a specific ATC code`, we also **`included triplets corresponding to the higher-level ATC codes`**. For example, if **`(DB09344, x-atc, Atc::C05BB03)`** is an original triplet, we added the following triplets: **`(DB09344, x-atc, Atc::C05BB)`**, **`(DB09344, x-atc, Atc::C05B)`**, **`(DB09344, x-atc, Atc::C05)`**, and **`(DB09344, x-atc, Atc::C)`**.
+>
+>`excluded entities` that participated in `less than 2 triplets` and `triplets` connecting to these entities.
+>
+>In total, we extracted from Drugbank `1419822 triplets` and `18729 entities` whose statistics are shown in **`Table X`**.
+
+---
+
+{% label 2) blue %}
+
+>**`GNBR`**: **`Global Network of Biomedical Relationships (GNBR)`** uses `NCBI’s PubTator` annotations to identify instances of `chemical`, `gene`, and `disease` names in `Medline abstracts`, and **`applies dependency parsing to find dependency paths between pairs of entities in individual sentences`**.
+>
+>These dependency paths are grouped into `semantically-related categories`, to **`provide relations (with confidence) between among enitities that appear together in a sentence`**.
+>
+>**`GNBR`** includes **`gene-gene`**, **`gene-disease`**, **`drug-gene`**, and **`drug-disease`** interactions.
+
+---
+---
+
+![](https://cos.luyf-lemon-love.space/images/20221206205422.png)
+
+>To eliminate the entity pairs co-occurring by chance, we only considered **`the pairs that co-occur in the same sentence more than a threshold number of times`** (column **`’frequency threshold’`** in Table III).
+>
+>Next, to find all relations between the pair of entities, we **`aggregated the confidence for the pair related by a particular relation, over all the sentences in which that pair of entities co-occurs`**.
+>
+>We again **`selected only those relations whose confidence is more than a threshold`** (column **`’confidence threshold’`** in **`Table III`**), so as to `remove noisy relations` occurring by chance.
+>
+>Further, we also **`remove all the relations from a gene to itself`**.
+
+---
+---
+
+![](https://cos.luyf-lemon-love.space/images/20221206212428.png)
+
+>Our final processed dataset extracted from GNBR contains **`66722 gene-gene interactions`**, **`95400 gene-disease interactions`**, **`80803 drug-gene interactions`**, and **`77782 drug-disease interactions`**.
+>
+>**`The statistics of the extracted relations`** are shown in **`Table IV`**
+
+---
+---
+
+{% label 3) yellow %}
+
+>**`Hetionet`**: `Hetionet is a heterogeneous information network of biomedical knowledge assembled from 29 different databases` relating **`genes`**, **`compounds`**, **`diseases`** and other.
+
+![](https://cos.luyf-lemon-love.space/images/20221206214334.png)
+
+>We extracted **`2250197 triplets from 24 relation types`** as shown in **`Table V`** and **`45279 entities belong to 11 entities types`** as shown in **`Table X`**.
+
+---
+---
+
+{% label 4) purple %}
+
+>**`STRING`**: **`STRING is a database of established and predicted protein-protein interactions`**.
+>
+>The interactions include **`direct (physical)`** and **`indirect (functional)`** associations and are extracted from `computational prediction`, `knowledge transfer` between organisms, and interactions aggregated from other databases.
+
+![](https://cos.luyf-lemon-love.space/images/20221206220141.png)
+
+>We extracted the interactions `whose score is greater than or equal to 0.6`, resulting in **`1496708 triplets from 7 relation types`** as shown in **`Table VI`** and **`18316 gene entities`**.
+
+---
+---
+
+{% label 5) %}
+
+>**`IntAct`**: **`IntAct`** is an open source database that contains **`molecular interaction data`**.
+>
+>IntAct provides **`gene to gene`** as well as **`gene to chemical compounds`** interactions.
+
+![](https://cos.luyf-lemon-love.space/images/20221206221302.png)
+
+>**`The extracted relations and entities`** are in **`Tables VII`** and X.
+
+---
+---
+
+{% label 6) green %}
+
+>**`DGIdb`**: **`DGIdb`** is `a drug–gene interaction database` that `consolidates`, `organizes` and **`presents`** drug–gene interactions and gene druggability information from `papers`, and `online databases`.
+
+![](https://cos.luyf-lemon-love.space/images/20221206222414.png)
+
+>We extracted **`26290 triplets from 13 relation types`** as shown in **`Table VIII`** and **`2551 gene entities and 6348 compound entities`**.
+
+{% label 7) red %}
+
+>**`Data related to Covid-19`**: **`To further enrich our data with information related to Covid-19, we included interaction data from three recent publications`** (shown in **`Table IX`**).
+>
+>The work by Ge et. al. `developed a data-driven drug repurposing framework` that `utilizes a biological network to discover the potential drug candidates against SARS-CoV-2`. From that work, we **`extracted the biological network describing the interactions among host human proteins, virus proteins and chemical compounds`**.
+>
+>The proteins are indexed by the **`UniProt ID`** and the chemical compounds by their **`InChIKey`**.
+
+---
+---
+
+>In an effort to **`discover antiviral drugs`** for Covid-19, Gordon et. al. **`cloned`**, **`tagged`** and **`expressed`** 26 of the 29 viral proteins in human cells and **`identified the physically associated human proteins`**.
+>
+>**`They identified 67 druggable human proteins targeted by 69 existing FDA-approved drugs, drugs in clinical trials and/or preclinical compounds.`**
+
+---
+---
+
+>A framework for drug-repurposing is introduced by Zhou et. al., where the task is to repurpose drugs that are effective for **`certain related coronavirus strains`** such as `IBV`, `HCoV-229E`, `HCoV-NL63`, `SARS`, `MERS` and `MHV`.
+>
+>From that work, we **`extract relations among the aforementioned diseases and host proteins`**.
+
+#### 命名约定和规范化
+
+>From each dataset, we extracted a list of triplets in the form of **`(head-entity, relation-type, tail-entity)`**.
+
+---
+
+>**`For representing entities`**, we use **`an entity type identifier followed by a unique ID of the specific entity`**, e.g., [Gene::229475](https://www.ncbi.nlm.nih.gov/gene/22947).
+
+---
+
+>**`For representing relations`**, we use **`a naming convention that combines the name of the data source, the name of the relation, and the types of head and tail entities`** that are involved e.g., **`DGIDB::INHIBITOR::Gene:Compound`**.
+
+---
+---
+
+>**`Data sources use one of several ID spaces to represent genes, compounds, diseases and others.`**
 
 ## 结语
 
