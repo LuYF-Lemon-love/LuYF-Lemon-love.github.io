@@ -465,7 +465,7 @@ $$
 ---
 ---
 
-{% label 3) yellow %}
+{% label 3) orange %}
 
 >**`Hetionet`**: `Hetionet is a heterogeneous information network of biomedical knowledge assembled from 29 different databases` relating **`genes`**, **`compounds`**, **`diseases`** and other.
 
