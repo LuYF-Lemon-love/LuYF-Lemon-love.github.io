@@ -548,6 +548,196 @@ $$
 ---
 
 >**`Data sources use one of several ID spaces to represent genes, compounds, diseases and others.`**
+>
+>For example, **`the same chemical compound`** may be represented in the **`drugbank compound ID space`** in DrugBank and in the **`chembl compound ID space`** in the DGIdb.
+
+---
+
+>To ensure that information from different sources in **`integrating correctly`**, we **`map biological entities to a common ID space`** using the following rules:
+>
+>- **`Compound entities`** are mapped to **`the drugbank compound ID space`** and if not possible to **`the chembl compound ID space`**. If a compound `can not be found` to either of the two we use **`the native ID space`** and we **`include the name of the source as part of the entity’s name`** (e.g., [Compound::brenda:1695336](https://www.brenda-enzymes.org/ligand.php?brenda%20ligand%20id=169533)).
+>
+>- **`Gene entities`** are mapped to **`the Entrez ID space`**.
+>
+>- **`Disease entities`** are mapped to **`the MESH ID space`**.
+>
+>- **`The remaining biological entities`** appear **`only in a single data source`** and hence we use **`the data source’s ID`**.
+>
+>These rules are applied to `the biological entities per database` to **`map the entities to the common ID space`**.
+
+---
+---
+
+>Finally, in order to avoid `relations` for which we do not have enough data to train good embeddings, we **`exclude relations types that have less than 50 edges`**.
+
+#### The DRKG – Putting everything together
+
+>The extracted set of **`normalized triplets`** from `the previous datasets` constitute `the Drug Repurposing Knowledge Graph (DRKG)` that we created.
+>
+>It contains **`97,055 entities belonging to 13 entity-types`**. **`The type-wise distribution of the entities`** is shown in **`Table X`**.
+
+![](https://cos.luyf-lemon-love.space/images/20221207124628.png)
+
+>DRKG contains **`a total of 5,869,294 triplets belonging to 107 relation-types`**.
+>
+>**`Table XI`** shows **`the number of triplets between different entity-type pairs for DRKG and various data sources`**.
+>
+>The per-relation-type statistics have already been discussed in **`Section III-A`**.
+
+![](https://cos.luyf-lemon-love.space/images/20221207130112.png)
+
+>**`Figure 1`** depicts the possible interactions between the entity-type pairs in DRKG.
+
+![](https://cos.luyf-lemon-love.space/images/20221207125435.png)
+
+### 在 DRKG 上使用知识图谱嵌入进行药物再利用
+
+>**`Drug repurposing (DR)`** refers to **`using existing drugs for new therapeutic indications`**.
+>
+>In this section, we **`formalize the DR objective as a link prediction task over the DRKG`** that can be solved by **`KGE models`**.
+>
+>In **`the appendix`** we include **`several data analysis techniques`** to **`verify that the constructed DRKG and the learned KG embeddings are of high quality`**.
+
+#### Formulating drug repurposing as knowledge graph completion
+
+>**`DR refers to using existing drugs for new therapeutic indications`**.
+>
+>In the context of knowledge graphs, `DR` can be formulated as to `predict new links between drug entities and disease entities of link type treat`, or `between drug entities and gene entities of link type inhibit or bind where the genes are related to the disease of interest` (e.g., **`involved in related pathways`**).
+>
+>In Section IV, we **`validate DR on the DRKG for the Covid-19 disease`**, where we use **`the direct link formulation of DR`**.
+>
+>By using our comprehensive DRKG, researchers can **`address drug-repurposing for a variety of diseases`** such as `HIV` and `SARS`, as well as, the novel `Covid-19`.
+
+#### Using knowledge graph embeddings for link prediction
+
+>Here, we `analyze DRKG` by **learning a TransE KGE model that utilizes the $\ell_2$ distance**; see also **`Section II-B`**.
+>
+>By **`optimizing equation (1)`** we obtain **`vector embeddings of dimension`** $400 \times 1$ for **`all biological entities and relations`** participating in the DRKG.
+>
+>Consider the triplet $(h, r, t)$ of the DRKG and the associated score as
+
+$$
+f(h,r,t)=\gamma - \parallel h + r - t \parallel_2 \tag{2}
+$$
+
+>where $\gamma$ is `a parameter of the TransE model` that is set to **`12.0`**.
+>
+>For each triplet $(h, r, t)$, the closer $f(h, r, t)$ is to $\gamma$, the more confident the model is that the head $h$ and tail $t$ entities are connected under relation $r$.
+
+#### Drug repurposing using different relation types
+
+>In this section, we **`evaluate our DRKG in the drug repurposing task for the Covid-19`** using the trained TransE KGE model in **`Section B`**.
+
+---
+
+>Here we **`use corona-virus diseases`**, including **`SARS`**, **`MERS`** and **`SARS-COV2`**, as **`target diseases representing Covid-19`**.
+>
+>We consider **`two formulations`** for the DR task.
+
+---
+---
+
+>**`The first one predicts direct links between the disease entities and the drug entitites`** in the DRKG, while **`the second one predicts links among gene entities that are inhibited by drug entities`** where **`the genes are associated with the target disease`**.
+>
+>We **`select FDA-approved drugs in Drugbank as candidates`**, while **`we exclude drugs with molecule weight less than 250 daltons`**, **`as many of certain drugs are actually supplements`** and we exclude them for **`simplicity`**.
+>
+>This amounts to **`8104 candidate drugs`**.
+>
+>We **`collect 32 clinical trial drugs for Covid-19 to validate our predictions`** and **`the drug names`** can be found in **`Table XII`**.
+
+![](https://cos.luyf-lemon-love.space/images/20221207144306.png)
+
+>For **`predicting links among disease and drugs with the relation treatment`**, we identify **`the disease entities`** in our DRKG that are related with **`the Covid-19 target disease`**.
+>
+>These disease nodes **`constitute`** our expanded target set, since in certain cases as **`Covid-19`**, we may have **`multiple disease nodes representing this novel disease`** or being related to it such as `SARS` and `MERS` diseases.
+>
+>**`The disease nodes`** for **`Covid-19`** are in **`Table XIII`**.
+
+![](https://cos.luyf-lemon-love.space/images/20221207150842.png)
+
+>For this experiment, we select **`‘GNBR::T::Compound:Disease’`** and **`‘Hetionet::CtD::Compound:Disease’`** as the target relations since **`these represent that a certain drug is used for treating a disease`**.
+>
+>Next, we **`recover the pretrained embeddings`** that are obtained **`using the complete DRKG`** and **`find the 100 drugs with the highest score using Equation (5)`**.
+>
+>Finally, **`to assess whether our prediction is in par with the drugs used for treatment`**, we **`check the overlap among these 100 predicted drugs and the drugs used in clinical trials`**.
+
+---
+---
+
+>**`Table XIV`** lists **`the clinical trial drugs included in the top-100 predicted drugs`** along with **`their corresponding score and ranking`**.
+
+![](https://cos.luyf-lemon-love.space/images/20221207154847.png)
+
+>Evidently, using **`the proposed DRKG`** and **`plain vanilla KGE model`**, **several of the commonly used drugs in clinical trials** are identified.
+
+---
+---
+
+>Finally on **`Table XV`** we report **`the top-10 highest ranked drugs for this experiment irrespective of whether these are used for clinical trials or not`**.
+
+![](https://cos.luyf-lemon-love.space/images/20221207164742.png)
+
+---
+---
+
+>For **`predicting links among gene and drugs with the inhibit relation`**, we identify the biological gene entities in our DRKG that are related with **`the Covid-19 disease`**.
+>
+>**`These gene nodes`** are involved in **`the related pathways of Covid-19`**.
+>
+> We obtain **`442 Covid-19 related genes`** from the relations extracted from [18], [9].
+
+---
+---
+
+>In this experiment, we select **`the inhibit related relation`** which appears in three datasources as **`’GNBR::N::Compound:Gene’`**, **`’DRUGBANK::target::Compound:Gene’`** and **`’DGIDB::INHIBITOR::Gene:Compound’`**.
+>
+>We compare **`the results obtained by the DRKG`** with **`the corresponding results`** if we **`trained a KGE on a subset of the DRKG that uses only relations`** from the three databases **GNBR**, **DRUGBANK** and **DGIDB** individually.
+
+---
+---
+
+>For the results, we **`recover the pretrained embeddings`** that are obtained `using the KGE model` and `find the 100 drugs with the highest score using Equation (5)` and rank them per target gene.
+>
+>This way we obtain 442 ranked lists of drugs.
+>
+>Finally, `to assess whether our prediction is in par with the drugs used for treatment`, we check the `overlap` among `these 100 predicted drugs` and `the drugs used in clinical trials per gene`.
+>
+>This procedure is `repeated three times per relation` and we compare `the results of using the DRKG against the constituent databases` that include an inhibit relation.
+>
+>**`Tables XVI-XVIII`** list **`the clinical drugs included in the top-100 predicted drugs`** across all the genes with **`their corresponding number of hits`** for DRKG and the constituent databases.
+
+![](https://cos.luyf-lemon-love.space/images/20221207174016.png)
+
+![](https://cos.luyf-lemon-love.space/images/20221207174056.png)
+
+![](https://cos.luyf-lemon-love.space/images/20221207174137.png)
+
+>**`The number of hits shows in how many gene ranked lists the suggested drug appeared in the top-100 ranked drugs.`** For example if **`a drug appears in the top-100 ranked drugs for all genes the number of hits is 442`**. This is **`the maximum number of possible hits`**.
+>
+>It can be observed, that **`several of the commonly used drugs in clinical trials appear high on the predicted list`**.
+>
+>Furthermore, **`the number of hits using the DRKG is significant higher`** comparing to `the constituent databases`, which corroborates the `merits to constructing a comprehensive DRKG`.
+
+### 结论
+
+>This paper constructed a `DRKG` from a collection of data sources `that can be utilized for general drug repurposing tasks`.
+>
+>To further facilitate efforts of researchers in **`repurposing drugs for Covid-19`** we also include in DRKG `proteins and genes related to Covid-19`, as extracted from `relevant papers`.
+>
+>We train `KGE models on the DRKG` and obtain `embeddings for entities and relation types`.
+>
+>We also validate that the DRKG structure and the learned embeddings are of high quality.
+>
+>Finally, we evaluate the DRKG in the drug repurposing task for Covid-19.
+>
+>It is observed that **`several of the widely used drugs in clinical trials are identified by our method`**.
+
+---
+---
+
+>**`Our future research efforts`** will focus on **`including more biological entities in the DRKG`**, **`enhancing the entities with attributes`** such as **`chemical sequence for compounds`** and **`developing deep graph learning models`** that are dedicated for **`drug repurposing`**.
+
+### 附录
 
 ## 结语
 
