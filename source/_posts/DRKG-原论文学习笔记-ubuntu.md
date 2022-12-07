@@ -518,6 +518,8 @@ $$
 >
 >The proteins are indexed by the **`UniProt ID`** and the chemical compounds by their **`InChIKey`**.
 
+![](https://cos.luyf-lemon-love.space/images/20221207203431.png)
+
 ---
 ---
 
