@@ -25,6 +25,8 @@ date: 2022-12-05 23:03:53
 
 3. [web 入门](https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web)
 
+4. [安装基础软件](https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/Installing_basic_software)
+
 ## 学习 Web 开发
 
 >欢迎来到 MDN 学习区。本系列文章旨在为`零基础 Web 开发初学者`提供指导和开始编写网站代码`所需的所有内容`。
@@ -80,6 +82,49 @@ date: 2022-12-05 23:03:53
 ---
 
 >`万维网是如何工作的`: 当你访问你最喜欢的网站时，你可能不知道正有很多复杂的事情在后台发生。这篇文章概述了**当你在电脑上浏览网页时发生的事情**。
+
+### 安装基础软件
+
+源教程地址: https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/Installing_basic_software .
+
+>在安装基础软件中，我们向你展示了**进行简单的 Web 开发需要哪些工具**，以及如何正确安装它们。
+
+{% label 专业人士使用什么工具？ pink %}
+
+>- **计算机**。也许这对一些人来说听起来习以为常，但**你们中的一些人正在使用手机或图书馆的电脑阅读这篇文章**。对于重度的 Web 开发，最好购买**一台运行 Windows、macOS 或 Linux 的台式机或笔记本电脑**。
+>- **文本编辑器**，用来写代码。可以是一个文本编辑器（如 **Visual Studio Code**、**Sublime Text**、**Atom**、**GNU Emacs** 或者 **VIM**），或一个混合编辑器（**Dreamweaver** 或 **WebStorm**）。Office 文档不适合这种用途，因为它们依赖隐藏的元素，会干扰网络浏览器使用的渲染引擎。
+>- **网络浏览器**，用以测试代码。目前，最常用的浏览器是 **Firefox** 、**Chrome**、**Opera**、**Safari**、**Internet Explorer** 和 **Microsoft Edge**。你还应该测试你的网站在移动设备和你的目标受众可能仍在使用的任何旧浏览器（如 IE 8-10）上的表现。**Lynx**，**一个基于文本的终端网络浏览器**，对于查看视力障碍用户对你的网站的体验是非常好的。
+>- **图形编辑器**，如 **GIMP**、**Figma**、**Paint.NET**、**Photoshop**、**Sketch** 或 **XD**，**为你的网页制作图像或图形**。
+>- **版本控制系统**，**用来管理服务器上的文件，与团队合作开展项目，共享代码和资产，避免编辑冲突**。现在，**Git** 是最流行的版本控制系统，还有 **GitHub** 或 **GitLab** 托管服务。
+>- **FTP 工具**，老式 Web 托管账户，以管理服务器上的文件（**Git** 正越来越多地取代 FTP 用于此目的）。有大量的 (S)FTP 程序可用，包括 **Cyberduck**、**Fetch** 和 **FileZilla**。
+>- **自动化构建工具**，如 **Webpack**、**Grunt** 或 **Gulp**，以自动执行重复性任务，如**简化代码**和**运行测试**。
+>- **库**、**框架**等，以加快编写常用功能。**一个库往往是一个现有的 JavaScript 或 CSS 文件，它提供了现成的功能，供你在代码中使用**。**框架则更进一步，为你提供一个完整的系统和一些自定义的语法，让你在上面写一个 Web 应用**。
+
+{% label 现在，我究竟需要什么工具？ green %}
+
+>这看起来是一个冗长的清单，但幸运的是，你可以在不了解这些东西的情况下开始进行 Web 开发。在这篇文章中，我们只为你准备了最基本的东西——**一个文本编辑器**和**一些现代网络浏览器**。
+
+**安装文本编辑器**
+
+>你的电脑上可能已经有**一个基本的文本编辑器**。默认情况下，Windows 是 **Notepad** ，macOS 则有 **TextEdit**。Linux 发行版有所不同；Ubuntu 下是 **gedit** 。
+>
+>对于 **Web** 开发，你可能可以做得比**记事本**或 **TextEdit** 更好。我们建议从 **Visual Studio Code** 开始，它是一个免费的编辑器，提供实时预览和代码提示。
+
+**安装现代网络浏览器**
+
+>现在，我们将安装**几个桌面网络浏览器**来测试我们的代码。在下面选择你的操作系统，然后点击相关链接，下载你喜欢的浏览器：
+>
+>- **Linux**：Firefox 、Chrome 、Opera 、Brave.
+>- **Windows**：Firefox 、Chrome 、Opera 、Internet Explorer 、Microsoft Edge 、Brave （Windows 10 默认带有 Edge；如果你有 Windows 7 或以上版本，你可以安装 Internet Explorer 11；否则，你应该安装一个替代浏览器）。
+>- **macOS**：Firefox 、Chrome 、Opera 、Safari 、Brave （macOS 和 iOS 默认带有 Safari 浏览器）。
+>
+>在继续之前，你应该**至少安装两款这样的浏览器**，并准备好进行测试。
+>
+>**备注**： **Internet Explorer** 与一些现代网络功能不兼容，它可能无法运行你的项目。你通常不需要为你的 Web 项目与它兼容而操心，因为很少还有人在使用它——至少在你学习的时候不要太担心它。你可能会在以后遇到一个需要支持它的项目。
+
+**安装本地 Web 服务器**
+
+>有些例子需要通过 **Web 服务器**才能成功运行。你可以在这找到该怎么做[如何设置本地测试服务器？](https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/set_up_a_local_testing_server)
 
 ## 结语
 
