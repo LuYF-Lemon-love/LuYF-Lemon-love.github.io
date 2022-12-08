@@ -41,10 +41,10 @@ $$Dets = \mathcal{H(\Phi_{det})} \tag{1}$$
 |$\gamma$|`$\gamma$`|$\ell$|`$\ell$`|$\in$|`$\in$`|
 |$[]$|`$[]$`|$\{\}$|`$\{\}$`|$\|$|`$\|$`|
 |$\cup$|`$\cup$`|$\mathbb{R}$|`$\mathbb{R}$`|$\times$|`$\times$`|
-|$\mid$|`$\mid$`|space|`\quad`|$\leq$|`$\leq$`|
+|$\mid$|`$\mid$`|space|`$\quad$`|$\leq$|`$\leq$`|
 |$θ$|`$θ$`|$\hat{s}$|`$\hat{s}$`|$\circ$|`$\circ$`|
 |$\mathbf{h}$|`$\mathbf{h}$`|$J$|`$J$`|$\parallel$|`$\parallel$`|
-|$\left(\right)$|`$\left(\right)$`|||||
+|$\left(\right)$|`$\left(\right)$`|$\lambda$|`$\lambda$`|$\Phi$|`$\Phi$`|
 
 ## 数学运算符
 
