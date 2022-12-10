@@ -508,7 +508,9 @@ $
 
 ### 数据
 
-#### [NYT10](https://github.com/LuYF-Lemon-love/susu-knowledge-graph/blob/main/neural-relation-extraction/C%2B%2B/data.zip)
+#### NYT10
+
+链接:https://pan.baidu.com/s/1SIswYS8vvuDAPiJd2L0d5A 提取码:g90p .
 
 The original data of NYT10 can be downloaded from:
 
