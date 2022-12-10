@@ -270,6 +270,18 @@
       link: https://developer.mozilla.org/zh-CN/
       avatar: https://cos.luyf-lemon-love.space/images/20221202124810.png
       descr: Documenting web technologies, including CSS, HTML, and JavaScript, since 2005.
+      
+- class_name: 生物与医药
+  class_desc:
+  link_list:
+    - name: Hetionet
+      link: https://het.io/about/
+      avatar: https://cos.luyf-lemon-love.space/images/20221210130836.png
+      descr: 一个生物医学知识图谱.
+    - name: NCBI
+      link: https://www.ncbi.nlm.nih.gov/
+      avatar: https://cos.luyf-lemon-love.space/images/20221210131218.png
+      descr: The National Center for Biotechnology Information advances science and health by providing access to biomedical and genomic information.
 
 - class_name: Markdown
   class_desc:
