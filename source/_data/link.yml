@@ -182,6 +182,14 @@
       link: https://www.pypandas.cn/
       avatar: https://cos.luyf-lemon-love.space/images/20221127152326.png
       descr: Pandas中文网、Pandas官方中文文档。
+    - name: Requests
+      link: https://requests.readthedocs.io/en/latest/
+      avatar: https://cos.luyf-lemon-love.space/images/20221210215606.png
+      descr: Requests Docs
+    - name: Python-crawler-tutorial-starts-from-zero
+      link: https://github.com/Kr1s77/Python-crawler-tutorial-starts-from-zero
+      avatar: https://cos.luyf-lemon-love.space/images/20221210215908.png
+      descr: python爬虫教程, 带你从零到一.
 
 - class_name: 混合编程
   class_desc:
@@ -282,6 +290,10 @@
       link: https://www.ncbi.nlm.nih.gov/
       avatar: https://cos.luyf-lemon-love.space/images/20221210131218.png
       descr: The National Center for Biotechnology Information advances science and health by providing access to biomedical and genomic information.
+    - name: MeSH RDF API
+      link: https://id.nlm.nih.gov/mesh/swagger/ui
+      avatar: https://cos.luyf-lemon-love.space/images/20221210131218.png
+      descr: Retrieve RDF URIs for specific MeSH descriptors or request data for specific MeSH identifiers.
 
 - class_name: Markdown
   class_desc:
