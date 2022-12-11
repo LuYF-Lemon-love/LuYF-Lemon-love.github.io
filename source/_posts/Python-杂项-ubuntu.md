@@ -37,6 +37,8 @@ date: 2022-09-29 11:36:43
 
 10. [os.environ](https://docs.python.org/zh-cn/3/library/os.html#os.environ)
 
+11. [【Python程序计时】使用time模块实现计时功能](https://blog.csdn.net/weixin_42233605/article/details/123382596)
+
 ## Python 注释
 
 1. 使用 `#` 进行单行注释：
@@ -523,6 +525,31 @@ http://pypi.douban.com/simple/
 >备注: 在某些平台上，包括 `FreeBSD` 和 `macOS`，设置 `environ` 可能导致内存泄漏。请参阅 `putenv()` 的系统文档。
 
 `可以删除映射中的元素来删除对应的环境变量`。当从 `os.environ` 删除元素时，以及调用 `pop()` 或 `clear()` 之一时，将自动调用 `unsetenv()`。
+
+## 计时器
+
+源教程地址: https://blog.csdn.net/weixin_42233605/article/details/123382596 .
+
+```python
+import time
+
+start = time.perf_counter()
+######## 实际程序开始 ##########
+for i in range(10000):
+	for j in range(10000):
+		pass
+######## 实际程序结束 ##########
+end = time.perf_counter()
+print("运行时间为", round(end-start), 'seconds')
+```
+
+---
+
+{% label 输出结果 pink %}
+
+```bash
+运行时间为 4 seconds
+```
 
 ## 结语
 
