@@ -133,7 +133,7 @@ date: 2022-12-05 23:03:53
 
 源教程地址: https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/What_will_your_website_look_like .
 
->设计网站外观？ 在为网站编写代码之前必须进行规划和设计工作，包括**“网站提供什么信息？”**、**“想要什么字体和颜色？”**、**“网站是做什么的？”**
+>设计网站外观？ 在为网站编写代码之前必须进行规划和设计工作，包括“**网站提供什么信息**？”、“**想要什么字体和颜色**？”、“**网站是做什么的**？”
 
 {% label 第一步：计划 pink %}
 
