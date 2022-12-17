@@ -18,4 +18,5 @@ top_img: https://cos.luyf-lemon-love.space/images/20220513171931.png
 {% galleryGroup '歌曲' '关于歌曲的 bilibili 视频' '/bilibili/song' https://cos.luyf-lemon-love.space/images/希尔科.jpeg %}
 {% galleryGroup '烟火' '关于烟火的 bilibili 视频' '/bilibili/fireworks' https://cos.luyf-lemon-love.space/images/%E7%83%9F%E7%81%AB.jpeg %}
 {% galleryGroup '地下城与勇士' '关于地下城与勇士的 bilibili 视频' '/bilibili/dnf' https://cos.luyf-lemon-love.space/images/%E9%AC%BC%E6%B3%A3.jpg %}
+{% galleryGroup '英雄联盟集锦' '关于英雄联盟集锦的 bilibili 视频' '/bilibili/lol-show' https://cos.luyf-lemon-love.space/images/%E4%BA%9A%E7%B4%A2.jpg %}
 </div>
