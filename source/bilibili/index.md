@@ -16,4 +16,5 @@ top_img: https://cos.luyf-lemon-love.space/images/20220513171931.png
 {% galleryGroup '历史' '关于历史的 bilibili 视频' '/bilibili/history' https://cos.luyf-lemon-love.space/images/20220716120435.png %}
 {% galleryGroup '技术' '关于技术的 bilibili 视频' '/bilibili/technology' https://cos.luyf-lemon-love.space/images/20220716124155.png %}
 {% galleryGroup '歌曲' '关于歌曲的 bilibili 视频' '/bilibili/song' https://cos.luyf-lemon-love.space/images/希尔科.jpeg %}
+{% galleryGroup '烟火' '关于烟火的 bilibili 视频' '/bilibili/fireworks' https://cos.luyf-lemon-love.space/images/%E7%83%9F%E7%81%AB.jpeg %}
 </div>
