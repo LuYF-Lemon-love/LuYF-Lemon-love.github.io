@@ -447,6 +447,10 @@
       link: https://github.com/Icalingua-plus-plus/Icalingua-plus-plus
       avatar: https://cos.luyf-lemon-love.space/images/20221126182329.png
       descr: A client for QQ and more.electron
+    - name: 合并PDF
+      link: https://smallpdf.com/cn/merge-pdf
+      avatar: https://cos.luyf-lemon-love.space/images/smallpdf.png
+      descr: 合并PDF文件最简易的方法
 
 - class_name: 娱乐和学习
   class_desc:
