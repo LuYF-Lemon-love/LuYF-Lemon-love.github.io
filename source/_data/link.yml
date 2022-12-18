@@ -190,6 +190,10 @@
       link: https://github.com/Kr1s77/Python-crawler-tutorial-starts-from-zero
       avatar: https://cos.luyf-lemon-love.space/images/20221210215908.png
       descr: python爬虫教程, 带你从零到一.
+    - name: Matplotlib
+      link: https://matplotlib.org/
+      avatar: https://cos.luyf-lemon-love.space/images/matplotlib.png
+      descr: Visualization with Python
 
 - class_name: 混合编程
   class_desc:
@@ -270,6 +274,10 @@
       link: https://tianchi.aliyun.com/
       avatar: https://cos.luyf-lemon-love.space/images/20220910220737.png
       descr: 开放真实场景数据与赛题，助力科技人才成长
+    - name: Papers with Code
+      link: https://paperswithcode.com/
+      avatar: https://cos.luyf-lemon-love.space/images/paperswithcode.png
+      descr: The mission of Papers with Code is to create a free and open resource with Machine Learning papers, code, datasets, methods and evaluation tables.
 
 - class_name: Web
   class_desc:
@@ -370,6 +378,10 @@
       link: https://bz.zzzmh.cn/index
       avatar: https://cos.luyf-lemon-love.space/images/20221201123646.png
       descr: 4K 高清图网
+    - name: 图片压缩软件在线版
+      link: https://yasuo.xunjiepdf.com/img/
+      avatar: https://cos.luyf-lemon-love.space/images/%E8%BF%85%E6%8D%B7%E5%9C%A8%E7%BA%BF%E5%8E%8B%E7%BC%A9.png
+      descr: 在线压缩图片文件大小，支持JPG、BMP、PNG等多种格式的图片在线压缩
 
 - class_name: 重要工具官网
   class_desc:
