@@ -78,7 +78,7 @@ https://fanyi-api.baidu.com/api/trans/vip/translate
 
 **注：**
 
-1. 待**翻译文本（q）**需为 **UTF-8** 编码；
+1. 待**翻译文本**（q）需为 **UTF-8** 编码；
 
 2. 在生成签名拼接 **appid+q+salt+密钥** 字符串时，**q 不需要做 URL encode**，在生成签名之后，**发送 HTTP 请求之前才需要对要发送的待翻译文本字段 q 做 URL encode**；
 
@@ -99,7 +99,7 @@ https://fanyi-api.baidu.com/api/trans/vip/translate
 |q|string|是|请求翻译query|UTF-8编码|
 |from|string|是|翻译源语言|可设置为auto|
 |to|string|是|翻译目标语言|不可设置为auto|
-|appid|string|是|APPID|可在管理控制台查看|
+|appid|string|是|APPID|可在[管理控制台](https://api.fanyi.baidu.com/api/trans/product/desktop?req=developer)查看|
 |salt|string|是|随机数|可为字母或数字的字符串|
 |sign|string|是|签名|appid+q+salt+密钥的MD5值|
 
