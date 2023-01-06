@@ -21,5 +21,5 @@ top_img: https://cos.luyf-lemon-love.space/images/20220513171931.png
 {% galleryGroup '英雄联盟集锦' '关于英雄联盟集锦的 bilibili 视频' '/bilibili/lol-show' https://cos.luyf-lemon-love.space/images/%E4%BA%9A%E7%B4%A2.jpg %}
 {% galleryGroup '美女' '关于美女的 bilibili 视频' '/bilibili/beauty' https://cos.luyf-lemon-love.space/images/%E9%94%BB%E7%82%BC.jpg %}
 {% galleryGroup 'Unity3D' '关于 Unity3D 的 bilibili 视频' '/bilibili/unity3d' https://cos.luyf-lemon-love.space/images/unity3d_%E6%A8%B1%E8%8A%B1%E5%85%94.gif %}
-{% galleryGroup 'Unity3D' '关于懒羊羊的 bilibili 视频' '/bilibili/lanyangyang' https://cos.luyf-lemon-love.space/images/%E6%87%92%E6%B4%8B%E6%B4%8B.webp %}
+{% galleryGroup '懒羊羊' '关于懒羊羊的 bilibili 视频' '/bilibili/lanyangyang' https://cos.luyf-lemon-love.space/images/%E6%87%92%E6%B4%8B%E6%B4%8B.webp %}
 </div>
