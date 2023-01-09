@@ -141,6 +141,8 @@ date: 2022-09-28 14:52:14
 
 51. [strtok](https://cplusplus.com/reference/cstring/strtok/)
 
+52. [scanf](https://cplusplus.com/reference/cstdio/scanf/)
+
 <div id = "1"></div>
 
 # `C Library`
@@ -375,6 +377,8 @@ This simple code `creates a new text file`, then `writes` a sentence to it, and 
 
 - `fscanf`: Read formatted data from stream (function)
 
+- `scanf`: Read formatted data from stdin (function)
+
 #### fprintf
 
 `fprintf`: https://cplusplus.com/reference/cstdio/fprintf/ 。
@@ -568,6 +572,76 @@ This sample code creates `a file called myfile.txt` and writes `a float number` 
 
 ```bash
 I have read: 3.141600 and PI
+```
+
+#### scanf
+
+`scanf`: https://cplusplus.com/reference/cstdio/scanf/ 。
+
+`int scanf ( const char * format, ... );`
+
+**`Read formatted data from stdin`**
+
+Reads data from `stdin` and stores them according to the parameter **format** into the locations pointed by the additional arguments.
+
+The additional arguments should point to already allocated objects of the type specified by their corresponding format specifier within `the format string`.
+
+**`Parameters`**
+
+**format**
+
+A `format specifier` for scanf follows this prototype:
+
+`%[*][width][length]specifier`
+
+**... (additional arguments)**
+
+Depending on the format string, the function may expect a sequence of additional arguments, each containing a `pointer` to allocated storage where the interpretation of the extracted characters is stored with the appropriate type.
+
+There should be at least as many of these arguments as the number of values stored by the format specifiers. Additional arguments are ignored by the function.
+
+These arguments are expected to be pointers: to store the result of a scanf operation on a regular variable, its name should be preceded by `the reference operator (&)`.
+
+**`Return Value`**
+
+On success, the function returns `the number of items of the argument list successfully filled`. This count can match the expected number of items or be less (even zero) due to a matching failure, a reading error, or the reach of `the end-of-file`.
+
+If a reading error happens or the end-of-file is reached while reading, the proper indicator is set (`feof` or `ferror`). And, if either happens before any data could be successfully read, `EOF` is returned.
+
+If an encoding error happens interpreting wide characters, the function sets `errno` to EILSEQ.
+
+**`Example`**
+
+```c++
+/* scanf example */
+#include <stdio.h>
+
+int main ()
+{
+  char str [80];
+  int i;
+
+  printf ("Enter your family name: ");
+  scanf ("%79s",str);  
+  printf ("Enter your age: ");
+  scanf ("%d",&i);
+  printf ("Mr. %s , %d years old.\n",str,i);
+  printf ("Enter a hexadecimal number: ");
+  scanf ("%x",&i);
+  printf ("You have entered %#x (%d).\n",i,i);
+  
+  return 0;
+}
+```
+
+This example demonstrates some of the types that can be read with `scanf`:
+
+```
+Enter your family name: Soulie
+Enter your age: 29
+Mr. Soulie , 29 years old.
+Enter a hexadecimal number: ff
+You have entered 0xff (255).
 ```
 
 ### Character input/output
