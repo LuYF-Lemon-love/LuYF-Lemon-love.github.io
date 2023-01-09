@@ -302,6 +302,10 @@
       link: https://id.nlm.nih.gov/mesh/swagger/ui
       avatar: https://cos.luyf-lemon-love.space/images/20221210131218.png
       descr: Retrieve RDF URIs for specific MeSH descriptors or request data for specific MeSH identifiers.
+    - name: Drugbank Online
+      link: https://go.drugbank.com/drugs
+      avatar: https://cos.luyf-lemon-love.space/images/%E8%83%B6%E5%9B%8A.jpg
+      descr: 通过 ID 搜索药物.
 
 - class_name: Markdown
   class_desc:
