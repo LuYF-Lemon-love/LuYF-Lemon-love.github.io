@@ -46,6 +46,7 @@ $$Dets = \mathcal{H(\Phi_{det})} \tag{1}$$
 |$\mathbf{h}$|`$\mathbf{h}$`|$J$|`$J$`|$\parallel$|`$\parallel$`|
 |$\left(\right)$|`$\left(\right)$`|$\lambda$|`$\lambda$`|$\Phi$|`$\Phi$`|
 |$\bar{x}$|`$\bar{x}$`|$\vec{x}$|`$\vec{x}$`|$\infty$|`$\infty$`|
+|$\varepsilon$|`$\varepsilon$`|$\cap$|`\cap`|$\subset$|`$\subset$`|
 
 ## 数学运算符
 
