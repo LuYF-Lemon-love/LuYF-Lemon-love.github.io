@@ -714,6 +714,8 @@ $$
 
 ![](https://cos.luyf-lemon-love.space/images/20221207174137.png)
 
+![](https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20145857.png)
+
 >**`The number of hits shows in how many gene ranked lists the suggested drug appeared in the top-100 ranked drugs.`** For example if **`a drug appears in the top-100 ranked drugs for all genes the number of hits is 442`**. This is **`the maximum number of possible hits`**.
 >
 >It can be observed, that **`several of the commonly used drugs in clinical trials appear high on the predicted list`**.
@@ -740,6 +742,86 @@ $$
 >**`Our future research efforts`** will focus on **`including more biological entities in the DRKG`**, **`enhancing the entities with attributes`** such as **`chemical sequence for compounds`** and **`developing deep graph learning models`** that are dedicated for **`drug repurposing`**.
 
 ### 附录
+
+This section describes `data analysis techniques` we performed on the DRKG. The goal is to verify that the constructed DRKG and the learned KG embeddings are of high quality. The code is implemented in `DGL-KE` that is `an open-source package` to efficiently compute knowledge graph embeddings. It contains several KGE models, including `TransE`, `DistMult` and `RotatE`, and introduces various optimizations that accelerate training on knowledge graphs using multi-processing, multi-GPU, and distributed parallelism. This way DGL-KE facilitates efficient training on knowledge graphs with millions of nodes and billions of edges.
+
+#### Graph structure analysis
+
+Here the quality of the constructed DRKG is assessed. `Different data sources may describe the same triplets and hence the constructed DRKG may have some redundant edges`. In this section we verify that triplets from different sources **do not have significant overlapping information**.
+
+First, we assess what is **the percentage of common triplets among each pair of edge types in the DRKG**. This is important since the same relation-type among the same nodes might be described in two different datasets, and the DRKG may over-represent this relation. If the percentage of common triplets is relatively small then combining these is well justified. Towards this end, we compute the Jaccard similarity coefficient among a pair of relation types $\varepsilon^{r_1}$, $\varepsilon^{r_2}$ that is defined as follows
+
+$$
+j_{r_1,r_2}:=\frac{|\varepsilon^{r_1}\cap \varepsilon^{r_2}|}{|\varepsilon^{r_1}\cup \varepsilon^{r_2}|} \tag{3}
+$$
+
+where $|A|$ denotes `the cardinality` of the set $A$. The Jaccard score is a measure of similarity among the relation types, if $j_{r_1,r_2}$ is close 1 then $\varepsilon^{r_1}$ and $\varepsilon^{r_2}$ are connecting the node pairs. `Table XX` reports the 10 most similar edge-pairs based on their Jaccard coefficient. `As expected some relation types connect the same nodes since the information from different data sources is related.` Nevertheless, `the relative small values of the Jaccard coefficient for the most similar edge-type pairs indicates that there is value in including the edge types from all the sources`.  For example, enzyme catalysis is typically done through binding interactions with protein substrates directly or indirectly.
+
+![](https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20163614.png)
+
+In our DRKG, the relations `“STRING::REACTION::Gene:Gene”`, `“STRING::CATALYSIS::Gene:Gene”` and `“STRING::BINDING::Gene:Gene”` have high Jaccard similarity values (`0.608`, `0.413`, `0.307`), that supports our understanding of these activities. The three relations “bioarx::DrugHumGen:Compound:Gene”, “Hetionet::CbG::Compound:Gene” and “DRUGBANK::target::Compound:Gene” from different databases correspond to a same relation that compounds bind to their target genes, and in our DRKG, these relations have high pairwise Jaccard similarities. Compounds could affect gene expression after they are metabolized into active substances and moved to certain organs where the genes are usually highly expressed, or compounds and genes compete for same enzymes. In our DRKG, the high Jaccard similarity between “GNBR::E::Compound:Gene” and “GNBR::K::Compound:Gene” corresponds to such a biological process. The relations “Hetionet::AuG::Anatomy:Gene” and “Hetionet::AeG::Anatomy:Gene” both represent that the gene is over-expressed in the Anatomy, except for AuG in post-juvenile adult human samples. In our DRKG, they have high similarity under Jaccard.
+
+`The Jaccard similarity` may not capture the case that an edge type is contained in another one but the two edge sets have significantly different sizes. Nevertheless, this could happen if two databases describe the same relation, but one has significantly less edges than the other. Next, we examine whether all the edges of a certain type are described by another edge type as well that is $\varepsilon^{r_1} \subset \varepsilon^{r_2}$. To accomplish this, we compute the overlap coeffcient that is defined as
+
+$$
+o_{r_1,r_2}:=\frac{|\varepsilon^{r_1}\cap \varepsilon^{r_2}|}{min(|\varepsilon^{r_1}|, |\varepsilon^{r_2}|)} \tag{4}
+$$
+
+The overlap coefficient is close to `1` if all the edges in one edge set are also present in the other set. `Table XXI` reports the 10 most similar edge-type pairs based on their overlap coefficient.
+
+![](https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20174043.png)
+
+We observe that for certain edge-type pairs there `exists significant overlap`. **Nevertheless, for the pair GNBR::E and GNBR::E+ the total overlap is expected since the first relation signifies that a drug affects the expression of a gene whereas the second indicates that a drug increases the expression of a gene and it is contained in the first one.** The high overlap coefficient between “Hetionet::AuG::Anatomy:Gene” and “Hetionet::AeG::Anatomy:Gene” is also expected, because AuG is a special case of AeG. Similarly, “STRING::CATALYSIS::Gene:Gene” and “STRING::BINDING::Gene:Gene” can be considered as special cases of “STRING::REACTION::Gene:Gene”.
+
+#### Knowledge graph embedding analysis
+
+We can `use the embeddings of the knowledge graph to analyze how relations and entities are clustered and investigate whether certain similarities in the embedding space are consistent with their biological meanings`, e.g., “GNBR::E:Compound:Gene” and “GNBR::E+:Compound:Gene” can be similar as they both represent the expression relationship between a Compound and a Gene, but “GNBR::E+” represents the positive expression. Further, we can generate the confidence of existing edges by calculating the prediction scores using the embeddings. From the perspective of the knowledge graph embedding algorithm, e.g., `TransE, if the score between two entities $h$ and $t$ under relation $r$ is far away from $0$, then the model cannot correctly score an edge on which it trained on. This means that the edge does not fit the underlying model and is often an indication that the corresponding edge may be incorrect.`
+
+Here, we analyze DRKG by **learning a TransE KGE model that utilizes the $\ell_2$ distance** (Section II-B). For the analysis in this section, we split the edge triplets in training, validation and test sets as follows `90%`, `5%`, and `5%` and train the KGE model. Finally, we obtain the entity and relation embeddings for the DRKG. Next, we apply the following methodologies to `validate the quality of the learned embeddings`.
+
+`1)` Entity embedding similarity: We use `t-SNE` to map entity embeddings to a 2D space. `Figure 2` illustrates `how the entity embeddings are placed in the 2D space`. Different colors denote different entity types. `We observe that entities from the same type are grouped together as we expected`.
+
+![](https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20190657.png)
+
+`Table XXII` shows the average pair-wise cosine similarity of certain entity type within the same category and cross different categories. `It can be seen that entities are more similar to each other within the same category that entities from different categories`.
+
+![](https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20192022.png)
+
+`Figure 3` shows `the detailed distribution` of pairwise cosine similarity between different entities based on their embeddings. In the figure, `the counts are normalized that the area under the histogram is sum to 1`. **It can be seen that most of the entities have low cosine similarity according to their embeddings**. They are distinguishable in the current embedding space.
+
+![](https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20193107.png)
+
+`2)` Relation type embedding similarity: We use `t-SNE` to map relation embeddings to a 2D space and plot it in `Figure 4`. `It can be seen that relations are widely spread across the 2D space and relations from the same dataset do not cluster which is expected as most of relations have different meanings even from the same data source.`
+
+![](https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20194110.png)
+
+Only a small part of relations from GNBR dataset are clustered together. There are two clustered red dots (relations from GNBR) in the Figure. `Table XXIII` shows all relation-type pairs with the Cosine similarity larger than 0.9. It can be seen that “GNBR::E::Compound:Gene”, “GNBR::K::Compound:Gene”, “GNBR::E+::Compound:Gene”, “GNBR::N::Compound:Gene” and “GNBR::E-::Compound:Gene” are highly similar to each other.
+
+![](https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20195533.png)
+
+Some of these pairs also appear in the most similar edge-type pairs analysis on the Jaccard similarity and overlap similarity. Drugs can affect (E) gene expression (either increase (E+) or decrease (E-)) through their pharmacokinetics (K). `Drugs can also inhibit genes to affect gene expressions and thus the high cosine similarity between “GNBR::N:: Compound:Gene” and the above relations are justified.` “GNBR::L::Gene:Disease”, “GNBR::G::Gene:Disease”, “GNBR::J::Gene:Disease”, “GNBR::Md::Gene:Disease”, “GNBR::Te::Gene:Disease” and “GNBR::X::Gene:Disease” are highly similar to each other. `The similarity between these relations could be due to that the genes are involved in the pathogenesis of the disease and therefore they can be treated as the targets or they have therapeutic effect for the disease.` From the table, we can see that “bioarx::DrugHumGen:Compound:Gene” and “DRUGBANK::target::Compound:Gene” are also similar to each other, while they have similar meaning of treatment.
+
+`Figure 5 shows the detailed distribution of pair-wise cosine similarity among different relation types based on their embeddings.` The counts are normalized that the area under the histogram is sum to 1. `It can be seen that most of the relation embeddings have small cosine similarity.` Only 0.53% of relation pairs have similarity larger than 0.9 with the maximun of 0.986 (between GNBR::E::Compound:Gene and GNBR::K::Compound:Gene).
+
+![](https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20201807.png)
+
+`3) Edge prediction analysis`: Towards validating each triplet of the DRKG we evaluate how well it fits the scoring function of KGE model. In order to avoid the possible bias of over-fitting the triplets in the training set, **we split the whole DRKG into 10 equal folds and train 10 KGE models by picking each fold as the test set and the rest other nine folds are the training set**. Following this, the score for each triplet is calculated while this triplet was in the test set. Consider the triplet $(h, r, t)$ of the DRKG and the associated score as
+
+$$
+score = \gamma - ||\mathbf{h}+\mathbf{r}-\mathbf{t}||_{2} \tag{5}
+$$
+
+where $\gamma$ is a constant we used in training of the TransE model that is set to `12.0`. For each triplet $(h, r, t)$, the closer its score is to $0$, the more confident it was that the head $h$ and tail $t$ entities are connected under relation $r$. The distribution of the edge scores is depicted in `Figure 6`.
+
+![](https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20205159.png)
+
+The counts are normalized that the area under the histogram is sum to `1`. From the figure, we can see that around `57.28%` of edges are scored as `|score| < 1` and `94.24%` of edges are scored as `|score| < 2`. **The average of |score| is 0.987**. We also randomly shuffle $t$ in $(h, r, t)$ for all triplets to construct the negative triplets $(h, r, t^{'})$ and calculate the $|score^{'}|$ using the same formula. The average $|score^{'}|$ is 2.545.
+
+`4) Link type recommendation similarity`: Finally, **we also evaluate how similar are the predicted links as given by the KGE model among different relation types**. This task examines the similarity across relation types for the link prediction task. For a set of nodes, `we measure the overlap of predicted neighbors under different relation types as given by the TransE model.`
+
+**For seed node we find the top 10 neighbors under relation $r_j$ with the highest link prediction score.** Next, we repeat the same prediction for relation $r_{j^{'}}$ and calculate the Jaccard similarity coefficient among the predicted sets of top 10 neighbors for $r_j$ and $r_{j^{'}}$. `We repeat this process for 100 random selected seed nodes and report the average similarity score for all edge-type pairs.` The most similar edge types in this context are `the ones relating Genes`. **This may be attributed to the fact that the genes are the most represented entitites in the DRKG.**
+
+![](https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20212612.png)
 
 ## 结语
 
