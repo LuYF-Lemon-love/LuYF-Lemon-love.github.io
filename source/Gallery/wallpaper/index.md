@@ -36,4 +36,6 @@ top_img: https://cos.luyf-lemon-love.space/images/20220513171423.png
 ![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/029-星空.jpg)
 ![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/030-枫树.jpg)
 ![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/031-女孩-和服.png)
+![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/032-home.jpg)
+![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/033-魔卡少女樱.jpg)
 {% endgallery %}
