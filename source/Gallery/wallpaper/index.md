@@ -51,4 +51,6 @@ top_img: https://cos.luyf-lemon-love.space/images/20220513171423.png
 ![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/044-猫耳.jpg)
 ![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/045-漂亮少数民族美女.jpg)
 ![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/046-宋君婉.jpg)
+![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/047-西施.jpg)
+![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/048-清纯美女-双手伸直-养眼.jpg)
 {% endgallery %}
