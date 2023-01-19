@@ -55,6 +55,6 @@ top_img: https://cos.luyf-lemon-love.space/images/20220513171423.png
 ![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/048-清纯美女-双手伸直-养眼.jpg)
 ![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/049-背带牛仔裤-美女宋昕冉.jpg)
 ![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/050-长发-夏天-牛仔短裙.jpg)
-![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/051-床-清纯小姐姐-白色毛衣.jpg)
+![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/051-床-清纯小姐姐-白色毛衣.jpg)
 ![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/052-宋昕冉.jpg)
 {% endgallery %}
