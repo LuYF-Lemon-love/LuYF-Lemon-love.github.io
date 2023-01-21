@@ -49,7 +49,8 @@ $$Dets = \mathcal{H(\Phi_{det})} \tag{1}$$
 |$\left(\right)$|`$\left(\right)$`|$\lambda$|`$\lambda$`|$\Phi$|`$\Phi$`|
 |$\bar{x}$|`$\bar{x}$`|$\vec{x}$|`$\vec{x}$`|$\infty$|`$\infty$`|
 |$\varepsilon$|`$\varepsilon$`|$\cap$|`$\cap$`|$\subset$|`$\subset$`|
-|$\approx$|`$\approx$`|||||
+|$\approx$|`$\approx$`|$\sigma$|`$\sigma$`|$\ne$|`$\ne$`|
+|$\cdot$|`$\cdot$`|$\odot$|`$\odot$`|||
 
 ## 数学运算符
 
@@ -105,7 +106,7 @@ $$
 
 ### 颜色
 
-```markdown
+```html
 浅红色文字：<font color="#dd0000">浅红色文字</font><br/>
 深红色文字：<font color="#660000">深红色文字</font><br/>
 浅绿色文字：<font color="#00dd00">浅绿色文字</font><br/>
@@ -137,7 +138,7 @@ $$
 
 ### 大小
 
-```markdown
+```html
 size为1：<font size="1">size为1</font><br/>
 size为2：<font size="2">size为2</font><br/>
 size为3：<font size="3">size为3</font><br/>
@@ -165,7 +166,7 @@ size为10：<font size="10">size为10</font><br/>
 
 ### 字体
 
-```markdown
+```html
 <font face="黑体">我是黑体字</font><br/>
 <font face="宋体">我是宋体字</font><br/>
 <font face="微软雅黑">我是微软雅黑字</font><br/>
@@ -183,7 +184,7 @@ size为10：<font size="10">size为10</font><br/>
 
 ### 背景色
 
-```markdown
+```html
 <table>
     <tr>
         <td bgcolor=#FF00FF>背景色的设置是按照十六进制颜色值：#FF00FF</td>
