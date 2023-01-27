@@ -210,6 +210,94 @@ Test average HITS@10 : 0.7726295474936941
 
 ## Introduction to Knowledge Graph Embedding
 
+原文档地址: https://dglke.dgl.ai/doc/install.html .
+
+**Knowledge Graphs (KGs) have emerged as an effective way to integrate disparate data sources and model underlying relationships for applications such as search.** At Amazon, we use KGs to represent the hierarchical relationships among products; the relationships between creators and content on Amazon Music and Prime Video; and information for Alexa’s question-answering service. **Information extracted from KGs in the form of embeddings is used to improve search, recommend products, and infer missing information.**
+
+### What is a graph
+
+**A graph is a structure used to represent things and their relations.** It is made of two sets - the set of nodes (also called vertices) and the set of edges (also called arcs). Each edge itself connects a pair of nodes indicating that there is a relation between them. **This relation can either be undirected, e.g., capturing symmetric relations between nodes, or directed, capturing asymmetric relations.** For example, if a graph is used to model the friendship relations of people in a social network, then the edges will be undirected as they are used to indicate that two people are friends; however, if the graph is used to model how people follow each other on Twitter, the edges will be directed. Depending on the edges’ directionality, a graph can be directed or undirected.
+
+Graphs can be either homogeneous or heterogeneous. **In a homogeneous graph, all the nodes represent instances of the same type and all the edges represent relations of the same type.** For instance, a social network is a graph consisting of people and their connections, all representing the same entity type. **In contrast, in a heterogeneous graph, the nodes and edges can be of different types.** For instance, the graph for encoding the information in a marketplace will have buyer, seller, and product nodes that are connected via wants-to-buy, has-bought, is-customer-of, and is-selling edges.
+
+Finally, another class of graphs that is especially important for knowledge graphs are multigraphs. **These are graphs that can have multiple (directed) edges between the same pair of nodes and can also contain loops. These multiple edges are typically of different types and as such most multigraphs are heterogeneous.** Note that graphs that do not allow these multiple edges and self-loops are called simple graphs.
+
+### What is a Knowledge Graph
+
+In the earlier marketplace graph example, `the labels assigned to the different node types (buyer, seller, product) and the different relation types (wants-to-buy, has-bought, is-customer-of, is-selling) convey precise information (often called semantics) about what the nodes and relations represent for that particular domain.` Once this graph is populated, it will encode the knowledge that we have about that marketplace as it relates to types of nodes and relations included. Such a graph is an example of a knowledge graph.
+
+`A knowledge graph (KG) is a directed heterogeneous multigraph whose node and relation types have domain-specific semantics.` **KGs allow us to encode the knowledge into a form that is human interpretable and amenable to automated analysis and inference.** KGs are becoming a popular approach to represent diverse types of information in the form of different types of entities connected via different types of relations.
+
+When working with KGs, we adopt a different terminology than the traditional vertices and edges used in graphs. `The vertices of the knowledge graph are often called entities and the directed edges are often called triplets and are represented as a (h, r, t) tuple, where h is the head entity, t is the tail entity, and r is the relation associating the head with the tail entities.` Note that the term relation here refers to the type of the relation (e.g., one of wants-to-buy, has-bought, is-customer-of, and is-selling).
+
+Let us examine a directed multigraph in an example, which includes a cast of characters and the world in which they live.
+
+**Scenario**:
+
+**Mary** and **Tom** are *siblings* and they both are are *vegetarians*, who like **potatoes** and **cheese**. Mary and Tom both work at **Amazon**. **Joe** is a bloke who is *a colleague of* Tom. To make the matter complicated, Joe loves Mary, but we do not know if the feeling is reciprocated.
+
+Joe is from **Quebec** and is proud of his native dish of **Poutine**, which is composed of potato, cheese, and **gravy**. We also know that gravy contains **meat** in some form.
+
+Joe is excited to invite Tom for dinner and has sneakily included his sibling, Mary, in the invitation. His plans are doomed from get go as he is planning to serve the vegetarian siblings his favourite Quebecois dish, Poutine.
+
+Oh! by the way, a piece of geography trivia: Quebec is located in a **province** of the same name which in turn is located in **Canada**.
+
+There are several relationships in this scenario that are not explicitly mentioned but we can simply infer from what we are given:
+
+- Mary is a colleague of Tom.
+
+- Tom is a colleague of Mary.
+
+- Mary is Tom’s sister.
+
+- Tom is Mary’s brother.
+
+- Poutine has meat.
+
+- Poutine is not a vegetarian dish.
+
+- Mary and Tom would not eat Poutine.
+
+- Poutine is a Canadian dish.
+
+- Joe is Canadian.
+
+- Amazon is a workplace for Mary, Tom, and Joe.
+
+There are also some interesting negative conclusions that seem intuitive to us, but not to the machine: - Potato does not like Mary. - Canada is not from Joe. - Canada is not located in Quebec. - … What we have examined is a knowledge graph, a set of nodes with different types of relations:
+
+- `1-to-1`: Mary is a sibling of Tom.
+
+- `1-to-N`: Amazon is a workplace for Mary, Tom, and Joe.
+
+- `N-to-1`: Joe, Tom, and Mary work at Amazon.
+
+- `N-to-N`: Joe, Mary, and Tom are colleagues.
+
+There are other categorization perspectives on the relationships as well: - Symmetric: Joe is a colleague of Tom entails Tom is also a colleague of Joe. - Antisymmetric: Quebec is located in Canada entails that Canada cannot be located in Quebec.
+
+`Figure 1` visualizes a knowledge-base that describes World of Mary. For more information on how to use the examples, please refer to the [code](https://github.com/cyrusmvahid/GNNTrainingMaterial/blob/master/March2020/supportingexamples/examples.py) that draws the examples.
+
+![](https://cos.luyf-lemon-love.space/images/kg_example.png)
+
+### What is the task of Knowledge Graph Embedding?
+
+`Knowledge graph embedding is the task of completing the knowledge graphs by probabilistically inferring the missing arcs from the existing graph structure.` KGE differs from ordinary relation inference as the information in a knowledge graph is multi-relational and more complex to model and computationally expensive. For this rest of this blog, we examine fundamentals of KGE.
+
+### Score Function
+
+There are different flavours of KGE that have been developed over the course of the past few years. What most of them have in common is a score function. `The score function measures how distant two nodes relative to its relation type.` As we are setting the stage to introduce the reader to DGL-KE, an open source knowledge graph embedding library, we limit the scope only to those methods that are implemented by DGL-KE and are listed in Figure 2.
+
+Figure2: A list of score functions for KE papers implemented by DGL-KE
+
+![](https://cos.luyf-lemon-love.space/images/kge_scores.png)
+
+### A short explanation of the score functions
+
+Knowledge graphs that are beyond toy examples are always large, high dimensional, and sparse. High dimensionality and sparsity result from the amount of information that the KG holds that can be represented with 1-hot or n-hot vectors. The fact that most of the items have no relationship with one another is another major contributor to sparsity of KG representations. We, therefore, `desire to project the sparse and high dimensional graph representation vector space into a lower dimensional dense space.` This is similar to the process used to generate word embeddings and reduce dimensions in recommender systems based on matrix factorization models. I will provide a detailed account of all the methods in a different post, but here I will shortly explain `how projections differ in each paper`, `what the score functions do`, and `what consequences the choices have for relationship inference` and `computational complexity`.
+
+#### TransE
+
 ## 结语
 
 第四十五篇博文写完，开心！！！！
