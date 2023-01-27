@@ -117,6 +117,24 @@ This project is licensed under the Apache-2.0 License.
 
 ## DGL-KE Documentation
 
+**Knowledge graphs (KGs) are data structures that store information about different entities (nodes) and their relations (edges).** A common approach of using KGs in various machine learning tasks is to compute knowledge graph embeddings. `DGL-KE is a high performance, easy-to-use, and scalable package for learning large-scale knowledge graph embeddings.` The package is implemented on the top of Deep Graph Library ([DGL](https://www.dgl.ai/)) and developers can run DGL-KE on CPU machine, GPU machine, as well as clusters with a set of popular models, including `TransE`, `TransR`, `RESCAL`, `DistMult`, `ComplEx`, and `RotatE`.
+
+![](https://cos.luyf-lemon-love.space/images/dgl_ke_arch.png)
+
+### Performance and Scalability
+
+**DGL-KE is designed for learning at scale.** It introduces various novel optimizations that accelerate training on knowledge graphs with millions of nodes and billions of edges. Our benchmark on knowledge graphs consisting of over 86M nodes and 338M edges shows that DGL-KE can compute embeddings in 100 minutes on an EC2 instance with 8 GPUs and 30 minutes on an EC2 cluster with 4 machines (48 cores/machine). These results represent a **2×∼5×** speedup over the best competing approaches.
+
+*DGL-KE vs Graphvite*
+
+![](https://cos.luyf-lemon-love.space/images/vs-gv-fb15k.png)
+
+*DGL-KE vs Pytorch-Biggraph*
+
+![](https://cos.luyf-lemon-love.space/images/vs-pbg-fb.png)
+
+## Get started with DGL-KE!
+
 ## 结语
 
 第四十五篇博文写完，开心！！！！
