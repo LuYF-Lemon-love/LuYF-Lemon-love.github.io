@@ -210,7 +210,7 @@ Test average HITS@10 : 0.7726295474936941
 
 ## Introduction to Knowledge Graph Embedding
 
-原文档地址: https://dglke.dgl.ai/doc/install.html .
+原文档地址: https://dglke.dgl.ai/doc/kg.html .
 
 **Knowledge Graphs (KGs) have emerged as an effective way to integrate disparate data sources and model underlying relationships for applications such as search.** At Amazon, we use KGs to represent the hierarchical relationships among products; the relationships between creators and content on Amazon Music and Prime Video; and information for Alexa’s question-answering service. **Information extracted from KGs in the form of embeddings is used to improve search, recommend products, and infer missing information.**
 
