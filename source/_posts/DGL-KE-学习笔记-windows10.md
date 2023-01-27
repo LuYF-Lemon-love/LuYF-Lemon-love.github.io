@@ -50,10 +50,11 @@ DGL-KE 代码仓库链接: https://github.com/awslabs/dgl-ke .
 
 Currently DGL-KE support three tasks:
 
-  * Training, trains KG embeddings using `dglke_train`(single machine) or `dglke_dist_train`(distributed environment).
-  * Evaluation, reads the pre-trained embeddings and evaluates the embeddings with a link prediction task on the test set using `dglke_eval`.
-  * Inference, reads the pre-trained embeddings and do the 
-  entities/relations linkage predicting inference tasks using `dglke_predict` or do the embedding similarity  inference tasks using `dglke_emb_sim`.
+- Training, trains KG embeddings using `dglke_train`(single machine) or `dglke_dist_train`(distributed environment).
+
+- Evaluation, reads the pre-trained embeddings and evaluates the embeddings with a link prediction task on the test set using `dglke_eval`.
+
+- Inference, reads the pre-trained embeddings and do the entities/relations linkage predicting inference tasks using `dglke_predict` or do the embedding similarity  inference tasks using `dglke_emb_sim`.
 
 ### A Quick Start
 
