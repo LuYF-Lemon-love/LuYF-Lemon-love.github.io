@@ -51,8 +51,8 @@ gitcalendar:
   # color: "['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f']" #浅紫色调
   # color: "['#ebedf0', '#f0fff4', '#dcffe4', '#bef5cb', '#85e89d', '#34d058', '#28a745', '#22863a', '#176f2c', '#165c26', '#144620']" #翠绿色调
   # color: "['#ebedf0', '#f1f8ff', '#dbedff', '#c8e1ff', '#79b8ff', '#2188ff', '#0366d6', '#005cc5', '#044289', '#032f62', '#05264c']" #天青色调
-  # color: "['#ebedf0', '#9be9a8', '#9be9a8', '#9be9a8', '#40c463', '#40c463', '#40c463', '#30a14e', '#30a14e', '#216e39', '#216e39']" #自定义绿色
-  color: "['#ebedf0', '#B6E3FF', '#B6E3FF', '#B6E3FF', '#54AEFF', '#54AEFF', '#54AEFF', '#0969DA', '#0969DA', '#0A3069', '#0A3069']" #自定义蓝色
+  color: "['#ebedf0', '#9be9a8', '#9be9a8', '#9be9a8', '#40c463', '#40c463', '#40c463', '#30a14e', '#30a14e', '#216e39', '#216e39']" #自定义绿色
+  # color: "['#ebedf0', '#B6E3FF', '#B6E3FF', '#B6E3FF', '#54AEFF', '#54AEFF', '#54AEFF', '#0969DA', '#0969DA', '#0A3069', '#0A3069']" #自定义蓝色
   # color: "['#ebedf0', '#ffee4a', '#ffee4a', '#ffee4a', '#ffc501', '#ffc501', '#ffc501', '#fe9600', '#fe9600', '#03001c', '#03001c']" #自定义黄色
   container: .recent-post-item(style='width:100%;height:auto;padding:10px;') #父元素容器，需要使用pug语法
   gitcalendar_css: https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.css
