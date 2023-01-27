@@ -117,6 +117,8 @@ This project is licensed under the Apache-2.0 License.
 
 ## DGL-KE Documentation
 
+原文档地址: https://dglke.dgl.ai/doc/ .
+
 **Knowledge graphs (KGs) are data structures that store information about different entities (nodes) and their relations (edges).** A common approach of using KGs in various machine learning tasks is to compute knowledge graph embeddings. `DGL-KE is a high performance, easy-to-use, and scalable package for learning large-scale knowledge graph embeddings.` The package is implemented on the top of Deep Graph Library ([DGL](https://www.dgl.ai/)) and developers can run DGL-KE on CPU machine, GPU machine, as well as clusters with a set of popular models, including `TransE`, `TransR`, `RESCAL`, `DistMult`, `ComplEx`, and `RotatE`.
 
 ![](https://cos.luyf-lemon-love.space/images/dgl_ke_arch.png)
