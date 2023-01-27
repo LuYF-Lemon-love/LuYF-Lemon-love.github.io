@@ -194,6 +194,10 @@
       link: https://matplotlib.org/
       avatar: https://cos.luyf-lemon-love.space/images/matplotlib.png
       descr: Visualization with Python
+    - name: pandas
+      link: https://pandas.pydata.org/
+      avatar: https://cos.luyf-lemon-love.space/images/pandas.svg
+      descr: pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool, built on top of the Python programming language.
 
 - class_name: 混合编程
   class_desc:
@@ -278,6 +282,18 @@
       link: https://paperswithcode.com/
       avatar: https://cos.luyf-lemon-love.space/images/paperswithcode.png
       descr: The mission of Papers with Code is to create a free and open resource with Machine Learning papers, code, datasets, methods and evaluation tables.
+    - name: DEEP GRAPH LIBRARY
+      link: https://www.dgl.ai/
+      avatar: https://cos.luyf-lemon-love.space/images/dgl.jpg
+      descr: Easy Deep Learning on Graphs
+
+- class_name: 知识图谱
+  class_desc:
+  link_list:
+    - name: DGL-KE Documentation
+      link: https://dglke.dgl.ai/doc/index.html
+      avatar: https://cos.luyf-lemon-love.space/images/logo.png
+      descr: a high performance, easy-to-use, and scalable package for learning large-scale knowledge graph embeddings.
 
 - class_name: Web
   class_desc:
@@ -455,6 +471,10 @@
       link: https://smallpdf.com/cn/merge-pdf
       avatar: https://cos.luyf-lemon-love.space/images/smallpdf.png
       descr: 合并PDF文件最简易的方法
+    - name: RGB颜色查询
+      link: https://www.fontke.com/tool/rgb/
+      avatar: https://cos.luyf-lemon-love.space/images/rgb.png
+      descr: RGB颜色查询
 
 - class_name: 娱乐和学习
   class_desc:
