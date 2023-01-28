@@ -567,6 +567,68 @@ v = \begin{bmatrix}
 = (2-3i)(1+i)+(1-5i)(2+2i)=[4-13i]\end{split}
 $$
 
+Definition: A complex matrix $A$ us unitary when $A^{-1} = A^*$
+
+Example: $A = \frac{1}{2}\begin{bmatrix}1+i & 1-i \\1-i & 1+i\end{bmatrix}$
+
+Theorem: An $n \times n$ complex matrix $A$ is unitary $\iff$ its rows or columns form an orthanormal set in $\mathcal{C}^n$
+
+Definition: A square matrix $A$ is Hermitian when $A=A^*$
+
+Example: $A = \begin{bmatrix}a_1 & b_1+b_2i \\b_1+b_2i & d+1\end{bmatrix}$
+
+Theorem: Matrix $A$ is Hermitian $\iff$:
+
+1. $a_{ii} \in \mathbb{R}$
+
+2. $a_{ij}$ is complex conjugate of $a_{ji}$
+
+Theorem: If $A$ is a Hermirian matrix, then its eigenvalues are real numbers.
+
+Theorem: Hermitian matrices are unitarity diagonizable.
+
+Definitions: A squared matrix A is unitarily diagonizable when there exists a unitary matrix $P$ such that $P^{-1}AP$.
+
+Diagonizability can be extended to a larger class of matrices, called normal matrices.
+
+Definition: A square complex matrix A is called normal when it commutes with its conjugate transpose. $AA^*=A^*A$.
+
+Theorem: A complex matrix $A$ is normal $\iff A$ is diagonizable.
+
+This theorem plays a crucial role in ComplEx paper.
+
+---
+
+**Eigen decomposition for entity embedding**
+
+The matrix decomposition methods have a long history in machine learning. Using embeddings based decomposition in the form of $X=EWE^{-1}$ for square symmetric matrices can be represented as eigen decomposition $X=Q\Lambda Q^{-1}$ where $Q$ is orthogonal $(Q^{-1} = Q^\top)$ and $\Lambda = diag(\lambda)$ and $\lambda_i$ is an eigenvector of $X$.
+
+As ComplEx targets to learn antisymmetric relations, and eigen decomposition for asymmetric matrices does not exist in real space, the authors extend the embedding representation to complex numbers, where they can factorize complex matrices and benefit from efficient scaling and distribution of matrix multiplication while being able to capture antisymmetric relations. This asymmetry is resulted from the fact that dot product of complex matrices involves conjugate transpose.
+
+We are not done yet. Do you remember in RESCAL the number of parameters was $O(d^2)$ and DistMulti reduce that to a linear relation of $O(d)$ by limiting matrix $M_r$ to be diagonal?. Here even with complex eigenvectors $E \in \mathcal{C}^{n \times n}$, inversion of $E$ in $X=EWE^{*}$ explodes the number of parameters. As a result we need to find a solutions in which W is a diagonal matrix, and $E = E^*$, and $X$ is asymmetric, so that we
+
+1. computation is minimized
+
+2. there is no need to compute inverse of $E$, and
+
+3. antisymmetric relations can be captures. We have already seen the solution in the complex vector space section. The paper does construct the decomposition in a normal space, a vector space composed of complex normal vectors.
+
+---
+
+**The Score Function**
+
+A relation between two entities can be modeled as a sign function, meaning that if there is a relation between a subject and an object, then the score is 1, otherwise it is -1. More formally, $Y_{so}\in \{-1, 1\}$. The probability of a relation between two edntities to exist is then given by sigmoid function: $P(Y_{so}=1) = \sigma(X_{so})$.
+
+This probability score requires $X$ to be real, while $EWE^*$ includes both real and imaginary components. We can simply project the decomposition to the real space so that $X =Re(EWE^*)$. the score function of ComlEx, therefore is given by:
+
+$$
+f_r(h, t) = Re(h^\top diag(r) \bar{t}) = Re(\sum_{i=0}^{d-1}[r]_i.[h]_i.[\bar{t}]_i)
+$$
+
+and since there are no nested loops, the number of parameters is linear and is given by $O(d)$.
+
+#### RotateE
+
 ## 结语
 
 第四十五篇博文写完，开心！！！！
