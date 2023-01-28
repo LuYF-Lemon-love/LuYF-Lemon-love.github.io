@@ -787,7 +787,7 @@ aside:
   hide: false
   button: true
   mobile: true # display on mobile
-  position: left # right # left or right
+  position: right #left # right # left or right
   archives: true
   card_author:
     enable: true
