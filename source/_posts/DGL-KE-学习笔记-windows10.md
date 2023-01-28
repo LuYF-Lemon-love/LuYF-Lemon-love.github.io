@@ -478,7 +478,94 @@ But first a quick reminder about complex vectors.
 
 ---
 
-Complex Vector Space 1 is the unit for real numbers, $i=\sqrt{-1}$ is the imaginary unit of complex numbers. Each complex number has two parts, a real and an imaginary part and is represented as $c = a + bi \in \mathbb{C}$. As expected, the complex plane has a horizontal and a vertical axis. Real numbers are placed on the horizontal axis and the vertical axis represents the imaginary part of a number. This is done in much the same way as in $x$ and $y$ are represented on Cartesian plane. An n-dimensional complex vector 
+Complex Vector Space 1 is the unit for real numbers, $i=\sqrt{-1}$ is the imaginary unit of complex numbers. Each complex number has two parts, a real and an imaginary part and is represented as $c = a + bi \in \mathbb{C}$. As expected, the complex plane has a horizontal and a vertical axis. Real numbers are placed on the horizontal axis and the vertical axis represents the imaginary part of a number. This is done in much the same way as in $x$ and $y$ are represented on Cartesian plane. An n-dimensional complex vector $\mathcal{V}\in \mathbb{C}^n$ is a vector whose elements $v_i\in \mathbb{C}$ are complex numbers.
+
+Example:
+
+$$
+\begin{split}V_1 = \begin{bmatrix}
+2 + 3i \\
+1 + 5i
+\end{bmatrix}
+\text{ and }
+V_2 = \begin{bmatrix}
+2 + 3i \\
+1 + 5i \\
+3
+\end{bmatrix}
+\text{ are in } \mathbb{C}^2\text{ and }\mathbb{C}^3\text{ respectively.}\end{split}
+$$
+
+$\mathbb{R} \subset \mathbb{C}$ and $\mathbb{R}^n \subset \mathbb{C}^n$. Basically a real number is a complex number whose imaginary part has a coefficient of zero.
+
+modulus of a complex number $z$ is a complex number as is given by $z=a+bi$, modulus $z$ is analogous to size in vector space and is given by $\mid z\mid = \sqrt{a^2 + b^2}$
+
+Complex Conjugate The conjugate of complex number $z=a+bi$ is denoted by $\bar{z}$ and is given by $\bar{z}=a-bi$.
+
+Example:
+
+$$
+\begin{split}\bar{V}_1 = \begin{bmatrix}
+2 - 3i \\
+1 - 5i
+\end{bmatrix}
+\text{ and }
+\bar{V}_2 = \begin{bmatrix}
+2 - 3i \\
+1 - 5i \\
+3
+\end{bmatrix}
+\text{ are in } \mathbb{C}^2\text{ and }\mathbb{C}^3\text{ respectively.}\end{split}
+$$
+
+Conjugate Transpose The conjugate transpose of a complex matrix $\mathcal{A}$, is denoted as $\mathcal{A}^*$ and is given by $\mathcal{A}^* = \mathbf{\bar{\mathcal{A}}}^\top$ where elements of $\bar{\mathcal{A}}$ are complex conjugates of $\mathcal{A}.$
+
+Example:
+
+$$
+V^*_1 = \begin{bmatrix}
+2 - 3i &
+1 - 5i
+\end{bmatrix}
+\text{ and }
+V^*_2 = \begin{bmatrix}
+2 - 3i &
+1 - 5i &
+3
+\end{bmatrix}
+\text{ are in } \mathbb{C}^2\text{ and }\mathbb{C}^3\text{ respectively.}
+$$
+
+Complex dot product. aka Hermitian inner product if $\mathbf{u}$ and $\mathbf{c}$ are complex vectors, then their inner product is defined as $\langle \mathbf{u}, \mathbf{v} \rangle = \mathbf{u}^*\mathbf{v}$.
+
+Example:
+
+$$
+\begin{split}u = \begin{bmatrix}
+2 + 3i \\
+1 + 5i
+\end{bmatrix}
+\text{ and }
+v = \begin{bmatrix}
+1 + i \\
+2 + 2i
+\end{bmatrix}
+\text{ are in } \mathbb{C}^2\text{ and }\mathbb{C}^3\text{ respectively.} \\
+\text{ then }u^*= \begin{bmatrix}
+2 - 3i &
+1 - 5i
+\end{bmatrix}
+\text{ and } \\
+\langle u,v \rangle = u^*v = \begin{bmatrix}
+2 - 3i &
+1 - 5i
+\end{bmatrix}
+\begin{bmatrix}
+1 + i \\
+2 + 2i
+\end{bmatrix}
+= (2-3i)(1+i)+(1-5i)(2+2i)=[4-13i]\end{split}
+$$
 
 ## 结语
 
