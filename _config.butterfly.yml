@@ -643,7 +643,7 @@ tag_ui: # 留空或 index
 # can set it to color or image (可設置圖片 或者 顔色)
 # The formal of image: url(http://xxxxxx.com/xxx.jpg)
 #background: url(https://i.loli.net/2019/09/09/5oDRkWVKctx2b6A.png)
-background: url(https://cos.luyf-lemon-love.space/images/魔卡少女樱_1.jpg) # url(https://cos.luyf-lemon-love.space/images/bg_3.jpg) # url(https://cos.luyf-lemon-love.space/images/bg.jpg)
+background: url(https://cos.luyf-lemon-love.space/images/059-%E5%8F%A4%E9%9F%B5-%E7%BE%8E%E5%A5%B3-%E7%BE%8E%E8%85%BF-%E5%8F%A4%E8%A3%85.jpg) #url(https://cos.luyf-lemon-love.space/images/魔卡少女樱_1.jpg) # url(https://cos.luyf-lemon-love.space/images/bg_3.jpg) # url(https://cos.luyf-lemon-love.space/images/bg.jpg)
 
 # Footer Background
 footer_bg: false

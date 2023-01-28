@@ -298,6 +298,188 @@ Knowledge graphs that are beyond toy examples are always large, high dimensional
 
 #### TransE
 
+**TransE is a representative translational distance model that represents entities and relations as vectors in the same semantic space of dimension $\mathbb{R}^d$, where $d$ is the dimension of the target space with reduced dimension.** A fact in the source space is represented as a triplet $(h,r,t)$ where $h$ is short for head, $r$ is for relation, and $t$ is for tail. **The relationship is interpreted as a translation vector so that the embedded entities are connected by relation $r$ have a short distance.** In terms of vector computation it could mean adding a head to a relation should approximate to the relation’s tail, or $h+r \approx t$. For example if $h_1=emb("Ottawa"),\ h_2=emb("Berlin"), t_1=emb("Canada"), t_2=("Germany")$, and finally $r="CapilatOf"$, then $h_1 + r$ and $h_2+r$ should approximate $t_1$ and $t_2$  respectively. **TransE performs linear transformation and the scoring function is negative distance between $h+r$ and $t$, or $f=-\|h+r-t\|_{\frac{1}{2}}$**
+
+Figure 3: TransE
+
+![](https://cos.luyf-lemon-love.space/images/transe.png)
+
+#### TransR
+
+TransE cannot cover a relationship that is not 1-to-1 as it learns only one aspect of similarity. **TransR addresses this issue with separating relationship space from entity space where $h, t \in \mathbb{R}^k$ and $r \in \mathbb{R}^d$.** The semantic spaces do not need to be of the same dimension. **In the multi-relationship modeling we learn a projection matrix $M\in \mathbb{R}^{k \times d}$ for each relationship that can project an entity to different relationship semantic spaces.** Each of these spaces capture a different aspect of an entity that is related to a distinct relationship. **In this case a head node $h$ and a tail node $t$ in relation to relationship $r$ is projected into the relationship space using the learned projection matrix $M_r$ as $h_r=hM_r$ and $t_r=tM_r$ respectively.** Figure 5 illustrates this projection.
+
+Let us explore this using an example. Mary and Tom are siblings and colleagues. They both are vegetarians. Joe also works for Amazon and is a colleague of Mary and Tom. TransE might end up learning very similar embeddings for Mary, Tom, and Joe because they are colleagues but cannot recognize the (not) sibling relationship. Using TransR, we learn projection matrices: **$M_{sib},\ M_{clg}$ and $M_{vgt}$ that perform better at learning relationship like (not)sibling.**
+
+The score function in TransR is similar to the one used in TransE and measures euclidean distance between $h+r$ and $t$, but the distance measure is per relationship space. More formally: $f_r=\|h_r+r-t_r\|_2^2$
+
+Figure 4: TransR projecting different aspects of an entity to a relationship space.
+
+![](https://cos.luyf-lemon-love.space/images/transr.png)
+
+Another advantage of TransR over TransE is its ability to extract compositional rules. Ability to extract rules has two major benefits. It offers richer information and has a smaller memory space as we can infer some rules from others.
+
+---
+
+**Drawbacks**
+
+The benefits from more expressive projections in TransR adds to the complexity of the model and a higher rate of data transfer, which has adversely affected distributed training. TransE requires $O(d)$ parameters per relation, where $d$ is the dimension of semantic space in TransE and includes both entities and relationships. **As TransR projects entities to a relationship space of dimension $k$, it will require $O(kd)$  parameters per relation.** Depending on the size of k, this could potentially increase the number of parameters drastically. In exploring DGL-KE, we will examine benefits of DGL-KE in making computation of knowledge embedding significantly more efficient.
+
+TransE and its variants such as TransR are generally called translational distance models as they translate the entities, relationships and measure distance in the target semantic spaces. **A second category of KE models is called semantic matching that includes models such as RESCAL, DistMult, and ComplEx.These models make use of a similarity-based scoring function.**
+
+The first of semantic matching models we explore is RESCAL.
+
+#### RESCAL
+
+RESCAL is a **bilinear** model that captures latent semantics of a knowledge graph through associate entities with vectors and represents each relation as a matrix that **models pairwise interaction** between entities.
+
+Multiple relations of any order can be represented as tensors. In fact $n-dimensional$ tensors are by definition representations of multi-dimensional vector spaces. RESCAL, therefore, proposes to capture entities and relationships as multidimensional tensors as illustrated in figure 5.
+
+RESCAL uses semantic web’s RDF formation where relationships are modeled as $(subject, predicate, object)$. Tensor $\mathcal{X}$ contains such relationships as $\mathcal{X}_{ijk}$ between $i$th and $j$th entities through $k$th relation. Value of $\mathcal{X}_{ijk}$ is determined as:
+
+$$
+\begin{split}\mathcal{X}_{ijk} =
+     \begin{cases}
+       1\  &\quad\text{if }(e_i, r_k, e_j)\text{ holds}\\
+       0\  &\quad\text{if }(e_i, r_k, e_j)\text{ does not hold}
+     \end{cases}\end{split}
+$$
+
+Figure 5: RESCAL captures entities and their relations as multi-dimensional tensor
+
+![](https://cos.luyf-lemon-love.space/images/rescal.png)
+
+As entity relationship tensors tend to be sparse, the authors of RESCAL, propose a dyadic decomposition to capture the inherent structure of the relations in the form of a latent vector representation of the entities and an asymmetric square matrix that captures the relationships. More formally each slice of $\mathcal{X}_k$ is decomposed as a rank$-r$ factorization:
+
+$$
+\mathcal{X}_k \approx AR_k\mathbf{A}^\top, \text{ for } k=1, \dots, m
+$$
+
+where A is an $n\times r$ matrix of latent-component representation of entities and asymmetrical $r\times r$ square matrix $R_k$ that models interaction for $k_th$ predicate component in $\mathcal{X}$. To make sense of it all, let’s take a look at an example:
+
+$$
+\begin{gather}
+   Entities=\{\text{Mary :}0, \text{Tom :}1, \text{Joe :}2\} \\
+   Relationships=\{\text{sibling, colleague}\} \\
+   Relation_{k=0}^{sibling}: \text{Mary and Tom are siblings but Joe is not their sibling.} \\
+   Relations_{k=1}^{colleague}: \text{Mary,Tom, and Joe are colleagues}\\
+   \text{relationship matrices will model: }\mathcal{X_k}=
+   \begin{bmatrix}
+   Mary & Tom  & Joe \\
+   Tom  & Joe & Mary \\
+   Joe  & Mary  & Tom
+   \end{bmatrix}\\
+   {\mathcal{X}}_{0:sibling}=
+   \begin{bmatrix}
+   0 & 1 & 0\\
+   0 & 0 & 1\\
+   0 & 0 & 0
+   \end{bmatrix}\\
+   \mathcal{X}_{1:colleague}=
+   \begin{bmatrix}
+   0 & 1 & 1\\
+   1 & 0 & 1\\
+   1 & 1 & 0
+   \end{bmatrix}
+\end{gather}
+$$
+
+Note that even in such a small knowledge graph where two of the three entities have even a symmetrical relationship, matrices $\mathcal{X}_k$ are sparse and asymmetrical. Obviously colleague relationship in this example is not representative of a real world problem. Even though such relationships can be created, they contain no information as probability of occurring is high. For instance if we are creating a knowledge graph for for registered members of a website is a specific country, we do not model relations like “is countryman of” as it contains little information and has very low entropy.
+
+Next step in RESCAL is decomposing matrices $\mathcal{X}_k$ using a rank_k decomposition as illustrated in figure 6.
+
+Figure 6: Each of the $k$ slices of martix $\mathcal{X}$ is factorized to its k-rank components in form of a $n\times r$ entity-latent component and an asymmetric $r\times r$ that specifies interactions of entity-latent components per relation.
+
+![](https://cos.luyf-lemon-love.space/images/rescal2.png)
+
+$A$ and $R_k$ are computed through solving an optimization problem that is correlated to minimizing the distance between $\mathcal{X}_k$ and $AR_k\mathbf{A}^\top$.
+
+Now that the structural decomposition of entities and their relationships are modeled, we need to create a score function that can predict existence of relationship for those entities we lack their mutual connection information.
+
+The score function $f_r(h,t)$ for $h,t\in \mathbb{R}^d$, where $h$ and $t$ are representations of head and tail entities, captures pairwise interactions between entities in $h$ and $t$ through relationship matrix $M_r$ that is the collection of all individual $R_k$ matrices and is of dimension $d\times d$.
+
+$$
+f_r(h, t) = \mathbf{h}^\top M_rt = \sum_{i=0}^{d-1}\sum_{j=0}^{d-1}[M_r]_{ij}.[h]_i.[t]_j
+$$
+
+Figure 7 illustrates computation of the the score for RESCAL method.
+
+Figure 7: RESCAL
+
+![](https://cos.luyf-lemon-love.space/images/rescal3.png)
+
+Score function $f$ requires $O(d^2)$ parameters per relation.
+
+#### DistMult
+
+If we want to speed up the computation of RESCAL and limit the relationships only to symmetric relations, then we can take advantage of the proposal put forth by DistMult, which simplifies RESCAL by restricting $M_r$ from a general asymmetric $r\times r$ matrix to a diagonal square matrix, thus reducing the number of parameters per relation to $O(d)$. DistMulti introduces vector embedding $r \in \mathcal{R}^d$, the score function for DistMult where $M_r=diag(r)$ is computed as:
+
+$$
+f_r(h,t) = \mathbf{h}^\top diag(r) t = \sum_{i=0}^{d-1}[r]_i.[h]_i.[t]_i
+$$
+
+Figure 8 illustrates how DistMulti computes the score by capturing the pairwise interaction only along the same dimensions of components of h and t.
+
+Figure 8: DistMulti
+
+![](https://cos.luyf-lemon-love.space/images/distmult.png)
+
+**A basic refresher on linear algebra**
+
+$$
+\begin{split}if\ A=[a_{ij}]_{m\times n}=
+\begin{bmatrix}
+a_{11} & a_{12} & \dots  & a_{1n} \\
+a_{21} & a_{22} & \dots  & a_{2n} \\
+\vdots & \vdots & \ddots & \dots  \\
+a_{m1} & a_{m2} & \dots  & a_{mn} \\
+\end{bmatrix}_{m\times n} \text{ and }
+B=[b_{ij}]_{n\times k}=
+\begin{bmatrix}
+b_{11} & b_{12} & \dots  & b_{1k} \\
+b_{21} & b_{22} & \dots  & b_{2k} \\
+\vdots & \vdots & \ddots & \dots  \\
+b_{n1} & b_{n2} & \dots  & b_{nk} \\
+\end{bmatrix}_{n\times k}\        \\
+then\
+C=[c_{mk}]_{m\times k}\ such\ that\  c_{mk}=\sum_{p=1}^{k}a_{mp}b_{pk}\, thus: \\
+C_{m\times k} = \begin{bmatrix}
+a_{11}b_{11} + \dots + a_{1n}b_{n1} & a_{11}b_{12} + \dots + a_{1n}b_{n2} & \dots  & a_{11}b_{1k} + \dots + a_{1n}b_{nk} \\
+a_{21}b_{11} + \dots + a_{2n}b_{n1} & a_{21}b_{12} + \dots + a_{2n}b_{n2} & \dots  & a_{21}b_{1k} + \dots + a_{2n}b_{nk} \\
+\vdots & \vdots & \ddots & \dots  \\
+a_{m1}b_{11} + \dots + a_{mn}b_{n1} & a_{m1}b_{12} + \dots + a_{mn}b_{n2} & \dots  & a_{m1}b_{1k} + \dots + a_{mn}b_{nk} \\
+\end{bmatrix}_{n\times k}\end{split}
+$$
+
+We know that a diagonal matrix is a matrix in which all non diagonal elements, $(i \neq j)$, are zero. This reduces complexity of matrix multiplication as for diagonal matrix multiplication for diagonal matrices $A_{m\times n}$ and $B_{n\times k}$, $C=AB= [c_{mk}]_{m\times k}$ where
+
+$$
+\begin{split}c_{mk} =
+\begin{cases}
+0& \text{for }m \neq k \\
+a_mb_k& \text{for }m = k
+\end{cases}\end{split}
+$$
+
+This is basically multiplying to numbers $a_{ii}$ and $b_{ii}$ to get the value for the corresponding diagonal element on $C$.
+
+This complexity reduction is the reason that whenever possible we would like to reduce matrices to diagonal matrices.
+
+#### ComplEx
+
+In order to model a KG effectively, models need to be able to identify most common relationship patters as laid out earlier in this blog. relations can be reflexive/irreflexive, symmetric/antisymmetric, and transitive/intransitive. We have also seen two classes of semantic matching models, RESCAL and DistMulti. RESCAL is expressive but has an exponential complexity, while DistMulti has linear complexity but is limited to symmetric relations.
+
+An ideal model needs to keep linear complexity while being able to capture antisymmetric relations. Let us go back to what is good at DistMulti. It is using a rank-decomposition based on a diagonal matrix. We know that dot product of embedding scale well and handles symmetry, reflexity, and irreflexivity effectively. Matrix factorization (MF) methods have been very successful in recommender systems. MF works based on factorizing a relation matrix to dot product of lower dimensional matrices $\mathbf{U}\mathbf{V}^\top$ where $\mathbf{U}\mathbf{V} \in \mathbb{R}^{n\times K}$. The underlying assumption here is that the same entity would be taken to be different depending on whether it appears as a subject or an object in a relationship. For instance “Quebec” in “Quebec is located in Canada” and “Joe is from Quebec” appears as subject and object respectively. In many link prediction tasks the same entity can assume both roles as we perform graph embedding through adjacency matrix computation. Dealing with antisymmetric relationships, consequently, has resulted in an explosion of parameters and increased complexity and memory requirements.
+
+The goal ComplEx is set to achieve is performing embedding while reducing the number of required parameters, to scale well, and to capture antisymmetric relations. One essential strategy is to compute a joint representation for the entities regardless of their role as subject or object and perform dot product on those embeddings.
+
+Such embeddings cannot be achieved in the real vector spaces, so the ComplEx authors propose complex embedding.
+
+But first a quick reminder about complex vectors.
+
+---
+
+Complex Vector Space 1 is the unit for real numbers, $i=\sqrt{-1}$ is the imaginary unit of complex numbers. Each complex number has two parts, a real and an imaginary part and is represented as $c = a + bi \in \mathbb{C}$. As expected, the complex plane has a horizontal and a vertical axis. Real numbers are placed on the horizontal axis and the vertical axis represents the imaginary part of a number. This is done in much the same way as in $x$ and $y$ are represented on Cartesian plane. An n-dimensional complex vector 
+
 ## 结语
 
 第四十五篇博文写完，开心！！！！
