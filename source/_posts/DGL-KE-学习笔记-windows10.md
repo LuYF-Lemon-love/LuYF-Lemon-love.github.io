@@ -629,6 +629,135 @@ and since there are no nested loops, the number of parameters is linear and is g
 
 #### RotateE
 
+Let us reexamine translational distance models with the ones in latest publications on relational embedding models (RotateE). Inspired by TransE, RotateE veers into complex vector space and is motivated by Euler’s identity, defines relations as rotation from head to tail.
+
+---
+
+**Euler’s Formula**
+
+$e^x$ can be computed using the infinite series below:
+
+$$
+e^x = 1 + \frac{x}{1!} +\frac{x^2}{2!} + \frac{x^3}{3!} + \frac{x^4}{4!}+ \frac{x^5}{5!} + \frac{x^6}{6!} + \frac{x^7}{7!} + \frac{x^8}{8!} + \dots
+$$
+
+replacing $x$ with $ix$ entails:
+
+$$
+\begin{split}e^{(ix)} = 1 + \frac{ix}{1!} - \frac{x^2}{2!} - \frac{ix^3}{3!} + \frac{x^2}{4!} + \frac{ix^5}{5!} - \frac{x^6}{6!} - \frac{ix^7}{3!} + \frac{x^8}{8!} + \dots\\\end{split}
+$$
+
+Computing $i$ to a sequence of powers and replacing the values in $e^{ix}$, the results in:
+
+$$
+\begin{split}i^2=-1,\ i^3=i^2i=-i,\ i^4=ii^3=-1^2=1,\ i^5=i^4i=i,\ i^6=i^5i=i^2=-1,\ \dots\\
+e^{(ix)} = 1 + \frac{ix}{1!} +\frac{i^2x^2}{2!} + \frac{i^3x^3}{3!} + \frac{i^4x^4}{4!} + \frac{i^5x^5}{5!} + \frac{i^6x^6}{6!} + \dots\\\end{split}
+$$
+
+rearranging the series and factoring $i$ in terms that include it:
+
+$$
+\begin{split}1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \frac{x^8}{8!} +i\left(\frac{x}{1!} - \frac{x^3}{3!} + \frac{x^5}{5!} -  \frac{x^7}{7!}  \right)\text{ (1)}\\\end{split}
+$$
+
+$sin$ and $cosin$ representation as series are given by:
+
+$$
+\begin{split}sin(x) = \frac{x}{1!} - \frac{x^3}{3!} + \frac{x^5}{5!} -  \frac{x^7}{7!} + \dots\\
+cos(x) = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \frac{x^8}{8!} + \dots\\\end{split}
+$$
+
+Finally replacing terms in equation (1) with $sin$ and $cosin$, we have:
+
+$$
+\large e^{i\theta} = cos(\theta) + isin(\theta)\ (2)
+$$
+
+Equation 2 is called Euler’s formula and has interesting consequences in a way that we can represent complex numbers as rotation on the unit circle.
+
+---
+
+**Modeling Relations as Rotation**
+
+Given a triplet $(h,r,t), t = h \circ r$, where $h$, $r$, and $t \in \mathbb{C}^k$ are the embeddings. modulus $\mid r_i\mid=1$ (as we are in the unit circle thanks to Euler’s formula), and $\circ$ is the element-wise product. We, therefore, for each dimension expect to have:
+
+$$
+t_i=h_ir_i,\text{ where } h_i, r_i, t_i \in \mathbb{C}, and \mid r_i\mid=1.
+$$
+
+Restricting $\mid r_i\mid = 1\ r_i$ will be of form $e^{i\theta_{r,i}}$. Intuitively $r_i$ corresponds to a counterclockwise rotation by $\theta_{r,i}$ based on Eurler’s formula.
+
+Under these conditions:
+
+- $r$ is symmetric $\iff \forall i \in (0,k]: r_i=e^{\frac{0}{i\pi}}=\pm 1$.
+
+- $r_1$ and $r_2$ are inverse $\iff r_2=\bar{r}_1$ (embeddings of relations are complex conjugates)
+
+- $r_3=e^{i\theta_3}$ is a combination of $r_1=e^{i\theta_1}$ and $r_2=e^{i\theta_2} \iff r_3=r_1\circ r_2.\text(i.e)\theta_3=\theta1+\theta2$ or a rotation is a combination of two smaller rotations sum of whose angles is the angle of the third relation.
+
+Figure 9: RotateE vs. TransE
+
+![](https://cos.luyf-lemon-love.space/images/rotate.png)
+
+**Score Function**
+
+score function of RotateE measures the angular distance between head and tail elements and is defined as:
+
+$$
+d_r(h, t)=\|h\circ r-t\|
+$$
+
+### Training KE
+
+#### Negative Sampling
+
+Generally to train a KE, all the models we have investigated apply a variation of negative sampling by corrupting triplets $(h,r,t)$. They corrupt either $h$, or $t$ by sampling from set of head or tail entities for heads and tails respectively. The corrupted triples can be of wither forms $(h', r, t)$ or $(h, r, t')$, where $h'$ and $t'$ are the negative samples.
+
+#### Loss functions
+
+Most commonly logistic loss and pairwise ranking loss are employed. The logistic loss returns -1 for negative samples and +1 for the positive samples. So if $\mathbb{D}^+$ and $\mathbb{D}^-$ are negative and positive data, $y=\pm 1$ is the label for positive and negative triplets and $f$(figure 2) is the ranking function, then the logistic loss is computed as:
+
+$$
+minimize\ \sum_{(h,r,t)\in \mathbb{D}^+\cup \mathbb{D}^-}log(1+e^{-y\times f(h,r,t)})
+$$
+
+The second commonly use loss function is margin based pairwise ranking loss, which minimizes the rank for positive triplets($(h,r,t)$ does hold). The lower the rank, the higher the probability. Ranking loss is give by:
+
+$$
+minimize \sum_{(h,r,t)\in \mathbb{D}^+}\sum_{(h,r,t)\in \mathbb{D}^-}max(0, \gamma - f(h,r,t)+f(h',r', t')).
+$$
+
+|Method|Ent. Embedding|Rel. Emebedding|Score Function|Complexity|symm|Anti|Inv|Comp|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|TransE|$h,t \in \mathbb{R}^d$|$r \in \mathbb{R}^d$|$-\|h+r-t\|$|$O(d)$|$-$|$\checkmark$|$\checkmark$|$-$|
+|TransR|$h,t \in \mathbb{R}^d$|$r \in \mathbb{R}^k,M_r\in\mathbb{R}^{k\times d}$|$-\|M_rh+r-M_rt\|_2^2$|$O(d^2)$|$-$|$\checkmark$|$\checkmark$|$\checkmark$|
+|RESCAL|$h,t \in \mathbb{R}^d$|$M_r\in\mathbb{R}^{d\times d}$|$h^\top M_rt$|$O(d^2)$|$\checkmark$|$-$|$\checkmark$|$\checkmark$|
+|DistMulti|$h,t \in \mathbb{R}^d$|$r\in\mathbb{R}^d$|$h^\top diag(r)t$|$O(d)$|$\checkmark$|$-$|$-$|$-$|
+|ComplEx|$h,t \in \mathbb{C}^d$|$r\in\mathbb{C}^d$|$h^\top Re(diag(r)t)$|$O(d)$|$\checkmark$|$\checkmark$|$\checkmark$|$-$|
+|RotateE|$h,t \in \mathbb{C}^d$|$r\in\mathbb{C}^d$|$\|h\circ r-t\|$|$O(d)$|$\checkmark$|$\checkmark$|$\checkmark$|$\checkmark$|
+
+### References
+
+1. http://semantic-web-journal.net/system/files/swj1167.pdf
+
+2. Zhiqing Sun, Zhi-Hong Deng, Jian-Yun Nie, and Jian Tang. RotatE: Knowledge graph embedding by relational rotation in complex space. CoRR, abs/1902.10197, 2019.
+
+3. Knowledge Graph Embedding: A Survey of Approaches and Applications Quan Wang, Zhendong Mao, Bin Wang, and Li Guo. DOI 10.1109/TKDE.2017.2754499, IEEE Transactions on Knowledge and Data Engineering
+
+4. transE: Antoine Bordes, Nicolas Usunier, Alberto Garcia-Duran, JasonWeston, and Oksana Yakhnenko. Translating embeddings for modeling multi-relational data. In Advances in Neural Information Processing Systems 26. 2013. 5.TransR: Yankai Lin, Zhiyuan Liu, Maosong Sun, Yang Liu, and Xuan Zhu. Learning entity and relation embeddings for knowledge graph completion. In Proceedings of the Twenty-Ninth AAAI Conference on Artificial Intelligence, 2015.
+
+5. RESCAL: Maximilian Nickel, Volker Tresp, and Hans-Peter Kriegel. A three-way model for collective learning on multi-relational data. In Proceedings of the 28th International Conference on International Conference on Machine Learning, ICML’11, 2011.
+
+6. Survey paper: Q. Wang, Z. Mao, B. Wang and L. Guo, “Knowledge Graph Embedding: A Survey of Approaches and Applications,” in IEEE Transactions on Knowledge and Data Engineering, vol. 29, no. 12, pp. 2724-2743, 1 Dec. 2017.
+
+7. DistMult: Bishan Yang, Scott Wen-tau Yih, Xiaodong He, Jianfeng Gao, and Li Deng. Embedding entities and relations for learning and inference in knowledge bases. In Proceedings of the International Conference on Learning Representations (ICLR) 2015, May 2015.
+
+8. ComplEx: Théo Trouillon, Johannes Welbl, Sebastian Riedel, Éric Gaussier, and Guillaume Bouchard. Complex embeddings for simple link prediction. CoRR, abs/1606.06357, 2016.
+
+9. Zhiqing Sun, Zhi-Hong Deng, Jian-Yun Nie, and Jian Tang. RotatE: Knowledge graph embedding by relational rotation in complex space. CoRR, abs/1902.10197, 2019.
+
+## DGL-KE Command Lines
+
 ## 结语
 
 第四十五篇博文写完，开心！！！！
