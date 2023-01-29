@@ -322,13 +322,13 @@ TransE cannot cover a relationship that is not 1-to-1 as it learns only one aspe
 
 Let us explore this using an example. Mary and Tom are siblings and colleagues. They both are vegetarians. Joe also works for Amazon and is a colleague of Mary and Tom. TransE might end up learning very similar embeddings for Mary, Tom, and Joe because they are colleagues but cannot recognize the (not) sibling relationship. Using TransR, we learn projection matrices: **$M_{sib},\ M_{clg}$ and $M_{vgt}$ that perform better at learning relationship like (not)sibling.**
 
-The score function in TransR is similar to the one used in TransE and measures euclidean distance between $h+r$ and $t$, but the distance measure is per relationship space. More formally: $f_r=\|h_r+r-t_r\|_2^2$
+The score function in TransR is similar to the one used in TransE and measures **euclidean distance between $h+r$ and $t$, but the distance measure is per relationship space.** More formally: $f_r=\|h_r+r-t_r\|_2^2$
 
 Figure 4: TransR projecting different aspects of an entity to a relationship space.
 
 ![](https://cos.luyf-lemon-love.space/images/transr.png)
 
-Another advantage of TransR over TransE is its ability to extract compositional rules. Ability to extract rules has two major benefits. It offers richer information and has a smaller memory space as we can infer some rules from others.
+**Another advantage of TransR over TransE is its ability to extract compositional rules.** Ability to extract rules has two major benefits. It offers richer information and has a smaller memory space as we can infer some rules from others.
 
 ---
 
@@ -344,9 +344,9 @@ The first of semantic matching models we explore is RESCAL.
 
 RESCAL is a **bilinear** model that captures latent semantics of a knowledge graph through associate entities with vectors and represents each relation as a matrix that **models pairwise interaction** between entities.
 
-Multiple relations of any order can be represented as tensors. In fact $n-dimensional$ tensors are by definition representations of multi-dimensional vector spaces. RESCAL, therefore, proposes to capture entities and relationships as multidimensional tensors as illustrated in figure 5.
+Multiple relations of any order can be represented as tensors. In fact $n-dimensional$ tensors are by definition representations of multi-dimensional vector spaces. **RESCAL, therefore, proposes to capture entities and relationships as multidimensional tensors as illustrated in figure 5.**
 
-RESCAL uses semantic web’s RDF formation where relationships are modeled as $(subject, predicate, object)$. Tensor $\mathcal{X}$ contains such relationships as $\mathcal{X}_{ijk}$ between $i$th and $j$th entities through $k$th relation. Value of $\mathcal{X}_{ijk}$ is determined as:
+RESCAL uses semantic web’s RDF formation where relationships are modeled as $(subject, predicate, object)$. **Tensor $\mathcal{X}$ contains such relationships as $\mathcal{X}_{ijk}$ between $i$th and $j$th entities through $k$th relation.** Value of $\mathcal{X}_{ijk}$ is determined as:
 
 $$
 \begin{split}\mathcal{X}_{ijk} =
@@ -360,7 +360,7 @@ Figure 5: RESCAL captures entities and their relations as multi-dimensional tens
 
 ![](https://cos.luyf-lemon-love.space/images/rescal.png)
 
-As entity relationship tensors tend to be sparse, the authors of RESCAL, propose a dyadic decomposition to capture the inherent structure of the relations in the form of a latent vector representation of the entities and an asymmetric square matrix that captures the relationships. More formally each slice of $\mathcal{X}_k$ is decomposed as a rank$-r$ factorization:
+**As entity relationship tensors tend to be sparse, the authors of RESCAL, propose a dyadic decomposition to capture the inherent structure of the relations in the form of a latent vector representation of the entities and an asymmetric square matrix that captures the relationships.** More formally each slice of $\mathcal{X}_k$ is decomposed as a rank$-r$ factorization:
 
 $$
 \mathcal{X}_k \approx AR_k\mathbf{A}^\top, \text{ for } k=1, \dots, m
@@ -395,19 +395,19 @@ $$
 \end{gather}
 $$
 
-Note that even in such a small knowledge graph where two of the three entities have even a symmetrical relationship, matrices $\mathcal{X}_k$ are sparse and asymmetrical. Obviously colleague relationship in this example is not representative of a real world problem. Even though such relationships can be created, they contain no information as probability of occurring is high. For instance if we are creating a knowledge graph for for registered members of a website is a specific country, we do not model relations like “is countryman of” as it contains little information and has very low entropy.
+**Note that even in such a small knowledge graph where two of the three entities have even a symmetrical relationship, matrices $\mathcal{X}_k$ are sparse and asymmetrical.** Obviously colleague relationship in this example is not representative of a real world problem. Even though such relationships can be created, they contain no information as probability of occurring is high. For instance if we are creating a knowledge graph for registered members of a website is a specific country, we do not model relations like “is countryman of” as it contains little information and has very low entropy.
 
-Next step in RESCAL is decomposing matrices $\mathcal{X}_k$ using a rank_k decomposition as illustrated in figure 6.
+**Next step in RESCAL is decomposing matrices $\mathcal{X}_k$ using a rank_k decomposition as illustrated in figure 6.**
 
 Figure 6: Each of the $k$ slices of martix $\mathcal{X}$ is factorized to its k-rank components in form of a $n\times r$ entity-latent component and an asymmetric $r\times r$ that specifies interactions of entity-latent components per relation.
 
 ![](https://cos.luyf-lemon-love.space/images/rescal2.png)
 
-$A$ and $R_k$ are computed through solving an optimization problem that is correlated to minimizing the distance between $\mathcal{X}_k$ and $AR_k\mathbf{A}^\top$.
+**$A$ and $R_k$ are computed through solving an optimization problem that is correlated to minimizing the distance between $\mathcal{X}_k$ and $AR_k\mathbf{A}^\top$.**
 
 Now that the structural decomposition of entities and their relationships are modeled, we need to create a score function that can predict existence of relationship for those entities we lack their mutual connection information.
 
-The score function $f_r(h,t)$ for $h,t\in \mathbb{R}^d$, where $h$ and $t$ are representations of head and tail entities, captures pairwise interactions between entities in $h$ and $t$ through relationship matrix $M_r$ that is the collection of all individual $R_k$ matrices and is of dimension $d\times d$.
+**The score function $f_r(h,t)$ for $h,t\in \mathbb{R}^d$, where $h$ and $t$ are representations of head and tail entities, captures pairwise interactions between entities in $h$ and $t$ through relationship matrix $M_r$ that is the collection of all individual $R_k$ matrices and is of dimension $d\times d$.**
 
 $$
 f_r(h, t) = \mathbf{h}^\top M_rt = \sum_{i=0}^{d-1}\sum_{j=0}^{d-1}[M_r]_{ij}.[h]_i.[t]_j
@@ -423,7 +423,7 @@ Score function $f$ requires $O(d^2)$ parameters per relation.
 
 #### DistMult
 
-If we want to speed up the computation of RESCAL and limit the relationships only to symmetric relations, then we can take advantage of the proposal put forth by DistMult, which simplifies RESCAL by restricting $M_r$ from a general asymmetric $r\times r$ matrix to a diagonal square matrix, thus reducing the number of parameters per relation to $O(d)$. DistMulti introduces vector embedding $r \in \mathcal{R}^d$, the score function for DistMult where $M_r=diag(r)$ is computed as:
+If we want to speed up the computation of RESCAL and **limit the relationships only to symmetric relations, then we can take advantage of the proposal put forth by DistMult, which simplifies RESCAL by restricting $M_r$ from a general asymmetric $r\times r$ matrix to a diagonal square matrix, thus reducing the number of parameters per relation to $O(d)$.** DistMulti introduces vector embedding $r \in \mathcal{R}^d$, the score function for DistMult where $M_r=diag(r)$ is computed as:
 
 $$
 f_r(h,t) = \mathbf{h}^\top diag(r) t = \sum_{i=0}^{d-1}[r]_i.[h]_i.[t]_i
@@ -474,23 +474,23 @@ $$
 
 This is basically multiplying to numbers $a_{ii}$ and $b_{ii}$ to get the value for the corresponding diagonal element on $C$.
 
-This complexity reduction is the reason that whenever possible we would like to reduce matrices to diagonal matrices.
+**This complexity reduction is the reason that whenever possible we would like to reduce matrices to diagonal matrices.**
 
 #### ComplEx
 
-In order to model a KG effectively, models need to be able to identify most common relationship patters as laid out earlier in this blog. relations can be reflexive/irreflexive, symmetric/antisymmetric, and transitive/intransitive. We have also seen two classes of semantic matching models, RESCAL and DistMulti. RESCAL is expressive but has an exponential complexity, while DistMulti has linear complexity but is limited to symmetric relations.
+**In order to model a KG effectively, models need to be able to identify most common relationship patters as laid out earlier in this blog. relations can be reflexive/irreflexive, symmetric/antisymmetric, and transitive/intransitive.** We have also seen two classes of semantic matching models, RESCAL and DistMulti. RESCAL is expressive but has an exponential complexity, while DistMulti has linear complexity but is limited to symmetric relations.
 
-An ideal model needs to keep linear complexity while being able to capture antisymmetric relations. Let us go back to what is good at DistMulti. It is using a rank-decomposition based on a diagonal matrix. We know that dot product of embedding scale well and handles symmetry, reflexity, and irreflexivity effectively. Matrix factorization (MF) methods have been very successful in recommender systems. MF works based on factorizing a relation matrix to dot product of lower dimensional matrices $\mathbf{U}\mathbf{V}^\top$ where $\mathbf{U}\mathbf{V} \in \mathbb{R}^{n\times K}$. The underlying assumption here is that the same entity would be taken to be different depending on whether it appears as a subject or an object in a relationship. For instance “Quebec” in “Quebec is located in Canada” and “Joe is from Quebec” appears as subject and object respectively. In many link prediction tasks the same entity can assume both roles as we perform graph embedding through adjacency matrix computation. Dealing with antisymmetric relationships, consequently, has resulted in an explosion of parameters and increased complexity and memory requirements.
+An ideal model needs to keep linear complexity while being able to capture antisymmetric relations. Let us go back to what is good at DistMulti. It is using a rank-decomposition based on a diagonal matrix. **We know that dot product of embedding scale well and handles symmetry, reflexity, and irreflexivity effectively.** Matrix factorization (MF) methods have been very successful in recommender systems. MF works based on factorizing a relation matrix to dot product of lower dimensional matrices $\mathbf{U}\mathbf{V}^\top$ where $\mathbf{U}\mathbf{V} \in \mathbb{R}^{n\times K}$. **The underlying assumption here is that the same entity would be taken to be different depending on whether it appears as a subject or an object in a relationship.** For instance “Quebec” in “Quebec is located in Canada” and “Joe is from Quebec” appears as subject and object respectively. **In many link prediction tasks the same entity can assume both roles as we perform graph embedding through adjacency matrix computation.** Dealing with antisymmetric relationships, consequently, has resulted in an explosion of parameters and increased complexity and memory requirements.
 
-The goal ComplEx is set to achieve is performing embedding while reducing the number of required parameters, to scale well, and to capture antisymmetric relations. One essential strategy is to compute a joint representation for the entities regardless of their role as subject or object and perform dot product on those embeddings.
+The goal ComplEx is set to achieve is performing embedding while reducing the number of required parameters, to scale well, and to capture antisymmetric relations. **One essential strategy is to compute a joint representation for the entities regardless of their role as subject or object and perform dot product on those embeddings.**
 
-Such embeddings cannot be achieved in the real vector spaces, so the ComplEx authors propose complex embedding.
+**Such embeddings cannot be achieved in the real vector spaces, so the ComplEx authors propose complex embedding.**
 
 But first a quick reminder about complex vectors.
 
 ---
 
-Complex Vector Space 1 is the unit for real numbers, $i=\sqrt{-1}$ is the imaginary unit of complex numbers. Each complex number has two parts, a real and an imaginary part and is represented as $c = a + bi \in \mathbb{C}$. As expected, the complex plane has a horizontal and a vertical axis. Real numbers are placed on the horizontal axis and the vertical axis represents the imaginary part of a number. This is done in much the same way as in $x$ and $y$ are represented on Cartesian plane. An n-dimensional complex vector $\mathcal{V}\in \mathbb{C}^n$ is a vector whose elements $v_i\in \mathbb{C}$ are complex numbers.
+Complex Vector Space 1 is the unit for real numbers, $i=\sqrt{-1}$ is the imaginary unit of complex numbers. **Each complex number has two parts, a real and an imaginary part and is represented as $c = a + bi \in \mathbb{C}$.** As expected, the complex plane has a horizontal and a vertical axis. Real numbers are placed on the horizontal axis and the vertical axis represents the imaginary part of a number. This is done in much the same way as in $x$ and $y$ are represented on Cartesian plane. An n-dimensional complex vector $\mathcal{V}\in \mathbb{C}^n$ is a vector whose elements $v_i\in \mathbb{C}$ are complex numbers.
 
 Example:
 
@@ -510,9 +510,9 @@ $$
 
 $\mathbb{R} \subset \mathbb{C}$ and $\mathbb{R}^n \subset \mathbb{C}^n$. Basically a real number is a complex number whose imaginary part has a coefficient of zero.
 
-modulus of a complex number $z$ is a complex number as is given by $z=a+bi$, modulus $z$ is analogous to size in vector space and is given by $\mid z\mid = \sqrt{a^2 + b^2}$
+**modulus of a complex number** $z$ is a complex number as is given by $z=a+bi$, modulus $z$ is analogous to size in vector space and is given by $\mid z\mid = \sqrt{a^2 + b^2}$
 
-Complex Conjugate The conjugate of complex number $z=a+bi$ is denoted by $\bar{z}$ and is given by $\bar{z}=a-bi$.
+**Complex Conjugate** The conjugate of complex number $z=a+bi$ is denoted by $\bar{z}$ and is given by $\bar{z}=a-bi$.
 
 Example:
 
@@ -530,7 +530,7 @@ $$
 \text{ are in } \mathbb{C}^2\text{ and }\mathbb{C}^3\text{ respectively.}\end{split}
 $$
 
-Conjugate Transpose The conjugate transpose of a complex matrix $\mathcal{A}$, is denoted as $\mathcal{A}^*$ and is given by $\mathcal{A}^* = \mathbf{\bar{\mathcal{A}}}^\top$ where elements of $\bar{\mathcal{A}}$ are complex conjugates of $\mathcal{A}.$
+**Conjugate Transpose** The conjugate transpose of a complex matrix $\mathcal{A}$, is denoted as $\mathcal{A}^*$ and is given by $\mathcal{A}^* = \mathbf{\bar{\mathcal{A}}}^\top$ where elements of $\bar{\mathcal{A}}$ are complex conjugates of $\mathcal{A}.$
 
 Example:
 
@@ -548,7 +548,7 @@ V^*_2 = \begin{bmatrix}
 \text{ are in } \mathbb{C}^2\text{ and }\mathbb{C}^3\text{ respectively.}
 $$
 
-Complex dot product. aka Hermitian inner product if $\mathbf{u}$ and $\mathbf{c}$ are complex vectors, then their inner product is defined as $\langle \mathbf{u}, \mathbf{v} \rangle = \mathbf{u}^*\mathbf{v}$.
+**Complex dot product. aka Hermitian inner product** if $\mathbf{u}$ and $\mathbf{c}$ are complex vectors, then their inner product is defined as $\langle \mathbf{u}, \mathbf{v} \rangle = \mathbf{u}^*\mathbf{v}$.
 
 Example:
 
@@ -579,33 +579,33 @@ v = \begin{bmatrix}
 = (2-3i)(1+i)+(1-5i)(2+2i)=[4-13i]\end{split}
 $$
 
-Definition: A complex matrix $A$ us unitary when $A^{-1} = A^*$
+**Definition**: A complex matrix $A$ us **unitary** when $A^{-1} = A^*$
 
 Example: $A = \frac{1}{2}\begin{bmatrix}1+i & 1-i \\1-i & 1+i\end{bmatrix}$
 
-Theorem: An $n \times n$ complex matrix $A$ is unitary $\iff$ its rows or columns form an orthanormal set in $\mathcal{C}^n$
+**Theorem**: An $n \times n$ complex matrix $A$ is unitary $\iff$ its rows or columns form an orthanormal set in $\mathcal{C}^n$
 
-Definition: A square matrix $A$ is Hermitian when $A=A^*$
+**Definition**: A square matrix $A$ is **Hermitian** when $A=A^*$
 
 Example: $A = \begin{bmatrix}a_1 & b_1+b_2i \\b_1+b_2i & d+1\end{bmatrix}$
 
-Theorem: Matrix $A$ is Hermitian $\iff$:
+**Theorem**: Matrix $A$ is **Hermitian** $\iff$:
 
 1. $a_{ii} \in \mathbb{R}$
 
 2. $a_{ij}$ is complex conjugate of $a_{ji}$
 
-Theorem: If $A$ is a Hermirian matrix, then its eigenvalues are real numbers.
+**Theorem**: If $A$ is a Hermirian matrix, then its eigenvalues are real numbers.
 
-Theorem: Hermitian matrices are unitarity diagonizable.
+**Theorem**: Hermitian matrices are **unitarity diagonizable**.
 
-Definitions: A squared matrix A is unitarily diagonizable when there exists a unitary matrix $P$ such that $P^{-1}AP$.
+**Definitions**: A squared matrix A is unitarily diagonizable when there exists a unitary matrix $P$ such that $P^{-1}AP$.
 
-Diagonizability can be extended to a larger class of matrices, called normal matrices.
+**Diagonizability can be extended to a larger class of matrices, called normal matrices.**
 
-Definition: A square complex matrix A is called normal when it commutes with its conjugate transpose. $AA^*=A^*A$.
+**Definition**: A square complex matrix A is called normal when it commutes with its conjugate transpose. $AA^*=A^*A$.
 
-Theorem: A complex matrix $A$ is normal $\iff A$ is diagonizable.
+**Theorem**: A complex matrix $A$ is **normal** $\iff A$ is **diagonizable**.
 
 This theorem plays a crucial role in ComplEx paper.
 
@@ -615,15 +615,15 @@ This theorem plays a crucial role in ComplEx paper.
 
 The matrix decomposition methods have a long history in machine learning. Using embeddings based decomposition in the form of $X=EWE^{-1}$ for square symmetric matrices can be represented as eigen decomposition $X=Q\Lambda Q^{-1}$ where $Q$ is orthogonal $(Q^{-1} = Q^\top)$ and $\Lambda = diag(\lambda)$ and $\lambda_i$ is an eigenvector of $X$.
 
-As ComplEx targets to learn antisymmetric relations, and eigen decomposition for asymmetric matrices does not exist in real space, the authors extend the embedding representation to complex numbers, where they can factorize complex matrices and benefit from efficient scaling and distribution of matrix multiplication while being able to capture antisymmetric relations. This asymmetry is resulted from the fact that dot product of complex matrices involves conjugate transpose.
+As ComplEx targets to learn antisymmetric relations, and eigen decomposition for asymmetric matrices does not exist in real space, the authors extend the embedding representation to complex numbers, where they can factorize complex matrices and benefit from efficient scaling and distribution of matrix multiplication while being able to capture antisymmetric relations. **This asymmetry is resulted from the fact that dot product of complex matrices involves conjugate transpose.**
 
 We are not done yet. Do you remember in RESCAL the number of parameters was $O(d^2)$ and DistMulti reduce that to a linear relation of $O(d)$ by limiting matrix $M_r$ to be diagonal?. Here even with complex eigenvectors $E \in \mathcal{C}^{n \times n}$, inversion of $E$ in $X=EWE^{*}$ explodes the number of parameters. As a result we need to find a solutions in which W is a diagonal matrix, and $E = E^*$, and $X$ is asymmetric, so that we
 
-1. computation is minimized
+1. **computation is minimized**,
 
-2. there is no need to compute inverse of $E$, and
+2. **there is no need to compute inverse of $E$**, and
 
-3. antisymmetric relations can be captures. We have already seen the solution in the complex vector space section. The paper does construct the decomposition in a normal space, a vector space composed of complex normal vectors.
+3. **antisymmetric relations can be captures. We have already seen the solution in the complex vector space section.** The paper does construct the decomposition in a normal space, a vector space composed of complex normal vectors.
 
 ---
 
@@ -631,7 +631,7 @@ We are not done yet. Do you remember in RESCAL the number of parameters was $O(d
 
 A relation between two entities can be modeled as a sign function, meaning that if there is a relation between a subject and an object, then the score is 1, otherwise it is -1. More formally, $Y_{so}\in \{-1, 1\}$. The probability of a relation between two edntities to exist is then given by sigmoid function: $P(Y_{so}=1) = \sigma(X_{so})$.
 
-This probability score requires $X$ to be real, while $EWE^*$ includes both real and imaginary components. We can simply project the decomposition to the real space so that $X =Re(EWE^*)$. the score function of ComlEx, therefore is given by:
+This probability score requires $X$ to be real, while $EWE^*$ includes both real and imaginary components. **We can simply project the decomposition to the real space so that $X =Re(EWE^*)$.** the score function of ComlEx, therefore is given by:
 
 $$
 f_r(h, t) = Re(h^\top diag(r) \bar{t}) = Re(\sum_{i=0}^{d-1}[r]_i.[h]_i.[\bar{t}]_i)
@@ -641,7 +641,7 @@ and since there are no nested loops, the number of parameters is linear and is g
 
 #### RotateE
 
-Let us reexamine translational distance models with the ones in latest publications on relational embedding models (RotateE). Inspired by TransE, RotateE veers into complex vector space and is motivated by Euler’s identity, defines relations as rotation from head to tail.
+Let us reexamine translational distance models with the ones in latest publications on relational embedding models (RotateE). **Inspired by TransE, RotateE veers into complex vector space and is motivated by Euler’s identity, defines relations as rotation from head to tail.**
 
 ---
 
@@ -685,13 +685,13 @@ $$
 \large e^{i\theta} = cos(\theta) + isin(\theta)\ (2)
 $$
 
-Equation 2 is called Euler’s formula and has interesting consequences in a way that we can represent complex numbers as rotation on the unit circle.
+**Equation 2 is called Euler’s formula and has interesting consequences in a way that we can represent complex numbers as rotation on the unit circle.**
 
 ---
 
 **Modeling Relations as Rotation**
 
-Given a triplet $(h,r,t), t = h \circ r$, where $h$, $r$, and $t \in \mathbb{C}^k$ are the embeddings. modulus $\mid r_i\mid=1$ (as we are in the unit circle thanks to Euler’s formula), and $\circ$ is the element-wise product. We, therefore, for each dimension expect to have:
+**Given a triplet $(h,r,t), t = h \circ r$, where $h$, $r$, and $t \in \mathbb{C}^k$ are the embeddings. modulus $\mid r_i\mid=1$ (as we are in the unit circle thanks to Euler’s formula), and $\circ$ is the element-wise product.** We, therefore, for each dimension expect to have:
 
 $$
 t_i=h_ir_i,\text{ where } h_i, r_i, t_i \in \mathbb{C}, and \mid r_i\mid=1.
@@ -701,11 +701,11 @@ Restricting $\mid r_i\mid = 1\ r_i$ will be of form $e^{i\theta_{r,i}}$. Intuiti
 
 Under these conditions:
 
-- $r$ is symmetric $\iff \forall i \in (0,k]: r_i=e^{\frac{0}{i\pi}}=\pm 1$.
+- **$r$ is symmetric $\iff \forall i \in (0,k]: r_i=e^{\frac{0}{i\pi}}=\pm 1$.**
 
-- $r_1$ and $r_2$ are inverse $\iff r_2=\bar{r}_1$ (embeddings of relations are complex conjugates)
+- **$r_1$ and $r_2$ are inverse $\iff r_2=\bar{r}_1$ (embeddings of relations are complex conjugates)**
 
-- $r_3=e^{i\theta_3}$ is a combination of $r_1=e^{i\theta_1}$ and $r_2=e^{i\theta_2} \iff r_3=r_1\circ r_2.\text(i.e)\theta_3=\theta1+\theta2$ or a rotation is a combination of two smaller rotations sum of whose angles is the angle of the third relation.
+- **$r_3=e^{i\theta_3}$ is a combination of $r_1=e^{i\theta_1}$ and $r_2=e^{i\theta_2} \iff r_3=r_1\circ r_2.\text(i.e)\theta_3=\theta1+\theta2$ or a rotation is a combination of two smaller rotations sum of whose angles is the angle of the third relation.**
 
 Figure 9: RotateE vs. TransE
 
@@ -727,13 +727,13 @@ Generally to train a KE, all the models we have investigated apply a variation o
 
 #### Loss functions
 
-Most commonly logistic loss and pairwise ranking loss are employed. The logistic loss returns -1 for negative samples and +1 for the positive samples. So if $\mathbb{D}^+$ and $\mathbb{D}^-$ are negative and positive data, $y=\pm 1$ is the label for positive and negative triplets and $f$(figure 2) is the ranking function, then the logistic loss is computed as:
+Most commonly **logistic loss** and **pairwise ranking loss** are employed. The logistic loss returns -1 for negative samples and +1 for the positive samples. So if $\mathbb{D}^+$ and $\mathbb{D}^-$ are negative and positive data, $y=\pm 1$ is the label for positive and negative triplets and $f$(figure 2) is **the ranking function**, then the logistic loss is computed as:
 
 $$
 minimize\ \sum_{(h,r,t)\in \mathbb{D}^+\cup \mathbb{D}^-}log(1+e^{-y\times f(h,r,t)})
 $$
 
-The second commonly use loss function is margin based pairwise ranking loss, which minimizes the rank for positive triplets($(h,r,t)$ does hold). The lower the rank, the higher the probability. Ranking loss is give by:
+The second commonly use loss function is **margin based pairwise ranking loss**, which minimizes the rank for positive triplets($(h,r,t)$ does hold). The lower the rank, the higher the probability. Ranking loss is give by:
 
 $$
 minimize \sum_{(h,r,t)\in \mathbb{D}^+}\sum_{(h,r,t)\in \mathbb{D}^-}max(0, \gamma - f(h,r,t)+f(h',r', t')).
