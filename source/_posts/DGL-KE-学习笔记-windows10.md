@@ -264,7 +264,15 @@ There are several relationships in this scenario that are not explicitly mention
 
 - Amazon is a workplace for Mary, Tom, and Joe.
 
-There are also some interesting negative conclusions that seem intuitive to us, but not to the machine: - Potato does not like Mary. - Canada is not from Joe. - Canada is not located in Quebec. - … What we have examined is a knowledge graph, a set of nodes with different types of relations:
+There are also some interesting negative conclusions that seem intuitive to us, but not to the machine:
+
+- Potato does not like Mary.
+
+- Canada is not from Joe.
+
+- Canada is not located in Quebec.
+
+What we have examined is a knowledge graph, a set of nodes with different types of relations:
 
 - `1-to-1`: Mary is a sibling of Tom.
 
@@ -274,7 +282,11 @@ There are also some interesting negative conclusions that seem intuitive to us, 
 
 - `N-to-N`: Joe, Mary, and Tom are colleagues.
 
-There are other categorization perspectives on the relationships as well: - Symmetric: Joe is a colleague of Tom entails Tom is also a colleague of Joe. - Antisymmetric: Quebec is located in Canada entails that Canada cannot be located in Quebec.
+There are other categorization perspectives on the relationships as well:
+
+- Symmetric: Joe is a colleague of Tom entails Tom is also a colleague of Joe.
+
+- Antisymmetric: Quebec is located in Canada entails that Canada cannot be located in Quebec.
 
 `Figure 1` visualizes a knowledge-base that describes World of Mary. For more information on how to use the examples, please refer to the [code](https://github.com/cyrusmvahid/GNNTrainingMaterial/blob/master/March2020/supportingexamples/examples.py) that draws the examples.
 
@@ -729,12 +741,12 @@ $$
 
 |Method|Ent. Embedding|Rel. Emebedding|Score Function|Complexity|symm|Anti|Inv|Comp|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|TransE|$h,t \in \mathbb{R}^d$|$r \in \mathbb{R}^d$|$-\|h+r-t\|$|$O(d)$|$-$|$\checkmark$|$\checkmark$|$-$|
-|TransR|$h,t \in \mathbb{R}^d$|$r \in \mathbb{R}^k,M_r\in\mathbb{R}^{k\times d}$|$-\|M_rh+r-M_rt\|_2^2$|$O(d^2)$|$-$|$\checkmark$|$\checkmark$|$\checkmark$|
+|TransE|$h,t \in \mathbb{R}^d$|$r \in \mathbb{R}^d$|$-\|\|h+r-t\|\|$|$O(d)$|$-$|$\checkmark$|$\checkmark$|$-$|
+|TransR|$h,t \in \mathbb{R}^d$|$r \in \mathbb{R}^k,M_r\in\mathbb{R}^{k\times d}$|$-\|\|M_rh+r-M_rt\|\|_2^2$|$O(d^2)$|$-$|$\checkmark$|$\checkmark$|$\checkmark$|
 |RESCAL|$h,t \in \mathbb{R}^d$|$M_r\in\mathbb{R}^{d\times d}$|$h^\top M_rt$|$O(d^2)$|$\checkmark$|$-$|$\checkmark$|$\checkmark$|
 |DistMulti|$h,t \in \mathbb{R}^d$|$r\in\mathbb{R}^d$|$h^\top diag(r)t$|$O(d)$|$\checkmark$|$-$|$-$|$-$|
 |ComplEx|$h,t \in \mathbb{C}^d$|$r\in\mathbb{C}^d$|$h^\top Re(diag(r)t)$|$O(d)$|$\checkmark$|$\checkmark$|$\checkmark$|$-$|
-|RotateE|$h,t \in \mathbb{C}^d$|$r\in\mathbb{C}^d$|$\|h\circ r-t\|$|$O(d)$|$\checkmark$|$\checkmark$|$\checkmark$|$\checkmark$|
+|RotateE|$h,t \in \mathbb{C}^d$|$r\in\mathbb{C}^d$|$\|\|h\circ r-t\|\|$|$O(d)$|$\checkmark$|$\checkmark$|$\checkmark$|$\checkmark$|
 
 ### References
 
