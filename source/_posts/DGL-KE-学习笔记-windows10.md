@@ -2159,7 +2159,7 @@ Users need to store all the data associated with a knowledge graph in the same d
 </table>
 </dd>
 
-### Using raw user-defined knowledge graph format
+#### Using raw user-defined knowledge graph format
 
 Users need to store all the data associated with a knowledge graph in the same directory. DGL-KE supports two knowledge graph input formats:
 
@@ -2171,7 +2171,7 @@ Users need to store all the data associated with a knowledge graph in the same d
 
    - `test stores the triplets in the test set`. The format of a triplet, e.g., `[src_name, rel_name, dst_name]`, should follow the order specified in `[h|r|t]`. This is optional.
 
-### Using user-defined knowledge graph format
+#### Using user-defined knowledge graph format
 
 `udd_[h|r|t]`: In this format, `user should provide the id mapping for entities and relations`. The order of head, relation and tail entities are described in `[h|r|t]`, for example, raw_udd_trh means the triplets are stored in the order of tail, relation and head. The directory should contains five files:
 
