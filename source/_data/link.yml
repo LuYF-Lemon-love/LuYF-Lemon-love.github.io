@@ -214,6 +214,10 @@
       link: https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html
       avatar: https://cos.luyf-lemon-love.space/images/20221126122219.png
       descr: 全面而系统地介绍现代计算机图形学的四大组成部分.
+    - name: 计算机图形学与混合现实在线平台
+      link: https://games-cn.org/
+      avatar: https://cos.luyf-lemon-love.space/images/games.webp
+      descr: Graphics And Mixed Environment Symposium
 
 - class_name: 人工智能
   class_desc:
@@ -294,6 +298,10 @@
       link: https://dglke.dgl.ai/doc/index.html
       avatar: https://cos.luyf-lemon-love.space/images/logo.png
       descr: a high performance, easy-to-use, and scalable package for learning large-scale knowledge graph embeddings.
+    - name: OpenKE-PyTorch
+      link: https://github.com/thunlp/OpenKE
+      avatar: https://cos.luyf-lemon-love.space/images/OpenKE-logo.png
+      descr: An Open-source Framework for Knowledge Embedding implemented with PyTorch.
 
 - class_name: Web
   class_desc:
