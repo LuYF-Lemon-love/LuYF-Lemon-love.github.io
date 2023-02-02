@@ -2189,6 +2189,777 @@ Users need to store all the data associated with a knowledge graph in the same d
 
 原文档地址: https://dglke.dgl.ai/doc/benchmarks.html .
 
+DGL-KE provides five built-in knowledge graphs:
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="26%" />
+<col width="23%" />
+<col width="26%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Dataset</th>
+<th class="head">nodes</th>
+<th class="head">edges</th>
+<th class="head">relations</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>FB15k</td>
+<td>14951</td>
+<td>592213</td>
+<td>1345</td>
+</tr>
+<tr class="row-odd"><td>FB15k-237</td>
+<td>14541</td>
+<td>310116</td>
+<td>237</td>
+</tr>
+<tr class="row-even"><td>wn18</td>
+<td>40943</td>
+<td>151442</td>
+<td>18</td>
+</tr>
+<tr class="row-odd"><td>wn18rr</td>
+<td>40943</td>
+<td>93003</td>
+<td>11</td>
+</tr>
+<tr class="row-even"><td>Freebase</td>
+<td>86054151</td>
+<td>338586276</td>
+<td>14824</td>
+</tr>
+</tbody>
+</table>
+
+Users can specify one of the datasets with `--dataset` option in their tasks.
+
+DGL-KE provides benchmark results on `FB15k`, `wn18`, as well as `Freebase`. Users can go to the corresponded folder to check out the scripts and results. All the benchmark results are done by AWS EC2. For multi-cpu and distributed training, the target instance is `r5dn.24xlarge`, which has 48 CPU cores and 768 GB memory. Also, `r5dn.xlarge` has 100Gbit network throughput, which is powerful for distributed training. For GPU training, our target instance is `p3.16xlarge`, which has 64 CPU cores and 8 Nvidia v100 GPUs. For users, you can choose your own instance by your demand and tune the hyper-parameters for the best performance.
+
+All the scripts can be found on this [page](https://github.com/awslabs/dgl-ke/tree/master/examples).
+
+### FB15k
+
+One-GPU training
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="13%" />
+<col width="13%" />
+<col width="14%" />
+<col width="14%" />
+<col width="16%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Models</th>
+<th class="head">MR</th>
+<th class="head">MRR</th>
+<th class="head">HITS-1</th>
+<th class="head">HITS-3</th>
+<th class="head">HITS-10</th>
+<th class="head">TIME</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TransE_l1</td>
+<td>47.34</td>
+<td>0.672</td>
+<td>0.557</td>
+<td>0.763</td>
+<td>0.849</td>
+<td>201</td>
+</tr>
+<tr class="row-odd"><td>TransE_l2</td>
+<td>47.04</td>
+<td>0.649</td>
+<td>0.525</td>
+<td>0.746</td>
+<td>0.844</td>
+<td>167</td>
+</tr>
+<tr class="row-even"><td>DistMult</td>
+<td>61.43</td>
+<td>0.696</td>
+<td>0.586</td>
+<td>0.782</td>
+<td>0.873</td>
+<td>150</td>
+</tr>
+<tr class="row-odd"><td>ComplEx</td>
+<td>64.73</td>
+<td>0.757</td>
+<td>0.672</td>
+<td>0.826</td>
+<td>0.886</td>
+<td>171</td>
+</tr>
+<tr class="row-even"><td>RESCAL</td>
+<td>124.5</td>
+<td>0.661</td>
+<td>0.589</td>
+<td>0.704</td>
+<td>0.787</td>
+<td>1252</td>
+</tr>
+<tr class="row-odd"><td>TransR</td>
+<td>59.99</td>
+<td>0.670</td>
+<td>0.585</td>
+<td>0.728</td>
+<td>0.808</td>
+<td>530</td>
+</tr>
+<tr class="row-even"><td>RotatE</td>
+<td>43.85</td>
+<td>0.726</td>
+<td>0.632</td>
+<td>0.799</td>
+<td>0.873</td>
+<td>1405</td>
+</tr>
+</tbody>
+</table>
+
+8-GPU training
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="13%" />
+<col width="13%" />
+<col width="14%" />
+<col width="14%" />
+<col width="16%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Models</th>
+<th class="head">MR</th>
+<th class="head">MRR</th>
+<th class="head">HITS-1</th>
+<th class="head">HITS-3</th>
+<th class="head">HITS-10</th>
+<th class="head">TIME</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TransE_l1</td>
+<td>48.59</td>
+<td>0.662</td>
+<td>0.542</td>
+<td>0.756</td>
+<td>0.846</td>
+<td>53</td>
+</tr>
+<tr class="row-odd"><td>TransE_l2</td>
+<td>47.52</td>
+<td>0.627</td>
+<td>0.492</td>
+<td>0.733</td>
+<td>0.838</td>
+<td>49</td>
+</tr>
+<tr class="row-even"><td>DistMult</td>
+<td>59.44</td>
+<td>0.679</td>
+<td>0.566</td>
+<td>0.764</td>
+<td>0.864</td>
+<td>47</td>
+</tr>
+<tr class="row-odd"><td>ComplEx</td>
+<td>64.98</td>
+<td>0.750</td>
+<td>0.668</td>
+<td>0.814</td>
+<td>0.883</td>
+<td>49</td>
+</tr>
+<tr class="row-even"><td>RESCAL</td>
+<td>133.3</td>
+<td>0.643</td>
+<td>0.570</td>
+<td>0.685</td>
+<td>0.773</td>
+<td>179</td>
+</tr>
+<tr class="row-odd"><td>TransR</td>
+<td>66.51</td>
+<td>0.666</td>
+<td>0.581</td>
+<td>0.724</td>
+<td>0.803</td>
+<td>90</td>
+</tr>
+<tr class="row-even"><td>RotatE</td>
+<td>50.04</td>
+<td>0.685</td>
+<td>0.581</td>
+<td>0.763</td>
+<td>0.851</td>
+<td>120</td>
+</tr>
+</tbody>
+</table>
+
+Multi-CPU training
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="13%" />
+<col width="13%" />
+<col width="14%" />
+<col width="14%" />
+<col width="16%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Models</th>
+<th class="head">MR</th>
+<th class="head">MRR</th>
+<th class="head">HITS-1</th>
+<th class="head">HITS-3</th>
+<th class="head">HITS-10</th>
+<th class="head">TIME</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TransE_l1</td>
+<td>48.32</td>
+<td>0.645</td>
+<td>0.521</td>
+<td>0.741</td>
+<td>0.838</td>
+<td>140</td>
+</tr>
+<tr class="row-odd"><td>TransE_l2</td>
+<td>45.28</td>
+<td>0.633</td>
+<td>0.501</td>
+<td>0.735</td>
+<td>0.840</td>
+<td>58</td>
+</tr>
+<tr class="row-even"><td>DistMult</td>
+<td>62.63</td>
+<td>0.647</td>
+<td>0.529</td>
+<td>0.733</td>
+<td>0.846</td>
+<td>58</td>
+</tr>
+<tr class="row-odd"><td>ComplEx</td>
+<td>67.83</td>
+<td>0.694</td>
+<td>0.590</td>
+<td>0.772</td>
+<td>0.863</td>
+<td>69</td>
+</tr>
+</tbody>
+</table>
+
+Distributed training
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="13%" />
+<col width="13%" />
+<col width="14%" />
+<col width="14%" />
+<col width="16%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Models</th>
+<th class="head">MR</th>
+<th class="head">MRR</th>
+<th class="head">HITS-1</th>
+<th class="head">HITS-3</th>
+<th class="head">HITS-10</th>
+<th class="head">TIME</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TransE_l1</td>
+<td>38.26</td>
+<td>0.691</td>
+<td>0.591</td>
+<td>0.765</td>
+<td>0.853</td>
+<td>104</td>
+</tr>
+<tr class="row-odd"><td>TransE_l2</td>
+<td>34.84</td>
+<td>0.645</td>
+<td>0.510</td>
+<td>0.754</td>
+<td>0.854</td>
+<td>31</td>
+</tr>
+<tr class="row-even"><td>DistMult</td>
+<td>51.85</td>
+<td>0.661</td>
+<td>0.532</td>
+<td>0.762</td>
+<td>0.864</td>
+<td>57</td>
+</tr>
+<tr class="row-odd"><td>ComplEx</td>
+<td>62.52</td>
+<td>0.667</td>
+<td>0.567</td>
+<td>0.737</td>
+<td>0.836</td>
+<td>65</td>
+</tr>
+</tbody>
+</table>
+
+### wn18
+
+One-GPU training
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="13%" />
+<col width="13%" />
+<col width="14%" />
+<col width="14%" />
+<col width="16%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Models</th>
+<th class="head">MR</th>
+<th class="head">MRR</th>
+<th class="head">HITS-1</th>
+<th class="head">HITS-3</th>
+<th class="head">HITS-10</th>
+<th class="head">TIME</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TransE_l1</td>
+<td>355.4</td>
+<td>0.764</td>
+<td>0.602</td>
+<td>0.928</td>
+<td>0.949</td>
+<td>327</td>
+</tr>
+<tr class="row-odd"><td>TransE_l2</td>
+<td>209.4</td>
+<td>0.560</td>
+<td>0.306</td>
+<td>0.797</td>
+<td>0.943</td>
+<td>223</td>
+</tr>
+<tr class="row-even"><td>DistMult</td>
+<td>419.0</td>
+<td>0.813</td>
+<td>0.702</td>
+<td>0.921</td>
+<td>0.948</td>
+<td>133</td>
+</tr>
+<tr class="row-odd"><td>ComplEx</td>
+<td>318.2</td>
+<td>0.932</td>
+<td>0.914</td>
+<td>0.948</td>
+<td>0.959</td>
+<td>144</td>
+</tr>
+<tr class="row-even"><td>RESCAL</td>
+<td>563.6</td>
+<td>0.848</td>
+<td>0.792</td>
+<td>0.898</td>
+<td>0.928</td>
+<td>308</td>
+</tr>
+<tr class="row-odd"><td>TransR</td>
+<td>432.8</td>
+<td>0.609</td>
+<td>0.452</td>
+<td>0.736</td>
+<td>0.850</td>
+<td>906</td>
+</tr>
+<tr class="row-even"><td>RotatE</td>
+<td>451.6</td>
+<td>0.944</td>
+<td>0.940</td>
+<td>0.945</td>
+<td>0.950</td>
+<td>671</td>
+</tr>
+</tbody>
+</table>
+
+8-GPU training
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="13%" />
+<col width="13%" />
+<col width="14%" />
+<col width="14%" />
+<col width="16%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Models</th>
+<th class="head">MR</th>
+<th class="head">MRR</th>
+<th class="head">HITS-1</th>
+<th class="head">HITS-3</th>
+<th class="head">HITS-10</th>
+<th class="head">TIME</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TransE_l1</td>
+<td>348.8</td>
+<td>0.739</td>
+<td>0.553</td>
+<td>0.927</td>
+<td>0.948</td>
+<td>111</td>
+</tr>
+<tr class="row-odd"><td>TransE_l2</td>
+<td>198.9</td>
+<td>0.559</td>
+<td>0.305</td>
+<td>0.798</td>
+<td>0.942</td>
+<td>71</td>
+</tr>
+<tr class="row-even"><td>DistMult</td>
+<td>798.8</td>
+<td>0.806</td>
+<td>0.705</td>
+<td>0.903</td>
+<td>0.932</td>
+<td>66</td>
+</tr>
+<tr class="row-odd"><td>ComplEx</td>
+<td>535.0</td>
+<td>0.938</td>
+<td>0.931</td>
+<td>0.944</td>
+<td>0.949</td>
+<td>53</td>
+</tr>
+<tr class="row-even"><td>RotatE</td>
+<td>487.7</td>
+<td>0.943</td>
+<td>0.939</td>
+<td>0.945</td>
+<td>0.951</td>
+<td>127</td>
+</tr>
+</tbody>
+</table>
+
+Multi-CPU training
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="13%" />
+<col width="13%" />
+<col width="14%" />
+<col width="14%" />
+<col width="16%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Models</th>
+<th class="head">MR</th>
+<th class="head">MRR</th>
+<th class="head">HITS-1</th>
+<th class="head">HITS-3</th>
+<th class="head">HITS-10</th>
+<th class="head">TIME</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TransE_l1</td>
+<td>376.3</td>
+<td>0.593</td>
+<td>0.264</td>
+<td>0.926</td>
+<td>0.949</td>
+<td>925</td>
+</tr>
+<tr class="row-odd"><td>TransE_l2</td>
+<td>218.3</td>
+<td>0.528</td>
+<td>0.259</td>
+<td>0.777</td>
+<td>0.939</td>
+<td>210</td>
+</tr>
+<tr class="row-even"><td>DistMult</td>
+<td>837.4</td>
+<td>0.791</td>
+<td>0.675</td>
+<td>0.904</td>
+<td>0.933</td>
+<td>362</td>
+</tr>
+<tr class="row-odd"><td>ComplEx</td>
+<td>806.3</td>
+<td>0.904</td>
+<td>0.881</td>
+<td>0.926</td>
+<td>0.937</td>
+<td>281</td>
+</tr>
+</tbody>
+</table>
+
+Distributed training
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="13%" />
+<col width="13%" />
+<col width="14%" />
+<col width="14%" />
+<col width="16%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Models</th>
+<th class="head">MR</th>
+<th class="head">MRR</th>
+<th class="head">HITS-1</th>
+<th class="head">HITS-3</th>
+<th class="head">HITS-10</th>
+<th class="head">TIME</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TransE_l1</td>
+<td>136.0</td>
+<td>0.848</td>
+<td>0.768</td>
+<td>0.927</td>
+<td>0.950</td>
+<td>759</td>
+</tr>
+<tr class="row-odd"><td>TransE_l2</td>
+<td>85.04</td>
+<td>0.797</td>
+<td>0.672</td>
+<td>0.921</td>
+<td>0.958</td>
+<td>144</td>
+</tr>
+<tr class="row-even"><td>DistMult</td>
+<td>278.5</td>
+<td>0.872</td>
+<td>0.816</td>
+<td>0.926</td>
+<td>0.939</td>
+<td>275</td>
+</tr>
+<tr class="row-odd"><td>ComplEx</td>
+<td>333.8</td>
+<td>0.838</td>
+<td>0.796</td>
+<td>0.870</td>
+<td>0.906</td>
+<td>273</td>
+</tr>
+</tbody>
+</table>
+
+### Freebase
+
+8-GPU training
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="13%" />
+<col width="13%" />
+<col width="14%" />
+<col width="14%" />
+<col width="16%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Models</th>
+<th class="head">MR</th>
+<th class="head">MRR</th>
+<th class="head">HITS-1</th>
+<th class="head">HITS-3</th>
+<th class="head">HITS-10</th>
+<th class="head">TIME</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TransE_l2</td>
+<td>23.56</td>
+<td>0.736</td>
+<td>0.663</td>
+<td>0.782</td>
+<td>0.873</td>
+<td>4767</td>
+</tr>
+<tr class="row-odd"><td>DistMult</td>
+<td>46.19</td>
+<td>0.833</td>
+<td>0.813</td>
+<td>0.842</td>
+<td>0.869</td>
+<td>4281</td>
+</tr>
+<tr class="row-even"><td>ComplEx</td>
+<td>46.70</td>
+<td>0.834</td>
+<td>0.815</td>
+<td>0.843</td>
+<td>0.869</td>
+<td>8356</td>
+</tr>
+<tr class="row-odd"><td>TransR</td>
+<td>49.68</td>
+<td>0.696</td>
+<td>0.653</td>
+<td>0.716</td>
+<td>0.773</td>
+<td>14235</td>
+</tr>
+<tr class="row-even"><td>RotatE</td>
+<td>93.20</td>
+<td>0.769</td>
+<td>0.748</td>
+<td>0.779</td>
+<td>0.804</td>
+<td>9060</td>
+</tr>
+</tbody>
+</table>
+
+Multi-CPU training
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="13%" />
+<col width="13%" />
+<col width="14%" />
+<col width="14%" />
+<col width="16%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Models</th>
+<th class="head">MR</th>
+<th class="head">MRR</th>
+<th class="head">HITS-1</th>
+<th class="head">HITS-3</th>
+<th class="head">HITS-10</th>
+<th class="head">TIME</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TransE_l2</td>
+<td>30.82</td>
+<td>0.815</td>
+<td>0.766</td>
+<td>0.848</td>
+<td>0.902</td>
+<td>6993</td>
+</tr>
+<tr class="row-odd"><td>DistMult</td>
+<td>44.16</td>
+<td>0.834</td>
+<td>0.815</td>
+<td>0.843</td>
+<td>0.869</td>
+<td>7146</td>
+</tr>
+<tr class="row-even"><td>ComplEx</td>
+<td>45.62</td>
+<td>0.835</td>
+<td>0.817</td>
+<td>0.843</td>
+<td>0.870</td>
+<td>8732</td>
+</tr>
+</tbody>
+</table>
+
+Distributed training
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="13%" />
+<col width="13%" />
+<col width="14%" />
+<col width="14%" />
+<col width="16%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Models</th>
+<th class="head">MR</th>
+<th class="head">MRR</th>
+<th class="head">HITS-1</th>
+<th class="head">HITS-3</th>
+<th class="head">HITS-10</th>
+<th class="head">TIME</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TransE_l2</td>
+<td>34.25</td>
+<td>0.764</td>
+<td>0.705</td>
+<td>0.802</td>
+<td>0.869</td>
+<td>1633</td>
+</tr>
+<tr class="row-odd"><td>DistMult</td>
+<td>75.15</td>
+<td>0.769</td>
+<td>0.751</td>
+<td>0.779</td>
+<td>0.801</td>
+<td>1679</td>
+</tr>
+<tr class="row-even"><td>ComplEx</td>
+<td>77.83</td>
+<td>0.771</td>
+<td>0.754</td>
+<td>0.779</td>
+<td>0.802</td>
+<td>2293</td>
+</tr>
+</tbody>
+</table>
+
+## Profile DGL-KE
+
+原文档地址: https://dglke.dgl.ai/doc/profile.html .
+
 ## 结语
 
 第四十五篇博文写完，开心！！！！
