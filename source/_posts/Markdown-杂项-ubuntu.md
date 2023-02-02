@@ -50,7 +50,12 @@ $$Dets = \mathcal{H(\Phi_{det})} \tag{1}$$
 |$\bar{x}$|`$\bar{x}$`|$\vec{x}$|`$\vec{x}$`|$\infty$|`$\infty$`|
 |$\varepsilon$|`$\varepsilon$`|$\cap$|`$\cap$`|$\subset$|`$\subset$`|
 |$\approx$|`$\approx$`|$\sigma$|`$\sigma$`|$\ne$|`$\ne$`|
-|$\cdot$|`$\cdot$`|$\odot$|`$\odot$`|||
+|$\cdot$|`$\cdot$`|$\odot$|`$\odot$`|$\mathcal{X}$|`$\mathcal{X}$`|
+|$\top$|`$\top$`|$\dots$|`$\dots$`|$\mathcal{R}$|`$\mathcal{R}$`|
+|$\vdots$|`$\vdots$`|$\ddots$|`$\ddots$`|$\neq$|`$\neq$`|
+|$\mathcal{V}$|`$\mathcal{V}$`|$\langle\rangle$|`$\langle\rangle$`|$\iff$|`$\iff$`|
+|$\Lambda$|`$\Lambda$`|$\theta$|`$\theta$`|$\forall$|`$\forall$`|
+|$\checkmark$|`$\checkmark$`|||||
 
 ## 数学运算符
 
@@ -99,6 +104,60 @@ $$
 ```markdown
 $$
 \sqrt[n]{M}
+$$
+```
+
+### 分段函数
+
+$$
+x = \begin{cases}
+   a &\text{if } b \\
+   c &\text{if } d
+\end{cases}
+$$
+
+```markdown
+$$
+x = \begin{cases}
+   a &\text{if } b \\
+   c &\text{if } d
+\end{cases}
+$$
+```
+
+### 公式块
+
+$$
+\begin{gather}
+   a=b \\
+   e=b+c
+\end{gather}
+$$
+
+```markdown
+$$
+\begin{gather}
+   a=b \\
+   e=b+c
+\end{gather}
+$$
+```
+
+### 矩阵块
+
+$$
+\begin{bmatrix}
+   a & b \\
+   c & d
+\end{bmatrix}
+$$
+
+```markdown
+$$
+\begin{bmatrix}
+   a & b \\
+   c & d
+\end{bmatrix}
 $$
 ```
 
