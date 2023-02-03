@@ -23,6 +23,8 @@ date: 2022-11-26 19:59:54
 
 3. [MarkDown编辑器字体颜色设置](https://blog.csdn.net/qq_43559187/article/details/120913021)
 
+4. [Markdown如何实现表格的合并单元格](https://blog.csdn.net/mahoon411/article/details/125871243)
+
 ## 数学公式编号
 
 `\tag{n}` 标签为`数学公式`设置编号, `n` 为编号, 公式编号`右对齐`.
@@ -307,6 +309,101 @@ size为10：<font size="10">size为10</font><br/>
     <tr>
         <td bgcolor=DarkSeaGreen>这里的背景色是：DarkSeaGreen</td>
     </tr>
+</table>
+
+## 合并单元格
+
+实现单元格合并的属性:
+
+```html
+按行合并：rowspan
+按列合并：colspan
+```
+
+```html
+<table>
+	<tr>
+	    <th colspan="3">计算机网络分层模型</th>
+	</tr >
+	<tr>
+	    <td >OSI七层模型</td>
+	    <td>TCP/IP四层模型</td>
+	    <td>TCP/IP五层模型</td>  
+	</tr >
+	<tr >
+	    <td>应用层</td>
+	    <td rowspan="3">应用层</td>
+	    <td rowspan="3">应用层</td>
+	</tr>
+	<tr>
+	    <td>表示层</td>
+	</tr>
+	<tr>
+	    <td>会话层</td>
+	</tr>
+	<tr>
+	    <td>传输层</td>
+	    <td>传输层</td>
+       <td>传输层</td>
+	</tr>
+	<tr>
+       <td>网络层</td>
+	    <td>网络层</td>
+       <td>网络层</td>
+	</tr>
+	<tr>
+	    <td>数据链路层</td>
+	    <td rowspan="2">网络接口层</td>
+       <td>数据链路层</td>
+	</tr>
+	<tr>
+	    <td>物理层</td>
+	    <td>物理层</td>
+	</tr>
+</table>
+```
+
+---
+
+<table>
+	<tr>
+	    <th colspan="3">计算机网络分层模型</th>
+	</tr >
+	<tr>
+	    <td >OSI七层模型</td>
+	    <td>TCP/IP四层模型</td>
+	    <td>TCP/IP五层模型</td>  
+	</tr >
+	<tr >
+	    <td>应用层</td>
+	    <td rowspan="3">应用层</td>
+	    <td rowspan="3">应用层</td>
+	</tr>
+	<tr>
+	    <td>表示层</td>
+	</tr>
+	<tr>
+	    <td>会话层</td>
+	</tr>
+	<tr>
+	    <td>传输层</td>
+	    <td>传输层</td>
+       <td>传输层</td>
+	</tr>
+	<tr>
+       <td>网络层</td>
+	    <td>网络层</td>
+       <td>网络层</td>
+	</tr>
+	<tr>
+	    <td>数据链路层</td>
+	    <td rowspan="2">网络接口层</td>
+       <td>数据链路层</td>
+	</tr>
+	<tr>
+	    <td>物理层</td>
+	    <td>物理层</td>
+	</tr>
 </table>
 
 ## 结语
