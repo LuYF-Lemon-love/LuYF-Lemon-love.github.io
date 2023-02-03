@@ -43,6 +43,8 @@ date: 2022-09-29 11:36:43
 
 13. [Installing Miniconda](https://d2l.ai/chapter_installation/index.html)
 
+14. [pandas split 的用法](https://blog.csdn.net/windows_oracle/article/details/90765900)
+
 ## Python 注释
 
 1. 使用 `#` 进行单行注释：
@@ -599,6 +601,43 @@ Now we can activate the d2l environment:
 
 ```shell
 conda activate d2l
+```
+
+## pandas Series.str.split()
+
+```python
+>>> import pandas as pd
+>>> df = pd.DataFrame({"A":["ad-s","df-w","er-3w","23-wd"],"B":[1,2,3,4]})
+>>> df
+       A  B
+0   ad-s  1
+1   df-w  2
+2  er-3w  3
+3  23-wd  4
+>>> 
+>>> df["A"].str.split("-")
+0     [ad, s]
+1     [df, w]
+2    [er, 3w]
+3    [23, wd]
+Name: A, dtype: object
+>>> 
+>>> df["A"].str.split("-")[0]
+['ad', 's']
+>>> 
+>>> df["A"].str.split("-").str[0]
+0    ad
+1    df
+2    er
+3    23
+Name: A, dtype: object
+>>> df["A"].str.split("-").str[1]
+0     s
+1     w
+2    3w
+3    wd
+Name: A, dtype: object
+>>>
 ```
 
 ## 结语
