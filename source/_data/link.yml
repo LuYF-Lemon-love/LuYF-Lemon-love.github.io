@@ -198,6 +198,10 @@
       link: https://pandas.pydata.org/
       avatar: https://cos.luyf-lemon-love.space/images/pandas.svg
       descr: pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool, built on top of the Python programming language.
+    - name: Miniconda
+      link: https://conda.io/en/latest/miniconda.html
+      avatar: https://cos.luyf-lemon-love.space/images/20230203214757.png
+      descr: a free minimal installer for conda
 
 - class_name: 混合编程
   class_desc:

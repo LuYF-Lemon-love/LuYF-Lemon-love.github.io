@@ -39,6 +39,10 @@ date: 2022-09-29 11:36:43
 
 11. [【Python程序计时】使用time模块实现计时功能](https://blog.csdn.net/weixin_42233605/article/details/123382596)
 
+12. [Miniconda](https://conda.io/en/latest/miniconda.html)
+
+13. [Installing Miniconda](https://d2l.ai/chapter_installation/index.html)
+
 ## Python 注释
 
 1. 使用 `#` 进行单行注释：
@@ -549,6 +553,52 @@ print("运行时间为", round(end-start), 'seconds')
 
 ```bash
 运行时间为 4 seconds
+```
+
+## Installing Miniconda
+
+Miniconda 官网: https://conda.io/en/latest/miniconda.html .
+
+>Miniconda is a free minimal installer for conda. It is a small, bootstrap version of Anaconda that includes only conda, Python, the packages they depend on, and a small number of other useful packages, including pip, zlib and a few others. Use the `conda install` command to install 720+ additional conda packages from the Anaconda repository.
+>
+>On Windows, macOS, and Linux, it is best to install Miniconda for the local user, which does not require administrator permissions and is the most robust type of installation. However, if you need to, you can install Miniconda system wide, which does require administrator permissions.
+
+---
+
+源教程链接: https://d2l.ai/chapter_installation/index.html .
+
+Your simplest option is to install [Miniconda](https://conda.io/en/latest/miniconda.html). Note that the Python 3.x version is required. You can skip the following steps if your machine already has conda installed.
+
+Visit the Miniconda website and determine the appropriate version for your system based on your Python 3.x version and machine architecture. Suppose that your Python version is 3.9 (our tested version). If you are using macOS, you would download the bash script whose name contains the strings “MacOSX”, navigate to the download location, and execute the installation as follows (taking Intel Macs as an example):
+
+```shell
+# The file name is subject to changes
+sh Miniconda3-py39_4.12.0-MacOSX-x86_64.sh -b
+```
+
+A Linux user would download the file whose name contains the strings “Linux” and execute the following at the download location:
+
+```shell
+# The file name is subject to changes
+sh Miniconda3-py39_4.12.0-Linux-x86_64.sh -b
+```
+
+Next, initialize the shell so we can run conda directly.
+
+```shell
+~/miniconda3/bin/conda init
+```
+
+Then close and reopen your current shell. You should be able to create a new environment as follows:
+
+```shell
+conda create --name d2l python=3.9 -y
+```
+
+Now we can activate the d2l environment:
+
+```shell
+conda activate d2l
 ```
 
 ## 结语
