@@ -33,6 +33,8 @@ date: 2022-12-05 23:03:53
 
 7. [HTML 基础](https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/HTML_basics)
 
+8. [CSS 基础](https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/CSS_basics)
+
 ## 学习 Web 开发
 
 >欢迎来到 MDN 学习区。本系列文章旨在为`零基础 Web 开发初学者`提供指导和开始编写网站代码`所需的所有内容`。
@@ -436,6 +438,288 @@ My cat is very grumpy
 {% label 标记文本 blue %}
 
 >本段包含了一些最常用的文本标记 HTML 元素。
+
+**标题（Heading）**
+
+>标题元素可用于**指定内容的标题**和**子标题**。就像一本书的书名、每章的大标题、小标题，等。HTML 文档也是一样。HTML 包括六个级别的标题， `<h1> (en-US)–<h6> (en-US)` ，一般最多用到 3-4 级标题。
+
+```html
+<h1>主标题</h1>
+<h2>顶层标题</h2>
+<h3>子标题</h3>
+<h4>次子标题</h4>
+```
+
+>可以尝试在 `<img>` 元素上面添加一个合适的标题。
+
+---
+
+>**备注：** 你可以看到第一级标题是有隐式的主题样式。**不要使用标题元素来加大、加粗字体**，因为标题对于`无障碍访问`和`搜索引擎优化`等问题非常有意义。要保持页面结构清晰，标题整洁，不要发生标题级别跳跃。
+
+**段落（Paragraph）**
+
+>如上文所讲，`<p>` 元素是用来指定段落的。通常用于指定常规的文本内容：
+
+```html
+<p>这是一个段落</p>
+```
+
+>试着添加一些文本（在`设计网站的外观`小节）到一个或几个段落中，并把它们放在你的 `<img>` 元素下方。
+
+**列表（List）**
+
+>Web 上的许多内容都是列表，HTML 有一些特别的列表元素。标记列表通常包括`至少两个元素`。最常用的列表类型为：
+>
+>1. **无序列表**（Unordered List）中项目的顺序并不重要，就像购物列表。用一个 `<ul>` 元素包围。
+>
+>2. **有序列表**（Ordered List）中项目的顺序很重要，就像烹调指南。用一个 `<ol>` 元素包围。
+>
+>列表的每个项目用一个列表项目（List Item）元素 `<li>` 包围。
+>
+>比如，要将下面的段落片段改成一个列表：
+
+```html
+<p>At Mozilla, we're a global community of technologists, thinkers, and builders working together… </p>
+```
+
+>可以这样更改标记：
+
+```html
+<p>At Mozilla, we're a global community of</p>
+
+<ul>
+  <li>technologists</li>
+  <li>thinkers</li>
+  <li>builders</li>
+</ul>
+
+<p>working together… </p>
+```
+
+>试着在示例页面中添加一个有序列表和无序列表。
+
+{% label 链接 purple %}
+
+>链接非常重要 — 它们赋予 Web 网络属性。要植入一个链接，我们需要使用一个简单的元素 — `<a>` — a 是 "anchor" （锚）的缩写。要将一些文本添加到链接中，只需如下几步：
+>
+>1. 选择一些文本。比如“Mozilla Manifesto”。
+>
+>2. 将文本包含在 `<a>` 元素内，就像这样：
+
+```html
+<a>Mozilla Manifesto</a>
+```
+
+>3. 为此 `<a>` 元素添加一个 `href` 属性，就像这样：
+
+```html
+<a href="">Mozilla Manifesto</a>
+```
+
+>4. 把属性的值设置为所需网址：
+
+```html
+<a href="https://www.mozilla.org/zh-CN/about/manifesto/">Mozilla Manifesto</a>
+```
+
+>如果网址开始部分省略了 `https://` 或者 `http://`，可能会得到错误的结果。在完成一个链接后，可以试着点击它来确保指向正确。
+
+---
+
+>**备注：** href 这个名字可能开始看起来有点令人费解，代表超文本引用（ hypertext reference）。
+
+---
+
+>现在就为页面添加一个链接吧。
+
+{% label 小结 red %}
+
+>如果你一直跟着这篇文章里的指导做的话，你应该完成了一个像下面这样的页面。（你也可以[从这查看](https://mdn.github.io/beginner-html-site/)）：
+
+![](https://cos.luyf-lemon-love.space/images/20221212030620.png)
+
+>如果你遇到困难，你可以将 Github 上的[完整示例代码](https://github.com/mdn/beginner-html-site/blob/gh-pages/index.html)与你的文件进行比较。
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+  </head>
+  <body>
+    <h1>Mozilla is cool</h1>
+    <img src="images/firefox-icon.png" alt="The Firefox logo: a flaming fox surrounding the Earth.">
+
+    <p>At Mozilla, we’re a global community of</p>
+
+    <ul> <!-- changed to list in the tutorial -->
+      <li>technologists</li>
+      <li>thinkers</li>
+      <li>builders</li>
+    </ul>
+
+    <p>working together to keep the Internet alive and accessible, so people worldwide can be informed contributors and creators of the Web. We believe this act of human collaboration across an open platform is essential to individual growth and our collective future.</p>
+
+    <p>Read the <a href="https://www.mozilla.org/en-US/about/manifesto/">Mozilla Manifesto</a> to learn even more about the values and principles that guide the pursuit of our mission.</p>
+  </body>
+</html>
+```
+
+>在这里，我们只是介绍了一点点 HTML。要学习更多，访问我们的 [HTML 学习主题页面](https://developer.mozilla.org/zh-CN/docs/Learn/HTML) 。
+
+### CSS 基础
+
+源教程地址: https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/CSS_basics .
+
+>**层叠样式表**（Cascading Style Sheet，简称：CSS）是为网页添加样式的代码。本节将介绍 **CSS** 的基础知识，并解答类似问题：怎样将文本设置为**黑色**或**红色**？怎样将内容**显示在屏幕的特定位置**？怎样用**背景图片**或**颜色**来装饰网页？
+
+{% label CSS究竟什么来头？ pink %}
+
+>和 HTML 类似，CSS 也不是真正的编程语言，甚至不是标记语言。它是一门**样式表语言**，这也就是说人们可以用它来选择性地为 HTML 元素添加样式。举例来说，要选择一个 HTML 页面里**所有的段落元素**，然后将其中的文本改成**红色**，可以这样写 CSS：
+
+```css
+p {
+  color: red;
+}
+```
+
+>不妨试一下：首先新建一个 `styles` 文件夹，在其中新建一个 `style.css` 文件，将这三行 CSS 保存在这个新文件中。
+>
+>然后再将该 CSS 文件**连接**至 HTML 文档，否则 CSS 代码不会对 HTML 文档在浏览器里的显示效果有任何影响。
+>
+>1. 打开 `index.html` 文件，然后将下面一行粘贴到**文档头**（也就是 `<head>` 和 `</head>` 标签之间）。
+>
+>```html
+><link href="styles/style.css" rel="stylesheet">
+>```
+>
+>2. 保存 `index.html` 并用浏览器将其打开。应该看到以下页面：
+
+![](https://cos.luyf-lemon-love.space/images/20230204220531.png)
+
+>如果段落文字变红，那么祝贺你，你已经成功地迈出了 CSS 学习的第一步。
+
+**“CSS 规则集”详解**
+
+>让我们来仔细看一看上述 CSS：
+
+![](https://cos.luyf-lemon-love.space/images/20230204221017.png)
+
+>整个结构称为 **规则集**（通常简称“规则”），各部分释义如下：
+>
+>1. **选择器（Selector）**：HTML 元素的名称位于规则集开始。它选择了一个或多个需要添加样式的*元素*（在这个例子中就是 `p` 元素）。要给不同元素添加样式只需要更改选择器就行了。
+>
+>2. **声明（Declaration）**：一个单独的规则，如 `color: red;` 用来指定添加样式元素的**属性**。
+>
+>3. **属性（Properties）**：改变 HTML 元素样式的途径。（本例中 color 就是 `<p>` 元素的属性。）CSS 中，由编写人员决定修改哪个属性以改变规则。
+>
+>4. **属性的值（Property value）**：在属性的右边，冒号后面即属性的值，它从指定属性的众多外观中选择一个值（我们除了 `red` 之外还有很多属性值可以用于 `color` ）。
+>
+>注意其他重要的语法：
+>
+>属性应该包含：
+>
+>- 每个规则集（除了选择器的部分）都应该包含在成对的大括号里（`{}`）。
+>
+>- 在每个声明里要用冒号（`:`）将属性与属性值分隔开。
+>
+>- 在每个规则集里要用分号（`;`）将各个声明分隔开。
+>
+>如果要同时修改多个属性，只需要将它们用分号隔开，就像这样：
+
+```css
+p {
+  color: red;
+  width: 500px;
+  border: 1px solid black;
+}
+```
+
+**多元素选择**
+
+>也可以选择多种类型的元素并为它们添加一组相同的样式。将不同的选择器用**逗号**分开。例如：
+
+```css
+p, li, h1 {
+  color: red;
+}
+```
+
+**不同类型的选择器**
+
+>选择器有许多不同的类型。上面只介绍了**元素选择器**，用来选择 HTML 文档中给定的元素。但是选择操作可以更加具体。下面是一些常用的选择器类型：
+
+|选择器名称|选择的内容|示例|
+|:-:|:-:|:-:|
+|元素选择器（也称作标签或类型选择器）|所有指定 (该) 类型的 HTML 元素|`p` 选择 `<p>`|
+|ID 选择器|具有特定 ID 的元素（单一 HTML 页面中，每个 ID 只对应一个元素，一个元素只对应一个 ID）|`#my-id` 选择 `<p id="my-id">` 或 `<a id="my-id">`|
+|类选择器|具有特定类的元素（单一页面中，一个类可以有多个实例）|`.my-class` 选择 `<p class="my-class">` 和 `<a class="my-class">`|
+|属性选择器|拥有特定属性的元素|`img[src]` 选择 `<img src="myimage.png">` 而不是 `<img>`|
+|伪（Pseudo）类选择器|特定状态下的特定元素（比如鼠标指针悬停）|`a:hover` 仅在鼠标指针悬停在链接上时选择 `<a>`。|
+
+>选择器的种类远不止于此，更多信息请参阅 [选择器](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)。
+
+{% label 字体和文本 green %}
+
+>**备注**： 再一次说明，中文字体文件较大，不适合直接用于 **Web Font**。
+
+---
+
+>在探索了一些 CSS 基础后，我们来把更多规则和信息添加至 `style.css` 中，从而让示例更美观。首先，让字体和文本变得更漂亮。
+>
+>1. 第一步，找到之前 Google Font 输出的地址。并以 `<link>` 元素的形式添加进 `index.html` 文档头（ `<head>` 和 `</head>` 之间的任意位置）。代码（为当前网页下载 Open Sans 字体，从而使自定义 CSS 中可以对 HTML 元素应用这个字体。）如下：
+>
+>```html
+><link href="https://fonts.font.im/css?family=Open+Sans" rel="stylesheet" type="text/css">
+>```
+>
+>2. 接下来，删除 `style.css` 文件中已有的规则。虽然测试是成功的了，但是红字看起来并不太舒服。
+>
+>3. 将下列代码添加到相应的位置，用你在 Google Fonts 找到的字体替代 `font-family` 中的占位行。（ `font-family` 意味着你想要你的文本使用的字体。）这条规则首先为整个页面设定了一个全局字体和字号（因为 `<html>` 是整个页面的父元素，而且它所有的子元素都会继承相同的 `font-size` 和 `font-family`）：
+
+```css
+html {
+  /* px 表示“像素（pixels）”: 基础字号为 10 像素 */
+  font-size: 10px;
+  /* Google fonts 输出的 CSS */
+  font-family: 'Open Sans', sans-serif;
+}
+```
+
+>**备注**： CSS 文档中所有位于 `/*` 和 `*/` 之间的内容都是 CSS 注释，它会被浏览器在渲染代码时忽略。你可以在这里写下对你现在要做的事情有帮助的笔记。
+
+>**备注**： `/*` `*/` 不可嵌套，`/*这样的注释是/*不行*/的*/`。CSS 不接受 `//` 注释。
+>
+>4. 接下来为文档体内的元素（`<h1> (en-US)`、`<li>` 和 `<p>`）设置字号。将`标题居中`显示，并为`正文`设置`行高`和`字间距`，从而提高页面的可读性。
+
+```css
+h1 {
+  font-size: 60px;
+  text-align: center;
+}
+
+p, li {
+  font-size: 16px;
+  /* line-height 后面可以跟不同的参数，如果是数字，就是当前字体大小乘上数字 */
+  line-height: 2;
+  letter-spacing: 1px;
+}
+```
+
+>可以随时调整这些 `px` 值来获得满意的结果，以下是大体效果：
+
+![](https://cos.luyf-lemon-love.space/images/20230204230916.png)
+
+{% label 一切皆盒子 blue %}
+
+>编写 CSS 时你会发现，你的工作好像是围绕着一个一个盒子展开的——设置尺寸、颜色、位置，等等。页面里大部分 HTML 元素都可以被看作若干层叠的盒子。
+
+![](https://cos.luyf-lemon-love.space/images/20230204231305.png)
+
+>并不意外，CSS 布局主要就是基于盒模型的。每个占据页面空间的块都有这样的属性：
+>
+>- `padding`：即内边距，围绕着内容（比如段落）的空间。
 
 **标题（Heading）**
 
