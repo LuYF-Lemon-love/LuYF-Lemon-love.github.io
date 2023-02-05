@@ -818,7 +818,7 @@ img {
 
 {% label 小结 red %}
 
->如果你按部就班完成本文的实践，那么最终可以得到以下页面（可以 [查看我们的版本](https://roy-tian.github.io/learning-area/extras/getting-started-web/beginner-html-site-styled/）：
+>如果你按部就班完成本文的实践，那么最终可以得到以下页面（可以 [查看我们的版本](https://roy-tian.github.io/learning-area/extras/getting-started-web/beginner-html-site-styled/) )：
 
 ![](https://cos.luyf-lemon-love.space/images/20230205213916.png)
 
