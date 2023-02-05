@@ -720,135 +720,111 @@ p, li {
 >并不意外，CSS 布局主要就是基于盒模型的。每个占据页面空间的块都有这样的属性：
 >
 >- `padding`：即内边距，围绕着内容（比如段落）的空间。
-
-**标题（Heading）**
-
->标题元素可用于**指定内容的标题**和**子标题**。就像一本书的书名、每章的大标题、小标题，等。HTML 文档也是一样。HTML 包括六个级别的标题， `<h1> (en-US)–<h6> (en-US)` ，一般最多用到 3-4 级标题。
-
-```html
-<h1>主标题</h1>
-<h2>顶层标题</h2>
-<h3>子标题</h3>
-<h4>次子标题</h4>
-```
-
->可以尝试在 `<img>` 元素上面添加一个合适的标题。
-
----
-
->**备注：** 你可以看到第一级标题是有隐式的主题样式。**不要使用标题元素来加大、加粗字体**，因为标题对于`无障碍访问`和`搜索引擎优化`等问题非常有意义。要保持页面结构清晰，标题整洁，不要发生标题级别跳跃。
-
-**段落（Paragraph）**
-
->如上文所讲，`<p>` 元素是用来指定段落的。通常用于指定常规的文本内容：
-
-```html
-<p>这是一个段落</p>
-```
-
->试着添加一些文本（在`设计网站的外观`小节）到一个或几个段落中，并把它们放在你的 `<img>` 元素下方。
-
-**列表（List）**
-
->Web 上的许多内容都是列表，HTML 有一些特别的列表元素。标记列表通常包括`至少两个元素`。最常用的列表类型为：
 >
->1. **无序列表**（Unordered List）中项目的顺序并不重要，就像购物列表。用一个 `<ul>` 元素包围。
+>- `border`：即边框，紧接着内边距的线。
 >
->2. **有序列表**（Ordered List）中项目的顺序很重要，就像烹调指南。用一个 `<ol>` 元素包围。
->
->列表的每个项目用一个列表项目（List Item）元素 `<li>` 包围。
->
->比如，要将下面的段落片段改成一个列表：
+>- `margin`：即外边距，围绕元素外部的空间。
 
-```html
-<p>At Mozilla, we're a global community of technologists, thinkers, and builders working together… </p>
+![](https://cos.luyf-lemon-love.space/images/20230205211248.png)
+
+>这里还使用了：
+>- `width` ：元素的宽度
+>
+>- `background-color` ：元素内容和内边距底下的颜色
+>
+>- `color` ：元素内容（通常是文本）的颜色
+>
+>- `text-shadow` ：为元素内的文本设置阴影
+>
+>- `display` ：设置元素的显示模式（暂略）
+>
+>开始在页面中添加更多 CSS 吧！大胆将这些新规则都添加到页面的底部，而不要纠结改变属性值会带来什么结果。
+
+**更改页面颜色**
+
+```css
+html {
+  background-color: #00539F;
+}
 ```
 
->可以这样更改标记：
+>这条规则将整个页面的背景颜色设置为所计划的颜色。
 
-```html
-<p>At Mozilla, we're a global community of</p>
+**文档体格式设置**
 
-<ul>
-  <li>technologists</li>
-  <li>thinkers</li>
-  <li>builders</li>
-</ul>
-
-<p>working together… </p>
+```css
+body {
+  width: 600px;
+  margin: 0 auto;
+  background-color: #FF9500;
+  padding: 0 20px 20px 20px;
+  border: 5px solid black;
+}
 ```
 
->试着在示例页面中添加一个有序列表和无序列表。
-
-{% label 链接 purple %}
-
->链接非常重要 — 它们赋予 Web 网络属性。要植入一个链接，我们需要使用一个简单的元素 — `<a>` — a 是 "anchor" （锚）的缩写。要将一些文本添加到链接中，只需如下几步：
+>现在是 `<body>` 元素。以上条声明，我们来逐条查看：
 >
->1. 选择一些文本。比如“Mozilla Manifesto”。
+>- `width: 600px;` —— 强制页面永远保持 600 像素宽。
 >
->2. 将文本包含在 `<a>` 元素内，就像这样：
+>- `margin: 0 auto;` —— 为 `margin` 或 `padding` 等属性设置两个值时，第一个值代表元素的上方和下方（在这个例子中设置为 `0`），而第二个值代表左边和右边（在这里，`auto` 是一个特殊的值，意思是水平方向上左右对称）。你也可以使用一个，三个或四个值，参考[这里](https://developer.mozilla.org/zh-CN/docs/Web/CSS/margin#%E5%8F%96%E5%80%BC) 。
+>
+>- `background-color: #FF9500;` —— 如前文所述，指定元素的背景颜色。我们给 body 用了一种略微偏红的橘色以与深蓝色的 `<html>` 元素形成反差，你也可以尝试其它颜色。
+>
+>- `padding: 0 20px 20px 20px;` —— 我们给内边距设置了四个值来让内容四周产生一点空间。这一次我们不设置上方的内边距，设置右边，下方，左边的内边距为 20 像素。值以上、右、下、左的顺序排列。
+>
+>- `border: 5px solid black;` —— 直接为 body 设置 5 像素的黑色实线边框。
 
-```html
-<a>Mozilla Manifesto</a>
+**定位页面主标题并添加样式**
+
+```css
+h1 {
+  margin: 0;
+  padding: 20px 0;
+  color: #00539F;
+  text-shadow: 3px 3px 1px black;
+}
 ```
 
->3. 为此 `<a>` 元素添加一个 `href` 属性，就像这样：
+>你可能发现页面的顶部有一个难看的间隙，那是因为浏览器会在没有任何 CSS 的情况下 给 `<h1> (en-US)` 等元素设置一些默认样式。但这并不是个好主意，因为我们希望一个没有任何样式的网页也有基本的可读性。为了去掉那个间隙，我们通过设置 `margin: 0;` 来覆盖默认样式。
+>
+>至此，我们已经把标题的上下内边距设置为 20 像素，并且将标题文本与 HTML 的背景颜色设为一致。
+>
+>需要注意的是，这里使用了一个 `text-shadow` 属性，它可以为元素中的文本提供阴影。四个值含义如下：
+>
+>- 第一个值设置**水平偏移值** —— 即阴影右移的像素数（负值左移）。
+>
+>- 第二个值设置**垂直偏移值** —— 即阴影下移的像素数（负值上移）。
+>
+>- 第三个值设置阴影的**模糊半径** —— 值越大产生的阴影越模糊。
+>
+>- 第四个值设置阴影的基色。
+>
+>不妨尝试不同的值看看能得出什么结果。
 
-```html
-<a href="">Mozilla Manifesto</a>
+**图像居中**
+
+```css
+img {
+  display: block;
+  margin: 0 auto;
+}
 ```
 
->4. 把属性的值设置为所需网址：
-
-```html
-<a href="https://www.mozilla.org/zh-CN/about/manifesto/">Mozilla Manifesto</a>
-```
-
->如果网址开始部分省略了 `https://` 或者 `http://`，可能会得到错误的结果。在完成一个链接后，可以试着点击它来确保指向正确。
-
----
-
->**备注：** href 这个名字可能开始看起来有点令人费解，代表超文本引用（ hypertext reference）。
-
----
-
->现在就为页面添加一个链接吧。
+>最后，我们把图像居中来使页面更美观。可以复用 body 的 `margin: 0 auto` ，但是需要一点点调整。 `<body>` 元素是**块级**元素，意味着它占据了页面的空间并且能够赋予外边距和其他改变间距的值。而图片是**内联**元素，不具备块级元素的一些功能。所以为了使图像有外边距，我们必须使用 `display: block` 给予其块级行为。
+>
+>**备注：** 以上说明假定所选图片小于页面宽度（600 pixels）。更大的图片会溢出 body 并占据页面的其他位置。要解决这个问题，可以： 1）使用 **图片编辑器** 来减小图片宽度； 2）用 CSS 限制图片大小，即减小 `<img>` 元素 `width` 属性的值（比如 `400 px`）。
+>
+>**备注：** 如果你暂时不能理解 `display: block` 和块级元素与行内元素的差别也没关系；随着你对 CSS 学习的深入，你将明白这个问题。`display` 属性的更多信息请查看 [参考页面](https://developer.mozilla.org/zh-CN/docs/Web/CSS/display) 。
 
 {% label 小结 red %}
 
->如果你一直跟着这篇文章里的指导做的话，你应该完成了一个像下面这样的页面。（你也可以[从这查看](https://mdn.github.io/beginner-html-site/)）：
+>如果你按部就班完成本文的实践，那么最终可以得到以下页面（可以 [查看我们的版本](https://roy-tian.github.io/learning-area/extras/getting-started-web/beginner-html-site-styled/）：
 
-![](https://cos.luyf-lemon-love.space/images/20221212030620.png)
+![](https://cos.luyf-lemon-love.space/images/20230205213916.png)
 
->如果你遇到困难，你可以将 Github 上的[完整示例代码](https://github.com/mdn/beginner-html-site/blob/gh-pages/index.html)与你的文件进行比较。
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>My test page</title>
-  </head>
-  <body>
-    <h1>Mozilla is cool</h1>
-    <img src="images/firefox-icon.png" alt="The Firefox logo: a flaming fox surrounding the Earth.">
-
-    <p>At Mozilla, we’re a global community of</p>
-
-    <ul> <!-- changed to list in the tutorial -->
-      <li>technologists</li>
-      <li>thinkers</li>
-      <li>builders</li>
-    </ul>
-
-    <p>working together to keep the Internet alive and accessible, so people worldwide can be informed contributors and creators of the Web. We believe this act of human collaboration across an open platform is essential to individual growth and our collective future.</p>
-
-    <p>Read the <a href="https://www.mozilla.org/en-US/about/manifesto/">Mozilla Manifesto</a> to learn even more about the values and principles that guide the pursuit of our mission.</p>
-  </body>
-</html>
-```
-
->在这里，我们只是介绍了一点点 HTML。要学习更多，访问我们的 [HTML 学习主题页面](https://developer.mozilla.org/zh-CN/docs/Learn/HTML) 。
+>若遇到问题，可以参考 GitHub 上的 [完整示例代码](https://github.com/roy-tian/learning-area/tree/master/extras/getting-started-web/beginner-html-site-styled) 做对比。
+>
+>本章介绍的 CSS 知识非常有限，更多内容请访问 [CSS 学习页面](https://developer.mozilla.org/zh-CN/docs/Learn/CSS)。
 
 ## 结语
 
