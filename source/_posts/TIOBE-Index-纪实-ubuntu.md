@@ -64,6 +64,28 @@ TIOBE Index 地址: https://www.tiobe.com/tiobe-index/ .
 
 ![](https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-05%20232535.png)
 
+## C++仍然势不可挡
+
+**`TIOBE Index for February 2023`**
+
+**February Headline: C++ still unstoppable**
+
+更新日期: 2023 年 2 月 6 日.
+
+>Last month, C++ won the TIOBE programming language of the year award for 2022. C++ is continuing its success in 2023 so far. Its current year-over-year increase is **5.93%**. This is far ahead of all other programming languages, of which the most popular ones only gain about 1%. Since there are only small changes in the TIOBE index of this month, I would like to say a general word about how to use this index. It is important to understand that every programming language has its own strengths and weaknesses and usually excels in certain domains.
+>
+>Take for instance the 2 new booming languages in the TIOBE index top 20: Scratch and Rust. Scratch is meant to learn programming and is very popular in elementary and secondary schools, whereas Rust is a safe and high performance programming language for experts. In other words, they serve different purposes. The same holds for the top 4 languages. Python is great for data mining, AI programming, statistical programs, research projects, web sites, small glue programs and learning how to program. The second language, C, is the best language for writing small, embedded, safety-critical and high performance programs. **C++ on the other hand, is the top favorite language in case you need all the requirements of C but you are going to write a large software system.** Finally, Java is best in back ends of business applications and writing apps for Android. So if you want to use a programming language, do your research and select it with care! --Paul Jansen CEO TIOBE Software
+
+|Feb 2023|Feb 2022|Change|Programming Language|Ratings|Change|
+|:-:|:-:|:-:|:-:|:-:|:-:|
+|1|1||Python|15.49%|+0.16%|
+|2|2||C|15.39%|+1.31%|
+|3|4|**$\wedge$**|C++|13.94%|+5.93%|
+|4|3|**$\vee$**|Java|13.21%|+1.07%|
+|5|5||C#|6.38%|+1.01%|
+
+![](https://cos.luyf-lemon-love.space/images/20230206141430.png)
+
 ## 结语
 
 第四十二篇博文写完，开心！！！！
