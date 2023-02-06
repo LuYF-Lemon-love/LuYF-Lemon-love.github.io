@@ -350,6 +350,10 @@
       link: https://apps.timwhitlock.info/emoji/tables/unicode
       avatar: https://cos.luyf-lemon-love.space/images/20220910212858.png
       descr: Emoji Unicode Tables
+    - name: Markdown Preview Plus
+      link: https://microsoftedge.microsoft.com/addons/detail/markdown-preview-plus/dhinnjfkfmhehkbhcblbocdcpmlnkhbh
+      avatar: https://cos.luyf-lemon-love.space/images/20230206225712.png
+      descr: 支持 KaTeX 的 Edge 的 Markdown 插件
 
 - class_name: 编程风格
   class_desc:
