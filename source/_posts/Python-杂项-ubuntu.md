@@ -45,6 +45,8 @@ date: 2022-09-29 11:36:43
 
 14. [pandas split 的用法](https://blog.csdn.net/windows_oracle/article/details/90765900)
 
+15. [mac上MulticoreTSNE安装及测试](https://blog.csdn.net/qq_45759229/article/details/120434387)
+
 ## Python 注释
 
 1. 使用 `#` 进行单行注释：
@@ -638,6 +640,13 @@ Name: A, dtype: object
 3    wd
 Name: A, dtype: object
 >>>
+```
+
+## Install MulticoreTSNE
+
+```shell
+$ pip install cmake==3.18.4 -i https://pypi.tuna.tsinghua.edu.cn/simple
+$ pip install MulticoreTSNE -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 ## 结语
