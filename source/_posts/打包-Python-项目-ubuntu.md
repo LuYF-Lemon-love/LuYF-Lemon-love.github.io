@@ -147,7 +147,7 @@ classifiers = [
 
 See the [project metadata specification](https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata) for details on these and other fields that can be defined in the `[project]` table. Other common fields are `keywords` to improve discoverability and the `dependencies` that are required to install your package.
 
-## Creating README.md
+## Creating `README.md`
 
 Open `README.md` and enter the following content. You can customize this if you’d like.
 
