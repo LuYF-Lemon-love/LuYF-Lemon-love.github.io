@@ -183,9 +183,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
 
 Most build backends automatically include license files in packages. See your backend’s documentation for more details.
-```
 
 ## Including other files
 
@@ -227,7 +227,7 @@ You can use `pip` to install your package and verify that it works.
 pip install example_package_YOUR_USERNAME_HERE-0.0.1-py3-none-any.whl
 ```
 
-You can test that it was installed correctly by importing the package. run Python:
+You can test that it was installed correctly by importing the package, run Python:
 
 ```shell
 python3
@@ -243,7 +243,7 @@ and import the package:
 
 ## Next steps
 
-Congratulations, you’ve packaged a Python project! ✨ 🍰 ✨
+**Congratulations, you’ve packaged a Python project!** ✨ 🍰 ✨
 
 ## 结语
 
