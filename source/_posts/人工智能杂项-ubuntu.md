@@ -33,6 +33,8 @@ date: 2022-10-07 17:48:54
 
 6. [sklearn.metrics.pairwise.euclidean_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.euclidean_distances.html#sklearn.metrics.pairwise.euclidean_distances)
 
+7. [sklearn.metrics.pairwise.cosine_similarity](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.cosine_similarity.html#sklearn.metrics.pairwise.cosine_similarity)
+
 ## 双曲正切函数
 
 `双曲正切函数`（$tanh$）是`双曲正弦函数`（$sinh$）与`双曲余弦函数`（$cosh$）的比值，其解析形式为：
@@ -219,6 +221,44 @@ array([[0., 1.],
 array([[1.        ],
        [1.41421356]])
 ```
+
+### cosine_similarity
+
+文档链接: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.cosine_similarity.html#sklearn.metrics.pairwise.cosine_similarity .
+
+**`sklearn.metrics.pairwise.cosine_similarity`**
+
+`sklearn.metrics.pairwise.cosine_similarity(X, Y=None, dense_output=True)`
+
+Compute cosine similarity between samples in X and Y.
+
+Cosine similarity, or the cosine kernel, computes similarity as the normalized dot product of X and Y:
+
+`K(X, Y) = <X, Y> / (||X||*||Y||)`
+
+On L2-normalized data, this function is equivalent to linear_kernel.
+
+Read more in the [User Guide](https://scikit-learn.org/stable/modules/metrics.html#cosine-similarity).
+
+**Parameters:**
+
+- **X: {ndarray, sparse matrix} of shape (n_samples_X, n_features)**
+
+   - Input data.
+
+- **Y: {ndarray, sparse matrix} of shape (n_samples_Y, n_features), default=None**
+
+   - Input data. If `None`, the output will be the pairwise similarities between all samples in `X`.
+
+- **dense_output: bool, default=True**
+
+   - Whether to return dense output even when the input is sparse. If `False`, the output is sparse if both input arrays are sparse. New in version 0.17: parameter dense_output for dense output.
+
+**Returns:**
+
+- **kernel matrix: ndarray of shape (n_samples_X, n_samples_Y)**
+
+   - Returns the cosine similarity between samples in X and Y.
 
 ## 结语
 
