@@ -74,4 +74,8 @@ top_img: https://cos.luyf-lemon-love.space/images/20220513171423.png
 ![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/067-砂狼-蓝色眼睛-兽耳-西装制服-短裙-干洗店.jpg)
 ![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/068-龙女.jpg)
 ![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/069-学生校服可爱麻匪.jpg)
+![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/070-海边-女孩-砂狼.jpg)
+![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/071-砂狼-女孩子-兽耳少女.jpg)
+![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/072-涂山苏苏.jpg)
+![](https://gcore.jsdelivr.net/gh/LuYF-Lemon-love/susu-wallpaper/wallpaper/073-樱花-茶色长发-白连衣裙女生.jpg)
 {% endgallery %}
