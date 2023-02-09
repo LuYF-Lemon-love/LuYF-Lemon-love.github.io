@@ -57,7 +57,7 @@ $$Dets = \mathcal{H(\Phi_{det})} \tag{1}$$
 |$\vdots$|`$\vdots$`|$\ddots$|`$\ddots$`|$\neq$|`$\neq$`|
 |$\mathcal{V}$|`$\mathcal{V}$`|$\langle\rangle$|`$\langle\rangle$`|$\iff$|`$\iff$`|
 |$\Lambda$|`$\Lambda$`|$\theta$|`$\theta$`|$\forall$|`$\forall$`|
-|$\checkmark$|`$\checkmark$`|||||
+|$\checkmark$|`$\checkmark$`|$\otimes$|`$\otimes$`|$\lgroup \rgroup$|`$\lgroup \rgroup$`|
 
 ## 数学运算符
 
@@ -95,6 +95,16 @@ $$
 $$
 \sum_1^\infty n
 $$
+```
+
+### Max
+
+$$
+a=\max_{1\leq j \leq s}
+$$
+
+```markdown
+a=\max_{1\leq j \leq s}
 ```
 
 ### 根号
