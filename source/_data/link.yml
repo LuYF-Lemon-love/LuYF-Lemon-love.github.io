@@ -202,6 +202,10 @@
       link: https://conda.io/en/latest/miniconda.html
       avatar: https://cos.luyf-lemon-love.space/images/20230203214757.png
       descr: a free minimal installer for conda
+    - name: nbviewer
+      link: https://nbviewer.org/
+      avatar: https://cos.luyf-lemon-love.space/images/20230210223926.png
+      descr: A simple way to share Jupyter Notebooks
 
 - class_name: 混合编程
   class_desc:
@@ -294,6 +298,10 @@
       link: https://www.dgl.ai/
       avatar: https://cos.luyf-lemon-love.space/images/dgl.jpg
       descr: Easy Deep Learning on Graphs
+    - name: handson-ml2
+      link: https://github.com/ageron/handson-ml2
+      avatar: https://cos.luyf-lemon-love.space/images/20230210224218.png
+      descr: A series of Jupyter notebooks that walk you through the fundamentals of Machine Learning and Deep Learning in Python using Scikit-Learn, Keras and TensorFlow 2.
 
 - class_name: 知识图谱
   class_desc:

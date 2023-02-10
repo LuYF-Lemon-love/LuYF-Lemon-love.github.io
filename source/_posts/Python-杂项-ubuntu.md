@@ -649,6 +649,14 @@ $ pip install cmake==3.18.4 -i https://pypi.tuna.tsinghua.edu.cn/simple
 $ pip install MulticoreTSNE -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
+## Installing scikit-learn
+
+官网安装页面: https://scikit-learn.org/stable/install.html .
+
+```shell
+$ pip install -U scikit-learn
+```
+
 ## 结语
 
 第三十篇博文写完，开心！！！！
