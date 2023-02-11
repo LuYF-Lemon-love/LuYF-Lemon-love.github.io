@@ -5,7 +5,7 @@ tags:
   - 正则表达式
 categories: Python
 description: 关于在 Python 中通过 re 模块使用正则表达式的官方入门教程.
-cover: 'https://cos.luyf-lemon-love.space/images/001-美女_黒丝.png'
+cover: 'https://cos.luyf-lemon-love.space/images/002-蓝色头发.png'
 abbrlink: 2827823407
 date: 2023-02-11 15:12:55
 ---
