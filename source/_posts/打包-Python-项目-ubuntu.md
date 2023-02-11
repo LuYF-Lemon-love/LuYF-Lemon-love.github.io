@@ -4,7 +4,7 @@ tags:
   - Python
 categories: Python
 description: 打包 Python 项目。
-cover: 'https://cos.luyf-lemon-love.space/images/20220511161739.png'
+cover: 'https://cos.luyf-lemon-love.space/images/001-美女_黒丝_粉色.png'
 abbrlink: 3178542699
 date: 2023-02-07 11:01:34
 ---
