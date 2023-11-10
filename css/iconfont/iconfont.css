@@ -1,0 +1,87 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3411896 */
+  src: url('iconfont.woff2?t=1677591001983') format('woff2'),
+       url('iconfont.woff?t=1677591001983') format('woff'),
+       url('iconfont.ttf?t=1677591001983') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-paper:before {
+  content: "\e61e";
+}
+
+.icon-category:before {
+  content: "\e699";
+}
+
+.icon-home:before {
+  content: "\e77c";
+}
+
+.icon-image:before {
+  content: "\e77f";
+}
+
+.icon-comment:before {
+  content: "\e7a0";
+}
+
+.icon-github:before {
+  content: "\e66f";
+}
+
+.icon-archive:before {
+  content: "\e69f";
+}
+
+.icon-list:before {
+  content: "\e706";
+}
+
+.icon-lx-server:before {
+  content: "\e650";
+}
+
+.icon-cloud:before {
+  content: "\e6f9";
+}
+
+.icon-link:before {
+  content: "\e704";
+}
+
+.icon-comment1:before {
+  content: "\e7c4";
+}
+
+.icon-domainyuming:before {
+  content: "\e714";
+}
+
+.icon-set_about_hov:before {
+  content: "\e688";
+}
+
+.icon-tag-color:before {
+  content: "\e626";
+}
+
+.icon-logo-vercel:before {
+  content: "\e8c0";
+}
+
+.icon-gitee:before {
+  content: "\e60c";
+}
+
+.icon-bilibili:before {
+  content: "\e609";
+}
+

@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>LuYF-Lemon-love の Blog</title>
+  <icon>https://www.luyf-lemon-love.space/icon.png</icon>
+  
+  <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
+  
+  <link href="https://www.luyf-lemon-love.space/"/>
+  <updated>2023-11-10T15:04:40.690Z</updated>
+  <id>https://www.luyf-lemon-love.space/</id>
+  
+  <author>
+    <name>LuYF-Lemon-love</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>读的文档 PDF 版本-ubuntu</title>
+    <link href="https://www.luyf-lemon-love.space/879521988/"/>
+    <id>https://www.luyf-lemon-love.space/879521988/</id>
+    <published>2023-11-10T06:11:13.000Z</published>
+    <updated>2023-11-10T15:04:40.690Z</updated>
+    
+    
+    <summary type="html">记录读过的 PDF 版本的文档.</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>读的 KG 论文 PDF 版本-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/3252974661/"/>
+    <id>https://www.luyf-lemon-love.space/3252974661/</id>
+    <published>2023-11-04T12:16:12.000Z</published>
+    <updated>2023-11-10T15:04:40.690Z</updated>
+    
+    
+    <summary type="html">记录读过的 PDF 版本的 知识图谱 论文.</summary>
+    
+    
+    
+    <category term="Paper" scheme="https://www.luyf-lemon-love.space/categories/Paper/"/>
+    
+    
+    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>人工智能数据下载-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/2057537256/"/>
+    <id>https://www.luyf-lemon-love.space/2057537256/</id>
+    <published>2023-10-18T14:45:07.000Z</published>
+    <updated>2023-11-10T15:04:40.682Z</updated>
+    
+    
+    <summary type="html">记录深度学习常用数据下载.</summary>
+    
+    
+    
+    <category term="杂项" scheme="https://www.luyf-lemon-love.space/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>读的论文清单-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/2745492720/"/>
+    <id>https://www.luyf-lemon-love.space/2745492720/</id>
+    <published>2023-09-19T11:16:26.000Z</published>
+    <updated>2023-11-10T15:04:40.690Z</updated>
+    
+    
+    <summary type="html">记录读过的 PDF 版本论文.</summary>
+    
+    
+    
+    <category term="Paper" scheme="https://www.luyf-lemon-love.space/categories/Paper/"/>
+    
+    
+    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python json --- JSON 编码和解码器-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/2374601954/"/>
+    <id>https://www.luyf-lemon-love.space/2374601954/</id>
+    <published>2023-09-14T07:18:52.000Z</published>
+    <updated>2023-11-10T15:04:40.670Z</updated>
+    
+    
+    <summary type="html">Python json --- JSON 编码和解码器学习笔记。</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>pandas 杂项-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/4294602827/"/>
+    <id>https://www.luyf-lemon-love.space/4294602827/</id>
+    <published>2023-09-13T11:14:27.000Z</published>
+    <updated>2023-11-10T15:04:40.682Z</updated>
+    
+    
+    <summary type="html">介绍一些 pandas 杂项。</summary>
+    
+    
+    
+    <category term="杂项" scheme="https://www.luyf-lemon-love.space/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python typing —— 对类型提示的支持-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/2704083799/"/>
+    <id>https://www.luyf-lemon-love.space/2704083799/</id>
+    <published>2023-09-09T11:31:10.000Z</published>
+    <updated>2023-11-10T15:04:40.670Z</updated>
+    
+    
+    <summary type="html">typing —— 对类型提示的支持学习笔记。</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>FastAPI 学习笔记-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/3200015383/"/>
+    <id>https://www.luyf-lemon-love.space/3200015383/</id>
+    <published>2023-09-09T06:47:51.000Z</published>
+    <updated>2023-11-10T15:04:40.646Z</updated>
+    
+    
+    <summary type="html">FastAPI 学习笔记</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python dataclasses --- 数据类-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/407119808/"/>
+    <id>https://www.luyf-lemon-love.space/407119808/</id>
+    <published>2023-09-08T12:20:18.000Z</published>
+    <updated>2023-11-10T15:04:40.670Z</updated>
+    
+    
+    <summary type="html">dataclasses --- 数据类学习笔记。</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LeetCode 刷题笔记-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/1171468891/"/>
+    <id>https://www.luyf-lemon-love.space/1171468891/</id>
+    <published>2023-08-26T13:18:00.000Z</published>
+    <updated>2023-11-10T15:04:40.662Z</updated>
+    
+    
+    <summary type="html">自己的 LeetCode 刷题记录.</summary>
+    
+    
+    
+    <category term="刷题" scheme="https://www.luyf-lemon-love.space/categories/%E5%88%B7%E9%A2%98/"/>
+    
+    
+    <category term="刷题" scheme="https://www.luyf-lemon-love.space/tags/%E5%88%B7%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>读的强化学习论文 PDF 版本-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/3275205967/"/>
+    <id>https://www.luyf-lemon-love.space/3275205967/</id>
+    <published>2023-08-26T12:46:53.000Z</published>
+    <updated>2023-11-10T15:04:40.690Z</updated>
+    
+    
+    <summary type="html">记录读过的 PDF 版本的 强化学习 论文.</summary>
+    
+    
+    
+    <category term="Paper" scheme="https://www.luyf-lemon-love.space/categories/Paper/"/>
+    
+    
+    <category term="强化学习" scheme="https://www.luyf-lemon-love.space/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python property 装饰器-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/3263919874/"/>
+    <id>https://www.luyf-lemon-love.space/3263919874/</id>
+    <published>2023-08-05T09:40:00.000Z</published>
+    <updated>2023-11-10T15:04:40.670Z</updated>
+    
+    
+    <summary type="html">Python property 装饰器学习笔记。</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python 垃圾回收器接口-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/2642776887/"/>
+    <id>https://www.luyf-lemon-love.space/2642776887/</id>
+    <published>2023-08-05T08:47:37.000Z</published>
+    <updated>2023-11-10T15:04:40.670Z</updated>
+    
+    
+    <summary type="html">Python 垃圾回收器接口学习笔记。</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python 类-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/1279939475/"/>
+    <id>https://www.luyf-lemon-love.space/1279939475/</id>
+    <published>2023-08-05T05:38:29.000Z</published>
+    <updated>2023-11-10T15:04:40.670Z</updated>
+    
+    
+    <summary type="html">Python 类学习笔记。</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+    <category term="Python官方教程" scheme="https://www.luyf-lemon-love.space/tags/Python%E5%AE%98%E6%96%B9%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python 装饰器-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/3618423305/"/>
+    <id>https://www.luyf-lemon-love.space/3618423305/</id>
+    <published>2023-07-22T13:29:08.000Z</published>
+    <updated>2023-11-10T15:04:40.670Z</updated>
+    
+    
+    <summary type="html">Python 装饰器学习笔记。</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Neural Network CUDA 例子-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/624767739/"/>
+    <id>https://www.luyf-lemon-love.space/624767739/</id>
+    <published>2023-07-22T07:50:06.000Z</published>
+    <updated>2023-11-10T15:04:40.666Z</updated>
+    
+    
+    <summary type="html">CUDA新手入门代码。</summary>
+    
+    
+    
+    <category term="C/C++和Python混合编程" scheme="https://www.luyf-lemon-love.space/categories/C-C-%E5%92%8CPython%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="PyTorch" scheme="https://www.luyf-lemon-love.space/tags/PyTorch/"/>
+    
+    <category term="pybind11" scheme="https://www.luyf-lemon-love.space/tags/pybind11/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PyTorch 数据并行-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/1645262371/"/>
+    <id>https://www.luyf-lemon-love.space/1645262371/</id>
+    <published>2023-07-22T04:13:42.000Z</published>
+    <updated>2023-11-10T15:04:40.670Z</updated>
+    
+    
+    <summary type="html">PyTorch 数据并行学习笔记。</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="PyTorch" scheme="https://www.luyf-lemon-love.space/tags/PyTorch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>logging --- Python 的日志记录工具-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/3510961021/"/>
+    <id>https://www.luyf-lemon-love.space/3510961021/</id>
+    <published>2023-07-19T12:19:54.000Z</published>
+    <updated>2023-11-10T15:04:40.682Z</updated>
+    
+    
+    <summary type="html">Python 的日志记录工具</summary>
+    
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/categories/Python/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hugging Face 杂项-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/419610125/"/>
+    <id>https://www.luyf-lemon-love.space/419610125/</id>
+    <published>2023-07-18T14:06:21.000Z</published>
+    <updated>2023-11-10T15:04:40.658Z</updated>
+    
+    
+    <summary type="html">介绍一些 Hugging Face 的杂项。</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="PyTorch" scheme="https://www.luyf-lemon-love.space/tags/PyTorch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自动登录校园网脚本-windows10</title>
+    <link href="https://www.luyf-lemon-love.space/2527932181/"/>
+    <id>https://www.luyf-lemon-love.space/2527932181/</id>
+    <published>2023-07-18T05:02:23.000Z</published>
+    <updated>2023-11-10T15:04:40.690Z</updated>
+    
+    
+    <summary type="html">自动登录校园网脚本-Python</summary>
+    
+    
+    
+    <category term="杂项" scheme="https://www.luyf-lemon-love.space/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+</feed>
