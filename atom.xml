@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2023-11-10T15:04:40.690Z</updated>
+  <updated>2023-11-19T15:00:15.059Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>读的 AI 论文 PDF 论文-ubuntu</title>
+    <link href="https://www.luyf-lemon-love.space/3157466150/"/>
+    <id>https://www.luyf-lemon-love.space/3157466150/</id>
+    <published>2023-11-19T14:48:16.000Z</published>
+    <updated>2023-11-19T15:00:15.059Z</updated>
+    
+    
+    <summary type="html">记录读过的 PDF 版本的 AI 论文.</summary>
+    
+    
+    
+    <category term="Paper" scheme="https://www.luyf-lemon-love.space/categories/Paper/"/>
+    
+    
+    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+  </entry>
   
   <entry>
     <title>读的文档 PDF 版本-ubuntu</title>
@@ -380,25 +399,6 @@
     
     
     <category term="PyTorch" scheme="https://www.luyf-lemon-love.space/tags/PyTorch/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>自动登录校园网脚本-windows10</title>
-    <link href="https://www.luyf-lemon-love.space/2527932181/"/>
-    <id>https://www.luyf-lemon-love.space/2527932181/</id>
-    <published>2023-07-18T05:02:23.000Z</published>
-    <updated>2023-11-10T15:04:40.690Z</updated>
-    
-    
-    <summary type="html">自动登录校园网脚本-Python</summary>
-    
-    
-    
-    <category term="杂项" scheme="https://www.luyf-lemon-love.space/categories/%E6%9D%82%E9%A1%B9/"/>
-    
-    
-    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
     
   </entry>
   
