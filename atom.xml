@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2023-11-28T10:09:14.524Z</updated>
+  <updated>2023-11-28T12:19:00.151Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -17,11 +17,30 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>计算机图形学-ubuntu</title>
+    <link href="https://www.luyf-lemon-love.space/108885343/"/>
+    <id>https://www.luyf-lemon-love.space/108885343/</id>
+    <published>2023-11-28T11:49:38.000Z</published>
+    <updated>2023-11-28T12:19:00.151Z</updated>
+    
+    
+    <summary type="html">记录计算机图形学的学习资源.</summary>
+    
+    
+    
+    <category term="杂项" scheme="https://www.luyf-lemon-love.space/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="计算机图形学" scheme="https://www.luyf-lemon-love.space/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
     <title>读的计算机图形学书-ubuntu</title>
     <link href="https://www.luyf-lemon-love.space/4108263095/"/>
     <id>https://www.luyf-lemon-love.space/4108263095/</id>
     <published>2023-11-28T09:57:18.000Z</published>
-    <updated>2023-11-28T10:09:14.524Z</updated>
+    <updated>2023-11-28T11:53:35.912Z</updated>
     
     
     <summary type="html">记录读过的 PDF 版本的计算机图形学书.</summary>
@@ -380,25 +399,6 @@
     <category term="PyTorch" scheme="https://www.luyf-lemon-love.space/tags/PyTorch/"/>
     
     <category term="pybind11" scheme="https://www.luyf-lemon-love.space/tags/pybind11/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PyTorch 数据并行-windows10</title>
-    <link href="https://www.luyf-lemon-love.space/1645262371/"/>
-    <id>https://www.luyf-lemon-love.space/1645262371/</id>
-    <published>2023-07-22T04:13:42.000Z</published>
-    <updated>2023-11-10T15:04:40.670Z</updated>
-    
-    
-    <summary type="html">PyTorch 数据并行学习笔记。</summary>
-    
-    
-    
-    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="PyTorch" scheme="https://www.luyf-lemon-love.space/tags/PyTorch/"/>
     
   </entry>
   
