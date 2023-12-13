@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2023-11-28T12:29:44.257Z</updated>
+  <updated>2023-12-13T10:48:28.757Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -15,6 +15,63 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Beamer 学习笔记-ubuntu</title>
+    <link href="https://www.luyf-lemon-love.space/3165539937/"/>
+    <id>https://www.luyf-lemon-love.space/3165539937/</id>
+    <published>2023-12-13T10:42:18.000Z</published>
+    <updated>2023-12-13T10:48:28.757Z</updated>
+    
+    
+    <summary type="html">Beamer 学习笔记.</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="LaTeX" scheme="https://www.luyf-lemon-love.space/tags/LaTeX/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LaTeX 学习笔记-ubuntu</title>
+    <link href="https://www.luyf-lemon-love.space/3692073216/"/>
+    <id>https://www.luyf-lemon-love.space/3692073216/</id>
+    <published>2023-12-13T10:35:11.000Z</published>
+    <updated>2023-12-13T10:40:20.190Z</updated>
+    
+    
+    <summary type="html">LaTeX 学习笔记.</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="LaTeX" scheme="https://www.luyf-lemon-love.space/tags/LaTeX/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PyKEEN 文档学习笔记-ubuntu</title>
+    <link href="https://www.luyf-lemon-love.space/3579766171/"/>
+    <id>https://www.luyf-lemon-love.space/3579766171/</id>
+    <published>2023-12-13T10:27:36.000Z</published>
+    <updated>2023-12-13T10:33:18.167Z</updated>
+    
+    
+    <summary type="html">PyKEEN 文档学习笔记.</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>计算机图形学-ubuntu</title>
@@ -97,7 +154,7 @@
     <link href="https://www.luyf-lemon-love.space/879521988/"/>
     <id>https://www.luyf-lemon-love.space/879521988/</id>
     <published>2023-11-10T06:11:13.000Z</published>
-    <updated>2023-12-04T15:17:52.496Z</updated>
+    <updated>2023-12-13T10:53:28.573Z</updated>
     
     
     <summary type="html">记录读过的 PDF 版本的文档.</summary>
@@ -338,67 +395,6 @@
     
     
     <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python 类-windows10</title>
-    <link href="https://www.luyf-lemon-love.space/1279939475/"/>
-    <id>https://www.luyf-lemon-love.space/1279939475/</id>
-    <published>2023-08-05T05:38:29.000Z</published>
-    <updated>2023-11-10T15:04:40.670Z</updated>
-    
-    
-    <summary type="html">Python 类学习笔记。</summary>
-    
-    
-    
-    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
-    
-    <category term="Python官方教程" scheme="https://www.luyf-lemon-love.space/tags/Python%E5%AE%98%E6%96%B9%E6%95%99%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python 装饰器-windows10</title>
-    <link href="https://www.luyf-lemon-love.space/3618423305/"/>
-    <id>https://www.luyf-lemon-love.space/3618423305/</id>
-    <published>2023-07-22T13:29:08.000Z</published>
-    <updated>2023-11-10T15:04:40.670Z</updated>
-    
-    
-    <summary type="html">Python 装饰器学习笔记。</summary>
-    
-    
-    
-    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Neural Network CUDA 例子-windows10</title>
-    <link href="https://www.luyf-lemon-love.space/624767739/"/>
-    <id>https://www.luyf-lemon-love.space/624767739/</id>
-    <published>2023-07-22T07:50:06.000Z</published>
-    <updated>2023-11-10T15:04:40.666Z</updated>
-    
-    
-    <summary type="html">CUDA新手入门代码。</summary>
-    
-    
-    
-    <category term="C/C++和Python混合编程" scheme="https://www.luyf-lemon-love.space/categories/C-C-%E5%92%8CPython%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="PyTorch" scheme="https://www.luyf-lemon-love.space/tags/PyTorch/"/>
-    
-    <category term="pybind11" scheme="https://www.luyf-lemon-love.space/tags/pybind11/"/>
     
   </entry>
   
