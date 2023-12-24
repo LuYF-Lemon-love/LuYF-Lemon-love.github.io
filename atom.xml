@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2023-12-14T15:13:25.765Z</updated>
+  <updated>2023-12-24T12:12:28.366Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>经常翻阅的 API-ubuntu.md</title>
+    <link href="https://www.luyf-lemon-love.space/3597300676/"/>
+    <id>https://www.luyf-lemon-love.space/3597300676/</id>
+    <published>2023-12-24T11:57:54.000Z</published>
+    <updated>2023-12-24T12:12:28.366Z</updated>
+    
+    
+    <summary type="html">经常翻阅的 API 和文档。</summary>
+    
+    
+    
+    <category term="杂项" scheme="https://www.luyf-lemon-love.space/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>Deep Graph Library (DGL) 学习笔记-ubuntu</title>
@@ -238,7 +257,7 @@
     <link href="https://www.luyf-lemon-love.space/2745492720/"/>
     <id>https://www.luyf-lemon-love.space/2745492720/</id>
     <published>2023-09-19T11:16:26.000Z</published>
-    <updated>2023-12-21T04:08:52.899Z</updated>
+    <updated>2023-12-24T11:45:08.131Z</updated>
     
     
     <summary type="html">记录读过的 PDF 版本论文.</summary>
@@ -382,25 +401,6 @@
     
     
     <category term="强化学习" scheme="https://www.luyf-lemon-love.space/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python property 装饰器-windows10</title>
-    <link href="https://www.luyf-lemon-love.space/3263919874/"/>
-    <id>https://www.luyf-lemon-love.space/3263919874/</id>
-    <published>2023-08-05T09:40:00.000Z</published>
-    <updated>2023-11-10T15:04:40.670Z</updated>
-    
-    
-    <summary type="html">Python property 装饰器学习笔记。</summary>
-    
-    
-    
-    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
     
   </entry>
   
