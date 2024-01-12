@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2024-01-01T08:04:47.022Z</updated>
+  <updated>2024-01-12T08:10:42.076Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -15,6 +15,44 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>typing —— 对类型提示的支持-ubuntu</title>
+    <link href="https://www.luyf-lemon-love.space/3744612923/"/>
+    <id>https://www.luyf-lemon-love.space/3744612923/</id>
+    <published>2024-01-12T08:04:53.000Z</published>
+    <updated>2024-01-12T08:10:42.076Z</updated>
+    
+    
+    <summary type="html">typing 学习笔记</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Setuptools 文档-ubuntu</title>
+    <link href="https://www.luyf-lemon-love.space/3486910403/"/>
+    <id>https://www.luyf-lemon-love.space/3486910403/</id>
+    <published>2024-01-12T07:51:05.000Z</published>
+    <updated>2024-01-12T08:01:04.911Z</updated>
+    
+    
+    <summary type="html">Setuptools 学习笔记</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>pybind11 文档学习笔记-ubuntu</title>
@@ -61,7 +99,7 @@
     <link href="https://www.luyf-lemon-love.space/3597300676/"/>
     <id>https://www.luyf-lemon-love.space/3597300676/</id>
     <published>2023-12-24T11:57:54.000Z</published>
-    <updated>2024-01-11T15:01:39.085Z</updated>
+    <updated>2024-01-12T07:47:29.435Z</updated>
     
     
     <summary type="html">经常翻阅的 API 和文档。</summary>
@@ -297,7 +335,7 @@
     <link href="https://www.luyf-lemon-love.space/2745492720/"/>
     <id>https://www.luyf-lemon-love.space/2745492720/</id>
     <published>2023-09-19T11:16:26.000Z</published>
-    <updated>2023-12-24T11:45:08.131Z</updated>
+    <updated>2024-01-12T08:10:50.092Z</updated>
     
     
     <summary type="html">记录读过的 PDF 版本论文.</summary>
@@ -358,44 +396,6 @@
     
     
     <summary type="html">typing —— 对类型提示的支持学习笔记。</summary>
-    
-    
-    
-    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>FastAPI 学习笔记-windows10</title>
-    <link href="https://www.luyf-lemon-love.space/3200015383/"/>
-    <id>https://www.luyf-lemon-love.space/3200015383/</id>
-    <published>2023-09-09T06:47:51.000Z</published>
-    <updated>2023-11-10T15:04:40.646Z</updated>
-    
-    
-    <summary type="html">FastAPI 学习笔记</summary>
-    
-    
-    
-    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python dataclasses --- 数据类-windows10</title>
-    <link href="https://www.luyf-lemon-love.space/407119808/"/>
-    <id>https://www.luyf-lemon-love.space/407119808/</id>
-    <published>2023-09-08T12:20:18.000Z</published>
-    <updated>2023-11-10T15:04:40.670Z</updated>
-    
-    
-    <summary type="html">dataclasses --- 数据类学习笔记。</summary>
     
     
     
