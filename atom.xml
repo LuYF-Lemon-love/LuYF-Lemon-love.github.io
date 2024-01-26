@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2024-01-12T08:14:02.953Z</updated>
+  <updated>2024-01-26T14:09:54.554Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>错误和异常-文档-ubuntu</title>
+    <link href="https://www.luyf-lemon-love.space/2612592177/"/>
+    <id>https://www.luyf-lemon-love.space/2612592177/</id>
+    <published>2024-01-26T13:54:09.000Z</published>
+    <updated>2024-01-26T14:09:54.554Z</updated>
+    
+    
+    <summary type="html">错误和异常学习笔记</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>typing —— 对类型提示的支持-ubuntu</title>
@@ -99,7 +118,7 @@
     <link href="https://www.luyf-lemon-love.space/3597300676/"/>
     <id>https://www.luyf-lemon-love.space/3597300676/</id>
     <published>2023-12-24T11:57:54.000Z</published>
-    <updated>2024-01-23T15:00:12.913Z</updated>
+    <updated>2024-01-26T13:39:48.553Z</updated>
     
     
     <summary type="html">经常翻阅的 API 和文档。</summary>
@@ -324,9 +343,9 @@
     <category term="杂项" scheme="https://www.luyf-lemon-love.space/categories/%E6%9D%82%E9%A1%B9/"/>
     
     
-    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
     <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -381,25 +400,6 @@
     
     
     <category term="杂项" scheme="https://www.luyf-lemon-love.space/categories/%E6%9D%82%E9%A1%B9/"/>
-    
-    
-    <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python typing —— 对类型提示的支持-windows10</title>
-    <link href="https://www.luyf-lemon-love.space/2704083799/"/>
-    <id>https://www.luyf-lemon-love.space/2704083799/</id>
-    <published>2023-09-09T11:31:10.000Z</published>
-    <updated>2023-11-10T15:04:40.670Z</updated>
-    
-    
-    <summary type="html">typing —— 对类型提示的支持学习笔记。</summary>
-    
-    
-    
-    <category term="学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
