@@ -1,0 +1,474 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>00062-Python 输入和输出-windows10 | LuYF-Lemon-love の Blog</title><meta name="keywords" content="Python,Python官方教程"><meta name="author" content="LuYF-Lemon-love"><meta name="copyright" content="LuYF-Lemon-love"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Python 输入与输出学习笔记。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="00062-Python 输入和输出-windows10">
+<meta property="og:url" content="https://www.luyf-lemon-love.space/3019126146/index.html">
+<meta property="og:site_name" content="LuYF-Lemon-love の Blog">
+<meta property="og:description" content="Python 输入与输出学习笔记。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cos.luyf-lemon-love.space/images/018-%E7%BB%BF%E8%89%B2%E6%B2%BB%E6%84%88.jpg">
+<meta property="article:published_time" content="2023-03-24T08:54:10.000Z">
+<meta property="article:modified_time" content="2024-05-10T09:36:30.827Z">
+<meta property="article:author" content="LuYF-Lemon-love">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Python官方教程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cos.luyf-lemon-love.space/images/018-%E7%BB%BF%E8%89%B2%E6%B2%BB%E6%84%88.jpg"><link rel="shortcut icon" href="https://cos.luyf-lemon-love.space/images/20220601160712.png"><link rel="canonical" href="https://www.luyf-lemon-love.space/3019126146/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":null},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '00062-Python 输入和输出-windows10',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2024-05-10 17:36:30'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/iconfont/iconfont.css"><style>#article-container.post-content h1:before, h2:before, h3:before, h4:before, h5:before, h6:before { -webkit-animation: avatar_turn_around 1s linear infinite; -moz-animation: avatar_turn_around 1s linear infinite; -o-animation: avatar_turn_around 1s linear infinite; -ms-animation: avatar_turn_around 1s linear infinite; animation: avatar_turn_around 1s linear infinite; }</style><link rel="stylesheet" href="/css/custom/twikoo_beautify.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/custom/fixed_comment.css"  media="defer" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="LuYF-Lemon-love の Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="gear-loader"><div class="gear-loader_overlay"></div><div class="gear-loader_cogs"><div class="gear-loader_cogs__top"><div class="gear-top_part"></div><div class="gear-top_part"></div><div class="gear-top_part"></div><div class="gear-top_hole"></div></div><div class="gear-loader_cogs__left"><div class="gear-left_part"></div><div class="gear-left_part"></div><div class="gear-left_part"></div><div class="gear-left_hole"></div></div><div class="gear-loader_cogs__bottom"><div class="gear-bottom_part"></div><div class="gear-bottom_part"></div><div class="gear-bottom_part"></div><div class="gear-bottom_hole"></div></div></div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">96</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-tag-color"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-category"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw iconfont icon-image"></i><span> Image</span></a></li><li><a class="site-page child" href="/bilibili/"><i class="fa-fw iconfont icon-bilibili"></i><span> Bilibili</span></a></li><li><a class="site-page child" href="/artitalk/"><i class="fa-fw iconfont icon-comment"></i><span> ShuoShuo</span></a></li><li><a class="site-page child" href="/verse/"><i class="fa-fw iconfont icon-comment"></i><span> Verse</span></a></li><li><a class="site-page child" href="/Message/"><i class="fa-fw iconfont icon-comment1"></i><span> Message</span></a></li><li><a class="site-page child" href="/Domains/"><i class="fa-fw iconfont icon-domainyuming"></i><span> Domains</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-set_about_hov"></i><span> About</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-list"></i><span> Project</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://pybind11-openke.readthedocs.io/zh_CN/latest/index.html"><i class="fa-fw iconfont icon-paper"></i><span> pybind11-OpenKE</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-lx-server"></i><span> Server</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.luyf-lemon-love.space"><i class="fa-fw iconfont icon-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://luyf-lemon-love.gitee.io"><i class="fa-fw iconfont icon-gitee"></i><span> Gitee</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://vercel.luyf-lemon-love.space"><i class="fa-fw iconfont icon-logo-vercel"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://server.luyf-lemon-love.space"><i class="fa-fw iconfont icon-cloud"></i><span> Cloud</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cos.luyf-lemon-love.space/images/018-绿色治愈.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">LuYF-Lemon-love の Blog</a></span><div id="he-plugin-simple"></div><div id="none_space"></div><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-tag-color"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-category"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw iconfont icon-image"></i><span> Image</span></a></li><li><a class="site-page child" href="/bilibili/"><i class="fa-fw iconfont icon-bilibili"></i><span> Bilibili</span></a></li><li><a class="site-page child" href="/artitalk/"><i class="fa-fw iconfont icon-comment"></i><span> ShuoShuo</span></a></li><li><a class="site-page child" href="/verse/"><i class="fa-fw iconfont icon-comment"></i><span> Verse</span></a></li><li><a class="site-page child" href="/Message/"><i class="fa-fw iconfont icon-comment1"></i><span> Message</span></a></li><li><a class="site-page child" href="/Domains/"><i class="fa-fw iconfont icon-domainyuming"></i><span> Domains</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-set_about_hov"></i><span> About</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-list"></i><span> Project</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://pybind11-openke.readthedocs.io/zh_CN/latest/index.html"><i class="fa-fw iconfont icon-paper"></i><span> pybind11-OpenKE</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-lx-server"></i><span> Server</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.luyf-lemon-love.space"><i class="fa-fw iconfont icon-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://luyf-lemon-love.gitee.io"><i class="fa-fw iconfont icon-gitee"></i><span> Gitee</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://vercel.luyf-lemon-love.space"><i class="fa-fw iconfont icon-logo-vercel"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://server.luyf-lemon-love.space"><i class="fa-fw iconfont icon-cloud"></i><span> Cloud</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">00062-Python 输入和输出-windows10</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-24T08:54:10.000Z" title="发表于 2023-03-24 16:54:10">2023-03-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-10T09:36:30.827Z" title="更新于 2024-05-10 17:36:30">2024-05-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>17分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="00062-Python 输入和输出-windows10"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言">前言</h2>
+<p>程序输出有几种显示方式；数据既可以输出供人阅读的形式，也可以写入文件备用。本章探讨一些可用的方式。</p>
+<p>源教程地址: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.python.org/zh-cn/3/tutorial/inputoutput.html">https://docs.python.org/zh-cn/3/tutorial/inputoutput.html</a> .</p>
+<p>操作系统：<strong>Windows 10 专业版</strong></p>
+<h2 id="参考文档">参考文档</h2>
+<ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.python.org/zh-cn/3/tutorial/inputoutput.html">输入与输出</a></li>
+</ol>
+<h2 id="更复杂的输出格式">更复杂的输出格式</h2>
+<blockquote>
+<p>至此，我们已学习了两种写入值的方法：表达式语句 和 print() 函数。第三种方法是使用文件对象的 write() 方法；标准输出文件称为 sys.stdout。详见标准库参考。</p>
+<p>对输出格式的控制不只是打印空格分隔的值，还需要更多方式。格式化输出包括以下几种方法。</p>
+<ul>
+<li>
+<p>使用 格式化字符串字面值 ，要在字符串开头的引号/三引号前添加 f 或 F 。在这种字符串中，可以在 { 和 } 字符之间输入引用的变量，或字面值的 Python 表达式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>year = <span class="number">2016</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>event = <span class="string">&#x27;Referendum&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f&#x27;Results of the <span class="subst">&#123;year&#125;</span> <span class="subst">&#123;event&#125;</span>&#x27;</span></span><br><span class="line"><span class="string">&#x27;Results of the 2016 Referendum&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>字符串的 <code>str.format()</code> 方法需要更多手动操作。该方法也用 { 和 } 标记替换变量的位置，虽然这种方法支持详细的格式化指令，但需要提供格式化信息。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>yes_votes = <span class="number">42_572_654</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>no_votes = <span class="number">43_132_495</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>percentage = yes_votes / (yes_votes + no_votes)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#123;:-9&#125; YES votes  &#123;:2.2%&#125;&#x27;</span>.<span class="built_in">format</span>(yes_votes, percentage)</span><br><span class="line"><span class="string">&#x27; 42572654 YES votes  49.67%&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>最后，还可以用字符串切片和合并操作完成字符串处理操作，创建任何排版布局。字符串类型还支持将字符串按给定列宽进行填充，这些方法也很有用。</p>
+</li>
+</ul>
+<p>如果不需要花哨的输出，只想快速显示变量进行调试，可以用 repr() 或 str() 函数把值转化为字符串。</p>
+<p>str() 函数返回供人阅读的值，repr() 则生成适于解释器读取的值（如果没有等效的语法，则强制执行 SyntaxError）。对于没有支持供人阅读展示结果的对象， str() 返回与 repr() 相同的值。一般情况下，数字、列表或字典等结构的值，使用这两个函数输出的表现形式是一样的。字符串有两种不同的表现形式。</p>
+<p>示例如下：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">&#x27;Hello, world.&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">str</span>(s)</span><br><span class="line"><span class="string">&#x27;Hello, world.&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">repr</span>(s)</span><br><span class="line"><span class="string">&quot;&#x27;Hello, world.&#x27;&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">str</span>(<span class="number">1</span>/<span class="number">7</span>)</span><br><span class="line"><span class="string">&#x27;0.14285714285714285&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = <span class="number">10</span> * <span class="number">3.25</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y = <span class="number">200</span> * <span class="number">200</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">&#x27;The value of x is &#x27;</span> + <span class="built_in">repr</span>(x) + <span class="string">&#x27;, and y is &#x27;</span> + <span class="built_in">repr</span>(y) + <span class="string">&#x27;...&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(s)</span><br><span class="line">The value of x <span class="keyword">is</span> <span class="number">32.5</span>, <span class="keyword">and</span> y <span class="keyword">is</span> <span class="number">40000.</span>..</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># The repr() of a string adds string quotes and backslashes:</span></span><br><span class="line"><span class="meta">... </span>hello = <span class="string">&#x27;hello, world\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hellos = <span class="built_in">repr</span>(hello)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(hellos)</span><br><span class="line"><span class="string">&#x27;hello, world\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># The argument to repr() may be any Python object:</span></span><br><span class="line"><span class="meta">... </span><span class="built_in">repr</span>((x, y, (<span class="string">&#x27;spam&#x27;</span>, <span class="string">&#x27;eggs&#x27;</span>)))</span><br><span class="line"><span class="string">&quot;(32.5, 40000, (&#x27;spam&#x27;, &#x27;eggs&#x27;))&quot;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>string</code> 模块包含 <code>Template</code> 类，提供了将值替换为字符串的另一种方法。该类使用 <code>$x</code> 占位符，并用字典的值进行替换，但对格式控制的支持比较有限。</p>
+</blockquote>
+<h3 id="格式化字符串字面值">格式化字符串字面值</h3>
+<blockquote>
+<p>格式化字符串字面值 （简称为 f-字符串）在字符串前加前缀 f 或 F，通过 {expression} 表达式，把 Python 表达式的值添加到字符串内。</p>
+<p>格式说明符是可选的，写在表达式后面，可以更好地控制格式化值的方式。下例将 pi 舍入到小数点后三位：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> math</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">f&#x27;The value of pi is approximately <span class="subst">&#123;math.pi:<span class="number">.3</span>f&#125;</span>.&#x27;</span>)</span><br><span class="line">The value of pi <span class="keyword">is</span> approximately <span class="number">3.142</span>.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在 ‘:’ 后传递整数，为该字段设置最小字符宽度，常用于列对齐：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>table = &#123;<span class="string">&#x27;Sjoerd&#x27;</span>: <span class="number">4127</span>, <span class="string">&#x27;Jack&#x27;</span>: <span class="number">4098</span>, <span class="string">&#x27;Dcab&#x27;</span>: <span class="number">7678</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> name, phone <span class="keyword">in</span> table.items():</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;name:<span class="number">10</span>&#125;</span> ==&gt; <span class="subst">&#123;phone:10d&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">Sjoerd     ==&gt;       <span class="number">4127</span></span><br><span class="line">Jack       ==&gt;       <span class="number">4098</span></span><br><span class="line">Dcab       ==&gt;       <span class="number">7678</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>还有一些修饰符可以在格式化前转换值。 ‘!a’ 应用 ascii() ，‘!s’ 应用 str()，‘!r’ 应用 repr()：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>animals = <span class="string">&#x27;eels&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">f&#x27;My hovercraft is full of <span class="subst">&#123;animals&#125;</span>.&#x27;</span>)</span><br><span class="line">My hovercraft <span class="keyword">is</span> full of eels.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">f&#x27;My hovercraft is full of <span class="subst">&#123;animals!r&#125;</span>.&#x27;</span>)</span><br><span class="line">My hovercraft <span class="keyword">is</span> full of <span class="string">&#x27;eels&#x27;</span>.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>The <code>=</code> specifier can be used to expand an expression to the text of the expression, an equal sign, then the representation of the evaluated expression:</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>bugs = <span class="string">&#x27;roaches&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>count = <span class="number">13</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>area = <span class="string">&#x27;living room&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">f&#x27;Debugging <span class="subst">&#123;bugs=&#125;</span> <span class="subst">&#123;count=&#125;</span> <span class="subst">&#123;area=&#125;</span>&#x27;</span>)</span><br><span class="line">Debugging bugs=<span class="string">&#x27;roaches&#x27;</span> count=<span class="number">13</span> area=<span class="string">&#x27;living room&#x27;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>See self-documenting expressions for more information on the = specifier. For a reference on these format specifications, see the reference guide for the 格式规格迷你语言.</p>
+</blockquote>
+<h3 id="字符串-format-方法">字符串 format() 方法</h3>
+<blockquote>
+<p><code>str.format()</code> 方法的基本用法如下所示：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">&#x27;We are the &#123;&#125; who say &quot;&#123;&#125;!&quot;&#x27;</span>.<span class="built_in">format</span>(<span class="string">&#x27;knights&#x27;</span>, <span class="string">&#x27;Ni&#x27;</span>))</span><br><span class="line">We are the knights who say <span class="string">&quot;Ni!&quot;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>花括号及之内的字符（称为格式字段）被替换为传递给 <code>str.format()</code> 方法的对象。花括号中的数字表示传递给 <code>str.format()</code> 方法的对象所在的位置。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">&#x27;&#123;0&#125; and &#123;1&#125;&#x27;</span>.<span class="built_in">format</span>(<span class="string">&#x27;spam&#x27;</span>, <span class="string">&#x27;eggs&#x27;</span>))</span><br><span class="line">spam <span class="keyword">and</span> eggs</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">&#x27;&#123;1&#125; and &#123;0&#125;&#x27;</span>.<span class="built_in">format</span>(<span class="string">&#x27;spam&#x27;</span>, <span class="string">&#x27;eggs&#x27;</span>))</span><br><span class="line">eggs <span class="keyword">and</span> spam</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>str.format()</code> 方法中使用关键字参数名引用值。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">&#x27;This &#123;food&#125; is &#123;adjective&#125;.&#x27;</span>.<span class="built_in">format</span>(</span><br><span class="line"><span class="meta">... </span>      food=<span class="string">&#x27;spam&#x27;</span>, adjective=<span class="string">&#x27;absolutely horrible&#x27;</span>))</span><br><span class="line">This spam <span class="keyword">is</span> absolutely horrible.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>位置参数和关键字参数可以任意组合：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">&#x27;The story of &#123;0&#125;, &#123;1&#125;, and &#123;other&#125;.&#x27;</span>.<span class="built_in">format</span>(<span class="string">&#x27;Bill&#x27;</span>, <span class="string">&#x27;Manfred&#x27;</span>,</span><br><span class="line"><span class="meta">... </span>                                                   other=<span class="string">&#x27;Georg&#x27;</span>))</span><br><span class="line">The story of Bill, Manfred, <span class="keyword">and</span> Georg.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果不想分拆较长的格式字符串，最好按名称引用变量进行格式化，不要按位置。这项操作可以通过传递字典，并用方括号 ‘[]’ 访问键来完成。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>table = &#123;<span class="string">&#x27;Sjoerd&#x27;</span>: <span class="number">4127</span>, <span class="string">&#x27;Jack&#x27;</span>: <span class="number">4098</span>, <span class="string">&#x27;Dcab&#x27;</span>: <span class="number">8637678</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">&#x27;Jack: &#123;0[Jack]:d&#125;; Sjoerd: &#123;0[Sjoerd]:d&#125;; &#x27;</span></span><br><span class="line"><span class="meta">... </span>      <span class="string">&#x27;Dcab: &#123;0[Dcab]:d&#125;&#x27;</span>.<span class="built_in">format</span>(table))</span><br><span class="line">Jack: <span class="number">4098</span>; Sjoerd: <span class="number">4127</span>; Dcab: <span class="number">8637678</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>This could also be done by passing the table dictionary as keyword arguments with the <code>**</code> notation.</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>table = &#123;<span class="string">&#x27;Sjoerd&#x27;</span>: <span class="number">4127</span>, <span class="string">&#x27;Jack&#x27;</span>: <span class="number">4098</span>, <span class="string">&#x27;Dcab&#x27;</span>: <span class="number">8637678</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">&#x27;Jack: &#123;Jack:d&#125;; Sjoerd: &#123;Sjoerd:d&#125;; Dcab: &#123;Dcab:d&#125;&#x27;</span>.<span class="built_in">format</span>(**table))</span><br><span class="line">Jack: <span class="number">4098</span>; Sjoerd: <span class="number">4127</span>; Dcab: <span class="number">8637678</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>与内置函数 vars() 结合使用时，这种方式非常实用，可以返回包含所有局部变量的字典。</p>
+<p>As an example, the following lines produce a tidily aligned set of columns giving integers and their squares and cubes:</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">11</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(<span class="string">&#x27;&#123;0:2d&#125; &#123;1:3d&#125; &#123;2:4d&#125;&#x27;</span>.<span class="built_in">format</span>(x, x*x, x*x*x))</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"> <span class="number">1</span>   <span class="number">1</span>    <span class="number">1</span></span><br><span class="line"> <span class="number">2</span>   <span class="number">4</span>    <span class="number">8</span></span><br><span class="line"> <span class="number">3</span>   <span class="number">9</span>   <span class="number">27</span></span><br><span class="line"> <span class="number">4</span>  <span class="number">16</span>   <span class="number">64</span></span><br><span class="line"> <span class="number">5</span>  <span class="number">25</span>  <span class="number">125</span></span><br><span class="line"> <span class="number">6</span>  <span class="number">36</span>  <span class="number">216</span></span><br><span class="line"> <span class="number">7</span>  <span class="number">49</span>  <span class="number">343</span></span><br><span class="line"> <span class="number">8</span>  <span class="number">64</span>  <span class="number">512</span></span><br><span class="line"> <span class="number">9</span>  <span class="number">81</span>  <span class="number">729</span></span><br><span class="line"><span class="number">10</span> <span class="number">100</span> <span class="number">1000</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>str.format()</code> 进行字符串格式化的完整概述详见 格式字符串语法 。</p>
+</blockquote>
+<h3 id="手动格式化字符串">手动格式化字符串</h3>
+<blockquote>
+<p>下面是使用手动格式化方式实现的同一个平方和立方的表：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">11</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(<span class="built_in">repr</span>(x).rjust(<span class="number">2</span>), <span class="built_in">repr</span>(x*x).rjust(<span class="number">3</span>), end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line"><span class="meta">... </span>    <span class="comment"># Note use of &#x27;end&#x27; on previous line</span></span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(<span class="built_in">repr</span>(x*x*x).rjust(<span class="number">4</span>))</span><br><span class="line">...</span><br><span class="line"> <span class="number">1</span>   <span class="number">1</span>    <span class="number">1</span></span><br><span class="line"> <span class="number">2</span>   <span class="number">4</span>    <span class="number">8</span></span><br><span class="line"> <span class="number">3</span>   <span class="number">9</span>   <span class="number">27</span></span><br><span class="line"> <span class="number">4</span>  <span class="number">16</span>   <span class="number">64</span></span><br><span class="line"> <span class="number">5</span>  <span class="number">25</span>  <span class="number">125</span></span><br><span class="line"> <span class="number">6</span>  <span class="number">36</span>  <span class="number">216</span></span><br><span class="line"> <span class="number">7</span>  <span class="number">49</span>  <span class="number">343</span></span><br><span class="line"> <span class="number">8</span>  <span class="number">64</span>  <span class="number">512</span></span><br><span class="line"> <span class="number">9</span>  <span class="number">81</span>  <span class="number">729</span></span><br><span class="line"><span class="number">10</span> <span class="number">100</span> <span class="number">1000</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>（注意，每列之间的空格是通过使用 print() 添加的：它总在其参数间添加空格。）</p>
+<p>字符串对象的 <code>str.rjust()</code> 方法通过在左侧填充空格，对给定宽度字段中的字符串进行右对齐。同类方法还有 <code>str.ljust()</code> 和 <code>str.center()</code> 。这些方法不写入任何内容，只返回一个新字符串，如果输入的字符串太长，它们不会截断字符串，而是原样返回；虽然这种方式会弄乱列布局，但也比另一种方法好，后者在显示值时可能不准确（如果真的想截断字符串，可以使用 <code>x.ljust(n)[:n]</code> 这样的切片操作 。）</p>
+<p>另一种方法是 <code>str.zfill()</code> ，该方法在数字字符串左边填充零，且能识别正负号：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;12&#x27;</span>.zfill(<span class="number">5</span>)</span><br><span class="line"><span class="string">&#x27;00012&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;-3.14&#x27;</span>.zfill(<span class="number">7</span>)</span><br><span class="line"><span class="string">&#x27;-003.14&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;3.14159265359&#x27;</span>.zfill(<span class="number">5</span>)</span><br><span class="line"><span class="string">&#x27;3.14159265359&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="旧式字符串格式化方法">旧式字符串格式化方法</h3>
+<blockquote>
+<p>% 运算符（求余符）也可用于字符串格式化。给定 ‘string’ % values，则 string 中的 % 实例会以零个或多个 values 元素替换。此操作被称为字符串插值。例如：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> math</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">&#x27;The value of pi is approximately %5.3f.&#x27;</span> % math.pi)</span><br><span class="line">The value of pi <span class="keyword">is</span> approximately <span class="number">3.142</span>.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>printf 风格的字符串格式化 小节介绍更多相关内容。</p>
+</blockquote>
+<h2 id="读写文件">读写文件</h2>
+<blockquote>
+<p>open() 返回一个 file object ，最常使用的是两个位置参数和一个关键字参数：open(filename, mode, encoding=None)</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&#x27;workfile&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>第一个实参是文件名字符串。第二个实参是包含描述文件使用方式字符的字符串。mode 的值包括 ‘r’ ，表示文件只能读取；‘w’ 表示只能写入（现有同名文件会被覆盖）；‘a’ 表示打开文件并追加内容，任何写入的数据会自动添加到文件末尾。‘r+’ 表示打开文件进行读写。mode 实参是可选的，省略时的默认值为 ‘r’。</p>
+<p>通常情况下，文件是以 text mode 打开的，也就是说，你从文件中读写字符串，这些字符串是以特定的 encoding 编码的。如果没有指定 encoding ，默认的是与平台有关的（见 open() ）。因为 UTF-8 是现代事实上的标准，除非你知道你需要使用一个不同的编码，否则建议使用 encoding=“utf-8” 。在模式后面加上一个 ‘b’ ，可以用 binary mode 打开文件。二进制模式的数据是以 bytes 对象的形式读写的。在二进制模式下打开文件时，你不能指定 encoding 。</p>
+<p>在文本模式下读取文件时，默认把平台特定的行结束符（Unix 上为 \n, Windows 上为 \r\n）转换为 \n。在文本模式下写入数据时，默认把 \n 转换回平台特定结束符。这种操作方式在后台修改文件数据对文本文件来说没有问题，但会破坏 JPEG 或 EXE 等二进制文件中的数据。注意，在读写此类文件时，一定要使用二进制模式。</p>
+<p>在处理文件对象时，最好使用 with 关键字。优点是，子句体结束后，文件会正确关闭，即便触发异常也可以。而且，使用 with 相比等效的 try-finally 代码块要简短得多：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;workfile&#x27;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line"><span class="meta">... </span>    read_data = f.read()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># We can check that the file has been automatically closed.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.closed</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果没有使用 with 关键字，则应调用 <code>f.close()</code> 关闭文件，即可释放文件占用的系统资源。</p>
+<p><strong>警告:</strong> 调用 f.write() 时，未使用 with 关键字，或未调用 f.close()，即使程序正常退出，也<strong>可能</strong>导致 <code>f.write()</code> 的参数没有完全写入磁盘。</p>
+</blockquote>
+<blockquote>
+<p>通过 with 语句，或调用 <code>f.close()</code> 关闭文件对象后，再次使用该文件对象将会失败。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.close()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ValueError: I/O operation on closed file.</span><br></pre></td></tr></table></figure>
+<h3 id="文件对象的方法">文件对象的方法</h3>
+<blockquote>
+<p>本节下文中的例子假定已创建 f 文件对象。</p>
+<p><code>f.read(size)</code> 可用于读取文件内容，它会读取一些数据，并返回字符串（文本模式），或字节串对象（在二进制模式下）。 size 是可选的数值参数。省略 size 或 size 为负数时，读取并返回整个文件的内容；文件大小是内存的两倍时，会出现问题。size 取其他值时，读取并返回最多 size 个字符（文本模式）或 size 个字节（二进制模式）。如已到达文件末尾，f.read() 返回空字符串（‘’）。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">&#x27;This is the entire file.\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>f.readline()</code> 从文件中读取单行数据；字符串末尾保留换行符（\n），只有在文件不以换行符结尾时，文件的最后一行才会省略换行符。这种方式让返回值清晰明确；只要 <code>f.readline()</code> 返回空字符串，就表示已经到达了文件末尾，空行使用 ‘\n’ 表示，该字符串只包含一个换行符。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;This is the first line of the file.\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;Second line of the file\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>从文件中读取多行时，可以用循环遍历整个文件对象。这种操作能高效利用内存，快速，且代码简单：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(line, end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">This <span class="keyword">is</span> the first line of the file.</span><br><span class="line">Second line of the file</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如需以列表形式读取文件中的所有行，可以用 list(f) 或 f.readlines()。</p>
+<p>f.write(string) 把 string 的内容写入文件，并返回写入的字符数。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">&#x27;This is a test\n&#x27;</span>)</span><br><span class="line"><span class="number">15</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>写入其他类型的对象前，要先把它们转化为字符串（文本模式）或字节对象（二进制模式）：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>value = (<span class="string">&#x27;the answer&#x27;</span>, <span class="number">42</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="built_in">str</span>(value)  <span class="comment"># convert the tuple to string</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(s)</span><br><span class="line"><span class="number">18</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>f.tell() 返回整数，给出文件对象在文件中的当前位置，表示为二进制模式下时从文件开始的字节数，以及文本模式下的意义不明的数字。</p>
+<p>f.seek(offset, whence) 可以改变文件对象的位置。通过向参考点添加 offset 计算位置；参考点由 whence 参数指定。 whence 值为 0 时，表示从文件开头计算，1 表示使用当前文件位置，2 表示使用文件末尾作为参考点。省略 whence 时，其默认值为 0，即使用文件开头作为参考点。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&#x27;workfile&#x27;</span>, <span class="string">&#x27;rb+&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">b&#x27;0123456789abcdef&#x27;</span>)</span><br><span class="line"><span class="number">16</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.seek(<span class="number">5</span>)      <span class="comment"># Go to the 6th byte in the file</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">1</span>)</span><br><span class="line"><span class="string">b&#x27;5&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.seek(-<span class="number">3</span>, <span class="number">2</span>)  <span class="comment"># Go to the 3rd byte before the end</span></span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">1</span>)</span><br><span class="line"><span class="string">b&#x27;d&#x27;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在文本文件（模式字符串未使用 b 时打开的文件）中，只允许相对于文件开头搜索（使用 seek(0, 2) 搜索到文件末尾是个例外），唯一有效的 offset 值是能从 f.tell() 中返回的，或 0。其他 offset 值都会产生未定义的行为。</p>
+<p>文件对象还支持 isatty() 和 truncate() 等方法，但不常用；文件对象的完整指南详见库参考。</p>
+</blockquote>
+<h3 id="使用-json-保存结构化数据">使用 json 保存结构化数据</h3>
+<blockquote>
+<p>从文件写入或读取字符串很简单，数字则稍显麻烦，因为 read() 方法只返回字符串，这些字符串必须传递给 int() 这样的函数，接受 ‘123’ 这样的字符串，并返回数字值 123。保存嵌套列表、字典等复杂数据类型时，手动解析和序列化的操作非常复杂。</p>
+<p>Rather than having users constantly writing and debugging code to save complicated data types to files, Python allows you to use the popular data interchange format called JSON (JavaScript Object Notation). The standard module called json can take Python data hierarchies, and convert them to string representations; this process is called serializing. Reconstructing the data from the string representation is called deserializing. Between serializing and deserializing, the string representing the object may have been stored in a file or data, or sent over a network connection to some distant machine.</p>
+<p><strong>备注:</strong> JSON 格式通常用于现代应用程序的数据交换。程序员早已对它耳熟能详，可谓是交互操作的不二之选。</p>
+<p>只需一行简单的代码即可查看某个对象的 JSON 字符串表现形式：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = [<span class="number">1</span>, <span class="string">&#x27;simple&#x27;</span>, <span class="string">&#x27;list&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>json.dumps(x)</span><br><span class="line"><span class="string">&#x27;[1, &quot;simple&quot;, &quot;list&quot;]&#x27;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>dumps() 函数还有一个变体， dump() ，它只将对象序列化为 text file 。因此，如果 f 是 text file 对象，可以这样做：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">json.dump(x, f)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>要再次解码对象，如果 f 是已打开、供读取的 binary file 或 text file 对象：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = json.load(f)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>备注:</strong> JSON文件必须以UTF-8编码。当打开JSON文件作为一个 text file 用于读写时，使用 encoding=“utf-8” 。</p>
+<p>这种简单的序列化技术可以处理列表和字典，但在 JSON 中序列化任意类的实例，则需要付出额外努力。json 模块的参考包含对此的解释。</p>
+<p>参见: pickle - 封存模块</p>
+<p>与 JSON 不同，pickle 是一种允许对复杂 Python 对象进行序列化的协议。因此，它为 Python 所特有，不能用于与其他语言编写的应用程序通信。默认情况下它也是不安全的：如果解序化的数据是由手段高明的攻击者精心设计的，这种不受信任来源的 pickle 数据可以执行任意代码。</p>
+</blockquote>
+<h2 id="结语">结语</h2>
+<p>第六十二篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+</article><div class="business-center"><div class="business-card"><div class="business-flip"><div class="business-front"><div class="business-strip-bottom"></div><div class="business-strip-top"></div><img class="business-logo" width="80" height="80" src="https://cos.luyf-lemon-love.space/images/20220606142536.png" alt="cardcode"><div class="business-Invitation">Invitation</div><div class="business-chip"><div class="business-chip-line"></div><div class="business-chip-line"></div><div class="business-chip-line"></div><div class="business-chip-line"></div><div class="business-chip-main"></div></div><svg class="business-wave" viewBox="0 3.71 26.959 38.787" width="26.959" height="38.787" fill="white"><path d="M19.709 3.719c.266.043.5.187.656.406 4.125 5.207 6.594 11.781 6.594 18.938 0 7.156-2.469 13.73-6.594 18.937-.195.336-.57.531-.957.492a.9946.9946 0 0 1-.851-.66c-.129-.367-.035-.777.246-1.051 3.855-4.867 6.156-11.023 6.156-17.718 0-6.696-2.301-12.852-6.156-17.719-.262-.317-.301-.762-.102-1.121.204-.36.602-.559 1.008-.504z"></path><path d="M13.74 7.563c.231.039.442.164.594.343 3.508 4.059 5.625 9.371 5.625 15.157 0 5.785-2.113 11.097-5.625 15.156-.363.422-1 .472-1.422.109-.422-.363-.472-1-.109-1.422 3.211-3.711 5.156-8.551 5.156-13.843 0-5.293-1.949-10.133-5.156-13.844-.27-.309-.324-.75-.141-1.114.188-.367.578-.582.985-.542h.093z"></path><path d="M7.584 11.438c.227.031.438.144.594.312 2.953 2.863 4.781 6.875 4.781 11.313 0 4.433-1.828 8.449-4.781 11.312-.398.387-1.035.383-1.422-.016-.387-.398-.383-1.035.016-1.421 2.582-2.504 4.187-5.993 4.187-9.875 0-3.883-1.605-7.372-4.187-9.875-.321-.282-.426-.739-.266-1.133.164-.395.559-.641.984-.617h.094zM1.178 15.531c.121.02.238.063.344.125 2.633 1.414 4.437 4.215 4.437 7.407 0 3.195-1.797 5.996-4.437 7.406-.492.258-1.102.07-1.36-.422-.257-.492-.07-1.102.422-1.359 2.012-1.075 3.375-3.176 3.375-5.625 0-2.446-1.371-4.551-3.375-5.625-.441-.204-.676-.692-.551-1.165.122-.468.567-.785 1.051-.742h.094z"></path></svg><div class="business-card-number"><div class="business-section">DNF</div><div class="business-section">千万别在森林里迷路！</div></div><div class="business-end"><span class="business-end-text">created:</span><span class="business-end-date">06/19/2008</span></div><div class="business-card-holder">欢迎来到阿拉德！</div><div class="business-master"><div class="business-circle business-master-red"></div><div class="business-circle business-master-yellow">   </div></div></div><div class="business-back"><div class="business-strip-black"></div><div class="business-ccv"><label>年华一去不复返，是非成败转头空。 ——似水流年</label><div>圣耀救赎太刀</div></div><div class="business-terms"><p>月光色，女子香。泪断剑，情多长。望明月，心悲凉。千古恨，轮回尝。 ——月之光芒</p><p>江天一色无纤尘，皎皎空中孤月轮。 ——月影霜岚</p></div></div></div></div></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.luyf-lemon-love.space">LuYF-Lemon-love</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.luyf-lemon-love.space/3019126146/">https://www.luyf-lemon-love.space/3019126146/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.luyf-lemon-love.space" target="_blank">LuYF-Lemon-love の Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a><a class="post-meta__tags" href="/tags/Python%E5%AE%98%E6%96%B9%E6%95%99%E7%A8%8B/">Python官方教程</a></div><div class="post_share"><div class="social-share" data-image="https://cos.luyf-lemon-love.space/images/018-绿色治愈.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cos.luyf-lemon-love.space/images/20220511162220.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" src="https://cos.luyf-lemon-love.space/images/20220511162220.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://cos.luyf-lemon-love.space/images/20220511162303.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" src="https://cos.luyf-lemon-love.space/images/20220511162303.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2531326700/"><img class="prev-cover" src="https://cos.luyf-lemon-love.space/images/019-末日危机.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">00063-Installing packages using pip and virtual environments-windows10</div></div></a></div><div class="next-post pull-right"><a href="/2335977129/"><img class="next-cover" src="https://cos.luyf-lemon-love.space/images/017-生化危机.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">00061-WPS 杂项-windows10</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/1279939475/" title="00084-Python 类-windows10"><img class="cover" src="https://cos.luyf-lemon-love.space/images/037-古风女孩.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-05</div><div class="title">00084-Python 类-windows10</div></div></a></div><div><a href="/2009988715/" title="00033-杂项总览"><img class="cover" src="https://cos.luyf-lemon-love.space/images/061-机甲少女.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-08</div><div class="title">00033-杂项总览</div></div></a></div><div><a href="/3597300676/" title="00106-经常翻阅的 API-ubuntu.md"><img class="cover" src="https://cos.luyf-lemon-love.space/images/056-祈愿-长发古风少女.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-24</div><div class="title">00106-经常翻阅的 API-ubuntu.md</div></div></a></div><div><a href="/2612592177/" title="00111-错误和异常-文档-ubuntu"><img class="cover" src="https://cos.luyf-lemon-love.space/images/014-萌妹.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-26</div><div class="title">00111-错误和异常-文档-ubuntu</div></div></a></div><div><a href="/3744612923/" title="00110-typing —— 对类型提示的支持-ubuntu"><img class="cover" src="https://cos.luyf-lemon-love.space/images/047-雪中女孩.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-12</div><div class="title">00110-typing —— 对类型提示的支持-ubuntu</div></div></a></div><div><a href="/3486910403/" title="00109-Setuptools 文档-ubuntu"><img class="cover" src="https://cos.luyf-lemon-love.space/images/029-蓝色头发床.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-12</div><div class="title">00109-Setuptools 文档-ubuntu</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LuYF-Lemon-love</div><div class="author-info__description">天之道，损有余而补不足，人之道则不然，损不足以奉有余。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">96</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" href="https://www.luyf-lemon-love.space/atom.xml"><i class="fa fa-rss"></i><span>订阅RSS</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/LuYF-Lemon-love" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/luyanfeng_nlp@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">本站部署到了几个地方，对应的域名请看顶部的 Domains 页，也可以直接访问 Server 页。<img src="https://cos.luyf-lemon-love.space//images/src=http___5b0988e595225.cdn.sohucs.com_images_20190807_3a7deb1efdfc4111bada5782b7fbf454.gif&refer=http___5b0988e595225.cdn.sohucs.gif"></div><timing></timing></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">2.</span> <span class="toc-text">参考文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E5%A4%8D%E6%9D%82%E7%9A%84%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">更复杂的输出格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AD%97%E9%9D%A2%E5%80%BC"><span class="toc-number">3.1.</span> <span class="toc-text">格式化字符串字面值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2-format-%E6%96%B9%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text">字符串 format() 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">3.3.</span> <span class="toc-text">手动格式化字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A7%E5%BC%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%96%B9%E6%B3%95"><span class="toc-number">3.4.</span> <span class="toc-text">旧式字符串格式化方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">读写文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">文件对象的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-json-%E4%BF%9D%E5%AD%98%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE"><span class="toc-number">4.2.</span> <span class="toc-text">使用 json 保存结构化数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">5.</span> <span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/593500263/" title="00116 Beamer 主题-ubuntu"><img src="https://cos.luyf-lemon-love.space/images/055-%E5%8E%9F%E7%A5%9E.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00116 Beamer 主题-ubuntu"/></a><div class="content"><a class="title" href="/593500263/" title="00116 Beamer 主题-ubuntu">00116 Beamer 主题-ubuntu</a><time datetime="2024-05-09T14:37:27.000Z" title="发表于 2024-05-09 22:37:27">2024-05-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2329914886/" title="00115 利用 LaTeX 做 PPT (Beamer)-ubuntu"><img src="https://cos.luyf-lemon-love.space/images/051-%E7%BA%B3%E8%A5%BF%E5%A6%B2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00115 利用 LaTeX 做 PPT (Beamer)-ubuntu"/></a><div class="content"><a class="title" href="/2329914886/" title="00115 利用 LaTeX 做 PPT (Beamer)-ubuntu">00115 利用 LaTeX 做 PPT (Beamer)-ubuntu</a><time datetime="2024-05-08T08:15:58.000Z" title="发表于 2024-05-08 16:15:58">2024-05-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2553996448/" title="00114 初识 LaTeX-ubuntu"><img src="https://cos.luyf-lemon-love.space/images/036-4k-%E7%BE%8E%E5%A5%B3-%E5%8F%AF%E7%88%B1-%E6%A8%A1%E7%89%B9.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00114 初识 LaTeX-ubuntu"/></a><div class="content"><a class="title" href="/2553996448/" title="00114 初识 LaTeX-ubuntu">00114 初识 LaTeX-ubuntu</a><time datetime="2024-05-07T05:34:55.000Z" title="发表于 2024-05-07 13:34:55">2024-05-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1943031288/" title="00113 LeetCode 刷题笔记 Python 版本-ubuntu"><img src="https://cos.luyf-lemon-love.space/images/001-win11-系统自带.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00113 LeetCode 刷题笔记 Python 版本-ubuntu"/></a><div class="content"><a class="title" href="/1943031288/" title="00113 LeetCode 刷题笔记 Python 版本-ubuntu">00113 LeetCode 刷题笔记 Python 版本-ubuntu</a><time datetime="2024-03-08T03:23:23.000Z" title="发表于 2024-03-08 11:23:23">2024-03-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/3047874489/" title="00112-CMake学习文档-ubuntu"><img src="https://cos.luyf-lemon-love.space/images/004-蒙眼动漫美女.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00112-CMake学习文档-ubuntu"/></a><div class="content"><a class="title" href="/3047874489/" title="00112-CMake学习文档-ubuntu">00112-CMake学习文档-ubuntu</a><time datetime="2024-02-27T06:54:21.000Z" title="发表于 2024-02-27 14:54:21">2024-02-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By LuYF-Lemon-love</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn"><span>冀ICP备2022012632号-1</span></a><br/><a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32011502011618"><img src="https://cos.luyf-lemon-love.space/images/备案图标.png"><span>苏公网安备 32011502011618号</span></a><br/><span>感谢光临小破站，欢迎您提出宝贵的意见！</span></div></div><div class="container" id="jsi-flying-fish-container"><script src="js/fish.js"></script></div><style>   @media only screen and (max-width: 767px){
+   #sidebar_search_box input[type=text]{width:calc(100% - 24px)}
+}</style></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon">     </use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer src="/js/jquery.min.js"></script><script defer src="/js/fish.js"></script><script defer src="/js/footerbea.js"></script><script defer data-pjax src="/js/jquery.ripples.js"></script><script defer data-pjax src="/js/ripples.js"></script><script src="/js/sun_moon.js" async></script><script data-pjax defer src="/js/custom/fixed_comment.js"></script><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/artitalk/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;1943031288/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt=""><img width="48" height="48" src="https://cos.luyf-lemon-love.space/images/001-win11-系统自带.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-03-08</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;1943031288/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">00113 LeetCode 刷题笔记 Python 版本-ubuntu</a><div class="blog-slider__text">自己的 LeetCode 刷题记录.</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;1943031288/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;3188392696/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt=""><img width="48" height="48" src="https://cos.luyf-lemon-love.space/images/066-泳装可爱动漫美女.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-03-11</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;3188392696/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">00056-Python 语法和标准库系列学习笔记-windows10</a><div class="blog-slider__text">Python 语法和标准库系列学习笔记。</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;3188392696/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;4091477051/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt=""><img width="48" height="48" src="https://cos.luyf-lemon-love.space/images/063-趴着睡着的动漫美女.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-07-16</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;4091477051/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">00075-谈谈我对攻读计算机研究生的看法——转载-windows10</a><div class="blog-slider__text">如何学习计算机。</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;4091477051/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>
