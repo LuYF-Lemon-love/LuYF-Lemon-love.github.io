@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2024-05-11T06:50:51.997Z</updated>
+  <updated>2024-05-12T06:48:37.228Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>00118 本地配置 LaTeX 环境-ubuntu</title>
+    <link href="https://www.luyf-lemon-love.space/1562441757/"/>
+    <id>https://www.luyf-lemon-love.space/1562441757/</id>
+    <published>2024-05-12T04:54:00.000Z</published>
+    <updated>2024-05-12T06:48:37.228Z</updated>
+    
+    
+    <summary type="html">利用 VSCode 在本地配置 LaTex 编译环境。</summary>
+    
+    
+    
+    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="VSCode" scheme="https://www.luyf-lemon-love.space/tags/VSCode/"/>
+    
+    <category term="LaTeX" scheme="https://www.luyf-lemon-love.space/tags/LaTeX/"/>
+    
+  </entry>
+  
+  <entry>
     <title>00117 Github 主页设置贪吃蛇详细教程-ubuntu</title>
     <link href="https://www.luyf-lemon-love.space/1796985272/"/>
     <id>https://www.luyf-lemon-love.space/1796985272/</id>
     <published>2024-05-11T05:48:43.000Z</published>
-    <updated>2024-05-11T06:50:51.997Z</updated>
+    <updated>2024-05-12T05:02:35.538Z</updated>
     
     
     <summary type="html">如何在 Github 主页上设置贪吃蛇。</summary>
@@ -40,7 +61,7 @@
     <link href="https://www.luyf-lemon-love.space/593500263/"/>
     <id>https://www.luyf-lemon-love.space/593500263/</id>
     <published>2024-05-09T14:37:27.000Z</published>
-    <updated>2024-05-11T08:34:37.147Z</updated>
+    <updated>2024-05-12T05:02:17.260Z</updated>
     
     
     <summary type="html">介绍 Beamer 的主题。</summary>
@@ -384,25 +405,6 @@
     
     
     <category term="计算机图形学" scheme="https://www.luyf-lemon-love.space/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>00098-读的 AI 论文 PDF 论文-ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/3157466150/"/>
-    <id>https://www.luyf-lemon-love.space/3157466150/</id>
-    <published>2023-11-19T14:48:16.000Z</published>
-    <updated>2024-05-10T09:36:30.842Z</updated>
-    
-    
-    <summary type="html">记录读过的 PDF 版本的 AI 论文.</summary>
-    
-    
-    
-    <category term="Paper" scheme="https://www.luyf-lemon-love.space/categories/Paper/"/>
-    
-    
-    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
   </entry>
   
