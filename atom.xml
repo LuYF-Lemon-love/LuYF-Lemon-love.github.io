@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2024-06-07T15:01:50.240Z</updated>
+  <updated>2024-06-07T15:11:13.668Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -21,19 +21,10 @@
     <link href="https://www.luyf-lemon-love.space/2253080553/"/>
     <id>https://www.luyf-lemon-love.space/2253080553/</id>
     <published>2024-06-07T14:53:24.000Z</published>
-    <updated>2024-06-07T15:01:50.240Z</updated>
+    <updated>2024-06-07T15:11:13.668Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
-&lt;p&gt;Microsoft **零冗余优化器（Zero Redundancy Optimizer，ZeRO）**论文的学习笔记。&lt;/p&gt;
-&lt;p&gt;操作系统：Windows 11 家庭中文版&lt;/p&gt;
-&lt;h2</summary>
-        
-      
+    <summary type="html">零冗余优化器。</summary>
     
     
     
@@ -76,7 +67,7 @@
     <link href="https://www.luyf-lemon-love.space/1644152204/"/>
     <id>https://www.luyf-lemon-love.space/1644152204/</id>
     <published>2024-06-01T13:54:48.000Z</published>
-    <updated>2024-06-04T10:33:51.868Z</updated>
+    <updated>2024-06-07T15:10:35.197Z</updated>
     
     
     <summary type="html">学习笔记目录，包含论文。</summary>
