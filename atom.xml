@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2024-06-19T13:29:41.204Z</updated>
+  <updated>2024-06-24T09:30:29.207Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>00134 翻译 windows11</title>
+    <link href="https://www.luyf-lemon-love.space/3040223838/"/>
+    <id>https://www.luyf-lemon-love.space/3040223838/</id>
+    <published>2024-06-24T09:11:53.000Z</published>
+    <updated>2024-06-24T09:30:29.207Z</updated>
+    
+    
+    <summary type="html">翻译</summary>
+    
+    
+    
+    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
+    
+  </entry>
   
   <entry>
     <title>00133 掩码语言建模 windows11</title>
@@ -323,9 +348,9 @@
     <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="Github" scheme="https://www.luyf-lemon-love.space/tags/Github/"/>
-    
     <category term="VSCode" scheme="https://www.luyf-lemon-love.space/tags/VSCode/"/>
+    
+    <category term="Github" scheme="https://www.luyf-lemon-love.space/tags/Github/"/>
     
     <category term="Python" scheme="https://www.luyf-lemon-love.space/tags/Python/"/>
     
@@ -447,25 +472,6 @@
     
     
     <summary type="html">基于 Beamer，利用 LaTex 做 PPT。</summary>
-    
-    
-    
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="LaTeX" scheme="https://www.luyf-lemon-love.space/tags/LaTeX/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>00114 初识 LaTeX-ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/2553996448/"/>
-    <id>https://www.luyf-lemon-love.space/2553996448/</id>
-    <published>2024-05-07T05:34:55.000Z</published>
-    <updated>2024-05-10T09:36:30.847Z</updated>
-    
-    
-    <summary type="html">初识 LaTex，主要集中于基础语法知识。</summary>
     
     
     
