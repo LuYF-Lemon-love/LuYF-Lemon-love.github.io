@@ -1,0 +1,613 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>00136 在单个GPU上进行高效训练的方法和工具 windows11 | LuYF-Lemon-love の Blog</title><meta name="keywords" content="人工智能,深度学习,大语言模型,huggingface"><meta name="author" content="LuYF-Lemon-love"><meta name="copyright" content="LuYF-Lemon-love"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在单个GPU上进行高效训练的方法和工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="00136 在单个GPU上进行高效训练的方法和工具 windows11">
+<meta property="og:url" content="https://www.luyf-lemon-love.space/2662155066/index.html">
+<meta property="og:site_name" content="LuYF-Lemon-love の Blog">
+<meta property="og:description" content="在单个GPU上进行高效训练的方法和工具">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cos.luyf-lemon-love.space/images/061-%E6%9C%BA%E7%94%B2%E5%B0%91%E5%A5%B3.jpg">
+<meta property="article:published_time" content="2024-06-26T07:01:13.000Z">
+<meta property="article:modified_time" content="2024-06-26T07:29:32.693Z">
+<meta property="article:author" content="LuYF-Lemon-love">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="大语言模型">
+<meta property="article:tag" content="huggingface">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cos.luyf-lemon-love.space/images/061-%E6%9C%BA%E7%94%B2%E5%B0%91%E5%A5%B3.jpg"><link rel="shortcut icon" href="https://cos.luyf-lemon-love.space/images/20220601160712.png"><link rel="canonical" href="https://www.luyf-lemon-love.space/2662155066/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":null},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '00136 在单个GPU上进行高效训练的方法和工具 windows11',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2024-06-26 15:29:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/iconfont/iconfont.css"><style>#article-container.post-content h1:before, h2:before, h3:before, h4:before, h5:before, h6:before { -webkit-animation: avatar_turn_around 1s linear infinite; -moz-animation: avatar_turn_around 1s linear infinite; -o-animation: avatar_turn_around 1s linear infinite; -ms-animation: avatar_turn_around 1s linear infinite; animation: avatar_turn_around 1s linear infinite; }</style><link rel="stylesheet" href="/css/custom/twikoo_beautify.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/custom/fixed_comment.css"  media="defer" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="LuYF-Lemon-love の Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="gear-loader"><div class="gear-loader_overlay"></div><div class="gear-loader_cogs"><div class="gear-loader_cogs__top"><div class="gear-top_part"></div><div class="gear-top_part"></div><div class="gear-top_part"></div><div class="gear-top_hole"></div></div><div class="gear-loader_cogs__left"><div class="gear-left_part"></div><div class="gear-left_part"></div><div class="gear-left_part"></div><div class="gear-left_hole"></div></div><div class="gear-loader_cogs__bottom"><div class="gear-bottom_part"></div><div class="gear-bottom_part"></div><div class="gear-bottom_part"></div><div class="gear-bottom_hole"></div></div></div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">136</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-tag-color"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-category"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw iconfont icon-image"></i><span> Image</span></a></li><li><a class="site-page child" href="/bilibili/"><i class="fa-fw iconfont icon-bilibili"></i><span> Bilibili</span></a></li><li><a class="site-page child" href="/verse/"><i class="fa-fw iconfont icon-comment"></i><span> Verse</span></a></li><li><a class="site-page child" href="/Message/"><i class="fa-fw iconfont icon-comment1"></i><span> Message</span></a></li><li><a class="site-page child" href="/Domains/"><i class="fa-fw iconfont icon-domainyuming"></i><span> Domains</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-set_about_hov"></i><span> About</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-list"></i><span> Project</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://pybind11-openke.readthedocs.io/zh_CN/latest/index.html"><i class="fa-fw iconfont icon-paper"></i><span> pybind11-OpenKE</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-lx-server"></i><span> Server</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.luyf-lemon-love.space"><i class="fa-fw iconfont icon-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://vercel.luyf-lemon-love.space"><i class="fa-fw iconfont icon-logo-vercel"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://server.luyf-lemon-love.space"><i class="fa-fw iconfont icon-cloud"></i><span> Cloud</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cos.luyf-lemon-love.space/images/061-机甲少女.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">LuYF-Lemon-love の Blog</a></span><div id="he-plugin-simple"></div><div id="none_space"></div><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-tag-color"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-category"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw iconfont icon-image"></i><span> Image</span></a></li><li><a class="site-page child" href="/bilibili/"><i class="fa-fw iconfont icon-bilibili"></i><span> Bilibili</span></a></li><li><a class="site-page child" href="/verse/"><i class="fa-fw iconfont icon-comment"></i><span> Verse</span></a></li><li><a class="site-page child" href="/Message/"><i class="fa-fw iconfont icon-comment1"></i><span> Message</span></a></li><li><a class="site-page child" href="/Domains/"><i class="fa-fw iconfont icon-domainyuming"></i><span> Domains</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-set_about_hov"></i><span> About</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-list"></i><span> Project</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://pybind11-openke.readthedocs.io/zh_CN/latest/index.html"><i class="fa-fw iconfont icon-paper"></i><span> pybind11-OpenKE</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-lx-server"></i><span> Server</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.luyf-lemon-love.space"><i class="fa-fw iconfont icon-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://vercel.luyf-lemon-love.space"><i class="fa-fw iconfont icon-logo-vercel"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://server.luyf-lemon-love.space"><i class="fa-fw iconfont icon-cloud"></i><span> Cloud</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">00136 在单个GPU上进行高效训练的方法和工具 windows11</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-26T07:01:13.000Z" title="发表于 2024-06-26 15:01:13">2024-06-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-26T07:29:32.693Z" title="更新于 2024-06-26 15:29:32">2024-06-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">持续维护的工具学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>26分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="00136 在单个GPU上进行高效训练的方法和工具 windows11"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言">前言</h2>
+<p>本文介绍了在单个GPU上进行高效训练的方法和工具。</p>
+<p>Hugging Face Github 主页: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/huggingface">https://github.com/huggingface</a></p>
+<p>This guide demonstrates practical techniques that you can use to increase the efficiency of your model’s training by<br>
+<strong>optimizing memory utilization</strong>, <strong>speeding up the training</strong>, or <strong>both</strong>. If you’d like to understand how GPU is utilized during<br>
+training, please refer to the <a href="model_memory_anatomy">Model training anatomy</a> conceptual guide first. This guide<br>
+focuses on practical techniques.</p>
+<p>If you have access to a machine with multiple GPUs, these approaches are still valid, plus you can leverage additional methods outlined in the <a href="perf_train_gpu_many">multi-GPU section</a>.</p>
+<p>When training large models, there are two aspects that should be considered at the same time:</p>
+<ul>
+<li><strong>Data throughput/training time</strong></li>
+<li><strong>Model performance</strong></li>
+</ul>
+<p>Maximizing the throughput (samples/second) leads to lower training cost. <strong>This is generally achieved by utilizing the GPU as much as possible and thus filling GPU memory to its limit.</strong> If the desired batch size exceeds the limits of the GPU memory, the memory optimization techniques, such as <strong>gradient accumulation</strong>, can help.</p>
+<p><strong>However, if the preferred batch size fits into memory, there’s no reason to apply memory-optimizing techniques because they can slow down the training.</strong> Just because one can use a large batch size, does not necessarily mean they should. <strong>As part of hyperparameter tuning, you should determine which batch size yields the best results and then optimize resources accordingly.</strong></p>
+<p>The methods and tools covered in this guide can be classified based on the effect they have on the training process:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method/tool</th>
+<th style="text-align:left">Improves training speed</th>
+<th style="text-align:left">Optimizes memory utilization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="#batch-size-choice">Batch size choice</a></td>
+<td style="text-align:left"><strong>Yes</strong></td>
+<td style="text-align:left"><strong>Yes</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#optimizer-choice">Optimizer choice</a></td>
+<td style="text-align:left"><strong>Yes</strong></td>
+<td style="text-align:left"><strong>Yes</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#data-preloading">Data preloading</a></td>
+<td style="text-align:left"><strong>Yes</strong></td>
+<td style="text-align:left"><strong>No</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#using-torchcompile">torch.compile</a></td>
+<td style="text-align:left"><strong>Yes</strong></td>
+<td style="text-align:left"><strong>No</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#mixed-precision-training">Mixed precision training</a></td>
+<td style="text-align:left"><strong>Yes</strong></td>
+<td style="text-align:left"><strong>(No)</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#gradient-accumulation">Gradient accumulation</a></td>
+<td style="text-align:left"><strong>No</strong></td>
+<td style="text-align:left"><strong>Yes</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#gradient-checkpointing">Gradient checkpointing</a></td>
+<td style="text-align:left"><strong>No</strong></td>
+<td style="text-align:left"><strong>Yes</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#deepspeed-zero">DeepSpeed Zero</a></td>
+<td style="text-align:left"><strong>No</strong></td>
+<td style="text-align:left"><strong>Yes</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#using--peft">Parameter-Efficient Fine Tuning (PEFT)</a></td>
+<td style="text-align:left"><strong>No</strong></td>
+<td style="text-align:left"><strong>Yes</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Note: <strong>when using mixed precision with a small model and a large batch size, there will be some memory savings</strong> but with a<br>
+large model and a small batch size, the memory use will be larger.</p>
+<p><strong>You can combine the above methods to get a cumulative effect.</strong> These techniques are available to you whether you are<br>
+training your model with [<code>Trainer</code>] or writing a pure PyTorch loop, in which case you can <a href="#using--accelerate">configure these optimizations<br>
+with 🤗 Accelerate</a>.</p>
+<p>If these methods do not result in sufficient gains, you can explore the following options:</p>
+<ul>
+<li><a href="#efficient-software-prebuilds">Look into building your own custom Docker container with efficient software prebuilds</a></li>
+<li><a href="#mixture-of-experts">Consider a model that uses Mixture of Experts (MoE)</a></li>
+<li><a href="#using-pytorch-native-attention-and-flash-attention">Convert your model to BetterTransformer to leverage PyTorch native attention</a></li>
+</ul>
+<p>Finally, if all of the above is still not enough, even after switching to a server-grade GPU like A100, consider moving<br>
+to a multi-GPU setup. All these approaches are still valid in a multi-GPU setup, plus you can leverage additional parallelism<br>
+techniques outlined in the <a href="perf_train_gpu_many">multi-GPU section</a>.</p>
+<p>操作系统：Windows 11 家庭中文版</p>
+<h2 id="参考文档">参考文档</h2>
+<ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/docs/transformers/perf_train_gpu_one">Methods and tools for efficient training on a single GPU</a></li>
+</ol>
+<h2 id="Batch-size-choice">Batch size choice</h2>
+<p><strong>To achieve optimal performance, start by identifying the appropriate batch size.</strong> It is recommended to use batch sizes and<br>
+input/output neuron counts that are of size <strong>2^N</strong>. Often it’s a multiple of 8, but it can be<br>
+higher depending on the hardware being used and the model’s dtype.</p>
+<p>For reference, check out NVIDIA’s recommendation for <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.nvidia.com/deeplearning/performance/dl-performance-fully-connected/index.html#input-features">input/output neuron counts</a> and<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.nvidia.com/deeplearning/performance/dl-performance-fully-connected/index.html#batch-size">batch size</a> for<br>
+fully connected layers (which are involved in GEMMs (General Matrix Multiplications)).</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html#requirements-tc">Tensor Core Requirements</a><br>
+define the multiplier based on the dtype and the hardware. For instance, <strong>for fp16 data type a multiple of 8 is recommended</strong>, unless<br>
+<strong>it’s an A100 GPU, in which case use multiples of 64</strong>.</p>
+<p>For parameters that are small, consider also <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html#dim-quantization">Dimension Quantization Effects</a>.<br>
+This is where tiling happens and the right multiplier can have a significant speedup.</p>
+<h2 id="Gradient-Accumulation">Gradient Accumulation</h2>
+<p>The <strong>gradient accumulation</strong> method aims to calculate gradients in smaller increments instead of computing them for the entire batch at once. <strong>This approach involves iteratively calculating gradients in smaller batches by performing forward and backward passes through the model and accumulating the gradients during the process. Once a sufficient number of gradients have been accumulated, the model’s optimization step is executed.</strong> By employing gradient accumulation, it becomes possible to increase the <strong>effective batch size</strong> beyond the limitations imposed by the GPU’s memory capacity. <strong>However, it is important to note that the additional forward and backward passes introduced by gradient accumulation can slow down the training process.</strong></p>
+<p>You can enable gradient accumulation by adding the <code>gradient_accumulation_steps</code> argument to  [<code>TrainingArguments</code>]:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">training_args = TrainingArguments(per_device_train_batch_size=<span class="number">1</span>, gradient_accumulation_steps=<span class="number">4</span>, **default_args)</span><br></pre></td></tr></table></figure>
+<p><strong>In the above example, your effective batch size becomes 4.</strong></p>
+<p>Alternatively, use 🤗 Accelerate to gain full control over the training loop. Find the 🤗 Accelerate example<br>
+<a href="#using--accelerate">further down in this guide</a>.</p>
+<p><strong>While it is advised to max out GPU usage as much as possible, a high number of gradient accumulation steps can result in a more pronounced training slowdown.</strong> Consider the following example. Let’s say, the <code>per_device_train_batch_size=4</code> without gradient accumulation hits the GPU’s limit. If you would like to train with batches of size 64, do not set the <code>per_device_train_batch_size</code> to 1 and <code>gradient_accumulation_steps</code> to 64. <strong>Instead, keep <code>per_device_train_batch_size=4</code> and set <code>gradient_accumulation_steps=16</code>.</strong> This results in the same effective batch size while making better use of the available GPU resources.</p>
+<p>For additional information, please refer to batch size and gradient accumulation benchmarks for <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/huggingface/transformers/issues/14608#issuecomment-1004392537">RTX-3090</a><br>
+and <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/huggingface/transformers/issues/15026#issuecomment-1005033957">A100</a>.</p>
+<h2 id="Gradient-Checkpointing">Gradient Checkpointing</h2>
+<p>Some large models may still face memory issues even when the batch size is set to 1 and gradient accumulation is used.<br>
+This is because there are other components that also require memory storage.</p>
+<p>Saving all activations from the forward pass in order to compute the gradients during the backward pass can result in significant memory overhead. <strong>The alternative approach of discarding the activations and recalculating them when needed during the backward pass, would introduce a considerable computational overhead and slow down the training process.</strong></p>
+<p><strong>Gradient checkpointing</strong> offers a compromise between these two approaches and saves strategically selected activations throughout the computational graph so only a fraction of the activations need to be re-computed for the gradients. For an in-depth explanation of gradient checkpointing, refer to <a target="_blank" rel="noopener external nofollow noreferrer" href="https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9">this great article</a>.</p>
+<p>To enable gradient checkpointing in the [<code>Trainer</code>], pass the corresponding a flag to [<code>TrainingArguments</code>]:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">training_args = TrainingArguments(</span><br><span class="line">    per_device_train_batch_size=<span class="number">1</span>, gradient_accumulation_steps=<span class="number">4</span>, gradient_checkpointing=<span class="literal">True</span>, **default_args</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>Alternatively, use 🤗 Accelerate - find the 🤗 Accelerate example <a href="#using--accelerate">further in this guide</a>.</p>
+<p><strong>While gradient checkpointing may improve memory efficiency, it slows training by approximately 20%.</strong></p>
+<h2 id="Mixed-precision-training">Mixed precision training</h2>
+<p><strong>Mixed precision training</strong> is a technique that aims to optimize the computational efficiency of training models by utilizing lower-precision numerical formats for certain variables. Traditionally, most models use 32-bit floating point precision (fp32 or float32) to represent and process variables. However, not all variables require this high precision level to achieve accurate results. By reducing the precision of certain variables to lower numerical formats like 16-bit floating point (fp16 or float16), we can speed up the computations. <strong>Because in this approach some computations are performed in half-precision, while some are still in full precision, the approach is called mixed precision training.</strong></p>
+<p>Most commonly mixed precision training is achieved by using fp16 (float16) data types, however, some GPU architectures<br>
+(such as the Ampere architecture) offer bf16 and tf32 (CUDA internal data type) data types. Check<br>
+out the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.nvidia.com/blog/accelerating-ai-training-with-tf32-tensor-cores/">NVIDIA Blog</a> to learn more about<br>
+the differences between these data types.</p>
+<h3 id="fp16">fp16</h3>
+<p><strong>The main advantage of mixed precision training comes from saving the activations in half precision (fp16).</strong><br>
+Although the gradients are also computed in half precision they are converted back to full precision for the optimization step so no memory is saved here.<br>
+<strong>While mixed precision training results in faster computations, it can also lead to more GPU memory being utilized, especially for small batch sizes.</strong><br>
+This is because the model is now present on the GPU in both 16-bit and 32-bit precision (1.5x the original model on the GPU).</p>
+<p>To enable mixed precision training, set the <code>fp16</code> flag to <code>True</code>:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">training_args = TrainingArguments(per_device_train_batch_size=<span class="number">4</span>, fp16=<span class="literal">True</span>, **default_args)</span><br></pre></td></tr></table></figure>
+<p>If you prefer to use 🤗 Accelerate, find the 🤗 Accelerate example <a href="#using--accelerate">further in this guide</a>.</p>
+<h3 id="BF16">BF16</h3>
+<p>If you have access to an Ampere or newer hardware you can use bf16 for mixed precision training and evaluation. <strong>While bf16 has a worse precision than fp16, it has a much bigger dynamic range. In fp16 the biggest number you can have is <code>65535</code> and any number above that will result in an overflow.</strong> A bf16 number can be as large as <code>3.39e+38</code> (!) which is about the same as fp32 - <strong>because both have 8-bits used for the numerical range.</strong></p>
+<p>You can enable BF16 in the 🤗 Trainer with:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">training_args = TrainingArguments(bf16=<span class="literal">True</span>, **default_args)</span><br></pre></td></tr></table></figure>
+<h3 id="TF32">TF32</h3>
+<p>The Ampere hardware uses a magical data type called tf32. <strong>It has the same numerical range as fp32 (8-bits), but instead of 23 bits precision it has only 10 bits (same as fp16) and uses only 19 bits in total.</strong> It’s “magical” in the sense that you can use the normal fp32 training and/or inference code and by enabling tf32 support you can get up to <strong>3x</strong> throughput improvement. All you need to do is to add the following to your code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">torch.backends.cuda.matmul.allow_tf32 = <span class="literal">True</span></span><br><span class="line">torch.backends.cudnn.allow_tf32 = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p><strong>CUDA will automatically switch to using tf32 instead of fp32 where possible, assuming that the used GPU is from the Ampere series.</strong></p>
+<p><strong>According to <a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.nvidia.com/blog/accelerating-ai-training-with-tf32-tensor-cores/">NVIDIA research</a>, the majority of machine learning training workloads show the same perplexity and convergence with tf32 training as with fp32.</strong> If you’re already using fp16 or bf16 mixed precision it may help with the throughput as well.</p>
+<p>You can enable this mode in the 🤗 Trainer:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TrainingArguments(tf32=<span class="literal">True</span>, **default_args)</span><br></pre></td></tr></table></figure>
+<p><strong>tf32 can’t be accessed directly via <code>tensor.to(dtype=torch.tf32)</code> because it is an internal CUDA data type.</strong> You need <code>torch&gt;=1.7</code> to use tf32 data types.</p>
+<p>For additional information on tf32 vs other precisions, please refer to the following benchmarks:<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/huggingface/transformers/issues/14608#issuecomment-1004390803">RTX-3090</a> and<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/huggingface/transformers/issues/15026#issuecomment-1004543189">A100</a>.</p>
+<h2 id="Flash-Attention-2">Flash Attention 2</h2>
+<p><strong>You can speedup the training throughput by using Flash Attention 2 integration in transformers.</strong> Check out the appropriate section in the <a href="./perf_infer_gpu_one#Flash-Attention-2">single GPU section</a> to learn more about how to load a model with Flash Attention 2 modules.</p>
+<h2 id="Optimizer-choice">Optimizer choice</h2>
+<p>The most common optimizer used to train transformer models is <strong>Adam</strong> or <strong>AdamW (Adam with weight decay)</strong>. <strong>Adam achieves good convergence by storing the rolling average of the previous gradients; however, it adds an additional memory footprint of the order of the number of model parameters.</strong> To remedy this, you can use an alternative optimizer. For example if you have <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/NVIDIA/apex">NVIDIA/apex</a> installed for NVIDIA GPUs, or <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ROCmSoftwarePlatform/apex">ROCmSoftwarePlatform/apex</a> for AMD GPUs, <code>adamw_apex_fused</code> will give you the fastest training experience among all supported AdamW optimizers.</p>
+<p>[<code>Trainer</code>] integrates a variety of optimizers that can be used out of box: <code>adamw_hf</code>, <code>adamw_torch</code>, <code>adamw_torch_fused</code>,<br>
+<code>adamw_apex_fused</code>, <code>adamw_anyprecision</code>, <code>adafactor</code>, or <code>adamw_bnb_8bit</code>. More optimizers can be plugged in via a third-party implementation.</p>
+<p>Let’s take a closer look at two alternatives to AdamW optimizer:</p>
+<ol>
+<li><code>adafactor</code> which is available in [<code>Trainer</code>]</li>
+<li><code>adamw_bnb_8bit</code> is also available in Trainer, but a third-party integration is provided below for demonstration.</li>
+</ol>
+<p>For comparison, for a 3B-parameter model, like “google-t5/t5-3b”:</p>
+<ul>
+<li>A standard AdamW optimizer will need <strong>24GB</strong> of GPU memory because it uses 8 bytes for each parameter (8*3 =&gt; 24GB)</li>
+<li>Adafactor optimizer will need <strong>more than 12GB</strong>. It uses slightly more than 4 bytes for each parameter, so 4*3 and then some extra.</li>
+<li>8bit BNB quantized optimizer will use <strong>only (2*3) 6GB</strong> if all optimizer states are quantized.</li>
+</ul>
+<h3 id="Adafactor">Adafactor</h3>
+<p><strong>Adafactor doesn’t store rolling averages for each element in weight matrices.</strong> Instead, it keeps aggregated information (sums of rolling averages row- and column-wise), significantly reducing its footprint. <strong>However, compared to Adam, Adafactor may have slower convergence in certain cases.</strong></p>
+<p>You can switch to Adafactor by setting <code>optim=&quot;adafactor&quot;</code> in [<code>TrainingArguments</code>]:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">training_args = TrainingArguments(per_device_train_batch_size=<span class="number">4</span>, optim=<span class="string">&quot;adafactor&quot;</span>, **default_args)</span><br></pre></td></tr></table></figure>
+<p>Combined with other approaches (<strong>gradient accumulation</strong>, <strong>gradient checkpointing</strong>, and <strong>mixed precision training</strong>)<br>
+you can notice up to <strong>3x</strong> improvement while maintaining the throughput! However, as mentioned before, the convergence of<br>
+Adafactor can be worse than Adam.</p>
+<h3 id="8-bit-Adam">8-bit Adam</h3>
+<p><strong>Instead of aggregating optimizer states like Adafactor, 8-bit Adam keeps the full state and quantizes it.</strong> Quantization<br>
+means that it stores the state with lower precision and dequantizes it only for the optimization. This is similar to the<br>
+idea behind mixed precision training.</p>
+<p>To use <code>adamw_bnb_8bit</code>, you simply need to set <code>optim=&quot;adamw_bnb_8bit&quot;</code> in [<code>TrainingArguments</code>]:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">training_args = TrainingArguments(per_device_train_batch_size=<span class="number">4</span>, optim=<span class="string">&quot;adamw_bnb_8bit&quot;</span>, **default_args)</span><br></pre></td></tr></table></figure>
+<p><strong>However, we can also use a third-party implementation of the 8-bit optimizer for demonstration purposes to see how that can be integrated.</strong></p>
+<p>First, follow the installation guide in the GitHub <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/TimDettmers/bitsandbytes">repo</a> to install the <code>bitsandbytes</code> library<br>
+that implements <strong>the 8-bit Adam optimizer</strong>.</p>
+<p>Next you need to initialize the optimizer. This involves two steps:</p>
+<ul>
+<li>First, group the model’s parameters into two groups - <strong>one where weight decay should be applied, and the other one where it should not</strong>. Usually, <strong>biases and layer norm parameters are not weight decayed</strong>.</li>
+<li>Then do some argument housekeeping to use the same parameters as the previously used AdamW optimizer.</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> bitsandbytes <span class="keyword">as</span> bnb</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> transformers.trainer_pt_utils <span class="keyword">import</span> get_parameter_names</span><br><span class="line"></span><br><span class="line">training_args = TrainingArguments(per_device_train_batch_size=<span class="number">4</span>, **default_args)</span><br><span class="line"></span><br><span class="line">decay_parameters = get_parameter_names(model, [nn.LayerNorm])</span><br><span class="line">decay_parameters = [name <span class="keyword">for</span> name <span class="keyword">in</span> decay_parameters <span class="keyword">if</span> <span class="string">&quot;bias&quot;</span> <span class="keyword">not</span> <span class="keyword">in</span> name]</span><br><span class="line">optimizer_grouped_parameters = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;params&quot;</span>: [p <span class="keyword">for</span> n, p <span class="keyword">in</span> model.named_parameters() <span class="keyword">if</span> n <span class="keyword">in</span> decay_parameters],</span><br><span class="line">        <span class="string">&quot;weight_decay&quot;</span>: training_args.weight_decay,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;params&quot;</span>: [p <span class="keyword">for</span> n, p <span class="keyword">in</span> model.named_parameters() <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> decay_parameters],</span><br><span class="line">        <span class="string">&quot;weight_decay&quot;</span>: <span class="number">0.0</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">optimizer_kwargs = &#123;</span><br><span class="line">    <span class="string">&quot;betas&quot;</span>: (training_args.adam_beta1, training_args.adam_beta2),</span><br><span class="line">    <span class="string">&quot;eps&quot;</span>: training_args.adam_epsilon,</span><br><span class="line">&#125;</span><br><span class="line">optimizer_kwargs[<span class="string">&quot;lr&quot;</span>] = training_args.learning_rate</span><br><span class="line">adam_bnb_optim = bnb.optim.Adam8bit(</span><br><span class="line">    optimizer_grouped_parameters,</span><br><span class="line">    betas=(training_args.adam_beta1, training_args.adam_beta2),</span><br><span class="line">    eps=training_args.adam_epsilon,</span><br><span class="line">    lr=training_args.learning_rate,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>Finally, pass the custom optimizer as an argument to the <code>Trainer</code>:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trainer = Trainer(model=model, args=training_args, train_dataset=ds, optimizers=(adam_bnb_optim, <span class="literal">None</span>))</span><br></pre></td></tr></table></figure>
+<p>Combined with other approaches (<strong>gradient accumulation</strong>, <strong>gradient checkpointing</strong>, and <strong>mixed precision training</strong>),<br>
+you can expect to get about <strong>a 3x memory improvement</strong> and even slightly higher throughput as using Adafactor.</p>
+<h3 id="multi-tensor">multi_tensor</h3>
+<p><strong>pytorch-nightly introduced <code>torch.optim._multi_tensor</code> which should significantly speed up the optimizers for situations with lots of small feature tensors.</strong> It should eventually become the default, but if you want to experiment with it sooner, take a look at this GitHub <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/huggingface/transformers/issues/9965">issue</a>.</p>
+<h2 id="Data-preloading">Data preloading</h2>
+<p>One of the important requirements to reach great training speed is the ability to feed the GPU at the maximum speed it<br>
+can handle. By default, everything happens in the main process, and it might not be able to read the data from disk fast<br>
+enough, and thus create a bottleneck, leading to GPU under-utilization. Configure the following arguments to reduce the bottleneck:</p>
+<ul>
+<li><code>DataLoader(pin_memory=True, ...)</code> - <strong>ensures the data gets preloaded into the pinned memory on CPU and typically leads to much faster transfers from CPU to GPU memory.</strong></li>
+<li><code>DataLoader(num_workers=4, ...)</code> - <strong>spawn several workers to preload data faster.</strong> During training, watch the GPU utilization stats; if it’s far from 100%, experiment with increasing the number of workers. Of course, the problem could be elsewhere, so many workers won’t necessarily lead to better performance.</li>
+</ul>
+<p>When using [<code>Trainer</code>], the corresponding [<code>TrainingArguments</code>] are: <code>dataloader_pin_memory</code> (<code>True</code> by default), and <code>dataloader_num_workers</code> (defaults to <code>0</code>).</p>
+<h2 id="DeepSpeed-ZeRO">DeepSpeed ZeRO</h2>
+<p>DeepSpeed is an open-source deep learning optimization library that is integrated with 🤗 Transformers and 🤗 Accelerate.<br>
+It provides a wide range of features and optimizations designed to improve the efficiency and scalability of large-scale<br>
+deep learning training.</p>
+<p>If your model fits onto a single GPU and you have enough space to fit a small batch size, you don’t need to use DeepSpeed as it’ll only slow things down. <strong>However, if the model doesn’t fit onto a single GPU or you can’t fit a small batch, you can leverage DeepSpeed ZeRO + CPU Offload, or NVMe Offload for much larger models.</strong> In this case, you need to separately <a href="main_classes/deepspeed#installation">install the library</a>, then follow one of the guides to create a configuration file and launch DeepSpeed:</p>
+<ul>
+<li>For an in-depth guide on DeepSpeed integration with [<code>Trainer</code>], review <a href="main_classes/deepspeed">the corresponding documentation</a>, specifically the<br>
+<a href="main_classes/deepspeed#deployment-with-one-gpu">section for a single GPU</a>. Some adjustments are required to use DeepSpeed in a notebook; please take a look at the <a href="main_classes/deepspeed#deployment-in-notebooks">corresponding guide</a>.</li>
+<li>If you prefer to use 🤗 Accelerate, refer to <a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/docs/accelerate/en/usage_guides/deepspeed">🤗 Accelerate DeepSpeed guide</a>.</li>
+</ul>
+<h2 id="Using-torch-compile">Using torch.compile</h2>
+<p>PyTorch 2.0 introduced a new compile function that doesn’t require any modification to existing PyTorch code but can<br>
+optimize your code by adding a single line of code: <code>model = torch.compile(model)</code>.</p>
+<p>If using [<code>Trainer</code>], you only need <code>to</code> pass the <code>torch_compile</code> option in the [<code>TrainingArguments</code>]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">training_args = TrainingArguments(torch_compile=<span class="literal">True</span>, **default_args)</span><br></pre></td></tr></table></figure>
+<p><code>torch.compile</code> uses Python’s frame evaluation API to automatically create a graph from existing PyTorch programs. After<br>
+capturing the graph, different backends can be deployed to lower the graph to an optimized engine.<br>
+You can find more details and benchmarks in <a target="_blank" rel="noopener external nofollow noreferrer" href="https://pytorch.org/get-started/pytorch-2.0/">PyTorch documentation</a>.</p>
+<p><code>torch.compile</code> has a growing list of backends, which can be found in by calling <code>torchdynamo.list_backends()</code>, each of which with its optional dependencies.</p>
+<p>Choose which backend to use by specifying it via <code>torch_compile_backend</code> in the [<code>TrainingArguments</code>].  Some of the most commonly used backends are:</p>
+<p><strong>Debugging backends</strong>:</p>
+<ul>
+<li><code>dynamo.optimize(&quot;eager&quot;)</code> - Uses PyTorch to run the extracted GraphModule. This is quite useful in debugging TorchDynamo issues.</li>
+<li><code>dynamo.optimize(&quot;aot_eager&quot;)</code> - Uses AotAutograd with no compiler, i.e, just using PyTorch eager for the AotAutograd’s extracted forward and backward graphs. This is useful for debugging, and unlikely to give speedups.</li>
+</ul>
+<p><strong>Training &amp; inference backends</strong>:</p>
+<ul>
+<li><code>dynamo.optimize(&quot;inductor&quot;)</code> - Uses TorchInductor backend with AotAutograd and cudagraphs by leveraging codegened Triton kernels  <a target="_blank" rel="noopener external nofollow noreferrer" href="https://dev-discuss.pytorch.org/t/torchinductor-a-pytorch-native-compiler-with-define-by-run-ir-and-symbolic-shapes/747">Read more</a></li>
+<li><code>dynamo.optimize(&quot;nvfuser&quot;)</code> -  nvFuser with TorchScript. <a target="_blank" rel="noopener external nofollow noreferrer" href="https://dev-discuss.pytorch.org/t/tracing-with-primitives-update-1-nvfuser-and-its-primitives/593">Read more</a></li>
+<li><code>dynamo.optimize(&quot;aot_nvfuser&quot;)</code> -  nvFuser with AotAutograd. <a target="_blank" rel="noopener external nofollow noreferrer" href="https://dev-discuss.pytorch.org/t/tracing-with-primitives-update-1-nvfuser-and-its-primitives/593">Read more</a></li>
+<li><code>dynamo.optimize(&quot;aot_cudagraphs&quot;)</code> - cudagraphs with AotAutograd. <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/pytorch/torchdynamo/pull/757">Read more</a></li>
+</ul>
+<p><strong>Inference-only backend</strong>s:</p>
+<ul>
+<li><code>dynamo.optimize(&quot;ofi&quot;)</code> -  Uses Torchscript optimize_for_inference.  <a target="_blank" rel="noopener external nofollow noreferrer" href="https://pytorch.org/docs/stable/generated/torch.jit.optimize_for_inference.html">Read more</a></li>
+<li><code>dynamo.optimize(&quot;fx2trt&quot;)</code> -  Uses NVIDIA TensorRT for inference optimizations.  <a target="_blank" rel="noopener external nofollow noreferrer" href="https://pytorch.org/TensorRT/tutorials/getting_started_with_fx_path.html">Read more</a></li>
+<li><code>dynamo.optimize(&quot;onnxrt&quot;)</code> -  Uses ONNXRT for inference on CPU/GPU.  <a target="_blank" rel="noopener external nofollow noreferrer" href="https://onnxruntime.ai/">Read more</a></li>
+<li><code>dynamo.optimize(&quot;ipex&quot;)</code> -  Uses IPEX for inference on CPU.  <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/intel/intel-extension-for-pytorch">Read more</a></li>
+</ul>
+<p>For an example of using <code>torch.compile</code> with 🤗 Transformers, check out this <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.philschmid.de/getting-started-pytorch-2-0-transformers">blog post on fine-tuning a BERT model for Text Classification using the newest PyTorch 2.0 features</a></p>
+<h2 id="Using-🤗-PEFT">Using 🤗 PEFT</h2>
+<p><strong><a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/blog/peft">Parameter-Efficient Fine Tuning (PEFT)</a> methods freeze the pretrained model parameters during fine-tuning and add a small number of trainable parameters (the adapters) on top of it.</strong></p>
+<p>As a result the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/docs/transformers/model_memory_anatomy#anatomy-of-models-memory">memory associated to the optimizer states and gradients</a> are greatly reduced.</p>
+<p>For example with a vanilla AdamW, the memory requirement for the optimizer state would be:</p>
+<ul>
+<li><strong>fp32 copy of parameters</strong>: 4 bytes/param</li>
+<li><strong>Momentum</strong>: 4 bytes/param</li>
+<li><strong>Variance</strong>: 4 bytes/param</li>
+</ul>
+<p>Suppose a model with 7B parameters and 200 millions parameters injected with <a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/docs/peft/conceptual_guides/lora">Low Rank Adapters</a>.</p>
+<p><strong>The memory requirement for the optimizer state of the plain model would be 12 * 7 = 84 GB (assuming 7B trainable parameters).</strong></p>
+<p>Adding Lora increases slightly the memory associated to the model weights and substantially decreases memory requirement for the optimizer state to 12 * 0.2 = 2.4GB.</p>
+<p>Read more about PEFT and its detailed usage in <a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/docs/peft/">the PEFT documentation</a> or <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/huggingface/peft">PEFT repository</a>.</p>
+<h2 id="Using-🤗-Accelerate">Using 🤗 Accelerate</h2>
+<p>With <a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/docs/accelerate/index">🤗 Accelerate</a> you can use the above methods while gaining full<br>
+control over the training loop and can essentially write the loop in pure PyTorch with some minor modifications.</p>
+<p>Suppose you have combined the methods in the [<code>TrainingArguments</code>] like so:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">training_args = TrainingArguments(</span><br><span class="line">    per_device_train_batch_size=<span class="number">1</span>,</span><br><span class="line">    gradient_accumulation_steps=<span class="number">4</span>,</span><br><span class="line">    gradient_checkpointing=<span class="literal">True</span>,</span><br><span class="line">    fp16=<span class="literal">True</span>,</span><br><span class="line">    **default_args,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><strong>The full example training loop with 🤗 Accelerate is only a handful of lines of code long:</strong></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> accelerate <span class="keyword">import</span> Accelerator</span><br><span class="line"><span class="keyword">from</span> torch.utils.data.dataloader <span class="keyword">import</span> DataLoader</span><br><span class="line"></span><br><span class="line">dataloader = DataLoader(ds, batch_size=training_args.per_device_train_batch_size)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> training_args.gradient_checkpointing:</span><br><span class="line">    model.gradient_checkpointing_enable()</span><br><span class="line"></span><br><span class="line">accelerator = Accelerator(fp16=training_args.fp16)</span><br><span class="line">model, optimizer, dataloader = accelerator.prepare(model, adam_bnb_optim, dataloader)</span><br><span class="line"></span><br><span class="line">model.train()</span><br><span class="line"><span class="keyword">for</span> step, batch <span class="keyword">in</span> <span class="built_in">enumerate</span>(dataloader, start=<span class="number">1</span>):</span><br><span class="line">    loss = model(**batch).loss</span><br><span class="line">    loss = loss / training_args.gradient_accumulation_steps</span><br><span class="line">    accelerator.backward(loss)</span><br><span class="line">    <span class="keyword">if</span> step % training_args.gradient_accumulation_steps == <span class="number">0</span>:</span><br><span class="line">        optimizer.step()</span><br><span class="line">        optimizer.zero_grad()</span><br></pre></td></tr></table></figure>
+<p>First we wrap the dataset in a <a target="_blank" rel="noopener external nofollow noreferrer" href="https://pytorch.org/docs/stable/data.html#torch.utils.data.DataLoader"><code>DataLoader</code></a>. Then we can enable gradient checkpointing by calling the model’s [<code>~PreTrainedModel.gradient_checkpointing_enable</code>] method. When we initialize the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/docs/accelerate/package_reference/accelerator#accelerate.Accelerator"><code>Accelerator</code></a> we can specify if we want to use mixed precision training and it will take care of it for us in the [<code>prepare</code>] call. <strong>During the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/docs/accelerate/package_reference/accelerator#accelerate.Accelerator.prepare"><code>prepare</code></a> call the dataloader will also be distributed across workers should we use multiple GPUs.</strong> We use the same <a href="#8-bit-adam">8-bit optimizer</a> from the earlier example.</p>
+<p>Finally, we can add the main training loop. Note that the <code>backward</code> call is handled by 🤗 Accelerate. <strong>We can also see how gradient accumulation works: we normalize the loss, so we get the average at the end of accumulation and once we have enough steps we run the optimization.</strong></p>
+<p>Implementing these optimization techniques with 🤗 Accelerate only takes a handful of lines of code and comes with the<br>
+benefit of more flexibility in the training loop. For a full documentation of all features have a look at the<br>
+<a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/docs/accelerate/index">Accelerate documentation</a>.</p>
+<h2 id="Efficient-Software-Prebuilds">Efficient Software Prebuilds</h2>
+<p>PyTorch’s <a target="_blank" rel="noopener external nofollow noreferrer" href="https://pytorch.org/get-started/locally/#start-locally">pip and conda builds</a> come prebuilt with the cuda toolkit<br>
+which is enough to run PyTorch, but it is insufficient if you need to build cuda extensions.</p>
+<p>At times, additional efforts may be required to pre-build some components. For instance, if you’re using libraries like <code>apex</code> that don’t come pre-compiled. In other situations figuring out how to install the right cuda toolkit system-wide can be complicated. <strong>To address these scenarios PyTorch and NVIDIA released a new version of NGC docker container which already comes with everything prebuilt.</strong> You just need to install your programs on it, and it will run out of the box.</p>
+<p>This approach is also useful if you want to tweak the pytorch source and/or make a new customized build.<br>
+To find the docker image version you want start <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/">with PyTorch release notes</a>,<br>
+choose one of the latest monthly releases. Go into the release’s notes for the desired release, check that the environment’s<br>
+components are matching your needs (including NVIDIA Driver requirements!) and then at the very top of that document go<br>
+to the corresponding NGC page. If for some reason you get lost, here is <a target="_blank" rel="noopener external nofollow noreferrer" href="https://ngc.nvidia.com/catalog/containers/nvidia:pytorch">the index of all PyTorch NGC images</a>.</p>
+<p>Next follow the instructions to download and deploy the docker image.</p>
+<h2 id="Mixture-of-Experts">Mixture of Experts</h2>
+<p>Some recent papers reported a 4-5x training speedup and a faster inference by integrating Mixture of Experts (MoE) into the Transformer models.</p>
+<p>Since it has been discovered that more parameters lead to better performance, this technique allows to increase the number of parameters by an order of magnitude without increasing training costs.</p>
+<p><strong>In this approach every other FFN layer is replaced with a MoE Layer which consists of many experts, with a gated function that trains each expert in a balanced way depending on the input token’s position in a sequence.</strong></p>
+<p><img src="../images/perf-moe-transformer.png" alt="MoE Transformer 2x block"></p>
+<p>(source: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://ai.googleblog.com/2021/12/more-efficient-in-context-learning-with.html">GLAM</a>)</p>
+<p>You can find exhaustive details and comparison tables in the papers listed at the end of this section.</p>
+<p><strong>The main drawback of this approach is that it requires staggering amounts of GPU memory - almost an order of magnitude larger than its dense equivalent. Various distillation and approaches are proposed to how to overcome the much higher memory requirements.</strong></p>
+<p><strong>There is direct trade-off though, you can use just a few experts with a 2-3x smaller base model instead of dozens or hundreds experts leading to a 5x smaller model and thus increase the training speed moderately while increasing the memory requirements moderately as well.</strong></p>
+<p>Most related papers and implementations are built around Tensorflow/TPUs:</p>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://arxiv.org/abs/2006.16668">GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://arxiv.org/abs/2101.03961">Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://ai.googleblog.com/2021/12/more-efficient-in-context-learning-with.html">GLaM: Generalist Language Model (GLaM)</a></li>
+</ul>
+<p>And for Pytorch DeepSpeed has built one as well: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://arxiv.org/abs/2201.05596">DeepSpeed-MoE: Advancing Mixture-of-Experts Inference and Training to Power Next-Generation AI Scale</a>, <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.deepspeed.ai/tutorials/mixture-of-experts/">Mixture of Experts</a> - blog posts:  <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.microsoft.com/en-us/research/blog/deepspeed-powers-8x-larger-moe-model-training-with-high-performance/">1</a>, <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.microsoft.com/en-us/research/publication/scalable-and-efficient-moe-training-for-multitask-multilingual-models/">2</a> and specific deployment with large transformer-based natural language generation models: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.deepspeed.ai/2021/12/09/deepspeed-moe-nlg.html">blog post</a>, <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/microsoft/Megatron-DeepSpeed/tree/moe-training">Megatron-Deepspeed branch</a>.</p>
+<h2 id="Using-PyTorch-native-attention-and-Flash-Attention">Using PyTorch native attention and Flash Attention</h2>
+<p><strong>PyTorch’s <a target="_blank" rel="noopener external nofollow noreferrer" href="https://pytorch.org/docs/master/generated/torch.nn.functional.scaled_dot_product_attention.html"><code>torch.nn.functional.scaled_dot_product_attention</code></a> (SDPA) can also call FlashAttention and memory-efficient attention kernels under the hood. SDPA support is currently being added natively in Transformers and is used by default for <code>torch&gt;=2.1.1</code> when an implementation is available.</strong> Please refer to <a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/docs/transformers/perf_infer_gpu_one#pytorch-scaled-dot-product-attention">PyTorch scaled dot product attention</a> for a list of supported models and more details.</p>
+<p>Check out this <a target="_blank" rel="noopener external nofollow noreferrer" href="https://pytorch.org/blog/out-of-the-box-acceleration/">blogpost</a> to learn more about acceleration and memory-savings with SDPA.</p>
+<h2 id="结语">结语</h2>
+<p>第一百三十六篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+</article><div class="business-center"><div class="business-card"><div class="business-flip"><div class="business-front"><div class="business-strip-bottom"></div><div class="business-strip-top"></div><img class="business-logo" width="80" height="80" src="https://cos.luyf-lemon-love.space/images/20220606142536.png" alt="cardcode"><div class="business-Invitation">Invitation</div><div class="business-chip"><div class="business-chip-line"></div><div class="business-chip-line"></div><div class="business-chip-line"></div><div class="business-chip-line"></div><div class="business-chip-main"></div></div><svg class="business-wave" viewBox="0 3.71 26.959 38.787" width="26.959" height="38.787" fill="white"><path d="M19.709 3.719c.266.043.5.187.656.406 4.125 5.207 6.594 11.781 6.594 18.938 0 7.156-2.469 13.73-6.594 18.937-.195.336-.57.531-.957.492a.9946.9946 0 0 1-.851-.66c-.129-.367-.035-.777.246-1.051 3.855-4.867 6.156-11.023 6.156-17.718 0-6.696-2.301-12.852-6.156-17.719-.262-.317-.301-.762-.102-1.121.204-.36.602-.559 1.008-.504z"></path><path d="M13.74 7.563c.231.039.442.164.594.343 3.508 4.059 5.625 9.371 5.625 15.157 0 5.785-2.113 11.097-5.625 15.156-.363.422-1 .472-1.422.109-.422-.363-.472-1-.109-1.422 3.211-3.711 5.156-8.551 5.156-13.843 0-5.293-1.949-10.133-5.156-13.844-.27-.309-.324-.75-.141-1.114.188-.367.578-.582.985-.542h.093z"></path><path d="M7.584 11.438c.227.031.438.144.594.312 2.953 2.863 4.781 6.875 4.781 11.313 0 4.433-1.828 8.449-4.781 11.312-.398.387-1.035.383-1.422-.016-.387-.398-.383-1.035.016-1.421 2.582-2.504 4.187-5.993 4.187-9.875 0-3.883-1.605-7.372-4.187-9.875-.321-.282-.426-.739-.266-1.133.164-.395.559-.641.984-.617h.094zM1.178 15.531c.121.02.238.063.344.125 2.633 1.414 4.437 4.215 4.437 7.407 0 3.195-1.797 5.996-4.437 7.406-.492.258-1.102.07-1.36-.422-.257-.492-.07-1.102.422-1.359 2.012-1.075 3.375-3.176 3.375-5.625 0-2.446-1.371-4.551-3.375-5.625-.441-.204-.676-.692-.551-1.165.122-.468.567-.785 1.051-.742h.094z"></path></svg><div class="business-card-number"><div class="business-section">DNF</div><div class="business-section">千万别在森林里迷路！</div></div><div class="business-end"><span class="business-end-text">created:</span><span class="business-end-date">06/19/2008</span></div><div class="business-card-holder">欢迎来到阿拉德！</div><div class="business-master"><div class="business-circle business-master-red"></div><div class="business-circle business-master-yellow">   </div></div></div><div class="business-back"><div class="business-strip-black"></div><div class="business-ccv"><label>年华一去不复返，是非成败转头空。 ——似水流年</label><div>圣耀救赎太刀</div></div><div class="business-terms"><p>月光色，女子香。泪断剑，情多长。望明月，心悲凉。千古恨，轮回尝。 ——月之光芒</p><p>江天一色无纤尘，皎皎空中孤月轮。 ——月影霜岚</p></div></div></div></div></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.luyf-lemon-love.space">LuYF-Lemon-love</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.luyf-lemon-love.space/2662155066/">https://www.luyf-lemon-love.space/2662155066/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.luyf-lemon-love.space" target="_blank">LuYF-Lemon-love の Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><a class="post-meta__tags" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">大语言模型</a><a class="post-meta__tags" href="/tags/huggingface/">huggingface</a></div><div class="post_share"><div class="social-share" data-image="https://cos.luyf-lemon-love.space/images/061-机甲少女.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cos.luyf-lemon-love.space/images/20220511162220.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" src="https://cos.luyf-lemon-love.space/images/20220511162220.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://cos.luyf-lemon-love.space/images/20220511162303.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" src="https://cos.luyf-lemon-love.space/images/20220511162303.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/1519166323/"><img class="next-cover" src="https://cos.luyf-lemon-love.space/images/065-古风剑客美女.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">00135 性能与可扩展性 windows11</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/1644152204/" title="00121 学习笔记目录 windows11"><img class="cover" src="https://cos.luyf-lemon-love.space/images/040-%E9%87%91%E5%85%8B%E4%B8%9D%E5%94%AF%E7%BE%8E%E6%8A%A5%E7%BA%B8%E5%A2%99.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-01</div><div class="title">00121 学习笔记目录 windows11</div></div></a></div><div><a href="/1519166323/" title="00135 性能与可扩展性 windows11"><img class="cover" src="https://cos.luyf-lemon-love.space/images/065-古风剑客美女.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-26</div><div class="title">00135 性能与可扩展性 windows11</div></div></a></div><div><a href="/3040223838/" title="00134 翻译 windows11"><img class="cover" src="https://cos.luyf-lemon-love.space/images/081-nahida.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-24</div><div class="title">00134 翻译 windows11</div></div></a></div><div><a href="/1151158895/" title="00133 掩码语言建模 windows11"><img class="cover" src="https://cos.luyf-lemon-love.space/images/094-%E9%87%91%E5%85%8B%E4%B8%9D-%E5%8D%88%E5%90%8E.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-19</div><div class="title">00133 掩码语言建模 windows11</div></div></a></div><div><a href="/1162612656/" title="00132 因果语言建模 windows11"><img class="cover" src="https://cos.luyf-lemon-love.space/images/085-%E5%A5%BD%E7%9C%8B%E5%94%AF%E7%BE%8E%E5%8F%A4%E9%A3%8E%E7%9D%A1%E7%BE%8E%E4%BA%BA.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-18</div><div class="title">00132 因果语言建模 windows11</div></div></a></div><div><a href="/1846538978/" title="00131 问答 windows11"><img class="cover" src="https://cos.luyf-lemon-love.space/images/038-%E6%8A%A5%E7%BA%B8%E5%A2%99%E5%8F%AF%E7%88%B1%E5%A5%B3%E5%AD%A9%E8%90%A8%E5%8B%92%E8%8A%AC%E5%A6%AE-%E7%B2%89%E8%89%B2%E9%95%BF%E5%8F%91.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-18</div><div class="title">00131 问答 windows11</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LuYF-Lemon-love</div><div class="author-info__description">天之道，损有余而补不足，人之道则不然，损不足以奉有余。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">136</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" href="https://www.luyf-lemon-love.space/atom.xml"><i class="fa fa-rss"></i><span>订阅RSS</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/LuYF-Lemon-love" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/luyanfeng_nlp@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">本站部署到了几个地方，对应的域名请看顶部的 Domains 页，也可以直接访问 Server 页。<img src="https://cos.luyf-lemon-love.space//images/src=http___5b0988e595225.cdn.sohucs.com_images_20190807_3a7deb1efdfc4111bada5782b7fbf454.gif&refer=http___5b0988e595225.cdn.sohucs.gif"></div><timing></timing></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">2.</span> <span class="toc-text">参考文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Batch-size-choice"><span class="toc-number">3.</span> <span class="toc-text">Batch size choice</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradient-Accumulation"><span class="toc-number">4.</span> <span class="toc-text">Gradient Accumulation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradient-Checkpointing"><span class="toc-number">5.</span> <span class="toc-text">Gradient Checkpointing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mixed-precision-training"><span class="toc-number">6.</span> <span class="toc-text">Mixed precision training</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fp16"><span class="toc-number">6.1.</span> <span class="toc-text">fp16</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BF16"><span class="toc-number">6.2.</span> <span class="toc-text">BF16</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TF32"><span class="toc-number">6.3.</span> <span class="toc-text">TF32</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flash-Attention-2"><span class="toc-number">7.</span> <span class="toc-text">Flash Attention 2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Optimizer-choice"><span class="toc-number">8.</span> <span class="toc-text">Optimizer choice</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Adafactor"><span class="toc-number">8.1.</span> <span class="toc-text">Adafactor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-bit-Adam"><span class="toc-number">8.2.</span> <span class="toc-text">8-bit Adam</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#multi-tensor"><span class="toc-number">8.3.</span> <span class="toc-text">multi_tensor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Data-preloading"><span class="toc-number">9.</span> <span class="toc-text">Data preloading</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DeepSpeed-ZeRO"><span class="toc-number">10.</span> <span class="toc-text">DeepSpeed ZeRO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using-torch-compile"><span class="toc-number">11.</span> <span class="toc-text">Using torch.compile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using-%F0%9F%A4%97-PEFT"><span class="toc-number">12.</span> <span class="toc-text">Using 🤗 PEFT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using-%F0%9F%A4%97-Accelerate"><span class="toc-number">13.</span> <span class="toc-text">Using 🤗 Accelerate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Efficient-Software-Prebuilds"><span class="toc-number">14.</span> <span class="toc-text">Efficient Software Prebuilds</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mixture-of-Experts"><span class="toc-number">15.</span> <span class="toc-text">Mixture of Experts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using-PyTorch-native-attention-and-Flash-Attention"><span class="toc-number">16.</span> <span class="toc-text">Using PyTorch native attention and Flash Attention</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">17.</span> <span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2662155066/" title="00136 在单个GPU上进行高效训练的方法和工具 windows11"><img src="https://cos.luyf-lemon-love.space/images/061-机甲少女.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00136 在单个GPU上进行高效训练的方法和工具 windows11"/></a><div class="content"><a class="title" href="/2662155066/" title="00136 在单个GPU上进行高效训练的方法和工具 windows11">00136 在单个GPU上进行高效训练的方法和工具 windows11</a><time datetime="2024-06-26T07:01:13.000Z" title="发表于 2024-06-26 15:01:13">2024-06-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1519166323/" title="00135 性能与可扩展性 windows11"><img src="https://cos.luyf-lemon-love.space/images/065-古风剑客美女.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00135 性能与可扩展性 windows11"/></a><div class="content"><a class="title" href="/1519166323/" title="00135 性能与可扩展性 windows11">00135 性能与可扩展性 windows11</a><time datetime="2024-06-26T06:21:40.000Z" title="发表于 2024-06-26 14:21:40">2024-06-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/3040223838/" title="00134 翻译 windows11"><img src="https://cos.luyf-lemon-love.space/images/081-nahida.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00134 翻译 windows11"/></a><div class="content"><a class="title" href="/3040223838/" title="00134 翻译 windows11">00134 翻译 windows11</a><time datetime="2024-06-24T09:11:53.000Z" title="发表于 2024-06-24 17:11:53">2024-06-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1151158895/" title="00133 掩码语言建模 windows11"><img src="https://cos.luyf-lemon-love.space/images/094-%E9%87%91%E5%85%8B%E4%B8%9D-%E5%8D%88%E5%90%8E.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00133 掩码语言建模 windows11"/></a><div class="content"><a class="title" href="/1151158895/" title="00133 掩码语言建模 windows11">00133 掩码语言建模 windows11</a><time datetime="2024-06-19T12:53:00.000Z" title="发表于 2024-06-19 20:53:00">2024-06-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1162612656/" title="00132 因果语言建模 windows11"><img src="https://cos.luyf-lemon-love.space/images/085-%E5%A5%BD%E7%9C%8B%E5%94%AF%E7%BE%8E%E5%8F%A4%E9%A3%8E%E7%9D%A1%E7%BE%8E%E4%BA%BA.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00132 因果语言建模 windows11"/></a><div class="content"><a class="title" href="/1162612656/" title="00132 因果语言建模 windows11">00132 因果语言建模 windows11</a><time datetime="2024-06-18T13:40:24.000Z" title="发表于 2024-06-18 21:40:24">2024-06-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By LuYF-Lemon-love</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn"><span>冀ICP备2022012632号-1</span></a><br/><a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32011502011618"><img src="https://cos.luyf-lemon-love.space/images/备案图标.png"><span>苏公网安备 32011502011618号</span></a><br/><span>感谢光临小破站，欢迎您提出宝贵的意见！</span></div></div><div class="container" id="jsi-flying-fish-container"><script src="js/fish.js"></script></div><style>   @media only screen and (max-width: 767px){
+   #sidebar_search_box input[type=text]{width:calc(100% - 24px)}
+}</style></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon">     </use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer src="/js/jquery.min.js"></script><script defer src="/js/fish.js"></script><script defer src="/js/footerbea.js"></script><script defer data-pjax src="/js/jquery.ripples.js"></script><script defer data-pjax src="/js/ripples.js"></script><script src="/js/sun_moon.js" async></script><script data-pjax defer src="/js/custom/fixed_comment.js"></script><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/artitalk/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;1943031288/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt=""><img width="48" height="48" src="https://cos.luyf-lemon-love.space/images/001-win11-系统自带.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-03-08</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;1943031288/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">00113 LeetCode 刷题笔记 Python 版本-ubuntu</a><div class="blog-slider__text">自己的 LeetCode 刷题记录.</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;1943031288/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;3188392696/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt=""><img width="48" height="48" src="https://cos.luyf-lemon-love.space/images/066-泳装可爱动漫美女.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-03-11</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;3188392696/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">00056-Python 语法和标准库系列学习笔记-windows10</a><div class="blog-slider__text">Python 语法和标准库系列学习笔记。</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;3188392696/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;4091477051/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt=""><img width="48" height="48" src="https://cos.luyf-lemon-love.space/images/063-趴着睡着的动漫美女.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-07-16</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;4091477051/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">00075-谈谈我对攻读计算机研究生的看法——转载-windows10</a><div class="blog-slider__text">如何学习计算机。</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;4091477051/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>
