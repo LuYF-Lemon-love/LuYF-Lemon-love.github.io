@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2024-06-27T13:37:04.967Z</updated>
+  <updated>2024-06-27T14:43:10.536Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -21,10 +21,10 @@
     <link href="https://www.luyf-lemon-love.space/508449685/"/>
     <id>https://www.luyf-lemon-love.space/508449685/</id>
     <published>2024-06-27T13:19:57.000Z</published>
-    <updated>2024-06-27T13:37:04.967Z</updated>
+    <updated>2024-06-27T14:43:10.536Z</updated>
     
     
-    <summary type="html">在多个GPU上进行高效训练</summary>
+    <summary type="html">完全分片数据并行</summary>
     
     
     
@@ -438,7 +438,7 @@
     <link href="https://www.luyf-lemon-love.space/1644152204/"/>
     <id>https://www.luyf-lemon-love.space/1644152204/</id>
     <published>2024-06-01T13:54:48.000Z</published>
-    <updated>2024-06-26T18:07:15.086Z</updated>
+    <updated>2024-06-27T14:43:15.229Z</updated>
     
     
     <summary type="html">学习笔记目录，包含论文。</summary>
