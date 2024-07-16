@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2024-06-30T12:40:36.314Z</updated>
+  <updated>2024-07-16T15:53:21.144Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>00145 VSCode 杂项 windows11</title>
+    <link href="https://www.luyf-lemon-love.space/1103965585/"/>
+    <id>https://www.luyf-lemon-love.space/1103965585/</id>
+    <published>2024-07-16T15:36:23.000Z</published>
+    <updated>2024-07-16T15:53:21.144Z</updated>
+    
+    
+    <summary type="html">ChatGPT 背后的“功臣”——RLHF 技术详解</summary>
+    
+    
+    
+    <category term="杂项" scheme="https://www.luyf-lemon-love.space/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="VSCode" scheme="https://www.luyf-lemon-love.space/tags/VSCode/"/>
+    
+  </entry>
   
   <entry>
     <title>00144 ChatGPT 背后的“功臣”——RLHF 技术详解 windows11</title>
@@ -488,29 +507,6 @@
     <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
     <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>00125 Phi-3 论文学习笔记 windows11</title>
-    <link href="https://www.luyf-lemon-love.space/1463123175/"/>
-    <id>https://www.luyf-lemon-love.space/1463123175/</id>
-    <published>2024-06-14T08:45:48.000Z</published>
-    <updated>2024-06-14T08:59:48.021Z</updated>
-    
-    
-    <summary type="html">Phi-3 小型的语言模型。</summary>
-    
-    
-    
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
   </entry>
   
