@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2024-08-08T13:44:16.189Z</updated>
+  <updated>2024-08-08T13:50:00.684Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.luyf-lemon-love.space/2684901388/"/>
     <id>https://www.luyf-lemon-love.space/2684901388/</id>
     <published>2024-08-08T13:13:03.000Z</published>
-    <updated>2024-08-08T13:44:16.189Z</updated>
+    <updated>2024-08-08T13:50:00.684Z</updated>
     
     
     <summary type="html">大规模 Transformer 模型 8 比特矩阵乘简介 - 基于 Hugging Face Transformers、Accelerate 以及 bitsandbytes</summary>
