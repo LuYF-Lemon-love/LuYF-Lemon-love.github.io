@@ -1,0 +1,720 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>00162 大规模 Transformer 模型 8 比特矩阵乘简介 windows11 | LuYF-Lemon-love の Blog</title><meta name="keywords" content="人工智能,深度学习,大语言模型,huggingface"><meta name="author" content="LuYF-Lemon-love"><meta name="copyright" content="LuYF-Lemon-love"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="大规模 Transformer 模型 8 比特矩阵乘简介 - 基于 Hugging Face Transformers、Accelerate 以及 bitsandbytes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="00162 大规模 Transformer 模型 8 比特矩阵乘简介 windows11">
+<meta property="og:url" content="https://www.luyf-lemon-love.space/2684901388/index.html">
+<meta property="og:site_name" content="LuYF-Lemon-love の Blog">
+<meta property="og:description" content="大规模 Transformer 模型 8 比特矩阵乘简介 - 基于 Hugging Face Transformers、Accelerate 以及 bitsandbytes">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cos.luyf-lemon-love.space/images/044-119867946.jpg">
+<meta property="article:published_time" content="2024-08-08T13:13:03.000Z">
+<meta property="article:modified_time" content="2024-08-08T13:44:16.189Z">
+<meta property="article:author" content="LuYF-Lemon-love">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="大语言模型">
+<meta property="article:tag" content="huggingface">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cos.luyf-lemon-love.space/images/044-119867946.jpg"><link rel="shortcut icon" href="https://cos.luyf-lemon-love.space/images/20220601160712.png"><link rel="canonical" href="https://www.luyf-lemon-love.space/2684901388/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":null},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '00162 大规模 Transformer 模型 8 比特矩阵乘简介 windows11',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2024-08-08 21:44:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/iconfont/iconfont.css"><style>#article-container.post-content h1:before, h2:before, h3:before, h4:before, h5:before, h6:before { -webkit-animation: avatar_turn_around 1s linear infinite; -moz-animation: avatar_turn_around 1s linear infinite; -o-animation: avatar_turn_around 1s linear infinite; -ms-animation: avatar_turn_around 1s linear infinite; animation: avatar_turn_around 1s linear infinite; }</style><link rel="stylesheet" href="/css/custom/twikoo_beautify.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/custom/fixed_comment.css"  media="defer" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="LuYF-Lemon-love の Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="gear-loader"><div class="gear-loader_overlay"></div><div class="gear-loader_cogs"><div class="gear-loader_cogs__top"><div class="gear-top_part"></div><div class="gear-top_part"></div><div class="gear-top_part"></div><div class="gear-top_hole"></div></div><div class="gear-loader_cogs__left"><div class="gear-left_part"></div><div class="gear-left_part"></div><div class="gear-left_part"></div><div class="gear-left_hole"></div></div><div class="gear-loader_cogs__bottom"><div class="gear-bottom_part"></div><div class="gear-bottom_part"></div><div class="gear-bottom_part"></div><div class="gear-bottom_hole"></div></div></div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">162</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">99</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-tag-color"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-category"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw iconfont icon-image"></i><span> Image</span></a></li><li><a class="site-page child" href="/bilibili/"><i class="fa-fw iconfont icon-bilibili"></i><span> Bilibili</span></a></li><li><a class="site-page child" href="/verse/"><i class="fa-fw iconfont icon-comment"></i><span> Verse</span></a></li><li><a class="site-page child" href="/Message/"><i class="fa-fw iconfont icon-comment1"></i><span> Message</span></a></li><li><a class="site-page child" href="/Domains/"><i class="fa-fw iconfont icon-domainyuming"></i><span> Domains</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-set_about_hov"></i><span> About</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-list"></i><span> Project</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://pybind11-openke.readthedocs.io/zh_CN/latest/index.html"><i class="fa-fw iconfont icon-paper"></i><span> pybind11-OpenKE</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-lx-server"></i><span> Server</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.luyf-lemon-love.space"><i class="fa-fw iconfont icon-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://vercel.luyf-lemon-love.space"><i class="fa-fw iconfont icon-logo-vercel"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://server.luyf-lemon-love.space"><i class="fa-fw iconfont icon-cloud"></i><span> Cloud</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cos.luyf-lemon-love.space/images/044-119867946.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">LuYF-Lemon-love の Blog</a></span><div id="he-plugin-simple"></div><div id="none_space"></div><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-tag-color"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-category"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw iconfont icon-image"></i><span> Image</span></a></li><li><a class="site-page child" href="/bilibili/"><i class="fa-fw iconfont icon-bilibili"></i><span> Bilibili</span></a></li><li><a class="site-page child" href="/verse/"><i class="fa-fw iconfont icon-comment"></i><span> Verse</span></a></li><li><a class="site-page child" href="/Message/"><i class="fa-fw iconfont icon-comment1"></i><span> Message</span></a></li><li><a class="site-page child" href="/Domains/"><i class="fa-fw iconfont icon-domainyuming"></i><span> Domains</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-set_about_hov"></i><span> About</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-list"></i><span> Project</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://pybind11-openke.readthedocs.io/zh_CN/latest/index.html"><i class="fa-fw iconfont icon-paper"></i><span> pybind11-OpenKE</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-lx-server"></i><span> Server</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.luyf-lemon-love.space"><i class="fa-fw iconfont icon-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://vercel.luyf-lemon-love.space"><i class="fa-fw iconfont icon-logo-vercel"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://server.luyf-lemon-love.space"><i class="fa-fw iconfont icon-cloud"></i><span> Cloud</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">00162 大规模 Transformer 模型 8 比特矩阵乘简介 windows11</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-08T13:13:03.000Z" title="发表于 2024-08-08 21:13:03">2024-08-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-08T13:44:16.189Z" title="更新于 2024-08-08 21:44:16">2024-08-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">持续维护的工具学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>30分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="00162 大规模 Transformer 模型 8 比特矩阵乘简介 windows11"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言">前言</h2>
+<p>本文介绍了大规模 Transformer 模型 8 比特矩阵乘简介 - 基于 Hugging Face Transformers、Accelerate 以及 bitsandbytes。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240808213332.png" alt=""></p>
+<p>Hugging Face Github 主页: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/huggingface">https://github.com/huggingface</a></p>
+<p>操作系统：Windows 11 家庭中文版</p>
+<h2 id="参考文档">参考文档</h2>
+<ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/blog/hf-bitsandbytes-integration">A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using Hugging Face Transformers, Accelerate and bitsandbytes</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/blog/zh/hf-bitsandbytes-integration">大规模 Transformer 模型 8 比特矩阵乘简介 - 基于 Hugging Face Transformers、Accelerate 以及 bitsandbytes</a></li>
+</ol>
+<h2 id="Introduction">Introduction</h2>
+<p><strong>Language models are becoming larger all the time.</strong> At the time of this writing, PaLM has 540B parameters, OPT, GPT-3, and BLOOM have around 176B parameters, and we are trending towards even larger models. Below is a diagram showing the size of some recent language models.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240808213837.png" alt=""></p>
+<p><strong>Therefore, these models are hard to run on easily accessible devices.</strong> For example, just to do inference on BLOOM-176B, you would need to have 8x 80GB A100 GPUs (~$15k each). To fine-tune BLOOM-176B, you’d need 72 of these GPUs! Much larger models, like PaLM would require even more resources.</p>
+<p>Because these huge models require so many GPUs to run, we need to find ways to reduce these requirements while preserving the model’s performance. Various technologies have been developed that try to shrink the model size, you may have heard of <strong>quantization</strong> and <strong>distillation</strong>, and there are many others.</p>
+<p>After completing the training of BLOOM-176B, we at HuggingFace and BigScience were looking for ways to make this big model easier to run on less GPUs. Through our BigScience community we were made aware of research on Int8 inference that does not degrade predictive performance of large models and reduces the memory footprint of large models by a factor or 2x. Soon we started collaboring on this research which ended with a full integration into Hugging Face <code>transformers</code>. With this blog post, we offer LLM.int8() integration for all Hugging Face models which we explain in more detail below. If you want to read more about our research, you can read our paper, <a target="_blank" rel="noopener external nofollow noreferrer" href="https://arxiv.org/abs/2208.07339">LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale</a>.</p>
+<p>This article focuses on giving a high-level overview of this quantization technology, outlining the difficulties in incorporating it into the <code>transformers</code> library, and drawing up the long-term goals of this partnership.</p>
+<p>Here you will learn what exactly make a large model use so much memory? What makes BLOOM 350GB? Let’s begin by gradually going over a few basic premises.</p>
+<h2 id="Common-data-types-used-in-Machine-Learning">Common data types used in Machine Learning</h2>
+<p>We start with the basic understanding of different floating point data types, which are also referred to as “precision” in the context of Machine Learning.</p>
+<p><strong>The size of a model is determined by the number of its parameters, and their precision, typically one of float32, float16 or bfloat16 (image below from: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://blogs.nvidia.com/blog/2020/05/14/tensorfloat-32-precision-format/">https://blogs.nvidia.com/blog/2020/05/14/tensorfloat-32-precision-format/</a>).</strong></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240808213911.png" alt=""></p>
+<p>Float32 (FP32) stands for the standardized IEEE 32-bit floating point representation. With this data type it is possible to represent a wide range of floating numbers. <strong>In FP32, 8 bits are reserved for the “exponent”, 23 bits for the “mantissa” and 1 bit for the sign of the number.</strong> In addition to that, most of the hardware supports FP32 operations and instructions.</p>
+<p><strong>In the float16 (FP16) data type, 5 bits are reserved for the exponent and 10 bits are reserved for the mantissa. This makes the representable range of FP16 numbers much lower than FP32. This exposes FP16 numbers to the risk of overflowing (trying to represent a number that is very large) and underflowing (representing a number that is very small).</strong></p>
+<p>For example, if you do <code>10k * 10k</code> you end up with <code>100M</code> which is not possible to represent in FP16, as the largest number possible is <code>64k</code>. And thus you’d end up with <code>NaN</code> (Not a Number) result and if you have sequential computation like in neural networks, all the prior work is destroyed. <strong>Usually, loss scaling is used to overcome this issue, but it doesn’t always work well.</strong></p>
+<p><strong>A new format, bfloat16 (BF16), was created to avoid these constraints. In BF16, 8 bits are reserved for the exponent (which is the same as in FP32) and 7 bits are reserved for the fraction.</strong></p>
+<p><strong>This means that in BF16 we can retain the same dynamic range as FP32. But we lose 3 bits of precision with respect to FP16. Now there is absolutely no problem with huge numbers, but the precision is worse than FP16 here.</strong></p>
+<p><strong>In the Ampere architecture, NVIDIA also introduced <a target="_blank" rel="noopener external nofollow noreferrer" href="https://blogs.nvidia.com/blog/2020/05/14/tensorfloat-32-precision-format/">TensorFloat-32</a> (TF32) precision format, combining the dynamic range of BF16 and precision of FP16 to only use 19 bits. It’s currently only used internally during certain operations.</strong></p>
+<p>In the machine learning jargon FP32 is called full precision (4 bytes), while BF16 and FP16 are referred to as half-precision (2 bytes). On top of that, the int8 (INT8) data type consists of an 8-bit representation that can store 2^8 different values (between [0, 255] or [-128, 127] for signed integers).</p>
+<p><strong>While, ideally the training and inference should be done in FP32, it is two times slower than FP16/BF16 and therefore a mixed precision approach is used where the weights are held in FP32 as a precise “main weights” reference, while computation in a forward and backward pass are done for FP16/BF16 to enhance training speed. The FP16/BF16 gradients are then used to update the FP32 main weights.</strong></p>
+<p>During training, the main weights are always stored in FP32, but in practice, the half-precision weights often provide similar quality during inference as their FP32 counterpart – a precise reference of the model is only needed when it receives multiple gradient updates. This means we can use the half-precision weights and use half the GPUs to accomplish the same outcome.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240808213945.png" alt=""></p>
+<p>To calculate the model size in bytes, one multiplies the number of parameters by the size of the chosen precision in bytes.  For example, if we use the bfloat16 version of the BLOOM-176B model, we have <code>176*10**9 x 2 bytes = 352GB</code>! As discussed earlier, this is quite a challenge to fit into a few GPUs.</p>
+<p>But what if we can store those weights with less memory using a different data type? A methodology called quantization has been used widely in Deep Learning.</p>
+<h2 id="Introduction-to-model-quantization">Introduction to model quantization</h2>
+<p>Experimentially, we have discovered that instead of using the 4-byte FP32 precision, we can get an almost identical inference outcome with 2-byte BF16/FP16 half-precision, which halves the model size. It’d be amazing to cut it further, but the inference quality outcome starts to drop dramatically at lower precision.</p>
+<p><strong>To remediate that, we introduce 8-bit quantization. This method uses a quarter precision, thus needing only 1/4th of the model size! But it’s not done by just dropping another half of the bits.</strong></p>
+<p><strong>Quantization is done by essentially “rounding” from one data type to another.</strong> For example, if one data type has the range 0…9 and another 0…4, then the value “4” in the first data type would be rounded to “2” in the second data type. However, if we have the value “3” in the first data type, it lies between 1 and 2 of the second data type, then we would usually round to “2”. This shows that both values “4” and “3” of the first data type have the same value “2” in the second data type. <strong>This highlights that quantization is a noisy process that can lead to information loss, a sort of lossy compression.</strong></p>
+<p>The two most common 8-bit quantization techniques are zero-point quantization and absolute maximum (absmax) quantization. <strong>Zero-point quantization and absmax quantization map the floating point values into more compact int8 (1 byte) values.</strong> First, these methods normalize the input by scaling it by a quantization constant.</p>
+<p><strong>For example, in zero-point quantization, if my range is -1.0…1.0 and I want to quantize into the range -127…127, I want to scale by the factor of 127 and then round it into the 8-bit precision. To retrieve the original value, you would need to divide the int8 value by that same quantization factor of 127.</strong> For example, the value 0.3 would be scaled to <code>0.3*127 = 38.1</code>. Through rounding, we get the value of 38. If we reverse this, we get <code>38/127=0.2992</code> – we have a quantization error of 0.008 in this example. These seemingly tiny errors tend to accumulate and grow as they get propagated through the model’s layers and result in performance degradation.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240808214046.png" alt=""></p>
+<p>(Image taken from: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://intellabs.github.io/distiller/algo_quantization.html">this blogpost</a> )</p>
+<p><strong>Now let’s look at the details of absmax quantization.</strong> To calculate the mapping between the fp16 number and its corresponding int8 number in absmax quantization, <strong>you have to first divide by the absolute maximum value of the tensor and then multiply by the total range of the data type.</strong></p>
+<p>For example, let’s assume you want to apply absmax quantization in a vector that contains <code>[1.2, -0.5, -4.3, 1.2, -3.1, 0.8, 2.4, 5.4]</code>. You extract the absolute maximum of it, which is <code>5.4</code> in this case. Int8 has a range of <code>[-127, 127]</code>, so we divide 127 by <code>5.4</code> and obtain <code>23.5</code> for the scaling factor. Therefore multiplying the original vector by it gives the quantized vector <code>[28, -12, -101, 28, -73, 19, 56, 127]</code>.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/out-quant.gif" alt=""></p>
+<p><strong>To retrieve the latest, one can just divide in full precision the int8 number with the quantization factor, but since the result above is “rounded” some precision will be lost.</strong></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240808214229.png" alt=""></p>
+<p><strong>For an unsigned int8, we would subtract the minimum and scale by the absolute maximum. This is close to what zero-point quantization does. It’s is similar to a min-max scaling but the latter maintains the value scales in such a way that the value “0” is always represented by an integer without any quantization error.</strong></p>
+<p><strong>These tricks can be combined in several ways, for example, row-wise or vector-wise quantization, when it comes to matrix multiplication for more accurate results.</strong> Looking at the matrix multiplication, A*B=C, instead of regular quantization that normalize by a absolute maximum value per tensor, vector-wise quantization finds the absolute maximum of each row of A and each column of B. Then we normalize A and B by dividing these vectors. We then multiply A*B to get C. Finally, to get back the FP16 values, we denormalize by computing the outer product of the absolute maximum vector of A and B. More details on this technique can be found in the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://arxiv.org/abs/2208.07339">LLM.int8() paper</a> or in the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://timdettmers.com/2022/08/17/llm-int8-and-emergent-features/">blog post about quantization and emergent features</a> on Tim’s blog.</p>
+<p>While these basic techniques enable us to quanitize Deep Learning models, they usually lead to a drop in accuracy for larger models. <strong>The LLM.int8() implementation that we integrated into Hugging Face Transformers and Accelerate libraries is the first technique that does not degrade performance even for large models with 176B parameters, such as BLOOM.</strong></p>
+<h2 id="A-gentle-summary-of-LLM-int8-zero-degradation-matrix-multiplication-for-Large-Language-Models">A gentle summary of LLM.int8(): zero degradation matrix multiplication for Large Language Models</h2>
+<p>In LLM.int8(), we have demonstrated that it is crucial to comprehend the scale-dependent emergent properties of transformers in order to understand why traditional quantization fails for large models. We demonstrate that performance deterioration is caused by <strong>outlier features</strong>, which we explain in the next section. The LLM.int8() algorithm itself can be explain as follows.</p>
+<p>In essence, LLM.int8() seeks to complete the matrix multiplication computation in three steps:</p>
+<ol>
+<li><strong>From the input hidden states, extract the outliers (i.e. values that are larger than a certain threshold) by column.</strong></li>
+<li><strong>Perform the matrix multiplication of the outliers in FP16 and the non-outliers in int8.</strong></li>
+<li><strong>Dequantize the non-outlier results and add both outlier and non-outlier results together to receive the full result in FP16.</strong></li>
+</ol>
+<p>These steps can be summarized in the following animation:</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/Mixed-int8.gif" alt=""></p>
+<h3 id="The-importance-of-outlier-features">The importance of outlier features</h3>
+<p><strong>A value that is outside the range of some numbers’ global distribution is generally referred to as an outlier.</strong> Outlier detection has been widely used and covered in the current literature, and having prior knowledge of the distribution of your features helps with the task of outlier detection. More specifically, we have observed that classic quantization at scale fails for transformer-based models &gt;6B parameters. While large outlier features are also present in smaller models, we observe that a certain threshold these outliers from highly systematic patterns across transformers which are present in every layer of the transformer. For more details on these phenomena see the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://arxiv.org/abs/2208.07339">LLM.int8() paper</a> and <a target="_blank" rel="noopener external nofollow noreferrer" href="https://timdettmers.com/2022/08/17/llm-int8-and-emergent-features/">emergent features blog post</a>.</p>
+<p>A<strong>s mentioned earlier, 8-bit precision is extremely constrained, therefore quantizing a vector with several big values can produce wildly erroneous results. Additionally, because of a built-in characteristic of the transformer-based architecture that links all the elements together, these errors tend to compound as they get propagated across multiple layers.</strong> Therefore, <strong>mixed-precision decomposition</strong> has been developed to facilitate efficient quantization with such extreme outliers. It is discussed next.</p>
+<h3 id="Inside-the-MatMul">Inside the MatMul</h3>
+<p><strong>Once the hidden states are computed we extract the outliers using a custom threshold and we decompose the matrix into two parts as explained above.</strong> We found that extracting all outliers with magnitude 6 or greater in this way recoveres full inference performance. <strong>The outlier part is done in fp16 so it is a classic matrix multiplication, whereas the 8-bit matrix multiplication is done by quantizing the weights and hidden states into 8-bit precision using vector-wise quantization – that is, row-wise quantization for the hidden state and column-wise quantization for the weight matrix. After this step, the results are dequantized and returned in half-precision in order to add them to the first matrix multiplication.</strong></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240808214401.png" alt=""></p>
+<h3 id="What-does-0-degradation-mean">What does 0 degradation mean?</h3>
+<p>How can we properly evaluate the performance degradation of this method? How much quality do we lose in terms of generation when using 8-bit models?</p>
+<p>We ran several common benchmarks with the 8-bit and native models using lm-eval-harness and reported the results.</p>
+<p>For OPT-175B:</p>
+<table>
+<thead>
+<tr>
+<th>benchmarks</th>
+<th>-</th>
+<th>-</th>
+<th>-</th>
+<th>-</th>
+<th>difference - value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>metric</td>
+<td>value - int8</td>
+<td>value - fp16</td>
+<td>std err - fp16</td>
+<td>-</td>
+</tr>
+<tr>
+<td>hellaswag</td>
+<td>acc_norm</td>
+<td>0.7849</td>
+<td>0.7849</td>
+<td>0.0041</td>
+<td>0</td>
+</tr>
+<tr>
+<td>hellaswag</td>
+<td>acc</td>
+<td>0.5921</td>
+<td>0.5931</td>
+<td>0.0049</td>
+<td>0.001</td>
+</tr>
+<tr>
+<td>piqa</td>
+<td>acc</td>
+<td>0.7965</td>
+<td>0.7959</td>
+<td>0.0094</td>
+<td>0.0006</td>
+</tr>
+<tr>
+<td>piqa</td>
+<td>acc_norm</td>
+<td>0.8101</td>
+<td>0.8107</td>
+<td>0.0091</td>
+<td>0.0006</td>
+</tr>
+<tr>
+<td>lambada</td>
+<td>ppl</td>
+<td>3.0142</td>
+<td>3.0152</td>
+<td>0.0552</td>
+<td>0.001</td>
+</tr>
+<tr>
+<td>lambada</td>
+<td>acc</td>
+<td>0.7464</td>
+<td>0.7466</td>
+<td>0.0061</td>
+<td>0.0002</td>
+</tr>
+<tr>
+<td>winogrande</td>
+<td>acc</td>
+<td>0.7174</td>
+<td>0.7245</td>
+<td>0.0125</td>
+<td>0.0071</td>
+</tr>
+</tbody>
+</table>
+<p>For BLOOM-176:</p>
+<table>
+<thead>
+<tr>
+<th>benchmarks</th>
+<th>-</th>
+<th>-</th>
+<th>-</th>
+<th>-</th>
+<th>difference - value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>metric</td>
+<td>value - int8</td>
+<td>value - bf16</td>
+<td>std err - bf16</td>
+<td>-</td>
+</tr>
+<tr>
+<td>hellaswag</td>
+<td>acc_norm</td>
+<td>0.7274</td>
+<td>0.7303</td>
+<td>0.0044</td>
+<td>0.0029</td>
+</tr>
+<tr>
+<td>hellaswag</td>
+<td>acc</td>
+<td>0.5563</td>
+<td>0.5584</td>
+<td>0.005</td>
+<td>0.0021</td>
+</tr>
+<tr>
+<td>piqa</td>
+<td>acc</td>
+<td>0.7835</td>
+<td>0.7884</td>
+<td>0.0095</td>
+<td>0.0049</td>
+</tr>
+<tr>
+<td>piqa</td>
+<td>acc_norm</td>
+<td>0.7922</td>
+<td>0.7911</td>
+<td>0.0095</td>
+<td>0.0011</td>
+</tr>
+<tr>
+<td>lambada</td>
+<td>ppl</td>
+<td>3.9191</td>
+<td>3.931</td>
+<td>0.0846</td>
+<td>0.0119</td>
+</tr>
+<tr>
+<td>lambada</td>
+<td>acc</td>
+<td>0.6808</td>
+<td>0.6718</td>
+<td>0.0065</td>
+<td>0.009</td>
+</tr>
+<tr>
+<td>winogrande</td>
+<td>acc</td>
+<td>0.7048</td>
+<td>0.7048</td>
+<td>0.0128</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>We indeed observe 0 performance degradation for those models since the absolute difference of the metrics are all below the standard error (except for BLOOM-int8 which is slightly better than the native model on lambada). For a more detailed performance evaluation against state-of-the-art approaches, take a look at the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://arxiv.org/abs/2208.07339">paper</a>!</p>
+<h3 id="Is-it-faster-than-native-models">Is it faster than native models?</h3>
+<p>The main purpose of the LLM.int8() method is to make large models more accessible without performance degradation. But the method would be less useful if it is very slow. So we benchmarked the generation speed of multiple models. <strong>We find that BLOOM-176B with LLM.int8() is about 15% to 23% slower than the fp16 version – which is still quite acceptable.</strong> We found larger slowdowns for smaller models, like T5-3B and T5-11B. We worked hard to speed up these small models. Within a day, we could improve inference per token from 312 ms to 173 ms for T5-3B and from 45 ms to 25 ms for T5-11B. Additionally, issues were <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/TimDettmers/bitsandbytes/issues/6#issuecomment-1211345635">already identified</a>, and LLM.int8() will likely be faster still for small models in upcoming releases. For now, the current numbers are in the table below.</p>
+<table>
+<thead>
+<tr>
+<th>Precision</th>
+<th>Number of parameters</th>
+<th>Hardware</th>
+<th>Time per token in milliseconds for Batch Size 1</th>
+<th>Time per token in milliseconds for Batch Size 8</th>
+<th>Time per token in milliseconds for Batch Size 32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bf16</td>
+<td>176B</td>
+<td>8xA100 80GB</td>
+<td>239</td>
+<td>32</td>
+<td>9.9</td>
+</tr>
+<tr>
+<td>int8</td>
+<td>176B</td>
+<td>4xA100 80GB</td>
+<td>282</td>
+<td>37.5</td>
+<td>10.2</td>
+</tr>
+<tr>
+<td>bf16</td>
+<td>176B</td>
+<td>14xA100 40GB</td>
+<td>285</td>
+<td>36.5</td>
+<td>10.4</td>
+</tr>
+<tr>
+<td>int8</td>
+<td>176B</td>
+<td>5xA100 40GB</td>
+<td>367</td>
+<td>46.4</td>
+<td>oom</td>
+</tr>
+<tr>
+<td>fp16</td>
+<td>11B</td>
+<td>2xT4 15GB</td>
+<td>11.7</td>
+<td>1.7</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>int8</td>
+<td>11B</td>
+<td>1xT4 15GB</td>
+<td>43.5</td>
+<td>5.3</td>
+<td>1.3</td>
+</tr>
+<tr>
+<td>fp32</td>
+<td>3B</td>
+<td>2xT4 15GB</td>
+<td>45</td>
+<td>7.2</td>
+<td>3.1</td>
+</tr>
+<tr>
+<td>int8</td>
+<td>3B</td>
+<td>1xT4 15GB</td>
+<td>312</td>
+<td>39.1</td>
+<td>10.2</td>
+</tr>
+</tbody>
+</table>
+<p>The 3 models are BLOOM-176B, T5-11B and T5-3B.</p>
+<h3 id="Hugging-Face-transformers-integration-nuances">Hugging Face <code>transformers</code> integration nuances</h3>
+<p>Next let’s discuss the specifics of the Hugging Face <code>transformers</code> integration. Let’s look at the usage and the common culprit you may encounter while trying to set things up.</p>
+<h3 id="Usage">Usage</h3>
+<p><strong>The module responsible for the whole magic described in this blog post is called <code>Linear8bitLt</code> and you can easily import it from the <code>bitsandbytes</code> library. It is derived from a classic <code>torch.nn</code> Module and can be easily used and deployed in your architecture with the code described below.</strong></p>
+<p><strong>Here is a step-by-step example of the following use case: let’s say you want to convert a small model in int8 using <code>bitsandbytes</code>.</strong></p>
+<ol>
+<li>First we need the correct imports below!</li>
+</ol>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> bitsandbytes <span class="keyword">as</span> bnb</span><br><span class="line"><span class="keyword">from</span> bnb.nn <span class="keyword">import</span> Linear8bitLt</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><strong>Then you can define your own model. Note that you can convert a checkpoint or model of any precision to 8-bit (FP16, BF16 or FP32) but, currently, the input of the model has to be FP16 for our Int8 module to work. So we treat our model here as a fp16 model.</strong></li>
+</ol>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fp16_model = nn.Sequential(</span><br><span class="line">    nn.Linear(<span class="number">64</span>, <span class="number">64</span>),</span><br><span class="line">    nn.Linear(<span class="number">64</span>, <span class="number">64</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><strong>Let’s say you have trained your model on your favorite dataset and task! Now time to save the model:</strong></li>
+</ol>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[... train the model ...]</span><br><span class="line">torch.save(fp16_model.state_dict(), <span class="string">&quot;model.pt&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li><strong>Now that your <code>state_dict</code> is saved, let us define an int8 model:</strong></li>
+</ol>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int8_model = nn.Sequential(</span><br><span class="line">    Linear8bitLt(<span class="number">64</span>, <span class="number">64</span>, has_fp16_weights=<span class="literal">False</span>),</span><br><span class="line">    Linear8bitLt(<span class="number">64</span>, <span class="number">64</span>, has_fp16_weights=<span class="literal">False</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><strong>Here it is very important to add the flag <code>has_fp16_weights</code>. By default, this is set to <code>True</code> which is used to train in mixed Int8/FP16 precision. However, we are interested in memory efficient inference for which we need to use <code>has_fp16_weights=False</code>.</strong></p>
+<ol start="5">
+<li>Now time to load your model in 8-bit!</li>
+</ol>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int8_model.load_state_dict(torch.load(<span class="string">&quot;model.pt&quot;</span>))</span><br><span class="line">int8_model = int8_model.to(<span class="number">0</span>) <span class="comment"># Quantization happens here</span></span><br></pre></td></tr></table></figure>
+<p><strong>Note that the quantization step is done in the second line once the model is set on the GPU.</strong> If you print <code>int8_model[0].weight</code> before calling the <code>.to</code> function you get:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int8_model[0].weight</span><br><span class="line">Parameter containing:</span><br><span class="line">tensor([[ 0.0031, -0.0438,  0.0494,  ..., -0.0046, -0.0410,  0.0436],</span><br><span class="line">        [-0.1013,  0.0394,  0.0787,  ...,  0.0986,  0.0595,  0.0162],</span><br><span class="line">        [-0.0859, -0.1227, -0.1209,  ...,  0.1158,  0.0186, -0.0530],</span><br><span class="line">        ...,</span><br><span class="line">        [ 0.0804,  0.0725,  0.0638,  ..., -0.0487, -0.0524, -0.1076],</span><br><span class="line">        [-0.0200, -0.0406,  0.0663,  ...,  0.0123,  0.0551, -0.0121],</span><br><span class="line">        [-0.0041,  0.0865, -0.0013,  ..., -0.0427, -0.0764,  0.1189]],</span><br><span class="line">       dtype=torch.float16)</span><br></pre></td></tr></table></figure>
+<p>Whereas if you print it after the second line’s call you get:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int8_model[0].weight</span><br><span class="line">Parameter containing:</span><br><span class="line">tensor([[   3,  -47,   54,  ...,   -5,  -44,   47],</span><br><span class="line">        [-104,   40,   81,  ...,  101,   61,   17],</span><br><span class="line">        [ -89, -127, -125,  ...,  120,   19,  -55],</span><br><span class="line">        ...,</span><br><span class="line">        [  82,   74,   65,  ...,  -49,  -53, -109],</span><br><span class="line">        [ -21,  -42,   68,  ...,   13,   57,  -12],</span><br><span class="line">        [  -4,   88,   -1,  ...,  -43,  -78,  121]],</span><br><span class="line">        device=&#x27;cuda:0&#x27;, dtype=torch.int8, requires_grad=True)</span><br></pre></td></tr></table></figure>
+<p>The weights values are “truncated” as we have seen when explaining quantization in the previous sections. Also, the values seem to be distributed between [-127, 127]. <strong>You might also wonder how to retrieve the FP16 weights in order to perform the outlier MatMul in fp16? You can simply do:</strong></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(int8_model[<span class="number">0</span>].weight.CB * int8_model[<span class="number">0</span>].weight.SCB) / <span class="number">127</span></span><br></pre></td></tr></table></figure>
+<p>And you will get:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tensor([[ 0.0028, -0.0459,  0.0522,  ..., -0.0049, -0.0428,  0.0462],</span><br><span class="line">        [-0.0960,  0.0391,  0.0782,  ...,  0.0994,  0.0593,  0.0167],</span><br><span class="line">        [-0.0822, -0.1240, -0.1207,  ...,  0.1181,  0.0185, -0.0541],</span><br><span class="line">        ...,</span><br><span class="line">        [ 0.0757,  0.0723,  0.0628,  ..., -0.0482, -0.0516, -0.1072],</span><br><span class="line">        [-0.0194, -0.0410,  0.0657,  ...,  0.0128,  0.0554, -0.0118],</span><br><span class="line">        [-0.0037,  0.0859, -0.0010,  ..., -0.0423, -0.0759,  0.1190]],</span><br><span class="line">       device=&#x27;cuda:0&#x27;)</span><br></pre></td></tr></table></figure>
+<p>Which is close enough to the original FP16 values (2 print outs up)!</p>
+<ol start="6">
+<li><strong>Now you can safely infer using your model by making sure your input is on the correct GPU and is in FP16:</strong></li>
+</ol>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">input_ = torch.randn((<span class="number">1</span>, <span class="number">64</span>), dtype=torch.float16)</span><br><span class="line">hidden_states = int8_model(input_.to(torch.device(<span class="string">&#x27;cuda&#x27;</span>, <span class="number">0</span>)))</span><br></pre></td></tr></table></figure>
+<p>Check out <a href="/../images/00008_hf_bitsandbytes_integration/example.py">the example script</a> for the full minimal code!</p>
+<p><strong>As a side note, you should be aware that these modules differ slightly from the <code>nn.Linear</code> modules in that their parameters come from the <code>bnb.nn.Int8Params</code> class rather than the <code>nn.Parameter</code> class.</strong> You’ll see later that this presented an additional obstacle on our journey!</p>
+<p>Now the time has come to understand how to integrate that into the <code>transformers</code> library!</p>
+<h3 id="accelerate-is-all-you-need"><code>accelerate</code> is all you need</h3>
+<p>When working with huge models, the <code>accelerate</code> library includes a number of helpful utilities. <strong>The <code>init_empty_weights</code> method is especially helpful because any model, regardless of size, may be initialized with this method as a context manager without allocating any memory for the model weights.</strong></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">from</span> accelerate <span class="keyword">import</span> init_empty_weights</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> init_empty_weights():</span><br><span class="line">    model = nn.Sequential([nn.Linear(<span class="number">100000</span>, <span class="number">100000</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>)]) <span class="comment"># This will take ~0 RAM!</span></span><br></pre></td></tr></table></figure>
+<p><strong>The initialized model will be put on PyTorch’s <code>meta</code> device, an underlying mechanism to represent shape and dtype without allocating memory for storage. How cool is that?</strong></p>
+<p>Initially, this function is called inside the <code>.from_pretrained</code> function and overrides all parameters to <code>torch.nn.Parameter</code>. This would not fit our requirement since we want to keep the <code>Int8Params</code> class in our case for <code>Linear8bitLt</code> modules as explained above. We managed to fix that on <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/huggingface/accelerate/pull/519">the following PR</a> that modifies:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module._parameters[name] = nn.Parameter(module._parameters[name].to(torch.device(<span class="string">&quot;meta&quot;</span>)))</span><br></pre></td></tr></table></figure>
+<p>to</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">param_cls = <span class="built_in">type</span>(module._parameters[name])</span><br><span class="line">kwargs = module._parameters[name].__dict__</span><br><span class="line">module._parameters[name] = param_cls(module._parameters[name].to(torch.device(<span class="string">&quot;meta&quot;</span>)), **kwargs)</span><br></pre></td></tr></table></figure>
+<p>Now that this is fixed, <strong>we can easily leverage this context manager and play with it to replace all <code>nn.Linear</code> modules to <code>bnb.nn.Linear8bitLt</code> at no memory cost using a custom function!</strong></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">replace_8bit_linear</span>(<span class="params">model, threshold=<span class="number">6.0</span>, module_to_not_convert=<span class="string">&quot;lm_head&quot;</span></span>):</span><br><span class="line">    <span class="keyword">for</span> name, module <span class="keyword">in</span> model.named_children():</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(<span class="built_in">list</span>(module.children())) &gt; <span class="number">0</span>:</span><br><span class="line">            replace_8bit_linear(module, threshold, module_to_not_convert)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(module, nn.Linear) <span class="keyword">and</span> name != module_to_not_convert:</span><br><span class="line">            <span class="keyword">with</span> init_empty_weights():</span><br><span class="line">                model._modules[name] = bnb.nn.Linear8bitLt(</span><br><span class="line">                    module.in_features,</span><br><span class="line">                    module.out_features,</span><br><span class="line">                    module.bias <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>,</span><br><span class="line">                    has_fp16_weights=<span class="literal">False</span>,</span><br><span class="line">                    threshold=threshold,</span><br><span class="line">                )</span><br><span class="line">    <span class="keyword">return</span> model</span><br></pre></td></tr></table></figure>
+<p><strong>This function recursively replaces all <code>nn.Linear</code> layers of a given model initialized on the <code>meta</code> device and replaces them with a <code>Linear8bitLt</code> module. The attribute <code>has_fp16_weights</code> has to be set to <code>False</code> in order to directly load the weights in <code>int8</code> together with the quantization statistics.</strong></p>
+<p><strong>We also discard the replacement for some modules (here the <code>lm_head</code>) since we want to keep the latest in their native precision for more precise and stable results.</strong></p>
+<p><strong>But it isn’t over yet! The function above is executed under the <code>init_empty_weights</code> context manager which means that the new model will be still in the <code>meta</code> device. For models that are initialized under this context manager, <code>accelerate</code> will manually load the parameters of each module and move them to the correct devices.</strong> In <code>bitsandbytes</code>, setting a <code>Linear8bitLt</code> module’s device is a crucial step (if you are curious, you can check the code snippet <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/TimDettmers/bitsandbytes/blob/bd515328d70f344f935075f359c5aefc616878d5/bitsandbytes/nn/modules.py#L94">here</a>) as we have seen in our toy script.</p>
+<p>Here the quantization step fails when calling it twice. We had to come up with an implementation of <code>accelerate</code>’s <code>set_module_tensor_to_device</code> function (termed as <code>set_module_8bit_tensor_to_device</code>) to make sure we don’t call it twice. Let’s discuss this in detail in the section below!</p>
+<h3 id="Be-very-careful-on-how-to-set-devices-with-accelerate">Be very careful on how to set devices with <code>accelerate</code></h3>
+<p>Here we played a very delicate balancing act with the <code>accelerate</code> library!<br>
+Once you load your model and set it on the correct devices, sometimes you still need to call <code>set_module_tensor_to_device</code> to dispatch the model with hooks on all devices. This is done inside the <code>dispatch_model</code> function from <code>accelerate</code>, which involves potentially calling <code>.to</code> several times and is something we want to avoid.<br>
+2 Pull Requests were needed to achieve what we wanted! The initial PR proposed <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/huggingface/accelerate/pull/539/">here</a> broke some tests but <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/huggingface/accelerate/pull/576/">this PR</a> successfully fixed everything!</p>
+<h3 id="Wrapping-it-all-up">Wrapping it all up</h3>
+<p>Therefore the ultimate recipe is:</p>
+<ol>
+<li><strong>Initialize a model in the <code>meta</code> device with the correct modules</strong></li>
+<li><strong>Set the parameters one by one on the correct GPU device and make sure you never do this procedure twice!</strong></li>
+<li><strong>Put new keyword arguments in the correct place everywhere, and add some nice documentation</strong></li>
+<li>Add very extensive tests! Check our tests <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/huggingface/transformers/blob/main/tests/mixed_int8/test_mixed_int8.py">here</a> for more details</li>
+</ol>
+<p>This may sound quite easy, but we went through many hard debugging sessions together, often times involving CUDA kernels!</p>
+<p>All said and done, this integration adventure was very fun; from deep diving and doing some “surgery” on different libraries to aligning everything and making it work!</p>
+<p>Now time to see how to benefit from this integration and how to successfully use it in <code>transformers</code>!</p>
+<h2 id="How-to-use-it-in-transformers">How to use it in <code>transformers</code></h2>
+<h3 id="Hardware-requirements">Hardware requirements</h3>
+<p>8-bit tensor cores are not supported on the CPU. bitsandbytes can be run on 8-bit tensor core-supported hardware, which are Turing and Ampere GPUs (RTX 20s, RTX 30s, A40-A100, T4+). For example, Google Colab GPUs are usually NVIDIA T4 GPUs, and their latest generation of GPUs does support 8-bit tensor cores. Our demos are based on Google Colab so check them out below!</p>
+<h3 id="Installation">Installation</h3>
+<p>Just install the latest version of the libraries using the commands below (make sure that you are using python&gt;=3.8) and run the commands below to try out</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install accelerate</span><br><span class="line">pip install bitsandbytes</span><br><span class="line">pip install git+https://github.com/huggingface/transformers.git</span><br></pre></td></tr></table></figure>
+<h3 id="Example-demos-running-T5-11b-on-a-Google-Colab">Example demos - running T5 11b on a Google Colab</h3>
+<p>Check out the Google Colab demos for running 8bit models on a BLOOM-3B model!</p>
+<p><strong>Here is the demo for running T5-11B. The T5-11B model checkpoint is in FP32 which uses 42GB of memory and does not fit on Google Colab. With our 8-bit modules it only uses 11GB and fits easily:</strong></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://colab.research.google.com/drive/1YORPWx4okIHXnjW7MSAidXN29mPVNT7F?usp=sharing"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab: T5-11b demo"></a></p>
+<p><strong>Or this demo for BLOOM-3B:</strong></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/HuggingFace_int8_demo.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab: BLOOM-3b demo"></a></p>
+<h2 id="Scope-of-improvements">Scope of improvements</h2>
+<p>This approach, in our opinion, greatly improves access to very large models. With no performance degradation, it enables users with less compute to access models that were previously inaccessible.<br>
+We’ve found several areas for improvement that can be worked on in the future to make this method even better for large models!</p>
+<h3 id="Faster-inference-speed-for-smaller-models">Faster inference speed for smaller models</h3>
+<p>As we have seen in the <a href="#is-it-faster-than-native-models">the benchmarking section</a>, we could improve the runtime speed for small model (&lt;=6B parameters) by a factor of almost 2x. However, while the inference speed is robust for large models like BLOOM-176B there are still improvements to be had for small models. We already identified the issues and likely recover same performance as fp16, or get small speedups. You will see these changes being integrated within the next couple of weeks.</p>
+<h3 id="Support-for-Kepler-GPUs-GTX-1080-etc">Support for Kepler GPUs (GTX 1080 etc)</h3>
+<p>While we support all GPUs from the past four years, some old GPUs like GTX 1080 still see heavy use. While these GPUs do not have Int8 tensor cores, they do have Int8 vector units (a kind of “weak” tensor core). As such, these GPUs can also experience Int8 acceleration. However, it requires a entire different stack of software for fast inference. While we do plan to integrate support for Kepler GPUs to make the LLM.int8() feature more widely available, it will take some time to realize this due to its complexity.</p>
+<h3 id="Saving-8-bit-state-dicts-on-the-Hub">Saving 8-bit state dicts on the Hub</h3>
+<p>8-bit state dicts cannot currently be loaded directly into the 8-bit model after being pushed on the Hub. This is due to the fact that the statistics (remember <code>weight.CB</code> and <code>weight.SCB</code>) computed by the model are not currently stored or taken into account inside the state dict, and the <code>Linear8bitLt</code> module does not support this feature yet.<br>
+We think that having the ability to save that and push it to the Hub might contribute to greater accessibility.</p>
+<h3 id="CPU-support">CPU support</h3>
+<p>CPU devices do not support 8-bit cores, as was stated at the beginning of this blogpost. Can we, however, get past that? Running this module on CPUs would also significantly improve usability and accessibility.</p>
+<h3 id="Scaling-up-on-other-modalities">Scaling up on other modalities</h3>
+<p>Currently, language models dominate very large models. Leveraging this method on very large vision, audio, and multi-modal models might be an interesting thing to do for better accessibility in the coming years as these models become more accessible.</p>
+<h2 id="结语">结语</h2>
+<p>第一百六十二篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+</article><div class="business-center"><div class="business-card"><div class="business-flip"><div class="business-front"><div class="business-strip-bottom"></div><div class="business-strip-top"></div><img class="business-logo" width="80" height="80" src="https://cos.luyf-lemon-love.space/images/20220606142536.png" alt="cardcode"><div class="business-Invitation">Invitation</div><div class="business-chip"><div class="business-chip-line"></div><div class="business-chip-line"></div><div class="business-chip-line"></div><div class="business-chip-line"></div><div class="business-chip-main"></div></div><svg class="business-wave" viewBox="0 3.71 26.959 38.787" width="26.959" height="38.787" fill="white"><path d="M19.709 3.719c.266.043.5.187.656.406 4.125 5.207 6.594 11.781 6.594 18.938 0 7.156-2.469 13.73-6.594 18.937-.195.336-.57.531-.957.492a.9946.9946 0 0 1-.851-.66c-.129-.367-.035-.777.246-1.051 3.855-4.867 6.156-11.023 6.156-17.718 0-6.696-2.301-12.852-6.156-17.719-.262-.317-.301-.762-.102-1.121.204-.36.602-.559 1.008-.504z"></path><path d="M13.74 7.563c.231.039.442.164.594.343 3.508 4.059 5.625 9.371 5.625 15.157 0 5.785-2.113 11.097-5.625 15.156-.363.422-1 .472-1.422.109-.422-.363-.472-1-.109-1.422 3.211-3.711 5.156-8.551 5.156-13.843 0-5.293-1.949-10.133-5.156-13.844-.27-.309-.324-.75-.141-1.114.188-.367.578-.582.985-.542h.093z"></path><path d="M7.584 11.438c.227.031.438.144.594.312 2.953 2.863 4.781 6.875 4.781 11.313 0 4.433-1.828 8.449-4.781 11.312-.398.387-1.035.383-1.422-.016-.387-.398-.383-1.035.016-1.421 2.582-2.504 4.187-5.993 4.187-9.875 0-3.883-1.605-7.372-4.187-9.875-.321-.282-.426-.739-.266-1.133.164-.395.559-.641.984-.617h.094zM1.178 15.531c.121.02.238.063.344.125 2.633 1.414 4.437 4.215 4.437 7.407 0 3.195-1.797 5.996-4.437 7.406-.492.258-1.102.07-1.36-.422-.257-.492-.07-1.102.422-1.359 2.012-1.075 3.375-3.176 3.375-5.625 0-2.446-1.371-4.551-3.375-5.625-.441-.204-.676-.692-.551-1.165.122-.468.567-.785 1.051-.742h.094z"></path></svg><div class="business-card-number"><div class="business-section">DNF</div><div class="business-section">千万别在森林里迷路！</div></div><div class="business-end"><span class="business-end-text">created:</span><span class="business-end-date">06/19/2008</span></div><div class="business-card-holder">欢迎来到阿拉德！</div><div class="business-master"><div class="business-circle business-master-red"></div><div class="business-circle business-master-yellow">   </div></div></div><div class="business-back"><div class="business-strip-black"></div><div class="business-ccv"><label>年华一去不复返，是非成败转头空。 ——似水流年</label><div>圣耀救赎太刀</div></div><div class="business-terms"><p>月光色，女子香。泪断剑，情多长。望明月，心悲凉。千古恨，轮回尝。 ——月之光芒</p><p>江天一色无纤尘，皎皎空中孤月轮。 ——月影霜岚</p></div></div></div></div></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.luyf-lemon-love.space">LuYF-Lemon-love</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.luyf-lemon-love.space/2684901388/">https://www.luyf-lemon-love.space/2684901388/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.luyf-lemon-love.space" target="_blank">LuYF-Lemon-love の Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><a class="post-meta__tags" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">大语言模型</a><a class="post-meta__tags" href="/tags/huggingface/">huggingface</a></div><div class="post_share"><div class="social-share" data-image="https://cos.luyf-lemon-love.space/images/044-119867946.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cos.luyf-lemon-love.space/images/20220511162220.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" src="https://cos.luyf-lemon-love.space/images/20220511162220.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://cos.luyf-lemon-love.space/images/20220511162303.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" src="https://cos.luyf-lemon-love.space/images/20220511162303.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/3565953372/"><img class="next-cover" src="https://cos.luyf-lemon-love.space/images/043-119867946.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">00161 How to generate text: using different decoding methods for language generation with Transformers - windows11</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/1644152204/" title="00121 学习笔记目录 windows11"><img class="cover" src="https://cos.luyf-lemon-love.space/images/040-%E9%87%91%E5%85%8B%E4%B8%9D%E5%94%AF%E7%BE%8E%E6%8A%A5%E7%BA%B8%E5%A2%99.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-01</div><div class="title">00121 学习笔记目录 windows11</div></div></a></div><div><a href="/3565953372/" title="00161 How to generate text: using different decoding methods for language generation with Transformers - windows11"><img class="cover" src="https://cos.luyf-lemon-love.space/images/043-119867946.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-07</div><div class="title">00161 How to generate text: using different decoding methods for language generation with Transformers - windows11</div></div></a></div><div><a href="/887752082/" title="00160 PEFT：在低资源硬件上对十亿规模模型进行参数高效微调 windows11"><img class="cover" src="https://cos.luyf-lemon-love.space/images/042-119867946.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-07</div><div class="title">00160 PEFT：在低资源硬件上对十亿规模模型进行参数高效微调 windows11</div></div></a></div><div><a href="/1433949941/" title="00153 开源大语言模型作为 LangChain 智能体 windows11"><img class="cover" src="https://cos.luyf-lemon-love.space/images/039-119887888.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-03</div><div class="title">00153 开源大语言模型作为 LangChain 智能体 windows11</div></div></a></div><div><a href="/2126674960/" title="00152 “StackLLaMA”: 用 RLHF 训练 LLaMA 的手把手教程 windows11"><img class="cover" src="https://cos.luyf-lemon-love.space/images/038-119887888.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-03</div><div class="title">00152 “StackLLaMA”: 用 RLHF 训练 LLaMA 的手把手教程 windows11</div></div></a></div><div><a href="/433817122/" title="00151 面向生产的 LLM 优化 windows11"><img class="cover" src="https://cos.luyf-lemon-love.space/images/037-119916609.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-03</div><div class="title">00151 面向生产的 LLM 优化 windows11</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LuYF-Lemon-love</div><div class="author-info__description">天之道，损有余而补不足，人之道则不然，损不足以奉有余。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">162</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">99</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><a id="card-info-btn" href="https://www.luyf-lemon-love.space/atom.xml"><i class="fa fa-rss"></i><span>订阅RSS</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/LuYF-Lemon-love" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/luyanfeng_nlp@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">本站部署到了几个地方，对应的域名请看顶部的 Domains 页，也可以直接访问 Server 页。<img src="https://cos.luyf-lemon-love.space//images/src=http___5b0988e595225.cdn.sohucs.com_images_20190807_3a7deb1efdfc4111bada5782b7fbf454.gif&refer=http___5b0988e595225.cdn.sohucs.gif"></div><timing></timing></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">2.</span> <span class="toc-text">参考文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">3.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Common-data-types-used-in-Machine-Learning"><span class="toc-number">4.</span> <span class="toc-text">Common data types used in Machine Learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-model-quantization"><span class="toc-number">5.</span> <span class="toc-text">Introduction to model quantization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#A-gentle-summary-of-LLM-int8-zero-degradation-matrix-multiplication-for-Large-Language-Models"><span class="toc-number">6.</span> <span class="toc-text">A gentle summary of LLM.int8(): zero degradation matrix multiplication for Large Language Models</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-importance-of-outlier-features"><span class="toc-number">6.1.</span> <span class="toc-text">The importance of outlier features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inside-the-MatMul"><span class="toc-number">6.2.</span> <span class="toc-text">Inside the MatMul</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-does-0-degradation-mean"><span class="toc-number">6.3.</span> <span class="toc-text">What does 0 degradation mean?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Is-it-faster-than-native-models"><span class="toc-number">6.4.</span> <span class="toc-text">Is it faster than native models?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hugging-Face-transformers-integration-nuances"><span class="toc-number">6.5.</span> <span class="toc-text">Hugging Face transformers integration nuances</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage"><span class="toc-number">6.6.</span> <span class="toc-text">Usage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#accelerate-is-all-you-need"><span class="toc-number">6.7.</span> <span class="toc-text">accelerate is all you need</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Be-very-careful-on-how-to-set-devices-with-accelerate"><span class="toc-number">6.8.</span> <span class="toc-text">Be very careful on how to set devices with accelerate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Wrapping-it-all-up"><span class="toc-number">6.9.</span> <span class="toc-text">Wrapping it all up</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How-to-use-it-in-transformers"><span class="toc-number">7.</span> <span class="toc-text">How to use it in transformers</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hardware-requirements"><span class="toc-number">7.1.</span> <span class="toc-text">Hardware requirements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Installation"><span class="toc-number">7.2.</span> <span class="toc-text">Installation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-demos-running-T5-11b-on-a-Google-Colab"><span class="toc-number">7.3.</span> <span class="toc-text">Example demos - running T5 11b on a Google Colab</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scope-of-improvements"><span class="toc-number">8.</span> <span class="toc-text">Scope of improvements</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Faster-inference-speed-for-smaller-models"><span class="toc-number">8.1.</span> <span class="toc-text">Faster inference speed for smaller models</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Support-for-Kepler-GPUs-GTX-1080-etc"><span class="toc-number">8.2.</span> <span class="toc-text">Support for Kepler GPUs (GTX 1080 etc)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Saving-8-bit-state-dicts-on-the-Hub"><span class="toc-number">8.3.</span> <span class="toc-text">Saving 8-bit state dicts on the Hub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CPU-support"><span class="toc-number">8.4.</span> <span class="toc-text">CPU support</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scaling-up-on-other-modalities"><span class="toc-number">8.5.</span> <span class="toc-text">Scaling up on other modalities</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">9.</span> <span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2684901388/" title="00162 大规模 Transformer 模型 8 比特矩阵乘简介 windows11"><img src="https://cos.luyf-lemon-love.space/images/044-119867946.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00162 大规模 Transformer 模型 8 比特矩阵乘简介 windows11"/></a><div class="content"><a class="title" href="/2684901388/" title="00162 大规模 Transformer 模型 8 比特矩阵乘简介 windows11">00162 大规模 Transformer 模型 8 比特矩阵乘简介 windows11</a><time datetime="2024-08-08T13:13:03.000Z" title="发表于 2024-08-08 21:13:03">2024-08-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/3565953372/" title="00161 How to generate text: using different decoding methods for language generation with Transformers - windows11"><img src="https://cos.luyf-lemon-love.space/images/043-119867946.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00161 How to generate text: using different decoding methods for language generation with Transformers - windows11"/></a><div class="content"><a class="title" href="/3565953372/" title="00161 How to generate text: using different decoding methods for language generation with Transformers - windows11">00161 How to generate text: using different decoding methods for language generation with Transformers - windows11</a><time datetime="2024-08-07T14:54:27.000Z" title="发表于 2024-08-07 22:54:27">2024-08-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/887752082/" title="00160 PEFT：在低资源硬件上对十亿规模模型进行参数高效微调 windows11"><img src="https://cos.luyf-lemon-love.space/images/042-119867946.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00160 PEFT：在低资源硬件上对十亿规模模型进行参数高效微调 windows11"/></a><div class="content"><a class="title" href="/887752082/" title="00160 PEFT：在低资源硬件上对十亿规模模型进行参数高效微调 windows11">00160 PEFT：在低资源硬件上对十亿规模模型进行参数高效微调 windows11</a><time datetime="2024-08-07T13:57:08.000Z" title="发表于 2024-08-07 21:57:08">2024-08-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/131002627/" title="00159 动态壁纸 (00021-00030) windows11"><img src="https://cos.luyf-lemon-love.space/images/20240807212312.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00159 动态壁纸 (00021-00030) windows11"/></a><div class="content"><a class="title" href="/131002627/" title="00159 动态壁纸 (00021-00030) windows11">00159 动态壁纸 (00021-00030) windows11</a><time datetime="2024-08-07T13:07:32.000Z" title="发表于 2024-08-07 21:07:32">2024-08-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/797095091/" title="00158 Verilog In One Day 学习笔记 windows11"><img src="https://cos.luyf-lemon-love.space/images/041-119876678.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00158 Verilog In One Day 学习笔记 windows11"/></a><div class="content"><a class="title" href="/797095091/" title="00158 Verilog In One Day 学习笔记 windows11">00158 Verilog In One Day 学习笔记 windows11</a><time datetime="2024-08-04T12:13:23.000Z" title="发表于 2024-08-04 20:13:23">2024-08-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By LuYF-Lemon-love</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn"><span>冀ICP备2022012632号-1</span></a><br/><a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32011502011618"><img src="https://cos.luyf-lemon-love.space/images/备案图标.png"><span>苏公网安备 32011502011618号</span></a><br/><span>感谢光临小破站，欢迎您提出宝贵的意见！</span></div></div><div class="container" id="jsi-flying-fish-container"><script src="js/fish.js"></script></div><style>   @media only screen and (max-width: 767px){
+   #sidebar_search_box input[type=text]{width:calc(100% - 24px)}
+}</style></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon">     </use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer src="/js/jquery.min.js"></script><script defer src="/js/fish.js"></script><script defer src="/js/footerbea.js"></script><script defer data-pjax src="/js/jquery.ripples.js"></script><script defer data-pjax src="/js/ripples.js"></script><script src="/js/sun_moon.js" async></script><script data-pjax defer src="/js/custom/fixed_comment.js"></script><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/artitalk/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;1943031288/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt=""><img width="48" height="48" src="https://cos.luyf-lemon-love.space/images/031-119936465.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-03-08</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;1943031288/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">00113 LeetCode 刷题笔记 Python 版本-ubuntu</a><div class="blog-slider__text">自己的 LeetCode 刷题记录.</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;1943031288/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;3188392696/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt=""><img width="48" height="48" src="https://cos.luyf-lemon-love.space/images/008-119961999.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-03-11</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;3188392696/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">00056-Python 语法和标准库系列学习笔记-windows10</a><div class="blog-slider__text">Python 语法和标准库系列学习笔记。</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;3188392696/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;4091477051/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt=""><img width="48" height="48" src="https://cos.luyf-lemon-love.space/images/011-119959419.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-07-16</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;4091477051/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">00075-谈谈我对攻读计算机研究生的看法——转载-windows10</a><div class="blog-slider__text">如何学习计算机。</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;4091477051/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>
