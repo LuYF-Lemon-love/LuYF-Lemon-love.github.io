@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2024-09-22T11:34:01.248Z</updated>
+  <updated>2024-09-22T15:26:51.112Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>00174 NLP Course - Introduction ubuntu</title>
+    <link href="https://www.luyf-lemon-love.space/226442210/"/>
+    <id>https://www.luyf-lemon-love.space/226442210/</id>
+    <published>2024-09-22T12:17:09.000Z</published>
+    <updated>2024-09-22T15:26:51.112Z</updated>
+    
+    
+    <summary type="html">NLP课程-本课程将教您使用HF生态系统中的库进行自然语言处理。</summary>
+    
+    
+    
+    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
+    
+  </entry>
   
   <entry>
     <title>00173 Docker 文档 ubuntu</title>
@@ -423,25 +448,6 @@
     
     
     <summary type="html">介绍一些收集的动态壁纸，ID范围为：[00001, 00010]。</summary>
-    
-    
-    
-    <category term="动态壁纸" scheme="https://www.luyf-lemon-love.space/categories/%E5%8A%A8%E6%80%81%E5%A3%81%E7%BA%B8/"/>
-    
-    
-    <category term="动态壁纸" scheme="https://www.luyf-lemon-love.space/tags/%E5%8A%A8%E6%80%81%E5%A3%81%E7%BA%B8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>00155 动态壁纸目录 windows11</title>
-    <link href="https://www.luyf-lemon-love.space/1323844783/"/>
-    <id>https://www.luyf-lemon-love.space/1323844783/</id>
-    <published>2024-08-04T06:30:22.000Z</published>
-    <updated>2024-08-29T14:42:07.410Z</updated>
-    
-    
-    <summary type="html">介绍一些收集的动态壁纸。</summary>
     
     
     
