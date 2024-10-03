@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2024-10-02T14:29:20.262Z</updated>
+  <updated>2024-10-03T10:02:36.360Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -17,14 +17,39 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>00179 NLP Course - Transformers, what can they do? ubuntu</title>
+    <link href="https://www.luyf-lemon-love.space/1068123372/"/>
+    <id>https://www.luyf-lemon-love.space/1068123372/</id>
+    <published>2024-10-03T05:21:52.000Z</published>
+    <updated>2024-10-03T10:02:36.360Z</updated>
+    
+    
+    <summary type="html">NLP课程-我们将看看Transformer模型可以做什么，并使用🤗Transformers库中的第一个工具：pipeline()函数。</summary>
+    
+    
+    
+    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
+    
+  </entry>
+  
+  <entry>
     <title>00178 NLP Course - Natural Language Processing ubuntu</title>
     <link href="https://www.luyf-lemon-love.space/1166632068/"/>
     <id>https://www.luyf-lemon-love.space/1166632068/</id>
     <published>2024-10-02T13:37:04.000Z</published>
-    <updated>2024-10-02T14:29:20.262Z</updated>
+    <updated>2024-10-03T05:28:52.242Z</updated>
     
     
-    <summary type="html">NLP课程-快速概述一下什么是自然语言处理以及我们为什么关心它。。</summary>
+    <summary type="html">NLP课程-快速概述一下什么是自然语言处理以及我们为什么关心它。</summary>
     
     
     
@@ -429,31 +454,6 @@
     
     
     <summary type="html">如何生成文本: 通过 Transformers 用不同的解码方法生成文本</summary>
-    
-    
-    
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
-    
-    <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>00160 PEFT：在低资源硬件上对十亿规模模型进行参数高效微调 windows11</title>
-    <link href="https://www.luyf-lemon-love.space/887752082/"/>
-    <id>https://www.luyf-lemon-love.space/887752082/</id>
-    <published>2024-08-07T13:57:08.000Z</published>
-    <updated>2024-08-29T14:42:07.410Z</updated>
-    
-    
-    <summary type="html">🤗 PEFT：在低资源硬件上对十亿规模模型进行参数高效微调</summary>
     
     
     

@@ -1,0 +1,402 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>00179 NLP Course - Transformers, what can they do? ubuntu | LuYF-Lemon-love の Blog</title><meta name="keywords" content="人工智能,深度学习,大语言模型,huggingface"><meta name="author" content="LuYF-Lemon-love"><meta name="copyright" content="LuYF-Lemon-love"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="NLP课程-我们将看看Transformer模型可以做什么，并使用🤗Transformers库中的第一个工具：pipeline()函数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="00179 NLP Course - Transformers, what can they do? ubuntu">
+<meta property="og:url" content="https://www.luyf-lemon-love.space/1068123372/index.html">
+<meta property="og:site_name" content="LuYF-Lemon-love の Blog">
+<meta property="og:description" content="NLP课程-我们将看看Transformer模型可以做什么，并使用🤗Transformers库中的第一个工具：pipeline()函数。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cos.luyf-lemon-love.space/images/077-nahida.jpg">
+<meta property="article:published_time" content="2024-10-03T05:21:52.000Z">
+<meta property="article:modified_time" content="2024-10-03T10:02:36.360Z">
+<meta property="article:author" content="LuYF-Lemon-love">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="大语言模型">
+<meta property="article:tag" content="huggingface">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cos.luyf-lemon-love.space/images/077-nahida.jpg"><link rel="shortcut icon" href="https://cos.luyf-lemon-love.space/images/20220601160712.png"><link rel="canonical" href="https://www.luyf-lemon-love.space/1068123372/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":null},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '00179 NLP Course - Transformers, what can they do? ubuntu',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2024-10-03 18:02:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/iconfont/iconfont.css"><style>#article-container.post-content h1:before, h2:before, h3:before, h4:before, h5:before, h6:before { -webkit-animation: avatar_turn_around 1s linear infinite; -moz-animation: avatar_turn_around 1s linear infinite; -o-animation: avatar_turn_around 1s linear infinite; -ms-animation: avatar_turn_around 1s linear infinite; animation: avatar_turn_around 1s linear infinite; }</style><link rel="stylesheet" href="/css/custom/twikoo_beautify.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/custom/fixed_comment.css"  media="defer" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="LuYF-Lemon-love の Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="gear-loader"><div class="gear-loader_overlay"></div><div class="gear-loader_cogs"><div class="gear-loader_cogs__top"><div class="gear-top_part"></div><div class="gear-top_part"></div><div class="gear-top_part"></div><div class="gear-top_hole"></div></div><div class="gear-loader_cogs__left"><div class="gear-left_part"></div><div class="gear-left_part"></div><div class="gear-left_part"></div><div class="gear-left_hole"></div></div><div class="gear-loader_cogs__bottom"><div class="gear-bottom_part"></div><div class="gear-bottom_part"></div><div class="gear-bottom_part"></div><div class="gear-bottom_hole"></div></div></div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">101</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-tag-color"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-category"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw iconfont icon-image"></i><span> Image</span></a></li><li><a class="site-page child" href="/bilibili/"><i class="fa-fw iconfont icon-bilibili"></i><span> Bilibili</span></a></li><li><a class="site-page child" href="/verse/"><i class="fa-fw iconfont icon-comment"></i><span> Verse</span></a></li><li><a class="site-page child" href="/Message/"><i class="fa-fw iconfont icon-comment1"></i><span> Message</span></a></li><li><a class="site-page child" href="/Domains/"><i class="fa-fw iconfont icon-domainyuming"></i><span> Domains</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-set_about_hov"></i><span> About</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-list"></i><span> Project</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://pybind11-openke.readthedocs.io/zh_CN/latest/index.html"><i class="fa-fw iconfont icon-paper"></i><span> pybind11-OpenKE</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-lx-server"></i><span> Server</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.luyf-lemon-love.space"><i class="fa-fw iconfont icon-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://vercel.luyf-lemon-love.space"><i class="fa-fw iconfont icon-logo-vercel"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://server.luyf-lemon-love.space"><i class="fa-fw iconfont icon-cloud"></i><span> Cloud</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cos.luyf-lemon-love.space/images/077-nahida.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">LuYF-Lemon-love の Blog</a></span><div id="he-plugin-simple"></div><div id="none_space"></div><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-tag-color"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-category"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw iconfont icon-image"></i><span> Image</span></a></li><li><a class="site-page child" href="/bilibili/"><i class="fa-fw iconfont icon-bilibili"></i><span> Bilibili</span></a></li><li><a class="site-page child" href="/verse/"><i class="fa-fw iconfont icon-comment"></i><span> Verse</span></a></li><li><a class="site-page child" href="/Message/"><i class="fa-fw iconfont icon-comment1"></i><span> Message</span></a></li><li><a class="site-page child" href="/Domains/"><i class="fa-fw iconfont icon-domainyuming"></i><span> Domains</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-set_about_hov"></i><span> About</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-list"></i><span> Project</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://pybind11-openke.readthedocs.io/zh_CN/latest/index.html"><i class="fa-fw iconfont icon-paper"></i><span> pybind11-OpenKE</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw iconfont icon-lx-server"></i><span> Server</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.luyf-lemon-love.space"><i class="fa-fw iconfont icon-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://vercel.luyf-lemon-love.space"><i class="fa-fw iconfont icon-logo-vercel"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://server.luyf-lemon-love.space"><i class="fa-fw iconfont icon-cloud"></i><span> Cloud</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">00179 NLP Course - Transformers, what can they do? ubuntu</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-10-03T05:21:52.000Z" title="发表于 2024-10-03 13:21:52">2024-10-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-03T10:02:36.360Z" title="更新于 2024-10-03 18:02:36">2024-10-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">持续维护的工具学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言">前言</h2>
+<p>在本节中，我们将看看Transformer模型可以做什么，并使用🤗Transformers库中的第一个工具：pipeline()函数。</p>
+<p>src link: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/learn/nlp-course/chapter1/3">https://huggingface.co/learn/nlp-course/chapter1/3</a></p>
+<p>Google Colab notebook: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/en/chapter1/section3.ipynb">https://colab.research.google.com/github/huggingface/notebooks/blob/master/course/en/chapter1/section3.ipynb</a></p>
+<p>Operating System: Ubuntu 22.04.4 LTS</p>
+<h2 id="参考文档">参考文档</h2>
+<ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/learn/nlp-course/chapter1/3">NLP Course - Transformers, what can they do?</a></li>
+</ol>
+<h2 id="到处都是Transformers！">到处都是Transformers！</h2>
+<p>Transformer模型用于解决各种NLP任务，如上一节中提到的。以下是一些使用Hugging Face和Transformer模型的公司和组织，他们也通过分享他们的模型来回馈社区：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20241003135153.png" alt=""></p>
+<p>🤗Transformers库提供了创建和使用这些共享模型的功能。模型中心包含数千个任何人都可以下载和使用的预训练模型。您还可以将自己的模型上传到中心！</p>
+<blockquote>
+<p>⚠️ Hugging Face Hub不限于Transformer模型。任何人都可以共享他们想要的任何类型的模型或数据集！创建一个huggingface.co帐户以受益于所有可用功能！</p>
+</blockquote>
+<p>在深入研究Transformer模型如何在幕后工作之前，让我们看几个如何使用它们来解决一些有趣的NLP问题的示例。</p>
+<h2 id="使用管道">使用管道</h2>
+<p>🤗Transformers库中最基本的对象是pipeline()函数，它将一个模型与其必要的预处理和后处理步骤连接起来，允许我们直接输入任何文本并得到一个可理解的答案：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line"></span><br><span class="line">classifier = pipeline(<span class="string">&quot;sentiment-analysis&quot;</span>)</span><br><span class="line">classifier(<span class="string">&quot;I&#x27;ve been waiting for a HuggingFace course my whole life.&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="string">&#x27;label&#x27;</span>: <span class="string">&#x27;POSITIVE&#x27;</span>, <span class="string">&#x27;score&#x27;</span>: 0.9598047137260437&#125;]</span><br></pre></td></tr></table></figure>
+<p>我们甚至可以传递几个句子！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">classifier(</span><br><span class="line">    [<span class="string">&quot;I&#x27;ve been waiting for a HuggingFace course my whole life.&quot;</span>, <span class="string">&quot;I hate this so much!&quot;</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="string">&#x27;label&#x27;</span>: <span class="string">&#x27;POSITIVE&#x27;</span>, <span class="string">&#x27;score&#x27;</span>: 0.9598047137260437&#125;,</span><br><span class="line"> &#123;<span class="string">&#x27;label&#x27;</span>: <span class="string">&#x27;NEGATIVE&#x27;</span>, <span class="string">&#x27;score&#x27;</span>: 0.9994558095932007&#125;]</span><br></pre></td></tr></table></figure>
+<p>默认情况下，此管道选择一个特定的预训练模型，该模型已被英文微调用于情感分析。当您创建分类器对象时，模型将被下载并缓存。如果您重新运行该命令，将使用缓存的模型代替，无需再次下载模型。</p>
+<p>将文本传递到管道时涉及三个主要步骤：</p>
+<ol>
+<li>文本被预处理成模型可以理解的格式。</li>
+<li>预处理的输入被传递给模型。</li>
+<li>模型的预测是后处理的，因此您可以理解它们。</li>
+</ol>
+<p>目前可用的一些<a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/transformers/main_classes/pipelines">管道</a>是：</p>
+<ul>
+<li><code>feature-extraction</code> (get the vector representation of a text)</li>
+<li><code>fill-mask</code></li>
+<li><code>ner</code> (named entity recognition)</li>
+<li><code>question-answering</code></li>
+<li><code>sentiment-analysis</code></li>
+<li><code>summarization</code></li>
+<li><code>text-generation</code></li>
+<li><code>translation</code></li>
+<li><code>zero-shot-classification</code></li>
+</ul>
+<p>让我们看看其中的几个！</p>
+<h2 id="Zero-shot分类">Zero-shot分类</h2>
+<p>我们将从处理一个更具挑战性的任务开始，我们需要对尚未标记的文本进行分类。这是现实世界项目中的常见场景，因为注释文本通常很耗时，并且需要领域专业知识。对于这个用例，zero-shot-classification管道非常强大：它允许您指定用于分类的标签，因此您不必依赖预训练模型的标签。您已经看到模型如何使用这两个标签将句子分类为正面或负面-但它也可以使用您喜欢的任何其他标签集对文本进行分类。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line"></span><br><span class="line">classifier = pipeline(<span class="string">&quot;zero-shot-classification&quot;</span>)</span><br><span class="line">classifier(</span><br><span class="line">    <span class="string">&quot;This is a course about the Transformers library&quot;</span>,</span><br><span class="line">    candidate_labels=[<span class="string">&quot;education&quot;</span>, <span class="string">&quot;politics&quot;</span>, <span class="string">&quot;business&quot;</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&#x27;sequence&#x27;</span>: <span class="string">&#x27;This is a course about the Transformers library&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;labels&#x27;</span>: [<span class="string">&#x27;education&#x27;</span>, <span class="string">&#x27;business&#x27;</span>, <span class="string">&#x27;politics&#x27;</span>],</span><br><span class="line"> <span class="string">&#x27;scores&#x27;</span>: [0.8445963859558105, 0.111976258456707, 0.043427448719739914]&#125;</span><br></pre></td></tr></table></figure>
+<p>这个管道被称为zero-shot，因为你不需要在你的数据上微调模型来使用它，它可以直接为你想要的任何标签列表返回概率分数！</p>
+<h2 id="文本生成">文本生成</h2>
+<p>现在让我们看看如何使用管道来生成一些文本。这里的主要思想是，您提供一个提示，模型将通过生成剩余的文本来自动完成它。这类似于许多手机上的预测文本功能。文本生成涉及随机性，因此如果您没有得到如下所示的相同结果，这是正常的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line"></span><br><span class="line">generator = pipeline(<span class="string">&quot;text-generation&quot;</span>)</span><br><span class="line">generator(<span class="string">&quot;In this course, we will teach you how to&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="string">&#x27;generated_text&#x27;</span>: <span class="string">&#x27;In this course, we will teach you how to understand and use &#x27;</span></span><br><span class="line">                    <span class="string">&#x27;data flow and data interchange when handling user data. We &#x27;</span></span><br><span class="line">                    <span class="string">&#x27;will be working with one or more of the most commonly used &#x27;</span></span><br><span class="line">                    <span class="string">&#x27;data flows — data flows of various types, as seen by the &#x27;</span></span><br><span class="line">                    <span class="string">&#x27;HTTP&#x27;</span>&#125;]</span><br></pre></td></tr></table></figure>
+<p>你可以通过参数 <code>num_return_sequences</code> 控制生成多少个不同的序列，以及通过参数 <code>max_length</code> 控制输出文本的总长度。</p>
+<h2 id="在管道中使用Hub中的任何模型">在管道中使用Hub中的任何模型</h2>
+<p>前面的示例对手头的任务使用默认模型，但您也可以从Hub中选择特定模型以在特定任务的管道中使用-例如文本生成。转到<a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/models">模型Hub</a>并单击左侧的相应标签以仅显示该任务支持的模型。您应该会进入<a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/models?pipeline_tag=text-generation">这样的页面</a>。</p>
+<p>让我们试一试<a target="_blank" rel="noopener external nofollow noreferrer" href="https://huggingface.co/distilgpt2">distilgpt2</a>模型！以下是如何将其加载到与以前相同的管道中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line"></span><br><span class="line">generator = pipeline(<span class="string">&quot;text-generation&quot;</span>, model=<span class="string">&quot;distilgpt2&quot;</span>)</span><br><span class="line">generator(</span><br><span class="line">    <span class="string">&quot;In this course, we will teach you how to&quot;</span>,</span><br><span class="line">    max_length=<span class="number">30</span>,</span><br><span class="line">    num_return_sequences=<span class="number">2</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="string">&#x27;generated_text&#x27;</span>: <span class="string">&#x27;In this course, we will teach you how to manipulate the world and &#x27;</span></span><br><span class="line">                    <span class="string">&#x27;move your mental and physical capabilities to your advantage.&#x27;</span>&#125;,</span><br><span class="line"> &#123;<span class="string">&#x27;generated_text&#x27;</span>: <span class="string">&#x27;In this course, we will teach you how to become an expert and &#x27;</span></span><br><span class="line">                    <span class="string">&#x27;practice realtime, and with a hands on experience on both real &#x27;</span></span><br><span class="line">                    <span class="string">&#x27;time and real&#x27;</span>&#125;]</span><br></pre></td></tr></table></figure>
+<p>您可以通过单击语言标签来优化模型搜索，并选择将生成另一种语言文本的模型。模型中心甚至包含支持多种语言的多语言模型的检查点。</p>
+<p>通过单击选择模型后，您会看到有一个小部件使您能够直接在线尝试。这样您就可以在下载模型之前快速测试模型的功能。</p>
+<h2 id="Mask-filling">Mask filling</h2>
+<p>您将尝试的下一个管道是fill-mask。此任务的想法是填充给定文本中的空白：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line"></span><br><span class="line">unmasker = pipeline(<span class="string">&quot;fill-mask&quot;</span>)</span><br><span class="line">unmasker(<span class="string">&quot;This course will teach you all about &lt;mask&gt; models.&quot;</span>, top_k=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="string">&#x27;sequence&#x27;</span>: <span class="string">&#x27;This course will teach you all about mathematical models.&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;score&#x27;</span>: 0.19619831442832947,</span><br><span class="line">  <span class="string">&#x27;token&#x27;</span>: 30412,</span><br><span class="line">  <span class="string">&#x27;token_str&#x27;</span>: <span class="string">&#x27; mathematical&#x27;</span>&#125;,</span><br><span class="line"> &#123;<span class="string">&#x27;sequence&#x27;</span>: <span class="string">&#x27;This course will teach you all about computational models.&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;score&#x27;</span>: 0.04052725434303284,</span><br><span class="line">  <span class="string">&#x27;token&#x27;</span>: 38163,</span><br><span class="line">  <span class="string">&#x27;token_str&#x27;</span>: <span class="string">&#x27; computational&#x27;</span>&#125;]</span><br></pre></td></tr></table></figure>
+<p>参数 <code>top_k</code> 控制你想要显示多少种可能性。请注意，在这里模型填充的是特殊的 <code>&lt;mask&gt;</code> 单词，这通常被称为掩码token。其他掩码填充模型可能有不同的掩码token，所以在探索其他模型时，验证正确的掩码单词总是好的。检查的一种方法是通过查看小部件中使用的掩码单词。</p>
+<h2 id="命名实体识别">命名实体识别</h2>
+<p>命名实体识别（NER）是一项任务，其中模型必须找到输入文本的哪些部分对应于人员、位置或组织等实体。让我们看一个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line"></span><br><span class="line">ner = pipeline(<span class="string">&quot;ner&quot;</span>, grouped_entities=<span class="literal">True</span>)</span><br><span class="line">ner(<span class="string">&quot;My name is Sylvain and I work at Hugging Face in Brooklyn.&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="string">&#x27;entity_group&#x27;</span>: <span class="string">&#x27;PER&#x27;</span>, <span class="string">&#x27;score&#x27;</span>: 0.99816, <span class="string">&#x27;word&#x27;</span>: <span class="string">&#x27;Sylvain&#x27;</span>, <span class="string">&#x27;start&#x27;</span>: 11, <span class="string">&#x27;end&#x27;</span>: 18&#125;, </span><br><span class="line"> &#123;<span class="string">&#x27;entity_group&#x27;</span>: <span class="string">&#x27;ORG&#x27;</span>, <span class="string">&#x27;score&#x27;</span>: 0.97960, <span class="string">&#x27;word&#x27;</span>: <span class="string">&#x27;Hugging Face&#x27;</span>, <span class="string">&#x27;start&#x27;</span>: 33, <span class="string">&#x27;end&#x27;</span>: 45&#125;, </span><br><span class="line"> &#123;<span class="string">&#x27;entity_group&#x27;</span>: <span class="string">&#x27;LOC&#x27;</span>, <span class="string">&#x27;score&#x27;</span>: 0.99321, <span class="string">&#x27;word&#x27;</span>: <span class="string">&#x27;Brooklyn&#x27;</span>, <span class="string">&#x27;start&#x27;</span>: 49, <span class="string">&#x27;end&#x27;</span>: 57&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>在这里，模型正确地识别出 Sylvain 是一个人（PER），Hugging Face 是一个组织（ORG），而 Brooklyn 是一个地点（LOC）。</p>
+<p>我们在管道创建函数中传递了选项 grouped_entities=True，以告诉管道将句子的对应同一实体部分重新组合在一起：在这里，模型正确地将“Hugging”和“Face”作为一个单一的组织组合在一起，尽管名称由多个单词组成。实际上，正如我们将在下一章看到的，预处理甚至将一些单词分割成更小的部分。例如，Sylvain 被分割成四部分：S, ##yl, ##va, 和 ##in。在后期处理步骤中，管道成功地重新组合了这些部分。</p>
+<h2 id="问答">问答</h2>
+<p>问答管道使用给定上下文中的信息来回答问题：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line"></span><br><span class="line">question_answerer = pipeline(<span class="string">&quot;question-answering&quot;</span>)</span><br><span class="line">question_answerer(</span><br><span class="line">    question=<span class="string">&quot;Where do I work?&quot;</span>,</span><br><span class="line">    context=<span class="string">&quot;My name is Sylvain and I work at Hugging Face in Brooklyn&quot;</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&#x27;score&#x27;</span>: 0.6385916471481323, <span class="string">&#x27;start&#x27;</span>: 33, <span class="string">&#x27;end&#x27;</span>: 45, <span class="string">&#x27;answer&#x27;</span>: <span class="string">&#x27;Hugging Face&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>请注意，此管道通过从提供的上下文中提取信息来工作；它不会生成答案。</p>
+<h2 id="摘要">摘要</h2>
+<p>摘要是将文本简化为更短的文本，同时保留文本中引用的所有（或大部分）重要方面的任务。这里有一个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line"></span><br><span class="line">summarizer = pipeline(<span class="string">&quot;summarization&quot;</span>)</span><br><span class="line">summarizer(</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    America has changed dramatically during recent years. Not only has the number of </span></span><br><span class="line"><span class="string">    graduates in traditional engineering disciplines such as mechanical, civil, </span></span><br><span class="line"><span class="string">    electrical, chemical, and aeronautical engineering declined, but in most of </span></span><br><span class="line"><span class="string">    the premier American universities engineering curricula now concentrate on </span></span><br><span class="line"><span class="string">    and encourage largely the study of engineering science. As a result, there </span></span><br><span class="line"><span class="string">    are declining offerings in engineering subjects dealing with infrastructure, </span></span><br><span class="line"><span class="string">    the environment, and related issues, and greater concentration on high </span></span><br><span class="line"><span class="string">    technology subjects, largely supporting increasingly complex scientific </span></span><br><span class="line"><span class="string">    developments. While the latter is important, it should not be at the expense </span></span><br><span class="line"><span class="string">    of more traditional engineering.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Rapidly developing economies such as China and India, as well as other </span></span><br><span class="line"><span class="string">    industrial countries in Europe and Asia, continue to encourage and advance </span></span><br><span class="line"><span class="string">    the teaching of engineering. Both China and India, respectively, graduate </span></span><br><span class="line"><span class="string">    six and eight times as many traditional engineers as does the United States. </span></span><br><span class="line"><span class="string">    Other industrial countries at minimum maintain their output, while America </span></span><br><span class="line"><span class="string">    suffers an increasingly serious decline in the number of engineering graduates </span></span><br><span class="line"><span class="string">    and a lack of well-educated engineers.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="string">&#x27;summary_text&#x27;</span>: <span class="string">&#x27; America has changed dramatically during recent years . The &#x27;</span></span><br><span class="line">                  <span class="string">&#x27;number of engineering graduates in the U.S. has declined in &#x27;</span></span><br><span class="line">                  <span class="string">&#x27;traditional engineering disciplines such as mechanical, civil &#x27;</span></span><br><span class="line">                  <span class="string">&#x27;, electrical, chemical, and aeronautical engineering . Rapidly &#x27;</span></span><br><span class="line">                  <span class="string">&#x27;developing economies such as China and India, as well as other &#x27;</span></span><br><span class="line">                  <span class="string">&#x27;industrial countries in Europe and Asia, continue to encourage &#x27;</span></span><br><span class="line">                  <span class="string">&#x27;and advance engineering .&#x27;</span>&#125;]</span><br></pre></td></tr></table></figure>
+<p>与文本生成一样，您可以指定结果的最大长度（max_length）或最小长度（min_length）。</p>
+<h2 id="翻译">翻译</h2>
+<p>对于翻译，如果您在任务名称中提供一个语言对（例如 “translation_en_to_fr”），则可以使用默认模型，但最简单的方法是在模型库中选择您想要使用的模型。这里我们将尝试从法语翻译成英语：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line"></span><br><span class="line">translator = pipeline(<span class="string">&quot;translation&quot;</span>, model=<span class="string">&quot;Helsinki-NLP/opus-mt-fr-en&quot;</span>)</span><br><span class="line">translator(<span class="string">&quot;Ce cours est produit par Hugging Face.&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="string">&#x27;translation_text&#x27;</span>: <span class="string">&#x27;This course is produced by Hugging Face.&#x27;</span>&#125;]</span><br></pre></td></tr></table></figure>
+<p>与文本生成和摘要一样，您可以指定结果的最大长度（max_length）或最小长度（min_length）。</p>
+<p>到目前为止展示的管道主要是用于演示目的。它们是为特定任务编程的，不能执行这些任务的变体。在下一章中，您将学习 <code>pipeline()</code> 函数内部的内容以及如何自定义其行为。</p>
+<h2 id="结语">结语</h2>
+<p>第一百七十九篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.luyf-lemon-love.space">LuYF-Lemon-love</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.luyf-lemon-love.space/1068123372/">https://www.luyf-lemon-love.space/1068123372/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.luyf-lemon-love.space" target="_blank">LuYF-Lemon-love の Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><a class="post-meta__tags" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">大语言模型</a><a class="post-meta__tags" href="/tags/huggingface/">huggingface</a></div><div class="post_share"><div class="social-share" data-image="https://cos.luyf-lemon-love.space/images/077-nahida.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cos.luyf-lemon-love.space/images/20220511162220.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" src="https://cos.luyf-lemon-love.space/images/20220511162220.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://cos.luyf-lemon-love.space/images/20220511162303.png" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" src="https://cos.luyf-lemon-love.space/images/20220511162303.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/1166632068/"><img class="next-cover" src="https://cos.luyf-lemon-love.space/images/076-%E7%94%B5%E9%94%AF%E4%BA%BA-%E7%BA%A2%E8%89%B2%E5%A4%B4%E5%8F%91%E5%A5%B3%E5%AD%A9.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">00178 NLP Course - Natural Language Processing ubuntu</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/1644152204/" title="00121 学习笔记目录 windows11"><img class="cover" src="https://cos.luyf-lemon-love.space/images/040-%E9%87%91%E5%85%8B%E4%B8%9D%E5%94%AF%E7%BE%8E%E6%8A%A5%E7%BA%B8%E5%A2%99.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-01</div><div class="title">00121 学习笔记目录 windows11</div></div></a></div><div><a href="/1166632068/" title="00178 NLP Course - Natural Language Processing ubuntu"><img class="cover" src="https://cos.luyf-lemon-love.space/images/076-%E7%94%B5%E9%94%AF%E4%BA%BA-%E7%BA%A2%E8%89%B2%E5%A4%B4%E5%8F%91%E5%A5%B3%E5%AD%A9.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-02</div><div class="title">00178 NLP Course - Natural Language Processing ubuntu</div></div></a></div><div><a href="/1020923529/" title="00176 使用 trl 进行 sft - ubuntu"><img class="cover" src="https://cos.luyf-lemon-love.space/images/074-%E9%BB%91%E8%89%B2%E5%8F%A4%E8%A3%85%E5%A5%B3%E5%AD%A9-%E8%A7%82%E9%9B%AA%E5%B0%91%E5%A5%B3.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-01</div><div class="title">00176 使用 trl 进行 sft - ubuntu</div></div></a></div><div><a href="/226442210/" title="00174 NLP Course - Introduction ubuntu"><img class="cover" src="https://cos.luyf-lemon-love.space/images/072-%E5%85%AB%E9%87%8D%E7%A5%9E%E5%AD%90-%E6%8A%A5%E7%BA%B8.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-22</div><div class="title">00174 NLP Course - Introduction ubuntu</div></div></a></div><div><a href="/4118893824/" title="00170 了解您的数据集 ubuntu"><img class="cover" src="https://cos.luyf-lemon-love.space/images/067-%E5%94%AF%E7%BE%8E%E5%8F%A4%E9%A3%8E%E7%BE%8E%E5%A5%B3%E9%95%BF%E5%8F%91.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-16</div><div class="title">00170 了解您的数据集 ubuntu</div></div></a></div><div><a href="/3729895536/" title="00126 微调预训练模型 windows11"><img class="cover" src="https://cos.luyf-lemon-love.space/images/096-nahida.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-29</div><div class="title">00126 微调预训练模型 windows11</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LuYF-Lemon-love</div><div class="author-info__description">天之道，损有余而补不足，人之道则不然，损不足以奉有余。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">101</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" href="https://www.luyf-lemon-love.space/atom.xml"><i class="fa fa-rss"></i><span>订阅RSS</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/LuYF-Lemon-love" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/luyanfeng_nlp@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎我的主页，祝您学习愉快！<img src="https://cos.luyf-lemon-love.space/images/susu-24-09-17.gif"></div><timing></timing></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">2.</span> <span class="toc-text">参考文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B0%E5%A4%84%E9%83%BD%E6%98%AFTransformers%EF%BC%81"><span class="toc-number">3.</span> <span class="toc-text">到处都是Transformers！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%AE%A1%E9%81%93"><span class="toc-number">4.</span> <span class="toc-text">使用管道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Zero-shot%E5%88%86%E7%B1%BB"><span class="toc-number">5.</span> <span class="toc-text">Zero-shot分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E7%94%9F%E6%88%90"><span class="toc-number">6.</span> <span class="toc-text">文本生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%AE%A1%E9%81%93%E4%B8%AD%E4%BD%BF%E7%94%A8Hub%E4%B8%AD%E7%9A%84%E4%BB%BB%E4%BD%95%E6%A8%A1%E5%9E%8B"><span class="toc-number">7.</span> <span class="toc-text">在管道中使用Hub中的任何模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mask-filling"><span class="toc-number">8.</span> <span class="toc-text">Mask filling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB"><span class="toc-number">9.</span> <span class="toc-text">命名实体识别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E7%AD%94"><span class="toc-number">10.</span> <span class="toc-text">问答</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">11.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BF%BB%E8%AF%91"><span class="toc-number">12.</span> <span class="toc-text">翻译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">13.</span> <span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/1068123372/" title="00179 NLP Course - Transformers, what can they do? ubuntu"><img src="https://cos.luyf-lemon-love.space/images/077-nahida.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00179 NLP Course - Transformers, what can they do? ubuntu"/></a><div class="content"><a class="title" href="/1068123372/" title="00179 NLP Course - Transformers, what can they do? ubuntu">00179 NLP Course - Transformers, what can they do? ubuntu</a><time datetime="2024-10-03T05:21:52.000Z" title="发表于 2024-10-03 13:21:52">2024-10-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1166632068/" title="00178 NLP Course - Natural Language Processing ubuntu"><img src="https://cos.luyf-lemon-love.space/images/076-%E7%94%B5%E9%94%AF%E4%BA%BA-%E7%BA%A2%E8%89%B2%E5%A4%B4%E5%8F%91%E5%A5%B3%E5%AD%A9.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00178 NLP Course - Natural Language Processing ubuntu"/></a><div class="content"><a class="title" href="/1166632068/" title="00178 NLP Course - Natural Language Processing ubuntu">00178 NLP Course - Natural Language Processing ubuntu</a><time datetime="2024-10-02T13:37:04.000Z" title="发表于 2024-10-02 21:37:04">2024-10-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/4210212353/" title="00177 使用 Gitea 自建 Git 服务 - ubuntu"><img src="https://cos.luyf-lemon-love.space/images/075-%E5%A5%B3%E5%AD%A9-%E9%95%BF%E5%8F%91-%E9%BB%91%E8%89%B2%E8%A5%BF%E6%9C%8D.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00177 使用 Gitea 自建 Git 服务 - ubuntu"/></a><div class="content"><a class="title" href="/4210212353/" title="00177 使用 Gitea 自建 Git 服务 - ubuntu">00177 使用 Gitea 自建 Git 服务 - ubuntu</a><time datetime="2024-10-02T07:28:30.000Z" title="发表于 2024-10-02 15:28:30">2024-10-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1020923529/" title="00176 使用 trl 进行 sft - ubuntu"><img src="https://cos.luyf-lemon-love.space/images/074-%E9%BB%91%E8%89%B2%E5%8F%A4%E8%A3%85%E5%A5%B3%E5%AD%A9-%E8%A7%82%E9%9B%AA%E5%B0%91%E5%A5%B3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00176 使用 trl 进行 sft - ubuntu"/></a><div class="content"><a class="title" href="/1020923529/" title="00176 使用 trl 进行 sft - ubuntu">00176 使用 trl 进行 sft - ubuntu</a><time datetime="2024-10-01T13:02:57.000Z" title="发表于 2024-10-01 21:02:57">2024-10-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/232103828/" title="00175 warnings 学习笔记-ubuntu"><img src="https://cos.luyf-lemon-love.space/images/073-%E9%9B%AA%E4%B8%AD%E5%A5%B3%E5%AD%A9-%E5%8F%A4%E9%A3%8E%E5%94%AF%E7%BE%8E%E7%B3%BB%E5%88%97.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="00175 warnings 学习笔记-ubuntu"/></a><div class="content"><a class="title" href="/232103828/" title="00175 warnings 学习笔记-ubuntu">00175 warnings 学习笔记-ubuntu</a><time datetime="2024-10-01T10:43:28.000Z" title="发表于 2024-10-01 18:43:28">2024-10-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By LuYF-Lemon-love</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn"><span>冀ICP备2022012632号-1</span></a><br/><a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32011502011618"><img src="https://cos.luyf-lemon-love.space/images/备案图标.png"><span>苏公网安备 32011502011618号</span></a><br/><span>感谢光临小破站，欢迎您提出宝贵的意见！</span></div></div><div class="container" id="jsi-flying-fish-container"><script src="js/fish.js"></script></div><style>   @media only screen and (max-width: 767px){
+   #sidebar_search_box input[type=text]{width:calc(100% - 24px)}
+}</style></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon">     </use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script defer src="/js/jquery.min.js"></script><script defer src="/js/fish.js"></script><script defer src="/js/footerbea.js"></script><script defer data-pjax src="/js/jquery.ripples.js"></script><script defer data-pjax src="/js/ripples.js"></script><script src="/js/sun_moon.js" async></script><script data-pjax defer src="/js/custom/fixed_comment.js"></script><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/artitalk/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;1943031288/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt=""><img width="48" height="48" src="https://cos.luyf-lemon-love.space/images/031-119936465.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-03-08</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;1943031288/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">00113 LeetCode 刷题笔记 Python 版本-ubuntu</a><div class="blog-slider__text">自己的 LeetCode 刷题记录.</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;1943031288/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;4091477051/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt=""><img width="48" height="48" src="https://cos.luyf-lemon-love.space/images/011-119959419.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-07-16</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;4091477051/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">00075-谈谈我对攻读计算机研究生的看法——转载-windows10</a><div class="blog-slider__text">如何学习计算机。</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;4091477051/&quot;);" href="javascript:void(0);" rel="external nofollow noreferrer" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>
