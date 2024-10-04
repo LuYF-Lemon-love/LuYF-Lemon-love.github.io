@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2024-10-04T16:10:16.711Z</updated>
+  <updated>2024-10-04T16:46:13.641Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -17,11 +17,30 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>00183 干饭指南 - 西红柿炒鸡蛋 ubuntu</title>
+    <link href="https://www.luyf-lemon-love.space/2673210057/"/>
+    <id>https://www.luyf-lemon-love.space/2673210057/</id>
+    <published>2024-10-04T16:40:01.000Z</published>
+    <updated>2024-10-04T16:46:13.641Z</updated>
+    
+    
+    <summary type="html">干饭指南-西红柿炒鸡蛋。</summary>
+    
+    
+    
+    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="干饭" scheme="https://www.luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
+    
+  </entry>
+  
+  <entry>
     <title>00182 干饭指南 - 鸡蛋羹 ubuntu</title>
     <link href="https://www.luyf-lemon-love.space/1488727933/"/>
     <id>https://www.luyf-lemon-love.space/1488727933/</id>
     <published>2024-10-04T15:52:44.000Z</published>
-    <updated>2024-10-04T16:10:16.711Z</updated>
+    <updated>2024-10-04T16:10:49.091Z</updated>
     
     
     <summary type="html">干饭指南-鸡蛋羹。</summary>
@@ -434,31 +453,6 @@
     <category term="全局解释器锁（GIL）" scheme="https://www.luyf-lemon-love.space/tags/%E5%85%A8%E5%B1%80%E8%A7%A3%E9%87%8A%E5%99%A8%E9%94%81%EF%BC%88GIL%EF%BC%89/"/>
     
     <category term="多进程" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%9A%E8%BF%9B%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>00126 微调预训练模型 windows11</title>
-    <link href="https://www.luyf-lemon-love.space/3729895536/"/>
-    <id>https://www.luyf-lemon-love.space/3729895536/</id>
-    <published>2024-08-29T14:42:07.410Z</published>
-    <updated>2024-08-29T14:42:07.410Z</updated>
-    
-    
-    <summary type="html">微调预训练模型。</summary>
-    
-    
-    
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
-    
-    <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
     
   </entry>
   
