@@ -6,7 +6,7 @@
   <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2024-10-14T16:21:12.443Z</updated>
+  <updated>2024-10-15T14:03:35.953Z</updated>
   <id>https://www.luyf-lemon-love.space/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>00200 PyTorch - 常用函数 ubuntu</title>
+    <link href="https://www.luyf-lemon-love.space/316668766/"/>
+    <id>https://www.luyf-lemon-love.space/316668766/</id>
+    <published>2024-10-15T13:52:56.000Z</published>
+    <updated>2024-10-15T14:03:35.953Z</updated>
+    
+    
+    <summary type="html">PyTorch - 常用函数。</summary>
+    
+    
+    
+    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="PyTorch" scheme="https://www.luyf-lemon-love.space/tags/PyTorch/"/>
+    
+  </entry>
+  
+  <entry>
     <title>00199 Hugging Face Llama Recipes - Local Inference ubuntu</title>
     <link href="https://www.luyf-lemon-love.space/1858906050/"/>
     <id>https://www.luyf-lemon-love.space/1858906050/</id>
     <published>2024-10-14T15:28:40.000Z</published>
-    <updated>2024-10-14T16:21:12.443Z</updated>
+    <updated>2024-10-14T16:24:45.196Z</updated>
     
     
     <summary type="html">Hugging Face Llama Recipes-Local Inference。</summary>
@@ -424,31 +447,6 @@
     
     
     <category term="干饭" scheme="https://www.luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>00180 NLP Course - How do Transformers work? ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/611497173/"/>
-    <id>https://www.luyf-lemon-love.space/611497173/</id>
-    <published>2024-10-03T14:02:31.000Z</published>
-    <updated>2024-10-04T14:18:08.451Z</updated>
-    
-    
-    <summary type="html">NLP课程-将高层次地了解Transformer模型的体系结构。</summary>
-    
-    
-    
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
-    
-    <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
     
   </entry>
   
