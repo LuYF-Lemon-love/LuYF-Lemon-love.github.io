@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>LuYF-Lemon-love の Blog</title>
-  <icon>https://www.luyf-lemon-love.space/icon.png</icon>
+  <icon>https://luyf-lemon-love.space/icon.png</icon>
   
-  <link href="https://www.luyf-lemon-love.space/atom.xml" rel="self"/>
+  <link href="https://luyf-lemon-love.space/atom.xml" rel="self"/>
   
-  <link href="https://www.luyf-lemon-love.space/"/>
-  <updated>2024-10-15T14:15:26.528Z</updated>
-  <id>https://www.luyf-lemon-love.space/</id>
+  <link href="https://luyf-lemon-love.space/"/>
+  <updated>2024-10-15T14:30:50.487Z</updated>
+  <id>https://luyf-lemon-love.space/</id>
   
   <author>
     <name>LuYF-Lemon-love</name>
@@ -18,31 +18,31 @@
   
   <entry>
     <title>00200 PyTorch - 常用函数 ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/316668766/"/>
-    <id>https://www.luyf-lemon-love.space/316668766/</id>
+    <link href="https://luyf-lemon-love.space/316668766/"/>
+    <id>https://luyf-lemon-love.space/316668766/</id>
     <published>2024-10-15T13:52:56.000Z</published>
-    <updated>2024-10-15T14:15:26.528Z</updated>
+    <updated>2024-10-15T14:30:50.487Z</updated>
     
     
     <summary type="html">PyTorch - 常用函数。</summary>
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
-    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="PyTorch" scheme="https://www.luyf-lemon-love.space/tags/PyTorch/"/>
+    <category term="PyTorch" scheme="https://luyf-lemon-love.space/tags/PyTorch/"/>
     
   </entry>
   
   <entry>
     <title>00199 Hugging Face Llama Recipes - Local Inference ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/1858906050/"/>
-    <id>https://www.luyf-lemon-love.space/1858906050/</id>
+    <link href="https://luyf-lemon-love.space/1858906050/"/>
+    <id>https://luyf-lemon-love.space/1858906050/</id>
     <published>2024-10-14T15:28:40.000Z</published>
     <updated>2024-10-14T16:24:45.196Z</updated>
     
@@ -51,23 +51,23 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
-    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
-    <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
+    <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
     
   </entry>
   
   <entry>
     <title>00198 Hugging Face Llama Recipes - Getting Started ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/2691559010/"/>
-    <id>https://www.luyf-lemon-love.space/2691559010/</id>
+    <link href="https://luyf-lemon-love.space/2691559010/"/>
+    <id>https://luyf-lemon-love.space/2691559010/</id>
     <published>2024-10-14T14:37:32.000Z</published>
     <updated>2024-10-14T15:16:32.839Z</updated>
     
@@ -76,23 +76,23 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
-    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
-    <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
+    <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
     
   </entry>
   
   <entry>
     <title>00197 干饭指南 - 炒豇豆 ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/1205375652/"/>
-    <id>https://www.luyf-lemon-love.space/1205375652/</id>
+    <link href="https://luyf-lemon-love.space/1205375652/"/>
+    <id>https://luyf-lemon-love.space/1205375652/</id>
     <published>2024-10-13T05:22:29.000Z</published>
     <updated>2024-10-13T05:30:04.360Z</updated>
     
@@ -101,17 +101,17 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="干饭" scheme="https://www.luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
+    <category term="干饭" scheme="https://luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
     
   </entry>
   
   <entry>
     <title>00196 加载文本数据 ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/1626077084/"/>
-    <id>https://www.luyf-lemon-love.space/1626077084/</id>
+    <link href="https://luyf-lemon-love.space/1626077084/"/>
+    <id>https://luyf-lemon-love.space/1626077084/</id>
     <published>2024-10-10T14:40:46.000Z</published>
     <updated>2024-10-10T15:35:50.084Z</updated>
     
@@ -120,23 +120,23 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
-    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
-    <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
+    <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
     
   </entry>
   
   <entry>
     <title>00195 创建数据集 ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/1364893557/"/>
-    <id>https://www.luyf-lemon-love.space/1364893557/</id>
+    <link href="https://luyf-lemon-love.space/1364893557/"/>
+    <id>https://luyf-lemon-love.space/1364893557/</id>
     <published>2024-10-10T13:06:30.000Z</published>
     <updated>2024-10-10T14:27:19.324Z</updated>
     
@@ -145,23 +145,23 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
-    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
-    <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
+    <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
     
   </entry>
   
   <entry>
     <title>00194 NLP Course - Sequence-to-sequence models ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/311254883/"/>
-    <id>https://www.luyf-lemon-love.space/311254883/</id>
+    <link href="https://luyf-lemon-love.space/311254883/"/>
+    <id>https://luyf-lemon-love.space/311254883/</id>
     <published>2024-10-09T15:17:42.000Z</published>
     <updated>2024-10-09T15:36:53.422Z</updated>
     
@@ -170,23 +170,23 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
-    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
-    <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
+    <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
     
   </entry>
   
   <entry>
     <title>00193 NLP Course - Decoder models ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/663940654/"/>
-    <id>https://www.luyf-lemon-love.space/663940654/</id>
+    <link href="https://luyf-lemon-love.space/663940654/"/>
+    <id>https://luyf-lemon-love.space/663940654/</id>
     <published>2024-10-09T14:49:42.000Z</published>
     <updated>2024-10-09T15:10:03.109Z</updated>
     
@@ -195,23 +195,23 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
-    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
-    <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
+    <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
     
   </entry>
   
   <entry>
     <title>00192 NLP Course - Encoder models ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/524952157/"/>
-    <id>https://www.luyf-lemon-love.space/524952157/</id>
+    <link href="https://luyf-lemon-love.space/524952157/"/>
+    <id>https://luyf-lemon-love.space/524952157/</id>
     <published>2024-10-09T14:10:36.000Z</published>
     <updated>2024-10-09T14:41:15.371Z</updated>
     
@@ -220,23 +220,23 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
-    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
-    <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
+    <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
     
   </entry>
   
   <entry>
     <title>00191 在 wsl 上安装 gitea ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/1799803893/"/>
-    <id>https://www.luyf-lemon-love.space/1799803893/</id>
+    <link href="https://luyf-lemon-love.space/1799803893/"/>
+    <id>https://luyf-lemon-love.space/1799803893/</id>
     <published>2024-10-07T15:28:48.000Z</published>
     <updated>2024-10-07T15:41:31.325Z</updated>
     
@@ -245,17 +245,17 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="Git" scheme="https://www.luyf-lemon-love.space/tags/Git/"/>
+    <category term="Git" scheme="https://luyf-lemon-love.space/tags/Git/"/>
     
   </entry>
   
   <entry>
     <title>00190 U盘作为系统启动盘后如何恢复 ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/3873492688/"/>
-    <id>https://www.luyf-lemon-love.space/3873492688/</id>
+    <link href="https://luyf-lemon-love.space/3873492688/"/>
+    <id>https://luyf-lemon-love.space/3873492688/</id>
     <published>2024-10-07T08:26:20.000Z</published>
     <updated>2024-10-07T08:44:44.481Z</updated>
     
@@ -264,19 +264,19 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="Linux" scheme="https://www.luyf-lemon-love.space/tags/Linux/"/>
+    <category term="Linux" scheme="https://luyf-lemon-love.space/tags/Linux/"/>
     
-    <category term="Windows" scheme="https://www.luyf-lemon-love.space/tags/Windows/"/>
+    <category term="Windows" scheme="https://luyf-lemon-love.space/tags/Windows/"/>
     
   </entry>
   
   <entry>
     <title>00189 TRL - Supervised Fine-tuning Trainer ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/453312474/"/>
-    <id>https://www.luyf-lemon-love.space/453312474/</id>
+    <link href="https://luyf-lemon-love.space/453312474/"/>
+    <id>https://luyf-lemon-love.space/453312474/</id>
     <published>2024-10-06T06:37:41.000Z</published>
     <updated>2024-10-09T13:56:26.712Z</updated>
     
@@ -285,23 +285,23 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="人工智能" scheme="https://www.luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
-    <category term="深度学习" scheme="https://www.luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="大语言模型" scheme="https://www.luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
-    <category term="huggingface" scheme="https://www.luyf-lemon-love.space/tags/huggingface/"/>
+    <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
     
   </entry>
   
   <entry>
     <title>00188 干饭指南目录 ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/1780870990/"/>
-    <id>https://www.luyf-lemon-love.space/1780870990/</id>
+    <link href="https://luyf-lemon-love.space/1780870990/"/>
+    <id>https://luyf-lemon-love.space/1780870990/</id>
     <published>2024-10-06T05:51:54.000Z</published>
     <updated>2024-10-13T15:30:59.144Z</updated>
     
@@ -310,17 +310,17 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="干饭" scheme="https://www.luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
+    <category term="干饭" scheme="https://luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
     
   </entry>
   
   <entry>
     <title>00187 干饭指南 - 米粥 ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/508241990/"/>
-    <id>https://www.luyf-lemon-love.space/508241990/</id>
+    <link href="https://luyf-lemon-love.space/508241990/"/>
+    <id>https://luyf-lemon-love.space/508241990/</id>
     <published>2024-10-06T05:39:00.000Z</published>
     <updated>2024-10-06T05:50:08.788Z</updated>
     
@@ -329,17 +329,17 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="干饭" scheme="https://www.luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
+    <category term="干饭" scheme="https://luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
     
   </entry>
   
   <entry>
     <title>00186 干饭指南 - 汤面 ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/825538395/"/>
-    <id>https://www.luyf-lemon-love.space/825538395/</id>
+    <link href="https://luyf-lemon-love.space/825538395/"/>
+    <id>https://luyf-lemon-love.space/825538395/</id>
     <published>2024-10-05T12:01:40.000Z</published>
     <updated>2024-10-05T12:08:20.805Z</updated>
     
@@ -348,17 +348,17 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="干饭" scheme="https://www.luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
+    <category term="干饭" scheme="https://luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
     
   </entry>
   
   <entry>
     <title>00185 干饭指南 - 速冻馄饨 ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/2674856820/"/>
-    <id>https://www.luyf-lemon-love.space/2674856820/</id>
+    <link href="https://luyf-lemon-love.space/2674856820/"/>
+    <id>https://luyf-lemon-love.space/2674856820/</id>
     <published>2024-10-05T11:48:20.000Z</published>
     <updated>2024-10-05T11:56:05.305Z</updated>
     
@@ -367,17 +367,17 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="干饭" scheme="https://www.luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
+    <category term="干饭" scheme="https://luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
     
   </entry>
   
   <entry>
     <title>00184 干饭指南 - 炒馍 ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/3141133200/"/>
-    <id>https://www.luyf-lemon-love.space/3141133200/</id>
+    <link href="https://luyf-lemon-love.space/3141133200/"/>
+    <id>https://luyf-lemon-love.space/3141133200/</id>
     <published>2024-10-05T09:04:34.000Z</published>
     <updated>2024-10-05T09:21:43.286Z</updated>
     
@@ -386,17 +386,17 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="干饭" scheme="https://www.luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
+    <category term="干饭" scheme="https://luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
     
   </entry>
   
   <entry>
     <title>00183 干饭指南 - 西红柿炒鸡蛋 ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/2673210057/"/>
-    <id>https://www.luyf-lemon-love.space/2673210057/</id>
+    <link href="https://luyf-lemon-love.space/2673210057/"/>
+    <id>https://luyf-lemon-love.space/2673210057/</id>
     <published>2024-10-04T16:40:01.000Z</published>
     <updated>2024-10-04T16:46:51.771Z</updated>
     
@@ -405,17 +405,17 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="干饭" scheme="https://www.luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
+    <category term="干饭" scheme="https://luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
     
   </entry>
   
   <entry>
     <title>00182 干饭指南 - 鸡蛋羹 ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/1488727933/"/>
-    <id>https://www.luyf-lemon-love.space/1488727933/</id>
+    <link href="https://luyf-lemon-love.space/1488727933/"/>
+    <id>https://luyf-lemon-love.space/1488727933/</id>
     <published>2024-10-04T15:52:44.000Z</published>
     <updated>2024-10-04T16:10:49.091Z</updated>
     
@@ -424,17 +424,17 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="干饭" scheme="https://www.luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
+    <category term="干饭" scheme="https://luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
     
   </entry>
   
   <entry>
     <title>00181 干饭指南 - 炒茄子 ubuntu</title>
-    <link href="https://www.luyf-lemon-love.space/3285185066/"/>
-    <id>https://www.luyf-lemon-love.space/3285185066/</id>
+    <link href="https://luyf-lemon-love.space/3285185066/"/>
+    <id>https://luyf-lemon-love.space/3285185066/</id>
     <published>2024-10-04T14:40:30.000Z</published>
     <updated>2024-10-04T15:05:04.881Z</updated>
     
@@ -443,10 +443,10 @@
     
     
     
-    <category term="持续维护的工具学习笔记" scheme="https://www.luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="干饭" scheme="https://www.luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
+    <category term="干饭" scheme="https://luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
     
   </entry>
   
