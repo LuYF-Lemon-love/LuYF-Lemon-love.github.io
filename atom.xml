@@ -6,7 +6,7 @@
   <link href="https://luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://luyf-lemon-love.space/"/>
-  <updated>2024-10-19T15:35:53.629Z</updated>
+  <updated>2024-10-19T16:21:02.205Z</updated>
   <id>https://luyf-lemon-love.space/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>00205 NLP Course - Summary ubuntu</title>
+    <link href="https://luyf-lemon-love.space/215272902/"/>
+    <id>https://luyf-lemon-love.space/215272902/</id>
+    <published>2024-10-19T15:43:56.000Z</published>
+    <updated>2024-10-19T16:21:02.205Z</updated>
+    
+    
+    <summary type="html">NLP课程-总结。</summary>
+    
+    
+    
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
+    
+  </entry>
+  
+  <entry>
     <title>00204 NLP Course - Bias and limitations ubuntu</title>
     <link href="https://luyf-lemon-love.space/3158168930/"/>
     <id>https://luyf-lemon-love.space/3158168930/</id>
     <published>2024-10-19T14:54:31.000Z</published>
-    <updated>2024-10-19T15:35:53.629Z</updated>
+    <updated>2024-10-19T15:36:46.995Z</updated>
     
     
     <summary type="html">NLP课程-偏见和局限性。</summary>
@@ -439,25 +464,6 @@
     
     
     <summary type="html">干饭指南-汤面。</summary>
-    
-    
-    
-    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="干饭" scheme="https://luyf-lemon-love.space/tags/%E5%B9%B2%E9%A5%AD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>00185 干饭指南 - 速冻馄饨 ubuntu</title>
-    <link href="https://luyf-lemon-love.space/2674856820/"/>
-    <id>https://luyf-lemon-love.space/2674856820/</id>
-    <published>2024-10-05T11:48:20.000Z</published>
-    <updated>2024-10-05T11:56:05.305Z</updated>
-    
-    
-    <summary type="html">干饭指南-速冻馄饨。</summary>
     
     
     
