@@ -659,7 +659,7 @@
   </url>
   
   <url>
-    <loc>https://luyf-lemon-love.space/bilibili/animals/index.html</loc>
+    <loc>https://luyf-lemon-love.space/bilibili/beauty/index.html</loc>
     
     <lastmod>2024-08-29</lastmod>
     
@@ -668,7 +668,7 @@
   </url>
   
   <url>
-    <loc>https://luyf-lemon-love.space/bilibili/beauty/index.html</loc>
+    <loc>https://luyf-lemon-love.space/bilibili/animals/index.html</loc>
     
     <lastmod>2024-08-29</lastmod>
     
@@ -731,15 +731,6 @@
   </url>
   
   <url>
-    <loc>https://luyf-lemon-love.space/bilibili/lanyangyang/index.html</loc>
-    
-    <lastmod>2024-08-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://luyf-lemon-love.space/bilibili/lol/index.html</loc>
     
     <lastmod>2024-08-29</lastmod>
@@ -750,6 +741,15 @@
   
   <url>
     <loc>https://luyf-lemon-love.space/bilibili/lol-show/index.html</loc>
+    
+    <lastmod>2024-08-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/bilibili/lanyangyang/index.html</loc>
     
     <lastmod>2024-08-29</lastmod>
     
@@ -2978,14 +2978,14 @@
   </url>
   
   <url>
-    <loc>https://luyf-lemon-love.space/categories/%E5%8D%9A%E5%AE%A2/</loc>
+    <loc>https://luyf-lemon-love.space/categories/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://luyf-lemon-love.space/categories/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83/</loc>
+    <loc>https://luyf-lemon-love.space/categories/%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
