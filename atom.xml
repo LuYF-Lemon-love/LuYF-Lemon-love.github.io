@@ -6,7 +6,7 @@
   <link href="https://luyf-lemon-love.space/atom.xml" rel="self"/>
   
   <link href="https://luyf-lemon-love.space/"/>
-  <updated>2024-11-21T15:29:01.962Z</updated>
+  <updated>2024-11-21T15:52:42.952Z</updated>
   <id>https://luyf-lemon-love.space/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>00232 Ollama Python Library ubuntu</title>
+    <link href="https://luyf-lemon-love.space/3986422416/"/>
+    <id>https://luyf-lemon-love.space/3986422416/</id>
+    <published>2024-11-21T15:34:29.000Z</published>
+    <updated>2024-11-21T15:52:42.952Z</updated>
+    
+    
+    <summary type="html">The Ollama Python library provides the easiest way to integrate Python 3.8+ projects with Ollama.</summary>
+    
+    
+    
+    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>00231 Ollama 学习笔记 (手动安装) ubuntu</title>
     <link href="https://luyf-lemon-love.space/350747350/"/>
     <id>https://luyf-lemon-love.space/350747350/</id>
     <published>2024-11-21T15:15:52.000Z</published>
-    <updated>2024-11-21T15:29:01.962Z</updated>
+    <updated>2024-11-21T15:29:39.812Z</updated>
     
     
     <summary type="html">Manual install.</summary>
@@ -459,31 +482,6 @@
     
     
     <summary type="html">NLP课程-把这一切放在一起。</summary>
-    
-    
-    
-    <category term="持续维护的工具学习笔记" scheme="https://luyf-lemon-love.space/categories/%E6%8C%81%E7%BB%AD%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-    <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
-    
-    <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>00212 NLP Course - Handling multiple sequences ubuntu</title>
-    <link href="https://luyf-lemon-love.space/1297690852/"/>
-    <id>https://luyf-lemon-love.space/1297690852/</id>
-    <published>2024-10-27T10:48:47.000Z</published>
-    <updated>2024-10-27T15:16:32.987Z</updated>
-    
-    
-    <summary type="html">NLP课程-处理多个序列。</summary>
     
     
     
