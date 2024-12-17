@@ -5,6 +5,7 @@ https://luyf-lemon-love.space/2024/12/08/00240-nlp-course-big-data-datasets-to-t
 https://luyf-lemon-love.space/2024/12/06/00239-subprocess-run-yong-fa/
 https://luyf-lemon-love.space/2024/12/06/00238-cp-ming-ling/
 https://luyf-lemon-love.space/2024/12/06/00237-partial-han-shu/
+https://luyf-lemon-love.space/2024/11/29/00236-qwq-32b-preview/
 https://luyf-lemon-love.space/2024/11/28/00235-pip-cha-kan-bao-de-wei-zhi/
 https://luyf-lemon-love.space/2024/11/24/00234-shell-jiao-ben-ru-men-bi-ji/
 https://luyf-lemon-love.space/2024/11/24/00233-qwen2-5-coder/
@@ -97,4 +98,3 @@ https://luyf-lemon-love.space/2024/07/28/00147-yu-chu-li-shu-ju/
 https://luyf-lemon-love.space/2024/07/21/00146-cheat-sheet-mastering-temperature-and-top-p-in-chatgpt-api/
 https://luyf-lemon-love.space/2024/07/16/00145-vscode-za-xiang/
 https://luyf-lemon-love.space/2024/06/30/00144-chatgpt-bei-hou-de-gong-chen-rlhf-ji-zhu-xiang-jie/
-https://luyf-lemon-love.space/2023/09/14/00093-python-json-json-bian-ma-he-jie-ma-qi/
