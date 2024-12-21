@@ -4,11 +4,13 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="00017-利用ctypes并行计算Pi-ubuntu, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="keywords" content="00245 新建git仓库, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="摘要圆周率（Pi）是圆的周长与直径的比值，是一个非常重要的常数。Python 是目前最流行的语言，但由于全局解释器锁（global interpreter lock, GIL）的存在，不能够实现在多处理器上的并行性。可以利用 Python ">
+    <meta name="description" content="前言新建git仓库，并将仓库的内容强制推送到github的远程仓库。
+Operating System: Ubuntu 22.04.4 LTS
+介绍要在GitHub上新建一个Git仓库并将本地仓库的内容强制推送到GitHub的远程仓库，请按">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +18,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>00017-利用ctypes并行计算Pi-ubuntu | LuYF-Lemon-love の Blog</title>
+    <title>00245 新建git仓库 | LuYF-Lemon-love の Blog</title>
     <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -307,13 +309,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/20220604154633.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/046-%E5%94%AF%E7%BE%8E%E8%92%99%E7%9C%BC%E5%A5%B3%E7%A5%9E.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        00017-利用ctypes并行计算Pi-ubuntu
+                        00245 新建git仓库
                     </div>
                 </div>
             </div>
@@ -424,16 +426,8 @@
                     
                     <div class="article-tag">
                         
-                        <a href="/tags/C/" target="_blank">
-                            <span class="chip bg-color">C++</span>
-                        </a>
-                        
-                        <a href="/tags/Python/" target="_blank">
-                            <span class="chip bg-color">Python</span>
-                        </a>
-                        
-                        <a href="/tags/多线程/" target="_blank">
-                            <span class="chip bg-color">多线程</span>
+                        <a href="/tags/Git/" target="_blank">
+                            <span class="chip bg-color">Git</span>
                         </a>
                         
                     </div>
@@ -444,8 +438,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                        <a href="/categories/C-C-和Python混合编程/" class="post-category" target="_blank">
-                            C/C++和Python混合编程
+                        <a href="/categories/计算机基础/" class="post-category" target="_blank">
+                            计算机基础
                         </a>
                         
                     </div>
@@ -456,7 +450,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-07-01
+                    2024-12-21
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -470,14 +464,14 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    559
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    2 分
                 </div>
                 
                 
@@ -493,119 +487,65 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>圆周率（Pi）是圆的周长与直径的比值，是一个非常重要的常数。Python 是目前最流行的语言，但由于全局解释器锁（global interpreter lock, GIL）的存在，不能够实现在多处理器上的并行性。可以利用 Python 的标准库 ctypes 调用共享库，释放 GIL，实现并行性。我们利用莱布尼茨公式计算圆周率，并且对比了纯 Python、 Python threading、ctypes 和纯 C 语言四种实现方法消耗的时间。发现通过 ctypes 可以实现并行性计算，接近 C 语言的计算效率，比纯 Python 和 Python threading 快两个数量级。并且发现 threading 不能利用多核心计算机的计算资源。源代码可以从 <a href="https://github.com/LuYF-Lemon-love/SimpleProject/tree/main/ParallelComputePI" target="_blank" rel="noopener">https://github.com/LuYF-Lemon-love/SimpleProject/tree/main/ParallelComputePI</a> 上获得。</p>
-<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>Cpython 解释器使用了全局解释器锁（global interpreter lock, GIL）<a href="#1"><sup>1</sup></a>，它确保同一时刻只有一个线程在执行 Python bytecode。此机制通过设置对象模型（包括 dict 等重要内置类型）针对并发访问的隐式安全简化了 CPython 实现。给整个解释器加锁使得解释器多线程运行更方便，其代价则是牺牲了在多处理器上的并行性。</p>
-<p>不过，某些标准库或第三方库的扩展模块被设计为在执行计算密集型任务时释放 GIL。一般情况下，都是利用它们为 Python 实现 C/C++ 的扩展。常用的有标准 CPython 扩展<a href="#2"><sup>2</sup></a>、PyBind11<a href="#3"><sup>3</sup></a>、Cython<a href="#4"><sup>4</sup></a>、HPy<a href="#5"><sup>5</sup></a>、mypyc<a href="#6"><sup>6</sup></a>、cffi、SWIG、Boost.Python<a href="#7"><sup>7</sup></a>、cppyy<a href="#8"><sup>8</sup></a> 和 ctypes<a href="#9"><sup>9</sup></a>。其中，Python 的 C 扩展一般推荐使用 Cython，C++ 扩展一般使用 PyBind11<a href="#10"><sup>10</sup></a>。但是 ctypes 由于是标准库，所以使用起来较简单。</p>
-<p>ctypes 提供了与 C 兼容的数据类型，并允许调用 DLL 或共享库中的函数。可以使用该模块以纯 Python 形式对这些库进行封装。C 语言能够调用可移植操作系统接口（Portable Operating System Interface, POSIX）<a href="#11"><sup>11</sup></a>的 libpthread.so 动态链接库实现多线程。因此，Python 可以利用 ctypes 调用 C 程序实现多线程。</p>
-<p>threading<a href="#12"><sup>12</sup></a> 是 Python 的多线程库，由于存在 GIL，同一时刻只有一个线程可以执行 Python 代码，仅仅只能优化多个 I/O 密集型任务。</p>
-<p>我们利用莱布尼茨公式计算圆周率，并对比了纯 Python、 Python threading、ctypes 和纯 C 语言四种实现方法消耗的时间。发现通过 ctypes 可以实现并行性计算，接近 C 语言的计算效率，比纯 Python 和 Python threading 快两个数量级。并且发现 threading 不能利用多核心计算机的计算资源。</p>
-<p>源代码可以从 <a href="https://github.com/LuYF-Lemon-love/SimpleProject/tree/main/ParallelComputePI" target="_blank" rel="noopener">https://github.com/LuYF-Lemon-love/SimpleProject/tree/main/ParallelComputePI</a> 上获得。</p>
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h4 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h4><p>操作系统：Ubuntu 20.04.4 LTS，64 位</p>
-<p>处理器：Intel® Core™ i5-7500 CPU @ 3.40GHz × 4</p>
-<p>内存：7.7 GiB</p>
-<p>Python: 3.9.7</p>
-<p>GCC: 9.4.0</p>
-<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p>常用计算 Pi 的方法如下：</p>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>新建git仓库，并将仓库的内容强制推送到github的远程仓库。</p>
+<p>Operating System: Ubuntu 22.04.4 LTS</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>要在GitHub上新建一个Git仓库并将本地仓库的内容强制推送到GitHub的远程仓库，请按照以下步骤操作：</p>
 <ol>
-<li>蒙特卡罗法<a href="#13"><sup>13</sup></a></li>
+<li><p><strong>在GitHub上创建新仓库</strong></p>
+<ul>
+<li>登录到GitHub账号。</li>
+<li>点击右上角的”+”号，选择“New repository”。</li>
+<li>输入仓库名称，可以选择公开或私有。</li>
+<li>可以选择添加README文件初始化仓库，也可以选择不添加直接创建。</li>
+<li>点击“Create repository”按钮创建仓库。</li>
+</ul>
+</li>
+<li><p><strong>本地初始化Git仓库</strong></p>
+<ul>
+<li><p>在本地计算机上，打开命令行工具。</p>
+</li>
+<li><p>切换到你想创建仓库的目录。</p>
+</li>
+<li><p>执行以下命令初始化一个新的Git仓库：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> init<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>添加文件到本地仓库</strong></p>
+<ul>
+<li><p>将你想要上传的文件添加到暂存区：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> add <span class="token keyword">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这里的 <code>.</code> 表示添加当前目录下的所有文件和文件夹，你也可以指定具体的文件或文件夹。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>提交更改</strong></p>
+<ul>
+<li><p>提交你的更改：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> commit -m <span class="token string">"Initial commit"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><code>-m</code> 后面跟的是提交信息，用来描述你这次提交的内容。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>添加远程仓库</strong></p>
+<ul>
+<li><p>添加GitHub上的仓库作为远程仓库，执行以下命令：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> remote add origin <span class="token operator">&lt;</span>你的GitHub仓库地址<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><code>&lt;你的GitHub仓库地址&gt;</code> 是你刚刚在GitHub上创建的仓库的SSH或HTTPS克隆链接。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>强制推送内容到远程仓库</strong></p>
+<ul>
+<li><p>使用以下命令强制推送你的本地仓库内容到GitHub的远程仓库：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> push -u origin master --force<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这里使用了 <code>--force</code> 参数来强制推送，它会覆盖远程仓库中的所有内容。<code>master</code> 是分支名称，如果你使用的是其他分支，请替换为相应的分支名。</p>
+</li>
+</ul>
+</li>
 </ol>
-<p>这种方法是一种基于随机数的算法，通过计算落在单位圆内的点数（M）与落在正方形内的点数（N）的比值求 Pi。该方法的精度与投入点的个数有关，投入点的数量越多，精度越高。公式如下：</p>
-<p>$$<br>\frac{M}{N}=\frac{piR^2}{(2R)^2} \Rightarrow pi=4*\frac{M}{N}<br>$$</p>
-<ol start="2">
-<li>数学公式（级数）<a href="#13"><sup>13</sup></a></li>
-</ol>
-<p>$$<br>\sum_1^\infty(\frac{1}{n^2}) = \frac{pi^2}{6}<br>$$</p>
-<ol start="3">
-<li>莱布尼茨公式<a href="#14"><sup>14</sup></a></li>
-</ol>
-<p>$$<br>\frac{pi}{4} = 1-\frac{1}{3}+\frac{1}{5}-\frac{1}{7}+\cdots<br>$$</p>
-<p>我们最终选择方法3-莱布尼茨公式计算 Pi。并行计算 Pi 时，将莱布尼茨公式的项数平均分配给每个线程，然后再将各个线程的计算结果求和得到 Pi。</p>
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p>我们实现了纯 Python、 Python threading、ctypes 和纯 C 语言四个版本。每个结果都是运行五次的均值。</p>
-<p><img src="https://cos.luyf-lemon-love.space//images/20220701112513.png" alt></p>
-<p>图 1：纯 Python 版本的运行结果。</p>
-<p><img src="https://cos.luyf-lemon-love.space//images/20220701112759.png" alt></p>
-<p>图 2：Python threading 版本的运行结果。</p>
-<p><img src="https://cos.luyf-lemon-love.space//images/20220701112833.png" alt></p>
-<p>图 3：ctypes 版本的运行结果。</p>
-<p><img src="https://cos.luyf-lemon-love.space//images/20220701112900.png" alt></p>
-<p>图 4：纯 C 语言版本的运行结果。</p>
-<p>图 1和图 2的结果显示，在计算密集型任务中，Python 自带的 threading 库不会产生加速效果，甚至由于要创建线程类，产生额外的资源消耗，导致消耗时间增加。</p>
-<p>图 3和图 4的结果显示，ctypes 版本消耗的时间和纯 C 版本大致相同，可见 ctypes 标准库的效率非常高。由于我们计算机的处理器具有 4 个核心，所以当计算密集的线程数多于核心数（4）时，不会产生加速效果。</p>
-<p>图 1和图 3的结果显示，当 ctypes 版本的线程数大于等于 4，纯 Python 版本的消耗的时间是 ctypes 版本的 100 倍，可以发现 C 语言的高效。</p>
-<h3 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h3><p>Python 可以通过 ctypes 调用 C 语言编译的共享库实现并行计算，效率无限接近 C 语言程序，远远高于纯 Python 程序。也发现了 threading 不能利用多核心计算机的计算资源。</p>
-<p>如果进行计算密集型任务，请将线程数设置为计算机的核心数，这样效率最高。</p>
-<p>由于 C++ 比 C 更富有表现力，所以我们将在未来利用 PyBind11 实现 Python 和 C++11 的混合编程。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><div id="1"></div>
-
-<ul>
-<li>[1] <a href="https://docs.python.org/zh-cn/3/glossary.html#term-global-interpreter-lock" target="_blank" rel="noopener">global interpreter lock – 全局解释器锁</a></li>
-</ul>
-<div id="2"></div>
-
-<ul>
-<li>[2] <a href="https://docs.python.org/3/c-api/" target="_blank" rel="noopener">Python/C API Reference Manual</a></li>
-</ul>
-<div id="3"></div>
-
-<ul>
-<li>[3] <a href="https://github.com/pybind/pybind11" target="_blank" rel="noopener">PyBind11</a></li>
-</ul>
-<div id="4"></div>
-
-<ul>
-<li>[4] <a href="https://cython.org/" target="_blank" rel="noopener">Cython</a></li>
-</ul>
-<div id="5"></div>
-
-<ul>
-<li>[5] <a href="https://hpyproject.org/" target="_blank" rel="noopener">HPy</a></li>
-</ul>
-<div id="6"></div>
-
-<ul>
-<li>[6] <a href="https://mypyc.readthedocs.io/" target="_blank" rel="noopener">mypyc</a></li>
-</ul>
-<div id="7"></div>
-
-<ul>
-<li>[7] <a href="https://www.boost.org/doc/libs/1_66_0/libs/python/doc/html/index.html" target="_blank" rel="noopener">Boost.Python</a></li>
-</ul>
-<div id="8"></div>
-
-<ul>
-<li>[8] <a href="https://cppyy.readthedocs.io/" target="_blank" rel="noopener">cppyy</a></li>
-</ul>
-<div id="9"></div>
-
-<ul>
-<li>[9] <a href="https://docs.python.org/zh-cn/3/library/ctypes.html" target="_blank" rel="noopener">ctypes — Python 的外部函数库</a></li>
-</ul>
-<div id="10"></div>
-
-<ul>
-<li>[10] <a href="https://docs.microsoft.com/zh-cn/visualstudio/python/working-with-c-cpp-python-in-visual-studio?view=vs-2022" target="_blank" rel="noopener">创建适用于 Python 的 C++ 扩展</a></li>
-</ul>
-<div id="11"></div>
-
-<ul>
-<li>[11] <a href="https://baike.baidu.com/item/%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%8F%A3?fromtitle=POSIX&fromid=3792413" target="_blank" rel="noopener">可移植操作系统接口</a></li>
-</ul>
-<div id="12"></div>
-
-<ul>
-<li>[12] <a href="https://docs.python.org/zh-cn/3/library/threading.html" target="_blank" rel="noopener">threading — 基于线程的并行</a></li>
-</ul>
-<div id="13"></div>
-
-<ul>
-<li>[13] <a href="https://blog.csdn.net/birdreamer/article/details/79546860" target="_blank" rel="noopener">计算PI的几种方法</a></li>
-</ul>
-<div id="14"></div>
-
-<ul>
-<li>[14] <a href="https://blog.csdn.net/pige666/article/details/106074961?spm=1001.2014.3001.5506" target="_blank" rel="noopener">并行计算多线程幂级数计算pi</a></li>
-</ul>
-<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>第十七篇博文写完，开心！！！！</p>
+<p>请注意，使用 <code>--force</code> 参数会覆盖远程仓库中的所有历史记录，这可能会导致数据丢失，因此请谨慎使用。在多人协作的项目中，通常不推荐使用强制推送，因为它可能会破坏其他人的工作。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百四十五篇博文写完，开心！！！！</p>
 <p>今天，也是充满希望的一天。</p>
 
             </div>
@@ -765,9 +705,9 @@
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《00017-利用ctypes并行计算Pi-ubuntu》
+                    《00245 新建git仓库》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2022/07/01/00017-li-yong-ctypes-bing-xing-ji-suan-pi-ubuntu/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2024/12/21/00245-xin-jian-git-cang-ku/" property="cc:attributionName"
                rel="cc:attributionURL">
                 LuYF-Lemon-love
             </a> 采用
@@ -807,55 +747,49 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/07/16/00018-hexo-bo-ke-jin-yi-bu-bu-chong-ubuntu/">
+                <a href="/2024/12/21/00245-xin-jian-git-cang-ku/">
                     <div class="card-image">
                         
-                        <img src="https://cos.luyf-lemon-love.space/images/noxus-bastion..png" class="responsive-img" alt="00018-Hexo博客进一步补充">
+                        <img src="https://cos.luyf-lemon-love.space/images/046-%E5%94%AF%E7%BE%8E%E8%92%99%E7%9C%BC%E5%A5%B3%E7%A5%9E.jpg" class="responsive-img" alt="00245 新建git仓库">
                         
-                        <span class="card-title">00018-Hexo博客进一步补充</span>
+                        <span class="card-title">00245 新建git仓库</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            前言前两篇搭建博客的博文——  和 ，虽然已经介绍了方方面面，但是还有一些遗漏之处，并且它们包含的内容过多，导致它的加载很缓慢，影响观看。因此本篇博文将作为它们的补充为大家介绍其他内容。
-操作系统：Ubuntu 20.04.4 LTS
-参考
+                            前言新建git仓库，并将仓库的内容强制推送到github的远程仓库。
+Operating System: Ubuntu 22.04.4 LTS
+介绍要在GitHub上新建一个Git仓库并将本地仓库的内容强制推送到GitHub的远程仓库，请按
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-07-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2024-12-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/博客/" class="post-category" target="_blank">
-                                    博客
+                            <a href="/categories/计算机基础/" class="post-category" target="_blank">
+                                    计算机基础
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Hexo/" target="_blank">
-                        <span class="chip bg-color">Hexo</span>
-                    </a>
-                    
-                    <a href="/tags/Butterfly/" target="_blank">
-                        <span class="chip bg-color">Butterfly</span>
-                    </a>
-                    
-                    <a href="/tags/对象存储/" target="_blank">
-                        <span class="chip bg-color">对象存储</span>
+                    <a href="/tags/Git/" target="_blank">
+                        <span class="chip bg-color">Git</span>
                     </a>
                     
                 </div>
@@ -869,31 +803,32 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/06/26/00016-ctypes-python-de-wai-bu-han-shu-ku-ubuntu/">
+                <a href="/2024/12/21/00244-inspect-signature-han-shu/">
                     <div class="card-image">
                         
-                        <img src="https://cos.luyf-lemon-love.space/images/20220604154341.png" class="responsive-img" alt="00016-ctypes --- Python 的外部函数库">
+                        <img src="https://cos.luyf-lemon-love.space/images/045-%E9%BB%91%E7%99%BD%E9%A3%8E%E6%A0%BC%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9%E5%94%AF%E7%BE%8E%E9%97%AD%E7%9C%BC.jpg" class="responsive-img" alt="00244 inspect.signature 函数">
                         
-                        <span class="card-title">00016-ctypes --- Python 的外部函数库</span>
+                        <span class="card-title">00244 inspect.signature 函数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            前言ctypes 是 Pyhton 的外部函数库。也是 Python 的标准库，因此不需要安装。它提供了与 C 兼容的数据类型，并允许调用 DLL 或共享库中的函数。可以使用该模块以纯 Python 形式对这些库进行封装。
-注意：部分示例代
+                            前言inspect.signature 函数。
+Operating System: Ubuntu 22.04.4 LTS
+介绍inspect.signature 是 Python 标准库 inspect 模块中的一个函数，它用于获取一个函数
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-06-26
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2024-12-21
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/C-C-和Python混合编程/" class="post-category" target="_blank">
-                                    C/C++和Python混合编程
+                            <a href="/categories/Python/" class="post-category" target="_blank">
+                                    Python
                                 </a>
                             
                             
@@ -902,10 +837,6 @@
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/C/" target="_blank">
-                        <span class="chip bg-color">C++</span>
-                    </a>
                     
                     <a href="/tags/Python/" target="_blank">
                         <span class="chip bg-color">Python</span>
