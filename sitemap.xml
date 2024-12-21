@@ -2,6 +2,195 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://luyf-lemon-love.space/2022/10/19/00036-ji-yu-yu-ju-ji-bie-xuan-ze-xing-zhu-yi-li-ji-zhi-de-guan-xi-chou-qu-mo-xing-yuan-lun-wen-xue-xi-bi-ji/</loc>
+    
+    <lastmod>2024-12-21T10:20:01.797Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/10/10/00035-transe-yuan-lun-wen-xue-xi-bi-ji/</loc>
+    
+    <lastmod>2024-12-21T10:18:36.777Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/10/08/00034-pytorch-tutorials-xue-xi-bi-ji/</loc>
+    
+    <lastmod>2024-12-21T10:18:09.103Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/10/08/00033-za-xiang-zong-lan/</loc>
+    
+    <lastmod>2024-12-21T10:17:49.129Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/10/07/00032-ren-gong-zhi-neng-za-xiang/</loc>
+    
+    <lastmod>2024-12-21T10:17:09.082Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/09/30/00031-ssh-lian-jie-yuan-cheng-fu-wu-qi/</loc>
+    
+    <lastmod>2024-12-21T10:16:52.637Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/09/28/00029-c-c-za-xiang/</loc>
+    
+    <lastmod>2024-12-21T10:16:30.068Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/09/28/00028-linux-za-xiang/</loc>
+    
+    <lastmod>2024-12-21T10:16:13.446Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/08/31/00027-docker-xue-xi-bi-ji/</loc>
+    
+    <lastmod>2024-12-21T10:15:59.209Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/08/31/00026-xian-dai-c-jiao-cheng-xi-lie-xue-xi-bi-ji/</loc>
+    
+    <lastmod>2024-12-21T10:15:41.095Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/08/26/00025-xian-dai-c-jiao-cheng-xue-xi-bi-ji-san/</loc>
+    
+    <lastmod>2024-12-21T10:15:30.968Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/08/20/00024-xian-dai-c-jiao-cheng-xue-xi-bi-ji-er/</loc>
+    
+    <lastmod>2024-12-21T10:15:02.935Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/08/16/00023-xian-dai-c-jiao-cheng-xue-xi-bi-ji-yi/</loc>
+    
+    <lastmod>2024-12-21T10:14:51.159Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/08/05/00022-cmake-examples-xue-xi-bi-ji/</loc>
+    
+    <lastmod>2024-12-21T10:13:57.681Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/08/02/00021-msys2-jiao-cheng/</loc>
+    
+    <lastmod>2024-12-21T10:13:25.160Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/08/02/00020-gcc-on-windows/</loc>
+    
+    <lastmod>2024-12-21T10:12:57.983Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/07/16/00018-hexo-bo-ke-jin-yi-bu-bu-chong-ubuntu/</loc>
+    
+    <lastmod>2024-12-21T10:12:33.589Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/07/01/00017-li-yong-ctypes-bing-xing-ji-suan-pi-ubuntu/</loc>
+    
+    <lastmod>2024-12-21T10:12:16.490Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/06/26/00016-ctypes-python-de-wai-bu-han-shu-ku-ubuntu/</loc>
+    
+    <lastmod>2024-12-21T10:11:33.903Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/06/23/00015-c-yu-yan-xian-cheng-chi/</loc>
+    
+    <lastmod>2024-12-21T10:10:49.946Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/06/19/00014-c-yu-yan-duo-xian-cheng/</loc>
+    
+    <lastmod>2024-12-21T10:10:33.558Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/06/01/00013-c-11-xin-te-xing-chu-tan/</loc>
+    
+    <lastmod>2024-12-21T10:10:18.037Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2022/05/31/00012-hexo-bo-ke-bu-chong/</loc>
+    
+    <lastmod>2024-12-21T10:10:08.504Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2024/06/01/00121-xue-xi-bi-ji-mu-lu/</loc>
+    
+    <lastmod>2024-12-21T10:08:31.190Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2023/04/17/00065-git-za-xiang/</loc>
+    
+    <lastmod>2024-12-21T09:47:36.668Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2023/07/18/00079-hugging-face-za-xiang/</loc>
+    
+    <lastmod>2024-12-21T09:01:37.739Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://luyf-lemon-love.space/2024/09/02/00168-chatglm-lun-wen-xue-xi-bi-ji/</loc>
+    
+    <lastmod>2024-12-21T08:57:41.791Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://luyf-lemon-love.space/2022/05/08/00004-hexo-kuai-su-da-jian-yi-ge-bo-ke/</loc>
     
     <lastmod>2024-12-21T08:45:43.995Z</lastmod>
@@ -72,107 +261,9 @@
   </url>
   
   <url>
-    <loc>https://luyf-lemon-love.space/2022/05/31/00012-hexo-bo-ke-bu-chong/</loc>
-    
-    <lastmod>2024-12-21T05:40:32.033Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/06/23/00015-c-yu-yan-xian-cheng-chi/</loc>
-    
-    <lastmod>2024-12-21T05:30:59.540Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/06/19/00014-c-yu-yan-duo-xian-cheng/</loc>
-    
-    <lastmod>2024-12-21T05:28:47.709Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/06/26/00016-ctypes-python-de-wai-bu-han-shu-ku-ubuntu/</loc>
-    
-    <lastmod>2024-12-21T05:13:06.794Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/07/16/00018-hexo-bo-ke-jin-yi-bu-bu-chong-ubuntu/</loc>
-    
-    <lastmod>2024-12-21T04:51:29.703Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://luyf-lemon-love.space/2022/07/16/00019-hexo-da-jian-bo-ke-xi-lie-jiao-cheng/</loc>
     
     <lastmod>2024-12-21T04:50:08.808Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/08/02/00020-gcc-on-windows/</loc>
-    
-    <lastmod>2024-12-21T04:44:15.472Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/08/31/00027-docker-xue-xi-bi-ji/</loc>
-    
-    <lastmod>2024-12-20T16:39:38.396Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/08/26/00025-xian-dai-c-jiao-cheng-xue-xi-bi-ji-san/</loc>
-    
-    <lastmod>2024-12-20T16:32:20.996Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/08/05/00022-cmake-examples-xue-xi-bi-ji/</loc>
-    
-    <lastmod>2024-12-20T16:31:53.946Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/08/16/00023-xian-dai-c-jiao-cheng-xue-xi-bi-ji-yi/</loc>
-    
-    <lastmod>2024-12-20T16:30:27.866Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/08/31/00026-xian-dai-c-jiao-cheng-xi-lie-xue-xi-bi-ji/</loc>
-    
-    <lastmod>2024-12-20T16:28:23.837Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/08/02/00021-msys2-jiao-cheng/</loc>
-    
-    <lastmod>2024-12-20T16:21:08.837Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/08/20/00024-xian-dai-c-jiao-cheng-xue-xi-bi-ji-er/</loc>
-    
-    <lastmod>2024-12-20T16:12:31.377Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2024/06/01/00121-xue-xi-bi-ji-mu-lu/</loc>
-    
-    <lastmod>2024-12-19T15:48:08.540Z</lastmod>
     
   </url>
   
@@ -240,23 +331,9 @@
   </url>
   
   <url>
-    <loc>https://luyf-lemon-love.space/2023/04/17/00065-git-za-xiang/</loc>
-    
-    <lastmod>2024-12-19T14:51:03.360Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://luyf-lemon-love.space/2023/05/29/00067-du-de-shu-pdf-ban-ben-qing-dan/</loc>
     
     <lastmod>2024-12-19T14:49:21.073Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/09/28/00029-c-c-za-xiang-ubuntu/</loc>
-    
-    <lastmod>2024-12-19T14:40:49.029Z</lastmod>
     
   </url>
   
@@ -275,23 +352,9 @@
   </url>
   
   <url>
-    <loc>https://luyf-lemon-love.space/2022/09/30/00031-ssh-lian-jie-yuan-cheng-fu-wu-qi-ubuntu/</loc>
-    
-    <lastmod>2024-12-19T14:32:12.098Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/09/29/00030-python-za-xiang-ubuntu/</loc>
+    <loc>https://luyf-lemon-love.space/2022/09/29/00030-python-za-xiang/</loc>
     
     <lastmod>2024-12-19T14:31:28.999Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/09/28/00028-linux-za-xiang-ubuntu/</loc>
-    
-    <lastmod>2024-12-19T14:26:51.928Z</lastmod>
     
   </url>
   
@@ -366,44 +429,9 @@
   </url>
   
   <url>
-    <loc>https://luyf-lemon-love.space/2022/10/10/00035-transe-yuan-lun-wen-xue-xi-bi-ji/</loc>
-    
-    <lastmod>2024-12-19T13:58:19.854Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://luyf-lemon-love.space/2022/11/30/00041-drkg-yuan-lun-wen-xue-xi-bi-ji/</loc>
     
     <lastmod>2024-12-19T13:50:53.492Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/10/07/00032-ren-gong-zhi-neng-za-xiang/</loc>
-    
-    <lastmod>2024-12-19T13:45:44.883Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/10/08/00033-za-xiang-zong-lan/</loc>
-    
-    <lastmod>2024-12-19T13:41:12.633Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/10/08/00034-pytorch-tutorials-xue-xi-bi-ji/</loc>
-    
-    <lastmod>2024-12-19T13:40:56.111Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/10/19/00036-ji-yu-yu-ju-ji-bie-xuan-ze-xing-zhu-yi-li-ji-zhi-de-guan-xi-chou-qu-mo-xing-yuan-lun-wen-xue-xi-bi-ji/</loc>
-    
-    <lastmod>2024-12-19T13:39:42.751Z</lastmod>
     
   </url>
   
@@ -530,13 +558,6 @@
     <loc>https://luyf-lemon-love.space/2023/07/18/00077-pytorch-za-xiang/</loc>
     
     <lastmod>2024-12-19T12:56:10.918Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2023/07/18/00079-hugging-face-za-xiang/</loc>
-    
-    <lastmod>2024-12-19T12:53:59.488Z</lastmod>
     
   </url>
   
@@ -1076,13 +1097,6 @@
     <loc>https://luyf-lemon-love.space/2024/09/01/00167-zai-vs-code-zhong-ge-shi-hua-python/</loc>
     
     <lastmod>2024-12-17T14:53:54.300Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2024/09/02/00168-chatglm-lun-wen-xue-xi-bi-ji/</loc>
-    
-    <lastmod>2024-12-17T14:53:45.810Z</lastmod>
     
   </url>
   
@@ -1685,20 +1699,6 @@
     <loc>https://luyf-lemon-love.space/2024/12/12/00243-nlp-course-semantic-search-with-faiss/</loc>
     
     <lastmod>2024-12-17T13:15:40.962Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/07/01/00017-li-yong-ctypes-bing-xing-ji-suan-pi-ubuntu/</loc>
-    
-    <lastmod>2024-12-16T15:47:40.592Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://luyf-lemon-love.space/2022/06/01/00013-c-11-xin-te-xing-chu-tan/</loc>
-    
-    <lastmod>2024-12-16T15:23:59.633Z</lastmod>
     
   </url>
   
