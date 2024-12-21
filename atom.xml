@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://luyf-lemon-love.space/"/>
-  <updated>2024-12-21T15:07:39.651Z</updated>
+  <updated>2024-12-21T15:25:18.746Z</updated>
   <id>https://luyf-lemon-love.space/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>00246 ubuntu安装常见的c++环境</title>
+    <link href="https://luyf-lemon-love.space/2024/12/21/00246-ubuntu-an-zhuang-chang-jian-de-c-huan-jing/"/>
+    <id>https://luyf-lemon-love.space/2024/12/21/00246-ubuntu-an-zhuang-chang-jian-de-c-huan-jing/</id>
+    <published>2024-12-21T15:21:07.000Z</published>
+    <updated>2024-12-21T15:25:18.746Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;ubuntu安装常见的c++环境。&lt;/p&gt;
+&lt;p&gt;Operating System: Ubuntu 22.04.4 LTS&lt;/p&gt;
+&lt;h2
+        
+      
+    
+    </summary>
+    
+      <category term="C++" scheme="https://luyf-lemon-love.space/categories/C/"/>
+    
+    
+      <category term="C++" scheme="https://luyf-lemon-love.space/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>00245 新建git仓库</title>
@@ -442,32 +470,6 @@
     <summary type="html">
     
       NLP课程-是时候进行切割和细分了
-    
-    </summary>
-    
-      <category term="大语言模型" scheme="https://luyf-lemon-love.space/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
-    
-    
-      <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-      <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
-    
-      <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>00226 NLP Course - What if my dataset isn’t on the Hub?</title>
-    <link href="https://luyf-lemon-love.space/2024/11/17/00226-nlp-course-what-if-my-dataset-isn-t-on-the-hub/"/>
-    <id>https://luyf-lemon-love.space/2024/11/17/00226-nlp-course-what-if-my-dataset-isn-t-on-the-hub/</id>
-    <published>2024-11-16T17:18:35.000Z</published>
-    <updated>2024-12-17T13:24:10.852Z</updated>
-    
-    <summary type="html">
-    
-      NLP课程-如果你的数据集不在Hub上怎么办？
     
     </summary>
     
