@@ -1,0 +1,1338 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="00153 开源大语言模型作为 LangChain 智能体, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
+    <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
+    <meta name="description" content="前言本文介绍了如何使用开源大语言模型作为 LangChain 智能体。
+Hugging Face Github 主页: https://github.com/huggingface
+
+操作系统：Windows 11 家庭中文版
+参考文档
+O">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>00153 开源大语言模型作为 LangChain 智能体 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ce84511d3df71640a9378a69f6293044";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+    <script>
+        (function(){
+        var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-comments"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-comments"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/039-119887888.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        00153 开源大语言模型作为 LangChain 智能体
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                        <a href="/tags/深度学习/" target="_blank">
+                            <span class="chip bg-color">深度学习</span>
+                        </a>
+                        
+                        <a href="/tags/人工智能/" target="_blank">
+                            <span class="chip bg-color">人工智能</span>
+                        </a>
+                        
+                        <a href="/tags/大语言模型/" target="_blank">
+                            <span class="chip bg-color">大语言模型</span>
+                        </a>
+                        
+                        <a href="/tags/huggingface/" target="_blank">
+                            <span class="chip bg-color">huggingface</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                        <a href="/categories/大语言模型/" class="post-category" target="_blank">
+                            大语言模型
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-08-03
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                    LuYF-Lemon-love
+                    
+                </div>
+
+                
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    12 分
+                </div>
+                
+                
+
+                
+                <div id="busuanzi_container_page_pv" class="info-break-policy">
+                    <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                    <span id="busuanzi_value_page_pv"></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文介绍了如何使用开源大语言模型作为 LangChain 智能体。</p>
+<p>Hugging Face Github 主页: <a href="https://github.com/huggingface" target="_blank" rel="noopener">https://github.com/huggingface</a></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803185228.png" alt></p>
+<p>操作系统：Windows 11 家庭中文版</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://huggingface.co/blog/open-source-llms-as-agents" target="_blank" rel="noopener">Open-source LLMs as LangChain Agents</a></li>
+<li><a href="https://huggingface.co/blog/zh/open-source-llms-as-agents" target="_blank" rel="noopener">开源大语言模型作为 LangChain 智能体</a></li>
+</ol>
+<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>开源大型语言模型 (LLMs) 现已达到一种性能水平，使它们适合作为推动智能体工作流的推理引擎: <a href="https://huggingface.co/blog/mixtral" target="_blank" rel="noopener">Mixtral</a> 甚至在我们的基准测试中 <a href="https://chat.openai.com/c/a130c62f-e9ac-4ad7-9261-832da1c2c9b5#results" target="_blank" rel="noopener">超过了 GPT-3.5</a>，并且通过微调，其性能可以轻易的得到进一步增强。</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p><strong>针对 <a href="https://huggingface.co/docs/transformers/tasks/language_modeling" target="_blank" rel="noopener">因果语言建模</a> 训练的大型语言模型 (LLMs) 可以处理广泛的任务，但它们经常在逻辑、计算和搜索等基本任务上遇到困难。最糟糕的情况是，它们在某个领域，比如数学，表现不佳，却仍然试图自己处理所有计算。</strong></p>
+<p><strong>为了克服这一弱点，除其他方法外，可以将 LLM 整合到一个系统中，在该系统中，它可以调用工具: 这样的系统称为 LLM 智能体。</strong></p>
+<p>在这篇文章中，我们将解释 ReAct 智能体的内部工作原理，然后展示如何使用最近在 LangChain 中集成的 <code>ChatHuggingFace</code> 类来构建它们。最后，我们将几个开源 LLM 与 GPT-3.5 和 GPT-4 进行基准测试。</p>
+<h2 id="什么是智能体？"><a href="#什么是智能体？" class="headerlink" title="什么是智能体？"></a>什么是智能体？</h2><p><strong>LLM 智能体的定义非常宽泛: 它们指的是所有将 LLMs 作为核心引擎，并能够根据观察对其环境施加影响的系统。这些系统能够通过多次迭代“感知 ⇒ 思考 ⇒ 行动”的循环来实现既定任务，并常常融入规划或知识管理系统以提升其表现效能。</strong> 你可以在 <a href="https://huggingface.co/papers/2309.07864" target="_blank" rel="noopener">Xi et al., 2023</a> 的研究中找到对智能体领域综述的精彩评述。</p>
+<p>今天，我们将重点放在 <strong>ReAct 智能体</strong> 上。<a href="https://huggingface.co/papers/2210.03629" target="_blank" rel="noopener">ReAct</a> 采用一种基于“<strong>推理</strong> (Reasoning)”与“<strong>行动</strong> (Acting)”结合的方式来构建智能体。<strong>在提示词中，我们阐述了模型能够利用哪些工具，并引导它“逐步”思考 (亦称为 <a href="https://huggingface.co/papers/2201.11903" target="_blank" rel="noopener">思维链</a> 行为)，以规划并实施其后续动作，达成最终的目标。</strong></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803185841.png" alt></p>
+<h3 id="ReAct-智能体内部工作原理示例"><a href="#ReAct-智能体内部工作原理示例" class="headerlink" title="ReAct 智能体内部工作原理示例"></a>ReAct 智能体内部工作原理示例</h3><p>上述图解虽显得有些抽象，但其核心原理其实相当直接。</p>
+<p>参见 <a href="https://colab.research.google.com/drive/1j_vsc28FwZEDocDxVxWJ6Fvxd18FK8Gl?usp=sharing" target="_blank" rel="noopener">此笔记本</a>: 我们借助 Transformers 库展示了一个最基础的工具调用实例。</p>
+<p><strong>本质上，LLM 通过一个循环被调用，循环中的提示包含如下内容:</strong></p>
+<pre><code>这里是一个问题: “{question}”
+你可以使用这些工具: {tools_descriptions}。
+首先，你需要进行‘思考: {your_thoughts}’，接下来你可以:
+- 以正确的 JSON 格式发起工具调用，
+- 或者，以‘最终答案:’为前缀来输出你的答案。</code></pre><p>接下来，你需要解析 LLM 的输出:</p>
+<ul>
+<li><strong>如果输出中包含<code>‘最终答案:’</code> 字符串，循环便结束，并输出该答案;</strong></li>
+<li><strong>若不包含，则表示 LLM 进行了工具调用: 你需解析此输出以获得工具的名称及其参数，随后根据这些参数执行相应工具的调用。此工具调用的结果将被追加至提示信息中，然后你将带有这些新增信息的提示再次传递给 LLM，直至它获得足够的信息来给出问题的最终答案。</strong></li>
+</ul>
+<p>例如，LLM 的输出在回答问题: <code>1:23:45 中有多少秒？</code> 时可能看起来像这样:</p>
+<pre><code>思考: 我需要将时间字符串转换成秒。
+
+动作:
+{
+    &quot;action&quot;: &quot;convert_time&quot;,
+    &quot;action_input&quot;: {
+        &quot;time&quot;: &quot;1:23:45&quot;
+    }
+}</code></pre><p>鉴于此输出未包含 <code>‘最终答案:’</code> 字符串，它代表进行了工具调用。因此我们解析该输出，获取工具调用的参数: 以参数 <code>{&quot;time&quot;: &quot;1:23:45&quot;}</code> 调用 <code>convert_time</code> 工具，执行该工具调用后返回 <code>{&#39;seconds&#39;: &#39;5025&#39;}</code> 。</p>
+<p>于是，我们将这整个信息块追加至提示词中。</p>
+<p><strong>更新后的提示词现在变为 (更为详尽的版本):</strong></p>
+<pre><code>这是一个问题: “1:23:45 包含多少秒？”
+你可以使用以下工具:
+    - convert_time: 将小时、分钟、秒格式的时间转换为秒。
+
+首先，进行“思考: {your_thoughts}”，之后你可以:
+- 使用正确的 JSON 格式调用工具，
+- 或以“最终答案:”为前缀输出你的答案。
+
+思考: 我需要把时间字符串转换成秒数。
+
+行动:
+{
+    &quot;action&quot;: &quot;convert_time&quot;,
+    &quot;action_input&quot;: {
+        &quot;time&quot;: &quot;1:23:45&quot;
+    }
+}
+观测结果: {&#39;seconds&#39;: &#39;5025&#39;}</code></pre><p><strong>➡️ 我们用这个新的提示再次调用 LLM，鉴于它可以访问工具调用结果中的 <code>观测结果</code> ，LLM 现在最有可能输出:</strong></p>
+<pre><code>思考: 我现在有了回答问题所需的信息。
+最终答案: 1:23:45 中有 5025 秒。</code></pre><p>任务就这样完成了！</p>
+<h3 id="智能体系统的挑战"><a href="#智能体系统的挑战" class="headerlink" title="智能体系统的挑战"></a>智能体系统的挑战</h3><p>一般来说，运行 LLM 引擎的智能体系统的难点包括:</p>
+<ol>
+<li><p><strong>从提供的工具中选择一个能够帮助实现目标的工具:</strong> 例如，当询问<code>“大于 30,000 的最小质数是什么？”</code> 时，智能体可能会调用<code>“K2 的高度是多少？”</code> 的<code>Search</code> 工具，但这并无帮助。</p>
+</li>
+<li><p><strong>以严格的参数格式调用工具:</strong> 例如，在尝试计算一辆汽车 10 分钟内行驶 3 公里的速度时，你必须调用<code>Calculator</code> 工具，通过<code>distance</code> 除以<code>time</code> 来计算: 即便你的 Calculator 工具接受 JSON 格式的调用<code>{“tool”: “Calculator”, “args”: “3km/10min”}</code> ，也存在许多陷阱，例如:</p>
+<ul>
+<li>工具名称拼写错误: <code>“calculator”</code> 或<code>“Compute”</code> 是无效的</li>
+<li>提供的是参数名称而非其值: <code>“args”: “distance/time”</code></li>
+<li>格式非标准化: <code>“args&quot;: &quot;3km in 10minutes”</code></li>
+</ul>
+</li>
+<li><p><strong>高效地吸收和利用过去观察到的信息，无论是初始上下文还是使用工具后返回的观察结果。</strong></p>
+</li>
+</ol>
+<p>那么，完整的智能体设置会是怎样的呢？</p>
+<h2 id="使用-LangChain-运行智能体"><a href="#使用-LangChain-运行智能体" class="headerlink" title="使用 LangChain 运行智能体"></a>使用 LangChain 运行智能体</h2><p><strong>我们刚刚在 <a href="https://www.langchain.com/" target="_blank" rel="noopener">🦜🔗LangChain</a> 中集成了一个 <code>ChatHuggingFace</code> 封装器，使你能够基于开源模型创建智能体。</strong></p>
+<p>创建 ChatModel 并为其配备工具的代码非常简单，你可以在 <a href="https://python.langchain.com/docs/integrations/chat/huggingface" target="_blank" rel="noopener">Langchain 文档</a> 中查看所有相关代码。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> langchain_community<span class="token punctuation">.</span>llms <span class="token keyword">import</span> HuggingFaceHub
+<span class="token keyword">from</span> langchain_community<span class="token punctuation">.</span>chat_models<span class="token punctuation">.</span>huggingface <span class="token keyword">import</span> ChatHuggingFace
+
+llm <span class="token operator">=</span> HuggingFaceHub<span class="token punctuation">(</span>
+    repo_id<span class="token operator">=</span><span class="token string">"HuggingFaceH4/zephyr-7b-beta"</span><span class="token punctuation">,</span>
+    task<span class="token operator">=</span><span class="token string">"text-generation"</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+chat_model <span class="token operator">=</span> ChatHuggingFace<span class="token punctuation">(</span>llm<span class="token operator">=</span>llm<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>你可以通过为其提供 ReAct 风格的提示词和工具，将 <code>chat_model</code> 转化为一个智能体:</strong></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> langchain <span class="token keyword">import</span> hub
+<span class="token keyword">from</span> langchain<span class="token punctuation">.</span>agents <span class="token keyword">import</span> AgentExecutor<span class="token punctuation">,</span> load_tools
+<span class="token keyword">from</span> langchain<span class="token punctuation">.</span>agents<span class="token punctuation">.</span>format_scratchpad <span class="token keyword">import</span> format_log_to_str
+<span class="token keyword">from</span> langchain<span class="token punctuation">.</span>agents<span class="token punctuation">.</span>output_parsers <span class="token keyword">import</span> <span class="token punctuation">(</span>
+    ReActJsonSingleInputOutputParser<span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">from</span> langchain<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>render <span class="token keyword">import</span> render_text_description
+<span class="token keyword">from</span> langchain_community<span class="token punctuation">.</span>utilities <span class="token keyword">import</span> SerpAPIWrapper
+
+<span class="token comment" spellcheck="true"># 设置工具</span>
+tools <span class="token operator">=</span> load_tools<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"serpapi"</span><span class="token punctuation">,</span> <span class="token string">"llm-math"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> llm<span class="token operator">=</span>llm<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 设置 ReAct 风格的提示词</span>
+prompt <span class="token operator">=</span> hub<span class="token punctuation">.</span>pull<span class="token punctuation">(</span><span class="token string">"hwchase17/react-json"</span><span class="token punctuation">)</span>
+prompt <span class="token operator">=</span> prompt<span class="token punctuation">.</span>partial<span class="token punctuation">(</span>
+    tools<span class="token operator">=</span>render_text_description<span class="token punctuation">(</span>tools<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    tool_names<span class="token operator">=</span><span class="token string">", "</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">[</span>t<span class="token punctuation">.</span>name <span class="token keyword">for</span> t <span class="token keyword">in</span> tools<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 定义智能体</span>
+chat_model_with_stop <span class="token operator">=</span> chat_model<span class="token punctuation">.</span>bind<span class="token punctuation">(</span>stop<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"\nObservation"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+agent <span class="token operator">=</span> <span class="token punctuation">(</span>
+    <span class="token punctuation">{</span>
+        <span class="token string">"input"</span><span class="token punctuation">:</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x<span class="token punctuation">[</span><span class="token string">"input"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"agent_scratchpad"</span><span class="token punctuation">:</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> format_log_to_str<span class="token punctuation">(</span>x<span class="token punctuation">[</span><span class="token string">"intermediate_steps"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">|</span> prompt
+    <span class="token operator">|</span> chat_model_with_stop
+    <span class="token operator">|</span> ReActJsonSingleInputOutputParser<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 实例化 AgentExecutor</span>
+agent_executor <span class="token operator">=</span> AgentExecutor<span class="token punctuation">(</span>agent<span class="token operator">=</span>agent<span class="token punctuation">,</span> tools<span class="token operator">=</span>tools<span class="token punctuation">,</span> verbose<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+agent_executor<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span>
+    <span class="token punctuation">{</span>
+        <span class="token string">"input"</span><span class="token punctuation">:</span> <span class="token string">"Who is the current holder of the speed skating world record on 500 meters? What is her current age raised to the 0.43 power?"</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>智能体将处理如下输入:</p>
+<pre class="line-numbers language-markdown"><code class="language-markdown">思考: 为了回答这个问题，我需要找出当前速滑世界纪录保持者的年龄。我将使用搜索工具来获取这些信息。
+行动:
+{
+"action": "search",
+"action_input": " 速滑 500 米世界纪录保持者的年龄 "
+}
+观察: ...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="智能体对决-开源-LLM-作为通用推理智能体的表现如何？"><a href="#智能体对决-开源-LLM-作为通用推理智能体的表现如何？" class="headerlink" title="智能体对决: 开源 LLM 作为通用推理智能体的表现如何？"></a>智能体对决: 开源 LLM 作为通用推理智能体的表现如何？</h2><p>你可以在 <a href="https://github.com/aymeric-roucher/benchmark_agents/" target="_blank" rel="noopener">这里</a> 找到这个基准测试的代码。</p>
+<h3 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h3><p>我们旨在评估开源大型语言模型 (LLMs) 作为通用推理智能体的表现。因此，我们选择了需要运用逻辑和使用基本工具 (如计算器和互联网搜索访问) 的问题。</p>
+<p><a href="https://huggingface.co/datasets/m-ric/agents_small_benchmark" target="_blank" rel="noopener">最终数据集</a> 是从其他三个数据集中选取样本的组合:</p>
+<ul>
+<li>为了测试互联网搜索能力，我们选取了 <a href="https://huggingface.co/datasets/hotpot_qa" target="_blank" rel="noopener">HotpotQA</a> 中的问题: 虽然这是一个检索型数据集，但它也可用于需要互联网访问的通用问题解答。有些问题原本需要结合来自不同来源的信息: 在我们的设置中，这意味着需要进行多步互联网搜索以整合结果。</li>
+<li>对于计算器的应用，我们加入了来自 <a href="https://huggingface.co/datasets/gsm8k" target="_blank" rel="noopener">GSM8K</a> 的问题: 这个数据集测试小学数学能力，并且完全可以通过正确利用 4 个运算符 (加、减、乘、除) 来解决。</li>
+<li>我们还从 <a href="https://huggingface.co/papers/2311.12983" target="_blank" rel="noopener">GAIA</a> 中挑选了问题，这是一个对通用 AI 助理来说极具挑战性的基准测试。原始数据集中的问题可能需要许多其他不同的工具，如代码解释器或 PDF 阅读器: 我们精选了那些仅需搜索和计算器的问题。</li>
+</ul>
+<p><strong>评估采用了 GPT-4 作为评判员</strong>，基于 <a href="https://huggingface.co/kaist-ai/prometheus-13b-v1.0" target="_blank" rel="noopener">Prometheus 提示格式</a> 的提示进行，结果以 5 点李克特量表 (5-point Likert Scale) 表示: 具体的提示内容可在 <a href="https://github.com/aymeric-roucher/benchmark_agents/blob/master/scripts/prompts.py" target="_blank" rel="noopener">此处</a> 查看。</p>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>我们评估了一些强大的开源模型:</p>
+<ul>
+<li><a href="https://huggingface.co/meta-llama/Llama-2-70b-chat-hf" target="_blank" rel="noopener">Llama2-70b-chat</a></li>
+<li><a href="https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1" target="_blank" rel="noopener">Mixtral-8x7B-Instruct-v0.1</a></li>
+<li><a href="https://huggingface.co/teknium/OpenHermes-2.5-Mistral-7B" target="_blank" rel="noopener">OpenHermes-2.5-Mistral-7B</a></li>
+<li><a href="https://huggingface.co/HuggingFaceH4/zephyr-7b-beta" target="_blank" rel="noopener">Zephyr-7b-beta</a></li>
+<li><a href="https://huggingface.co/upstage/SOLAR-10.7B-Instruct-v1.0" target="_blank" rel="noopener">SOLAR-10.7B-Instruct-v1.0</a></li>
+</ul>
+<p>这些模型通过 LangChain 的 <a href="https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/react" target="_blank" rel="noopener">ReAct 实现</a> 进行了评估</p>
+<p>这意味着我们引导它们按照以下格式输出函数调用:</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"action"</span><span class="token operator">:</span> $TOOL_NAME<span class="token punctuation">,</span>
+  <span class="token property">"action_input"</span><span class="token operator">:</span> $INPUT
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>作为比较，我们还利用 LangChain 的 <a href="https://github.com/langchain-ai/langchain/tree/021b0484a8d9e8cf0c84bc164fb904202b9e4736/libs/langchain/langchain/agents/openai_functions_agent" target="_blank" rel="noopener">专为 OpenAI 设计的智能体</a> 对 GPT-3.5 和 GPT-4 在相同的例子上进行了评估。</p>
+<p>由于这涉及到它们自己的函数调用模板，并在此基础上进行了微调，这意味着 OpenAI 模型应当展现出最佳性能。</p>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p>鉴于开源模型并没有针对特定的输出格式进行特别的函数调用微调，相较于 OpenAI 智能体，它们处于稍微不利的位置。</p>
+<p>尽管存在这样的不利条件，某些模型的表现依然非常优秀！💪</p>
+<p>这是 Mixtral-8x7B 回答“贵阳和塔城哪个城市人口更多？”问题的示例:</p>
+<pre class="line-numbers language-markdown"><code class="language-markdown">思考: 为了回答这个问题，我需要找到贵阳和塔城当前的人口数。我将利用搜索工具来查询这些信息。
+操作:
+{
+<span class="token code keyword">    "action": "search",</span>
+<span class="token code keyword">    "action_input": " 贵阳当前人口 "</span>
+}
+4.697 百万 (2016 年)
+
+思考: 我已获得贵阳的人口数，为 4.697 百万 (截至 2016 年)。现在，我将再次使用搜索工具来确定塔城的人口数。
+操作:
+{
+<span class="token code keyword">    "action": "search",</span>
+<span class="token code keyword">    "action_input": " 塔城当前人口 "</span>
+}
+人口: 新疆: 塔城的数据在 2021 年报告为 1,110,000 人。这比 2020 年的 1,138,638 人有所下降。
+人口: 新疆: 塔城的数据每年更新，从 2005 年 12 月到 2021 年，平均人口为 1,023,000 人，共 17 次观察。
+
+我已确定塔城的人口约为 1.11 百万 (截至 2021 年)。对比两地人口，贵阳的人口超过塔城。
+
+思考: 我现在清楚最终答案了
+最终答案: 贵阳的人口更多，约为 4.697 百万 (截至 2016 年)，而塔城的人口约为 1.11 百万 (截至 2021 年)。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这是各模型在我们的评估数据集上的基准测试结果 (原始平均分按 1-5 的评分量表，已转换为 0-100%的量表以便阅读):</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803190159.png" alt></p>
+<p>正如所见，一些开源模型在推动智能体工作流程方面表现欠佳: 虽然对于小型的 Zephyr-7b 而言这是预期之中的，但令人惊讶的是 Llama2-70b 的表现相当差。</p>
+<p>👉 令人惊讶的是，<strong>Mixtral-8x7B 的表现非常出色: 它甚至超越了 GPT-3.5！</strong>🏆</p>
+<p>这是即开即用的性能: _<strong>与 GPT-3.5 不同的是，据我们所知，Mixtral 没有针对智能体工作流程进行过微调</strong>_  ，这在一定程度上影响了其性能。例如，在 GAIA 上，因为 Mixtral 尝试使用格式不正确的参数调用工具，导致 10%的问题失败。 <strong>如果对功能调用和任务规划技能进行适当的微调，Mixtral 的得分可能会更高。</strong></p>
+<p>➡️ 我们强烈建议开源开发者开始针对智能体对 Mixtral 进行微调，以超越下一个挑战者: GPT-4！🚀</p>
+<p><strong>结语:</strong></p>
+<ul>
+<li>虽然 GAIA 基准测试仅在一小部分问题和少数工具上进行了尝试，但它似乎是智能体工作流程整体模型性能的一个非常强大的指标，因为它通常涉及多个推理步骤和严格的逻辑。</li>
+<li>智能体工作流程使 LLMs 能够提升性能: 例如，在 GSM8K 上，<a href="https://arxiv.org/pdf/2303.08774.pdf" target="_blank" rel="noopener">GPT-4 的技术报告</a> 显示，使用 5 次 CoT 提示的情况下得分为 92%: 通过提供一个计算器，我们能够在零次提示的情况下达到 95%。对于 Mixtral-8x7B，<a href="https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard" target="_blank" rel="noopener">LLM 排行榜</a> 报告了使用 5 次提示的情况下为 57.6%，而我们在零次提示的情况下达到了 73%。 _(记住，我们仅测试了 GSM8K 的 20 个问题)_</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百五十三篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+            </div>
+            <hr />
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《00153 开源大语言模型作为 LangChain 智能体》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2024/08/03/00153-kai-yuan-da-yu-yan-mo-xing-zuo-wei-langchain-zhi-neng-ti/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                LuYF-Lemon-love
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/08/03/00154-verilog-za-xiang/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/040-119878431.jpg" class="responsive-img" alt="00154 Verilog 杂项">
+                        
+                        <span class="card-title">00154 Verilog 杂项</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            前言介绍一些 Verilog 的杂项。
+操作系统：Windows 10 专业版
+参考文档
+In all code, it’s generally a good idea to write a brief summary of the mod
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2024-08-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/杂项/" class="post-category" target="_blank">
+                                    杂项
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Verilog/" target="_blank">
+                        <span class="chip bg-color">Verilog</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/08/03/00152-stackllama-yong-rlhf-xun-lian-llama-de-shou-ba-shou-jiao-cheng/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/038-119887888.jpg" class="responsive-img" alt="00152 “StackLLaMA”: 用 RLHF 训练 LLaMA 的手把手教程">
+                        
+                        <span class="card-title">00152 “StackLLaMA”: 用 RLHF 训练 LLaMA 的手把手教程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            前言本文介绍了StackLLaMA。
+Hugging Face Github 主页: https://github.com/huggingface
+
+如 ChatGPT，GPT-4，Claude语言模型 之强大，因为它们采用了 基于人类反馈
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2024-08-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/大语言模型/" class="post-category" target="_blank">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/深度学习/" target="_blank">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/人工智能/" target="_blank">
+                        <span class="chip bg-color">人工智能</span>
+                    </a>
+                    
+                    <a href="/tags/大语言模型/" target="_blank">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/" target="_blank">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: LuYF-Lemon-love の Blog<br />'
+            + '作者: LuYF-Lemon-love<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () { bodyElement.removeChild(newdiv); }, 200);
+    });
+</script>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            &copy; 2022-2025 YanFeng. 版权所有
+
+            
+            &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+            <span class="white-color">768.9k</span>
+            
+
+            <br>
+            <span id="sitetime"></span>
+
+            
+            
+            <br>
+            
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <i class="fa fa-heart-o"></i>
+                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'>
+                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+            </span>
+            
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);
+        var pvcountOffset = 80000;
+        var uvcountOffset = 20000;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int);
+            }
+        }
+    });
+</script>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022, 05, 07, 04, 53, 32); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <script type="text/javascript"> var OriginTitile = document.title, st; document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    
+    <script src="/libs/others/clicklove.js"></script>
+    
+
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+</body>
+
+</html>

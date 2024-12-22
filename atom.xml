@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>LuYF-Lemon-love の Blog</title>
+  
+  <subtitle>LuYF-Lemon-love の Blog</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://luyf-lemon-love.space/"/>
+  <updated>2024-12-22T12:43:32.863Z</updated>
+  <id>https://luyf-lemon-love.space/</id>
+  
+  <author>
+    <name>LuYF-Lemon-love</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>00249 NLP Course - 🤗 Datasets, check!</title>
+    <link href="https://luyf-lemon-love.space/2024/12/22/00249-nlp-course-datasets-check/"/>
+    <id>https://luyf-lemon-love.space/2024/12/22/00249-nlp-course-datasets-check/</id>
+    <published>2024-12-22T12:39:49.000Z</published>
+    <updated>2024-12-22T12:43:32.863Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;哇，这真是一次穿越🤗 Datasets库的旅程——恭喜你走了这么远！从本章中获得的知识，你应该能够：&lt;/p&gt;
+&lt;p&gt;src link:
+        
+      
+    
+    </summary>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    
+      <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00248 获取计算机BIOS的序列号</title>
+    <link href="https://luyf-lemon-love.space/2024/12/22/00248-huo-qu-ji-suan-ji-bios-de-xu-lie-hao/"/>
+    <id>https://luyf-lemon-love.space/2024/12/22/00248-huo-qu-ji-suan-ji-bios-de-xu-lie-hao/</id>
+    <published>2024-12-22T05:23:08.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;获取计算机BIOS的序列号。&lt;/p&gt;
+&lt;p&gt;Operating System: Ubuntu 22.04.4 LTS&lt;/p&gt;
+&lt;h2
+        
+      
+    
+    </summary>
+    
+      <category term="实用技巧" scheme="https://luyf-lemon-love.space/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
+    
+    
+      <category term="Windows" scheme="https://luyf-lemon-love.space/tags/Windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00247 ubuntu内存查看方法</title>
+    <link href="https://luyf-lemon-love.space/2024/12/21/00247-ubuntu-nei-cun-cha-kan-fang-fa/"/>
+    <id>https://luyf-lemon-love.space/2024/12/21/00247-ubuntu-nei-cun-cha-kan-fang-fa/</id>
+    <published>2024-12-21T15:56:01.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;ubuntu内存查看方法。&lt;/p&gt;
+&lt;p&gt;Operating System: Ubuntu 22.04.4 LTS&lt;/p&gt;
+&lt;h2
+        
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="https://luyf-lemon-love.space/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="https://luyf-lemon-love.space/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00246 ubuntu安装常见的c++环境</title>
+    <link href="https://luyf-lemon-love.space/2024/12/21/00246-ubuntu-an-zhuang-chang-jian-de-c-huan-jing/"/>
+    <id>https://luyf-lemon-love.space/2024/12/21/00246-ubuntu-an-zhuang-chang-jian-de-c-huan-jing/</id>
+    <published>2024-12-21T15:21:07.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;ubuntu安装常见的c++环境。&lt;/p&gt;
+&lt;p&gt;Operating System: Ubuntu 22.04.4 LTS&lt;/p&gt;
+&lt;h2
+        
+      
+    
+    </summary>
+    
+      <category term="C++" scheme="https://luyf-lemon-love.space/categories/C/"/>
+    
+    
+      <category term="C++" scheme="https://luyf-lemon-love.space/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00245 新建git仓库</title>
+    <link href="https://luyf-lemon-love.space/2024/12/21/00245-xin-jian-git-cang-ku/"/>
+    <id>https://luyf-lemon-love.space/2024/12/21/00245-xin-jian-git-cang-ku/</id>
+    <published>2024-12-21T14:53:19.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;新建git仓库，并将仓库的内容强制推送到github的远程仓库。&lt;/p&gt;
+&lt;p&gt;Operating System: Ubuntu
+        
+      
+    
+    </summary>
+    
+      <category term="计算机基础" scheme="https://luyf-lemon-love.space/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="Git" scheme="https://luyf-lemon-love.space/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00244 inspect.signature 函数</title>
+    <link href="https://luyf-lemon-love.space/2024/12/21/00244-inspect-signature-han-shu/"/>
+    <id>https://luyf-lemon-love.space/2024/12/21/00244-inspect-signature-han-shu/</id>
+    <published>2024-12-21T14:23:50.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;inspect.signature 函数。&lt;/p&gt;
+&lt;p&gt;Operating System: Ubuntu 22.04.4
+        
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="https://luyf-lemon-love.space/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="https://luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00243 NLP Course - Semantic search with FAISS</title>
+    <link href="https://luyf-lemon-love.space/2024/12/12/00243-nlp-course-semantic-search-with-faiss/"/>
+    <id>https://luyf-lemon-love.space/2024/12/12/00243-nlp-course-semantic-search-with-faiss/</id>
+    <published>2024-12-12T13:48:05.000Z</published>
+    <updated>2024-12-22T12:35:00.912Z</updated>
+    
+    <summary type="html">
+    
+      NLP课程-使用FAISS的语义搜索
+    
+    </summary>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    
+      <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00242 vLLM 学习笔记</title>
+    <link href="https://luyf-lemon-love.space/2024/12/08/00242-vllm-xue-xi-bi-ji/"/>
+    <id>https://luyf-lemon-love.space/2024/12/08/00242-vllm-xue-xi-bi-ji/</id>
+    <published>2024-12-08T14:49:48.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      vLLM是一个快速且易于使用的LLM推理和服务库。
+    
+    </summary>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    
+      <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00241 NLP Course - Creating your own dataset</title>
+    <link href="https://luyf-lemon-love.space/2024/12/08/00241-nlp-course-creating-your-own-dataset/"/>
+    <id>https://luyf-lemon-love.space/2024/12/08/00241-nlp-course-creating-your-own-dataset/</id>
+    <published>2024-12-08T09:00:49.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      NLP课程-创建你自己的数据集
+    
+    </summary>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    
+      <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00240 NLP Course - Big data? 🤗 Datasets to the rescue!</title>
+    <link href="https://luyf-lemon-love.space/2024/12/08/00240-nlp-course-big-data-datasets-to-the-rescue/"/>
+    <id>https://luyf-lemon-love.space/2024/12/08/00240-nlp-course-big-data-datasets-to-the-rescue/</id>
+    <published>2024-12-08T06:20:56.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      NLP课程-大数据？🤗 Datasets 来拯救！
+    
+    </summary>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    
+      <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00239 subprocess.run 用法</title>
+    <link href="https://luyf-lemon-love.space/2024/12/06/00239-subprocess-run-yong-fa/"/>
+    <id>https://luyf-lemon-love.space/2024/12/06/00239-subprocess-run-yong-fa/</id>
+    <published>2024-12-06T15:39:02.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      subprocess.run 用法
+    
+    </summary>
+    
+      <category term="Python" scheme="https://luyf-lemon-love.space/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="https://luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00238 cp命令</title>
+    <link href="https://luyf-lemon-love.space/2024/12/06/00238-cp-ming-ling/"/>
+    <id>https://luyf-lemon-love.space/2024/12/06/00238-cp-ming-ling/</id>
+    <published>2024-12-06T14:33:40.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      cp命令
+    
+    </summary>
+    
+      <category term="Linux" scheme="https://luyf-lemon-love.space/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="https://luyf-lemon-love.space/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00237 partial 函数</title>
+    <link href="https://luyf-lemon-love.space/2024/12/06/00237-partial-han-shu/"/>
+    <id>https://luyf-lemon-love.space/2024/12/06/00237-partial-han-shu/</id>
+    <published>2024-12-06T13:58:06.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      partial 函数
+    
+    </summary>
+    
+      <category term="Python" scheme="https://luyf-lemon-love.space/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="https://luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00236 QwQ-32B-Preview</title>
+    <link href="https://luyf-lemon-love.space/2024/11/29/00236-qwq-32b-preview/"/>
+    <id>https://luyf-lemon-love.space/2024/11/29/00236-qwq-32b-preview/</id>
+    <published>2024-11-29T13:41:41.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      QwQ, 思忖未知之界。
+    
+    </summary>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    
+      <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00235 pip查看包的位置</title>
+    <link href="https://luyf-lemon-love.space/2024/11/28/00235-pip-cha-kan-bao-de-wei-zhi/"/>
+    <id>https://luyf-lemon-love.space/2024/11/28/00235-pip-cha-kan-bao-de-wei-zhi/</id>
+    <published>2024-11-28T15:37:54.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      pip查看包的位置
+    
+    </summary>
+    
+      <category term="Python" scheme="https://luyf-lemon-love.space/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="https://luyf-lemon-love.space/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00234 Shell脚本入门笔记</title>
+    <link href="https://luyf-lemon-love.space/2024/11/24/00234-shell-jiao-ben-ru-men-bi-ji/"/>
+    <id>https://luyf-lemon-love.space/2024/11/24/00234-shell-jiao-ben-ru-men-bi-ji/</id>
+    <published>2024-11-24T15:01:38.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      Shell脚本入门笔记
+    
+    </summary>
+    
+      <category term="Linux" scheme="https://luyf-lemon-love.space/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="https://luyf-lemon-love.space/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00233 Qwen2.5-Coder</title>
+    <link href="https://luyf-lemon-love.space/2024/11/24/00233-qwen2-5-coder/"/>
+    <id>https://luyf-lemon-love.space/2024/11/24/00233-qwen2-5-coder/</id>
+    <published>2024-11-24T13:10:00.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      Qwen2.5-Coder 全系列，强大、多样、实用。
+    
+    </summary>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    
+      <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00232 Ollama Python Library</title>
+    <link href="https://luyf-lemon-love.space/2024/11/21/00232-ollama-python-library/"/>
+    <id>https://luyf-lemon-love.space/2024/11/21/00232-ollama-python-library/</id>
+    <published>2024-11-21T15:34:29.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      The Ollama Python library provides the easiest way to integrate Python 3.8+ projects with Ollama.
+    
+    </summary>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    
+      <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00231 Ollama 学习笔记 (手动安装)</title>
+    <link href="https://luyf-lemon-love.space/2024/11/21/00231-ollama-xue-xi-bi-ji-shou-dong-an-zhuang/"/>
+    <id>https://luyf-lemon-love.space/2024/11/21/00231-ollama-xue-xi-bi-ji-shou-dong-an-zhuang/</id>
+    <published>2024-11-21T15:15:52.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      Manual install.
+    
+    </summary>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    
+      <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00230 Ollama 学习笔记</title>
+    <link href="https://luyf-lemon-love.space/2024/11/21/00230-ollama-xue-xi-bi-ji/"/>
+    <id>https://luyf-lemon-love.space/2024/11/21/00230-ollama-xue-xi-bi-ji/</id>
+    <published>2024-11-21T13:12:21.000Z</published>
+    <updated>2024-12-22T07:38:03.277Z</updated>
+    
+    <summary type="html">
+    
+      Get up and running with large language models.
+    
+    </summary>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    
+      <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
+  
+</feed>

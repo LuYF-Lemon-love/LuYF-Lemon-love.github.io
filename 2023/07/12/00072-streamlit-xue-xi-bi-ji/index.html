@@ -1,0 +1,2271 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="00072-Streamlit 学习笔记, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
+    <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
+    <meta name="description" content="前言Streamlit 能够快速的在 Web 上展示您的 Python 和你的深度学习模型。
+
+A faster way to build and share data apps
+Streamlit turns data scripts i">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>00072-Streamlit 学习笔记 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ce84511d3df71640a9378a69f6293044";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+    <script>
+        (function(){
+        var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-comments"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-comments"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/025-蓝色头发早餐.png')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        00072-Streamlit 学习笔记
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                        <a href="/tags/Python/" target="_blank">
+                            <span class="chip bg-color">Python</span>
+                        </a>
+                        
+                        <a href="/tags/深度学习/" target="_blank">
+                            <span class="chip bg-color">深度学习</span>
+                        </a>
+                        
+                        <a href="/tags/人工智能/" target="_blank">
+                            <span class="chip bg-color">人工智能</span>
+                        </a>
+                        
+                        <a href="/tags/PyTorch/" target="_blank">
+                            <span class="chip bg-color">PyTorch</span>
+                        </a>
+                        
+                        <a href="/tags/Web/" target="_blank">
+                            <span class="chip bg-color">Web</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                        <a href="/categories/Python/" class="post-category" target="_blank">
+                            Python
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-07-12
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                    LuYF-Lemon-love
+                    
+                </div>
+
+                
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    6.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    36 分
+                </div>
+                
+                
+
+                
+                <div id="busuanzi_container_page_pv" class="info-break-policy">
+                    <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                    <span id="busuanzi_value_page_pv"></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>Streamlit</code> 能够快速的在 Web 上展示您的 Python 和你的深度学习模型。</p>
+<blockquote>
+<p>A faster way to build and share data apps</p>
+<p>Streamlit turns data scripts into shareable web apps in minutes.<br>All in pure Python. No front‑end experience required.</p>
+</blockquote>
+<ol>
+<li><p><a href="https://streamlit.io/" target="_blank" rel="noopener">Streamlit 官网</a></p>
+</li>
+<li><p><a href="https://docs.streamlit.io/" target="_blank" rel="noopener">Streamlit 官方文档</a></p>
+</li>
+<li><p><a href="https://docs.streamlit.io/library/get-started" target="_blank" rel="noopener">快速开始</a></p>
+</li>
+</ol>
+<p>本文运行的源代码: <a href="https://github.com/LuYF-Lemon-love/susu-streamlit" target="_blank" rel="noopener">https://github.com/LuYF-Lemon-love/susu-streamlit</a> .</p>
+<p>操作系统：<strong>Windows 10 专业版</strong></p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><p><a href="https://streamlit.io/" target="_blank" rel="noopener">Streamlit 官网</a></p>
+</li>
+<li><p><a href="https://docs.streamlit.io/" target="_blank" rel="noopener">Streamlit 官方文档</a></p>
+</li>
+<li><p><a href="https://docs.streamlit.io/library/get-started" target="_blank" rel="noopener">快速开始</a></p>
+</li>
+</ol>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>源教程链接: <a href="https://docs.streamlit.io/library/get-started/installation" target="_blank" rel="noopener">https://docs.streamlit.io/library/get-started/installation</a> .</p>
+<h3 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h3><p>python &gt;= 3.8</p>
+<h3 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h3><pre class="line-numbers language-shell"><code class="language-shell">python -m venv env
+source env/bin/activate
+pip install --upgrade pip
+which python<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="安装-Linux"><a href="#安装-Linux" class="headerlink" title="安装 (Linux)"></a>安装 (Linux)</h3><pre class="line-numbers language-shell"><code class="language-shell">pip install streamlit<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>验证安装 (如果代码在服务器，可以利用 VSCode 转发端口（<code>8501</code>）):</p>
+<pre class="line-numbers language-shell"><code class="language-shell">streamlit hello<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230712215404.png" alt></p>
+<p>现在你能利用 Streamlit 让用户和 Python 代码交互:</p>
+<pre class="line-numbers language-shell"><code class="language-shell">streamlit run myfile.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="主要概念"><a href="#主要概念" class="headerlink" title="主要概念"></a>主要概念</h2><p>源教程链接: <a href="https://docs.streamlit.io/library/get-started/main-concepts" target="_blank" rel="noopener">https://docs.streamlit.io/library/get-started/main-concepts</a> .</p>
+<p>Streamlit 主要使用方式如下:</p>
+<pre class="line-numbers language-shell"><code class="language-shell">streamlit run your_script.py [-- script args]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>之后将在你的默认浏览器上打开以 app，该应用程序是您的画布，您可以在其中绘制图表、文本、小部件、表格等。</p>
+<p><code>st.text</code> 将会绘制纯文本，<code>st.line_chart</code> 将会绘制一个线表。</p>
+<blockquote>
+<p>When passing your script some custom arguments, they must be passed after two dashes. Otherwise the arguments get interpreted as arguments to Streamlit itself.</p>
+</blockquote>
+<p>其他的使用方式:</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># Running
+python -m streamlit run your_script.py
+
+# is equivalent to:
+streamlit run your_script.py<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h3><p>Streamlit 会自动的检测源代码的变化，并自动的在 app 上更新。</p>
+<h3 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h3><blockquote>
+<p>Any time something must be updated on the screen, Streamlit reruns your entire Python script from top to bottom.</p>
+<p>This can happen in two situations:</p>
+<p>Whenever you modify your app’s source code.</p>
+<p>Whenever a user interacts with widgets in the app. For example, when dragging a slider, entering text in an input box, or clicking a button.</p>
+<p>And to make all of this fast and seamless, Streamlit does some heavy lifting for you behind the scenes. A big player in this story is the <code>@st.cache_data</code> decorator, which allows developers to skip certain costly computations when their apps rerun.</p>
+</blockquote>
+<h3 id="展示数据"><a href="#展示数据" class="headerlink" title="展示数据"></a>展示数据</h3><h4 id="使用-magic-展示数据"><a href="#使用-magic-展示数据" class="headerlink" title="使用 magic 展示数据"></a>使用 magic 展示数据</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token triple-quoted-string string">"""
+# My first app
+Here's our first attempt at using data to create a table:
+"""</span>
+
+<span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+df <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token string">'first column'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">'second column'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+df<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230712222350.png" alt></p>
+<p>一旦 Streamlit 看到单独一行的变量或字面值，它将自动的利用 <code>st.write()</code> 写到 app 中。</p>
+<h4 id="写一个-data-frame"><a href="#写一个-data-frame" class="headerlink" title="写一个 data frame"></a>写一个 data frame</h4><blockquote>
+<p>You can pass almost anything to <code>st.write()</code>: <strong>text</strong>, <strong>data</strong>, <strong>Matplotlib figures</strong>, <strong>Altair charts</strong>, and more. Don’t worry, Streamlit will figure it out and render things the right way.</p>
+</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+st<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"Here's our first attempt at using data to create a table:"</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token string">'first column'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">'second column'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>也有一些其他的方法 (<code>st.dataframe()</code> 和 <code>st.table()</code>) 展示数据。如果自定义样式请使用特定的方法，下面使用 <code>st.dataframe()</code> 展示一个交互性的表格.</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+dataframe <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>dataframe<span class="token punctuation">(</span>dataframe<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>下面我们使用 <code>Pandas Styler object</code> 高亮一些元素.</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+dataframe <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>
+    np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    columns<span class="token operator">=</span><span class="token punctuation">(</span><span class="token string">'col %d'</span> <span class="token operator">%</span> i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+st<span class="token punctuation">.</span>dataframe<span class="token punctuation">(</span>dataframe<span class="token punctuation">.</span>style<span class="token punctuation">.</span>highlight_max<span class="token punctuation">(</span>axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230712224106.png" alt></p>
+<p>对于静态表格请使用 <code>st.table()</code></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+dataframe <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>
+    np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    columns<span class="token operator">=</span><span class="token punctuation">(</span><span class="token string">'col %d'</span> <span class="token operator">%</span> i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>table<span class="token punctuation">(</span>dataframe<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>动态（上）和静态（下）</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230712224412.png" alt></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230712224443.png" alt></p>
+<h4 id="绘制-line-chart"><a href="#绘制-line-chart" class="headerlink" title="绘制 line chart"></a>绘制 line chart</h4><p>你能使用 <code>st.line_chart()</code> 绘制一个线表。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+chart_data <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>
+     np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+     columns<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+st<span class="token punctuation">.</span>line_chart<span class="token punctuation">(</span>chart_data<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230712224835.png" alt></p>
+<h4 id="绘制-map"><a href="#绘制-map" class="headerlink" title="绘制 map"></a>绘制 map</h4><p>能够使用 <code>st.map()</code> 绘制一个 map。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+map_data <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>
+    np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">[</span><span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token punctuation">[</span><span class="token number">37.76</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">122.4</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    columns<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'lat'</span><span class="token punctuation">,</span> <span class="token string">'lon'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+st<span class="token punctuation">.</span>map<span class="token punctuation">(</span>map_data<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230712225126.png" alt></p>
+<h3 id="Widgets"><a href="#Widgets" class="headerlink" title="Widgets"></a>Widgets</h3><p>你能加上如下 widgets: <code>st.slider()</code>，<code>st.button()</code> 或 <code>st.selectbox()</code>。</p>
+<p>你可以将 widgets 看成变量。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+x <span class="token operator">=</span> st<span class="token punctuation">.</span>slider<span class="token punctuation">(</span><span class="token string">'x'</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 👈 this is a widget</span>
+st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token string">'squared is'</span><span class="token punctuation">,</span> x <span class="token operator">*</span> x<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>你也可以为 widgets 指定名字，进而通过名字访问:</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+st<span class="token punctuation">.</span>text_input<span class="token punctuation">(</span><span class="token string">"Your name"</span><span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token string">"name"</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># You can access the value at any point with:</span>
+st<span class="token punctuation">.</span>session_state<span class="token punctuation">.</span>name<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230713215218.png" alt></p>
+<h4 id="checkboxes"><a href="#checkboxes" class="headerlink" title="checkboxes"></a>checkboxes</h4><p>使用复选框显示/隐藏数据 (<code>st.checkbox()</code>)</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+<span class="token keyword">if</span> st<span class="token punctuation">.</span>checkbox<span class="token punctuation">(</span><span class="token string">'Show dataframe'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    chart_data <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>
+       np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+       columns<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    chart_data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230713215756.png" alt></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230713215730.png" alt></p>
+<h4 id="selectbox"><a href="#selectbox" class="headerlink" title="selectbox"></a>selectbox</h4><p>您能使用 <code>st.selectbox</code> 做出选择。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+df <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token string">'first column'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">'second column'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+option <span class="token operator">=</span> st<span class="token punctuation">.</span>selectbox<span class="token punctuation">(</span>
+    <span class="token string">'Which number do you like best?'</span><span class="token punctuation">,</span>
+     df<span class="token punctuation">[</span><span class="token string">'first column'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token string">'You selected: '</span><span class="token punctuation">,</span> option<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230713220323.png" alt></p>
+<h3 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h3><blockquote>
+<p>Streamlit makes it easy to organize your widgets in a left panel sidebar with <code>st.sidebar</code>. Each element that’s passed to <code>st.sidebar</code> is pinned to the left, allowing users to focus on the content in your app while still having access to UI controls.</p>
+<p>For example, if you want to add a selectbox and a slider to a sidebar, use <code>st.sidebar.slider</code> and <code>st.sidebar.selectbox</code> instead of <code>st.slider</code> and <code>st.selectbox</code>:</p>
+</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+
+<span class="token comment" spellcheck="true"># Add a selectbox to the sidebar:</span>
+add_selectbox <span class="token operator">=</span> st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>selectbox<span class="token punctuation">(</span>
+    <span class="token string">'How would you like to be contacted?'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span><span class="token string">'Email'</span><span class="token punctuation">,</span> <span class="token string">'Home phone'</span><span class="token punctuation">,</span> <span class="token string">'Mobile phone'</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># Add a slider to the sidebar:</span>
+add_slider <span class="token operator">=</span> st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>slider<span class="token punctuation">(</span>
+    <span class="token string">'Select a range of values'</span><span class="token punctuation">,</span>
+    <span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">100.0</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">25.0</span><span class="token punctuation">,</span> <span class="token number">75.0</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230713221008.png" alt></p>
+<blockquote>
+<p>Beyond the sidebar, Streamlit offers several other ways to control the layout of your app. <code>st.columns</code> lets you place widgets side-by-side, and <code>st.expander</code> lets you conserve space by hiding away large content.</p>
+</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+
+left_column<span class="token punctuation">,</span> right_column <span class="token operator">=</span> st<span class="token punctuation">.</span>columns<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># You can use a column just like st.sidebar:</span>
+left_column<span class="token punctuation">.</span>button<span class="token punctuation">(</span><span class="token string">'Press me!'</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># Or even better, call Streamlit functions inside a "with" block:</span>
+<span class="token keyword">with</span> right_column<span class="token punctuation">:</span>
+    chosen <span class="token operator">=</span> st<span class="token punctuation">.</span>radio<span class="token punctuation">(</span>
+        <span class="token string">'Sorting hat'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token string">"Gryffindor"</span><span class="token punctuation">,</span> <span class="token string">"Ravenclaw"</span><span class="token punctuation">,</span> <span class="token string">"Hufflepuff"</span><span class="token punctuation">,</span> <span class="token string">"Slytherin"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>f<span class="token string">"You are in {chosen} house!"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>单选按钮: <code>st.radio</code></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230713221716.png" alt></p>
+<blockquote>
+<p><code>st.echo</code> and <code>st.spinner</code> are not currently supported inside the sidebar or layout options. Rest assured, though, we’re currently working on adding support for those too!</p>
+</blockquote>
+<h4 id="进度条"><a href="#进度条" class="headerlink" title="进度条"></a>进度条</h4><p>你也可以加入进度条: <code>st.progress()</code></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> time
+
+<span class="token string">'Starting a long computation...'</span>
+
+<span class="token comment" spellcheck="true"># Add a placeholder</span>
+latest_iteration <span class="token operator">=</span> st<span class="token punctuation">.</span>empty<span class="token punctuation">(</span><span class="token punctuation">)</span>
+bar <span class="token operator">=</span> st<span class="token punctuation">.</span>progress<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token comment" spellcheck="true"># Update the progress bar with each iteration.</span>
+  latest_iteration<span class="token punctuation">.</span>text<span class="token punctuation">(</span>f<span class="token string">'Iteration {i+1}'</span><span class="token punctuation">)</span>
+  bar<span class="token punctuation">.</span>progress<span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+  time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.1</span><span class="token punctuation">)</span>
+
+<span class="token string">'...and now we\'re done!'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230713222057.png" alt></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230713222120.png" alt></p>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>原生支持 Light 和 Dark 主题，默认使用操作系统和浏览器的设置，如果未设置使用 Light。</p>
+<p>你也能手动设置。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230713222514.png" alt></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230713222704.png" alt></p>
+<blockquote>
+<p>When you’re happy with your work, themes can be saved by setting config options in the <code>[theme]</code> config section. After you’ve defined a theme for your app, it will appear as “Custom Theme” in the theme selector and will be applied by default instead of the included Light and Dark themes.</p>
+<p>The theme editor menu is available only in local development. If you’ve deployed your app using Streamlit Community Cloud, the “Edit active theme” button will no longer be displayed in the “Settings” menu.</p>
+<p>Another way to experiment with different theme colors is to turn on the “Run on save” option, edit your config.toml file, and watch as your app reruns with the new theme colors applied.</p>
+</blockquote>
+<h3 id="Caching"><a href="#Caching" class="headerlink" title="Caching"></a>Caching</h3><p>你可以使用两个装饰器 (<code>st.cache_data</code> 和 <code>st.cache_resource</code>) 缓存函数。</p>
+<pre class="line-numbers language-python"><code class="language-python">@st<span class="token punctuation">.</span>cache_data
+<span class="token keyword">def</span> <span class="token function">long_running_function</span><span class="token punctuation">(</span>param1<span class="token punctuation">,</span> param2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> …<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<ul>
+<li><p><code>st.cache_data</code> is the recommended way to cache computations that return data: loading a DataFrame from CSV, transforming a NumPy array, querying an API, or any other function that returns a serializable data object (str, int, float, DataFrame, array, list, …). It creates a new copy of the data at each function call, making it safe against mutations and race conditions. The behavior of <code>st.cache_data</code> is what you want in most cases – so if you’re unsure, start with <code>st.cache_data</code> and see if it works!</p>
+</li>
+<li><p><code>st.cache_resource</code> is the recommended way to cache global resources like ML models or database connections – unserializable objects that you don’t want to load multiple times. Using it, you can share these resources across all reruns and sessions of an app without copying or duplication. Note that any mutations to the cached return value directly mutate the object in the cache (more details below).</p>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230713224454.png" alt></p>
+<h3 id="Pages"><a href="#Pages" class="headerlink" title="Pages"></a>Pages</h3><p>Streamlit 提供了一种容易的方式来创建多页应用程序。</p>
+<p>We designed this feature so that building a multipage app is as easy as building a single-page app! Just add more pages to an existing app as follows:</p>
+<ol>
+<li><p>In the folder containing your main script, create a new <code>pages</code> folder. Let’s say your main script is named <code>main_page.py</code>.</p>
+</li>
+<li><p>Add new <code>.py</code> files in the <code>pages</code> folder to add more pages to your app.</p>
+</li>
+<li><p>Run <code>streamlit run main_page.py</code> as usual.</p>
+</li>
+</ol>
+<p>That’s it! The <code>main_page.py</code> script will now correspond to the main page of your app. And you’ll see the other scripts from the <code>pages</code> folder in the sidebar page selector. For example:</p>
+<p><strong>main_page.py</strong></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+
+st<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span><span class="token string">"# Main page 🎈"</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span><span class="token string">"# Main page 🎈"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>pages/page_2.py</strong></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+
+st<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span><span class="token string">"# Page 2 ❄️"</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span><span class="token string">"# Page 2 ❄️"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>pages/page_3.py</strong></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+
+st<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span><span class="token string">"# Page 3 🎉"</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span><span class="token string">"# Page 3 🎉"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行 <code>streamlit run main_page.py</code></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230713225904.png" alt></p>
+<h3 id="App-model"><a href="#App-model" class="headerlink" title="App model"></a>App model</h3><p>Now that you know a little more about all the individual pieces, let’s close the loop and review how it works together:</p>
+<ol>
+<li><p>Streamlit apps are Python scripts that run from top to bottom</p>
+</li>
+<li><p>Every time a user opens a browser tab pointing to your app, the script is re-executed</p>
+</li>
+<li><p>As the script executes, Streamlit draws its output live in a browser</p>
+</li>
+<li><p>Scripts use the Streamlit cache to avoid recomputing expensive functions, so updates happen very fast</p>
+</li>
+<li><p>Every time a user interacts with a widget, your script is re-executed and the output value of that widget is set to the new value during that run.</p>
+</li>
+<li><p>Streamlit apps can contain multiple pages, which are defined in separate .py files in a pages folder.</p>
+</li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230713230749.png" alt></p>
+<h2 id="创建一个-app"><a href="#创建一个-app" class="headerlink" title="创建一个 app"></a>创建一个 app</h2><p>源教程链接: <a href="https://docs.streamlit.io/library/get-started/create-an-app" target="_blank" rel="noopener">https://docs.streamlit.io/library/get-started/create-an-app</a> .</p>
+<h3 id="创建你的第一个-app"><a href="#创建你的第一个-app" class="headerlink" title="创建你的第一个 app"></a>创建你的第一个 app</h3><ol>
+<li>创建一个 <code>uber_pickups.py</code>。</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>设置 app 的标题。</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">st<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">'Uber pickups in NYC'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="3">
+<li>运行 app。</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">streamlit run uber_pickups<span class="token punctuation">.</span>py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230713232518.png" alt></p>
+<h3 id="Fetch-some-data"><a href="#Fetch-some-data" class="headerlink" title="Fetch some data"></a>Fetch some data</h3><ol>
+<li>加载数据的函数：</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">DATE_COLUMN <span class="token operator">=</span> <span class="token string">'date/time'</span>
+DATA_URL <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'https://s3-us-west-2.amazonaws.com/'</span>
+         <span class="token string">'streamlit-demo-data/uber-raw-data-sep14.csv.gz'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">load_data</span><span class="token punctuation">(</span>nrows<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    data <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span>DATA_URL<span class="token punctuation">,</span> nrows<span class="token operator">=</span>nrows<span class="token punctuation">)</span>
+    lowercase <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> str<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    data<span class="token punctuation">.</span>rename<span class="token punctuation">(</span>lowercase<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token string">'columns'</span><span class="token punctuation">,</span> inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    data<span class="token punctuation">[</span>DATE_COLUMN<span class="token punctuation">]</span> <span class="token operator">=</span> pd<span class="token punctuation">.</span>to_datetime<span class="token punctuation">(</span>data<span class="token punctuation">[</span>DATE_COLUMN<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>该函数接受一个参数（nrows），该参数指定要加载的行数。</p>
+</blockquote>
+<ol start="2">
+<li>测试函数：</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Create a text element and let the reader know the data is loading.</span>
+data_load_state <span class="token operator">=</span> st<span class="token punctuation">.</span>text<span class="token punctuation">(</span><span class="token string">'Loading data...'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># Load 10,000 rows of data into the dataframe.</span>
+data <span class="token operator">=</span> load_data<span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># Notify the reader that the data was successfully loaded.</span>
+data_load_state<span class="token punctuation">.</span>text<span class="token punctuation">(</span><span class="token string">'Loading data...done!'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>You’ll see a few buttons in the upper-right corner of your app asking if you’d like to rerun the app. Choose <strong>Always rerun</strong>, and you’ll see your changes automatically each time you save.</p>
+</blockquote>
+<p>您不想在每次更新应用程序时重新加载数据 - 幸运的是，Streamlit允许您缓存数据。</p>
+<h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><ol>
+<li>在 <code>load_data</code> 声明之前添加 <code>@st.cache_data</code>：</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">@st<span class="token punctuation">.</span>cache_data
+<span class="token keyword">def</span> <span class="token function">load_data</span><span class="token punctuation">(</span>nrows<span class="token punctuation">)</span><span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="2">
+<li><p>先在浏览器刷新一下界面。</p>
+</li>
+<li><p>用下面的代码替换 <code>data_load_state.text(&#39;Loading data...done!&#39;)</code>：</p>
+</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">data_load_state<span class="token punctuation">.</span>text<span class="token punctuation">(</span><span class="token string">"Done! (using st.cache_data)"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h4><ol>
+<li><p>Streamlit will only check for changes within the current working directory. If you upgrade a Python library, Streamlit’s cache will only notice this if that library is installed inside your working directory.</p>
+</li>
+<li><p>If your function is not deterministic (that is, its output depends on random numbers), or if it pulls data from an external time-varying source (for example, a live stock market ticker service) the cached value will be none-the-wiser.</p>
+</li>
+<li><p>Lastly, you should avoid mutating the output of a function cached with st.cache_data since cached values are stored by reference.</p>
+</li>
+</ol>
+<h3 id="检查原始数据"><a href="#检查原始数据" class="headerlink" title="检查原始数据"></a>检查原始数据</h3><p>加一个副标题：</p>
+<pre class="line-numbers language-python"><code class="language-python">st<span class="token punctuation">.</span>subheader<span class="token punctuation">(</span><span class="token string">'Raw data'</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>data<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230715151655.png" alt></p>
+<h3 id="绘制直方图"><a href="#绘制直方图" class="headerlink" title="绘制直方图"></a>绘制直方图</h3><ol>
+<li>加入新的副标题：</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">st<span class="token punctuation">.</span>subheader<span class="token punctuation">(</span><span class="token string">'Number of pickups by hour'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="2">
+<li>利用 NumPy 生成直方图：</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">hist_values <span class="token operator">=</span> np<span class="token punctuation">.</span>histogram<span class="token punctuation">(</span>
+    data<span class="token punctuation">[</span>DATE_COLUMN<span class="token punctuation">]</span><span class="token punctuation">.</span>dt<span class="token punctuation">.</span>hour<span class="token punctuation">,</span> bins<span class="token operator">=</span><span class="token number">24</span><span class="token punctuation">,</span> range<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">24</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>使用 <code>st.bar_chart()</code> 画直方图：</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">st<span class="token punctuation">.</span>bar_chart<span class="token punctuation">(</span>hist_values<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230715152803.png" alt></p>
+<blockquote>
+<p>To draw this diagram we used Streamlit’s native <code>bar_chart()</code> method, but it’s important to know that Streamlit supports more complex charting libraries like <code>Altair</code>, <code>Bokeh</code>, <code>Plotly</code>, <code>Matplotlib</code> and more.</p>
+</blockquote>
+<h3 id="Plot-data-on-a-map"><a href="#Plot-data-on-a-map" class="headerlink" title="Plot data on a map"></a>Plot data on a map</h3><ol>
+<li>加一个副标题：</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">st<span class="token punctuation">.</span>subheader<span class="token punctuation">(</span><span class="token string">'Map of all pickups'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="2">
+<li>使用 <code>st.map()</code>：</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">st<span class="token punctuation">.</span>map<span class="token punctuation">(</span>data<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230715154227.png" alt></p>
+<hr>
+<blockquote>
+<p>Let’s redraw the map to show the concentration of pickups at 17:00.</p>
+</blockquote>
+<ol>
+<li>找到下面代码段：</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">st<span class="token punctuation">.</span>subheader<span class="token punctuation">(</span><span class="token string">'Map of all pickups'</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>map<span class="token punctuation">(</span>data<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>用下面的代码段替换它：</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">hour_to_filter <span class="token operator">=</span> <span class="token number">17</span>
+filtered_data <span class="token operator">=</span> data<span class="token punctuation">[</span>data<span class="token punctuation">[</span>DATE_COLUMN<span class="token punctuation">]</span><span class="token punctuation">.</span>dt<span class="token punctuation">.</span>hour <span class="token operator">==</span> hour_to_filter<span class="token punctuation">]</span>
+st<span class="token punctuation">.</span>subheader<span class="token punctuation">(</span>f<span class="token string">'Map of all pickups at {hour_to_filter}:00'</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>map<span class="token punctuation">(</span>filtered_data<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230715154629.png" alt></p>
+<blockquote>
+<p>To draw this map we used the <code>st.map</code> function that’s built into Streamlit, but if you’d like to visualize complex map data, we encourage you to take a look at the <code>st.pydeck_chart</code>.</p>
+</blockquote>
+<h3 id="Filter-results-with-a-slider"><a href="#Filter-results-with-a-slider" class="headerlink" title="Filter results with a slider"></a>Filter results with a slider</h3><p>找到<code>hour_to_filter</code>并将其替换为以下代码片段：</p>
+<pre class="line-numbers language-python"><code class="language-python">hour_to_filter <span class="token operator">=</span> st<span class="token punctuation">.</span>slider<span class="token punctuation">(</span><span class="token string">'hour'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">,</span> <span class="token number">17</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># min: 0h, max: 23h, default: 17h</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230715155426.png" alt></p>
+<h3 id="Use-a-button-to-toggle-data"><a href="#Use-a-button-to-toggle-data" class="headerlink" title="Use a button to toggle data"></a>Use a button to toggle data</h3><ol>
+<li>找到以下行：</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python">st<span class="token punctuation">.</span>subheader<span class="token punctuation">(</span><span class="token string">'Raw data'</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>data<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>将这些行替换为以下代码：</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">if</span> st<span class="token punctuation">.</span>checkbox<span class="token punctuation">(</span><span class="token string">'Show raw data'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    st<span class="token punctuation">.</span>subheader<span class="token punctuation">(</span><span class="token string">'Raw data'</span><span class="token punctuation">)</span>
+    st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>data<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230715160457.png" alt></p>
+<h3 id="Let’s-put-it-all-together"><a href="#Let’s-put-it-all-together" class="headerlink" title="Let’s put it all together"></a>Let’s put it all together</h3><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+st<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">'Uber pickups in NYC'</span><span class="token punctuation">)</span>
+
+DATE_COLUMN <span class="token operator">=</span> <span class="token string">'date/time'</span>
+DATA_URL <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'https://s3-us-west-2.amazonaws.com/'</span>
+            <span class="token string">'streamlit-demo-data/uber-raw-data-sep14.csv.gz'</span><span class="token punctuation">)</span>
+
+@st<span class="token punctuation">.</span>cache_data
+<span class="token keyword">def</span> <span class="token function">load_data</span><span class="token punctuation">(</span>nrows<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    data <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span>DATA_URL<span class="token punctuation">,</span> nrows<span class="token operator">=</span>nrows<span class="token punctuation">)</span>
+    lowercase <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> str<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    data<span class="token punctuation">.</span>rename<span class="token punctuation">(</span>lowercase<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token string">'columns'</span><span class="token punctuation">,</span> inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    data<span class="token punctuation">[</span>DATE_COLUMN<span class="token punctuation">]</span> <span class="token operator">=</span> pd<span class="token punctuation">.</span>to_datetime<span class="token punctuation">(</span>data<span class="token punctuation">[</span>DATE_COLUMN<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> data
+
+data_load_state <span class="token operator">=</span> st<span class="token punctuation">.</span>text<span class="token punctuation">(</span><span class="token string">'Loading data...'</span><span class="token punctuation">)</span>
+data <span class="token operator">=</span> load_data<span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span>
+data_load_state<span class="token punctuation">.</span>text<span class="token punctuation">(</span><span class="token string">"Done! (using st.cache_data)"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> st<span class="token punctuation">.</span>checkbox<span class="token punctuation">(</span><span class="token string">'Show raw data'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    st<span class="token punctuation">.</span>subheader<span class="token punctuation">(</span><span class="token string">'Raw data'</span><span class="token punctuation">)</span>
+    st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+
+st<span class="token punctuation">.</span>subheader<span class="token punctuation">(</span><span class="token string">'Number of pickups by hour'</span><span class="token punctuation">)</span>
+hist_values <span class="token operator">=</span> np<span class="token punctuation">.</span>histogram<span class="token punctuation">(</span>data<span class="token punctuation">[</span>DATE_COLUMN<span class="token punctuation">]</span><span class="token punctuation">.</span>dt<span class="token punctuation">.</span>hour<span class="token punctuation">,</span> bins<span class="token operator">=</span><span class="token number">24</span><span class="token punctuation">,</span> range<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">24</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+st<span class="token punctuation">.</span>bar_chart<span class="token punctuation">(</span>hist_values<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># Some number in the range 0-23</span>
+hour_to_filter <span class="token operator">=</span> st<span class="token punctuation">.</span>slider<span class="token punctuation">(</span><span class="token string">'hour'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">,</span> <span class="token number">17</span><span class="token punctuation">)</span>
+filtered_data <span class="token operator">=</span> data<span class="token punctuation">[</span>data<span class="token punctuation">[</span>DATE_COLUMN<span class="token punctuation">]</span><span class="token punctuation">.</span>dt<span class="token punctuation">.</span>hour <span class="token operator">==</span> hour_to_filter<span class="token punctuation">]</span>
+
+st<span class="token punctuation">.</span>subheader<span class="token punctuation">(</span><span class="token string">'Map of all pickups at %s:00'</span> <span class="token operator">%</span> hour_to_filter<span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>map<span class="token punctuation">(</span>filtered_data<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Share-your-app"><a href="#Share-your-app" class="headerlink" title="Share your app"></a>Share your app</h3><p>After you’ve built a Streamlit app, it’s time to share it! To show it off to the world you can use <code>Streamlit Community Cloud</code> to deploy, manage, and share your app for free.</p>
+<p>It works in 3 simple steps:</p>
+<ol>
+<li><p>Put your app in a public GitHub repo (and make sure it has a requirements.txt!)</p>
+</li>
+<li><p>Sign into share.streamlit.io</p>
+</li>
+<li><p>Click ‘Deploy an app’ and then paste in your GitHub URL</p>
+</li>
+</ol>
+<p>That’s it! 🎈 You now have a publicly deployed app that you can share with the world.</p>
+<h3 id="Get-help"><a href="#Get-help" class="headerlink" title="Get help"></a>Get help</h3><p>That’s it for getting started, now you can go and build your own apps! If you run into difficulties here are a few things you can do.</p>
+<ul>
+<li><p>Check out our community forum and post a question</p>
+</li>
+<li><p>Quick help from command line with <code>streamlit help</code></p>
+</li>
+<li><p>Go through our Knowledge Base for tips, step-by-step tutorials, and articles that answer your questions about creating and deploying Streamlit apps.</p>
+</li>
+<li><p>Read more documentation! Check out:</p>
+<ul>
+<li><p>Advanced features for things like caching, theming, and adding statefulness to apps.</p>
+</li>
+<li><p>API reference for examples of every Streamlit command.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Multipage-apps"><a href="#Multipage-apps" class="headerlink" title="Multipage apps"></a>Multipage apps</h2><p>源教程链接: <a href="https://docs.streamlit.io/library/get-started/multipage-apps" target="_blank" rel="noopener">https://docs.streamlit.io/library/get-started/multipage-apps</a> .</p>
+<h3 id="Run-a-multipage-app"><a href="#Run-a-multipage-app" class="headerlink" title="Run a multipage app"></a>Run a multipage app</h3><p>运行命令为：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">streamlit run [entrypoint file]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><strong>The “entrypoint file” is the first page the app will show to the user.</strong> Once you have added pages to your app, the entrypoint file appears as the top-most page in the sidebar. You can think of the entrypoint file as your app’s “main page”. For example, say your entrypoint file is <code>Home.py</code>. Then, to run your app, you can run <code>streamlit run Home.py</code>. This will start your app and execute the code in <code>Home.py</code>.</p>
+<h3 id="Adding-pages"><a href="#Adding-pages" class="headerlink" title="Adding pages"></a>Adding pages</h3><p>Once you’ve created your entrypoint file, you can add pages by creating <code>.py</code> files in a <code>pages/</code> directory relative to your entrypoint file. For example, if your entrypoint file is <code>Home.py</code>, then you can create a <code>pages/About.py</code> file to define the “About” page. Here’s a valid directory structure for a multipage app:</p>
+<pre class="line-numbers language-shell"><code class="language-shell">Home.py # This is the file you run with "streamlit run"
+└─── pages/
+  └─── About.py # This is a page
+  └─── 2_Page_two.py # This is another page
+  └─── 3_😎_three.py # So is this<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>When adding emojis to filenames, it’s best practice to include a numbered-prefix to make autocompletion in your terminal easier. Terminal-autocomplete can get confused by unicode (which is how emojis are represented).</p>
+</blockquote>
+<p>Pages are defined as <code>.py</code> files in a <code>pages/</code> directory. The filenames of pages are transformed to page names in the sidebar based on the the rules in the section below. For example, the <code>About.py</code> file will appear as “About” in the sidebar, <code>2_Page_two.py</code> appears as “Page two”, and <code>3_😎_three.py</code> appears as “😎 three”:</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230715164207.png" alt></p>
+<p>Only <code>.py</code> files in the <code>pages/</code> directory will be loaded as pages. Streamlit ignores all other files in the <code>pages/</code> directory and subdirectories.</p>
+<h3 id="How-pages-are-labeled-and-sorted-in-the-UI"><a href="#How-pages-are-labeled-and-sorted-in-the-UI" class="headerlink" title="How pages are labeled and sorted in the UI"></a>How pages are labeled and sorted in the UI</h3><p>Page labels in the sidebar UI are generated from filenames. They may differ from the page title set in <code>st.set_page_config</code>. Let’s learn what constitutes a valid filename for a page, how pages are displayed in the sidebar, and how pages are sorted.</p>
+<h4 id="Valid-filenames-for-pages"><a href="#Valid-filenames-for-pages" class="headerlink" title="Valid filenames for pages"></a>Valid filenames for pages</h4><p>Filenames are composed of four different parts:</p>
+<ol>
+<li><p>A <code>number</code> — if the file is prefixed with a number.</p>
+</li>
+<li><p>A separator — could be <code>_</code>, <code>-</code>, space, or any combination thereof.</p>
+</li>
+<li><p>A <code>label</code> — which is everything up to, but not including, <code>.py</code>.</p>
+</li>
+<li><p>The extension — which is always <code>.py</code>.</p>
+</li>
+</ol>
+<h4 id="How-pages-are-displayed-in-the-sidebar"><a href="#How-pages-are-displayed-in-the-sidebar" class="headerlink" title="How pages are displayed in the sidebar"></a>How pages are displayed in the sidebar</h4><p>What is displayed in the sidebar is the <code>label</code> part of the filename:</p>
+<ul>
+<li><p>If there’s no <code>label</code>, Streamlit uses the <code>number</code> as the label.</p>
+</li>
+<li><p>In the UI, Streamlit beautifies the <code>label</code> by replacing <code>_</code> with space.</p>
+</li>
+</ul>
+<h4 id="How-pages-are-sorted-in-the-sidebar"><a href="#How-pages-are-sorted-in-the-sidebar" class="headerlink" title="How pages are sorted in the sidebar"></a>How pages are sorted in the sidebar</h4><p>Sorting considers numbers in the filename to be actual numbers (integers):</p>
+<ul>
+<li><p>Files that have a <code>number</code> appear before files without a <code>number</code>.</p>
+</li>
+<li><p>Files are sorted based on the <code>number</code> (if any), followed by the <code>title</code> (if any).</p>
+</li>
+<li><p>When files are sorted, Streamlit treats the <code>number</code> as an actual number rather than a string. So <code>03</code> is the same as <code>3</code>.</p>
+</li>
+</ul>
+<p>This table shows examples of filenames and their corresponding labels, sorted by the order in which they appear in the sidebar.</p>
+<p><strong>Examples:</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">Filename</th>
+<th align="center">Rendered label</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1 - first page.py</td>
+<td align="center">first page</td>
+</tr>
+<tr>
+<td align="center">12 monkeys.py</td>
+<td align="center">monkeys</td>
+</tr>
+<tr>
+<td align="center">123.py</td>
+<td align="center">123</td>
+</tr>
+<tr>
+<td align="center">123_hello_dear_world.py</td>
+<td align="center">hello dear world</td>
+</tr>
+<tr>
+<td align="center">_12 monkeys.py</td>
+<td align="center">12 monkeys</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Emojis can be used to make your page names more fun! For example, a file named <code>🏠_Home.py</code> will create a page titled “🏠 Home” in the sidebar.</p>
+</blockquote>
+<h3 id="Navigating-between-pages"><a href="#Navigating-between-pages" class="headerlink" title="Navigating between pages"></a>Navigating between pages</h3><p>Pages are automatically shown in a nice navigation UI inside the app’s sidebar. When you click on a page in the sidebar UI, Streamlit navigates to that page without reloading the entire frontend — making app browsing incredibly fast!</p>
+<p>You can also navigate between pages using URLs. Pages have their own URLs, defined by the file’s <code>label</code>. When multiple files have the same <code>label</code>, Streamlit picks the first one (based on the ordering described above). Users can view a specific page by visiting the page’s URL.</p>
+<p>If a user tries to access a URL for a page that does not exist, they will see a modal like the one below, saying the user has requested a page that was not found in the app’s pages/ directory.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230715170901.png" alt></p>
+<h3 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h3><ul>
+<li><p>Pages support magic commands.</p>
+</li>
+<li><p>Pages support run-on-save. Additionally, when you save a page, this causes a rerun for users currently viewing that exact page.</p>
+</li>
+<li><p>Adding or deleting a page causes the UI to update immediately.</p>
+</li>
+<li><p>Updating pages in the sidebar does not rerun the script.</p>
+</li>
+<li><p><code>st.set_page_config</code> works at the page level. When you set a title or favicon using <code>st.set_page_config</code>, this applies to the current page only.</p>
+</li>
+<li><p>Pages share the same Python modules globally:</p>
+</li>
+</ul>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># page1.py</span>
+<span class="token keyword">import</span> foo
+foo<span class="token punctuation">.</span>hello <span class="token operator">=</span> <span class="token number">123</span>
+
+<span class="token comment" spellcheck="true"># page2.py</span>
+<span class="token keyword">import</span> foo
+st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>foo<span class="token punctuation">.</span>hello<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># If page1 already executed, this should write 123</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>Pages share the same <code>st.session_state</code>:</li>
+</ul>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># page1.py</span>
+<span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">if</span> <span class="token string">"shared"</span> <span class="token operator">not</span> <span class="token keyword">in</span> st<span class="token punctuation">.</span>session_state<span class="token punctuation">:</span>
+   st<span class="token punctuation">.</span>session_state<span class="token punctuation">[</span><span class="token string">"shared"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">True</span>
+
+<span class="token comment" spellcheck="true"># page2.py</span>
+<span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>st<span class="token punctuation">.</span>session_state<span class="token punctuation">[</span><span class="token string">"shared"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># If page1 already executed, this should write True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>You now have a solid understanding of multipage apps. You’ve learned how to structure apps, define pages, and navigate between pages in the user interface. It’s time to create your first multipage app! 🥳</p>
+</blockquote>
+<h2 id="Create-a-multipage-app"><a href="#Create-a-multipage-app" class="headerlink" title="Create a multipage app"></a>Create a multipage app</h2><p>源教程链接: <a href="https://docs.streamlit.io/library/get-started/multipage-apps/create-a-multipage-app" target="_blank" rel="noopener">https://docs.streamlit.io/library/get-started/multipage-apps/create-a-multipage-app</a> .</p>
+<p>In the last section, we learned what it takes to create multipage apps, including how to define pages, structure and run multipage apps, and navigate between pages in the user interface. If you need a refresher, now is a good time to take a look.</p>
+<p>In this guide, let’s put our understanding of multipage apps to use by converting the familiar <code>streamlit hello</code> command to a multipage app!</p>
+<h3 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h3><p>Before Streamlit 1.10.0, the streamlit hello command was a large single-page app. As there was no support for multiple pages, we resorted to splitting the app’s content using <code>st.selectbox</code> in the sidebar to choose what content to run. The content is comprised of three demos for plotting, mapping, and dataframes.</p>
+<p>Here’s what the code and single-page app looked like:</p>
+<p><strong>hello.py</strong></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+
+<span class="token keyword">def</span> <span class="token function">intro</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+
+    st<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"# Welcome to Streamlit! 👋"</span><span class="token punctuation">)</span>
+    st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>success<span class="token punctuation">(</span><span class="token string">"Select a demo above."</span><span class="token punctuation">)</span>
+
+    st<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span>
+        <span class="token triple-quoted-string string">"""
+        Streamlit is an open-source app framework built specifically for
+        Machine Learning and Data Science projects.
+
+        **👈 Select a demo from the dropdown on the left** to see some examples
+        of what Streamlit can do!
+
+        ### Want to learn more?
+
+        - Check out [streamlit.io](https://streamlit.io)
+        - Jump into our [documentation](https://docs.streamlit.io)
+        - Ask a question in our [community
+          forums](https://discuss.streamlit.io)
+
+        ### See more complex demos
+
+        - Use a neural net to [analyze the Udacity Self-driving Car Image
+          Dataset](https://github.com/streamlit/demo-self-driving)
+        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
+    """</span>
+    <span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">mapping_demo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+    <span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+    <span class="token keyword">import</span> pydeck <span class="token keyword">as</span> pdk
+
+    <span class="token keyword">from</span> urllib<span class="token punctuation">.</span>error <span class="token keyword">import</span> URLError
+
+    st<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span>f<span class="token string">"# {list(page_names_to_funcs.keys())[2]}"</span><span class="token punctuation">)</span>
+    st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>
+        <span class="token triple-quoted-string string">"""
+        This demo shows how to use
+[`st.pydeck_chart`](https://docs.streamlit.io/library/api-reference/charts/st.pydeck_chart)
+to display geospatial data.
+"""</span>
+    <span class="token punctuation">)</span>
+
+    @st<span class="token punctuation">.</span>cache_data
+    <span class="token keyword">def</span> <span class="token function">from_data_file</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        url <span class="token operator">=</span> <span class="token punctuation">(</span>
+            <span class="token string">"http://raw.githubusercontent.com/streamlit/"</span>
+            <span class="token string">"example-data/master/hello/v1/%s"</span> <span class="token operator">%</span> filename
+        <span class="token punctuation">)</span>
+        <span class="token keyword">return</span> pd<span class="token punctuation">.</span>read_json<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        ALL_LAYERS <span class="token operator">=</span> <span class="token punctuation">{</span>
+            <span class="token string">"Bike Rentals"</span><span class="token punctuation">:</span> pdk<span class="token punctuation">.</span>Layer<span class="token punctuation">(</span>
+                <span class="token string">"HexagonLayer"</span><span class="token punctuation">,</span>
+                data<span class="token operator">=</span>from_data_file<span class="token punctuation">(</span><span class="token string">"bike_rental_stats.json"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                get_position<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"lon"</span><span class="token punctuation">,</span> <span class="token string">"lat"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                radius<span class="token operator">=</span><span class="token number">200</span><span class="token punctuation">,</span>
+                elevation_scale<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span>
+                elevation_range<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                extruded<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token string">"Bart Stop Exits"</span><span class="token punctuation">:</span> pdk<span class="token punctuation">.</span>Layer<span class="token punctuation">(</span>
+                <span class="token string">"ScatterplotLayer"</span><span class="token punctuation">,</span>
+                data<span class="token operator">=</span>from_data_file<span class="token punctuation">(</span><span class="token string">"bart_stop_stats.json"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                get_position<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"lon"</span><span class="token punctuation">,</span> <span class="token string">"lat"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                get_color<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">160</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                get_radius<span class="token operator">=</span><span class="token string">"[exits]"</span><span class="token punctuation">,</span>
+                radius_scale<span class="token operator">=</span><span class="token number">0.05</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token string">"Bart Stop Names"</span><span class="token punctuation">:</span> pdk<span class="token punctuation">.</span>Layer<span class="token punctuation">(</span>
+                <span class="token string">"TextLayer"</span><span class="token punctuation">,</span>
+                data<span class="token operator">=</span>from_data_file<span class="token punctuation">(</span><span class="token string">"bart_stop_stats.json"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                get_position<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"lon"</span><span class="token punctuation">,</span> <span class="token string">"lat"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                get_text<span class="token operator">=</span><span class="token string">"name"</span><span class="token punctuation">,</span>
+                get_color<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                get_size<span class="token operator">=</span><span class="token number">15</span><span class="token punctuation">,</span>
+                get_alignment_baseline<span class="token operator">=</span><span class="token string">"'bottom'"</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token string">"Outbound Flow"</span><span class="token punctuation">:</span> pdk<span class="token punctuation">.</span>Layer<span class="token punctuation">(</span>
+                <span class="token string">"ArcLayer"</span><span class="token punctuation">,</span>
+                data<span class="token operator">=</span>from_data_file<span class="token punctuation">(</span><span class="token string">"bart_path_stats.json"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                get_source_position<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"lon"</span><span class="token punctuation">,</span> <span class="token string">"lat"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                get_target_position<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"lon2"</span><span class="token punctuation">,</span> <span class="token string">"lat2"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                get_source_color<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">160</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                get_target_color<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">160</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                auto_highlight<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+                width_scale<span class="token operator">=</span><span class="token number">0.0001</span><span class="token punctuation">,</span>
+                get_width<span class="token operator">=</span><span class="token string">"outbound"</span><span class="token punctuation">,</span>
+                width_min_pixels<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span>
+                width_max_pixels<span class="token operator">=</span><span class="token number">30</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span>
+        st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span><span class="token string">"### Map Layers"</span><span class="token punctuation">)</span>
+        selected_layers <span class="token operator">=</span> <span class="token punctuation">[</span>
+            layer
+            <span class="token keyword">for</span> layer_name<span class="token punctuation">,</span> layer <span class="token keyword">in</span> ALL_LAYERS<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>checkbox<span class="token punctuation">(</span>layer_name<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+        <span class="token punctuation">]</span>
+        <span class="token keyword">if</span> selected_layers<span class="token punctuation">:</span>
+            st<span class="token punctuation">.</span>pydeck_chart<span class="token punctuation">(</span>
+                pdk<span class="token punctuation">.</span>Deck<span class="token punctuation">(</span>
+                    map_style<span class="token operator">=</span><span class="token string">"mapbox://styles/mapbox/light-v9"</span><span class="token punctuation">,</span>
+                    initial_view_state<span class="token operator">=</span><span class="token punctuation">{</span>
+                        <span class="token string">"latitude"</span><span class="token punctuation">:</span> <span class="token number">37.76</span><span class="token punctuation">,</span>
+                        <span class="token string">"longitude"</span><span class="token punctuation">:</span> <span class="token operator">-</span><span class="token number">122.4</span><span class="token punctuation">,</span>
+                        <span class="token string">"zoom"</span><span class="token punctuation">:</span> <span class="token number">11</span><span class="token punctuation">,</span>
+                        <span class="token string">"pitch"</span><span class="token punctuation">:</span> <span class="token number">50</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    layers<span class="token operator">=</span>selected_layers<span class="token punctuation">,</span>
+                <span class="token punctuation">)</span>
+            <span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            st<span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">"Please choose at least one layer above."</span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span> URLError <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+        st<span class="token punctuation">.</span>error<span class="token punctuation">(</span>
+            <span class="token triple-quoted-string string">"""
+            **This demo requires internet access.**
+
+            Connection error: %s
+        """</span>
+            <span class="token operator">%</span> e<span class="token punctuation">.</span>reason
+        <span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">plotting_demo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+    <span class="token keyword">import</span> time
+    <span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+    st<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span>f<span class="token string">'# {list(page_names_to_funcs.keys())[1]}'</span><span class="token punctuation">)</span>
+    st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>
+        <span class="token triple-quoted-string string">"""
+        This demo illustrates a combination of plotting and animation with
+Streamlit. We're generating a bunch of random numbers in a loop for around
+5 seconds. Enjoy!
+"""</span>
+    <span class="token punctuation">)</span>
+
+    progress_bar <span class="token operator">=</span> st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>progress<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    status_text <span class="token operator">=</span> st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>empty<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    last_rows <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    chart <span class="token operator">=</span> st<span class="token punctuation">.</span>line_chart<span class="token punctuation">(</span>last_rows<span class="token punctuation">)</span>
+
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">101</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        new_rows <span class="token operator">=</span> last_rows<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token operator">+</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cumsum<span class="token punctuation">(</span>axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+        status_text<span class="token punctuation">.</span>text<span class="token punctuation">(</span><span class="token string">"%i%% Complete"</span> <span class="token operator">%</span> i<span class="token punctuation">)</span>
+        chart<span class="token punctuation">.</span>add_rows<span class="token punctuation">(</span>new_rows<span class="token punctuation">)</span>
+        progress_bar<span class="token punctuation">.</span>progress<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+        last_rows <span class="token operator">=</span> new_rows
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.05</span><span class="token punctuation">)</span>
+
+    progress_bar<span class="token punctuation">.</span>empty<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># Streamlit widgets automatically run the script from top to bottom. Since</span>
+    <span class="token comment" spellcheck="true"># this button is not connected to any other logic, it just causes a plain</span>
+    <span class="token comment" spellcheck="true"># rerun.</span>
+    st<span class="token punctuation">.</span>button<span class="token punctuation">(</span><span class="token string">"Re-run"</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">data_frame_demo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+    <span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+    <span class="token keyword">import</span> altair <span class="token keyword">as</span> alt
+
+    <span class="token keyword">from</span> urllib<span class="token punctuation">.</span>error <span class="token keyword">import</span> URLError
+
+    st<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span>f<span class="token string">"# {list(page_names_to_funcs.keys())[3]}"</span><span class="token punctuation">)</span>
+    st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>
+        <span class="token triple-quoted-string string">"""
+        This demo shows how to use `st.write` to visualize Pandas DataFrames.
+
+(Data courtesy of the [UN Data Explorer](http://data.un.org/Explorer.aspx).)
+"""</span>
+    <span class="token punctuation">)</span>
+
+    @st<span class="token punctuation">.</span>cache_data
+    <span class="token keyword">def</span> <span class="token function">get_UN_data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        AWS_BUCKET_URL <span class="token operator">=</span> <span class="token string">"http://streamlit-demo-data.s3-us-west-2.amazonaws.com"</span>
+        df <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span>AWS_BUCKET_URL <span class="token operator">+</span> <span class="token string">"/agri.csv.gz"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> df<span class="token punctuation">.</span>set_index<span class="token punctuation">(</span><span class="token string">"Region"</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        df <span class="token operator">=</span> get_UN_data<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        countries <span class="token operator">=</span> st<span class="token punctuation">.</span>multiselect<span class="token punctuation">(</span>
+            <span class="token string">"Choose countries"</span><span class="token punctuation">,</span> list<span class="token punctuation">(</span>df<span class="token punctuation">.</span>index<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">"China"</span><span class="token punctuation">,</span> <span class="token string">"United States of America"</span><span class="token punctuation">]</span>
+        <span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token operator">not</span> countries<span class="token punctuation">:</span>
+            st<span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">"Please select at least one country."</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            data <span class="token operator">=</span> df<span class="token punctuation">.</span>loc<span class="token punctuation">[</span>countries<span class="token punctuation">]</span>
+            data <span class="token operator">/=</span> <span class="token number">1000000.0</span>
+            st<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"### Gross Agricultural Production ($B)"</span><span class="token punctuation">,</span> data<span class="token punctuation">.</span>sort_index<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+            data <span class="token operator">=</span> data<span class="token punctuation">.</span>T<span class="token punctuation">.</span>reset_index<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            data <span class="token operator">=</span> pd<span class="token punctuation">.</span>melt<span class="token punctuation">(</span>data<span class="token punctuation">,</span> id_vars<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"index"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>rename<span class="token punctuation">(</span>
+                columns<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"year"</span><span class="token punctuation">,</span> <span class="token string">"value"</span><span class="token punctuation">:</span> <span class="token string">"Gross Agricultural Product ($B)"</span><span class="token punctuation">}</span>
+            <span class="token punctuation">)</span>
+            chart <span class="token operator">=</span> <span class="token punctuation">(</span>
+                alt<span class="token punctuation">.</span>Chart<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span>mark_area<span class="token punctuation">(</span>opacity<span class="token operator">=</span><span class="token number">0.3</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span>encode<span class="token punctuation">(</span>
+                    x<span class="token operator">=</span><span class="token string">"year:T"</span><span class="token punctuation">,</span>
+                    y<span class="token operator">=</span>alt<span class="token punctuation">.</span>Y<span class="token punctuation">(</span><span class="token string">"Gross Agricultural Product ($B):Q"</span><span class="token punctuation">,</span> stack<span class="token operator">=</span>None<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    color<span class="token operator">=</span><span class="token string">"Region:N"</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span>
+            <span class="token punctuation">)</span>
+            st<span class="token punctuation">.</span>altair_chart<span class="token punctuation">(</span>chart<span class="token punctuation">,</span> use_container_width<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span> URLError <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+        st<span class="token punctuation">.</span>error<span class="token punctuation">(</span>
+            <span class="token triple-quoted-string string">"""
+            **This demo requires internet access.**
+
+            Connection error: %s
+        """</span>
+            <span class="token operator">%</span> e<span class="token punctuation">.</span>reason
+        <span class="token punctuation">)</span>
+
+page_names_to_funcs <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">"—"</span><span class="token punctuation">:</span> intro<span class="token punctuation">,</span>
+    <span class="token string">"Plotting Demo"</span><span class="token punctuation">:</span> plotting_demo<span class="token punctuation">,</span>
+    <span class="token string">"Mapping Demo"</span><span class="token punctuation">:</span> mapping_demo<span class="token punctuation">,</span>
+    <span class="token string">"DataFrame Demo"</span><span class="token punctuation">:</span> data_frame_demo
+<span class="token punctuation">}</span>
+
+demo_name <span class="token operator">=</span> st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>selectbox<span class="token punctuation">(</span><span class="token string">"Choose a demo"</span><span class="token punctuation">,</span> page_names_to_funcs<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+page_names_to_funcs<span class="token punctuation">[</span>demo_name<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230715173010.png" alt></p>
+<p>Notice how large the file is! Each app “page” is written as a function, and the selectbox is used to pick which page to display. As our app grows, maintaining the code requires a lot of additional overhead. Moreover, we’re limited by the <code>st.selectbox</code> UI to choose which “page” to run, we cannot customize individual page titles with <code>st.set_page_config</code>, and we’re unable to navigate between pages using URLs.</p>
+<h3 id="Convert-an-existing-app-into-a-multipage-app"><a href="#Convert-an-existing-app-into-a-multipage-app" class="headerlink" title="Convert an existing app into a multipage app"></a>Convert an existing app into a multipage app</h3><p>Now that we’ve identified the limitations of a single-page app, what can we do about it? Armed with our knowledge from the previous section, we can convert the existing app to be a multipage app, of course! At a high level, we need to perform the following steps:</p>
+<ol>
+<li><p>Create a new <code>pages</code> folder in the same folder where the “entrypoint file” (<code>hello.py</code>) lives</p>
+</li>
+<li><p>Rename our entrypoint file to <code>Hello.py</code> , so that the title in the sidebar is capitalized</p>
+</li>
+<li><p>Create three new files inside of <code>pages</code>:</p>
+<ul>
+<li><p><code>pages/1_📈_Plotting_Demo.py</code></p>
+</li>
+<li><p><code>pages/2_🌍_Mapping_Demo.py</code></p>
+</li>
+<li><p><code>pages/3_📊_DataFrame_Demo.py</code></p>
+</li>
+</ul>
+</li>
+<li><p>Move the contents of the <code>plotting_demo</code>, <code>mapping_demo</code>, and <code>data_frame_demo</code> functions into their corresponding new files from Step 3</p>
+</li>
+<li><p>Run <code>streamlit run Hello.py</code> to view your newly converted multipage app!</p>
+</li>
+</ol>
+<p>Now, let’s walk through each step of the process and view the corresponding changes in code.</p>
+<h3 id="Create-the-entrypoint-file"><a href="#Create-the-entrypoint-file" class="headerlink" title="Create the entrypoint file"></a>Create the entrypoint file</h3><p><code>Hello.py</code></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+
+st<span class="token punctuation">.</span>set_page_config<span class="token punctuation">(</span>
+    page_title<span class="token operator">=</span><span class="token string">"Hello"</span><span class="token punctuation">,</span>
+    page_icon<span class="token operator">=</span><span class="token string">"👋"</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+st<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"# Welcome to Streamlit! 👋"</span><span class="token punctuation">)</span>
+
+st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>success<span class="token punctuation">(</span><span class="token string">"Select a demo above."</span><span class="token punctuation">)</span>
+
+st<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span>
+    <span class="token triple-quoted-string string">"""
+    Streamlit is an open-source app framework built specifically for
+    Machine Learning and Data Science projects.
+    **👈 Select a demo from the sidebar** to see some examples
+    of what Streamlit can do!
+    ### Want to learn more?
+    - Check out [streamlit.io](https://streamlit.io)
+    - Jump into our [documentation](https://docs.streamlit.io)
+    - Ask a question in our [community
+        forums](https://discuss.streamlit.io)
+    ### See more complex demos
+    - Use a neural net to [analyze the Udacity Self-driving Car Image
+        Dataset](https://github.com/streamlit/demo-self-driving)
+    - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
+"""</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>We rename our entrypoint file to <code>Hello.py</code> , so that the title in the sidebar is capitalized and only the code for the intro page is included. Additionally, we’re able to customize the page title and favicon — as it appears in the browser tab with <code>st.set_page_config</code>. We can do so for each of our pages too!</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230715174056.png" alt></p>
+<p>Notice how the sidebar does not contain page labels as we haven’t created any pages yet.</p>
+<h3 id="Create-multiple-pages"><a href="#Create-multiple-pages" class="headerlink" title="Create multiple pages"></a>Create multiple pages</h3><p>A few things to remember here:</p>
+<ol>
+<li><p>We can change the ordering of pages in our MPA by adding numbers to the beginning of each Python file. If we add a 1 to the front of our file name, Streamlit will put that file first in the list.</p>
+</li>
+<li><p>The name of each Streamlit app is determined by the file name, so to change the app name you need to change the file name!</p>
+</li>
+<li><p>We can add some fun to our app by adding emojis to our file names that will render in our Streamlit app.</p>
+</li>
+<li><p>Each page will have its own URL, defined by the name of the file.</p>
+</li>
+</ol>
+<p>Check out how we do all this below! For each new page, we create a new file inside the pages folder, and add the appropriate demo code into it.</p>
+<p><code>pages/1_📈_Plotting_Demo.py</code></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> time
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+st<span class="token punctuation">.</span>set_page_config<span class="token punctuation">(</span>page_title<span class="token operator">=</span><span class="token string">"Plotting Demo"</span><span class="token punctuation">,</span> page_icon<span class="token operator">=</span><span class="token string">"📈"</span><span class="token punctuation">)</span>
+
+st<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span><span class="token string">"# Plotting Demo"</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>header<span class="token punctuation">(</span><span class="token string">"Plotting Demo"</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>
+    <span class="token triple-quoted-string string">"""This demo illustrates a combination of plotting and animation with
+Streamlit. We're generating a bunch of random numbers in a loop for around
+5 seconds. Enjoy!"""</span>
+<span class="token punctuation">)</span>
+
+progress_bar <span class="token operator">=</span> st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>progress<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+status_text <span class="token operator">=</span> st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>empty<span class="token punctuation">(</span><span class="token punctuation">)</span>
+last_rows <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+chart <span class="token operator">=</span> st<span class="token punctuation">.</span>line_chart<span class="token punctuation">(</span>last_rows<span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">101</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    new_rows <span class="token operator">=</span> last_rows<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token operator">+</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cumsum<span class="token punctuation">(</span>axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+    status_text<span class="token punctuation">.</span>text<span class="token punctuation">(</span><span class="token string">"%i%% Complete"</span> <span class="token operator">%</span> i<span class="token punctuation">)</span>
+    chart<span class="token punctuation">.</span>add_rows<span class="token punctuation">(</span>new_rows<span class="token punctuation">)</span>
+    progress_bar<span class="token punctuation">.</span>progress<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+    last_rows <span class="token operator">=</span> new_rows
+    time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.05</span><span class="token punctuation">)</span>
+
+progress_bar<span class="token punctuation">.</span>empty<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># Streamlit widgets automatically run the script from top to bottom. Since</span>
+<span class="token comment" spellcheck="true"># this button is not connected to any other logic, it just causes a plain</span>
+<span class="token comment" spellcheck="true"># rerun.</span>
+st<span class="token punctuation">.</span>button<span class="token punctuation">(</span><span class="token string">"Re-run"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230715174846.png" alt></p>
+<p><code>pages/2_🌍_Mapping_Demo.py</code></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> pydeck <span class="token keyword">as</span> pdk
+<span class="token keyword">from</span> urllib<span class="token punctuation">.</span>error <span class="token keyword">import</span> URLError
+
+st<span class="token punctuation">.</span>set_page_config<span class="token punctuation">(</span>page_title<span class="token operator">=</span><span class="token string">"Mapping Demo"</span><span class="token punctuation">,</span> page_icon<span class="token operator">=</span><span class="token string">"🌍"</span><span class="token punctuation">)</span>
+
+st<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span><span class="token string">"# Mapping Demo"</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>header<span class="token punctuation">(</span><span class="token string">"Mapping Demo"</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>
+    <span class="token triple-quoted-string string">"""This demo shows how to use
+[`st.pydeck_chart`](https://docs.streamlit.io/library/api-reference/charts/st.pydeck_chart)
+to display geospatial data."""</span>
+<span class="token punctuation">)</span>
+
+
+@st<span class="token punctuation">.</span>cache_data
+<span class="token keyword">def</span> <span class="token function">from_data_file</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    url <span class="token operator">=</span> <span class="token punctuation">(</span>
+        <span class="token string">"http://raw.githubusercontent.com/streamlit/"</span>
+        <span class="token string">"example-data/master/hello/v1/%s"</span> <span class="token operator">%</span> filename
+    <span class="token punctuation">)</span>
+    <span class="token keyword">return</span> pd<span class="token punctuation">.</span>read_json<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+
+
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    ALL_LAYERS <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token string">"Bike Rentals"</span><span class="token punctuation">:</span> pdk<span class="token punctuation">.</span>Layer<span class="token punctuation">(</span>
+            <span class="token string">"HexagonLayer"</span><span class="token punctuation">,</span>
+            data<span class="token operator">=</span>from_data_file<span class="token punctuation">(</span><span class="token string">"bike_rental_stats.json"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            get_position<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"lon"</span><span class="token punctuation">,</span> <span class="token string">"lat"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            radius<span class="token operator">=</span><span class="token number">200</span><span class="token punctuation">,</span>
+            elevation_scale<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span>
+            elevation_range<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            extruded<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token string">"Bart Stop Exits"</span><span class="token punctuation">:</span> pdk<span class="token punctuation">.</span>Layer<span class="token punctuation">(</span>
+            <span class="token string">"ScatterplotLayer"</span><span class="token punctuation">,</span>
+            data<span class="token operator">=</span>from_data_file<span class="token punctuation">(</span><span class="token string">"bart_stop_stats.json"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            get_position<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"lon"</span><span class="token punctuation">,</span> <span class="token string">"lat"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            get_color<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">160</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            get_radius<span class="token operator">=</span><span class="token string">"[exits]"</span><span class="token punctuation">,</span>
+            radius_scale<span class="token operator">=</span><span class="token number">0.05</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token string">"Bart Stop Names"</span><span class="token punctuation">:</span> pdk<span class="token punctuation">.</span>Layer<span class="token punctuation">(</span>
+            <span class="token string">"TextLayer"</span><span class="token punctuation">,</span>
+            data<span class="token operator">=</span>from_data_file<span class="token punctuation">(</span><span class="token string">"bart_stop_stats.json"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            get_position<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"lon"</span><span class="token punctuation">,</span> <span class="token string">"lat"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            get_text<span class="token operator">=</span><span class="token string">"name"</span><span class="token punctuation">,</span>
+            get_color<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            get_size<span class="token operator">=</span><span class="token number">15</span><span class="token punctuation">,</span>
+            get_alignment_baseline<span class="token operator">=</span><span class="token string">"'bottom'"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token string">"Outbound Flow"</span><span class="token punctuation">:</span> pdk<span class="token punctuation">.</span>Layer<span class="token punctuation">(</span>
+            <span class="token string">"ArcLayer"</span><span class="token punctuation">,</span>
+            data<span class="token operator">=</span>from_data_file<span class="token punctuation">(</span><span class="token string">"bart_path_stats.json"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            get_source_position<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"lon"</span><span class="token punctuation">,</span> <span class="token string">"lat"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            get_target_position<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"lon2"</span><span class="token punctuation">,</span> <span class="token string">"lat2"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            get_source_color<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">160</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            get_target_color<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">160</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            auto_highlight<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+            width_scale<span class="token operator">=</span><span class="token number">0.0001</span><span class="token punctuation">,</span>
+            get_width<span class="token operator">=</span><span class="token string">"outbound"</span><span class="token punctuation">,</span>
+            width_min_pixels<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span>
+            width_max_pixels<span class="token operator">=</span><span class="token number">30</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+    st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span><span class="token string">"### Map Layers"</span><span class="token punctuation">)</span>
+    selected_layers <span class="token operator">=</span> <span class="token punctuation">[</span>
+        layer
+        <span class="token keyword">for</span> layer_name<span class="token punctuation">,</span> layer <span class="token keyword">in</span> ALL_LAYERS<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>checkbox<span class="token punctuation">(</span>layer_name<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span>
+    <span class="token keyword">if</span> selected_layers<span class="token punctuation">:</span>
+        st<span class="token punctuation">.</span>pydeck_chart<span class="token punctuation">(</span>
+            pdk<span class="token punctuation">.</span>Deck<span class="token punctuation">(</span>
+                map_style<span class="token operator">=</span><span class="token string">"mapbox://styles/mapbox/light-v9"</span><span class="token punctuation">,</span>
+                initial_view_state<span class="token operator">=</span><span class="token punctuation">{</span>
+                    <span class="token string">"latitude"</span><span class="token punctuation">:</span> <span class="token number">37.76</span><span class="token punctuation">,</span>
+                    <span class="token string">"longitude"</span><span class="token punctuation">:</span> <span class="token operator">-</span><span class="token number">122.4</span><span class="token punctuation">,</span>
+                    <span class="token string">"zoom"</span><span class="token punctuation">:</span> <span class="token number">11</span><span class="token punctuation">,</span>
+                    <span class="token string">"pitch"</span><span class="token punctuation">:</span> <span class="token number">50</span><span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                layers<span class="token operator">=</span>selected_layers<span class="token punctuation">,</span>
+            <span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        st<span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">"Please choose at least one layer above."</span><span class="token punctuation">)</span>
+<span class="token keyword">except</span> URLError <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+    st<span class="token punctuation">.</span>error<span class="token punctuation">(</span>
+        <span class="token triple-quoted-string string">"""
+        **This demo requires internet access.**
+        Connection error: %s
+    """</span>
+        <span class="token operator">%</span> e<span class="token punctuation">.</span>reason
+    <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230715175014.png" alt></p>
+<p><code>pages/3_📊_DataFrame_Demo.py</code></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> altair <span class="token keyword">as</span> alt
+<span class="token keyword">from</span> urllib<span class="token punctuation">.</span>error <span class="token keyword">import</span> URLError
+
+st<span class="token punctuation">.</span>set_page_config<span class="token punctuation">(</span>page_title<span class="token operator">=</span><span class="token string">"DataFrame Demo"</span><span class="token punctuation">,</span> page_icon<span class="token operator">=</span><span class="token string">"📊"</span><span class="token punctuation">)</span>
+
+st<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span><span class="token string">"# DataFrame Demo"</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>sidebar<span class="token punctuation">.</span>header<span class="token punctuation">(</span><span class="token string">"DataFrame Demo"</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>write<span class="token punctuation">(</span>
+    <span class="token triple-quoted-string string">"""This demo shows how to use `st.write` to visualize Pandas DataFrames.
+(Data courtesy of the [UN Data Explorer](http://data.un.org/Explorer.aspx).)"""</span>
+<span class="token punctuation">)</span>
+
+
+@st<span class="token punctuation">.</span>cache_data
+<span class="token keyword">def</span> <span class="token function">get_UN_data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    AWS_BUCKET_URL <span class="token operator">=</span> <span class="token string">"http://streamlit-demo-data.s3-us-west-2.amazonaws.com"</span>
+    df <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span>AWS_BUCKET_URL <span class="token operator">+</span> <span class="token string">"/agri.csv.gz"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> df<span class="token punctuation">.</span>set_index<span class="token punctuation">(</span><span class="token string">"Region"</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    df <span class="token operator">=</span> get_UN_data<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    countries <span class="token operator">=</span> st<span class="token punctuation">.</span>multiselect<span class="token punctuation">(</span>
+        <span class="token string">"Choose countries"</span><span class="token punctuation">,</span> list<span class="token punctuation">(</span>df<span class="token punctuation">.</span>index<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">"China"</span><span class="token punctuation">,</span> <span class="token string">"United States of America"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token operator">not</span> countries<span class="token punctuation">:</span>
+        st<span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">"Please select at least one country."</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        data <span class="token operator">=</span> df<span class="token punctuation">.</span>loc<span class="token punctuation">[</span>countries<span class="token punctuation">]</span>
+        data <span class="token operator">/=</span> <span class="token number">1000000.0</span>
+        st<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"### Gross Agricultural Production ($B)"</span><span class="token punctuation">,</span> data<span class="token punctuation">.</span>sort_index<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        data <span class="token operator">=</span> data<span class="token punctuation">.</span>T<span class="token punctuation">.</span>reset_index<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        data <span class="token operator">=</span> pd<span class="token punctuation">.</span>melt<span class="token punctuation">(</span>data<span class="token punctuation">,</span> id_vars<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"index"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>rename<span class="token punctuation">(</span>
+            columns<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"year"</span><span class="token punctuation">,</span> <span class="token string">"value"</span><span class="token punctuation">:</span> <span class="token string">"Gross Agricultural Product ($B)"</span><span class="token punctuation">}</span>
+        <span class="token punctuation">)</span>
+        chart <span class="token operator">=</span> <span class="token punctuation">(</span>
+            alt<span class="token punctuation">.</span>Chart<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span>mark_area<span class="token punctuation">(</span>opacity<span class="token operator">=</span><span class="token number">0.3</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span>encode<span class="token punctuation">(</span>
+                x<span class="token operator">=</span><span class="token string">"year:T"</span><span class="token punctuation">,</span>
+                y<span class="token operator">=</span>alt<span class="token punctuation">.</span>Y<span class="token punctuation">(</span><span class="token string">"Gross Agricultural Product ($B):Q"</span><span class="token punctuation">,</span> stack<span class="token operator">=</span>None<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                color<span class="token operator">=</span><span class="token string">"Region:N"</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+        st<span class="token punctuation">.</span>altair_chart<span class="token punctuation">(</span>chart<span class="token punctuation">,</span> use_container_width<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+<span class="token keyword">except</span> URLError <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+    st<span class="token punctuation">.</span>error<span class="token punctuation">(</span>
+        <span class="token triple-quoted-string string">"""
+        **This demo requires internet access.**
+        Connection error: %s
+    """</span>
+        <span class="token operator">%</span> e<span class="token punctuation">.</span>reason
+    <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230715175121.png" alt></p>
+<p>With our additional pages created, we can now put it all together in the final step below.</p>
+<h3 id="Run-the-multipage-app"><a href="#Run-the-multipage-app" class="headerlink" title="Run the multipage app"></a>Run the multipage app</h3><p>To run your newly converted multipage app, run:</p>
+<pre class="line-numbers language-python"><code class="language-python">streamlit run Hello<span class="token punctuation">.</span>py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>That’s it! The Hello.py script now corresponds to the main page of your app, and other scripts that Streamlit finds in the pages folder will also be present in the new page selector that appears in the sidebar.</p>
+<h3 id="Next-steps"><a href="#Next-steps" class="headerlink" title="Next steps"></a>Next steps</h3><p>Congratulations! 🎉 If you’ve read this far, chances are you’ve learned to create both single-page and multipage apps. Where you go from here is entirely up to your creativity! We’re excited to see what you’ll build now that adding additional pages to your apps is easier than ever. Try adding more pages to the app we’ve just built as an exercise. Also, stop by the forum to show off your multipage apps with the Streamlit community! 🎈</p>
+<p>Here are a few resources to help you get started:</p>
+<ul>
+<li><p>Deploy your app for free on Streamlit’s Community Cloud.</p>
+</li>
+<li><p>Post a question or share your multipage app on our community forum.</p>
+</li>
+<li><p>Check out our documentation on multipage apps.</p>
+</li>
+<li><p>Read through Advanced features for things like caching, theming, and adding statefulness to apps.</p>
+</li>
+<li><p>Browse our API reference for examples of every Streamlit command.</p>
+</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第七十二篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+            </div>
+            <hr />
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《00072-Streamlit 学习笔记》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2023/07/12/00072-streamlit-xue-xi-bi-ji/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                LuYF-Lemon-love
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/07/15/00073-da-mo-xing/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/027-蓝色头发熊.png" class="responsive-img" alt="00073-大语言模型">
+                        
+                        <span class="card-title">00073-大语言模型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            前言
+目前，打算不在更新（2024-4-10）。
+
+记录一些学习大模型的相关资源。
+操作系统：Windows 10 专业版
+论文
+GPT-1: GPT-1 论文.
+GPT-2: GPT-2 论文.
+InstructGPT: Instruct
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-07-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/大语言模型/" class="post-category" target="_blank">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/深度学习/" target="_blank">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/人工智能/" target="_blank">
+                        <span class="chip bg-color">人工智能</span>
+                    </a>
+                    
+                    <a href="/tags/大语言模型/" target="_blank">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/06/10/00071-tao-jie-zi-chu-tan/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/024-蓝色头发被窝.png" class="responsive-img" alt="00071-套接字初探">
+                        
+                        <span class="card-title">00071-套接字初探</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            前言利用 Python 标准库 socket 实现多线程 echo 和 http 程序.
+源教程地址: https://www.bilibili.com/video/BV1eg411G7pW/?vd_source=547d8a3d2ce70
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-06-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category" target="_blank">
+                                    Python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/" target="_blank">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                    <a href="/tags/套接字/" target="_blank">
+                        <span class="chip bg-color">套接字</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: LuYF-Lemon-love の Blog<br />'
+            + '作者: LuYF-Lemon-love<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () { bodyElement.removeChild(newdiv); }, 200);
+    });
+</script>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            &copy; 2022-2025 YanFeng. 版权所有
+
+            
+            &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+            <span class="white-color">768.9k</span>
+            
+
+            <br>
+            <span id="sitetime"></span>
+
+            
+            
+            <br>
+            
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <i class="fa fa-heart-o"></i>
+                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'>
+                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+            </span>
+            
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);
+        var pvcountOffset = 80000;
+        var uvcountOffset = 20000;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int);
+            }
+        }
+    });
+</script>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022, 05, 07, 04, 53, 32); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <script type="text/javascript"> var OriginTitile = document.title, st; document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    
+    <script src="/libs/others/clicklove.js"></script>
+    
+
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+</body>
+
+</html>
