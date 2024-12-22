@@ -9,8 +9,9 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="前言哇，这真是一次穿越🤗 Datasets库的旅程——恭喜你走了这么远！从本章中获得的知识，你应该能够：
-src link: https://huggingface.co/learn/nlp-course/chapter5/7
-Opera">
+
+从任何地方加载数据集，无论是Hugging Face Hub、你的笔记本电脑，还是你公司的远程服务器。
+使用Dataset.map">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -476,7 +477,7 @@ Opera">
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    88
+                    253
                 </div>
                 
 
@@ -500,6 +501,14 @@ Opera">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>哇，这真是一次穿越🤗 Datasets库的旅程——恭喜你走了这么远！从本章中获得的知识，你应该能够：</p>
+<ul>
+<li>从任何地方加载数据集，无论是Hugging Face Hub、你的笔记本电脑，还是你公司的远程服务器。</li>
+<li>使用Dataset.map()和Dataset.filter()函数的混合来处理你的数据。</li>
+<li>使用Dataset.set_format()快速切换数据格式，如Pandas和NumPy。</li>
+<li>创建你自己的数据集，并将其推送到Hugging Face Hub。</li>
+<li>使用Transformer模型嵌入你的文档，并使用FAISS构建一个语义搜索引擎。</li>
+</ul>
+<p>在第七章中，我们将充分利用这一切，深入探讨Transformer模型擅长的核心NLP任务。不过，在继续之前，通过一个快速测验来测试你对🤗 Datasets的了解吧！</p>
 <p>src link: <a href="https://huggingface.co/learn/nlp-course/chapter5/7" target="_blank" rel="noopener">https://huggingface.co/learn/nlp-course/chapter5/7</a></p>
 <p>Operating System: Ubuntu 22.04.4 LTS</p>
 <h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
@@ -707,31 +716,28 @@ Opera">
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/12/22/00249-nlp-course-datasets-check/">
+                <a href="/2024/12/22/00250-nlp-course-introduction/">
                     <div class="card-image">
                         
-                        <img src="https://cos.luyf-lemon-love.space/images/050-%E7%BE%8E%E5%A5%B3.jpg" class="responsive-img" alt="00249 NLP Course - 🤗 Datasets, check!">
+                        <img src="https://cos.luyf-lemon-love.space/images/051-%E7%BE%8E%E5%A5%B3.jpg" class="responsive-img" alt="00250 NLP Course - Introduction">
                         
-                        <span class="card-title">00249 NLP Course - 🤗 Datasets, check!</span>
+                        <span class="card-title">00250 NLP Course - Introduction</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            前言哇，这真是一次穿越🤗 Datasets库的旅程——恭喜你走了这么远！从本章中获得的知识，你应该能够：
-src link: https://huggingface.co/learn/nlp-course/chapter5/7
-Opera
+                            前言在第三章中，我们探讨了如何在给定任务上微调模型。当我们这样做时，我们使用与模型预训练时相同的标记器——但是，当我们想从头开始训练一个模型时，我们该怎么办呢？在这些情况下，使用在其他领域或语言语料库上预训练的标记器通常不是最佳选择。例如，
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2024-12-22
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2024-12-22
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -744,7 +750,6 @@ Opera
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -985,7 +990,7 @@ Operating System: Ubuntu 22.04.4 LTS
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">768.9k</span>
+            <span class="white-color">770.1k</span>
             
 
             <br>
