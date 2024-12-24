@@ -428,10 +428,6 @@
                             <span class="chip bg-color">深度学习</span>
                         </a>
                         
-                        <a href="/tags/人工智能/" target="_blank">
-                            <span class="chip bg-color">人工智能</span>
-                        </a>
-                        
                         <a href="/tags/大语言模型/" target="_blank">
                             <span class="chip bg-color">大语言模型</span>
                         </a>
@@ -474,7 +470,7 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.9k
+                    3.1k
                 </div>
                 
 
@@ -623,6 +619,12 @@ tokenizer<span class="token punctuation">.</span>tokenize<span class="token punc
 notebook_login<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>这将显示一个窗口小部件，您可以在其中输入您的Hugging Face登录凭据。如果您不在笔记本中工作，只需在您的终端中键入以下行：</p>
 <pre class="line-numbers language-python"><code class="language-python">huggingface<span class="token operator">-</span>cli login<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>一旦你登录，可以通过执行以下命令来推送你的分词器：</p>
+<pre class="line-numbers language-python"><code class="language-python">tokenizer<span class="token punctuation">.</span>push_to_hub<span class="token punctuation">(</span><span class="token string">"code-search-net-tokenizer"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这将在你的命名空间中创建一个名为code-search-net-tokenizer的新仓库，其中包含分词器文件。然后，你可以使用from_pretrained()方法从任何地方加载分词器：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Replace "huggingface-course" below with your actual namespace to use your own tokenizer</span>
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"huggingface-course/code-search-net-tokenizer"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>现在你已经准备好从头开始训练语言模型，并在你手头的任务上进行微调了！我们将在第7章中详细介绍这一点，但首先，在本章的剩余部分，我们将更详细地了解快速分词器，并深入探讨当我们调用train_new_from_iterator()方法时实际发生了什么。</p>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百五十一篇博文写完，开心！！！！</p>
 <p>今天，也是充满希望的一天。</p>
 
@@ -825,29 +827,28 @@ notebook_login<span class="token punctuation">(</span><span class="token punctua
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/12/22/00251-nlp-course-training-a-new-tokenizer-from-an-old-one/">
+                <a href="/2024/12/24/00252-nlp-course-fast-tokenizers-special-powers/">
                     <div class="card-image">
                         
-                        <img src="https://cos.luyf-lemon-love.space/images/052-%E7%BE%8E%E5%A5%B3.jpg" class="responsive-img" alt="00251 NLP Course - Training a new tokenizer from an old one">
+                        <img src="https://cos.luyf-lemon-love.space/images/053-%E7%BA%B3%E8%A5%BF%E5%A6%B2.png" class="responsive-img" alt="00252 NLP Course - Fast tokenizers’ special powers">
                         
-                        <span class="card-title">00251 NLP Course - Training a new tokenizer from an old one</span>
+                        <span class="card-title">00252 NLP Course - Fast tokenizers’ special powers</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            前言如果你感兴趣的语言中没有语言模型，或者你的语料库与你的语言模型训练的语料库非常不同，你很可能会想使用适合你数据的标记器从头开始重新训练模型。这将需要在你的数据集上训练一个新的标记器。但这究竟意味着什么呢？当我们在第二章中第一次查看标记器
+                            前言在本节中，我们将更深入地了解🤗 Transformers中的分词器的功能。到目前为止，我们只使用它们来分词输入或将ID解码回文本，但分词器——特别是那些由🤗 Tokenizers库支持的分词器——可以做更多的事情。为了说明这些附加功
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2024-12-22
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2024-12-24
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -860,16 +861,11 @@ notebook_login<span class="token punctuation">(</span><span class="token punctua
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
                     <a href="/tags/深度学习/" target="_blank">
                         <span class="chip bg-color">深度学习</span>
-                    </a>
-                    
-                    <a href="/tags/人工智能/" target="_blank">
-                        <span class="chip bg-color">人工智能</span>
                     </a>
                     
                     <a href="/tags/大语言模型/" target="_blank">
@@ -926,10 +922,6 @@ notebook_login<span class="token punctuation">(</span><span class="token punctua
                     
                     <a href="/tags/深度学习/" target="_blank">
                         <span class="chip bg-color">深度学习</span>
-                    </a>
-                    
-                    <a href="/tags/人工智能/" target="_blank">
-                        <span class="chip bg-color">人工智能</span>
                     </a>
                     
                     <a href="/tags/大语言模型/" target="_blank">
@@ -1111,7 +1103,7 @@ notebook_login<span class="token punctuation">(</span><span class="token punctua
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">772.5k</span>
+            <span class="white-color">773.5k</span>
             
 
             <br>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://luyf-lemon-love.space/"/>
-  <updated>2024-12-23T15:50:00.742Z</updated>
+  <updated>2024-12-24T16:09:51.070Z</updated>
   <id>https://luyf-lemon-love.space/</id>
   
   <author>
@@ -17,11 +17,41 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>00252 NLP Course - Fast tokenizers’ special powers</title>
+    <link href="https://luyf-lemon-love.space/2024/12/24/00252-nlp-course-fast-tokenizers-special-powers/"/>
+    <id>https://luyf-lemon-love.space/2024/12/24/00252-nlp-course-fast-tokenizers-special-powers/</id>
+    <published>2024-12-24T15:04:35.000Z</published>
+    <updated>2024-12-24T16:09:51.070Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在本节中，我们将更深入地了解🤗
+        
+      
+    
+    </summary>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+    
+      <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
+    
+  </entry>
+  
+  <entry>
     <title>00251 NLP Course - Training a new tokenizer from an old one</title>
     <link href="https://luyf-lemon-love.space/2024/12/22/00251-nlp-course-training-a-new-tokenizer-from-an-old-one/"/>
     <id>https://luyf-lemon-love.space/2024/12/22/00251-nlp-course-training-a-new-tokenizer-from-an-old-one/</id>
     <published>2024-12-22T13:18:30.000Z</published>
-    <updated>2024-12-23T15:50:00.742Z</updated>
+    <updated>2024-12-24T16:09:55.960Z</updated>
     
     <summary type="html">
     
@@ -39,8 +69,6 @@
     
     
       <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
       <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
@@ -53,7 +81,7 @@
     <link href="https://luyf-lemon-love.space/2024/12/22/00250-nlp-course-introduction/"/>
     <id>https://luyf-lemon-love.space/2024/12/22/00250-nlp-course-introduction/</id>
     <published>2024-12-22T13:00:52.000Z</published>
-    <updated>2024-12-22T13:13:09.677Z</updated>
+    <updated>2024-12-24T16:09:59.710Z</updated>
     
     <summary type="html">
     
@@ -72,8 +100,6 @@
     
       <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
       <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
       <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
@@ -85,7 +111,7 @@
     <link href="https://luyf-lemon-love.space/2024/12/22/00249-nlp-course-datasets-check/"/>
     <id>https://luyf-lemon-love.space/2024/12/22/00249-nlp-course-datasets-check/</id>
     <published>2024-12-22T12:39:49.000Z</published>
-    <updated>2024-12-22T12:57:30.931Z</updated>
+    <updated>2024-12-24T16:10:01.920Z</updated>
     
     <summary type="html">
     
@@ -103,8 +129,6 @@
     
     
       <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
       <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
@@ -255,7 +279,7 @@
     <link href="https://luyf-lemon-love.space/2024/12/12/00243-nlp-course-semantic-search-with-faiss/"/>
     <id>https://luyf-lemon-love.space/2024/12/12/00243-nlp-course-semantic-search-with-faiss/</id>
     <published>2024-12-12T13:48:05.000Z</published>
-    <updated>2024-12-22T12:35:00.912Z</updated>
+    <updated>2024-12-24T16:10:07.050Z</updated>
     
     <summary type="html">
     
@@ -268,8 +292,6 @@
     
       <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
       <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
       <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
@@ -281,7 +303,7 @@
     <link href="https://luyf-lemon-love.space/2024/12/08/00242-vllm-xue-xi-bi-ji/"/>
     <id>https://luyf-lemon-love.space/2024/12/08/00242-vllm-xue-xi-bi-ji/</id>
     <published>2024-12-08T14:49:48.000Z</published>
-    <updated>2024-12-22T07:38:03.277Z</updated>
+    <updated>2024-12-24T16:10:11.080Z</updated>
     
     <summary type="html">
     
@@ -294,8 +316,6 @@
     
       <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
       <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
   </entry>
@@ -305,7 +325,7 @@
     <link href="https://luyf-lemon-love.space/2024/12/08/00241-nlp-course-creating-your-own-dataset/"/>
     <id>https://luyf-lemon-love.space/2024/12/08/00241-nlp-course-creating-your-own-dataset/</id>
     <published>2024-12-08T09:00:49.000Z</published>
-    <updated>2024-12-22T07:38:03.277Z</updated>
+    <updated>2024-12-24T16:10:14.620Z</updated>
     
     <summary type="html">
     
@@ -318,8 +338,6 @@
     
       <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
       <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
       <category term="huggingface" scheme="https://luyf-lemon-love.space/tags/huggingface/"/>
@@ -331,7 +349,7 @@
     <link href="https://luyf-lemon-love.space/2024/12/08/00240-nlp-course-big-data-datasets-to-the-rescue/"/>
     <id>https://luyf-lemon-love.space/2024/12/08/00240-nlp-course-big-data-datasets-to-the-rescue/</id>
     <published>2024-12-08T06:20:56.000Z</published>
-    <updated>2024-12-22T07:38:03.277Z</updated>
+    <updated>2024-12-24T16:10:18.560Z</updated>
     
     <summary type="html">
     
@@ -343,8 +361,6 @@
     
     
       <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
       <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
@@ -417,7 +433,7 @@
     <link href="https://luyf-lemon-love.space/2024/11/29/00236-qwq-32b-preview/"/>
     <id>https://luyf-lemon-love.space/2024/11/29/00236-qwq-32b-preview/</id>
     <published>2024-11-29T13:41:41.000Z</published>
-    <updated>2024-12-22T07:38:03.277Z</updated>
+    <updated>2024-12-24T16:10:21.510Z</updated>
     
     <summary type="html">
     
@@ -429,8 +445,6 @@
     
     
       <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
       <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     
@@ -481,7 +495,7 @@
     <link href="https://luyf-lemon-love.space/2024/11/24/00233-qwen2-5-coder/"/>
     <id>https://luyf-lemon-love.space/2024/11/24/00233-qwen2-5-coder/</id>
     <published>2024-11-24T13:10:00.000Z</published>
-    <updated>2024-12-22T07:38:03.277Z</updated>
+    <updated>2024-12-24T16:10:24.560Z</updated>
     
     <summary type="html">
     
@@ -493,32 +507,6 @@
     
     
       <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-      <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>00232 Ollama Python Library</title>
-    <link href="https://luyf-lemon-love.space/2024/11/21/00232-ollama-python-library/"/>
-    <id>https://luyf-lemon-love.space/2024/11/21/00232-ollama-python-library/</id>
-    <published>2024-11-21T15:34:29.000Z</published>
-    <updated>2024-12-22T07:38:03.277Z</updated>
-    
-    <summary type="html">
-    
-      The Ollama Python library provides the easiest way to integrate Python 3.8+ projects with Ollama.
-    
-    </summary>
-    
-      <category term="大语言模型" scheme="https://luyf-lemon-love.space/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
-    
-    
-      <category term="深度学习" scheme="https://luyf-lemon-love.space/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="人工智能" scheme="https://luyf-lemon-love.space/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
       <category term="大语言模型" scheme="https://luyf-lemon-love.space/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"/>
     

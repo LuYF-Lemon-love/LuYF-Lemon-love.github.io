@@ -430,10 +430,6 @@
                             <span class="chip bg-color">深度学习</span>
                         </a>
                         
-                        <a href="/tags/人工智能/" target="_blank">
-                            <span class="chip bg-color">人工智能</span>
-                        </a>
-                        
                         <a href="/tags/大语言模型/" target="_blank">
                             <span class="chip bg-color">大语言模型</span>
                         </a>
@@ -476,7 +472,7 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    272
+                    327
                 </div>
                 
 
@@ -517,11 +513,17 @@
 <span class="token operator">>></span><span class="token operator">></span> c4_subset <span class="token operator">=</span> load_dataset<span class="token punctuation">(</span><span class="token string">"allenai/c4"</span><span class="token punctuation">,</span> data_files<span class="token operator">=</span><span class="token string">"en/c4-train.0000*-of-01024.json.gz"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>要通过HTTP加载远程文本文件，请传递URL：</p>
 <pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> dataset <span class="token operator">=</span> load_dataset<span class="token punctuation">(</span><span class="token string">"text"</span><span class="token punctuation">,</span> data_files<span class="token operator">=</span><span class="token string">"https://huggingface.co/datasets/lhoestq/test/resolve/main/some_text.txt"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>要加载XML数据，你可以使用“xml”加载器，它等同于将sample_by设置为“document”的“text”加载器。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> datasets <span class="token keyword">import</span> load_dataset
+<span class="token operator">>></span><span class="token operator">></span> dataset <span class="token operator">=</span> load_dataset<span class="token punctuation">(</span><span class="token string">"xml"</span><span class="token punctuation">,</span> data_files<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">"train"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"my_xml_1.xml"</span><span class="token punctuation">,</span> <span class="token string">"my_xml_2.xml"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"test"</span><span class="token punctuation">:</span> <span class="token string">"my_xml_file.xml"</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># Load from a directory</span>
+<span class="token operator">>></span><span class="token operator">></span> dataset <span class="token operator">=</span> load_dataset<span class="token punctuation">(</span><span class="token string">"xml"</span><span class="token punctuation">,</span> data_dir<span class="token operator">=</span><span class="token string">"path/to/xml/dataset"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Operating System: Ubuntu 22.04.4 LTS</p>
 <h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
 <li><a href="https://huggingface.co/docs/datasets/nlp_load" target="_blank" rel="noopener">Load text data</a></li>
 </ol>
-<h2 id="File-based-builders"><a href="#File-based-builders" class="headerlink" title="File-based builders"></a>File-based builders</h2><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百九十六篇博文写完，开心！！！！</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百九十六篇博文写完，开心！！！！</p>
 <p>今天，也是充满希望的一天。</p>
 
             </div>
@@ -822,10 +824,6 @@ Operating System: Ubuntu 22.04.4 LTS
                         <span class="chip bg-color">深度学习</span>
                     </a>
                     
-                    <a href="/tags/人工智能/" target="_blank">
-                        <span class="chip bg-color">人工智能</span>
-                    </a>
-                    
                     <a href="/tags/大语言模型/" target="_blank">
                         <span class="chip bg-color">大语言模型</span>
                     </a>
@@ -1005,7 +1003,7 @@ Operating System: Ubuntu 22.04.4 LTS
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">772.5k</span>
+            <span class="white-color">773.5k</span>
             
 
             <br>
