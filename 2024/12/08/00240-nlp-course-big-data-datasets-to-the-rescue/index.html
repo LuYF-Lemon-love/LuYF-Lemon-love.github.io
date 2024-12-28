@@ -1,0 +1,1379 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00240 NLP Course - Big data? 🤗 Datasets to the rescue!, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言如今，发现自己正在处理多吉字节数据集的情况并不少见，特别是如果你计划从头开始预训练像 BERT 或 GPT-2 这样的变压器模型。在这些情况下，即使是加载数据也可能是一个挑战。例如，用于预训练 GPT-2 的 WebText 语料库包含">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00240 NLP Course - Big data? 🤗 Datasets to the rescue! | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/041-%E6%B0%94%E8%B4%A8%E9%AB%98%E6%B8%85%E7%BE%8E%E5%A5%B3%E7%99%BD%E8%89%B2%E8%A3%99%E5%AD%90%E9%BB%84%E7%8E%89%E7%91%B6.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00240 NLP Course - Big data? 🤗 Datasets to the rescue!</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大语言模型</span>
+                            </a>
+                        
+                            <a href="/tags/huggingface/">
+                                <span class="chip bg-color">huggingface</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                大语言模型
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-12-08
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如今，发现自己正在处理多吉字节数据集的情况并不少见，特别是如果你计划从头开始预训练像 BERT 或 GPT-2 这样的变压器模型。在这些情况下，即使是加载数据也可能是一个挑战。例如，用于预训练 GPT-2 的 WebText 语料库包含超过800万个文档和40GB的文本——将这些数据加载到你的笔记本电脑的内存中，很可能会让它崩溃！</p>
+<p>幸运的是，🤗 Datasets 被设计用来克服这些限制。它通过将数据集视为内存映射文件，让你摆脱内存管理问题，并通过流式传输语料库中的条目，让你摆脱硬盘限制。</p>
+<p>在这一节中，我们将通过一个名为 <a href="https://pile.eleuther.ai/">Pile</a> 的巨大 825 GB 语料库来探索 🤗 Datasets 的这些特性。让我们开始吧！</p>
+<p>src link: <a href="https://huggingface.co/learn/nlp-course/chapter5/4">https://huggingface.co/learn/nlp-course/chapter5/4</a></p>
+<p>Operating System: Ubuntu 22.04.4 LTS</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://huggingface.co/learn/nlp-course/chapter5/4">NLP Course - Big data? 🤗 Datasets to the rescue!</a></li>
+</ol>
+<h2 id="什么是-Pile？"><a href="#什么是-Pile？" class="headerlink" title="什么是 Pile？"></a>什么是 Pile？</h2><p>Pile 是由 EleutherAI 创建的英文文本语料库，用于训练大规模语言模型。它包括范围广泛的多种数据集，涵盖科学文章、GitHub 代码仓库和经过筛选的网络文本。训练语料库以 14 GB 的块形式提供，您还可以下载其中的几个单独组成部分。让我们从查看 PubMed Abstracts 数据集开始，这是一个包含 PubMed 上 1500 万篇生物医学出版物摘要的语料库。该数据集采用 JSON Lines 格式，并使用 zstandard 库进行压缩，因此我们首先需要安装它：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">!pip install zstandard<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>接下来，我们可以使用我们在第2节中学到的远程文件方法加载数据集：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> datasets <span class="token keyword">import</span> load_dataset
+
+<span class="token comment"># This takes a few minutes to run, so go grab a tea or coffee while you wait :)</span>
+data_files <span class="token operator">=</span> <span class="token string">"https://the-eye.eu/public/AI/pile_preliminary_components/PUBMED_title_abstracts_2019_baseline.jsonl.zst"</span>
+pubmed_dataset <span class="token operator">=</span> load_dataset<span class="token punctuation">(</span><span class="token string">"json"</span><span class="token punctuation">,</span> data_files<span class="token operator">=</span>data_files<span class="token punctuation">,</span> split<span class="token operator">=</span><span class="token string">"train"</span><span class="token punctuation">)</span>
+pubmed_dataset<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">Dataset<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    features<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'meta'</span><span class="token punctuation">,</span> <span class="token string">'text'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    num_rows<span class="token punctuation">:</span> <span class="token number">15518009</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以看到数据集中有 15,518,009 行和 2 列——这非常多！</p>
+<blockquote>
+<p>✎ 默认情况下，🤗 Datasets 会解压缩加载数据集所需的文件。如果你想节省硬盘空间，可以将 DownloadConfig(delete_extracted&#x3D;True) 传递给 load_dataset() 的 download_config 参数。有关更多详细信息，请参阅<a href="https://huggingface.co/docs/datasets/package_reference/builder_classes#datasets.DownloadConfig">文档</a>。</p>
+</blockquote>
+<p>让我们检查第一个示例的内容：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">pubmed_dataset<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">&#123;</span><span class="token string">'meta'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'pmid'</span><span class="token punctuation">:</span> <span class="token number">11409574</span><span class="token punctuation">,</span> <span class="token string">'language'</span><span class="token punctuation">:</span> <span class="token string">'eng'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ <span class="token string">'text'</span><span class="token punctuation">:</span> <span class="token string">'Epidemiology of hypoxaemia in children with acute lower respiratory infection.\nTo determine the prevalence of hypoxaemia in children aged under 5 years suffering acute lower respiratory infections (ALRI), the risk factors for hypoxaemia in children under 5 years of age with ALRI, and the association of hypoxaemia with an increased risk of dying in children of the same age ...'</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>好的，这看起来像是一篇医学文章的摘要。现在让我们看看我们加载这个数据集使用了多少内存！</p>
+<h2 id="内存映射的魔力"><a href="#内存映射的魔力" class="headerlink" title="内存映射的魔力"></a>内存映射的魔力</h2><p>在 Python 中测量内存使用的一个简单方法是使用 <a href="https://psutil.readthedocs.io/en/latest/">psutil</a> 库，可以通过 pip 安装，如下所示：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">!pip install psutil<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>它提供了一个 Process 类，允许我们按以下方式检查当前进程的内存使用情况：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> psutil
+
+<span class="token comment"># Process.memory_info is expressed in bytes, so convert to megabytes</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"RAM used: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>psutil<span class="token punctuation">.</span>Process<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>memory_info<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>rss <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token format-spec">.2f</span><span class="token punctuation">&#125;</span></span><span class="token string"> MB"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">RAM used: <span class="token number">5678.33</span> MB<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这里的 rss 属性指的是常驻集大小，即进程在 RAM 中占用的内存部分。这个测量还包括 Python 解释器和我们已经加载的库所占用的内存，所以实际用于加载数据集的内存量要小一些。为了比较，让我们使用 dataset_size 属性看看数据集在磁盘上有多大。由于结果像之前一样以字节表示，我们需要手动将其转换为吉字节：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Number of files in dataset : </span><span class="token interpolation"><span class="token punctuation">&#123;</span>pubmed_dataset<span class="token punctuation">.</span>dataset_size<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+size_gb <span class="token operator">=</span> pubmed_dataset<span class="token punctuation">.</span>dataset_size <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token number">1024</span><span class="token operator">**</span><span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Dataset size (cache file) : </span><span class="token interpolation"><span class="token punctuation">&#123;</span>size_gb<span class="token punctuation">:</span><span class="token format-spec">.2f</span><span class="token punctuation">&#125;</span></span><span class="token string"> GB"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">Number of files <span class="token keyword">in</span> dataset <span class="token punctuation">:</span> <span class="token number">20979437051</span>
+Dataset size <span class="token punctuation">(</span>cache <span class="token builtin">file</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token number">19.54</span> GB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>太好了——尽管数据集几乎有 20 GB 大，我们还是能够使用更少的内存来加载和访问数据集！</p>
+<blockquote>
+<p>✏️ 尝试一下！从 Pile 中挑选一个比你的笔记本电脑或台式机内存更大的子集，用 🤗 Datasets 加载它，并测量使用的内存量。注意，为了得到准确的测量结果，你需要在新的进程中执行此操作。你可以在 <a href="https://arxiv.org/abs/2101.00027">Pile 论文</a>的表 1 中找到每个子集的解压缩大小。</p>
+</blockquote>
+<p>如果你熟悉 Pandas，这个结果可能会让你感到惊讶，因为 Wes Kinney 有一个著名的<a href="https://wesmckinney.com/blog/apache-arrow-pandas-internals/">经验法则</a>，即你通常需要比数据集大小多 5 到 10 倍的内存。那么 🤗 Datasets 是如何解决这个内存管理问题的呢？🤗 Datasets 将每个数据集视为一个<a href="https://en.wikipedia.org/wiki/Memory-mapped_file">内存映射文件</a>，它提供了一个在 RAM 和文件系统存储之间的映射，允许库在不完全将数据集加载到内存的情况下访问和操作数据集的元素。</p>
+<p>内存映射文件还可以在多个进程之间共享，这使得像 Dataset.map() 这样的方法可以并行化，而无需移动或复制数据集。在底层，这些功能都是通过 <a href="https://arrow.apache.org/">Apache Arrow</a> 内存格式和 <a href="https://arrow.apache.org/docs/python/index.html">pyarrow</a> 库实现的，它们使数据加载和处理变得非常快。（关于 Apache Arrow 和与 Pandas 的比较的更多细节，请查看 <a href="https://towardsdatascience.com/apache-arrow-read-dataframe-with-zero-memory-69634092b1a">Dejan Simic 的博客文章</a>。）为了看到这一点，让我们通过遍历 PubMed Abstracts 数据集中的所有元素来运行一个小型速度测试：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> timeit
+
+code_snippet <span class="token operator">=</span> <span class="token triple-quoted-string string">"""batch_size = 1000
+
+for idx in range(0, len(pubmed_dataset), batch_size):
+    _ = pubmed_dataset[idx:idx + batch_size]
+"""</span>
+
+time <span class="token operator">=</span> timeit<span class="token punctuation">.</span>timeit<span class="token punctuation">(</span>stmt<span class="token operator">=</span>code_snippet<span class="token punctuation">,</span> number<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token builtin">globals</span><span class="token operator">=</span><span class="token builtin">globals</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>
+    <span class="token string-interpolation"><span class="token string">f"Iterated over </span><span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token builtin">len</span><span class="token punctuation">(</span>pubmed_dataset<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string"> examples (about </span><span class="token interpolation"><span class="token punctuation">&#123;</span>size_gb<span class="token punctuation">:</span><span class="token format-spec">.1f</span><span class="token punctuation">&#125;</span></span><span class="token string"> GB) in "</span></span>
+    <span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>time<span class="token punctuation">:</span><span class="token format-spec">.1f</span><span class="token punctuation">&#125;</span></span><span class="token string">s, i.e. </span><span class="token interpolation"><span class="token punctuation">&#123;</span>size_gb<span class="token operator">/</span>time<span class="token punctuation">:</span><span class="token format-spec">.3f</span><span class="token punctuation">&#125;</span></span><span class="token string"> GB/s"</span></span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token string">'Iterated over 15518009 examples (about 19.5 GB) in 64.2s, i.e. 0.304 GB/s'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在这里，我们使用了 Python 的 timeit 模块来测量 code_snippet 的执行时间。通常，你能够以每秒几百兆字节到几吉字节的速度遍历一个数据集。这对于绝大多数应用程序来说都很好，但有时你需要处理一个太大以至于无法存储在你笔记本电脑硬盘上的数据集。例如，如果我们尝试下载整个 Pile，我们将需要 825 GB 的可用磁盘空间！为了处理这些情况，🤗 Datasets 提供了一个流式处理功能，允许我们即时下载和访问元素，而无需下载整个数据集。让我们来看看这是如何工作的。</p>
+<blockquote>
+<p>💡 在 Jupyter 笔记本中，你还可以使用 <a href="https://ipython.readthedocs.io/en/stable/interactive/magics.html#magic-timeit">%%timeit 魔法函数</a>来计算单元格的执行时间。</p>
+</blockquote>
+<h2 id="流式数据集"><a href="#流式数据集" class="headerlink" title="流式数据集"></a>流式数据集</h2><p>要启用数据集流式处理，你只需要向 load_dataset() 函数传递 streaming&#x3D;True 参数。例如，让我们再次加载 PubMed Abstracts 数据集，但这次使用流式模式：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">pubmed_dataset_streamed <span class="token operator">=</span> load_dataset<span class="token punctuation">(</span>
+    <span class="token string">"json"</span><span class="token punctuation">,</span> data_files<span class="token operator">=</span>data_files<span class="token punctuation">,</span> split<span class="token operator">=</span><span class="token string">"train"</span><span class="token punctuation">,</span> streaming<span class="token operator">=</span><span class="token boolean">True</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>与本章其他地方遇到的熟悉的 Dataset 不同，使用 streaming&#x3D;True 返回的对象是一个 IterableDataset。顾名思义，要访问 IterableDataset 的元素，我们需要遍历它。我们可以按以下方式访问我们流式数据集的第一个元素：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token builtin">next</span><span class="token punctuation">(</span><span class="token builtin">iter</span><span class="token punctuation">(</span>pubmed_dataset_streamed<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">&#123;</span><span class="token string">'meta'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'pmid'</span><span class="token punctuation">:</span> <span class="token number">11409574</span><span class="token punctuation">,</span> <span class="token string">'language'</span><span class="token punctuation">:</span> <span class="token string">'eng'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ <span class="token string">'text'</span><span class="token punctuation">:</span> <span class="token string">'Epidemiology of hypoxaemia in children with acute lower respiratory infection.\nTo determine the prevalence of hypoxaemia in children aged under 5 years suffering acute lower respiratory infections (ALRI), the risk factors for hypoxaemia in children under 5 years of age with ALRI, and the association of hypoxaemia with an increased risk of dying in children of the same age ...'</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>来自流式数据集的元素可以使用 IterableDataset.map() 进行即时处理，这在训练期间需要对输入进行分词时非常有用。这个过程与我们在第 3 章中用来分词数据集的过程完全相同，唯一的区别是输出是一个接一个地返回的：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoTokenizer
+
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"distilbert-base-uncased"</span><span class="token punctuation">)</span>
+tokenized_dataset <span class="token operator">=</span> pubmed_dataset_streamed<span class="token punctuation">.</span><span class="token builtin">map</span><span class="token punctuation">(</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> tokenizer<span class="token punctuation">(</span>x<span class="token punctuation">[</span><span class="token string">"text"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token builtin">next</span><span class="token punctuation">(</span><span class="token builtin">iter</span><span class="token punctuation">(</span>tokenized_dataset<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">&#123;</span><span class="token string">'input_ids'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">101</span><span class="token punctuation">,</span> <span class="token number">4958</span><span class="token punctuation">,</span> <span class="token number">5178</span><span class="token punctuation">,</span> <span class="token number">4328</span><span class="token punctuation">,</span> <span class="token number">6779</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'attention_mask'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>💡 为了加快流式处理中的分词速度，你可以传递 batched&#x3D;True，就像我们在上一节看到的那样。它将批量处理示例；默认批量大小是 1,000，可以通过 batch_size 参数指定。</p>
+</blockquote>
+<p>你还可以使用 IterableDataset.shuffle() 对流式数据集进行混洗，但与 Dataset.shuffle() 不同，这只能在预定义的 buffer_size 中混洗元素：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">shuffled_dataset <span class="token operator">=</span> pubmed_dataset_streamed<span class="token punctuation">.</span>shuffle<span class="token punctuation">(</span>buffer_size<span class="token operator">=</span><span class="token number">10_000</span><span class="token punctuation">,</span> seed<span class="token operator">=</span><span class="token number">42</span><span class="token punctuation">)</span>
+<span class="token builtin">next</span><span class="token punctuation">(</span><span class="token builtin">iter</span><span class="token punctuation">(</span>shuffled_dataset<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">&#123;</span><span class="token string">'meta'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'pmid'</span><span class="token punctuation">:</span> <span class="token number">11410799</span><span class="token punctuation">,</span> <span class="token string">'language'</span><span class="token punctuation">:</span> <span class="token string">'eng'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ <span class="token string">'text'</span><span class="token punctuation">:</span> <span class="token string">'Randomized study of dose or schedule modification of granulocyte colony-stimulating factor in platinum-based chemotherapy for elderly patients with lung cancer ...'</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>在这个例子中，我们从缓冲区中的前 10,000 个示例中随机选择了一个示例。一旦访问了一个示例，其缓冲区中的位置就会被语料库中的下一个示例填充（即上述情况中的第 10,001 个示例）。你还可以使用 IterableDataset.take() 和 IterableDataset.skip() 函数从流式数据集中选择元素，它们的作用类似于 Dataset.select()。例如，要选择 PubMed Abstracts 数据集中的前 5 个示例，我们可以这样做：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">dataset_head <span class="token operator">=</span> pubmed_dataset_streamed<span class="token punctuation">.</span>take<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+<span class="token builtin">list</span><span class="token punctuation">(</span>dataset_head<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">[</span><span class="token punctuation">&#123;</span><span class="token string">'meta'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'pmid'</span><span class="token punctuation">:</span> <span class="token number">11409574</span><span class="token punctuation">,</span> <span class="token string">'language'</span><span class="token punctuation">:</span> <span class="token string">'eng'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token string">'text'</span><span class="token punctuation">:</span> <span class="token string">'Epidemiology of hypoxaemia in children with acute lower respiratory infection ...'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ <span class="token punctuation">&#123;</span><span class="token string">'meta'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'pmid'</span><span class="token punctuation">:</span> <span class="token number">11409575</span><span class="token punctuation">,</span> <span class="token string">'language'</span><span class="token punctuation">:</span> <span class="token string">'eng'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token string">'text'</span><span class="token punctuation">:</span> <span class="token string">'Clinical signs of hypoxaemia in children with acute lower respiratory infection: indicators of oxygen therapy ...'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ <span class="token punctuation">&#123;</span><span class="token string">'meta'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'pmid'</span><span class="token punctuation">:</span> <span class="token number">11409576</span><span class="token punctuation">,</span> <span class="token string">'language'</span><span class="token punctuation">:</span> <span class="token string">'eng'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token string">'text'</span><span class="token punctuation">:</span> <span class="token string">"Hypoxaemia in children with severe pneumonia in Papua New Guinea ..."</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ <span class="token punctuation">&#123;</span><span class="token string">'meta'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'pmid'</span><span class="token punctuation">:</span> <span class="token number">11409577</span><span class="token punctuation">,</span> <span class="token string">'language'</span><span class="token punctuation">:</span> <span class="token string">'eng'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token string">'text'</span><span class="token punctuation">:</span> <span class="token string">'Oxygen concentrators and cylinders ...'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ <span class="token punctuation">&#123;</span><span class="token string">'meta'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'pmid'</span><span class="token punctuation">:</span> <span class="token number">11409578</span><span class="token punctuation">,</span> <span class="token string">'language'</span><span class="token punctuation">:</span> <span class="token string">'eng'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token string">'text'</span><span class="token punctuation">:</span> <span class="token string">'Oxygen supply in rural africa: a personal experience ...'</span><span class="token punctuation">&#125;</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>类似地，你可以使用 IterableDataset.skip() 函数从混洗的数据集中创建训练和验证分割，如下所示：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Skip the first 1,000 examples and include the rest in the training set</span>
+train_dataset <span class="token operator">=</span> shuffled_dataset<span class="token punctuation">.</span>skip<span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span>
+<span class="token comment"># Take the first 1,000 examples for the validation set</span>
+validation_dataset <span class="token operator">=</span> shuffled_dataset<span class="token punctuation">.</span>take<span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>让我们以一个常见应用结束对流式数据集的探索：将多个数据集组合在一起创建一个单一的语料库。🤗 Datasets 提供了一个 interleave_datasets() 函数，它将一个 IterableDataset 对象列表转换为一个单一的 IterableDataset，其中新数据集的元素通过交替使用源示例来获取。当你尝试组合大型数据集时，这个函数特别有用，所以作为一个示例，让我们流式处理 Pile 的 FreeLaw 子集，这是一个来自美国法院的 51 GB 法律意见数据集：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">law_dataset_streamed <span class="token operator">=</span> load_dataset<span class="token punctuation">(</span>
+    <span class="token string">"json"</span><span class="token punctuation">,</span>
+    data_files<span class="token operator">=</span><span class="token string">"https://the-eye.eu/public/AI/pile_preliminary_components/FreeLaw_Opinions.jsonl.zst"</span><span class="token punctuation">,</span>
+    split<span class="token operator">=</span><span class="token string">"train"</span><span class="token punctuation">,</span>
+    streaming<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token builtin">next</span><span class="token punctuation">(</span><span class="token builtin">iter</span><span class="token punctuation">(</span>law_dataset_streamed<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">&#123;</span><span class="token string">'meta'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'case_ID'</span><span class="token punctuation">:</span> <span class="token string">'110921.json'</span><span class="token punctuation">,</span>
+  <span class="token string">'case_jurisdiction'</span><span class="token punctuation">:</span> <span class="token string">'scotus.tar.gz'</span><span class="token punctuation">,</span>
+  <span class="token string">'date_created'</span><span class="token punctuation">:</span> <span class="token string">'2010-04-28T17:12:49Z'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ <span class="token string">'text'</span><span class="token punctuation">:</span> <span class="token string">'\n461 U.S. 238 (1983)\nOLIM ET AL.\nv.\nWAKINEKONA\nNo. 81-1581.\nSupreme Court of United States.\nArgued January 19, 1983.\nDecided April 26, 1983.\nCERTIORARI TO THE UNITED STATES COURT OF APPEALS FOR THE NINTH CIRCUIT\n*239 Michael A. Lilly, First Deputy Attorney General of Hawaii, argued the cause for petitioners. With him on the brief was James H. Dannenberg, Deputy Attorney General...'</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这个数据集足够大，可以给大多数笔记本电脑的内存带来压力，但我们能够轻松地加载和访问它！现在，让我们使用 interleave_datasets() 函数将 FreeLaw 和 PubMed Abstracts 数据集的示例结合起来：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> itertools <span class="token keyword">import</span> islice
+<span class="token keyword">from</span> datasets <span class="token keyword">import</span> interleave_datasets
+
+combined_dataset <span class="token operator">=</span> interleave_datasets<span class="token punctuation">(</span><span class="token punctuation">[</span>pubmed_dataset_streamed<span class="token punctuation">,</span> law_dataset_streamed<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token builtin">list</span><span class="token punctuation">(</span>islice<span class="token punctuation">(</span>combined_dataset<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">[</span><span class="token punctuation">&#123;</span><span class="token string">'meta'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'pmid'</span><span class="token punctuation">:</span> <span class="token number">11409574</span><span class="token punctuation">,</span> <span class="token string">'language'</span><span class="token punctuation">:</span> <span class="token string">'eng'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token string">'text'</span><span class="token punctuation">:</span> <span class="token string">'Epidemiology of hypoxaemia in children with acute lower respiratory infection ...'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ <span class="token punctuation">&#123;</span><span class="token string">'meta'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'case_ID'</span><span class="token punctuation">:</span> <span class="token string">'110921.json'</span><span class="token punctuation">,</span>
+   <span class="token string">'case_jurisdiction'</span><span class="token punctuation">:</span> <span class="token string">'scotus.tar.gz'</span><span class="token punctuation">,</span>
+   <span class="token string">'date_created'</span><span class="token punctuation">:</span> <span class="token string">'2010-04-28T17:12:49Z'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token string">'text'</span><span class="token punctuation">:</span> <span class="token string">'\n461 U.S. 238 (1983)\nOLIM ET AL.\nv.\nWAKINEKONA\nNo. 81-1581.\nSupreme Court of United States.\nArgued January 19, 1983.\nDecided April 26, 1983.\nCERTIORARI TO THE UNITED STATES COURT OF APPEALS FOR THE NINTH CIRCUIT\n*239 Michael A. Lilly, First Deputy Attorney General of Hawaii, argued the cause for petitioners. With him on the brief was James H. Dannenberg, Deputy Attorney General...'</span><span class="token punctuation">&#125;</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在这里，我们使用了 Python 的 itertools 模块中的 islice() 函数来从组合数据集中选择前两个示例，我们可以看到它们与两个源数据集的第一个示例相匹配。</p>
+<p>最后，如果你想要流式处理整个 825 GB 的 Pile，你可以按以下方式获取所有准备好的文件：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">base_url <span class="token operator">=</span> <span class="token string">"https://the-eye.eu/public/AI/pile/"</span>
+data_files <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">"train"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>base_url <span class="token operator">+</span> <span class="token string">"train/"</span> <span class="token operator">+</span> <span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>idx<span class="token punctuation">:</span><span class="token format-spec">02d</span><span class="token punctuation">&#125;</span></span><span class="token string">.jsonl.zst"</span></span> <span class="token keyword">for</span> idx <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"validation"</span><span class="token punctuation">:</span> base_url <span class="token operator">+</span> <span class="token string">"val.jsonl.zst"</span><span class="token punctuation">,</span>
+    <span class="token string">"test"</span><span class="token punctuation">:</span> base_url <span class="token operator">+</span> <span class="token string">"test.jsonl.zst"</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+pile_dataset <span class="token operator">=</span> load_dataset<span class="token punctuation">(</span><span class="token string">"json"</span><span class="token punctuation">,</span> data_files<span class="token operator">=</span>data_files<span class="token punctuation">,</span> streaming<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+<span class="token builtin">next</span><span class="token punctuation">(</span><span class="token builtin">iter</span><span class="token punctuation">(</span>pile_dataset<span class="token punctuation">[</span><span class="token string">"train"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">&#123;</span><span class="token string">'meta'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'pile_set_name'</span><span class="token punctuation">:</span> <span class="token string">'Pile-CC'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ <span class="token string">'text'</span><span class="token punctuation">:</span> <span class="token string">'It is done, and submitted. You can play “Survival of the Tastiest” on Android, and on the web...'</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>✏️ 尝试一下！使用像 <a href="https://huggingface.co/datasets/mc4">mc4</a> 或 <a href="https://huggingface.co/datasets/oscar">oscar</a> 这样的大型 Common Crawl 语料库来创建一个流式多语言数据集，代表你选择的国家中语言的使用比例。例如，瑞士的四种国家语言是德语、法语、意大利语和罗曼什语，所以你可以尝试根据它们的使用比例对 Oscar 子集进行采样，以创建一个瑞士语料库。</p>
+</blockquote>
+<p>现在，你已经拥有了加载和处理各种形状和大小的数据集所需的所有工具——但除非你非常幸运，否则在你的 NLP 旅程中总会有一个时刻，你需要实际创建一个数据集来解决手头的问题。这就是下一节的主题！</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百四十篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2024/12/08/00240-nlp-course-big-data-datasets-to-the-rescue/">https://luyf-lemon-love.space/2024/12/08/00240-nlp-course-big-data-datasets-to-the-rescue/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大语言模型</span>
+                                </a>
+                            
+                                <a href="/tags/huggingface/">
+                                    <span class="chip bg-color">huggingface</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/12/08/00241-nlp-course-creating-your-own-dataset/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/042-%E7%BE%8E%E5%A5%B3%E9%BB%84%E7%8E%89%E7%91%B6%E7%8E%BB%E7%92%83%E6%9D%AF.jpg" class="responsive-img" alt="00241 NLP Course - Creating your own dataset">
+                        
+                        <span class="card-title">00241 NLP Course - Creating your own dataset</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-12-08
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/12/06/00239-subprocess-run-yong-fa/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/040-%E9%AB%98%E6%B8%85%E7%BE%8E%E5%A5%B3%E5%9B%BE%E7%89%87%E9%BB%84%E7%8E%89%E7%91%B6.jpg" class="responsive-img" alt="00239 subprocess.run 用法">
+                        
+                        <span class="card-title">00239 subprocess.run 用法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

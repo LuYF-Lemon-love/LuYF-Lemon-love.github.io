@@ -1,0 +1,1364 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00152 “StackLLaMA”: 用 RLHF 训练 LLaMA 的手把手教程, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言本文介绍了StackLLaMA。
+Hugging Face Github 主页: https://github.com/huggingface
+
+如 ChatGPT，GPT-4，Claude语言模型 之强大，因为它们采用了 基于人类反馈">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00152 “StackLLaMA”: 用 RLHF 训练 LLaMA 的手把手教程 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/038-119887888.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00152 “StackLLaMA”: 用 RLHF 训练 LLaMA 的手把手教程</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大语言模型</span>
+                            </a>
+                        
+                            <a href="/tags/huggingface/">
+                                <span class="chip bg-color">huggingface</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                大语言模型
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-08-03
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文介绍了StackLLaMA。</p>
+<p>Hugging Face Github 主页: <a href="https://github.com/huggingface">https://github.com/huggingface</a></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803163201.png"></p>
+<p>如 <a href="https://openai.com/blog/chatgpt">ChatGPT</a>，<a href="https://openai.com/research/gpt-4">GPT-4</a>，<a href="https://www.anthropic.com/index/introducing-claude">Claude</a>语言模型 之强大，因为它们采用了 <strong>基于人类反馈的强化学习</strong> (Reinforcement Learning from Human Feedback, RLHF) 来使之更符合我们的使用场景。</p>
+<p>本博客旨在展示用 RLHF 训练一个 <a href="https://ai.facebook.com/blog/large-language-model-llama-meta-ai">LLaMA</a> 模型，以回答 <a href="https://stackexchange.com/">Stack Exchange</a> 上的问题。具体而言，包含以下几个方面:</p>
+<ul>
+<li><strong>有监督的微调 (Supervised Fine-tuning，SFT)。</strong></li>
+<li><strong>奖励 &#x2F; 偏好建模 (Reward &#x2F; preference modeling，RM)。</strong></li>
+<li><strong>基于人类反馈的强化学习 (RLHF)。</strong></li>
+</ul>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803163249.png"></p>
+<p>摘自 InstructGPT 论文，Ouyang, Long, et al. “Training language models to follow instructions with human feedback.” arXiv preprint arXiv:2203.02155 (2022).</p>
+<p>结合了上述方法，我们发布了 StackLLaMA 模型，该模型在 <a href="https://huggingface.co/trl-lib/llama-se-rl-peft">🤗 Hub</a> 上开源 (访问链接查看 <a href="https://ai.facebook.com/blog/large-language-model-llama-meta-ai/">Meta 的原始 LLaMA</a> )，整个 <a href="https://huggingface.co/docs/trl/index">训练的流程</a> 已经集成到了 Hugging Face TRL 库中 。你可以通过下面的 <a href="https://huggingface.co/spaces/trl-lib/stack-llama">demo</a> 来尝试该模型。</p>
+<p>操作系统：Windows 11 家庭中文版</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://huggingface.co/blog/stackllama">StackLLaMA: A hands-on guide to train LLaMA with RLHF</a></li>
+<li><a href="https://huggingface.co/blog/zh/stackllama">“StackLLaMA”: 用 RLHF 训练 LLaMA 的手把手教程</a></li>
+</ol>
+<h2 id="LLaMA-模型"><a href="#LLaMA-模型" class="headerlink" title="LLaMA 模型"></a>LLaMA 模型</h2><p>在实践 RLHF 时，选取一个合适的模型很重要: RLHF 只是一个让模型满足我们交互形式的需求的微调过程 。所以我们选取了最近上线的 <a href="https://arxiv.org/abs/2302.13971">LLaMA</a> 模型。LLaMA 模型是 Meta AI 最近推出的大语言模型。其参数量大小涵盖 7B 到 65B，以及训练在 1T 和 1.4T 的 token 上，这让其很实用。我们这里采用 7B 的模型。(请填写 Meta AI 的这份 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfqNECQnMkycAp2jP4Z9TFX0cGR4uf7b_fBxjY_OjhJILlKGA/viewform">表单</a> 来下载模型)。</p>
+<h2 id="Stack-Exchange-数据集"><a href="#Stack-Exchange-数据集" class="headerlink" title="Stack Exchange 数据集"></a>Stack Exchange 数据集</h2><p>收集人类的反馈数据集是很复杂且昂贵的劳动。为了做到这个，并且还能保证模型的有效性，我们使用 <a href="https://huggingface.co/datasets/HuggingFaceH4/stack-exchange-preferences">StackExchange 数据集</a>。该数据集涵盖了 StackExchange 平台上的问题和答案 (包含 StackOverflow 的编程等话题下的)。这很适合我们的实践，因为其包含了每个答案的赞和踩的数量。</p>
+<p>我们按照 <a href="https://arxiv.org/abs/2112.00861">Askell et al. 2021</a> 中的方法，给每个答案赋分:</p>
+<pre class="line-numbers language-none"><code class="language-none">score &#x3D; log2 (1 + upvotes) rounded to the nearest integer, plus 1 if the questioner accepted the answer (we assign a score of −1 if the number of upvotes is negative).<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>对奖励模型，我们将看到每个问题总是需要两个答案对比。有些问题有很多答案，可以产生很多对，我们只取十个以限制每个问题的数据量。最后，我们把格式从 HTML 转化到 Markdown 以提高输出的可读性。你可以看到数据集和处理过程的 [笔记本]。(<a href="https://huggingface.co/datasets/lvwerra/stack-exchange-paired%E3%80%82">https://huggingface.co/datasets/lvwerra/stack-exchange-paired。</a>)</p>
+<h2 id="高效训练策略"><a href="#高效训练策略" class="headerlink" title="高效训练策略"></a>高效训练策略</h2><p>即使是最小 LLaMA 模型的训练，都需要大量内存。估算一下: 以 bf16 半精度，每个参数用 2 个字节 (以 fp32 精度四字节的标准)，训练时需要 8 个字节 (例如 Adam 优化器，参见 Tramsformers 的 <a href="https://huggingface.co/docs/transformers/perf_train_gpu_one#optimizer">性能文档</a>)。可见 7B 参数量的模型将用 (2+8)* 7B &#x3D; 70 GB 的内存，并且还可能需要更多用于计算诸如注意力分数的中间值。所以很难在一张 80GB 显存的 A100 上训练。或许你可以使用一些技巧，比如用更高效的半精度训练的优化器来压缩内存，但溢出是迟早的。</p>
+<p>另外的可能是 <strong>参数高效的微调</strong>(Parameter-Efficient Fine-Tuning, PEFT) 技术，比如 <a href="https://github.com/huggingface/peft"><code>peft</code></a> 库，它可以对使用 8-bit 加载的模型做 <strong>低秩优化</strong>(Low-Rank Adaptation，LoRA)。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/lora-animated.gif"></p>
+<p>线性层的低秩优化: <strong>额外参数 (橙色) 被加在 Frozen 层 (蓝色)，编码后的隐藏状态与 Frozen 层的隐藏状态叠加在一起。</strong></p>
+<p><strong>以 8bit 加载模型会大幅降低内存占用，因为每个参数只要一字节 (比如 7B LLaMA 是 7GB 内存)。与直接训练原始模型不同，LoRA 在特定层 (一般是注意力层) 添加少量新参数，大幅降低了需要训练的参数。</strong></p>
+<p><strong>此情此景，一个衡量标准是 1B 的参数在整个微调过程中占 ~1.2-1.4GB (和具体 batch size 及序列长度有关)。在参考的博客中具体讨论了，这使得低成本下微调较大参数规模的模型成为可能 (比如在一张 A100 上微调 50-60B 的参数)。</strong></p>
+<p>这些技术能让微调大模型的任务，在消费级设备和 Google Colab 上执行。这里提供一些值得关注的演示 demo: <code>facebook/opt-6.7b</code> (在 float16 精度下 13GB) 和 <code>openai/whisper-large</code><br>跑在 Google Colab (15GB 显存) 上。欲了解 <code>peft</code> 的使用，请参见 <a href="https://github.com/huggingface/peft">github 仓库</a> 或者之前的 <a href="https://huggingface.co/blog/trl-peft">博客介绍</a>: 在客户端训练 20B 参数量的模型。</p>
+<p>现在我们能在一张 GPU 上微调很大的模型了，但训练还是会很慢。此时最简单的策略便是并行化: <strong>把一个训练同时放到不同的 GPU 上，各 GPU 接受不同的 batch。这样我们可以并行执行前向传播和后向传播，通过增加 GPU 的数量实现并行能力提升。</strong></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803163552.png"></p>
+<p>我们可以选用 <code>trainsformers.Trainer</code> 或 <code>accelerate</code>，因为它们都支持无代码变更进行数据并行化。只需注意调用 <code>torchrun</code> 或者 <code>accelerate launch</code> 脚本时的参数即可实现。比如以下就是在一个 8 显卡的机器上分别用 <code>accelerate launch</code> 和 <code>torchrun</code>的方法:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">accelerate launch <span class="token parameter variable">--multi_gpu</span> <span class="token parameter variable">--num_machines</span> <span class="token number">1</span>  <span class="token parameter variable">--num_processes</span> <span class="token number">8</span> my_accelerate_script.py
+torchrun <span class="token parameter variable">--nnodes</span> <span class="token number">1</span>  <span class="token parameter variable">--nproc_per_node</span> <span class="token number">8</span> my_torch_script.py<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="有监督的微调"><a href="#有监督的微调" class="headerlink" title="有监督的微调"></a>有监督的微调</h2><p>在训练奖励模型和用 RL 之前，模型若是已经在我们感兴趣的方面表现好将会很有帮助。在我们的示例中，我们想要其能回答问题，而其他时候，我们可能它能听指令 (这时对指令执行的微调是理想的)。实现这个最简单的方法便是面向该语言任务，用该任务和领域的文本，继续训练。<a href="https://huggingface.co/datasets/HuggingFaceH4/stack-exchange-preferences">StackExchange 数据集</a> 含 10M 的指令量，所以我们能用其子集很容易地训练。</p>
+<p>在用 RLHF 之前的模型微调没有特别的，就是一般的面向语言任务的预训练模型微调。为了高效利用数据，我们采用了称之为 <strong>打包</strong> 的技术: <strong>我们没有让 batch 中的每个样本均由单一文本组成，最后基于最长的文本来 padding (填充)，而是把很多文本拼接起来，用 EOS token 来隔开，然后分割成一些 chunk (切块) 来做成 batch，避免 padding。</strong></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803163644.png"></p>
+<p><strong>该方法大大提高了效率，因为模型输入的所有 token 都对 loss 有所训练，而非 padding 作为掩码被丢弃了。如果你没有足够数据，并且担心随意地分开 token 会失去上下文语义，你也可以用传统的数据加载器。</strong> <code>ConstantLengthDataset</code> 解决了 <strong>打包</strong>技术，并且我们能在用 <code>peft</code> 加载模型后用 <code>Trainer</code>。首先，我们用 <code>int8</code> 加载模型，准备训练，然后加入 <code>LoRA</code> 微调器。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># load model in 8bit</span>
+model <span class="token operator">=</span> AutoModelForCausalLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span>
+        args<span class="token punctuation">.</span>model_path<span class="token punctuation">,</span>
+        load_in_8bit<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+        device_map<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">""</span><span class="token punctuation">:</span> Accelerator<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>local_process_index<span class="token punctuation">&#125;</span>
+    <span class="token punctuation">)</span>
+model <span class="token operator">=</span> prepare_model_for_int8_training<span class="token punctuation">(</span>model<span class="token punctuation">)</span>
+
+<span class="token comment"># add LoRA to model</span>
+lora_config <span class="token operator">=</span> LoraConfig<span class="token punctuation">(</span>
+    r<span class="token operator">=</span><span class="token number">16</span><span class="token punctuation">,</span>
+    lora_alpha<span class="token operator">=</span><span class="token number">32</span><span class="token punctuation">,</span>
+    lora_dropout<span class="token operator">=</span><span class="token number">0.05</span><span class="token punctuation">,</span>
+    bias<span class="token operator">=</span><span class="token string">"none"</span><span class="token punctuation">,</span>
+    task_type<span class="token operator">=</span><span class="token string">"CAUSAL_LM"</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+model <span class="token operator">=</span> get_peft_model<span class="token punctuation">(</span>model<span class="token punctuation">,</span> config<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>我们根据相应的语言任务，对模型训练几千个 step (步)，并保存模型。由于我们将会有其他微调模型的目的，我们将 LoRA 的微调器权重合并到原模型中。</strong></p>
+<p><strong>声明</strong>: 因为 LLaMA 的许可证规定，我们只能发布微调器的权重，你需要填 Meta AI 的 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfqNECQnMkycAp2jP4Z9TFX0cGR4uf7b_fBxjY_OjhJILlKGA/viewform">表格</a> 来获取模型，然后用这个 <a href="https://github.com/huggingface/transformers/blob/main/src/transformers/models/llama/convert_llama_weights_to_hf.py">脚本</a> 来转成 🤗 Transformers 格式。注意 🤗 Transformers 应该从源码安装，或者 <code>v4.28</code> 版。</p>
+<p>现在我们已经微调好了模型，可以训练奖励模型了。</p>
+<h2 id="奖励模型和人类偏好"><a href="#奖励模型和人类偏好" class="headerlink" title="奖励模型和人类偏好"></a>奖励模型和人类偏好</h2><p>原则上，我们可以直接用人类标注来对模型做 RLHF 微调。然而，这将需要我们给人类发送一些样本，在每轮优化后计分。这是贵且慢的，因为收敛需要的训练样本量大，而人类阅读和标注的速度有限。</p>
+<p>一个比直接反馈更好的策略是，在进入 RL 循环之前用人类标注集来训练一个奖励模型。奖励模型的目的是模拟人类对文本的打分。构建奖励模型有许多能用的策略: 最直接的便是预测标注 (比如根据好与坏，输出比分或者布尔值)。<strong>最佳实践是，预测结果的排序，即对每个 prompt (输入文本) 对应的两个结果 $(y_k, y_j)$，模型预测人类标注的比分哪个更高。</strong></p>
+<p>或者表示为 loss (损失) 函数:</p>
+<p>$$<br>loss(\theta) &#x3D; - E_{(x, y_j, y_k)~D} [ log( \sigma( r_\theta (x, y_j) - r_\theta(x, y_k)) ) ]<br>$$</p>
+<p>其中 $r$ 是模型的得分，$y_j$ 是更好的候选回答。</p>
+<p><strong>在 StackExchange 数据集上，我们能得到两个答案的受欢迎程度。有了这个信息和上面的损失函数，我们就能自定义 loss 来改 <code>transformers.Trainer</code> 了。</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">
+<span class="token keyword">class</span> <span class="token class-name">RewardTrainer</span><span class="token punctuation">(</span>Trainer<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">compute_loss</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> model<span class="token punctuation">,</span> inputs<span class="token punctuation">,</span> return_outputs<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        rewards_j <span class="token operator">=</span> model<span class="token punctuation">(</span>input_ids<span class="token operator">=</span>inputs<span class="token punctuation">[</span><span class="token string">"input_ids_j"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> attention_mask<span class="token operator">=</span>inputs<span class="token punctuation">[</span><span class="token string">"attention_mask_j"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        rewards_k <span class="token operator">=</span> model<span class="token punctuation">(</span>input_ids<span class="token operator">=</span>inputs<span class="token punctuation">[</span><span class="token string">"input_ids_k"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> attention_mask<span class="token operator">=</span>inputs<span class="token punctuation">[</span><span class="token string">"attention_mask_k"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        loss <span class="token operator">=</span> <span class="token operator">-</span>nn<span class="token punctuation">.</span>functional<span class="token punctuation">.</span>logsigmoid<span class="token punctuation">(</span>rewards_j <span class="token operator">-</span> rewards_k<span class="token punctuation">)</span><span class="token punctuation">.</span>mean<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> return_outputs<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> loss<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">"rewards_j"</span><span class="token punctuation">:</span> rewards_j<span class="token punctuation">,</span> <span class="token string">"rewards_k"</span><span class="token punctuation">:</span> rewards_k<span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> loss<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们用数据集中的 100000 对，并在 50000 对上评估。在比较小的 batch size，为 4 下，我们用 LoRA 的  <code>peft</code> 微调器来训练 LLaMA 模型，在 BF16 精度下用 Adam 优化器。我们的 LoRA 设置是:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">peft_config <span class="token operator">=</span> LoraConfig<span class="token punctuation">(</span>
+    task_type<span class="token operator">=</span>TaskType<span class="token punctuation">.</span>SEQ_CLS<span class="token punctuation">,</span>
+    inference_mode<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span>
+    r<span class="token operator">=</span><span class="token number">8</span><span class="token punctuation">,</span>
+    lora_alpha<span class="token operator">=</span><span class="token number">32</span><span class="token punctuation">,</span>
+    lora_dropout<span class="token operator">=</span><span class="token number">0.1</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>训练用 <a href="https://wandb.ai/krasul/huggingface/runs/wmd8rvq6?workspace=user-krasul">Weights &amp; Biases</a> 来记日志，并在 🤗 训练集群上，用 8 卡 A-100，要数小时，最后准确率为 <strong>67%</strong> 。尽管看上去可能低了，但想想这个任务的难度。</p>
+<p>如下文要细说的，训练结果将作为固定参数，以供下游使用。</p>
+<h2 id="基于人类反馈的强化学习"><a href="#基于人类反馈的强化学习" class="headerlink" title="基于人类反馈的强化学习"></a>基于人类反馈的强化学习</h2><p>现在我们手头有了微调的语言模型和奖励模型，可以开始执行 RL 循环了: 这个过程大致分为三步</p>
+<ol>
+<li><strong>生成对 prompt (输入文本) 的反馈。</strong></li>
+<li><strong>用奖励模型来对反馈评分。</strong></li>
+<li><strong>对评分，进行一轮策略优化的强化学习。</strong></li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803163725.png"></p>
+<p>在被 token 化并输入奖励模型前，提问和回答的 prompt 模版如下:</p>
+<pre class="line-numbers language-none"><code class="language-none">Question: &lt;Query&gt;
+Answer: &lt;Response&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>在有监督训练 (SFT)，奖励模型训练 (RM) 和 RLHF 的阶段都用此模版。</p>
+<p>用 RL 训练语言模型出现的常见问题是，模型可能学会胡说八道以糊弄奖励模型，后者可能给高分。为了权衡，我们对奖励增加惩罚: 留一份没有训练的模型，如何比较两者输出的 KL 散度</p>
+<p>$$<br>R(x, y) &#x3D; r(x, y) - \beta KL(x,y)<br>$$</p>
+<p>其中 $r$ 是奖励模型的结果，$KL(x,y)$ 是当前模型和对比模型的 KL 散度差。</p>
+<p>再提一遍，我们用 <code>peft</code> 来实现内存高效的训练，其对 RLHF 阶段提供了优势。<strong>这里参考的模型和训练的模型用同一个基底，也就是有监督训练 (SFT) 的结果，它是用 8-bit 来加载，并且自始自终是固定的。我们仅用 PPO 方法优化最终模型的 LoRA 权重，同时全部共享一个基底模型。</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">for</span> epoch<span class="token punctuation">,</span> batch <span class="token keyword">in</span> tqdm<span class="token punctuation">(</span><span class="token builtin">enumerate</span><span class="token punctuation">(</span>ppo_trainer<span class="token punctuation">.</span>dataloader<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    question_tensors <span class="token operator">=</span> batch<span class="token punctuation">[</span><span class="token string">"input_ids"</span><span class="token punctuation">]</span>
+        
+    <span class="token comment"># sample from the policy and generate responses</span>
+    response_tensors <span class="token operator">=</span> ppo_trainer<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>
+        question_tensors<span class="token punctuation">,</span>
+        return_prompt<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span>
+        length_sampler<span class="token operator">=</span>output_length_sampler<span class="token punctuation">,</span>
+        <span class="token operator">**</span>generation_kwargs<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+    batch<span class="token punctuation">[</span><span class="token string">"response"</span><span class="token punctuation">]</span> <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>batch_decode<span class="token punctuation">(</span>response_tensors<span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># Compute sentiment score</span>
+    texts <span class="token operator">=</span> <span class="token punctuation">[</span>q <span class="token operator">+</span> r <span class="token keyword">for</span> q<span class="token punctuation">,</span> r <span class="token keyword">in</span> <span class="token builtin">zip</span><span class="token punctuation">(</span>batch<span class="token punctuation">[</span><span class="token string">"query"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> batch<span class="token punctuation">[</span><span class="token string">"response"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+    pipe_outputs <span class="token operator">=</span> sentiment_pipe<span class="token punctuation">(</span>texts<span class="token punctuation">,</span> <span class="token operator">**</span>sent_kwargs<span class="token punctuation">)</span>
+    rewards <span class="token operator">=</span> <span class="token punctuation">[</span>torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span>output<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"score"</span><span class="token punctuation">]</span> <span class="token operator">-</span> script_args<span class="token punctuation">.</span>reward_baseline<span class="token punctuation">)</span> <span class="token keyword">for</span> output <span class="token keyword">in</span> pipe_outputs<span class="token punctuation">]</span>
+
+    <span class="token comment"># Run PPO step</span>
+    stats <span class="token operator">=</span> ppo_trainer<span class="token punctuation">.</span>step<span class="token punctuation">(</span>question_tensors<span class="token punctuation">,</span> response_tensors<span class="token punctuation">,</span> rewards<span class="token punctuation">)</span>
+    <span class="token comment"># Log stats to WandB</span>
+    ppo_trainer<span class="token punctuation">.</span>log_stats<span class="token punctuation">(</span>stats<span class="token punctuation">,</span> batch<span class="token punctuation">,</span> rewards<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们用 🤗 集群，在 3x8 A100-80GB 的机器上训练了 20h，但一个差不多的结果很快 (大概，在 8 A100-80GB 上训练 20h)。所有的训练过程都在 <a href="https://wandb.ai/lvwerra/trl/runs/ie2h4q8p">Weight &amp; Biases</a> 上找到。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803163809.png"></p>
+<p>每个 batch 的奖励，对每步的训练，在  ~1000 步时模型的效果最好。</p>
+<p>所以模型训好了能干啥嘞 ? 我们拭目以待 !</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803163848.png"></p>
+<p>尽管我们不该太相信其结果，至少目前。但结果已经很好了，甚至附上了 Google 链接。我们来看看训练时的挑战。</p>
+<h2 id="挑战，不稳定和突破口"><a href="#挑战，不稳定和突破口" class="headerlink" title="挑战，不稳定和突破口"></a>挑战，不稳定和突破口</h2><p><strong>用 RL 训练 LLM (Large Language Models，大语言模型) 不总是一帆风顺的，你看到的本文也是经历无数实验，无数失败和无数调参的。即便如此，该模型也不能说变现完美。这儿，我们分享一些遇到的观察和问题。</strong></p>
+<h3 id="奖励更高代表更好表现"><a href="#奖励更高代表更好表现" class="headerlink" title="奖励更高代表更好表现 ?"></a>奖励更高代表更好表现 ?</h3><p><img src="https://cos.luyf-lemon-love.space/images/20240803163939.png"></p>
+<p><strong>天呐，这个实验肯定表现很好 ! 看奖励的曲线多甜啊 !</strong></p>
+<p>在 RL 中，一般而言，奖励越高越好。在 RLHF 中，我们用了一个奖励模型，它不完美，所以留给了 PPO 算法捡漏的机会。这能导致奖励突然上升，然而当检查文本结果时，却充斥了字符 “&#96;&#96;&#96;”，因为奖励模型对含有代码 stack exchange 的答案更信任。幸运的是，该问题碰到的很少，应该是采取的 KL 散度的惩罚项起到了作用。</p>
+<h3 id="KL-散度总是正的"><a href="#KL-散度总是正的" class="headerlink" title="KL 散度总是正的?"></a>KL 散度总是正的?</h3><p><strong>如我们前面所提到的，一个 KL 惩罚项被用来保证训练后的分布和原始分布接近。一般地 , KL 散度来度量两个分布的相似程度，并且总是正的。</strong> 然而，在 <code>trl</code> 我们用了一个 KL 的近似，期望值和真的 KL 散度相同。</p>
+<p>$$<br>KL_{pen} (x, y) &#x3D; log(\pi_\phi^{RL}(y | x) &#x2F; \pi^{SFT}(y|x))<br>$$</p>
+<p>显然，当训练中一个 token 比原始模型概率低，这会导致 KL 散度为负，但是平均而言，这将是正的，否则您将无法从策略中正确采样。但是，某些采样策略可能会迫使某些 token 生成，或者某些 token 受到抑制。例如，当以批处理生成时，完成的序列会被填充；在设置最小长度时，EOS token 被抑制。模型会有很大&#x2F;很小的概率得到负 KL 散度的 token。同时 PPO 算法是面向奖励优化的，模型就会追逐负的惩罚，导致训练不稳定。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803163959.png"></p>
+<p><strong>对生成和采样，你需要特别小心。我们建议在诉诸更复杂的生成方法之前始终先使用简单的采样策略。</strong></p>
+<h3 id="任然存在的问题"><a href="#任然存在的问题" class="headerlink" title="任然存在的问题"></a>任然存在的问题</h3><p>仍然有很多问题我们不懂，比如下面，loss 间断地跳跃，导致之后的不稳定。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803164028.png"></p>
+<p>一旦我们解决了这些问题，我们就会上传变化到 <code>trl</code> 上，以保证社区受益。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在本博客，我们走过了 RLHF 训练的整个流程，从准备人类标注的数据集开始，调整语言模型到特定领域，训练奖励模型，并最终用 RL 训练一个模型。</p>
+<p>通过使用 <code>peft</code>，任何人都能在一张 GPU 上跑我们的实验 ! 如果训练慢了，可以用数据并行化的方法，不需要改任何代码，或者用多张 GPU 并行提高训练速度。</p>
+<p>对实际应用，这仅仅是第一步 ! 一旦你有了模型，你就要和其他模型比较优劣。这个可以用一个面向不同模型的排名生成做到，和我们训练奖励数据集类似。</p>
+<p>一旦你加入了评估的步骤，好玩的就开始了: 你可以在原数据集上反复炼丹，也可以增加数据集或者对原数据集提纯。另外，你可以对奖励模型和生成模型尝试不同大小和结构的模型，这需要时间。</p>
+<p>我们在积极提高 TRL 以保证 RLHF 的每一步都可见，并且十分激动能看到人们用它来构建的东西。如果你想有所贡献，欢迎看我们的 <a href="https://github.com/lvwerra/trl/issues">Github Issue</a>。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百五十二篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2024/08/03/00152-stackllama-yong-rlhf-xun-lian-llama-de-shou-ba-shou-jiao-cheng/">https://luyf-lemon-love.space/2024/08/03/00152-stackllama-yong-rlhf-xun-lian-llama-de-shou-ba-shou-jiao-cheng/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大语言模型</span>
+                                </a>
+                            
+                                <a href="/tags/huggingface/">
+                                    <span class="chip bg-color">huggingface</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/08/03/00153-kai-yuan-da-yu-yan-mo-xing-zuo-wei-langchain-zhi-neng-ti/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/039-119887888.jpg" class="responsive-img" alt="00153 开源大语言模型作为 LangChain 智能体">
+                        
+                        <span class="card-title">00153 开源大语言模型作为 LangChain 智能体</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-08-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/08/03/00151-mian-xiang-sheng-chan-de-llm-you-hua/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/037-119916609.jpg" class="responsive-img" alt="00151 面向生产的 LLM 优化">
+                        
+                        <span class="card-title">00151 面向生产的 LLM 优化</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

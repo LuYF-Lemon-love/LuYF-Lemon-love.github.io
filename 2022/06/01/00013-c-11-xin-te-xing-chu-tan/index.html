@@ -1,0 +1,4645 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00013-C++11新特性初探, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言C++11 标准是 ISO&amp;#x2F;IEC 14882：2011 - Information technology – Programming languages – C++ 的简称。此标准为 C++98 发布后 13 年来第一次重大">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00013-C++11新特性初探 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/20220513124745.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00013-C++11新特性初探</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/C/">
+                                <span class="chip bg-color">C++</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/C/" class="post-category">
+                                C++
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-06-01
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>C++11 标准是 ISO&#x2F;IEC 14882：2011 - Information technology – Programming languages – C++ 的简称。此标准为 C++98 发布后 13 年来第一次重大修正。这一版本是具有划时代意义的。其后还有 C++14、C++17 和 C++20。</p>
+<p>本文主要介绍 C++11 的一些相对于 C++98&#x2F;03 的新特性。</p>
+<p>操作系统：<strong>Ubuntu 20.04.4 LTS</strong></p>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ol>
+<li><p><a href="https://subingwen.cn/cplusplus/">苏丙榅老师的 C++ 教程</a></p>
+</li>
+<li><p><a href="https://cplusplus.com/reference/memory/shared_ptr/reset/">std::shared_ptr::reset</a></p>
+</li>
+<li><p><a href="https://cplusplus.com/reference/cstring/memset/">memset</a></p>
+</li>
+</ol>
+<h3 id="原始字面量"><a href="#原始字面量" class="headerlink" title="原始字面量"></a>原始字面量</h3><p>原始字面量能够直接表示字符串的实际含义，比如打印路径。</p>
+<p>定义方式：<code>R&quot;xxx(原始字符串)xxx&quot;</code> ，其中 <code>()</code> 两边的字符串可以省略。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+
+int main()
+&#123;
+    string str1 &#x3D; &quot;D:\\hello\\world\\test.txt&quot;;
+    cout &lt;&lt; str1 &lt;&lt; endl;
+    string str2 &#x3D; R&quot;(D:\hello\world\test.txt)&quot;;
+    cout &lt;&lt; str2 &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">D:<span class="token punctuation">\</span>hello<span class="token punctuation">\</span>world<span class="token punctuation">\</span>test.txt
+D:<span class="token punctuation">\</span>hello<span class="token punctuation">\</span>world<span class="token punctuation">\</span>test.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>C++11 之前输出 HTML 标签，需要连接符</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+
+int main()
+&#123;
+    string str &#x3D; &quot;&lt;html&gt;\
+        &lt;head&gt;\
+        &lt;title&gt;\
+        狐妖小红娘\
+        &lt;&#x2F;title&gt;\
+        &lt;&#x2F;head&gt;\
+        &lt;body&gt;\
+        &lt;p&gt;\
+        我要成为真正的狐狸精!!!\
+        &lt;&#x2F;p&gt;\
+        &lt;&#x2F;body&gt;\
+        &lt;&#x2F;html&gt;&quot;;
+    cout &lt;&lt; str &lt;&lt; endl;
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>C++11 的原始字面量</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+
+int main()
+&#123;
+    string str &#x3D; R&quot;(&lt;html&gt;
+        &lt;head&gt;
+        &lt;title&gt;
+        狐妖小红娘
+        &lt;&#x2F;title&gt;
+        &lt;&#x2F;head&gt;
+        &lt;body&gt;
+        &lt;p&gt;
+        我要成为真正的狐狸精!!!
+        &lt;&#x2F;p&gt;
+        &lt;&#x2F;body&gt;
+        &lt;&#x2F;html&gt;)&quot;;
+    cout &lt;&lt; str &lt;&lt; endl;
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注：在 <code>R&quot;xxx(raw string)xxx&quot;</code> 中，括号前后可以追加其他字符串，但会被忽略，一般不用指定。并且括号前后加的字符串必须相同。</p>
+<h3 id="指针空值类型-nullptr"><a href="#指针空值类型-nullptr" class="headerlink" title="指针空值类型 - nullptr"></a>指针空值类型 - nullptr</h3><p>C++11 以前，为定义的指针进行初始化时，如果指针目前没有明确的指向，都会给指针初始化为 NULL。</p>
+<p><strong>C++98&#x2F;03</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">char *ptr &#x3D; 0;
+char *ptr &#x3D; NULL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>C++ 程序的 NULL 其实是 0，C 程序的 NULL 表示 (void*)0。在 C++ 中 void* 类型无法隐式转换为其他类型的指针。0（0x0000 0000）表示的是虚拟地址空间的 0 地址，这个地址是只读的。</p>
+<p>这样初始化空指针有时会出现问题。</p>
+<p><strong>C++98&#x2F;03</strong> </p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+void func(char *p)
+&#123;
+    cout &lt;&lt; &quot;void func(char *p)&quot; &lt;&lt; endl;
+&#125;
+
+void func(int p)
+&#123;
+    cout &lt;&lt; &quot;void func(int p)&quot; &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    func(NULL);
+    func(250);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">void func<span class="token punctuation">(</span>int p<span class="token punctuation">)</span>
+void func<span class="token punctuation">(</span>int p<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>C++11 中新引入了 nullptr 专门用于初始化空类型指针，不同类型的指针变量都可以用 nullptr 初始化。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int* ptr1 &#x3D; nullptr;
+char* ptr2 &#x3D; nullptr;
+double* ptr3 &#x3D; nullptr;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>上面代码中的 nullptr 会隐式转换成 int<em>、char</em> 和 double* 指针类型。</p>
+<p><strong>C++11</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+void func(char *p)
+&#123;
+    cout &lt;&lt; &quot;void func(char *p)&quot; &lt;&lt; endl;
+&#125;
+
+void func(int p)
+&#123;
+    cout &lt;&lt; &quot;void func(int p)&quot; &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    func(nullptr);
+    func(250);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">void func<span class="token punctuation">(</span>char *p<span class="token punctuation">)</span>
+void func<span class="token punctuation">(</span>int p<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>结果表明 nullptr 不会隐式转换为整型，但可以隐式转换为指针类型。</p>
+<h3 id="constexpr"><a href="#constexpr" class="headerlink" title="constexpr"></a>constexpr</h3><p>const 关键字有双重含义：变量只读和修饰常量。</p>
+<p><strong>const</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void func(const int num)
+&#123;
+    const int count &#x3D; 24;
+    int array[num];            &#x2F;&#x2F; error，num是一个只读变量，不是常量
+    int array1[count];         &#x2F;&#x2F; ok，count是一个常量
+
+    int a1 &#x3D; 520;
+    int a2 &#x3D; 250;
+    const int&amp; b &#x3D; a1;         &#x2F;&#x2F; 常量引用，b 引用的变量是不能被修改的。引用 b 是只读的，因为它的值可以改变，所以常量引用不是常量
+    b &#x3D; a2;                         &#x2F;&#x2F; error
+    a1 &#x3D; 1314;
+    cout &lt;&lt; &quot;b: &quot; &lt;&lt; b &lt;&lt; endl;     &#x2F;&#x2F; 输出结果为1314
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在 C++11 中添加了一个新的关键字 constexpr 用于修饰常量表达式。常量表达式：由一个或多个常量组成并且在编译过程中计算结果的表达式。常量表达式由于在编译过程中求值，因此可以极大提高程序的执行效率。</p>
+<p>因此，建议：在只读场景下使用 const，常量场景下使用 constexpr。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;非常量表达式
+const int m &#x3D; f();
+
+&#x2F;&#x2F;常量表达式
+const int i &#x3D; 520;
+const int j &#x3D; i + 1;
+
+constexpr int i &#x3D; 520;
+constexpr int j &#x3D; i + 1;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>自定义数据类型</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">struct Test
+&#123;
+    int id;
+    int num;
+&#125;;
+
+int main()
+&#123;
+    constexpr Test t&#123; 1, 2 &#125;;
+    constexpr int id &#x3D; t.id;
+    constexpr int num &#x3D; t.num;
+    &#x2F;&#x2F; error，因为 t 是一个常量，它的成员也是常量
+    t.num +&#x3D; 100;
+    cout &lt;&lt; &quot;id: &quot; &lt;&lt; id &lt;&lt; &quot;, num: &quot; &lt;&lt; num &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="常量表达式函数"><a href="#常量表达式函数" class="headerlink" title="常量表达式函数"></a>常量表达式函数</h3><p>用 constexpr 关键字修饰返回值的函数被称为常量表达式函数。</p>
+<p><strong>需要满足的条件</strong></p>
+<ol>
+<li><p>函数必须有返回值，并且 return 返回的表达式必须是常量表达式。</p>
+</li>
+<li><p>函数在使用之前，必须已经定义了。也就是要把定义放到 main 函数上边。</p>
+</li>
+<li><p>函数体中，不能出现非常量表达式之外的语句。using 语句、typedef 语句、static_assert 断言语句和 return 语句除外。</p>
+</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; example
+constexpr int func()
+&#123;
+    using mytype &#x3D; int;
+    constexpr mytype a &#x3D; 100;
+    constexpr mytype b &#x3D; 10;
+    constexpr mytype c &#x3D; a * b;
+    return c - (a + b);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Test
+&#123;
+public:
+    constexpr int func()
+    &#123;
+        constexpr int var &#x3D; 100;
+        return 5 * var;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    Test t;
+    constexpr int num &#x3D; t.func();
+    cout &lt;&lt; &quot;num: &quot; &lt;&lt; num &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>模板函数</strong></p>
+<p>如果 constexpr 修饰的模板函数实例化结果不满足常量表达式函数的要求，则  constexpr 会自动被忽略，即该函数就等同于一个普通函数。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+struct Person &#123;
+    const char* name;
+    int age;
+&#125;;
+
+&#x2F;&#x2F; 定义函数模板
+template&lt;typename T&gt;
+constexpr T display(T t)&#123;
+    return t;
+&#125;
+
+int main()
+&#123;
+    struct Person p &#123;&quot;lyf&quot;, 18&#125;;
+
+    &#x2F;&#x2F; 普通函数
+    struct Person ret &#x3D; display(p);
+
+    &#x2F;&#x2F; 常量表达式函数
+    constexpr int ret1 &#x3D; display(250);
+
+    constexpr struct Person p1 &#123;&quot;lyf&quot;, 18&#125;;
+    constexpr struct Person p2 &#x3D; display(p1);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>构造函数</strong></p>
+<p>constexpr修饰的构造函数被称为常量构造函数，要求：构造函数的函数体必须为空，并且采用初始化列表的方式为各个成员赋值。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+struct Person &#123;
+    constexpr Person(const char* p, int age):name(p),age(age)
+    &#123;
+
+    &#125;
+
+    const char* name;
+    int age;
+&#125;;
+
+int main()
+&#123;
+    constexpr struct Person p(&quot;lyf&quot;, 18);
+
+    reutn 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h3><p>C++11 之前 auto 是和 static 对应的，表示变量是自动存储的，但是非 static 的局部变量默认都是自动存储的。因此，auto 没什么用。</p>
+<h4 id="auto-推导规则"><a href="#auto-推导规则" class="headerlink" title="auto 推导规则"></a>auto 推导规则</h4><p>C++11 中，auto 能够自动推导出变量的实际类型，前提：使用 auto 声明的变量必须要进行初始化。</p>
+<p>语法</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto 变量名 &#x3D; 变量值;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; double
+auto x &#x3D; 3.14;
+
+&#x2F;&#x2F; int
+auto y &#x3D; 520;
+
+&#x2F;&#x2F; char
+auto z &#x3D; &quot;a&quot;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>指针和引用</p>
+<ul>
+<li><p>当变量是指针或引用类型时，推导的结果中会保留 const、volatile 关键字。</p>
+</li>
+<li><p>其他类型时，推导的结果中不会保留 const、volatile 关键字。</p>
+</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int temp &#x3D; 110;
+
+&#x2F;&#x2F; a: int*, auto: int
+auto *a &#x3D; &temp;
+
+&#x2F;&#x2F; b: int*, auto: int*
+auto b &#x3D; &temp;
+
+&#x2F;&#x2F; c: int&amp;, auto: int
+auto &amp;c &#x3D; temp;
+
+&#x2F;&#x2F; d: int, auto: int
+auto d &#x3D; temp;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int temp &#x3D; 250;
+
+&#x2F;&#x2F; a: const int, auto: int
+const auto a &#x3D; temp;
+
+&#x2F;&#x2F; b: int, auto: int
+auto b &#x3D; a;
+
+&#x2F;&#x2F; c: const int&amp;, auto: int
+const auto &amp;c &#x3D; temp;
+
+&#x2F;&#x2F; d: const int&amp;, auto: const int
+auto &amp;d &#x3D; c;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="auto-的限制"><a href="#auto-的限制" class="headerlink" title="auto 的限制"></a>auto 的限制</h4><ol>
+<li>不能做为函数参数使用。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; error
+int func(auto a, auto b)
+&#123;
+    cout &lt;&lt; &quot;a: &quot; &lt;&lt; a &lt;&lt; &quot;, b: &quot; &lt;&lt; b &lt;&lt; endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="2">
+<li>不能用于类的非静态成员变量的初始化。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Test
+&#123;
+    &#x2F;&#x2F; error
+    auto v1 &#x3D; 0;
+
+    &#x2F;&#x2F; error, 类的静态非常量成员不允许在类内部直接初始化
+    static auto v2 &#x3D; 0;
+
+    &#x2F;&#x2F; ok
+    static const auto v3 &#x3D; 10;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="3">
+<li>不能使用 auto 关键字定义数组</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int func()
+&#123;
+    &#x2F;&#x2F; define array
+    int array[] &#x3D; &#123;1, 2, 3, 4, 5&#125;;
+
+    &#x2F;&#x2F; ok, ti: int*
+    auto t1 &#x3D; array;
+
+    &#x2F;&#x2F; error, auto can not define array
+    auto t2[] &#x3D; array;
+
+    &#x2F;&#x2F; error, auto can not define array
+    auto t3[] &#x3D; &#123;1, 2, 3, 4, 5&#125;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="4">
+<li>无法使用 auto 推导出模板类型</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template &lt;typename T&gt;
+struct Test&#123;&#125;;
+
+int func()
+&#123;
+    Test&lt;double&gt; t;
+
+    &#x2F;&#x2F; error, 无法推导出模板类型
+    Test&lt;auto&gt; t1 &#x3D; t;
+    
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="auto-的应用"><a href="#auto-的应用" class="headerlink" title="auto 的应用"></a>auto 的应用</h4><hr>
+<p>STL的容器的遍历</p>
+<hr>
+<p>C++11以前</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;map&gt;
+
+int main()
+&#123;
+    map&lt;int, string&gt; person;
+    map&lt;int, string&gt;::iterator it &#x3D; person.begin();
+    for (; it !&#x3D; person.end(); ++it)
+    &#123;
+        &#x2F;&#x2F; do something
+    &#125;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>C++11以后</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;map&gt;
+
+int main()
+&#123;
+    map&lt;int, string&gt; person;
+
+    &#x2F;&#x2F; 代码简化
+    for(auto it &#x3D; person.begin(); it !&#x3D; person.end(); ++it)
+    &#123;
+        &#x2F;&#x2F; do something
+    &#125;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<p>泛型编程</p>
+<hr>
+<p>C++11以前</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class T1
+&#123;
+public:
+    static int get()
+    &#123;
+        return 0;
+    &#125;
+&#125;;
+
+class T2
+&#123;
+public:
+    static string get()
+    &#123;
+        return &quot;hello world&quot;;
+    &#125;
+&#125;;
+
+template &lt;class A, typename B&gt;
+void func(void)
+&#123;
+    B val &#x3D; A::get();
+    cout &lt;&lt; &quot;val: &quot; &lt;&lt; val &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    func&lt;T1, int&gt;();
+    func&lt;T2, string&gt;();
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>C++11以后</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class T1
+&#123;
+public:
+    static int get()
+    &#123;
+        return 10;
+    &#125;
+&#125;;
+
+class T2
+&#123;
+public:
+    static string get()
+    &#123;
+        return &quot;hello, world&quot;;
+    &#125;
+&#125;;
+
+template &lt;class A&gt;
+void func(void)
+&#123;
+    auto val &#x3D; A::get();
+    cout &lt;&lt; &quot;val: &quot; &lt;&lt; val &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    func&lt;T1&gt;();
+    func&lt;T2&gt;();
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="decltype"><a href="#decltype" class="headerlink" title="decltype"></a>decltype</h3><p>decltype 在编译阶段推导出一个表达式的类型，它只是用于表达式类型的推导，并不会计算表达式的值。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">decltype(表达式)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int a &#x3D; 10;
+
+&#x2F;&#x2F; b: int
+decltype(a) b &#x3D; 99;
+
+&#x2F;&#x2F; c: double
+decltype(a + 3.14) c &#x3D; 52.13;
+
+&#x2F;&#x2F; d: double
+decltype(a + b * c) d &#x3D; 520.1314;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="decltype-推导规则"><a href="#decltype-推导规则" class="headerlink" title="decltype 推导规则"></a>decltype 推导规则</h4><ol>
+<li>表达式为普通变量、普通表达式或者类表达式时，推导出的类型与表达式的类型相同。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Test
+&#123;
+public:
+    string text;
+    static const int value &#x3D; 110;
+&#125;;
+
+int main()
+&#123;
+    int x &#x3D; 99;
+    const int &amp;y &#x3D; x;
+
+    &#x2F;&#x2F; a: int
+    decltype(x) a &#x3D; x;
+
+    &#x2F;&#x2F; b: const int &amp;
+    decltype(y) b &#x3D; x;
+
+    &#x2F;&#x2F; c: const int
+    decltype(Test::value) c &#x3D; 0;
+
+    Test t;
+
+    &#x2F;&#x2F; d: string
+    decltype(t.text) d &#x3D; &quot;hello, world&quot;;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="2">
+<li>表达式是函数调用，推导出的类型与函数返回值相同。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Test&#123;&#125;;
+
+&#x2F;&#x2F; 函数声明
+int func_int();
+int&amp; func_int_r();
+int&amp;&amp; func_int_rr();
+
+const int func_cint();
+const int&amp; func_cint_r();
+const int&amp;&amp; func_cint_rr();
+
+const Test func_ctest();
+
+int n &#x3D; 100;
+
+&#x2F;&#x2F; a: int
+decltype(func_int()) a &#x3D; 0;
+
+&#x2F;&#x2F; b: int&amp;
+decltype(func_int_r()) b &#x3D; n;
+
+&#x2F;&#x2F; c: int&amp;&amp;
+decltype(func_int_rr()) c &#x3D; 0;
+
+&#x2F;&#x2F; d: int
+decltype(func_cint()) d &#x3D; 0;
+
+&#x2F;&#x2F; e: const int &amp;
+decltype(func_cint_r()) e &#x3D; n;
+
+&#x2F;&#x2F; f: const int &amp;&amp;
+decltype(func_cint_rr()) f &#x3D; 0;
+
+&#x2F;&#x2F; g: const Test
+decltype(func_ctest()) g &#x3D; Test();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>func_cint() 返回的是一个纯右值（在表达式执行结束后不再存在的数据，也就是临时性数据），对于纯右值而言，只有类类型可以携带 const、volatile 限定符，除此之外需要忽略掉这两个限定符。因此 d 的类型为 int。</p>
+<ol>
+<li>表达式是一个左值，或者被括号 () 包围，推导出的类型是表达式类型的引用（如果有 const、volatile，不能被忽略）</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+class Test
+&#123;
+public:
+    int num;
+&#125;;
+
+int main() &#123;
+    const Test obj;
+
+    &#x2F;&#x2F; 带有括号的表达式
+    &#x2F;&#x2F; a: int
+    decltype(obj.num) a &#x3D; 0;
+    &#x2F;&#x2F; b: const int &amp;
+    decltype((obj.num)) b &#x3D; a;
+
+    int n &#x3D; 0, m &#x3D; 0;
+    
+    &#x2F;&#x2F; 加法表达式
+    &#x2F;&#x2F; c: int
+    decltype(n + m) c &#x3D; 0;
+    &#x2F;&#x2F; n: int&amp;, n 是一个左值
+    decltype(n &#x3D; n + m) d &#x3D; n;
+    
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="decltype-的应用"><a href="#decltype-的应用" class="headerlink" title="decltype 的应用"></a>decltype 的应用</h4><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;list&gt;
+using namespace std;
+
+template &lt;class T&gt;
+class Container
+&#123;
+public:
+    void func(T&amp; c)
+    &#123;
+        for (m_it &#x3D; c.begin(); m_it !&#x3D; c.end(); ++m_it)
+        &#123;
+            cout &lt;&lt; *m_it &lt;&lt; &quot; &quot;;
+        &#125;
+        cout &lt;&lt; endl;
+    &#125;
+private:
+    decltype(T().begin()) m_it;
+&#125;;
+
+int main()
+&#123;
+    const list&lt;int&gt; lst&#123;1,2,3,4,5,6,7,8,9&#125;;
+    Container&lt;const list&lt;int&gt;&gt; obj;
+    obj.func(lst);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="返回值类型后置"><a href="#返回值类型后置" class="headerlink" title="返回值类型后置"></a>返回值类型后置</h3><p>在泛型编程中，需要通过参数的运算获得返回值的类型。</p>
+<p>在 C++11 增加了返回值类型后置，通过 decltype 和 auto 来完成返回值类型的推导。 </p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto func(参数1, 参数2, ...) -&gt; decltype(参数表达式)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>auto 会追踪 decltype() 推导出的类型。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+template &lt;typename T, typename U&gt;
+auto add(T t, U u) -&gt; decltype(t+u)
+&#123;
+    return t + u;
+&#125;
+
+int main()
+&#123;
+    int x &#x3D; 520;
+    double y &#x3D; 13.14;
+
+    &#x2F;&#x2F; auto z &#x3D; add&lt;int, double&gt;(x, y);
+    &#x2F;&#x2F; 简化
+    auto z &#x3D; add(x, y);
+    cout &lt;&lt; &quot;z: &quot; &lt;&lt; z &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+int&amp; test(int &amp;i)
+&#123;
+    return i;
+&#125;
+
+double test(double &amp;d)
+&#123;
+    d &#x3D; d + 100;
+    return d;
+&#125;
+
+template &lt;typename T&gt;
+auto myFunc(T&amp; t) -&gt; decltype(test(t))
+&#123;
+    return test(t);
+&#125;
+
+int main()
+&#123;
+    int x &#x3D; 520;
+    double y &#x3D; 13.14;
+
+    &#x2F;&#x2F; auto z &#x3D; myFunc&lt;int&gt;(x);
+    &#x2F;&#x2F; 简化
+    auto z &#x3D; myFunc(x);
+    cout &lt;&lt; &quot;z: &quot; &lt;&lt; z &lt;&lt; endl;
+
+    &#x2F;&#x2F; auto a &#x3D; myFunc&lt;double&gt;(y);
+    &#x2F;&#x2F; 简化
+    auto a &#x3D; myFunc(y);
+    cout &lt;&lt; &quot;a: &quot; &lt;&lt; a &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><p>C++11 增加了 final 关键字来限制某个类不能被继承，或者某个虚函数不能被重写。</p>
+<h4 id="final-修饰函数"><a href="#final-修饰函数" class="headerlink" title="final 修饰函数"></a>final 修饰函数</h4><p>只能修饰虚函数，阻止子类重写父类的该函数。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Base
+&#123;
+public:
+    virtual void test()
+    &#123;
+        cout &lt;&lt; &quot;Base class&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+class Child: public Base
+&#123;
+public:
+    void test() final
+    &#123;
+        cout &lt;&lt; &quot;Child class&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+class GrandChild: public Child
+&#123;
+public:
+    &#x2F;&#x2F; error, 不允许重写
+    void test()
+    &#123;
+        cout &lt;&lt; &quot;GrandChild class&quot; &lt;&lt; endl;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="final-修饰类"><a href="#final-修饰类" class="headerlink" title="final 修饰类"></a>final 修饰类</h4><p>使用final关键字修饰过的类是不允许有派生类的。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Base
+&#123;
+public:
+    virtual void test()
+    &#123;
+        cout &lt;&lt; &quot;Base class&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+class Child final: public Base
+&#123;
+public:
+    void test()
+    &#123;
+        cout &lt;&lt; &quot;Child class&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+&#x2F;&#x2F; error, 语法错误
+class GrandChild: public Child
+&#123;
+
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="override"><a href="#override" class="headerlink" title="override"></a>override</h3><p><code>override</code> 关键字会明确表明将会重写基类的虚函数，提高了代码的可读性，编辑器会帮我们检查函数名、函数参数和返回值类型，提高了程序的正确性。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Base
+&#123;
+public:
+    virtual void test()
+    &#123;
+        cout &lt;&lt; &quot;Base class&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+class Child: public Base
+&#123;
+public:
+    void test() override
+    &#123;
+        cout &lt;&lt; &quot;Child class&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+class GrandChild: public Child
+&#123;
+public:
+    void test() override
+    &#123;
+        cout &lt;&lt; &quot;Child class&quot; &lt;&lt; endl;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="模板右尖括号的优化"><a href="#模板右尖括号的优化" class="headerlink" title="模板右尖括号的优化"></a>模板右尖括号的优化</h3><p>在 C++11 以前，两个连续的尖括号（ &gt;&gt; ）会被编译器解析成右移操作符，而不是模板参数表的结束。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; test.cpp
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+template &lt;typename T&gt;
+class Base
+&#123;
+public:
+    void traversal(T&amp; t)
+    &#123;
+        auto it &#x3D; t.begin();
+        for (; it !&#x3D; t.end(); ++it)
+        &#123;
+            cout &lt;&lt; *it &lt;&lt; &quot; &quot;;
+        &#125;
+        cout &lt;&lt; endl;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    vector&lt;int&gt; v&#123; 1, 2, 3, 4, 5, 6, 7, 8, 9&#125;;
+
+    &#x2F;&#x2F; C++98&#x2F;03 标准的编译器编译会 error，&gt;&gt; 之间需要空格，变为 &gt; &gt;
+    Base&lt;vector&lt;int&gt;&gt; b;
+    b.traversal(v);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>C++11 改进了编译器的解析规则，尽可能地将多个由尖括号（&gt;）解析成模板参数结束符。上面的代码在支持 C++11 的编译器中编译是没有任何问题。</p>
+<h3 id="默认模板参数"><a href="#默认模板参数" class="headerlink" title="默认模板参数"></a>默认模板参数</h3><p>在 C++98&#x2F;03 标准中，类模板可以有默认的模板参数。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+template &lt;typename T &#x3D; int, T t &#x3D; 520&gt;
+class Test
+&#123;
+public:
+    void print()
+    &#123;
+        cout &lt;&lt; &quot;current value: &quot; &lt;&lt; t &lt;&lt; endl;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    Test&lt;&gt; t;
+    t.print();
+
+    Test&lt;int, 1024&gt; t1;
+    t1.print();
+
+    return 0;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>C++98&#x2F;03 标准不支持函数的默认模板参数，在 C++11 中增加了对函数的默认模板参数的支持。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace
+
+template &lt;typename T&#x3D;int&gt;
+void func(T t)
+&#123;
+    cout &lt;&lt; &quot;current value: &quot; &lt;&lt; t &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    func(100);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注：当所有模板参数都有默认参数时，函数模板的调用如同一个普通函数，但是类模板即使所有参数都有默认参数，也必须在模板名后跟随 &lt;&gt; 来实例化。</p>
+<p>函数模板的默认参数可以和模板参数的自动推导结合进而更灵活的书写代码。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+template &lt;typename R &#x3D; int, typename N&gt;
+R func(N arg)
+&#123;
+    return arg;
+&#125;
+
+int main()
+&#123;
+    &#x2F;&#x2F; ret1: 520
+    &#x2F;&#x2F; 函数返回值类型使用了默认的模板参数，函数的参数类型是自动推导出来的为 int 类型
+    auto ret1 &#x3D; func(520);
+
+    &#x2F;&#x2F; ret2: 52.134
+    &#x2F;&#x2F; 函数返回值指定为 double 类型，函数的参数类型是自动推导出来的为 double 类型
+    auto ret2 &#x3D; func&lt;double&gt;(52.134);
+
+    &#x2F;&#x2F; ret3: 52
+    &#x2F;&#x2F; 函数的返回值指定为 int 类型，函数的参数类型是自动推导出来的为 double 类型
+    auto ret3 &#x3D; func&lt;int&gt;(52.134);
+
+    &#x2F;&#x2F; ret4: d
+    &#x2F;&#x2F; 函数的返回值指定为 char 类型，函数的参数类型指定为 int 类型
+    auto ret4 &#x3D; func&lt;char,int&gt;(100);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>函数模板的默认模板参数和函数模板参数自动推导的优先级（从高到低）</p>
+<ul>
+<li><p>自动推导</p>
+</li>
+<li><p>函数模板的默认模板参数</p>
+</li>
+<li><p>error</p>
+</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+template &lt;typename T, typename U &#x3D; char&gt;
+void func(T arg1 &#x3D; 100, U arg2 &#x3D; 100)
+&#123;
+    cout &lt;&lt; &quot;arg1: &quot; &lt;&lt; arg1 &lt;&lt; &quot;, arg2: &quot; &lt;&lt; arg2 &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    &#x2F;&#x2F; output: arg1: a, arg2: d
+    &#x2F;&#x2F; T: 自动推导为 char，U: 默认模板参数 char
+    func(&#39;a&#39;);
+
+    &#x2F;&#x2F; output: arg1: 97, arg2: a
+    &#x2F;&#x2F; T: 自动推导为 int，U: 自动推导为 char
+    func(97, &#39;a&#39;);
+
+    &#x2F;&#x2F; error
+    &#x2F;&#x2F; T: 没有实参无法自动推导，也没有默认的模板参数
+    func();
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="using-的使用"><a href="#using-的使用" class="headerlink" title="using 的使用"></a>using 的使用</h3><p>在 C++11 之前，using 用于声明命名空间，命令空间可以防止命名冲突。声明命名空间之后，就可以直接使用命名空间中的定义的类了。</p>
+<p>C++11 为 using 赋予了新的功能。</p>
+<h4 id="定义别名"><a href="#定义别名" class="headerlink" title="定义别名"></a>定义别名</h4><p>C++11 之前可以使用 typedef 重定义一个类型。被重定义的类型并不是一个新的类型，仅仅只是原有的类型取了一个新的名字。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">typedef 旧的类型名 新的类型名;
+
+&#x2F;&#x2F; example
+typedef unsigned int uint_t;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>C++11 以后也可以使用 using 来定义类型的别名。类型别名和类型的名字等价。使用 typedef 定义的别名和使用 using 定义的别名在语义上是等效的。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">using 新的类型名 &#x3D; 旧的类型名;
+
+&#x2F;&#x2F; example
+using uint_t &#x3D; int;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="定义函数指针"><a href="#定义函数指针" class="headerlink" title="定义函数指针"></a>定义函数指针</h4><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 使用 typedef 定义函数指针
+typedef int(*func_ptr)(int, double);
+
+&#x2F;&#x2F; 使用 using 定义函数指针
+using func_ptr1 &#x3D; int(*)(int, double);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="模板的别名"><a href="#模板的别名" class="headerlink" title="模板的别名"></a>模板的别名</h4><p>需求：一个固定以 int 类型为 key 的 map，它可以和很多类型的 value 值进行映射。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">typedef map&lt;int, string&gt; m1;
+typedef map&lt;int, int&gt; m2;
+typedef map&lt;int, double&gt; m3;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>typename 不支持给模板定义别名。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template &lt;typename T&gt;
+typedef map&lt;int, T&gt; type; &#x2F;&#x2F; error<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>typedef 需要添加一个外敷类才能实现上面的需求。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+#include &lt;map&gt;
+using namespace std;
+
+template &lt;typename T&gt;
+&#x2F;&#x2F; 定义外敷类
+struct MyMap
+&#123;
+    typedef map&lt;int, T&gt; type;
+&#125;;
+
+int main(void)
+&#123;
+    MyMap&lt;string&gt;::type m;
+    m.insert(make_pair(1, &quot;susu&quot;));
+    m.insert(make_pair(2, &quot;honghong&quot;));
+
+    MyMap&lt;int&gt;::type m1;
+    m1.insert(1, 100);
+    m1.insert(2, 200);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>C++11 可以使用 using 来为一个模板定义别名。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template &lt;typename T&gt;
+using mymap &#x3D; map&lt;int, T&gt;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+#include &lt;map&gt;
+using namespace std;
+
+template &lt;typename T&gt;
+using mymap &#x3D; map&lt;int, T&gt;;
+
+int main(void)
+&#123;
+    mymap&lt;string&gt; m;
+    m.insert(make_pair(1, &quot;susu&quot;));
+    m.insert(make_pair(2, &quot;honghong&quot;));
+
+    mymap&lt;int&gt; m1;
+    m1.insert(1, 100);
+    m1.insert(2, 200);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>using 语法和 typedef 一样，并不会创建出新的类型，它们只是给某些类型定义了新的别名。using 还可以给模板定义别名。</p>
+<h3 id="委托构造函数"><a href="#委托构造函数" class="headerlink" title="委托构造函数"></a>委托构造函数</h3><p>委托构造函数允许  同一个类中的构造函数调用其他的构造函数。</p>
+<p>C++11以前</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+class Test
+&#123;
+public:
+    Test() &#123;&#125;;
+
+    Test(int max)
+    &#123;
+        this-&gt;m_max &#x3D; max &gt; 0 ? max : 100;
+    &#125;
+
+    Test(int max, int min)
+    &#123;
+        this-&gt;m_max &#x3D; max &gt; 0 ? max : 100;
+        this-&gt;m_min &#x3D; min &gt; 0 &amp;&amp; min &lt; max ? min : 1;
+    &#125;
+
+    Test(int max, int min, int mid)
+    &#123;
+        this-&gt;m_max &#x3D; max &gt; 0 ? max : 100;
+        this-&gt;m_min &#x3D; min &gt; 0 &amp;&amp; min &lt; max ? min : 1;
+        this-&gt;m_middle &#x3D; mid &lt; max &amp;&amp; mid &gt; min ? mid : 50;
+    &#125;
+
+    int m_min;
+    int m_max;
+    int m_middle;
+&#125;;
+
+int main()
+&#123;
+    Test t(90, 30, 60);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>C++11加入了委托构造</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+class Test
+&#123;
+public:
+    Test() &#123;&#125;;
+
+    Test(int max)
+    &#123;
+        this-&gt;m_max &#x3D; max &gt; 0 ? max : 100;
+    &#125;
+
+    Test(int max, int min):Test(max)
+    &#123;
+        this-&gt;m_min &#x3D; min &gt; 0 &amp;&amp; min &lt; max ? min : 1;
+    &#125;
+
+    Test(int max, int min, int mid):Test(max, min)
+    &#123;
+        this-&gt;m_middle &#x3D; mid &lt; max &amp;&amp; mid &gt; min ? mid : 50;
+    &#125;
+
+    int m_min;
+    int m_max;
+    int m_middle;
+&#125;;
+
+int main()
+&#123;
+    Test t(90, 30, 60);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注：一个构造函数调用了其他的构造函数用于相关数据的初始化，相当于一个链式调用。</p>
+<ul>
+<li><p>链式调用不能形成一个闭环，否则会在运行期抛异常。</p>
+</li>
+<li><p>多层的链式调用时，需要将构造函数的调用写在初始化列表中而不是函数体内部，否则会出现形参重复定义。</p>
+</li>
+<li><p>在初始化列表中调用了委托构造函数初始化某个类成员变量之后，不能在初始化列表中再次初始化这个变量。</p>
+</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; error
+Test(int max, int min):Test(max), m_max(max)
+&#123;
+    this-&gt;m_min &#x3D; min &gt; 0 &amp;&amp; min &lt; max ? min : 1;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="继承构造函数"><a href="#继承构造函数" class="headerlink" title="继承构造函数"></a>继承构造函数</h3><p>C++11 新增了继承构造函数，可以让派生类直接使用基类的构造函数。</p>
+<p>C++11以前</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Base
+&#123;
+public:
+    Base(int i):m_i(i)&#123;&#125;
+
+    Base(int i, double j):m_i(i), m_j(j)&#123;&#125;
+
+    Base(int i, double j, string k):m_i(i), m_j(j), m_k(k)&#123;&#125;
+
+    int m_i;
+    double m_j;
+    string m_k;
+&#125;;
+
+class Child:public Base
+&#123;
+public:
+    Child(int i): Base(i)&#123;&#125;
+
+    Child(int i, double j): Base(i,j)&#123;&#125;
+
+    Child(int i, double j, string k): Base(i, j, k)&#123;&#125;
+&#125;;
+
+int main()
+&#123;
+    Child c(520, 13.14, &quot;see you again!&quot;);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>C++11使用 using 类名::构造函数名 来声明使用基类的构造函数。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Base
+&#123;
+public:
+    Base(int i):m_i(i)&#123;&#125;
+
+    Base(int i, double j):m_i(i),m_j(j)&#123;&#125;
+
+    Base(int i, double j, string k):m_i(i),m_j(j),m_k(k)&#123;&#125;
+
+    int m_i;
+    double m_j;
+    string m_k;
+&#125;;
+
+class Child : public Base
+&#123;
+public:
+    using Base::Base;
+&#125;;
+
+int main()
+&#123;
+    Child c1(520, 13.14);
+
+    Child c2(520, 13.14, &quot;see you again!&quot;);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过 using 使用父类的同名函数</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Base
+&#123;
+public:
+    Base(int i):m_i(i) &#123;&#125;
+
+    Base(int i, double j):m_i(i), m_j(j) &#123;&#125;
+
+    Base(int i, double j, string k):m_i(i), m_j(j), m_k(k) &#123;&#125;
+
+    void func(int i)
+    &#123;
+        cout &lt;&lt; &quot;base class: i &#x3D; &quot; &lt;&lt; i &lt;&lt; ebdl;
+    &#125;
+
+    void func(int i, string str)
+    &#123;
+        cout &lt;&lt; &quot;base class: i &#x3D; &quot; &lt;&lt; i &lt;&lt; &quot;, str &#x3D; &quot; &lt;&lt; str &lt;&lt; endl;
+    &#125;
+
+    int m_i;
+    double m_j;
+    string m_k;
+&#125;;
+
+class Child : public Base
+&#123;
+public:
+    using Base::Base;
+    using Base::func;
+
+    void func()
+    &#123;
+        cout &lt;&lt; &quot;child class: I&#39;m Child!&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    Child c(520);
+    
+    &#x2F;&#x2F; output: child class: I&#39;m Child!
+    c.func();
+
+    &#x2F;&#x2F; output: base class: i &#x3D; 19
+    c.func(19);
+
+    &#x2F;&#x2F; output: base class: i &#x3D; 19, str &#x3D; see you again!
+    c.func(19, &quot;see you again!&quot;);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="统一的初始化"><a href="#统一的初始化" class="headerlink" title="统一的初始化"></a>统一的初始化</h3><p>C++11以前，普通数组和可以直接进行内存拷贝的对象(memcpy())可以使用列表初始化来初始化数据</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int array[] &#x3D; &#123;1,3,5,7,9&#125;;
+double array1[3] &#x3D; &#123;1.2,1.3,1.4&#125;;
+
+struct Person
+&#123;
+    int id;
+    double salary;
+&#125;zhang3&#123;1,3000&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>C++11</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+class Test
+&#123;
+public:
+    Test(int)&#123;&#125;
+
+private:
+    Test(const Test &amp;) &#123;&#125;
+&#125;;
+
+int main(void)
+&#123;
+    &#x2F;&#x2F; 带参的构造函数
+    Test t1(520);
+
+    &#x2F;&#x2F; error ，因为拷贝构造函数是私有的。如果拷贝构造函数是公有的，520 会先隐式转换为 Test(int) 构造成一个匿名对象。然后匿名对象拷贝构造得到 t2。(VS 不会出现 error，Linux 的 g++ 会出现 error)
+    Test t2 &#x3D; 520;
+
+    &#x2F;&#x2F; C++11 的列表初始化，是否写等号无影响
+    Test t3 &#x3D; &#123;520&#125;;
+    Test t4&#123;520&#125;;
+
+    &#x2F;&#x2F; 基础数据类型的列表初始化
+    int a1 &#x3D; &#123;1314&#125;;
+    int a2&#123;1314&#125;;
+    int arr1[] &#x3D; &#123;1,2,3&#125;;
+    int arr2[]&#123;1,2,3&#125;;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>new操作符创建新对象</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int * p &#x3D; new int&#123;520&#125;;
+double b &#x3D; double&#123;52.134&#125;;
+int * array &#x3D; new int[3]&#123;1,2,3&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>列表初始化用在函数返回值上</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Person
+&#123;
+public:
+    Person(int id, string name)
+    &#123;
+        cout &lt;&lt; &quot;id: &quot; &lt;&lt; id &lt;&lt; &quot;, name: &quot; &lt;&lt; name &lt;&lt; endl;
+    &#125;
+&#125;;
+
+Person func()
+&#123;   
+    &#x2F;&#x2F; return &#123;1, &quot;susu&quot;&#125; &#x3D; return Person(1, &quot;susu&quot;)
+    &#x2F;&#x2F; 直接返回了一个匿名对象
+    Return &#123;1, &quot;susu&quot;&#125;;
+&#125;
+
+int main(void)
+&#123;
+    Person p &#x3D; func();
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="列表初始化聚合类型的变量"><a href="#列表初始化聚合类型的变量" class="headerlink" title="列表初始化聚合类型的变量"></a>列表初始化聚合类型的变量</h4><p>对于自定义类型，列表初始化可能有两种执行结果。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+struct T1
+&#123;
+    int x;
+    int y;
+&#125;a &#x3D; &#123; 123, 321 &#125;;
+
+struct T2
+&#123;
+    int x;
+    int y;
+    T2(int, int) : x(10), y(20) &#123;&#125;
+&#125;b &#x3D; &#123; 123, 321 &#125;;
+
+int main(void)
+&#123;
+    &#x2F;&#x2F; output: a.x: 123, a.y: 321
+    cout &lt;&lt; &quot;a.x: &quot; &lt;&lt; a.x &lt;&lt; &quot;, a.y: &quot; &lt;&lt; a.y &lt;&lt; endl;
+
+    &#x2F;&#x2F; output: b.x: 10, b.y: 20
+    cout &lt;&lt; &quot;b.x: &quot; &lt;&lt; b.x &lt;&lt; &quot;, b.y: &quot; &lt;&lt; b.y &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>对象 b 并没有被初始化列表中的数据初始化。因为如果使用列表初始化对对象初始化时，还需要判断这个对象对应的类型是不是一个聚合体，如果是，初始化列表中的数据就会拷贝到对象中。</p>
+<p>聚合体类型：</p>
+<ul>
+<li>普通数组本身可以看做是一个聚合类型</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int x[] &#x3D; &#123;1, 2, 3, 4, 5, 6&#125;;
+double y[3][3] &#x3D; &#123;
+    &#123;1, 2, 3&#125;,
+    &#123;4, 5, 6&#125;,
+    &#123;7, 8, 9&#125;,
+&#125;;
+char carry[] &#x3D; &#123;&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;&#125;;
+std::string sarray[] &#x3D; &#123;&quot;hello&quot;, &quot;world&quot;&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>满足以下条件的类（class、struct、union）可以被看做成一个聚合类型：</p>
+<ul>
+<li><p>无用户自定义的构造函数。</p>
+</li>
+<li><p>无私有或保护的非静态成员。</p>
+</li>
+</ul>
+ <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">struct T2
+&#123;
+    int x;
+    long y;
+ 
+ protected:
+     static int z;
+&#125;t&#123; 1, 100&#125;;
+
+&#x2F;&#x2F; 静态成员的初始化
+int T2::z &#x3D; 2;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>无基类。</p>
+</li>
+<li><p>无虚函数。</p>
+</li>
+</ul>
+ <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+struct T2
+&#123;
+    int x;
+    long y;
+ 
+ protected:
+     static int z;
+&#125;t1&#123;1, 100&#125;;
+
+int T2::z &#x3D; 2;
+
+stuct T3
+&#123;
+    int x;
+    double y &#x3D; 1;
+    int z[3]&#123;1,2,3&#125;;
+&#125;;
+
+int main(void)
+&#123;
+    T3 t&#123;520, 2, &#123;6, 7, 8&#125;&#125;;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h4 id="列表初始化非聚合类型的对象"><a href="#列表初始化非聚合类型的对象" class="headerlink" title="列表初始化非聚合类型的对象"></a>列表初始化非聚合类型的对象</h4><p>非聚合类型对象：需要在类内定义一个使用初始化列表对类成员变量进行初始化的构造函数。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+struct T1
+&#123;
+    int x;
+    double y;
+
+    T1(int a, double b, int c) : x(a), y(b), z(c)&#123;&#125;
+
+private:
+    int z;
+&#125;;
+
+int main(void)
+&#123;
+    T1 t&#123; 520, 1.2, 1&#125;;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>一个类有非聚合类型的非静态成员时，也可能是聚合类型。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+struct T1
+&#123;
+    int x;
+    double y;
+
+private:
+    int z;
+&#125;;
+
+struct T2
+&#123;
+    T1 t1;
+    long x1;
+    double y1;
+&#125;;
+
+int main(void)
+&#123;
+    &#x2F;&#x2F; &#123;&#125; 相当于调用 T1 的无参构造函数
+    T2 t2&#123;&#123;&#125;, 520, 1.2&#125;;
+    
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="std-initializer-list"><a href="#std-initializer-list" class="headerlink" title="std::initializer_list"></a>std::initializer_list</h3><p>std::initializer_list 类模板特点：</p>
+<ul>
+<li><p>内部定义了迭代器 iterator，遍历时得到的迭代器是只读的。</p>
+</li>
+<li><p>std::initializer_list<T>，可以接收任意长度的初始化列表，元素必须是同种类型 T</p>
+</li>
+<li><p>三个成员接口：size(), begin(), end()。</p>
+</li>
+<li><p>std::initializer_list 对象只能被整体初始化或者赋值。</p>
+</li>
+</ul>
+<h4 id="作为普通函数的参数"><a href="#作为普通函数的参数" class="headerlink" title="作为普通函数的参数"></a>作为普通函数的参数</h4><p>变参函数</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+void traversal(std::initializer_list&lt;int&gt; a)
+&#123;
+    for(auto it &#x3D; a.begin(); it !&#x3D; a.end(); ++it)
+    &#123;
+        cout &lt;&lt; *it &lt;&lt; &quot; &quot;;
+    &#125;
+    cout &lt;&lt; endl;
+&#125;
+
+int main(void)
+&#123;
+    initializer_list&lt;int&gt; list;
+    cout &lt;&lt; &quot;current list size: &quot; &lt;&lt; list.size() &lt;&lt; endl;
+    traversal(list);
+
+    list &#x3D; &#123;1,2,3,4,5,6,7,8,9,0&#125;;
+    cout &lt;&lt; &quot;current list size: &quot; &lt;&lt; list.size() &lt;&lt; endl;
+    traversal(list);
+    cout &lt;&lt; endl;
+
+    list &#x3D; &#123;1,3,5,7,9&#125;;
+    cout &lt;&lt; &quot;current list size: &quot; &lt;&lt; list.size() &lt;&lt; endl;
+    traversal(list);
+    cout &lt;&lt; endl;
+
+    traversal(&#123;2,4,6,8,0&#125;);
+    cout &lt;&lt; endl;
+
+    traversal(&#123;11,12,13,14,15,16&#125;);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">current list size: <span class="token number">0</span>
+
+current list size: <span class="token number">10</span>
+<span class="token number">1</span> <span class="token number">2</span> <span class="token number">3</span> <span class="token number">4</span> <span class="token number">5</span> <span class="token number">6</span> <span class="token number">7</span> <span class="token number">8</span> <span class="token number">9</span> <span class="token number">0</span>
+
+current list size: <span class="token number">5</span>
+<span class="token number">1</span> <span class="token number">3</span> <span class="token number">5</span> <span class="token number">7</span> <span class="token number">9</span>
+
+<span class="token number">2</span> <span class="token number">4</span> <span class="token number">6</span> <span class="token number">8</span> <span class="token number">0</span>
+
+<span class="token number">11</span> <span class="token number">12</span> <span class="token number">13</span> <span class="token number">14</span> <span class="token number">15</span> <span class="token number">16</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>std::initializer_list 遍历时得到的是一个只读的迭代器，只能以值覆盖的方式进行容器内部数据的修改。它的效率是非常高的，它不保存初始化列表中元素的拷贝，仅仅存储了初始化列表中元素的引用。</p>
+<h4 id="作为构造函数的参数"><a href="#作为构造函数的参数" class="headerlink" title="作为构造函数的参数"></a>作为构造函数的参数</h4><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+class Test
+&#123;
+public:
+    Test(std::initializer_list&lt;string&gt; list)
+    &#123;
+        for (auto it &#x3D; list.begin(); it !&#x3D; list.end(); ++it)
+        &#123;
+            cout &lt;&lt; *it &lt;&lt; &quot; &quot;;
+            m_names.push_back(*it);
+        &#125;
+        cout &lt;&lt; endl;
+    &#125;
+
+private:
+    vector&lt;string&gt; m_names;
+&#125;;
+
+int main(void)
+&#123;
+    &#x2F;&#x2F; output: susu yaya rongrong
+    Test t(&#123;&quot;susu&quot;, &quot;yaya&quot;, &quot;rongrong&quot;&#125;);
+
+    &#x2F;&#x2F; output: honghong dongfangyuechu
+    Test t1(&#123;&quot;honghong&quot;,&quot;dongfangyuechu&quot;&#125;);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="基于范围的-for-循环"><a href="#基于范围的-for-循环" class="headerlink" title="基于范围的 for 循环"></a>基于范围的 for 循环</h3><h4 id="基于范围的-for-循环的语法"><a href="#基于范围的-for-循环的语法" class="headerlink" title="基于范围的 for 循环的语法"></a>基于范围的 for 循环的语法</h4><p>C++11以前</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main()
+&#123;
+    vector&lt;int&gt; t&#123;1,2,3,4,5,6&#125;;
+    for (auto it &#x3D; t.begin(); it !&#x3D; t.end(); ++it)
+    &#123;
+        cout &lt;&lt; *it &lt;&lt; &quot; &quot;;
+    &#125;
+    cout &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; C++98&#x2F;03 中普通的 for 循环
+for(表达式1;表达式2;表达式3)
+&#123;
+    &#x2F;&#x2F; 循环体
+&#125;
+
+&#x2F;&#x2F; C++11 基于范围的 for 循环
+for(declaration : expression)
+&#123;
+    &#x2F;&#x2F; 循环体
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>declaration 表示遍历声明，在遍历过程中，当前被遍历到的元素会被存储到声明的变量中。expression 是要遍历的对象，它可以是表达式、容器、数组、初始化列表等。</p>
+<p>基于范围的for循环</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main(void)
+&#123;
+    vector&lt;int&gt; t&#123;1,2,3,4,5,6&#125;;
+    for (auto value : t)
+    &#123;
+        cout &lt;&lt; value &lt;&lt; &quot; &quot;;
+    &#125;
+    cout &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>遍历过程中修改元素的值，需要使用引用</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main(void)
+&#123;
+    vector&lt;int&gt; t&#123;1,2,3,4,5,6&#125;;
+    cout &lt;&lt; &quot;遍历修改之前的容器：&quot;;
+    for (auto &amp;value : t)
+    &#123;
+        cout &lt;&lt; value++ &lt;&lt; &quot; &quot;;
+    &#125;
+    cout &lt;&lt; endl &lt;&lt; &quot;遍历修改之后的容器：&quot;;
+
+    for (auto &amp;value : t)
+    &#123;
+        cout &lt;&lt; value &lt;&lt; &quot; &quot;;
+    &#125;
+    cout &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">遍历修改之前的容器：1 <span class="token number">2</span> <span class="token number">3</span> <span class="token number">4</span> <span class="token number">5</span> <span class="token number">6</span>
+遍历修改之后的容器：2 <span class="token number">3</span> <span class="token number">4</span> <span class="token number">5</span> <span class="token number">6</span> <span class="token number">7</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>更高效率的只读</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main(void)
+&#123;
+    vector&lt;int&gt; t&#123;1,2,3,4,5,6&#125;;
+
+    &#x2F;&#x2F; const auto &amp; 效率高于 const auto
+    for (const auto&amp; value : t)
+    &#123;
+        cout &lt;&lt; value &lt;&lt; &quot; &quot;;
+    &#125;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="关系型容器"><a href="#关系型容器" class="headerlink" title="关系型容器"></a>关系型容器</h4><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;map&gt;
+using namespace std;
+
+int main(void)
+&#123;
+    map&lt;int, string&gt; m&#123;
+        &#123;1, &quot;susu&quot;&#125;,&#123;2, &quot;yaya&quot;&#125;,&#123;3, &quot;rongrong&quot;&#125;
+    &#125;;
+
+    for (auto&amp; it : m)
+    &#123;
+        cout &lt;&lt; &quot;id: &quot; &lt;&lt; it.fist &lt;&lt; &quot;, name: &quot; &lt;&lt; it.second &lt;&lt; endl;
+    &#125;
+
+    for (auto it &#x3D; m.begin(); it !&#x3D; m.end(); ++it)
+    &#123;
+        cout &lt;&lt; &quot;id: &quot; &lt;&lt; it-&gt;first &lt;&lt; &quot;, name: &quot; &lt;&lt; it-&gt;second &lt;&lt; endl;
+    &#125;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>普通的 for 循环方式，auto 自动推导出一个迭代器类型，需要使用迭代器的方式访问键值对</p>
+<ul>
+<li><p>it-&gt;first</p>
+</li>
+<li><p>it-&gt;second</p>
+</li>
+</ul>
+</li>
+<li><p>基于范围的 for 循环方式，auto 自动推导出一个 value_type 类型对象，需要使用对象的方式访问键值对</p>
+<ul>
+<li><p>it.first</p>
+</li>
+<li><p>it.second</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="元素只读"><a href="#元素只读" class="headerlink" title="元素只读"></a>元素只读</h4><p>对于 set 容器，内部元素是只读的，for 循环中 auto &amp; 会被视为 const auto &amp;</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;set&gt;
+using namespace std;
+
+int main(void)
+&#123;
+    set&lt;int&gt; st&#123;1,2,3,4,5,6&#125;;
+    for(auto &amp;item : st)
+    &#123;
+        &#x2F;&#x2F; error
+        cout &lt;&lt; item++ &lt;&lt; endl;
+    &#125;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>对于 map 容器，不能修改 key 值，即 first 值</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;map&gt;
+using namespace std;
+
+int main(void)
+&#123;
+    map&lt;int, string&gt; m&#123;
+        &#123;1, &quot;susu&quot;&#125;, &#123;2, &quot;yaya&quot;&#125;, &#123;3, &quot;rongrong&quot;&#125;
+    &#125;;
+
+    for (auto&amp; item : m)
+    &#123;
+        &#x2F;&#x2F; item.first 是一个常量，error
+        cout &lt;&lt; &quot;id: &quot; &lt;&lt; item.first++ &lt;&lt; &quot;, name: &quot; &lt;&lt; item.second &lt;&lt; endl;
+    &#125;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="访问次数"><a href="#访问次数" class="headerlink" title="访问次数"></a>访问次数</h4><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+vector&lt;int&gt; v&#123;1,2,3,4,5,6&#125;;
+vector&lt;int&gt;&amp; getRange()
+&#123;
+    cout &lt;&lt; &quot;get vector range...&quot; &lt;&lt; endl;
+    return v;
+&#125;
+
+int main(void)
+&#123;
+    for (auto val : getRange())
+    &#123;
+        cout &lt;&lt; val &lt;&lt; &quot; &quot;;
+    &#125;
+    cout &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">get vector range<span class="token punctuation">..</span>.
+<span class="token number">1</span> <span class="token number">2</span> <span class="token number">3</span> <span class="token number">4</span> <span class="token number">5</span> <span class="token number">6</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>注：基于范围的 for 循环，冒号后的表达式只被执行一次。</p>
+<h3 id="可调用对象"><a href="#可调用对象" class="headerlink" title="可调用对象"></a>可调用对象</h3><p>C++11 以前就有可调用对象。包括以下几种：</p>
+<ul>
+<li>函数指针</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int print(int a, double b)
+&#123;
+    cout &lt;&lt; a &lt;&lt; b &lt;&lt; endl;
+
+    return 0;
+&#125;
+
+&#x2F;&#x2F; 定义函数指针
+int (*func)(int, double) &#x3D; &print;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>具有重载 operator() 的成员函数的类对象（仿函数）</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+struct Test
+&#123;
+    void operator()(string msg)
+    &#123;
+        cout &lt;&lt; &quot;msg: &quot; &lt;&lt; msg &lt;&lt; endl;
+    &#125;
+&#125;;
+
+int main(void)
+&#123;
+    Test t;
+    t(&quot;我要成为真正的狐狸精！！！&quot;);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>转换为函数指针的类对象</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+using func_ptr &#x3D; void(*)(int, string);
+struct Test
+&#123;
+    static void print(int a, string b)
+    &#123;
+        cout &lt;&lt; &quot;name: &quot; &lt;&lt; b &lt;&lt; &quot;, age: &quot; &lt;&lt; a &lt;&lt; endl;
+    &#125;
+
+    &#x2F;&#x2F; 将类对象转换为函数指针
+    operator func_ptr()
+    &#123;
+        return print;
+    &#125;
+&#125;;
+
+int main(void)
+&#123;
+    Test t;
+
+    &#x2F;&#x2F; 对象转换为函数指针，并调用
+    t(1, &quot;susu&quot;);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>类成员函数指针和类成员指针</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+struct Test
+&#123;
+    void print(int a, string b)
+    &#123;
+        cout &lt;&lt; &quot;name: &quot; &lt;&lt; b &lt;&lt; &quot;, age: &quot; &lt;&lt; a &lt;&lt; endl;
+    &#125;
+    int m_num;
+&#125;;
+
+int main(void)
+&#123;
+    &#x2F;&#x2F; 定义类成员函数指针
+    void (Test::*func_ptr)(int, string) &#x3D; &amp;Test::print;
+
+    &#x2F;&#x2F; 类成员指针
+    int Test::*obj_ptr &#x3D; &amp;Test::m_num;
+
+    Test t;
+    (t.*func_ptr)(1, &quot;susu&quot;);
+    t.*obj_ptr &#x3D; 1;
+
+    cout &lt;&lt; &quot;number is: &quot; &lt;&lt; t.m_num &lt;&lt; endl;
+    
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="可调用对象包装器"><a href="#可调用对象包装器" class="headerlink" title="可调用对象包装器"></a>可调用对象包装器</h3><p><code>std::function 是可调用对象的包装器，它是一个类模板，可以容纳除了类成员（函数）指针之外的所有可调用对象。</code></p>
+<h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++"># 语法
+#include &lt;functional&gt;
+std::function&lt;返回值类型(参数类型列表)&gt; name &#x3D; 可调用对象;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+int add(int a, int b)
+&#123;
+    cout &lt;&lt; a &lt;&lt; &quot; + &quot; &lt;&lt; b &lt;&lt; &quot; &#x3D; &quot; &lt;&lt; a + b &lt;&lt; endl;
+    
+    return a + b;
+&#125;
+
+class T1
+&#123;
+public:
+    static int sub(int a, int b)
+    &#123;
+        cout &lt;&lt; a &lt;&lt; &quot; - &quot; &lt;&lt; b &lt;&lt; &quot; &#x3D; &quot; &lt;&lt; a - b &lt;&lt; endl;
+
+        return a - b;
+    &#125;
+&#125;;
+
+class T2
+&#123;
+public:
+    int operator()(int a, int b)
+    &#123;
+        cout &lt;&lt; a &lt;&lt; &quot; * &quot; &lt;&lt; b &lt;&lt; &quot; &#x3D; &quot; &lt;&lt; a * b &lt;&lt; endl;
+
+        return a * b;
+    &#125;
+&#125;;
+
+int main(void)
+&#123;
+    function&lt;int(int, int)&gt; f1 &#x3D; add;
+    function&lt;int(int, int)&gt; f2 &#x3D; T1::sub;
+
+    T2 t;
+    function&lt;int(int, int)&gt; f3 &#x3D; t;
+
+    &#x2F;&#x2F; output: 9 + 3 &#x3D; 12
+    f1(9, 3);
+
+    &#x2F;&#x2F; output: 9 - 3 &#x3D; 6
+    f2(9, 3);
+
+    &#x2F;&#x2F; output: 9 * 3 &#x3D; 27
+    f3(9, 3);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注：std::function 可以将可调用对象进行包装，得到统一形式，包装得到的对象为一个函数指针。</p>
+<h4 id="作为回调函数使用"><a href="#作为回调函数使用" class="headerlink" title="作为回调函数使用"></a>作为回调函数使用</h4><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+class A
+&#123;
+public:
+    A(const function&lt;void()&gt;&amp; f) : callback(f)
+    &#123;
+
+    &#125;
+
+    void notify()
+    &#123;
+        callback();
+    &#125;
+
+private:
+    function&lt;void()&gt; callback;
+&#125;;
+
+class B
+&#123;
+public:
+    void operator()()
+    &#123;
+        cout &lt;&lt; &quot;我要成为真正的狐狸精！！！&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+int main(void)
+&#123;
+    B b;
+    A a(b);
+    
+    a.notify();
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注：使用 std::function 作为函数的传入参数，可以将不同的可调用对象进行统一的传递。</p>
+<h3 id="可调用对象的绑定器"><a href="#可调用对象的绑定器" class="headerlink" title="可调用对象的绑定器"></a>可调用对象的绑定器</h3><p>std::bind 可以将可调用对象与参数一起进行绑定，绑定后的结果可以使用 std::function 进行保存。</p>
+<p>std::bind 的作用：</p>
+<ul>
+<li><p>将可调用对象与参数一起绑定成一个仿函数。</p>
+</li>
+<li><p>将多元（参数个数为 n，n &gt; 1）可调用对象转换为一元或者（n-1）元可调用对象。</p>
+</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 绑定非类成员函数&#x2F;变量
+auto f &#x3D; std::bind(可调用对象地址, 绑定的参数&#x2F;占位符);
+
+&#x2F;&#x2F; 绑定类成员函数&#x2F;变量
+auto f &#x3D; std::bind(类函数&#x2F;成员地址, 类实例对象地址, 绑定的参数&#x2F;占位符);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+void callFunc(int x, const function&lt;void(int)&gt;&amp; f)
+&#123;
+    if (x % 2 &#x3D;&#x3D; 0)
+    &#123;
+        f(x);
+    &#125;
+&#125;
+
+void output(int x)
+&#123;
+    cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+&#125;
+
+void output_add(int x)
+&#123;
+    cout &lt;&lt; x + 10 &lt;&lt; &quot; &quot;;
+&#125;
+
+int main(void)
+&#123;
+    &#x2F;&#x2F; output: 0 2 4 6 8
+    auto f1 &#x3D; bind(output, placeholders::_1);
+    for (int i &#x3D; 0; i &lt; 10; ++i)
+    &#123;
+        callFunc(i, f1);
+    &#125;
+    cout &lt;&lt; endl;
+
+    &#x2F;&#x2F; output: 10 12 14 16 18
+    auto f2 &#x3D; bind(output_add, placeholders::_1);
+    for (int i &#x3D; 0; i &lt; 10; ++i)
+    &#123;
+        callFunc(i, f2);
+    &#125;
+    cout &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注：placeholders::_1 是一个占位符，代表这个位置将在函数调用时被传入的第一个参数所替代。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+void output(int x, int y)
+&#123;
+    cout &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; endl;
+&#125;
+
+int main(void)
+&#123;
+    &#x2F;&#x2F; output: 1 2
+    bind(output, 1, 2)();
+
+    &#x2F;&#x2F; output: 10 2
+    bind(output, placeholders::_1, 2)(10);
+
+    &#x2F;&#x2F; output: 2 10
+    bind(output, 2, placeholders::_1)(10);
+
+    &#x2F;&#x2F; output: 2 20
+    bind(output, 2, placeholders::_2)(10, 20);
+
+    &#x2F;&#x2F; output: 10 20
+    bind(output, placeholders::_1, placeholders::_2)(10, 20);
+
+    &#x2F;&#x2F; output: 20 10
+    bind(output, placeholders::_2, placeholders::_1)(10, 20);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>std::function 配合 std::bind 实现对类成员函数指针或类成员指针的包装</code></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+class Test
+&#123;
+public:
+    void output(int x, int y)
+    &#123;
+        cout &lt;&lt; &quot;x: &quot; &lt;&lt; x &lt;&lt; &quot;, y: &quot; &lt;&lt; y &lt;&lt; endl;
+    &#125;
+    int m_number &#x3D; 100;
+&#125;;
+
+int main(void)
+&#123;
+    Test t;
+
+    &#x2F;&#x2F; 绑定类成员函数
+    function&lt;void(int, int)&gt; f1 &#x3D; 
+        bind(&amp;Test::output, &amp;t, placeholders::_1, placeholders::_2);
+
+    &#x2F;&#x2F; 绑定类成员变量（public）
+    function&lt;int&amp;(void)&gt; f2 &#x3D; bind(&amp;Test::number, &amp;t);
+
+    &#x2F;&#x2F; output: x: 1, y: 2
+    f1(1, 2);
+
+    f2() &#x3D; 1;
+
+    &#x2F;&#x2F; output: t.m_number: 1
+    cout &lt;&lt; &quot;t.m_number: &quot; &lt;&lt; t.m_number &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注：<code>f1</code> 的类型是 <code>function&lt;void(int, int)&gt;</code>，通过使用 std::bind 将 Test 的成员函数 output 的地址和对象 t 绑定，并转化为一个仿函数并存储到对象 f1 中。</p>
+<p>注：<code>f2</code> 的类型是 <code>function&lt;int&amp;(void)&gt;</code>，通过使用 std::bind 将 Test 的成员 m_number 的地址和对象 t 绑定，并转换为一个仿函数并存储到对象 f2 中。int 是绑定的类成员的类型，<code>&amp;</code> 表示变量可以被修改，由于没有参数，因此参数列表指定为 void。</p>
+<h3 id="Lambda-表达式"><a href="#Lambda-表达式" class="headerlink" title="Lambda 表达式"></a>Lambda 表达式</h3><p>lambda 表达式是 C++11 的新特性。</p>
+<ul>
+<li><p>就地匿名定义函数或函数对象</p>
+</li>
+<li><p>避免了代码膨胀和功能分散，实现功能闭包</p>
+</li>
+</ul>
+<p>lambda 表达式定义了一个匿名函数，并且可以捕获一定范围内的变量。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">[capture](params) opt -&gt; ret &#123;body&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><p><code>[capture]</code>: 捕获列表，捕获一定范围内的变量</p>
+</li>
+<li><p><code>(params)</code>: 如果没有参数，参数列表可以省略不写</p>
+</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 参数列表为空
+auto f &#x3D; []()&#123;return 1;&#125;;
+
+&#x2F;&#x2F; 没有参数，参数列表可以省略不写
+auto f &#x3D; []&#123;return 1;&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p><code>opt</code>: 函数选项，可以省略不写</p>
+<ul>
+<li><p>mutable: 修改按值传递进来的拷贝</p>
+</li>
+<li><p>exception: 指定函数抛出的异常</p>
+</li>
+</ul>
+</li>
+<li><p><code>ret</code>: 返回值类型，使用返回值后置语法定义的</p>
+</li>
+<li><p><code>body</code>: 函数体，函数的实现</p>
+</li>
+</ul>
+<h4 id="捕获列表"><a href="#捕获列表" class="headerlink" title="捕获列表"></a>捕获列表</h4><p>lambda 表达式的捕获列表可以捕获一定范围内的变量。</p>
+<ul>
+<li><p><code>[]</code>: 不捕捉任何变量</p>
+</li>
+<li><p><code>[&amp;]</code>: 捕获外部作用域中所有变量，按引用捕获</p>
+</li>
+<li><p><code>[=]</code>: 捕获外部作用域中所有变量，按值捕获，拷贝的副本在匿名函数体内部是只读的</p>
+</li>
+<li><p><code>[=, &amp;var]</code>: 按值捕获外部作用域中所有变量，并按照引用捕获外部变量 var</p>
+</li>
+<li><p><code>[var]</code>: 按值捕获 var 变量</p>
+</li>
+<li><p><code>[&amp;var]</code>: 按引用捕获 var 变量</p>
+</li>
+<li><p><code>[this]</code>: 捕获当前类中的 this 指针，让 lambda 表达式拥有和当前类成员函数同样的访问权限，如果已经使用了 &amp; 或者 &#x3D;，默认添加此选项</p>
+</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+class Test
+&#123;
+public:
+    void output(int x, int y)
+    &#123;
+        &#x2F;&#x2F; error
+        auto x1 &#x3D; []&#123;return m_number;&#125;;
+
+        &#x2F;&#x2F; ok
+        auto x2 &#x3D; [&#x3D;]&#123;return m_number + x + y;&#125;;
+
+        &#x2F;&#x2F; ok
+        auto x3 &#x3D; [&amp;]&#123;return m_number + x + y;&#125;;
+
+        &#x2F;&#x2F; ok，捕获 this 指针，可访问对象内部成员
+        auto x4 &#x3D; [this]&#123;return m_number;&#125;;
+
+        &#x2F;&#x2F; error
+        auto x5 &#x3D; [this]&#123;return m_number + x + y;&#125;;
+
+        &#x2F;&#x2F; ok
+        auto x6 &#x3D; [this, x, y]&#123;return m_number + x + y;&#125;;
+
+        &#x2F;&#x2F; ok
+        auto x7 &#x3D; [this]&#123;return m_number++;&#125;;
+    &#125;
+
+    int m_number &#x3D; 100;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int main(void)
+&#123;
+    int a &#x3D; 10, b &#x3D; 20;
+    
+    &#x2F;&#x2F; error
+    auto f1 &#x3D; []&#123;return a;&#125;;
+
+    &#x2F;&#x2F; ok
+    auto f2 &#x3D; [&amp;]&#123;return a++;&#125;;
+
+    &#x2F;&#x2F; ok
+    auto f3 &#x3D; [&#x3D;]&#123;return a;&#125;;
+
+    &#x2F;&#x2F; error
+    auto f4 &#x3D; [&#x3D;]&#123;return a++;&#125;;
+
+    &#x2F;&#x2F; error
+    auto f5 &#x3D; [a]&#123;return a + b;&#125;;
+
+    &#x2F;&#x2F; ok
+    auto f6 &#x3D; [a, &amp;b]&#123;return a + (b++);&#125;;
+
+    &#x2F;&#x2F; ok
+    auto f7 &#x3D; [&#x3D;, &amp;b]&#123;return a + (b++);&#125;;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>C++11 中允许省略 lambda 表达式的返回值，编译器会根据 return 语句自动推导返回值的类型。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 完整的 lambda 表达式定义
+auto f &#x3D; [](int a) -&gt; int
+&#123;
+    return a + 10;
+&#125;;
+
+&#x2F;&#x2F; 忽略返回值
+auto f &#x3D; [](int a)
+&#123;
+    return a + 10;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>lambda 表达式不能通过列表初始化自动推导出返回值类型。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; ok
+auto f &#x3D; [](int i)
+&#123;
+    return i;
+&#125;
+
+&#x2F;&#x2F; error
+auto f1 &#x3D; []()
+&#123;
+    return &#123;1, 2&#125;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="函数本质"><a href="#函数本质" class="headerlink" title="函数本质"></a>函数本质</h4><p>被 mutable 修改的 lambda 表达式没有参数也要写出参数列表，可以去掉按值捕获的外部变量的只读（const）属性。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int a &#x3D; 0;
+
+&#x2F;&#x2F; error
+auto f1 &#x3D; [&#x3D;]&#123;return a++;&#125;;
+
+&#x2F;&#x2F; ok
+auto f2 &#x3D; [&#x3D;]()mutable &#123;return a++;&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注：lambda 表达式的类型在 C++11 中会被看做是一个带 operator() 的类，即仿函数。lambda 表达式的 operator() 默认是 const 的，一个 const 成员函数是无法修改成员变量值的。</p>
+<p>mutable 选项可以取消 operator() 的 const 属性。</p>
+<hr>
+<p><code>可以使用 std::function 和 std::bind 来存储和操作 lambda 表达式</code></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+int main(void)
+&#123;
+    std::function&lt;int(int)&gt; f1 &#x3D; [](int a)&#123;return a;&#125;;
+    std::function&lt;int(int)&gt; f2 &#x3D; bind([](int a)&#123;return a;&#125;, placeholders::_1);
+
+    cout &lt;&lt; f1(100) &lt;&lt; endl;
+    cout &lt;&lt; f2(200) &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>没有捕获任何变量的 lambda 表达式，可以转换成一个普通的函数指针。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">using func_ptr &#x3D; int(*)(int);
+
+func_ptr f &#x3D; [](int a)
+&#123;
+    return a;
+&#125;;
+
+f(1);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><p>左值（loactor value, lvalue）是存储在内存中，有明确存储地址的数据（可取地址）。右值（read value，rvalue）是指可以提供数据值的数据（不可取地址）。所有有名字的变量或对象都是左值，而右值是匿名的。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; a，b 是左值。1，2 是右值。
+int a &#x3D; 1;
+int b &#x3D; 2;
+a &#x3D; b;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>右值分为两种：</p>
+<ul>
+<li><p>纯右值：非引用返回的临时变量、运算表达式产生的临时变量、原始字面量和 lambda 表达式等</p>
+</li>
+<li><p>将亡值：与右值引用相关的表达式，如 <code>T&amp;&amp;</code> 类型函数的返回值、<code>std::move</code> 的返回值等</p>
+</li>
+</ul>
+<p>右值引用（R-value reference）是一个对右值进行引用的类型，右值引用必须立即进行初始化，右值引用并不拥有所绑定对象的内存，只是一个别名，右值引用将右值（临时变量）的生命周期延长，使得所绑定的对象的生命周期与右值引用的声明周期相同，右值引用的标记为 &amp;&amp;</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+&#x2F;&#x2F; 右值引用
+int&amp;&amp; value &#x3D; 1;
+
+class Test
+&#123;
+public:
+    Test()
+    &#123;
+        cout &lt;&lt; &quot;construct&quot; &lt;&lt; endl;
+    &#125;
+
+    Test(const Test&amp; a)
+    &#123;
+        cout &lt;&lt; &quot;copy construct&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+Test getObj()
+&#123;
+    return Test();
+&#125;
+
+int main()&#123;
+    
+    int a1;
+
+    &#x2F;&#x2F; error，使用左值初始化一个右值引用类型是不合法的
+    int &amp;&amp;a2 &#x3D; a1;
+
+    &#x2F;&#x2F; error，右值不能给普通的左值引用赋值
+    Test&amp; t &#x3D; getObj();
+
+    &#x2F;&#x2F; ok
+    Test &amp;&amp; t &#x3D; getObj();
+
+    &#x2F;&#x2F; ok，常量左值引用可以接受左值、右值、常量左值和常量右值
+    const Test&amp; t &#x3D; getObj();
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h4><p>使用右值引用避免对象的深拷贝，可以提高程序效率。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+class Test
+&#123;
+public:
+    Test() : m_num(new int(100))
+    &#123;
+        cout &lt;&lt; &quot;construct&quot; &lt;&lt; endl;
+    &#125;
+
+    Test(const Test&amp; a) : m_num(new int(*a.m_num))
+    &#123;
+        cout &lt;&lt; &quot;copy construct&quot; &lt;&lt; endl;
+    &#125;
+
+    ~Test()
+    &#123;
+        delete m_num;
+    &#125;
+
+    int* m_num;
+&#125;;
+
+Test getObj()
+&#123;
+    Test t;
+    return t;
+&#125;
+
+int main()
+&#123;
+    &#x2F;&#x2F; 调用拷贝构造函数进行深拷贝
+    Test t &#x3D; getObj();
+
+    cout &lt;&lt; &quot;t.m_num: &quot; &lt;&lt; *t.m_num &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">construct
+copy construct
+t.m_num: <span class="token number">100</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>右值引用具有移动语义，可以将资源（堆、系统对象等）通过浅拷贝从一个对象转移到另一个对象</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+class Test
+&#123;
+public:
+    Test() : m_num(new int(100))
+    &#123;
+        cout &lt;&lt; &quot;construct&quot; &lt;&lt; endl;
+    &#125;
+
+    Test(const Test&amp; a) : m_num(new int(*a.m_num))
+    &#123;
+        cout &lt;&lt; &quot;copy construct&quot; &lt;&lt; endl;
+    &#125;
+
+    &#x2F;&#x2F; 添加移动构造函数
+    Test(Test&amp;&amp; a) : m_num(a.m_num)
+    &#123;
+        a.m_num &#x3D; nullptr;
+        cout &lt;&lt; &quot;move construct&quot; &lt;&lt; endl;
+    &#125;
+
+    ~Test()
+    &#123;
+        delete m_num;
+        cout &lt;&lt; &quot;destruct Test class ...&quot; &lt;&lt; endl;
+    &#125;
+
+    int* m_num;
+&#125;;
+
+Test getObj()
+&#123;
+    Test t;
+    return t;
+&#125;
+
+int main()
+&#123;
+    &#x2F;&#x2F; 调用移动构造函数进行浅拷贝
+    Test t &#x3D; getObj();
+    cout &lt;&lt; &quot;t.m_num: &quot; &lt;&lt; *t.m_num &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">construct
+move construct
+destruct Test class <span class="token punctuation">..</span>.
+t.m_num: <span class="token number">100</span>
+destruct Test class <span class="token punctuation">..</span>.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注：移动构造中使用了右值引用，会将临时对象中的堆内存地址的所有权转移给对象 t。</p>
+<h4 id="的特性"><a href="#的特性" class="headerlink" title="&amp;&amp; 的特性"></a>&amp;&amp; 的特性</h4><p>模板类型参数 T&amp;&amp; 和自动类型推导 auto &amp;&amp; 被称为未定的引用类型，但是 const T&amp;&amp; 表示一个右值引用，不是未定引用类型。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+void f(T&amp;&amp; param);
+void f1(const T&amp;&amp; param);
+
+&#x2F;&#x2F; 10 是右值，T&amp;&amp; 表示右值引用
+f(10);
+int x &#x3D; 10;
+
+&#x2F;&#x2F; x 是左值，T&amp;&amp; 表示左值引用
+f(x);
+
+&#x2F;&#x2F; const T&amp;&amp; 一定是右值引用
+f1(x);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int main()
+&#123;
+    int x &#x3D; 520, y &#x3D; 1314;
+
+    &#x2F;&#x2F; auto&amp;&amp; 表示一个整型的左值引用
+    auto&amp;&amp; v1 &#x3D; x;
+
+    &#x2F;&#x2F; auto&amp;&amp; 表示一个整型的右值引用
+    auto&amp;&amp; v2 &#x3D; 250;
+
+    &#x2F;&#x2F; decltype(x)&amp;&amp; &#x3D;&#x3D; int&amp;&amp;，不能使用左值（y）初始化一个右值引用类型
+    &#x2F;&#x2F; error
+    decltype(x)&amp;&amp; v3 &#x3D; y;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>T&amp;&amp;</code> 和 <code>auto&amp;&amp;</code> 这种未定引用类型，作为参数会像上面一样，<code>&amp;&amp;</code> 类型会发生变化，被称为引用折叠。</p>
+<ul>
+<li><p>通过右值推导 <code>T&amp;&amp;</code> 或者 <code>auto&amp;&amp;</code> 得到的是一个右值引用类型。</p>
+</li>
+<li><p>通过非右值（右值引用、左值、左值引用、常量右值引用、常量左值引用）推导 <code>T&amp;&amp;</code> 或者 <code>auto&amp;&amp;</code> 得到的是一个左值引用类型。</p>
+</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; a1: 右值引用
+int&amp;&amp; a1 &#x3D; 5;
+
+&#x2F;&#x2F; bb: 左值引用
+auto&amp;&amp; bb &#x3D; a1;
+
+&#x2F;&#x2F; bb1: 右值引用
+auto&amp;&amp; bb1 &#x3D; 5;
+
+&#x2F;&#x2F; a2: 左值
+int a2 &#x3D; 5;
+
+&#x2F;&#x2F; a3: 左值引用
+int &amp;a3 &#x3D; a2;
+
+&#x2F;&#x2F; cc: 左值引用
+auto&amp;&amp; cc &#x3D; a3;
+
+&#x2F;&#x2F; cc1: 左值引用
+auto&amp;&amp; cc1 &#x3D; a2;
+
+&#x2F;&#x2F; s1: 常量左值引用
+const int&amp; s1 &#x3D; 100;
+
+&#x2F;&#x2F; s2: 常量右值引用
+const int&amp;&amp; s2 &#x3D; 100;
+
+&#x2F;&#x2F; dd: 常量左值引用
+auto&amp;&amp; dd &#x3D; s1;
+
+&#x2F;&#x2F; ee: 常量左值引用
+auto&amp;&amp; ee &#x3D; s2;
+
+&#x2F;&#x2F; x: 右值引用，不需要推导
+const auto&amp;&amp; x &#x3D; 5;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+void printValue(int &amp;i)
+&#123;
+    cout &lt;&lt; &quot;l-value: &quot; &lt;&lt; i &lt;&lt; endl;
+&#125;
+
+void printValue(int &amp;&amp;i)
+&#123;
+    cout &lt;&lt; &quot;r-value: &quot; &lt;&lt; i &lt;&lt; endl;
+&#125;
+
+void forward(int &amp;&amp;k)
+&#123;
+    printValue(k);
+&#125;
+
+int main()
+&#123;
+    int i &#x3D; 1;
+    printValue(i);
+    printValue(2);
+    forward(3);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">l-value: <span class="token number">1</span>
+r-value: <span class="token number">2</span>
+l-value: <span class="token number">3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>注：</p>
+<ul>
+<li><p>编译器将已命名的右值引用视为左值，将未命名的右值引用视为右值。</p>
+</li>
+<li><p>通过右值推导 <code>T&amp;&amp;</code> 或者 <code>auto&amp;&amp;</code> 得到的是一个右值引用类型，其余都是左值引用类型。</p>
+</li>
+</ul>
+<h3 id="转移-move"><a href="#转移-move" class="headerlink" title="转移 move"></a>转移 move</h3><p><code>std::move</code> 可以将左值转换为右值，没有内存拷贝，等同于一个类型转换：<code>static_cast&lt;T&amp;&amp;&gt;(lvalue)</code>。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;class _Ty&gt;
+_NODISCARD constexpr remove_reference_t&lt;_Ty&gt;&amp;&amp; move(_Ty&amp;&amp; _Arg) _NOEXCEPT
+&#123;
+    return (static_cast&lt;remove_reference_t&lt;_Ty&gt;&amp;&amp;&gt;(_Arg));
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Test
+&#123;
+public:
+    Test()&#123;&#125;
+&#125;;
+
+int main()
+&#123;
+    Test t;
+
+    &#x2F;&#x2F; error，不能用左值初始化右值引用
+    Test &amp;&amp; v1 &#x3D; t;
+
+    &#x2F;&#x2F; ok
+    Test &amp;&amp; v2 &#x3D; move(t);
+    
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">list&lt;string&gt; ls;
+ls.push_back(&quot;hello&quot;);
+ls.push_back(&quot;world&quot;);
+
+&#x2F;&#x2F; 需要拷贝，效率低
+list&lt;string&gt; ls1 &#x3D; ls;
+
+&#x2F;&#x2F; 效率高，只是转换了资源的所有权
+list&lt;string&gt; ls2 &#x3D; move(ls);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注：构造对象和赋值对象时，如果进行资源的重复利用，需要编写移动构造函数（<code>T::T(T&amp;&amp; another)</code>）和赋值函数（<code>T&amp;&amp; T::operator=(T&amp;&amp; rhs)</code>），它们都接收右值引用参数。</p>
+<h3 id="完美转发-forward"><a href="#完美转发-forward" class="headerlink" title="完美转发 forward"></a>完美转发 forward</h3><p>右值引用作为函数参数的形参时，在函数内部转发该参数给内部其他函数时，它就变成一个左值了。如果想按照参数原类型转发到另一个函数，可以使用 <code>std::forward</code> 函数。该函数实现的功能称之为完美转发。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 函数原型
+template &lt;class T&gt; T&amp;&amp; forward (typename remove_reference&lt;T&gt;::type&amp; t) noexcept;
+template &lt;class T&gt; T&amp;&amp; forward (typename remove_reference&lt;T&gt;::type&amp;&amp; t) noexcept;
+
+&#x2F;&#x2F; 精简
+std::forward&lt;T&gt;(t);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>当 T 为左值引用类型时，t 将被转换为 T 类型的左值。</p>
+</li>
+<li><p>当 T 不是左值引用类型时，t 将被转换为 T 类型的右值。</p>
+</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+template&lt;typename T&gt;
+void printValue(T&amp; t)
+&#123;
+    cout &lt;&lt; &quot;l-value: &quot; &lt;&lt; t &lt;&lt; endl;
+&#125;
+
+template&lt;typename T&gt;
+void printValue(T&amp;&amp; t)
+&#123;
+    cout &lt;&lt; &quot;r-value: &quot; &lt;&lt; t &lt;&lt; endl;
+&#125;
+
+template&lt;typename T&gt;
+void testForward(T &amp;&amp; v)
+&#123;
+    printValue(v);
+    printValue(move(v));
+    printValue(forward&lt;T&gt;(v));
+    cout &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    &#x2F;&#x2F; output
+    &#x2F;&#x2F; l-value: 1
+    &#x2F;&#x2F; r-value: 1
+    &#x2F;&#x2F; r-value: 1
+    testForward(1);
+
+    int num &#x3D; 2;
+
+    &#x2F;&#x2F; output
+    &#x2F;&#x2F; l-value: 2
+    &#x2F;&#x2F; r-value: 2
+    &#x2F;&#x2F; l-value: 2
+    testForward(num);
+
+    &#x2F;&#x2F; output
+    &#x2F;&#x2F; l-value: 2
+    &#x2F;&#x2F; r-value: 2
+    &#x2F;&#x2F; r-value: 2
+    testForward(forward&lt;int&gt;(num));
+
+    &#x2F;&#x2F; output
+    &#x2F;&#x2F; l-value: 2
+    &#x2F;&#x2F; r-value: 2
+    &#x2F;&#x2F; l-value: 2
+    testForward(forward&lt;int&amp;&gt;(num));
+
+    &#x2F;&#x2F; output
+    &#x2F;&#x2F; l-value: 2
+    &#x2F;&#x2F; r-value: 2
+    &#x2F;&#x2F; r-value: 2
+    testForward(forward&lt;int&amp;&amp;&gt;(num));
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="共享智能指针"><a href="#共享智能指针" class="headerlink" title="共享智能指针"></a>共享智能指针</h3><p>智能指针是存储指向动态分配（堆）对象指针的类，用于生存期的控制，能够确保在离开指针所在作用域时，自动地销毁动态分配的对象，防止内存泄漏。智能指针的核心实现技术是引用计数，每使用一次，内部引用计数加 1，每析构一次内部的引用计数减 1，减为 0 时，删除所指向的堆内存。</p>
+<p>C++11 有三种智能指针，需要引用头文件 <code>&lt;memory&gt;</code> ：</p>
+<ul>
+<li><p><code>std::shared_ptr</code>: 共享的智能指针</p>
+</li>
+<li><p><code>std::unique_ptr</code>: 独占的智能指针</p>
+</li>
+<li><p><code>std::weak_ptr</code> : 弱引用的智能指针</p>
+</li>
+</ul>
+<h4 id="shared-ptr-的初始化"><a href="#shared-ptr-的初始化" class="headerlink" title="shared_ptr 的初始化"></a>shared_ptr 的初始化</h4><p>多个共享智能指针可以同时管理同一块内存，共享智能指针是一个模板类</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 管理当前对象的 shared_ptr 实例数量
+long use_count() const noexcept;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>通过构造函数初始化</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::shared_ptr&lt;T&gt; name(创建堆内存);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+int main()
+&#123;
+    shared_ptr&lt;int&gt; ptr1(new int(520));
+    cout &lt;&lt; &quot;ptr1 管理的内存引用计数：&quot; &lt;&lt; ptr1.use_count() &lt;&lt; endl;
+
+    shared_ptr&lt;char&gt; ptr2(new char[12]);
+    cout &lt;&lt; &quot;ptr2 管理的内存引用计数：&quot; &lt;&lt; ptr2.use_count() &lt;&lt; endl;
+
+    shared_ptr&lt;int&gt; ptr3;
+    cout &lt;&lt; &quot;ptr3 管理的内存引用计数：&quot; &lt;&lt; ptr3.use_count() &lt;&lt; endl;
+
+    shared_ptr&lt;int&gt; ptr4(nullptr);
+    cout &lt;&lt; &quot;ptr4 管理的内存引用计数：&quot; &lt;&lt; ptr4.use_count() &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ptr1 管理的内存引用计数：1
+ptr2 管理的内存引用计数：1
+ptr3 管理的内存引用计数：0
+ptr4 管理的内存引用计数：0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>共享智能指针被初始化了一块有效内存，相应内存的引用计数 + 1，共享智能指针没有被初始化或者被初始化为 nullptr 空指针，引用计数不会 + 1。不要使用一个原始指针初始化多个 shared_ptr。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int *p &#x3D; new int;
+shared_ptr&lt;int&gt; p1(p);
+
+&#x2F;&#x2F; error
+shared_ptr&lt;int&gt; p2(p);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过拷贝构造函数和移动构造函数初始化</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+int main()
+&#123;
+    shared_ptr&lt;int&gt; ptr1(new int(520));
+    cout &lt;&lt; &quot;ptr1 管理的内存引用计数：&quot; &lt;&lt; ptr1.use_count() &lt;&lt; endl;
+
+    &#x2F;&#x2F; 调用拷贝构造函数
+    shared_ptr&lt;int&gt; ptr2(ptr1);
+    cout &lt;&lt; &quot;ptr2 管理的内存引用计数：&quot; &lt;&lt; ptr2.use_count() &lt;&lt; endl;
+
+    shared_ptr&lt;int&gt; ptr3 &#x3D; ptr1;
+    cout &lt;&lt; &quot;ptr3 管理的内存引用计数：&quot; &lt;&lt; ptr3.use_count() &lt;&lt; endl;
+    
+    &#x2F;&#x2F; 调用移动构造函数
+    shared_ptr&lt;int&gt; ptr4(std::move(ptr1));
+    cout &lt;&lt; &quot;ptr4 管理的内存引用计数：&quot; &lt;&lt; ptr4.use_count() &lt;&lt; endl;
+
+    std::shared_ptr&lt;int&gt; ptr5 &#x3D; std::move(ptr2);
+    cout &lt;&lt; &quot;ptr5 管理的内存引用计数：&quot; &lt;&lt; ptr5.use_count() &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ptr1 管理的内存引用计数：1
+ptr2 管理的内存引用计数：2
+ptr3 管理的内存引用计数：3
+ptr4 管理的内存引用计数：3
+ptr5 管理的内存引用计数：3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>使用拷贝构造函数初始化共享智能指针对象，堆内存对应的引用计数 + 1；使用移动构造函数初始化共享智能指针对象，堆内存的引用计数不会 + 1。</p>
+<hr>
+<p>通过std::make_shared初始化</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 函数原型
+template&lt; class T, class... Args &gt;
+shared_ptr&lt;T&gt; make_shared( Args&amp;&amp;... args );<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p><code>T</code>: 模板参数的数据类型</p>
+</li>
+<li><p><code>Args&amp;&amp;... args</code>: 要初始化的数据，即构造函数的参数列表</p>
+</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+class Test
+&#123;
+public:
+    Test()
+    &#123;
+        cout &lt;&lt; &quot;construct Test ...&quot; &lt;&lt; endl;
+    &#125;
+
+    Test(int x)
+    &#123;
+        cout &lt;&lt; &quot;construct Test, x &#x3D; &quot; &lt;&lt; x &lt;&lt; endl;
+    &#125;
+
+    Test(string str)
+    &#123;
+        cout &lt;&lt; &quot;construct Test, str &#x3D; &quot; &lt;&lt; str &lt;&lt; endl;
+    &#125;
+
+    ~Test()
+    &#123;
+        cout &lt;&lt; &quot;destruct Test ...&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    shared_ptr&lt;int&gt; ptr1 &#x3D; make_shared&lt;int&gt;(520);
+    cout &lt;&lt; &quot;ptr1 管理的内存引用计数：&quot; &lt;&lt; ptr1.use_count() &lt;&lt; endl;
+
+    shared_ptr&lt;Test&gt; ptr2 &#x3D; make_shared&lt;Test&gt;();
+    cout &lt;&lt; &quot;ptr2 管理的内存引用计数：&quot; &lt;&lt; ptr2.use_count() &lt;&lt; endl;
+    
+    shared_ptr&lt;Test&gt; ptr3 &#x3D; make_shared&lt;Test&gt;(520);
+    cout &lt;&lt; &quot;ptr3 管理的内存引用计数：&quot; &lt;&lt; ptr3.use_count() &lt;&lt; endl;
+
+    shared_ptr&lt;Test&gt; ptr4 &#x3D; make_shared&lt;Test&gt;(&quot;我要成为真正的狐狸精!!!&quot;);
+    cout &lt;&lt; &quot;ptr4 管理的内存引用计数：&quot; &lt;&lt; ptr4.use_count() &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果申请的内存是普通类型，通过 std::make_shared() 可完成内存地址的初始化；如果申请的内存是类对象，std::make_shared() 需要指定构造函数的参数。</p>
+<hr>
+<p>通过reset方法初始化</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 函数原型
+void reset() noexcept;
+
+template &lt;class U&gt; void reset (U* p);
+
+template &lt;class U, class D&gt; void reset (U* p, D del);
+
+template &lt;class U, class D, class Alloc&gt; void reset (U* p, D del, Alloc alloc);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p><code>p</code>: Pointer whose ownership is taken over by the object.</p>
+</li>
+<li><p><code>del</code>: Deleter object to be used to release the owned object.</p>
+</li>
+<li><p><code>alloc</code>: Allocator object used to allocate&#x2F;deallocate internal storage.</p>
+</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; shared_ptr::reset example
+#include &lt;iostream&gt;
+#include &lt;memory&gt;
+
+int main () &#123;
+    std::shared_ptr&lt;int&gt; sp;  &#x2F;&#x2F; empty
+
+    sp.reset (new int);       &#x2F;&#x2F; takes ownership of pointer
+    *sp&#x3D;10;
+    std::cout &lt;&lt; *sp &lt;&lt; &#39;\n&#39;;
+
+    sp.reset (new int);       &#x2F;&#x2F; deletes managed object, acquires new pointer
+    *sp&#x3D;20;
+    std::cout &lt;&lt; *sp &lt;&lt; &#39;\n&#39;;
+
+    sp.reset();               &#x2F;&#x2F; deletes managed object
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">10</span>
+<span class="token number">20</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+int main()
+&#123;
+    shared_ptr&lt;int&gt; ptr1 &#x3D; make_shared&lt;int&gt;(520);
+    shared_ptr&lt;int&gt; ptr2 &#x3D; ptr1;
+    shared_ptr&lt;int&gt; ptr3 &#x3D; ptr1;
+    shared_ptr&lt;int&gt; ptr4 &#x3D; ptr1;
+    cout &lt;&lt; &quot;ptr1 管理的内存引用计数：&quot; &lt;&lt; ptr1.use_count() &lt;&lt; endl;
+    cout &lt;&lt; &quot;ptr2 管理的内存引用计数：&quot; &lt;&lt; ptr2.use_count() &lt;&lt; endl;
+    cout &lt;&lt; &quot;ptr3 管理的内存引用计数：&quot; &lt;&lt; ptr3.use_count() &lt;&lt; endl;
+    cout &lt;&lt; &quot;ptr4 管理的内存引用计数：&quot; &lt;&lt; ptr4.use_count() &lt;&lt; endl;
+
+    ptr4.reset();
+    cout &lt;&lt; &quot;ptr1 管理的内存引用计数：&quot; &lt;&lt; ptr1.use_count() &lt;&lt; endl;
+    cout &lt;&lt; &quot;ptr2 管理的内存引用计数：&quot; &lt;&lt; ptr2.use_count() &lt;&lt; endl;
+    cout &lt;&lt; &quot;ptr3 管理的内存引用计数：&quot; &lt;&lt; ptr3.use_count() &lt;&lt; endl;
+    cout &lt;&lt; &quot;ptr4 管理的内存引用计数：&quot; &lt;&lt; ptr4.use_count() &lt;&lt; endl;
+
+    shared_ptr&lt;int&gt; ptr5;
+    ptr5.reset(new int(250));
+    cout &lt;&lt; &quot;ptr5 管理的内存引用计数：&quot; &lt;&lt; ptr5.use_count() &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ptr1 管理的内存引用计数：4
+ptr2 管理的内存引用计数：4
+ptr3 管理的内存引用计数：4
+ptr4 管理的内存引用计数：4
+ptr1 管理的内存引用计数：3
+ptr2 管理的内存引用计数：3
+ptr3 管理的内存引用计数：3
+ptr4 管理的内存引用计数：0
+ptr5 管理的内存引用计数：1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>获取原始指针</p>
+<p><strong>Fill block of memory</strong></p>
+<p>Sets the first num bytes of the block of memory pointed by ptr to the specified value (interpreted as an unsigned char).</p>
+<ul>
+<li><p><code>ptr</code>: Pointer to the block of memory to fill.</p>
+</li>
+<li><p><code>value</code>: Value to be set. The value is passed as an int, but the function fills the block of memory using the unsigned char conversion of this value.</p>
+</li>
+<li><p><code>num</code>: Number of bytes to be set to the value. size_t is an unsigned integral type.</p>
+</li>
+<li><p><code>Return Value</code>: ptr is returned.</p>
+</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void * memset ( void * ptr, int value, size_t num );<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;* memset example *&#x2F;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main ()
+&#123;
+  char str[] &#x3D; &quot;almost every programmer should know memset!&quot;;
+  memset (str,&#39;-&#39;,6);
+  puts (str);
+  return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">------ every programmer should know memset<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><p>基础数据类型，智能指针可以直接完成数据的读写。</p>
+</li>
+<li><p>类对象，需要通过原始内存地址操作数据。</p>
+</li>
+<li><p>共享智能指针的 get() 方法可以得到原始内存地址。</p>
+</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 函数原型
+T* get() const noexcept;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+int main()
+&#123;
+    int len &#x3D; 128;
+    shared_ptr&lt;char&gt; ptr(new char[len]);
+
+    char* add &#x3D; ptr.get();
+    memset(add, 0, len);
+    strcpy(add, &quot;我要成为真正的狐狸精!!!&quot;);
+    cout &lt;&lt; &quot;string: &quot; &lt;&lt; add &lt;&lt; endl;
+
+    shared_ptr&lt;int&gt; p(new int);
+    *p &#x3D; 100;
+    cout &lt;&lt; *p.get() &lt;&lt; &quot; &quot; &lt;&lt; *p &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="指定删除器"><a href="#指定删除器" class="headerlink" title="指定删除器"></a>指定删除器</h4><p>定义共享智能指针的删除操作，删除操作称为删除器，删除器函数是一个回调函数，由共享智能指针自动调用。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+void deleteIntPtr(int* p)
+&#123;
+    delete p;
+    cout &lt;&lt; &quot;int 类型被释放了...&quot; &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    shared_ptr&lt;int&gt; ptr(new int(1), deleteIntPtr);
+
+    shared_ptr&lt;int&gt; ptr1(new int(2), [](int* p) &#123;delete p;&#125;);
+
+    &#x2F;&#x2F; C++11 使用 shared_ptr 管理动态数组时，需要指定删除器
+    shared_ptr&lt;int&gt; ptr2(new int[3], [](int* p) &#123;delete[]p;&#125;);
+
+    &#x2F;&#x2F; 使用 C++11 提供的删除器 std::default_delete&lt;T&gt;()
+    shared_ptr&lt;int&gt; ptr3(new int[4], default_delete&lt;int[]&gt;());
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+template &lt;typename T&gt;
+shared_ptr&lt;T&gt; make_share_array(size_t size)
+&#123;
+    return shared_ptr&lt;T&gt;(new T[size], default_delete&lt;T[]&gt;());
+&#125;
+
+int main()
+&#123;
+    shared_ptr&lt;int&gt; ptr1 &#x3D; make_share_array&lt;int&gt;(1);
+    cout &lt;&lt; ptr1.use_count() &lt;&lt; endl;
+
+    shared_ptr&lt;char&gt; ptr2 &#x3D; make_share_array&lt;char&gt;(2);
+    cout &lt;&lt; ptr2.use_count() &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="独占的智能指针"><a href="#独占的智能指针" class="headerlink" title="独占的智能指针"></a>独占的智能指针</h3><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p><code>std::unique_ptr</code> 是一个独占型的智能指针，它不允许其他的智能指针共享其内部的指针。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 通过构造函数初始化对象
+unique_ptr&lt;int&gt; ptr1(new int(10));
+
+&#x2F;&#x2F; error, 不允许将一个 unique_ptr 赋值给另一个 unique_ptr
+unique_ptr&lt;int&gt; ptr2 &#x3D; ptr1;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>unique_ptr 对象可以通过函数返回，还可以通过 move 来转移给其他对象</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+unique_ptr&lt;int&gt; func()
+&#123;
+    return unique_ptr&lt;int&gt;(new int(520));
+&#125;
+
+int main()
+&#123;
+    unique_ptr&lt;int&gt; ptr1(new int(10));
+    unique_ptr&lt;int&gt; ptr2 &#x3D; move(ptr1);
+    unique_ptr&lt;int&gt; ptr3 &#x3D; func();
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>reset 方法可以解除 unique_ptr 对原始内存的管理，也可以用来初始化 unique_ptr</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 函数原型
+void reset( pointer ptr &#x3D; pointer() ) noexcept;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int main()
+&#123;
+    unique_ptr&lt;int&gt; ptr1(new int(10));
+    unique_ptr&lt;int&gt; ptr2 &#x3D; move(ptr1);
+
+    &#x2F;&#x2F; 解除对原始内存的管理
+    ptr2.reset();
+
+    &#x2F;&#x2F; 重新指定智能指针管理的原始内存
+    ptr2.reset(new int(250));
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>get() 方法可以获取独占智能指针管理的原始地址。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 函数原型
+pointer get() const noexcept;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int main()
+&#123;
+    unique_ptr&lt;int&gt; ptr1(new int(10));
+    unique_ptr&lt;int&gt; ptr2 &#x3D; move(ptr1);
+
+    ptr2.reset(new int(1));
+
+    &#x2F;&#x2F; output: 1
+    cout &lt;&lt; *ptr2.get() &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="删除器"><a href="#删除器" class="headerlink" title="删除器"></a>删除器</h4><p>unique_ptr 指定删除器需要确定删除器的类型。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; ok
+shared_ptr&lt;int&gt; ptr1(new int(10), [](int*p) &#123;delete p; &#125;);
+
+&#x2F;&#x2F; error
+unique_ptr&lt;int&gt; ptr1(new int(10), [](int*p) &#123;delete p; &#125;);
+
+int main()
+&#123;
+    using func_ptr &#x3D; void(*)(int*);
+    unique_ptr&lt;int, func_ptr&gt; ptr1(new int(10), [](int*p) &#123;delete p; &#125;);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>lambda 表达式如果没有捕获任何外部变量时，可以直接转换成函数指针；如果捕获了外部变量，就无法编译成功，如果想成功通过编译，可以使用可调用对象包装器来替换函数指针。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int main()
+&#123;
+    using func_ptr &#x3D; void(*)(int*);
+
+    &#x2F;&#x2F; error
+    unique_ptr&lt;int, func_ptr&gt; ptr1(new int(10), [&amp;](int*p) &#123;delete p; &#125;);
+
+    &#x2F;&#x2F; ok
+    unique_ptr&lt;int, function&lt;void(int*)&gt;&gt; ptr2(new int(10), [&amp;](int*p) &#123;delete p; &#125;);
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="弱引用智能指针"><a href="#弱引用智能指针" class="headerlink" title="弱引用智能指针"></a>弱引用智能指针</h3><p>弱引用智能指针 <code>std::weak_ptr</code> 不能操作资源，因此它不会改变引用计数，主要是监视 <code>shared_ptr</code>。</p>
+<h4 id="初始化-1"><a href="#初始化-1" class="headerlink" title="初始化"></a>初始化</h4><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 默认构造函数
+constexpr weak_ptr() noexcept;
+
+&#x2F;&#x2F; 拷贝构造函数
+weak_ptr (const weak_ptr&amp; x) noexcept;
+
+template &lt;class U&gt; weak_ptr (const weak_ptr&lt;U&gt;&amp; x) noexcept;
+
+&#x2F;&#x2F; 通过 shared_ptr 对象构造
+template &lt;class U&gt; weak_ptr (const shared_ptr&lt;U&gt;&amp; x) noexcept;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+int main()
+&#123;
+    shared_ptr&lt;int&gt; sp(new int);
+
+    weak_ptr&lt;int&gt; wp1;
+    weak_ptr&lt;int&gt; wp2(wp1);
+    weak_ptr&lt;int&gt; wp3(sp);
+    
+    weak_ptr&lt;int&gt; wp4;
+    wp4 &#x3D; sp;
+
+    weak_ptr&lt;int&gt; wp5;
+    wp5 &#x3D; wp3;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="其他常用方法"><a href="#其他常用方法" class="headerlink" title="其他常用方法"></a>其他常用方法</h4><p>use_count()</p>
+<p><code>use_count()</code> 方法可以返回所监测资源的引用计数。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">long int use_count() const noexcept;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+int main()
+&#123;
+    shared_ptr&lt;int&gt; sp(new int);
+
+    weak_ptr&lt;int&gt; wp1;
+    weak_ptr&lt;int&gt; wp2(wp1);
+    weak_ptr&lt;int&gt; wp3(sp);
+    weak_ptr&lt;int&gt; wp4;
+    wp4 &#x3D; sp;
+    weak_ptr&lt;int&gt; wp5;
+    wp5 &#x3D; wp3;
+
+    cout &lt;&lt; &quot;use_count: &quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;wp1: &quot; &lt;&lt; wp1.use_count() &lt;&lt; endl;
+    cout &lt;&lt; &quot;wp2: &quot; &lt;&lt; wp2.use_count() &lt;&lt; endl;
+    cout &lt;&lt; &quot;wp3: &quot; &lt;&lt; wp3.use_count() &lt;&lt; endl;
+    cout &lt;&lt; &quot;wp4: &quot; &lt;&lt; wp4.use_count() &lt;&lt; endl;
+    cout &lt;&lt; &quot;wp5: &quot; &lt;&lt; wp5.use_count() &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">use_count: 
+wp1: <span class="token number">0</span>
+wp2: <span class="token number">0</span>
+wp3: <span class="token number">1</span>
+wp4: <span class="token number">1</span>
+wp5: <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>weak_ptr只是监测资源，并不管理资源。</p>
+<hr>
+<p>expired()</p>
+<p><code>expired()</code> 方法可以判断观测的资源是否已经被释放。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; true 表示资源已经被释放，false 表示资源没有被释放
+bool expired() const noexcept;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+int main()
+&#123;
+    shared_ptr&lt;int&gt; shared(new int(10));
+    weak_ptr&lt;int&gt; weak(shared);
+
+    cout &lt;&lt; &quot;1. weak &quot; &lt;&lt; (weak.expired() ? &quot;is&quot; : &quot;is not&quot;) &lt;&lt; &quot; expired&quot; &lt;&lt; endl;
+
+    shared.reset();
+
+    cout &lt;&lt; &quot;2. weak &quot; &lt;&lt; (weak.expired() ? &quot;is&quot; : &quot;is not&quot;) &lt;&lt; &quot; expired&quot; &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>. weak is not expired
+<span class="token number">2</span>. weak is expired<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>lock()</p>
+<p><code>lock()</code> 方法可以获取管理所监测资源的 <code>shared_ptr</code> 对象。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">shared_ptr&lt;element_type&gt; lock() const noexcept;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+int main()
+&#123;
+    shared_ptr&lt;int&gt; sp1, sp2;
+    weak_ptr&lt;int&gt; wp;
+
+    sp1 &#x3D; std::make_shared&lt;int&gt;(520);
+    wp &#x3D; sp1;
+    sp2 &#x3D; wp.lock();
+    cout &lt;&lt; &quot;use_count: &quot; &lt;&lt; wp.use_count() &lt;&lt; endl;
+
+    sp1.reset();
+    cout &lt;&lt; &quot;use_count: &quot; &lt;&lt; wp.use_count() &lt;&lt; endl;
+    
+    sp1 &#x3D; wp.lock();
+    cout &lt;&lt; &quot;use_count: &quot; &lt;&lt; wp.use_count() &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;*sp1: &quot; &lt;&lt; *sp1 &lt;&lt; endl;
+    cout &lt;&lt; &quot;*sp2: &quot; &lt;&lt; *sp2 &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">use_count: <span class="token number">2</span>
+use_count: <span class="token number">1</span>
+use_count: <span class="token number">2</span>
+*sp1: <span class="token number">520</span>
+*sp2: <span class="token number">520</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>reset()</p>
+<p><code>reset()</code> 方法可以清空对象，使其不监测任何资源。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void reset() noexcept;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+int main()
+&#123;
+    shared_ptr&lt;int&gt; sp(new int(10));
+    weak_ptr&lt;int&gt; wp(sp);
+
+    cout &lt;&lt; &quot;1. wp &quot; &lt;&lt; (wp.expired() ? &quot;is&quot; : &quot;is not&quot;) &lt;&lt; &quot; expired&quot; &lt;&lt; endl;
+
+    wp.reset();
+    cout &lt;&lt; &quot;2. wp &quot; &lt;&lt; (wp.expired() ? &quot;is&quot; : &quot;is not&quot;) &lt;&lt; &quot; expired&quot; &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>. wp is not expired
+<span class="token number">2</span>. wp is expired<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="返回管理-this-的-shared-ptr-对象"><a href="#返回管理-this-的-shared-ptr-对象" class="headerlink" title="返回管理 this 的 shared_ptr 对象"></a>返回管理 this 的 shared_ptr 对象</h4><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+struct Test
+&#123;
+    shared_ptr&lt;Test&gt; getSharedPtr()
+    &#123;
+        return shared_ptr&lt;Test&gt;(this);
+    &#125;
+
+    ~Test()
+    &#123;
+        cout &lt;&lt; &quot;class Test is disstruct ...&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    shared_ptr&lt;Test&gt; sp1(new Test);
+    cout &lt;&lt; &quot;use_count: &quot; &lt;&lt; sp1.use_count() &lt;&lt; endl;
+
+    shared_ptr&lt;Test&gt; sp2 &#x3D; sp1-&gt;getSharedPtr();
+    cout &lt;&lt; &quot;use_count: &quot; &lt;&lt; sp1.use_count() &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">use_count: <span class="token number">1</span>
+use_count: <span class="token number">1</span>
+class Test is disstruct <span class="token punctuation">..</span>.
+class Test is disstruct <span class="token punctuation">..</span>.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>运行上面的代码会出现异常，相当于使用同一个 this 指针初始化了两个共享智能指针，它们是相互独立的，因此导致重复析构。</p>
+<hr>
+<p>可以使用模板类 <code>enable_shared_from_this&lt;T&gt;</code> 的 <code>shared_from_this()</code> 方法返回 <code>shared_ptr</code> 对象，内部使用 <code>weak_ptr</code> 的 <code>lock()</code> 方法实现。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+struct Test: public enable_shared_from_this&lt;Test&gt;
+&#123;
+    shared_ptr&lt;Test&gt; getSharedPtr()
+    &#123;
+        return shared_from_this();
+    &#125;
+
+    ~Test()
+    &#123;
+        cout &lt;&lt; &quot;class Test is disstruct ...&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    shared_ptr&lt;Test&gt; sp1(new Test);
+    cout &lt;&lt; &quot;use_count: &quot; &lt;&lt; sp1.use_count() &lt;&lt; endl;
+
+    shared_ptr&lt;Test&gt; sp2 &#x3D; sp1-&gt;getSharedPtr();
+    cout &lt;&lt; &quot;use_count: &quot; &lt;&lt; sp1.use_count() &lt;&lt; endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">use_count: <span class="token number">1</span>
+use_count: <span class="token number">2</span>
+class Test is disstruct <span class="token punctuation">..</span>.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>在调用 enable_shared_from_this 类的 shared_from_this() 方法之前，需要先初始化，如上面的例子那样。</p>
+<h4 id="解决循环引用问题"><a href="#解决循环引用问题" class="headerlink" title="解决循环引用问题"></a>解决循环引用问题</h4><p><code>共享智能指针的循环引用会导致内存泄漏。</code></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+struct TA;
+struct TB;
+
+struct TA
+&#123;
+    shared_ptr&lt;TB&gt; bptr;
+    
+    ~TA()
+    &#123;
+        cout &lt;&lt; &quot;class TA is disstruct ...&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+struct TB
+&#123;
+    shared_ptr&lt;TA&gt; aptr;
+    
+    ~TB()
+    &#123;
+        cout &lt;&lt; &quot;class TB is disstruct ...&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+void testPtr()
+&#123;
+    shared_ptr&lt;TA&gt; ap(new TA);
+    shared_ptr&lt;TB&gt; bp(new TB);
+    cout &lt;&lt; &quot;TA object use_count: &quot; &lt;&lt; ap.use_count() &lt;&lt; endl;
+    cout &lt;&lt; &quot;TB object use_count: &quot; &lt;&lt; bp.use_count() &lt;&lt; endl;
+
+    ap-&gt;bptr &#x3D; bp;
+    bp-&gt;aptr &#x3D; ap;
+    cout &lt;&lt; &quot;TA object use_count: &quot; &lt;&lt; ap.use_count() &lt;&lt; endl;
+    cout &lt;&lt; &quot;TB object use_count: &quot; &lt;&lt; bp.use_count() &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    testPtr();
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">TA object use_count: <span class="token number">1</span>
+TB object use_count: <span class="token number">1</span>
+TA object use_count: <span class="token number">2</span>
+TB object use_count: <span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>由于共享智能指针的循环引用，导致 TA 和 TB 的实例对象不能被析构，最终造成内存泄露。weak_ptr 并不会增加引用计数，因此可以将 TA 和 TB 中任意一个成员改为 weak_ptr 来解决内存泄漏的问题。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+struct TA;
+struct TB;
+
+struct TA
+&#123;
+    weak_ptr&lt;TB&gt; bptr;
+
+    ~TA()
+    &#123;
+        cout &lt;&lt; &quot;class TA is disstruct ...&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+struct TB
+&#123;
+    shared_ptr&lt;TA&gt; aptr;
+
+    ~TB()
+    &#123;
+        cout &lt;&lt; &quot;class TB is disstruct ...&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+void testPtr()
+&#123;
+    shared_ptr&lt;TA&gt; ap(new TA);
+    shared_ptr&lt;TB&gt; bp(new TB);
+    cout &lt;&lt; &quot;TA object use_count: &quot; &lt;&lt; ap.use_count() &lt;&lt; endl;
+    cout &lt;&lt; &quot;TB object use_count: &quot; &lt;&lt; bp.use_count() &lt;&lt; endl;
+
+    ap-&gt;bptr &#x3D; bp;
+    bp-&gt;aptr &#x3D; ap;
+    cout &lt;&lt; &quot;TA object use_count: &quot; &lt;&lt; ap.use_count() &lt;&lt; endl;
+    cout &lt;&lt; &quot;TB object use_count: &quot; &lt;&lt; bp.use_count() &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    testPtr();
+    
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>output</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">TA object use_count: <span class="token number">1</span>
+TB object use_count: <span class="token number">1</span>
+TA object use_count: <span class="token number">2</span>
+TB object use_count: <span class="token number">1</span>
+class TB is disstruct <span class="token punctuation">..</span>.
+class TA is disstruct <span class="token punctuation">..</span>.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>由于 <code>ap-&gt;bptr</code> 的类型是 <code>weak_ptr</code>，因此它并不增加引用计数，所以 <code>bp</code> 对应的 <code>TB</code> 对象可以成功析构。<code>TB</code> 对象的 <code>bp-&gt;aptr</code> 也被析构。因此 <code>ap</code> 对应的 <code>TA</code> 对象可以被成功析构。</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>第十三篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2022/06/01/00013-c-11-xin-te-xing-chu-tan/">https://luyf-lemon-love.space/2022/06/01/00013-c-11-xin-te-xing-chu-tan/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/C/">
+                                    <span class="chip bg-color">C++</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/06/19/00014-c-yu-yan-duo-xian-cheng/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/20220604154620.png" class="responsive-img" alt="00014-C语言多线程">
+                        
+                        <span class="card-title">00014-C语言多线程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-19
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C/" class="post-category">
+                                    C++
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="chip bg-color">多线程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/05/31/00012-hexo-bo-ke-bu-chong/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/20220520214849.png" class="responsive-img" alt="00012-Hexo博客补充">
+                        
+                        <span class="card-title">00012-Hexo博客补充</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-31
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%8D%9A%E5%AE%A2/" class="post-category">
+                                    博客
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Git/">
+                        <span class="chip bg-color">Git</span>
+                    </a>
+                    
+                    <a href="/tags/PicGo/">
+                        <span class="chip bg-color">PicGo</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%BD%BB%E9%87%8F%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+                        <span class="chip bg-color">轻量应用服务器</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/">
+                        <span class="chip bg-color">对象存储</span>
+                    </a>
+                    
+                    <a href="/tags/Hexo/">
+                        <span class="chip bg-color">Hexo</span>
+                    </a>
+                    
+                    <a href="/tags/Butterfly/">
+                        <span class="chip bg-color">Butterfly</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

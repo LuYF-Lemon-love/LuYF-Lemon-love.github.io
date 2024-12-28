@@ -1,0 +1,2896 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00114 初识 LaTeX, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言初识 LaTex，主要集中于基础语法知识。
+Overleaf: https://www.overleaf.com/
+
+Write like a rocket scientist with Overleaf — the collabora">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00114 初识 LaTeX | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/036-4k-%E7%BE%8E%E5%A5%B3-%E5%8F%AF%E7%88%B1-%E6%A8%A1%E7%89%B9.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00114 初识 LaTeX</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/LaTeX/">
+                                <span class="chip bg-color">LaTeX</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
+                                计算机基础
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-05-07
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>初识 LaTex，主要集中于基础语法知识。</p>
+<p>Overleaf: <a href="https://www.overleaf.com/">https://www.overleaf.com/</a></p>
+<blockquote>
+<p>Write like a rocket scientist with Overleaf — the collaborative, <strong>online LaTeX editor</strong> that anyone can use.</p>
+</blockquote>
+<p>操作系统：Ubuntu 22.04.2 LTS</p>
+<h2 id="注册登录-Overleaf"><a href="#注册登录-Overleaf" class="headerlink" title="注册登录 Overleaf"></a>注册登录 Overleaf</h2><ol>
+<li>打开 <a href="https://www.overleaf.com/">Overleaf</a> 官网，注册并登录。</li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240507135910.png"></p>
+<h2 id="为什么选择-LaTex？"><a href="#为什么选择-LaTex？" class="headerlink" title="为什么选择 LaTex？"></a>为什么选择 LaTex？</h2><p>原教程地址: <a href="https://www.overleaf.com/about/why-latex">https://www.overleaf.com/about/why-latex</a></p>
+<p><strong>主要是因为能够更好地进行科技写作。</strong></p>
+<blockquote>
+<p>LaTeX 是一个强大的排版系统，可以处理格式，以便您可以专注于您的内容。</p>
+</blockquote>
+<h3 id="LaTeX-是什么？"><a href="#LaTeX-是什么？" class="headerlink" title="LaTeX 是什么？"></a>LaTeX 是什么？</h3><p>LaTeX 是一种让任何人都可以创建排版精美的文档的工具。</p>
+<ol>
+<li><strong>将您的内容与格式分开</strong>: 与 Microsoft Word 或 Google Docs 等文档编辑器不同，LaTeX 将编写内容的过程与格式化内容的过程分开。这意味着一旦您编写了内容，就很容易更改其外观。</li>
+<li><strong>从纯文本到精美的PDF</strong>: 您编写一个穿插着 LaTeX 命令的纯文本文件。这些命令告诉一个名为 TeX 引擎的软件如何格式化和排版文档以生成精美的排版 PDF。</li>
+<li><strong>无需代码即可获得 LaTeX 的好处</strong>: 在 Overleaf 中，您可以使用我们的代码编辑器或可视化编辑器。无论您选择哪一种，效果都是一样的——您编写内容，Overleaf 和 LaTeX 负责格式化。</li>
+</ol>
+<h3 id="LaTeX-特色"><a href="#LaTeX-特色" class="headerlink" title="LaTeX 特色"></a>LaTeX 特色</h3><p><strong>为复杂文档编写更快、更简单的文档。</strong></p>
+<ol>
+<li><strong>轻松处理数学、表格和技术内容</strong>: 由于其一系列软件包，LaTeX 可以排版其他文档编辑器难以处理的极其复杂的数学、图形、表格和技术内容。</li>
+<li><strong>漂亮的格式和大量的模板</strong>: LaTeX 将您的纯文本内容转化为有组织、呈现良好且美观的文档。因为有这样一个专门的用户社区，有成千上万的模板可供您选择。</li>
+<li><strong>更好的书目、参考文献和引文</strong>: LaTeX 使您能够创建有序的、高度可定制的参考书目。它还允许您标记任何您想在以后用于引用或作为参考的信息。</li>
+<li><strong>高度可定制</strong>: 借助 LaTeX 的数千个免费附加包，您可以生成独特的定制文档，而自信的程序员甚至可以创建自己的文档。</li>
+</ol>
+<h3 id="Overleaf-和-LaTex"><a href="#Overleaf-和-LaTex" class="headerlink" title="Overleaf 和 LaTex"></a>Overleaf 和 LaTex</h3><p>Overleaf 是 LaTeX，简化。您可以协作处理文档，无需下载或安装，您可以选择使用 LaTeX 代码还是 Overleaf 的可视化编辑器。</p>
+<ol>
+<li><strong>可视化编辑器</strong>: 可视化编辑器让您无需编写代码即可使用 LaTeX。只需单击几下按钮即可插入表格和图形。</li>
+<li><strong>无缝协作</strong>: 不再有电子邮件反馈和无穷无尽的文档版本。相反，直接在您的 LaTeX 项目中获取评论、共享、实时跟踪更改和文档历史记录。</li>
+<li><strong>在任何地方工作</strong>: Overleaf 生活在云中，因此无需担心下载或安装。借助对移动和平板设备的支持，您甚至可以随身携带。</li>
+</ol>
+<h3 id="从初学者到-TeXpert"><a href="#从初学者到-TeXpert" class="headerlink" title="从初学者到 TeXpert"></a>从初学者到 TeXpert</h3><p>学习 LaTeX 一开始会让人望而生畏，但有很多资源可以帮助您入门。</p>
+<ol>
+<li><a href="https://www.overleaf.com/latex/templates">模板</a>: 从我们画廊的数千个免费模板中挑选-从研究文章到简历，等等。</li>
+<li><a href="https://www.overleaf.com/latex/templates/example-project/qzykddzqhkwk">示例项目</a>: 通过我们的示例项目学习，该项目将引导您了解 LaTeX 基础知识。</li>
+<li><a href="https://www.overleaf.com/register">可视化编辑器</a>: 使用托管用户帐户和单点登录选项，您可以控制项目和用户访问。</li>
+<li><a href="https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes">30 分钟学习 LaTeX</a>: 在我们的分步介绍中了解如何开始您的第一个文档并掌握 LaTeX 基础知识。</li>
+<li><a href="https://www.overleaf.com/events/webinars">网络研讨会</a>: 通过注册我们的现场介绍网络研讨会（或按需观看以前的研讨会），直接从我们的 TeXpert 支持团队获得支持。</li>
+<li><a href="https://www.overleaf.com/learn">更多资源</a>: 发现数百篇帮助和学习文章、教程等。</li>
+</ol>
+<h2 id="30-分钟学习-LaTeX"><a href="#30-分钟学习-LaTeX" class="headerlink" title="30 分钟学习 LaTeX"></a>30 分钟学习 LaTeX</h2><p>原教程地址：<a href="https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes">https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes</a></p>
+<p>本入门教程不假设您以前有任何 LaTeX 经验，但希望在您完成时，您不仅已经编写了您的第一个 LaTeX 文档，而且还获得了足够的知识和信心来采取下一步的 LaTeX 熟练程度。</p>
+<h3 id="什么是-LaTeX-？"><a href="#什么是-LaTeX-？" class="headerlink" title="什么是 LaTeX ？"></a>什么是 LaTeX ？</h3><p>LaTeX（发音为“LAY-tek”或“LAH-tek”）是一种用于排版 professional-looking 文档的工具。然而，LaTeX 的操作模式与您可能使用过的许多其他文档制作应用程序（如 Microsoft Word 或 LibreOffice Writer）完全不同：这些“所见即所得”工具为用户提供了一个交互式页面，用户可以在其中键入和编辑文本，并应用各种形式的样式。LaTeX 的工作方式非常不同：相反，您的文档是一个纯文本文件，其中散布着用于表达所需（排版）结果的 LaTeX 命令。<strong>要生成可见的排版文档，您的 LaTeX 文件由称为 TeX 引擎的软件处理，该软件使用嵌入在文本文件中的命令来指导和控制排版过程，将 LaTeX 命令和文档文本转换为专业排版的 PDF 文件。这意味着您只需要专注于文档的内容，计算机将通过 LaTeX 命令和 TeX 引擎处理视觉外观（格式化）。</strong></p>
+<h3 id="为什么要学习-LaTeX-？"><a href="#为什么要学习-LaTeX-？" class="headerlink" title="为什么要学习 LaTeX ？"></a>为什么要学习 LaTeX ？</h3><p>对于学习使用 LaTeX 而不是其他文档创作应用程序，可以提出各种支持或反对意见；但最终，这是基于偏好、亲和力和留档要求的个人选择。</p>
+<p>支持 LaTeX 的论点包括：</p>
+<ul>
+<li><strong>支持为物理科学排版极其复杂的数学、表格和技术内容；</strong></li>
+<li><strong>脚注、交叉引用和参考书目管理的设施；</strong></li>
+<li><strong>易于生成复杂或乏味的文档元素，例如索引、词汇表、目录、图形列表；</strong></li>
+<li><strong>由于其通过数千个免费附加包的内在可编程性和可扩展性，可高度定制定制文档生产。</strong></li>
+</ul>
+<p>总的来说，LaTeX 为用户提供了对排版达到极高标准的文档生产的大量控制。当然，有些类型的文档或出版物没有 LaTeX 的光芒，包括杂志类型出版物中常见的许多“自由格式”页面设计。</p>
+<p><strong>LaTeX 的一个重要好处是将文档内容与文档样式分开：一旦您编写了文档的内容，就可以轻松更改其外观。</strong> 同样，您可以创建一个 LaTeX 文件，该文件定义了特定文档类型的布局&#x2F;样式，并且该文件可以用作模板来标准化该类型的其他文档的作者身份&#x2F;制作；例如，这允许科学出版商在 LaTeX 中创建文章模板，作者使用该模板编写论文以提交给期刊。Overleaf 有一个包含数千个模板的画廊，涵盖了大量的文档类型——从科学文章、报告和书籍到简历和演示文稿。因为这些模板定义了文档的布局和风格，作者只需要在 Overleaf 打开它们——创建一个新项目——并开始写作来添加他们的内容。</p>
+<h3 id="写你的第一块-LaTeX"><a href="#写你的第一块-LaTeX" class="headerlink" title="写你的第一块 LaTeX"></a>写你的第一块 LaTeX</h3><p>第一步是创建一个新的 LaTeX 项目。您可以通过创建一个新的 <code>.tex</code> 文件在自己的计算机上执行此操作；或者，您可以在 Overleaf 中启动一个新项目。</p>
+<p>让我们从最简单的工作示例开始，它可以直接在 Overleaf 中打开：</p>
+<blockquote>
+<p>关于如何编译中文 (中文需要引用额外包，编译器选择 <code>XeLaTeX</code>)，可以参考下面篇博文：</p>
+<ol>
+<li><a href="https://zhuanlan.zhihu.com/p/675852533">https://zhuanlan.zhihu.com/p/675852533</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/562474128">https://zhuanlan.zhihu.com/p/562474128</a></li>
+</ol>
+<p>请将拼写检查（Spell check）设置为 <code>off</code>。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240507163255.png"></p>
+</blockquote>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">&#123;</span><span class="token keyword">article</span><span class="token punctuation">&#125;</span>
+
+<span class="token comment">% 中文编译需要 ctex 或 xeCJK 包</span>
+<span class="token function selector">\usepackage</span><span class="token punctuation">[</span>UTF8<span class="token punctuation">]</span><span class="token punctuation">&#123;</span><span class="token keyword">ctex</span><span class="token punctuation">&#125;</span>
+<span class="token comment">% \usepackage&#123;xeCJK&#125;</span>
+
+<span class="token function selector">\begin</span><span class="token punctuation">&#123;</span><span class="token keyword">document</span><span class="token punctuation">&#125;</span>
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+<span class="token function selector">\end</span><span class="token punctuation">&#123;</span><span class="token keyword">document</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240507163448.png"></p>
+<p>您可以看到 LaTeX 自动缩进了段落的第一行，并为您处理了格式。让我们仔细看看我们代码的每个部分都做了什么。</p>
+<p><strong>第一行代码 <code>\documentclass&#123;article&#125;</code> 声明了称为类的文档类型，它控制文档的整体外观。</strong> 不同类型的文档需要不同的类；也就是说，CV&#x2F;resume 需要不同于可能使用标准 LaTeX <code>article</code> 类的科学论文的类。您可能正在处理的其他类型的文档可能需要不同的类，例如 <code>book</code> 或 <code>report</code>。要了解许多可用的LaTeX类类型，<a href="https://www.ctan.org/topic/class">请访问CTAN（综合TeX存档网络）上的相关页面</a>。</p>
+<p><strong>设置文档类后，我们的内容（称为文档正文）写在 <code>\start&#123;document&#125;</code> 和 <code>\end&#123;document&#125;</code> 标记之间。</strong> 打开上面的示例后，您可以对文本进行更改，完成后，通过重新编译文档来查看生成的排版 PDF。要在 Overleaf 中执行此操作，只需点击重新编译。</p>
+<p>任何 Overleaf 项目都可以配置为每次编辑时自动重新编译：单击重新编译按钮旁边的小箭头并将自动编译设置为打开。</p>
+<p>已经了解了如何向我们的文档添加内容，下一步是给它一个标题。为此，我们必须简要谈谈序言。</p>
+<h3 id="文档的序言"><a href="#文档的序言" class="headerlink" title="文档的序言"></a>文档的序言</h3><p>上面的屏幕截图显示 Overleaf 将 LaTeX 文档存储为名为 main.tex 的文件：按照惯例，在命名包含文档 LaTeX 代码的文件时使用 <code>.tex</code> 文件扩展名。</p>
+<p><strong>前面的示例显示了如何在 <code>\begin&#123;document&#125;</code> 命令之后输入文档内容；但是，在该点之前出现的 <code>.tex</code> 文件中的所有内容都称为序言，它充当文档的“设置”部分。</strong> 在序言中，您定义文档类（类型）以及编写文档时使用的语言等细节；加载您想要使用的包（稍后会详细介绍），这是您应用其他类型配置的地方。</p>
+<p>最小的文档序言可能如下所示：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff"><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \documentclass[12pt, letterpaper]&#123;article&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \usepackage&#123;graphicx&#125;
+</span></span>
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\begin&#123;document&#125;
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>其中 <code>\documentclass[12pt, letterpaper]&#123;article&#125;</code> 定义文档的整体类（类型）。必须用逗号分隔的其他参数包含在方括号（<code>[…]</code>）中，用于配置文章类的这个实例；即我们希望用于这个特定的基于文章类的文档的设置。</p>
+<p>在此示例中，这两个参数执行以下操作：</p>
+<ul>
+<li>12pt 设置字体大小</li>
+<li>letterpaper 设置纸张尺寸</li>
+</ul>
+<p>当然可以使用其他字体大小，9pt、11pt、12pt，但如果没有指定，则默认大小为 10pt。至于纸张尺寸，其他可能的值是 <code>a4paper</code> 和 <code>legalpaper</code>。有关详细信息，请参阅有关<a href="https://www.overleaf.com/learn/latex/Page_size_and_margins">页面大小和边距的文章</a>。</p>
+<p>序言行 <code>\usepackage&#123;graphicx&#125;</code> 是加载外部包（此处为<a href="https://ctan.org/pkg/graphicx?lang=en">graphicx</a>）以扩展 LaTeX 功能的示例，使其能够导入外部图形文件。</p>
+<h3 id="包括标题、作者和日期信息"><a href="#包括标题、作者和日期信息" class="headerlink" title="包括标题、作者和日期信息"></a>包括标题、作者和日期信息</h3><p>在我们的文档中添加标题、作者和日期需要在序言中再添加三行（不是文档的主体）。这些行是：</p>
+<ul>
+<li><code>\title&#123;我的第一个LaTeX文档&#125;</code>: 文档标题</li>
+<li><code>\author&#123;LuYF-Lemon-love&#125;</code>: 在这里，您可以在花括号中写入作者的名称和可选的\thanks命令：<ul>
+<li><code>\thanks&#123;Funded by the XXX team.&#125;</code>: 可以在作者姓名后，在 <code>author</code> 命令的大括号内添加。它将在大括号内添加一个上标和一个脚注。如果你需要在你的文章中感谢一个机构，这很有用。</li>
+</ul>
+</li>
+<li><code>\date&#123;May 2024&#125;</code>: 您可以手动输入日期或使用命令 <code>\today</code> 在每次编译文档时排版当前日期</li>
+</ul>
+<p>添加这些行后，您的序言应如下所示：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">[</span>12pt, letterpaper<span class="token punctuation">]</span><span class="token punctuation">&#123;</span><span class="token keyword">article</span><span class="token punctuation">&#125;</span>
+
+<span class="token function selector">\usepackage</span><span class="token punctuation">&#123;</span><span class="token keyword">graphicx</span><span class="token punctuation">&#125;</span>
+<span class="token comment">% 中文编译需要 ctex 或 xeCJK 包</span>
+<span class="token function selector">\usepackage</span><span class="token punctuation">[</span>UTF8<span class="token punctuation">]</span><span class="token punctuation">&#123;</span><span class="token keyword">ctex</span><span class="token punctuation">&#125;</span>
+<span class="token comment">% \usepackage&#123;xeCJK&#125;</span>
+
+<span class="token function selector">\title</span><span class="token punctuation">&#123;</span>我的第一个LaTeX文档<span class="token punctuation">&#125;</span>
+<span class="token function selector">\author</span><span class="token punctuation">&#123;</span>LuYF-Lemon-love<span class="token function selector">\thanks</span><span class="token punctuation">&#123;</span>Funded by the XXX team.<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+<span class="token function selector">\date</span><span class="token punctuation">&#123;</span><span class="token function selector">\today</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>要排版标题、作者和日期，请在文档正文中使用 <code>\maketitle</code> 命令，序言和正文现在可以结合起来生成一个完整的文件：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">[</span>12pt, letterpaper<span class="token punctuation">]</span><span class="token punctuation">&#123;</span><span class="token keyword">article</span><span class="token punctuation">&#125;</span>
+
+<span class="token function selector">\usepackage</span><span class="token punctuation">&#123;</span><span class="token keyword">graphicx</span><span class="token punctuation">&#125;</span>
+<span class="token comment">% 中文编译需要 ctex 或 xeCJK 包</span>
+<span class="token function selector">\usepackage</span><span class="token punctuation">[</span>UTF8<span class="token punctuation">]</span><span class="token punctuation">&#123;</span><span class="token keyword">ctex</span><span class="token punctuation">&#125;</span>
+<span class="token comment">% \usepackage&#123;xeCJK&#125;</span>
+
+<span class="token function selector">\title</span><span class="token punctuation">&#123;</span>我的第一个LaTeX文档<span class="token punctuation">&#125;</span>
+<span class="token function selector">\author</span><span class="token punctuation">&#123;</span>LuYF-Lemon-love<span class="token function selector">\thanks</span><span class="token punctuation">&#123;</span>Funded by the XXX team.<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+<span class="token function selector">\date</span><span class="token punctuation">&#123;</span><span class="token function selector">\today</span><span class="token punctuation">&#125;</span>
+
+<span class="token function selector">\begin</span><span class="token punctuation">&#123;</span><span class="token keyword">document</span><span class="token punctuation">&#125;</span>
+
+<span class="token function selector">\maketitle</span>
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+<span class="token function selector">\end</span><span class="token punctuation">&#123;</span><span class="token keyword">document</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240507175104.png"></p>
+<h3 id="添加注释"><a href="#添加注释" class="headerlink" title="添加注释"></a>添加注释</h3><p>LaTeX是一种“程序代码”形式，但专门用于文档排版；因此，与用任何其他编程语言编写的代码一样，在文档中包含注释非常有用。LaTeX注释是一段不会以任何方式排版或影响文档的文本——通常用于添加“待办事项”注释；包括解释性注释；在调试时提供复杂宏的内联解释或 LaTeX 代码的注释 lines&#x2F;sections。</p>
+<p>要在 LaTeX 中进行注释，只需在行首编写一个 % 符号，如下面使用上面示例的代码所示：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass[12pt, letterpaper]&#123;article&#125;
+
+\usepackage&#123;graphicx&#125;
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\title&#123;我的第一个LaTeX文档&#125;
+\author&#123;LuYF-Lemon-love\thanks&#123;Funded by the XXX team.&#125;&#125;
+\date&#123;\today&#125;
+
+\begin&#123;document&#125;
+
+\maketitle
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> % 这里的这一行是注释。它不会在文档中排版。
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成的输出与之前不包含注释的 LaTeX 代码相同。</p>
+<h3 id="粗体、斜体和下划线"><a href="#粗体、斜体和下划线" class="headerlink" title="粗体、斜体和下划线"></a>粗体、斜体和下划线</h3><p>接下来，我们现在来看一些文本格式命令：</p>
+<ul>
+<li>粗体：LaTeX 中的粗体文本使用 <code>\textbf&#123;...&#125;</code> 命令排版。</li>
+<li>斜体：使用 <code>\textit&#123;...&#125;</code> 命令生成斜体文本。</li>
+<li>下划线：使用 <code>\underline&#123;…&#125;</code> 命令为文本下划线。</li>
+</ul>
+<p>下一个示例演示了这些命令：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass[12pt, letterpaper]&#123;article&#125;
+
+\usepackage&#123;graphicx&#125;
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\title&#123;我的第一个LaTeX文档&#125;
+\author&#123;LuYF-Lemon-love\thanks&#123;Funded by the XXX team.&#125;&#125;
+\date&#123;\today&#125;
+
+\begin&#123;document&#125;
+
+\maketitle
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+
+% 这里的这一行是注释。它不会在文档中排版。
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> Some of the \textbf&#123;greatest&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> discoveries in \underline&#123;science&#125; 
+</span><span class="token prefix inserted">+</span><span class="token line"> were made by \textbf&#123;\textit&#123;accident&#125;&#125;.
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>另一个非常有用的命令是 <code>\emph&#123;argument&#125;</code>，<strong>它对其参数的影响取决于上下文。在普通文本中，强调的文本是斜体的，但如果在斜体文本中使用，这种行为会相反</strong>-请参阅下一个示例：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass[12pt, letterpaper]&#123;article&#125;
+
+\usepackage&#123;graphicx&#125;
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\title&#123;我的第一个LaTeX文档&#125;
+\author&#123;LuYF-Lemon-love\thanks&#123;Funded by the XXX team.&#125;&#125;
+\date&#123;\today&#125;
+
+\begin&#123;document&#125;
+
+\maketitle
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+
+% 这里的这一行是注释。它不会在文档中排版。
+
+Some of the \textbf&#123;greatest&#125;
+discoveries in \underline&#123;science&#125; 
+were made by \textbf&#123;\textit&#123;accident&#125;&#125;.
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> Some of the greatest \emph&#123;discoveries&#125; in science 
+</span><span class="token prefix inserted">+</span><span class="token line"> were made by accident.
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \textit&#123;Some of the greatest \emph&#123;discoveries&#125; 
+</span><span class="token prefix inserted">+</span><span class="token line"> in science were made by accident.&#125;
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \textbf&#123;Some of the greatest \emph&#123;discoveries&#125; 
+</span><span class="token prefix inserted">+</span><span class="token line"> in science were made by accident.&#125;
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240507203719.png"></p>
+<blockquote>
+<p>注意：某些包（例如 Beamer）会更改 <code>\emph</code> 命令的行为。</p>
+</blockquote>
+<h3 id="添加图像"><a href="#添加图像" class="headerlink" title="添加图像"></a>添加图像</h3><p>在本节中，我们将了解如何将图像添加到 LaTeX 文档中。Overleaf 支持三种插入图像的方法：</p>
+<ul>
+<li><strong>使用位于编辑器工具栏上的插入图形按钮，将图像插入到可视化编辑器或代码编辑器中。</strong></li>
+<li><strong>将图像复制并粘贴到可视化编辑器或代码编辑器中。</strong></li>
+<li><strong>使用代码编辑器编写插入图形的 LaTeX 代码。</strong></li>
+</ul>
+<p>选项 1 和 2 自动生成插入图像所需的 LaTeX 代码，但这里我们引入选项 3-请注意，您需要将这些图像上传到您的 Overleaf 项目中。以下示例演示如何包含图片：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass[12pt, letterpaper]&#123;article&#125;
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \usepackage&#123;graphicx&#125; %LaTeX package to import graphics
+</span><span class="token prefix inserted">+</span><span class="token line"> \graphicspath&#123;&#123;images/&#125;&#125; %configuring the graphicx package
+</span></span>
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\title&#123;我的第一个LaTeX文档&#125;
+\author&#123;LuYF-Lemon-love\thanks&#123;Funded by the XXX team.&#125;&#125;
+\date&#123;\today&#125;
+
+\begin&#123;document&#125;
+
+\maketitle
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+
+% 这里的这一行是注释。它不会在文档中排版。
+
+Some of the \textbf&#123;greatest&#125;
+discoveries in \underline&#123;science&#125; 
+were made by \textbf&#123;\textit&#123;accident&#125;&#125;.
+
+Some of the greatest \emph&#123;discoveries&#125; in science 
+were made by accident.
+
+\textit&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+\textbf&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> 苏苏真可爱！
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> % The \includegraphcs command is 
+</span><span class="token prefix inserted">+</span><span class="token line"> % provided (implemented) by the 
+</span><span class="token prefix inserted">+</span><span class="token line"> % graphicx package
+</span><span class="token prefix inserted">+</span><span class="token line"> \includegraphics&#123;susu&#125;
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240507205523.png"></p>
+<p>将图形导入 LaTeX 文档需要一个附加包，该包提供包含外部图形文件所需的命令和功能。上面的示例加载了 <a href="https://ctan.org/pkg/graphicx?lang=en">graphicx</a> 包，除了许多其他命令之外，它还提供 <code>\includegraphics&#123;...&#125;</code> 来导入图形，并使用 <code>\graphicspath&#123;...&#125;</code> 告知 LaTeX 图形的位置。</p>
+<p>要使用 graphicx 包，请在 Overleaf 文档序言中包含以下行：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\usepackage</span><span class="token punctuation">&#123;</span><span class="token keyword">graphicx</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在我们的示例中，命令 <code>\graphicspath&#123;&#123;images/&#125;&#125;</code> 通知 LaTeX 图像保存在名为 <code>images</code> 的文件夹中，该文件夹包含在当前目录中。</p>
+<p><code>\includegraphics&#123;susu&#125;</code> 命令执行在文档中插入图像的实际工作。在这里，<code>susu</code> 是图像文件的名称，但没有扩展名。</p>
+<ul>
+<li>尽管 <code>\includegraphics</code> 命令中允许使用完整的文件名（包括其扩展名），但省略文件扩展名被认为是最佳做法，因为它会提示 LaTeX 搜索所有支持的格式。</li>
+<li>一般来说，图形的文件名不应包含空白符或多个点；在将图像文件上传到 Overleaf 时，还建议使用小写字母作为文件扩展名。</li>
+</ul>
+<h3 id="标题、标签和参考文献"><a href="#标题、标签和参考文献" class="headerlink" title="标题、标签和参考文献"></a>标题、标签和参考文献</h3><p>图像可以通过 <code>figure</code> 环境进行标题、标记和引用，如下所示：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass[12pt, letterpaper]&#123;article&#125;
+
+\usepackage&#123;graphicx&#125; %LaTeX package to import graphics
+\graphicspath&#123;&#123;images/&#125;&#125; %configuring the graphicx package
+
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\title&#123;我的第一个LaTeX文档&#125;
+\author&#123;LuYF-Lemon-love\thanks&#123;Funded by the XXX team.&#125;&#125;
+\date&#123;\today&#125;
+
+\begin&#123;document&#125;
+
+\maketitle
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+
+% 这里的这一行是注释。它不会在文档中排版。
+
+Some of the \textbf&#123;greatest&#125;
+discoveries in \underline&#123;science&#125; 
+were made by \textbf&#123;\textit&#123;accident&#125;&#125;.
+
+Some of the greatest \emph&#123;discoveries&#125; in science 
+were made by accident.
+
+\textit&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+\textbf&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+苏苏真可爱！
+
+% The \includegraphcs command is 
+% provided (implemented) by the 
+% graphicx package
+\includegraphics&#123;susu&#125;
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;figure&#125;[h]
+</span><span class="token prefix inserted">+</span><span class="token line">     \centering
+</span><span class="token prefix inserted">+</span><span class="token line">     \includegraphics[width=0.75\textwidth]&#123;girl&#125;
+</span><span class="token prefix inserted">+</span><span class="token line">     \caption&#123;白衣少女.&#125;
+</span><span class="token prefix inserted">+</span><span class="token line">     \label&#123;fig:mesh1&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;figure&#125;
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> 正如您在图 \ref&#123;fig:mesh1&#125; 中看到的，有一个青春美少女。此示例位于第 \pageref&#123;fig:mesh1&#125; 页。
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240507212541.png"></p>
+<p>示例中有几个值得注意的命令：</p>
+<ul>
+<li><code>\includegraphics[width=0.75\textwidth]&#123;mesh&#125;</code>：这种形式的 <code>\includegraphics</code> 指示 LaTeX 将图形的宽度设置为文本宽度的 75% -其值存储在 <code>\textwidth</code> 命令中。</li>
+<li><code>\caption&#123;白衣少女.&#125;</code>: 顾名思义，此命令设置可以放置在图形上方或下方的图形标题。如果您创建一个图形列表，则此标题将在该列表中使用。</li>
+<li><code>\label&#123;fig:mesh1&#125;</code>: 要在文档中引用此图像，请使用 <code>\label</code> 命令给它一个标签。该标签用于为图像生成一个数字，并与下一个命令结合使用，将允许您引用它。</li>
+<li><code>\ref&#123;fig:mesh1&#125;</code>：此代码将被引用图形对应的数字替换。</li>
+</ul>
+<p><code>LaTeX</code> 文档中包含的图像应放置在 <code>figure</code> 环境或类似环境中，以便 <code>LaTeX</code> 可以自动将图像定位在文档中的合适位置。</p>
+<p>进一步的指导包含在以下 Overleaf 帮助文章中：</p>
+<ul>
+<li><a href="https://www.overleaf.com/learn/latex/Positioning_of_Figures">Positioning of Figures</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/Inserting_Images">Inserting Images</a></li>
+</ul>
+<h3 id="在-LaTeX-中创建列表"><a href="#在-LaTeX-中创建列表" class="headerlink" title="在 LaTeX 中创建列表"></a>在 LaTeX 中创建列表</h3><p>您可以使用环境创建不同类型的列表，这些环境用于封装实现特定排版功能所需的 LaTeX 代码。环境以 <code>\begin&#123;environment-name&#125;</code> 开始，以 <code>\end&#123;environment-name&#125;</code> 结束，<code>environment-name</code> 可能是 <code>figure</code>、<code>tabular</code> 或列表类型之一：<code>itemize</code> 无序列表或 <code>enumerate</code> 有序列表。</p>
+<ol>
+<li><strong>无序列表</strong></li>
+</ol>
+<p>无序列表由 <code>itemize</code> 环境生成。每个列表条目前面必须有 <code>\item</code> 命令，如下所示：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass[12pt, letterpaper]&#123;article&#125;
+
+\usepackage&#123;graphicx&#125; %LaTeX package to import graphics
+\graphicspath&#123;&#123;images/&#125;&#125; %configuring the graphicx package
+
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\title&#123;我的第一个LaTeX文档&#125;
+\author&#123;LuYF-Lemon-love\thanks&#123;Funded by the XXX team.&#125;&#125;
+\date&#123;\today&#125;
+
+\begin&#123;document&#125;
+
+\maketitle
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+
+% 这里的这一行是注释。它不会在文档中排版。
+
+Some of the \textbf&#123;greatest&#125;
+discoveries in \underline&#123;science&#125; 
+were made by \textbf&#123;\textit&#123;accident&#125;&#125;.
+
+Some of the greatest \emph&#123;discoveries&#125; in science 
+were made by accident.
+
+\textit&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+\textbf&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+苏苏真可爱！
+
+% The \includegraphcs command is 
+% provided (implemented) by the 
+% graphicx package
+\includegraphics&#123;susu&#125;
+
+\begin&#123;figure&#125;[h]
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   \centering
+</span><span class="token prefix unchanged"> </span><span class="token line">   \includegraphics[width=0.75\textwidth]&#123;girl&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \caption&#123;白衣少女.&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \label&#123;fig:mesh1&#125;
+</span></span>\end&#123;figure&#125;
+
+正如您在图 \ref&#123;fig:mesh1&#125; 中看到的，有一个青春美少女。此示例位于第 \pageref&#123;fig:mesh1&#125; 页。
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;itemize&#125;
+</span><span class="token prefix inserted">+</span><span class="token line">   \item The individual entries are indicated with a black dot, a so-called bullet.
+</span><span class="token prefix inserted">+</span><span class="token line">   \item The text in the entries may be of any length.
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;itemize&#125;
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>您还可以打开这个<a href="https://www.overleaf.com/project/new/template/25521?id=107987258&templateName=Demonstrating+various+types+of+LaTeX+list&latexEngine=pdflatex&texImage=texlive-full:2022.1&mainFile=">更大的 Overleaf 项目</a>，其中演示了各种类型的 LaTeX 列表。</p>
+</blockquote>
+<ol start="2">
+<li><strong>有序列表</strong></li>
+</ol>
+<p>有序列表使用与无序列表相同的语法，但使用 <code>enumerate</code> 环境创建：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass[12pt, letterpaper]&#123;article&#125;
+
+\usepackage&#123;graphicx&#125; %LaTeX package to import graphics
+\graphicspath&#123;&#123;images/&#125;&#125; %configuring the graphicx package
+
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\title&#123;我的第一个LaTeX文档&#125;
+\author&#123;LuYF-Lemon-love\thanks&#123;Funded by the XXX team.&#125;&#125;
+\date&#123;\today&#125;
+
+\begin&#123;document&#125;
+
+\maketitle
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+
+% 这里的这一行是注释。它不会在文档中排版。
+
+Some of the \textbf&#123;greatest&#125;
+discoveries in \underline&#123;science&#125; 
+were made by \textbf&#123;\textit&#123;accident&#125;&#125;.
+
+Some of the greatest \emph&#123;discoveries&#125; in science 
+were made by accident.
+
+\textit&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+\textbf&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+苏苏真可爱！
+
+% The \includegraphcs command is 
+% provided (implemented) by the 
+% graphicx package
+\includegraphics&#123;susu&#125;
+
+\begin&#123;figure&#125;[h]
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   \centering
+</span><span class="token prefix unchanged"> </span><span class="token line">   \includegraphics[width=0.75\textwidth]&#123;girl&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \caption&#123;白衣少女.&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \label&#123;fig:mesh1&#125;
+</span></span>\end&#123;figure&#125;
+
+正如您在图 \ref&#123;fig:mesh1&#125; 中看到的，有一个青春美少女。此示例位于第 \pageref&#123;fig:mesh1&#125; 页。
+
+\begin&#123;itemize&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item The individual entries are indicated with a black dot, a so-called bullet.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The text in the entries may be of any length.
+</span></span>\end&#123;itemize&#125;
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;enumerate&#125;
+</span><span class="token prefix inserted">+</span><span class="token line">   \item This is the first entry in our list.
+</span><span class="token prefix inserted">+</span><span class="token line">   \item The list numbers increase with each entry we add.
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;enumerate&#125;
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240507220330.png"></p>
+<p>与无序列表一样，每个条目都必须前面有 <code>\item</code> 命令，在这里，它会自动生成数字有序列表标签值，从 1 开始。</p>
+<p>有关更多信息，您可以打开这个<a href="https://www.overleaf.com/project/new/template/25521?id=107987258&templateName=Demonstrating+various+types+of+LaTeX+list&latexEngine=pdflatex&texImage=texlive-full:2022.1&mainFile=">更大的 Overleaf 项目</a>，该项目演示了各种类型的 LaTeX 列表，或者访问<a href="https://www.overleaf.com/learn/latex/Lists">关于 LaTeX 列表的专门帮助文章</a>，该文章提供了更多示例并展示了如何创建自定义列表。</p>
+<h3 id="将数学添加到-LaTeX"><a href="#将数学添加到-LaTeX" class="headerlink" title="将数学添加到 LaTeX"></a>将数学添加到 LaTeX</h3><p>LaTeX 的主要优点之一是易于编写数学表达式。LaTeX 为排版数学提供了两种书写模式：</p>
+<ul>
+<li>用于编写作为段落一部分的公式的内联数学模式</li>
+<li>显示数学模式，用于编写不属于文本或段落的表达式，并在单独的行上排版</li>
+</ul>
+<ol>
+<li><strong>内联数学模式</strong></li>
+</ol>
+<p>让我们看一个内联数学模式的示例：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass[12pt, letterpaper]&#123;article&#125;
+
+\usepackage&#123;graphicx&#125; %LaTeX package to import graphics
+\graphicspath&#123;&#123;images/&#125;&#125; %configuring the graphicx package
+
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\title&#123;我的第一个LaTeX文档&#125;
+\author&#123;LuYF-Lemon-love\thanks&#123;Funded by the XXX team.&#125;&#125;
+\date&#123;\today&#125;
+
+\begin&#123;document&#125;
+
+\maketitle
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+
+% 这里的这一行是注释。它不会在文档中排版。
+
+Some of the \textbf&#123;greatest&#125;
+discoveries in \underline&#123;science&#125; 
+were made by \textbf&#123;\textit&#123;accident&#125;&#125;.
+
+Some of the greatest \emph&#123;discoveries&#125; in science 
+were made by accident.
+
+\textit&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+\textbf&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+苏苏真可爱！
+
+% The \includegraphcs command is 
+% provided (implemented) by the 
+% graphicx package
+\includegraphics&#123;susu&#125;
+
+\begin&#123;figure&#125;[h]
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   \centering
+</span><span class="token prefix unchanged"> </span><span class="token line">   \includegraphics[width=0.75\textwidth]&#123;girl&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \caption&#123;白衣少女.&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \label&#123;fig:mesh1&#125;
+</span></span>\end&#123;figure&#125;
+
+正如您在图 \ref&#123;fig:mesh1&#125; 中看到的，有一个青春美少女。此示例位于第 \pageref&#123;fig:mesh1&#125; 页。
+
+\begin&#123;itemize&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item The individual entries are indicated with a black dot, a so-called bullet.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The text in the entries may be of any length.
+</span></span>\end&#123;itemize&#125;
+
+\begin&#123;enumerate&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item This is the first entry in our list.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The list numbers increase with each entry we add.
+</span></span>\end&#123;enumerate&#125;
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> In physics, the mass-energy equivalence is stated 
+</span><span class="token prefix inserted">+</span><span class="token line"> by the equation $E=mc^2$, discovered in 1905 by Albert Einstein.
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>要排版内联模式数学，您可以使用以下分隔符对之一：<code>\( ... \)</code>、<code>$ ... $</code> 或 <code>\begin&#123;math&#125; ... \end&#123;math&#125;</code>，如下例所示：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass[12pt, letterpaper]&#123;article&#125;
+
+\usepackage&#123;graphicx&#125; %LaTeX package to import graphics
+\graphicspath&#123;&#123;images/&#125;&#125; %configuring the graphicx package
+
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\title&#123;我的第一个LaTeX文档&#125;
+\author&#123;LuYF-Lemon-love\thanks&#123;Funded by the XXX team.&#125;&#125;
+\date&#123;\today&#125;
+
+\begin&#123;document&#125;
+
+\maketitle
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+
+% 这里的这一行是注释。它不会在文档中排版。
+
+Some of the \textbf&#123;greatest&#125;
+discoveries in \underline&#123;science&#125; 
+were made by \textbf&#123;\textit&#123;accident&#125;&#125;.
+
+Some of the greatest \emph&#123;discoveries&#125; in science 
+were made by accident.
+
+\textit&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+\textbf&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+苏苏真可爱！
+
+% The \includegraphcs command is 
+% provided (implemented) by the 
+% graphicx package
+\includegraphics&#123;susu&#125;
+
+\begin&#123;figure&#125;[h]
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   \centering
+</span><span class="token prefix unchanged"> </span><span class="token line">   \includegraphics[width=0.75\textwidth]&#123;girl&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \caption&#123;白衣少女.&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \label&#123;fig:mesh1&#125;
+</span></span>\end&#123;figure&#125;
+
+正如您在图 \ref&#123;fig:mesh1&#125; 中看到的，有一个青春美少女。此示例位于第 \pageref&#123;fig:mesh1&#125; 页。
+
+\begin&#123;itemize&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item The individual entries are indicated with a black dot, a so-called bullet.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The text in the entries may be of any length.
+</span></span>\end&#123;itemize&#125;
+
+\begin&#123;enumerate&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item This is the first entry in our list.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The list numbers increase with each entry we add.
+</span></span>\end&#123;enumerate&#125;
+
+In physics, the mass-energy equivalence is stated 
+by the equation $E=mc^2$, discovered in 1905 by Albert Einstein.
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;math&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> E=mc^2
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;math&#125; is typeset in a paragraph using inline math mode---as is $E=mc^2$, and so too is \(E=mc^2\).
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="2">
+<li><strong>显示数学模式</strong></li>
+</ol>
+<p>显示模式下排版的方程可以编号或未编号，如下例所示：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass[12pt, letterpaper]&#123;article&#125;
+
+\usepackage&#123;graphicx&#125; %LaTeX package to import graphics
+\graphicspath&#123;&#123;images/&#125;&#125; %configuring the graphicx package
+
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\title&#123;我的第一个LaTeX文档&#125;
+\author&#123;LuYF-Lemon-love\thanks&#123;Funded by the XXX team.&#125;&#125;
+\date&#123;\today&#125;
+
+\begin&#123;document&#125;
+
+\maketitle
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+
+% 这里的这一行是注释。它不会在文档中排版。
+
+Some of the \textbf&#123;greatest&#125;
+discoveries in \underline&#123;science&#125; 
+were made by \textbf&#123;\textit&#123;accident&#125;&#125;.
+
+Some of the greatest \emph&#123;discoveries&#125; in science 
+were made by accident.
+
+\textit&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+\textbf&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+苏苏真可爱！
+
+% The \includegraphcs command is 
+% provided (implemented) by the 
+% graphicx package
+\includegraphics&#123;susu&#125;
+
+\begin&#123;figure&#125;[h]
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   \centering
+</span><span class="token prefix unchanged"> </span><span class="token line">   \includegraphics[width=0.75\textwidth]&#123;girl&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \caption&#123;白衣少女.&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \label&#123;fig:mesh1&#125;
+</span></span>\end&#123;figure&#125;
+
+正如您在图 \ref&#123;fig:mesh1&#125; 中看到的，有一个青春美少女。此示例位于第 \pageref&#123;fig:mesh1&#125; 页。
+
+\begin&#123;itemize&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item The individual entries are indicated with a black dot, a so-called bullet.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The text in the entries may be of any length.
+</span></span>\end&#123;itemize&#125;
+
+\begin&#123;enumerate&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item This is the first entry in our list.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The list numbers increase with each entry we add.
+</span></span>\end&#123;enumerate&#125;
+
+In physics, the mass-energy equivalence is stated 
+by the equation $E=mc^2$, discovered in 1905 by Albert Einstein.
+
+\begin&#123;math&#125;
+E=mc^2
+\end&#123;math&#125; is typeset in a paragraph using inline math mode---as is $E=mc^2$, and so too is \(E=mc^2\).
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> The mass-energy equivalence is described by the famous equation
+</span><span class="token prefix inserted">+</span><span class="token line"> \[ E=mc^2 \] discovered in 1905 by Albert Einstein. 
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> In natural units ($c = 1$), the formula expresses the identity
+</span><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;equation&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> E=m
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;equation&#125;
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240507223639.png"></p>
+<p>要排版显示模式数学，您可以使用以下分隔符对之一：<code>\[ ... \]</code>、<code>\begin&#123;displaymath&#125; ... \end&#123;displaymath&#125;</code> 或 <code>\begin&#123;equation&#125; ... \end&#123;equation&#125;</code>。从历史上看，排版显示模式数学需要使用 <code>$$</code> 字符分隔符，如 <code>$$ ... display math here ...$$</code>，但不再建议使用此方法：改用 LaTeX 的分隔符 <code>\[ ... \]</code>。</p>
+<ol start="3">
+<li><strong>更完整的示例</strong></li>
+</ol>
+<p>以下示例演示了使用 LaTeX 的一系列数学内容排版。</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass[12pt, letterpaper]&#123;article&#125;
+
+\usepackage&#123;graphicx&#125; %LaTeX package to import graphics
+\graphicspath&#123;&#123;images/&#125;&#125; %configuring the graphicx package
+
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\title&#123;我的第一个LaTeX文档&#125;
+\author&#123;LuYF-Lemon-love\thanks&#123;Funded by the XXX team.&#125;&#125;
+\date&#123;\today&#125;
+
+\begin&#123;document&#125;
+
+\maketitle
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+
+% 这里的这一行是注释。它不会在文档中排版。
+
+Some of the \textbf&#123;greatest&#125;
+discoveries in \underline&#123;science&#125; 
+were made by \textbf&#123;\textit&#123;accident&#125;&#125;.
+
+Some of the greatest \emph&#123;discoveries&#125; in science 
+were made by accident.
+
+\textit&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+\textbf&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+苏苏真可爱！
+
+% The \includegraphcs command is 
+% provided (implemented) by the 
+% graphicx package
+\includegraphics&#123;susu&#125;
+
+\begin&#123;figure&#125;[h]
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   \centering
+</span><span class="token prefix unchanged"> </span><span class="token line">   \includegraphics[width=0.75\textwidth]&#123;girl&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \caption&#123;白衣少女.&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \label&#123;fig:mesh1&#125;
+</span></span>\end&#123;figure&#125;
+
+正如您在图 \ref&#123;fig:mesh1&#125; 中看到的，有一个青春美少女。此示例位于第 \pageref&#123;fig:mesh1&#125; 页。
+
+\begin&#123;itemize&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item The individual entries are indicated with a black dot, a so-called bullet.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The text in the entries may be of any length.
+</span></span>\end&#123;itemize&#125;
+
+\begin&#123;enumerate&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item This is the first entry in our list.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The list numbers increase with each entry we add.
+</span></span>\end&#123;enumerate&#125;
+
+In physics, the mass-energy equivalence is stated 
+by the equation $E=mc^2$, discovered in 1905 by Albert Einstein.
+
+\begin&#123;math&#125;
+E=mc^2
+\end&#123;math&#125; is typeset in a paragraph using inline math mode---as is $E=mc^2$, and so too is \(E=mc^2\).
+
+The mass-energy equivalence is described by the famous equation
+\[ E=mc^2 \] discovered in 1905 by Albert Einstein. 
+
+In natural units ($c = 1$), the formula expresses the identity
+\begin&#123;equation&#125;
+E=m
+\end&#123;equation&#125;
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> Subscripts in math mode are written as $a_b$ and superscripts are written as $a^b$. These can be combined and nested to write expressions such as
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \[ T^&#123;i_1 i_2 \dots i_p&#125;_&#123;j_1 j_2 \dots j_q&#125; = T(x^&#123;i_1&#125;,\dots,x^&#123;i_p&#125;,e_&#123;j_1&#125;,\dots,e_&#123;j_q&#125;) \]
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> We write integrals using $\int$ and fractions using $\frac&#123;a&#125;&#123;b&#125;$. Limits are placed on integrals using superscripts and subscripts:
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \[ \int_0^1 \frac&#123;dx&#125;&#123;e^x&#125; =  \frac&#123;e-1&#125;&#123;e&#125; \]
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> Lower case Greek letters are written as $\omega$ $\delta$ etc. while upper case Greek letters are written as $\Omega$ $\Delta$.
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> Mathematical operators are prefixed with a backslash as $\sin(\beta)$, $\cos(\alpha)$, $\log(x)$ etc.
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240507225051.png"></p>
+<p>下一个示例使用 <code>amsmath</code> 包提供的 <code>equation*</code> 环境，因此我们需要在文档序言中添加以下行：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\usepackage</span><span class="token punctuation">&#123;</span><span class="token keyword">amsmath</span><span class="token punctuation">&#125;</span><span class="token comment">% For the equation* environment</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>有关使用 <code>amsmath</code> 的更多信息，请参阅 Overleaf 的<a href="https://www.overleaf.com/learn/latex/Aligning_equations">帮助文章</a>。</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass[12pt, letterpaper]&#123;article&#125;
+
+\usepackage&#123;graphicx&#125; %LaTeX package to import graphics
+\graphicspath&#123;&#123;images/&#125;&#125; %configuring the graphicx package
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \usepackage&#123;amsmath&#125;% For the equation* environment
+</span></span>
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\title&#123;我的第一个LaTeX文档&#125;
+\author&#123;LuYF-Lemon-love\thanks&#123;Funded by the XXX team.&#125;&#125;
+\date&#123;\today&#125;
+
+\begin&#123;document&#125;
+
+\maketitle
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+
+% 这里的这一行是注释。它不会在文档中排版。
+
+Some of the \textbf&#123;greatest&#125;
+discoveries in \underline&#123;science&#125; 
+were made by \textbf&#123;\textit&#123;accident&#125;&#125;.
+
+Some of the greatest \emph&#123;discoveries&#125; in science 
+were made by accident.
+
+\textit&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+\textbf&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+苏苏真可爱！
+
+% The \includegraphcs command is 
+% provided (implemented) by the 
+% graphicx package
+\includegraphics&#123;susu&#125;
+
+\begin&#123;figure&#125;[h]
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   \centering
+</span><span class="token prefix unchanged"> </span><span class="token line">   \includegraphics[width=0.75\textwidth]&#123;girl&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \caption&#123;白衣少女.&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \label&#123;fig:mesh1&#125;
+</span></span>\end&#123;figure&#125;
+
+正如您在图 \ref&#123;fig:mesh1&#125; 中看到的，有一个青春美少女。此示例位于第 \pageref&#123;fig:mesh1&#125; 页。
+
+\begin&#123;itemize&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item The individual entries are indicated with a black dot, a so-called bullet.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The text in the entries may be of any length.
+</span></span>\end&#123;itemize&#125;
+
+\begin&#123;enumerate&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item This is the first entry in our list.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The list numbers increase with each entry we add.
+</span></span>\end&#123;enumerate&#125;
+
+In physics, the mass-energy equivalence is stated 
+by the equation $E=mc^2$, discovered in 1905 by Albert Einstein.
+
+\begin&#123;math&#125;
+E=mc^2
+\end&#123;math&#125; is typeset in a paragraph using inline math mode---as is $E=mc^2$, and so too is \(E=mc^2\).
+
+The mass-energy equivalence is described by the famous equation
+\[ E=mc^2 \] discovered in 1905 by Albert Einstein. 
+
+In natural units ($c = 1$), the formula expresses the identity
+\begin&#123;equation&#125;
+E=m
+\end&#123;equation&#125;
+
+Subscripts in math mode are written as $a_b$ and superscripts are written as $a^b$. These can be combined and nested to write expressions such as
+
+\[ T^&#123;i_1 i_2 \dots i_p&#125;_&#123;j_1 j_2 \dots j_q&#125; = T(x^&#123;i_1&#125;,\dots,x^&#123;i_p&#125;,e_&#123;j_1&#125;,\dots,e_&#123;j_q&#125;) \]
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">
+</span></span>We write integrals using $\int$ and fractions using $\frac&#123;a&#125;&#123;b&#125;$. Limits are placed on integrals using superscripts and subscripts:
+
+\[ \int_0^1 \frac&#123;dx&#125;&#123;e^x&#125; =  \frac&#123;e-1&#125;&#123;e&#125; \]
+
+Lower case Greek letters are written as $\omega$ $\delta$ etc. while upper case Greek letters are written as $\Omega$ $\Delta$.
+
+Mathematical operators are prefixed with a backslash as $\sin(\beta)$, $\cos(\alpha)$, $\log(x)$ etc.
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \section&#123;First example&#125;
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> The well-known Pythagorean theorem \(x^2 + y^2 = z^2\) was proved to be invalid for other exponents, meaning the next equation has no integer solutions for \(n>2\):
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \[ x^n + y^n = z^n \]
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \section&#123;Second example&#125;
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> This is a simple math expression \(\sqrt&#123;x^2+1&#125;\) inside text. 
+</span><span class="token prefix inserted">+</span><span class="token line"> And this is also the same: 
+</span><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;math&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \sqrt&#123;x^2+1&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;math&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> but by using another command.
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> This is a simple math expression without numbering
+</span><span class="token prefix inserted">+</span><span class="token line"> \[\sqrt&#123;x^2+1&#125;\] 
+</span><span class="token prefix inserted">+</span><span class="token line"> separated from text.
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> This is also the same:
+</span><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;displaymath&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \sqrt&#123;x^2+1&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;displaymath&#125;
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \ldots and this:
+</span><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;equation*&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \sqrt&#123;x^2+1&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;equation*&#125;
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240507230935.png"></p>
+<p>LaTeX 中数学的可能性是无穷无尽的，因此请务必访问 Overleaf 的帮助页面以获取有关特定主题的建议和示例：</p>
+<ul>
+<li><a href="https://www.overleaf.com/learn/latex/Mathematical_expressions">数学表达式</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/Subscripts_and_superscripts">下标和上标</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/Brackets_and_Parentheses">括号</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/Fractions_and_Binomials">分数和二项式</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/Aligning_equations_with_amsmath">对齐方程</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/Operators">运算符</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/Spacing_in_math_mode">在数学模式下插入不同宽度的空格</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/Integrals%2C_sums_and_limits">积分、求和和极限</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/Display_style_in_math_mode">数学模式下的显示样式</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/List_of_Greek_letters_and_math_symbols">希腊字母和数学符号列表</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/Mathematical_fonts">数学字体</a></li>
+</ul>
+<h3 id="基本文档结构"><a href="#基本文档结构" class="headerlink" title="基本文档结构"></a>基本文档结构</h3><p>接下来，我们将探讨摘要以及如何将 LaTeX 文档划分为不同的章节、部分和段落。</p>
+<ol>
+<li><strong>摘要</strong></li>
+</ol>
+<p>科学文章通常提供摘要，简要概述&#x2F;总结其核心主题或论点。下一个示例演示使用 LaTeX 的 <code>abstract</code> 环境排版摘要：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass[12pt, letterpaper]&#123;article&#125;
+
+\usepackage&#123;graphicx&#125; %LaTeX package to import graphics
+\graphicspath&#123;&#123;images/&#125;&#125; %configuring the graphicx package
+
+\usepackage&#123;amsmath&#125;% For the equation* environment
+
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\title&#123;我的第一个LaTeX文档&#125;
+\author&#123;LuYF-Lemon-love\thanks&#123;Funded by the XXX team.&#125;&#125;
+\date&#123;\today&#125;
+
+\begin&#123;document&#125;
+
+\maketitle
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+
+% 这里的这一行是注释。它不会在文档中排版。
+
+Some of the \textbf&#123;greatest&#125;
+discoveries in \underline&#123;science&#125; 
+were made by \textbf&#123;\textit&#123;accident&#125;&#125;.
+
+Some of the greatest \emph&#123;discoveries&#125; in science 
+were made by accident.
+
+\textit&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+\textbf&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+苏苏真可爱！
+
+% The \includegraphcs command is 
+% provided (implemented) by the 
+% graphicx package
+\includegraphics&#123;susu&#125;
+
+\begin&#123;figure&#125;[h]
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   \centering
+</span><span class="token prefix unchanged"> </span><span class="token line">   \includegraphics[width=0.75\textwidth]&#123;girl&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \caption&#123;白衣少女.&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \label&#123;fig:mesh1&#125;
+</span></span>\end&#123;figure&#125;
+
+正如您在图 \ref&#123;fig:mesh1&#125; 中看到的，有一个青春美少女。此示例位于第 \pageref&#123;fig:mesh1&#125; 页。
+
+\begin&#123;itemize&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item The individual entries are indicated with a black dot, a so-called bullet.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The text in the entries may be of any length.
+</span></span>\end&#123;itemize&#125;
+
+\begin&#123;enumerate&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item This is the first entry in our list.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The list numbers increase with each entry we add.
+</span></span>\end&#123;enumerate&#125;
+
+In physics, the mass-energy equivalence is stated 
+by the equation $E=mc^2$, discovered in 1905 by Albert Einstein.
+
+\begin&#123;math&#125;
+E=mc^2
+\end&#123;math&#125; is typeset in a paragraph using inline math mode---as is $E=mc^2$, and so too is \(E=mc^2\).
+
+The mass-energy equivalence is described by the famous equation
+\[ E=mc^2 \] discovered in 1905 by Albert Einstein. 
+
+In natural units ($c = 1$), the formula expresses the identity
+\begin&#123;equation&#125;
+E=m
+\end&#123;equation&#125;
+
+Subscripts in math mode are written as $a_b$ and superscripts are written as $a^b$. These can be combined and nested to write expressions such as
+
+\[ T^&#123;i_1 i_2 \dots i_p&#125;_&#123;j_1 j_2 \dots j_q&#125; = T(x^&#123;i_1&#125;,\dots,x^&#123;i_p&#125;,e_&#123;j_1&#125;,\dots,e_&#123;j_q&#125;) \]
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">
+</span></span>We write integrals using $\int$ and fractions using $\frac&#123;a&#125;&#123;b&#125;$. Limits are placed on integrals using superscripts and subscripts:
+
+\[ \int_0^1 \frac&#123;dx&#125;&#123;e^x&#125; =  \frac&#123;e-1&#125;&#123;e&#125; \]
+
+Lower case Greek letters are written as $\omega$ $\delta$ etc. while upper case Greek letters are written as $\Omega$ $\Delta$.
+
+Mathematical operators are prefixed with a backslash as $\sin(\beta)$, $\cos(\alpha)$, $\log(x)$ etc.
+
+\section&#123;First example&#125;
+
+The well-known Pythagorean theorem \(x^2 + y^2 = z^2\) was proved to be invalid for other exponents, meaning the next equation has no integer solutions for \(n>2\):
+
+\[ x^n + y^n = z^n \]
+
+\section&#123;Second example&#125;
+
+This is a simple math expression \(\sqrt&#123;x^2+1&#125;\) inside text. 
+And this is also the same: 
+\begin&#123;math&#125;
+\sqrt&#123;x^2+1&#125;
+\end&#123;math&#125;
+but by using another command.
+
+This is a simple math expression without numbering
+\[\sqrt&#123;x^2+1&#125;\] 
+separated from text.
+
+This is also the same:
+\begin&#123;displaymath&#125;
+\sqrt&#123;x^2+1&#125;
+\end&#123;displaymath&#125;
+
+\ldots and this:
+\begin&#123;equation*&#125;
+\sqrt&#123;x^2+1&#125;
+\end&#123;equation*&#125;
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;abstract&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> This is a simple paragraph at the beginning of the 
+</span><span class="token prefix inserted">+</span><span class="token line"> document. A brief introduction about the main subject.
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;abstract&#125;
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240508120013.png"></p>
+<ol start="2">
+<li><strong>段落和新行</strong></li>
+</ol>
+<p>有了摘要，我们就可以开始写第一段了。下一个例子演示：</p>
+<ul>
+<li>如何通过按两次“回车键”、结束当前行并插入后续空行来创建新段落；</li>
+<li>如何通过使用 <code>\\</code> 命令（双反斜杠）插入手动换行符来开始新行而不开始新段落；或者，使用 <code>\newline</code> 命令。</li>
+</ul>
+<p>此示例中的第三段演示了命令 <code>\\</code> 和 <code>\newline</code> 的使用：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass[12pt, letterpaper]&#123;article&#125;
+
+\usepackage&#123;graphicx&#125; %LaTeX package to import graphics
+\graphicspath&#123;&#123;images/&#125;&#125; %configuring the graphicx package
+
+\usepackage&#123;amsmath&#125;% For the equation* environment
+
+% 中文编译需要 ctex 或 xeCJK 包
+\usepackage[UTF8]&#123;ctex&#125;
+% \usepackage&#123;xeCJK&#125;
+
+\title&#123;我的第一个LaTeX文档&#125;
+\author&#123;LuYF-Lemon-love\thanks&#123;Funded by the XXX team.&#125;&#125;
+\date&#123;\today&#125;
+
+\begin&#123;document&#125;
+
+\maketitle
+
+First document. This is a simple example, with no 
+extra parameters or packages included.
+
+第一个文档。这是一个简单的例子，没有 
+包括额外的参数或包。
+
+% 这里的这一行是注释。它不会在文档中排版。
+
+Some of the \textbf&#123;greatest&#125;
+discoveries in \underline&#123;science&#125; 
+were made by \textbf&#123;\textit&#123;accident&#125;&#125;.
+
+Some of the greatest \emph&#123;discoveries&#125; in science 
+were made by accident.
+
+\textit&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+\textbf&#123;Some of the greatest \emph&#123;discoveries&#125; 
+in science were made by accident.&#125;
+
+苏苏真可爱！
+
+% The \includegraphcs command is 
+% provided (implemented) by the 
+% graphicx package
+\includegraphics&#123;susu&#125;
+
+\begin&#123;figure&#125;[h]
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   \centering
+</span><span class="token prefix unchanged"> </span><span class="token line">   \includegraphics[width=0.75\textwidth]&#123;girl&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \caption&#123;白衣少女.&#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   \label&#123;fig:mesh1&#125;
+</span></span>\end&#123;figure&#125;
+
+正如您在图 \ref&#123;fig:mesh1&#125; 中看到的，有一个青春美少女。此示例位于第 \pageref&#123;fig:mesh1&#125; 页。
+
+\begin&#123;itemize&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item The individual entries are indicated with a black dot, a so-called bullet.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The text in the entries may be of any length.
+</span></span>\end&#123;itemize&#125;
+
+\begin&#123;enumerate&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> \item This is the first entry in our list.
+</span><span class="token prefix unchanged"> </span><span class="token line"> \item The list numbers increase with each entry we add.
+</span></span>\end&#123;enumerate&#125;
+
+In physics, the mass-energy equivalence is stated 
+by the equation $E=mc^2$, discovered in 1905 by Albert Einstein.
+
+\begin&#123;math&#125;
+E=mc^2
+\end&#123;math&#125; is typeset in a paragraph using inline math mode---as is $E=mc^2$, and so too is \(E=mc^2\).
+
+The mass-energy equivalence is described by the famous equation
+\[ E=mc^2 \] discovered in 1905 by Albert Einstein. 
+
+In natural units ($c = 1$), the formula expresses the identity
+\begin&#123;equation&#125;
+E=m
+\end&#123;equation&#125;
+
+Subscripts in math mode are written as $a_b$ and superscripts are written as $a^b$. These can be combined and nested to write expressions such as
+
+\[ T^&#123;i_1 i_2 \dots i_p&#125;_&#123;j_1 j_2 \dots j_q&#125; = T(x^&#123;i_1&#125;,\dots,x^&#123;i_p&#125;,e_&#123;j_1&#125;,\dots,e_&#123;j_q&#125;) \]
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">
+</span></span>We write integrals using $\int$ and fractions using $\frac&#123;a&#125;&#123;b&#125;$. Limits are placed on integrals using superscripts and subscripts:
+
+\[ \int_0^1 \frac&#123;dx&#125;&#123;e^x&#125; =  \frac&#123;e-1&#125;&#123;e&#125; \]
+
+Lower case Greek letters are written as $\omega$ $\delta$ etc. while upper case Greek letters are written as $\Omega$ $\Delta$.
+
+Mathematical operators are prefixed with a backslash as $\sin(\beta)$, $\cos(\alpha)$, $\log(x)$ etc.
+
+\section&#123;First example&#125;
+
+The well-known Pythagorean theorem \(x^2 + y^2 = z^2\) was proved to be invalid for other exponents, meaning the next equation has no integer solutions for \(n>2\):
+
+\[ x^n + y^n = z^n \]
+
+\section&#123;Second example&#125;
+
+This is a simple math expression \(\sqrt&#123;x^2+1&#125;\) inside text. 
+And this is also the same: 
+\begin&#123;math&#125;
+\sqrt&#123;x^2+1&#125;
+\end&#123;math&#125;
+but by using another command.
+
+This is a simple math expression without numbering
+\[\sqrt&#123;x^2+1&#125;\] 
+separated from text.
+
+This is also the same:
+\begin&#123;displaymath&#125;
+\sqrt&#123;x^2+1&#125;
+\end&#123;displaymath&#125;
+
+\ldots and this:
+\begin&#123;equation*&#125;
+\sqrt&#123;x^2+1&#125;
+\end&#123;equation*&#125;
+
+\begin&#123;abstract&#125;
+This is a simple paragraph at the beginning of the 
+document. A brief introduction about the main subject.
+\end&#123;abstract&#125;
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> After our abstract we can begin the first paragraph, then press ``enter'' twice to start the second one.
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> This line will start a second paragraph.
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> I will start the third paragraph and then add \\ a manual line break which causes this text to start on a new line but remains part of the same paragraph. Alternatively, I can use the \verb|\newline|\newline command to start a new line, which is also part of the same paragraph.
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240508121633.png"></p>
+<p>请注意 LaTeX 如何自动缩进段落-除了紧跟在文档标题（如部分和小节）之后-正如我们将看到的那样。</p>
+<p>建议新用户不要使用多个 <code>\\</code> 或 <code>\newlines</code> 来“模拟”行间距较大的段落，因为这会干扰 LaTeX 的排版算法。推荐的方法是继续使用空行来创建新段落，没有任何 <code>\\</code>，并通过在序言中添加 <code>\usepackage&#123;parskip&#125;</code> 来加载 <code>parskip</code> 包。</p>
+<p>关于段落的更多信息可在以下文章中找到：</p>
+<ul>
+<li><a href="https://www.overleaf.com/learn/latex/Paragraphs_and_new_lines">段落和新行</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/Articles/How_to_change_paragraph_spacing_in_LaTeX">如何在LaTeX中更改段落行间距</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/Errors/LaTeX_Error%3A_There%27s_no_line_here_to_end">LaTeX错误：这里没有结束的行</a>: 提供了关于使用 <code>\\</code> 的额外建议和指导。</li>
+</ul>
+<ol start="3">
+<li><strong>章节和部分</strong></li>
+</ol>
+<p>较长的文档，与创作软件无关，通常分为 <code>parts</code>、<code>chapters</code>、<code>sections</code>、<code>subsections</code> 等。<strong>LaTeX 还提供 document-structuring 命令，但可用命令及其实现（它们的作用）可能取决于正在使用的文档类。</strong> 例如，使用 <code>book</code> 类创建的文档可以拆分为 <code>parts</code>、<code>chapters</code>、<code>sections</code>、<code>subsections</code> 等，但 <code>letter</code> 类不提供（支持）任何命令来执行此操作。</p>
+<p>下一个示例演示了用于根据 <code>book</code> 类构建文档的命令：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">&#123;</span><span class="token keyword">book</span><span class="token punctuation">&#125;</span>
+<span class="token function selector">\begin</span><span class="token punctuation">&#123;</span><span class="token keyword">document</span><span class="token punctuation">&#125;</span>
+
+<span class="token function selector">\chapter</span><span class="token punctuation">&#123;</span><span class="token headline class-name">First Chapter</span><span class="token punctuation">&#125;</span>
+
+<span class="token function selector">\section</span><span class="token punctuation">&#123;</span><span class="token headline class-name">Introduction</span><span class="token punctuation">&#125;</span>
+
+This is the first section.
+
+Lorem  ipsum  dolor  sit  amet,  consectetuer  adipiscing  
+elit. Etiam  lobortisfacilisis sem.  Nullam nec mi et 
+neque pharetra sollicitudin.  Praesent imperdietmi nec ante. 
+Donec ullamcorper, felis non sodales...
+
+<span class="token function selector">\section</span><span class="token punctuation">&#123;</span><span class="token headline class-name">Second Section</span><span class="token punctuation">&#125;</span>
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  
+Etiam lobortis facilisissem.  Nullam nec mi et neque pharetra 
+sollicitudin.  Praesent imperdiet mi necante...
+
+<span class="token function selector">\subsection</span><span class="token punctuation">&#123;</span><span class="token headline class-name">First Subsection</span><span class="token punctuation">&#125;</span>
+Praesent imperdietmi nec ante. Donec ullamcorper, felis non sodales...
+
+<span class="token function selector">\section*</span><span class="token punctuation">&#123;</span><span class="token headline class-name">Unnumbered Section</span><span class="token punctuation">&#125;</span>
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  
+Etiam lobortis facilisissem...
+<span class="token function selector">\end</span><span class="token punctuation">&#123;</span><span class="token keyword">document</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240508124722.png"></p>
+<p>分段命令的名称大多是不言自明的；例如，<code>\chapter&#123;First Chapter&#125;</code> 创建一个名为 <code>First Chapter</code> 的新章，<code>\section&#123;Introduction&#125;</code> 生成一个名为 <code>Introduction</code> 的节，等等。节还可以进一步分为 <code>\subsection&#123;...&#125;</code> 甚至 <code>\subsubsection&#123;...&#125;</code>。章节、小节等的编号是自动的，但可以通过使用适当命令的所谓星号版本来禁用，该命令末尾有星号（<code>*</code>），例如 <code>\section*&#123;...&#125;</code> 和 <code>\subsection*&#123;...&#125;</code>。</p>
+<p>总的来说，LaTeX 文档类提供以下分段命令，每个特定类都支持相关子集：</p>
+<ul>
+<li><code>\part&#123;part&#125;</code></li>
+<li><code>\chapter&#123;chapter&#125;</code></li>
+<li><code>\section&#123;section&#125;</code></li>
+<li><code>\subsection&#123;subsection&#125;</code></li>
+<li><code>\subsubsection&#123;subsubsection&#125;</code></li>
+<li><code>\paragraph&#123;paragraph&#125;</code></li>
+<li><code>\subparagraph&#123;subparagraph&#125;</code></li>
+</ul>
+<p>特别是，<code>\part</code> 和 <code>\chapter</code> 命令仅在 <code>report</code> 和 <code>book</code> 文档类中可用。</p>
+<p>有关文档结构命令的更多信息，请访问 <a href="https://www.overleaf.com/learn/latex/Sections_and_chapters">Overleaf 的相关文章</a>。</p>
+<h3 id="创建表格"><a href="#创建表格" class="headerlink" title="创建表格"></a>创建表格</h3><p>以下示例展示了如何在LaTeX中创建表，包括添加行（规则）和标题。</p>
+<ol>
+<li><strong>在 LaTeX 中创建基本表</strong></li>
+</ol>
+<p>我们从一个展示如何排版基本表的示例开始：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass&#123;book&#125;
+\begin&#123;document&#125;
+
+\chapter&#123;First Chapter&#125;
+
+\section&#123;Introduction&#125;
+
+This is the first section.
+
+Lorem  ipsum  dolor  sit  amet,  consectetuer  adipiscing  
+elit. Etiam  lobortisfacilisis sem.  Nullam nec mi et 
+neque pharetra sollicitudin.  Praesent imperdietmi nec ante. 
+Donec ullamcorper, felis non sodales...
+
+\section&#123;Second Section&#125;
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  
+Etiam lobortis facilisissem.  Nullam nec mi et neque pharetra 
+sollicitudin.  Praesent imperdiet mi necante...
+
+\subsection&#123;First Subsection&#125;
+Praesent imperdietmi nec ante. Donec ullamcorper, felis non sodales...
+
+\section*&#123;Unnumbered Section&#125;
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  
+Etiam lobortis facilisissem...
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;center&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;tabular&#125;&#123;c c c&#125;
+</span><span class="token prefix inserted">+</span><span class="token line">  cell1 &amp; cell2 &amp; cell3 \\ 
+</span><span class="token prefix inserted">+</span><span class="token line">  cell4 &amp; cell5 &amp; cell6 \\  
+</span><span class="token prefix inserted">+</span><span class="token line">  cell7 &amp; cell8 &amp; cell9    
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;tabular&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;center&#125;
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240508132325.png"></p>
+<p><code>tabular</code> 环境是创建表的默认 LaTeX 方法。您必须为此环境指定一个参数，在这种情况下 <code>&#123;c c c&#125;</code> 它建议 LaTeX 将有三列，并且每列中的文本必须居中。您还可以使用 <code>r</code> 对文本进行右对齐，使用 <code>l</code> 对文本进行左对齐。对齐符号 <code>&amp;</code> 用于标定表格行内的单个表格单元格。要结束表行，请使用新的行命令 <code>\\</code> 。我们的表格包含在 <code>center</code> 环境中，使其在页面的文本宽度内居中。</p>
+<ol start="2">
+<li><strong>添加边框</strong></li>
+</ol>
+<p><code>tabular</code> 环境支持将水平线和垂直线（规则）作为表的一部分：</p>
+<ul>
+<li>要在行上方和下方添加水平规则，请使用 <code>\hline</code> 命令</li>
+<li>要在列之间添加垂直规则，请使用垂直线参数 <code>|</code></li>
+</ul>
+<p>在这个例子中，参数是 <code>&#123;|c|c|c|&#125;</code>，它声明了三个（居中）列，每个列由一条垂直线（规则）分隔；此外，我们使用 <code>\hline</code> 在第一行上方和最后一行下方放置一个水平规则：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass&#123;book&#125;
+\begin&#123;document&#125;
+
+\chapter&#123;First Chapter&#125;
+
+\section&#123;Introduction&#125;
+
+This is the first section.
+
+Lorem  ipsum  dolor  sit  amet,  consectetuer  adipiscing  
+elit. Etiam  lobortisfacilisis sem.  Nullam nec mi et 
+neque pharetra sollicitudin.  Praesent imperdietmi nec ante. 
+Donec ullamcorper, felis non sodales...
+
+\section&#123;Second Section&#125;
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  
+Etiam lobortis facilisissem.  Nullam nec mi et neque pharetra 
+sollicitudin.  Praesent imperdiet mi necante...
+
+\subsection&#123;First Subsection&#125;
+Praesent imperdietmi nec ante. Donec ullamcorper, felis non sodales...
+
+\section*&#123;Unnumbered Section&#125;
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  
+Etiam lobortis facilisissem...
+
+\begin&#123;center&#125;
+\begin&#123;tabular&#125;&#123;c c c&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">cell1 &amp; cell2 &amp; cell3 \\ 
+</span><span class="token prefix unchanged"> </span><span class="token line">cell4 &amp; cell5 &amp; cell6 \\  
+</span><span class="token prefix unchanged"> </span><span class="token line">cell7 &amp; cell8 &amp; cell9    
+</span></span>\end&#123;tabular&#125;
+\end&#123;center&#125;
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;center&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;tabular&#125;&#123;|c|c|c|&#125; 
+</span><span class="token prefix inserted">+</span><span class="token line">  \hline
+</span><span class="token prefix inserted">+</span><span class="token line">  cell1 &amp; cell2 &amp; cell3 \\ 
+</span><span class="token prefix inserted">+</span><span class="token line">  cell4 &amp; cell5 &amp; cell6 \\ 
+</span><span class="token prefix inserted">+</span><span class="token line">  cell7 &amp; cell8 &amp; cell9 \\ 
+</span><span class="token prefix inserted">+</span><span class="token line">  \hline
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;tabular&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;center&#125;
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240508134810.png"></p>
+<p>下面是另一个例子：</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass&#123;book&#125;
+\begin&#123;document&#125;
+
+\chapter&#123;First Chapter&#125;
+
+\section&#123;Introduction&#125;
+
+This is the first section.
+
+Lorem  ipsum  dolor  sit  amet,  consectetuer  adipiscing  
+elit. Etiam  lobortisfacilisis sem.  Nullam nec mi et 
+neque pharetra sollicitudin.  Praesent imperdietmi nec ante. 
+Donec ullamcorper, felis non sodales...
+
+\section&#123;Second Section&#125;
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  
+Etiam lobortis facilisissem.  Nullam nec mi et neque pharetra 
+sollicitudin.  Praesent imperdiet mi necante...
+
+\subsection&#123;First Subsection&#125;
+Praesent imperdietmi nec ante. Donec ullamcorper, felis non sodales...
+
+\section*&#123;Unnumbered Section&#125;
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  
+Etiam lobortis facilisissem...
+
+\begin&#123;center&#125;
+\begin&#123;tabular&#125;&#123;c c c&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">cell1 &amp; cell2 &amp; cell3 \\ 
+</span><span class="token prefix unchanged"> </span><span class="token line">cell4 &amp; cell5 &amp; cell6 \\  
+</span><span class="token prefix unchanged"> </span><span class="token line">cell7 &amp; cell8 &amp; cell9    
+</span></span>\end&#123;tabular&#125;
+\end&#123;center&#125;
+
+\begin&#123;center&#125;
+\begin&#123;tabular&#125;&#123;|c|c|c|&#125; 
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">\hline
+</span><span class="token prefix unchanged"> </span><span class="token line">cell1 &amp; cell2 &amp; cell3 \\ 
+</span><span class="token prefix unchanged"> </span><span class="token line">cell4 &amp; cell5 &amp; cell6 \\ 
+</span><span class="token prefix unchanged"> </span><span class="token line">cell7 &amp; cell8 &amp; cell9 \\ 
+</span><span class="token prefix unchanged"> </span><span class="token line">\hline
+</span></span>\end&#123;tabular&#125;
+\end&#123;center&#125;
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;center&#125;
+</span><span class="token prefix inserted">+</span><span class="token line">  \begin&#123;tabular&#125;&#123;||c c c c||&#125; 
+</span><span class="token prefix inserted">+</span><span class="token line">  \hline
+</span><span class="token prefix inserted">+</span><span class="token line">  Col1 &amp; Col2 &amp; Col2 &amp; Col3 \\ [0.5ex] 
+</span><span class="token prefix inserted">+</span><span class="token line">  \hline\hline
+</span><span class="token prefix inserted">+</span><span class="token line">  1 &amp; 6 &amp; 87837 &amp; 787 \\ 
+</span><span class="token prefix inserted">+</span><span class="token line">  \hline
+</span><span class="token prefix inserted">+</span><span class="token line">  2 &amp; 7 &amp; 78 &amp; 5415 \\
+</span><span class="token prefix inserted">+</span><span class="token line">  \hline
+</span><span class="token prefix inserted">+</span><span class="token line">  3 &amp; 545 &amp; 778 &amp; 7507 \\
+</span><span class="token prefix inserted">+</span><span class="token line">  \hline
+</span><span class="token prefix inserted">+</span><span class="token line">  4 &amp; 545 &amp; 18744 &amp; 7560 \\
+</span><span class="token prefix inserted">+</span><span class="token line">  \hline
+</span><span class="token prefix inserted">+</span><span class="token line">  5 &amp; 88 &amp; 788 &amp; 6344 \\ [1ex] 
+</span><span class="token prefix inserted">+</span><span class="token line">  \hline
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;tabular&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;center&#125;
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240508135037.png"></p>
+<blockquote>
+<p>在 LaTeX 中创建表可能很耗时，因此您可能希望使用 TablesGenerator.com 在线工具为表格导出 LaTeX 代码。</p>
+</blockquote>
+<ol start="3">
+<li><strong>标题、标签和参考文献</strong></li>
+</ol>
+<p>您可以像图像一样添加标题和引用表格。唯一的区别是，您使用的不是 <code>figure</code> 环境，而是 <code>table</code> 环境。</p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">\documentclass&#123;book&#125;
+\begin&#123;document&#125;
+
+\chapter&#123;First Chapter&#125;
+
+\section&#123;Introduction&#125;
+
+This is the first section.
+
+Lorem  ipsum  dolor  sit  amet,  consectetuer  adipiscing  
+elit. Etiam  lobortisfacilisis sem.  Nullam nec mi et 
+neque pharetra sollicitudin.  Praesent imperdietmi nec ante. 
+Donec ullamcorper, felis non sodales...
+
+\section&#123;Second Section&#125;
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  
+Etiam lobortis facilisissem.  Nullam nec mi et neque pharetra 
+sollicitudin.  Praesent imperdiet mi necante...
+
+\subsection&#123;First Subsection&#125;
+Praesent imperdietmi nec ante. Donec ullamcorper, felis non sodales...
+
+\section*&#123;Unnumbered Section&#125;
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  
+Etiam lobortis facilisissem...
+
+\begin&#123;center&#125;
+\begin&#123;tabular&#125;&#123;c c c&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">cell1 &amp; cell2 &amp; cell3 \\ 
+</span><span class="token prefix unchanged"> </span><span class="token line">cell4 &amp; cell5 &amp; cell6 \\  
+</span><span class="token prefix unchanged"> </span><span class="token line">cell7 &amp; cell8 &amp; cell9    
+</span></span>\end&#123;tabular&#125;
+\end&#123;center&#125;
+
+\begin&#123;center&#125;
+\begin&#123;tabular&#125;&#123;|c|c|c|&#125; 
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">\hline
+</span><span class="token prefix unchanged"> </span><span class="token line">cell1 &amp; cell2 &amp; cell3 \\ 
+</span><span class="token prefix unchanged"> </span><span class="token line">cell4 &amp; cell5 &amp; cell6 \\ 
+</span><span class="token prefix unchanged"> </span><span class="token line">cell7 &amp; cell8 &amp; cell9 \\ 
+</span><span class="token prefix unchanged"> </span><span class="token line">\hline
+</span></span>\end&#123;tabular&#125;
+\end&#123;center&#125;
+
+\begin&#123;center&#125;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">\begin&#123;tabular&#125;&#123;||c c c c||&#125; 
+</span><span class="token prefix unchanged"> </span><span class="token line">\hline
+</span><span class="token prefix unchanged"> </span><span class="token line">Col1 &amp; Col2 &amp; Col2 &amp; Col3 \\ [0.5ex] 
+</span><span class="token prefix unchanged"> </span><span class="token line">\hline\hline
+</span><span class="token prefix unchanged"> </span><span class="token line">1 &amp; 6 &amp; 87837 &amp; 787 \\ 
+</span><span class="token prefix unchanged"> </span><span class="token line">\hline
+</span><span class="token prefix unchanged"> </span><span class="token line">2 &amp; 7 &amp; 78 &amp; 5415 \\
+</span><span class="token prefix unchanged"> </span><span class="token line">\hline
+</span><span class="token prefix unchanged"> </span><span class="token line">3 &amp; 545 &amp; 778 &amp; 7507 \\
+</span><span class="token prefix unchanged"> </span><span class="token line">\hline
+</span><span class="token prefix unchanged"> </span><span class="token line">4 &amp; 545 &amp; 18744 &amp; 7560 \\
+</span><span class="token prefix unchanged"> </span><span class="token line">\hline
+</span><span class="token prefix unchanged"> </span><span class="token line">5 &amp; 88 &amp; 788 &amp; 6344 \\ [1ex] 
+</span><span class="token prefix unchanged"> </span><span class="token line">\hline
+</span></span>\end&#123;tabular&#125;
+\end&#123;center&#125;
+
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> Table \ref&#123;table:data&#125; shows how to add a table caption and reference a table.
+</span><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;table&#125;[h!]
+</span><span class="token prefix inserted">+</span><span class="token line"> \centering
+</span><span class="token prefix inserted">+</span><span class="token line"> \begin&#123;tabular&#125;&#123;||c c c c||&#125; 
+</span><span class="token prefix inserted">+</span><span class="token line">  \hline
+</span><span class="token prefix inserted">+</span><span class="token line">  Col1 &amp; Col2 &amp; Col2 &amp; Col3 \\ [0.5ex] 
+</span><span class="token prefix inserted">+</span><span class="token line">  \hline\hline
+</span><span class="token prefix inserted">+</span><span class="token line">  1 &amp; 6 &amp; 87837 &amp; 787 \\ 
+</span><span class="token prefix inserted">+</span><span class="token line">  2 &amp; 7 &amp; 78 &amp; 5415 \\
+</span><span class="token prefix inserted">+</span><span class="token line">  3 &amp; 545 &amp; 778 &amp; 7507 \\
+</span><span class="token prefix inserted">+</span><span class="token line">  4 &amp; 545 &amp; 18744 &amp; 7560 \\
+</span><span class="token prefix inserted">+</span><span class="token line">  5 &amp; 88 &amp; 788 &amp; 6344 \\ [1ex] 
+</span><span class="token prefix inserted">+</span><span class="token line">  \hline
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;tabular&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \caption&#123;Table to test captions and labels.&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \label&#123;table:data&#125;
+</span><span class="token prefix inserted">+</span><span class="token line"> \end&#123;table&#125;
+</span></span>
+\end&#123;document&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240508140312.png"></p>
+<h3 id="添加目录"><a href="#添加目录" class="headerlink" title="添加目录"></a>添加目录</h3><p>创建目录很简单，因为命令 <code>\tableofcontents</code> 几乎为您完成所有工作：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">&#123;</span><span class="token keyword">article</span><span class="token punctuation">&#125;</span>
+<span class="token function selector">\title</span><span class="token punctuation">&#123;</span>Sections and Chapters<span class="token punctuation">&#125;</span>
+<span class="token function selector">\author</span><span class="token punctuation">&#123;</span>Gubert Farnsworth<span class="token punctuation">&#125;</span>
+<span class="token function selector">\date</span><span class="token punctuation">&#123;</span>August 2022<span class="token punctuation">&#125;</span>
+<span class="token function selector">\begin</span><span class="token punctuation">&#123;</span><span class="token keyword">document</span><span class="token punctuation">&#125;</span>
+  
+<span class="token function selector">\maketitle</span>
+  
+<span class="token function selector">\tableofcontents</span>
+
+<span class="token function selector">\section</span><span class="token punctuation">&#123;</span><span class="token headline class-name">Introduction</span><span class="token punctuation">&#125;</span>
+   
+This is the first section.
+      
+Lorem  ipsum  dolor  sit  amet,  consectetuer  adipiscing  
+elit.   Etiam  lobortisfacilisis sem.  Nullam nec mi et 
+neque pharetra sollicitudin.  Praesent imperdietmi nec ante. 
+Donec ullamcorper, felis non sodales...
+       
+<span class="token function selector">\section*</span><span class="token punctuation">&#123;</span><span class="token headline class-name">Unnumbered Section</span><span class="token punctuation">&#125;</span>
+<span class="token function selector">\addcontentsline</span><span class="token punctuation">&#123;</span>toc<span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>section<span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>Unnumbered Section<span class="token punctuation">&#125;</span>
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  
+Etiam lobortis facilisissem.  Nullam nec mi et neque pharetra 
+sollicitudin.  Praesent imperdiet mi necante...
+
+<span class="token function selector">\section</span><span class="token punctuation">&#123;</span><span class="token headline class-name">Second Section</span><span class="token punctuation">&#125;</span>
+       
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  
+Etiam lobortis facilisissem.  Nullam nec mi et neque pharetra 
+sollicitudin.  Praesent imperdiet mi necante...
+<span class="token function selector">\end</span><span class="token punctuation">&#123;</span><span class="token keyword">document</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240508142802.png"></p>
+<p><code>Sections</code>、<code>subsections</code> 和 <code>chapters</code> 会自动包含在目录中。要手动添加条目，例如 <code>unnumbered section</code>，请使用命令 <code>\addcontentsline</code>，如示例所示。</p>
+<h3 id="查找和使用-LaTeX-包"><a href="#查找和使用-LaTeX-包" class="headerlink" title="查找和使用 LaTeX 包"></a>查找和使用 LaTeX 包</h3><p>LaTeX 不仅提供了重要的排版功能，还通过使用附加包提供了可扩展性框架。LaTeX 不是试图提供“尝试做所有事情”的命令和功能，而是设计为可扩展的，允许用户加载提供更专业排版功能或扩展 LATEX 内置功能（如排版表）的外部代码体（包）。正如添加图像部分所观察到的，graphicx 包通过提供导入图形文件的命令来扩展 LaTeX，并通过编写加载（在序言中）</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\usepackage</span><span class="token punctuation">&#123;</span><span class="token keyword">graphicx</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol>
+<li><strong>加载包</strong></li>
+</ol>
+<p>如上所述，包通过 <code>\usepackage</code> 命令加载到文档序言中，但由于（许多）LaTeX 包提供了一组选项，可用于配置其行为，<code>\usepackage</code> 命令通常如下所示：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\usepackage</span><span class="token punctuation">[</span>options<span class="token punctuation">]</span><span class="token punctuation">&#123;</span><span class="token keyword">somepackage</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>方括号“<code>[…]</code>”通知 LaTeX 在加载 <code>somepackage</code> 时应应用哪组选项。在用户请求的选项集中，单个选项或设置通常用逗号分隔；例如，<code>geometry</code> 包提供了许多选项来配置 LaTeX 中的页面布局，因此 <code>geometry</code> 的典型用法如下所示：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\usepackage</span><span class="token punctuation">[</span>total=<span class="token punctuation">&#123;</span>6.5in,8.75in<span class="token punctuation">&#125;</span>,
+top=1.2in, left=0.9in, includefoot<span class="token punctuation">]</span><span class="token punctuation">&#123;</span><span class="token keyword">geometry</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>geometry 包是由全球 LaTeX 社区成员编写和贡献的包的一个示例，并且免费提供给任何想要使用它的人。</p>
+<p>如果 LaTeX 包不提供任何选项，或者用户想要使用包选项的默认值，它将像这样加载：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\usepackage</span><span class="token punctuation">&#123;</span><span class="token keyword">somepackage</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>当您编写 <code>\usepackage[...]&#123;somepackage&#125;</code> LaTeX 会查找一个名为 <code>somepackage.sty</code> 的相应文件，它需要加载和处理该文件-以使包命令可用并执行该包提供的任何其他代码。如果 LaTeX 找不到 <code>somepackage.sty</code>，它将以错误终止，如下 Overleaf 示例所示：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">[</span>12pt, letterpaper<span class="token punctuation">]</span><span class="token punctuation">&#123;</span><span class="token keyword">article</span><span class="token punctuation">&#125;</span>
+<span class="token function selector">\usepackage</span><span class="token punctuation">&#123;</span><span class="token keyword">somepackage</span><span class="token punctuation">&#125;</span><span class="token comment">% a NON-EXISTENT package</span>
+<span class="token function selector">\begin</span><span class="token punctuation">&#123;</span><span class="token keyword">document</span><span class="token punctuation">&#125;</span>
+This will fail!
+<span class="token function selector">\end</span><span class="token punctuation">&#123;</span><span class="token keyword">document</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此示例生成以下输出：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240508151051.png"></p>
+<ol start="2">
+<li><strong>查找有关包的信息：CTAN</strong></li>
+</ol>
+<p>包通过<a href="https://www.ctan.org/">综合 TeX 存档网络</a>分发，通常称为 CTAN，在撰写本文时，该网络托管来自 2881 名贡献者的 6287 个包。CTAN 将<a href="https://www.ctan.org/ctan">自己描述</a>为</p>
+<blockquote>
+<p>… a set of Internet sites around the world that offer TEX-related material for download.</p>
+</blockquote>
+<p>您可以浏览 CTAN 以查找有用的包；例如：</p>
+<ul>
+<li><a href="https://www.ctan.org/topics/cloud">按主题</a></li>
+<li><a href="https://www.ctan.org/pkg">按字母顺序</a>（如果您知道包名，则很有用）</li>
+</ul>
+<p>您还可以使用<a href="https://www.ctan.org/pkg">搜索工具</a>（在页面顶部）。</p>
+<ol start="3">
+<li><strong>Overleaf 提供的套餐：介绍 TeX Live</strong></li>
+</ol>
+<p>每年一次，托管在 CTAN 上的（大量）软件包子集，以及与 LaTeX 相关的字体和其他软件，作为一个名为 <a href="https://tug.org/texlive/">TeX Live</a> 的系统进行整理和分发，该系统可用于安装您自己的（本地）LaTeX 设置。事实上，Overleaf 的服务器也使用 TeX Live，并在新版本的 TeX Live 发布时进行更新。Overleaf 的 TeX Live 更新不是即时的，而是在发布后几个月进行的，这让我们有时间对新的 TeX Live 版本与我们图库中包含的数千个模板进行兼容性测试。</p>
+<p>虽然 TeX Live 包含 CTAN 包的（大）子集，但可以找到一个有趣的包，例如用于排版 Go 图表的 igo，它托管在 CTAN 上，但不包含在（由） TeX Live 中，因此在 Overleaf 上不可用。由于各种原因，CTAN 上托管的一些包不是 TeX Live 的一部分：可能一个包已经过时，有许可问题，非常新（最近上传）或具有平台依赖关系，例如在 Windows 上工作但在 Linux 不工作。</p>
+<p>新软件包和对现有软件包的更新全年都上传到 CTAN，但 TeX Live 的更新一年一次地分发；因此，TeX Live 当前版本中包含的软件包不会像 CTAN 上托管的软件包那样最新。因为 Overleaf 的服务器使用 TeX Live，所以安装在 Overleaf 服务器上的软件包——即 Overleaf 用户可以使用的软件包——可能不是 CTAN 上可用的最新版本，但一般来说，这不太可能有问题。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百一十四篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2024/05/07/00114-chu-shi-latex/">https://luyf-lemon-love.space/2024/05/07/00114-chu-shi-latex/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/LaTeX/">
+                                    <span class="chip bg-color">LaTeX</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/05/08/00115-li-yong-latex-zuo-ppt-beamer/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/051-%E7%BA%B3%E8%A5%BF%E5%A6%B2.jpg" class="responsive-img" alt="00115 利用 LaTeX 做 PPT (Beamer)">
+                        
+                        <span class="card-title">00115 利用 LaTeX 做 PPT (Beamer)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-05-08
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    计算机基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/LaTeX/">
+                        <span class="chip bg-color">LaTeX</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/03/08/00113-leetcode-shua-ti-bi-ji-python-ban-ben/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/002-102439408.jpg" class="responsive-img" alt="00113 LeetCode 刷题笔记 Python 版本">
+                        
+                        <span class="card-title">00113 LeetCode 刷题笔记 Python 版本</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-03-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
+                                    刷题
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%88%B7%E9%A2%98/">
+                        <span class="chip bg-color">刷题</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

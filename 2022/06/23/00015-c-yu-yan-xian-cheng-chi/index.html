@@ -1,0 +1,1948 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00015-C语言线程池, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言线程池可以复用线程，免去频繁地创建线程和销毁线程的操作。大大的提高程序的效率。
+线程池是生产者和消费者模型的一部分，包含：消费者和缓冲区。
+用户可以将任务添加到缓冲区，然后线程池会自动创建线程处理任务，并且线程池会自动控制线程的个数。
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00015-C语言线程池 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/20220604154519.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00015-C语言线程池</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/C/">
+                                <span class="chip bg-color">C++</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                                <span class="chip bg-color">多线程</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/C/" class="post-category">
+                                C++
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-06-23
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>线程池可以复用线程，免去频繁地创建线程和销毁线程的操作。大大的提高程序的效率。</p>
+<p>线程池是生产者和消费者模型的一部分，包含：消费者和缓冲区。</p>
+<p>用户可以将任务添加到缓冲区，然后线程池会自动创建线程处理任务，并且线程池会自动控制线程的个数。</p>
+<p>线程池包含三个部分：</p>
+<ul>
+<li><p><code>任务队列</code>: 任务是由线程需要处理的函数指针和参数组成。</p>
+</li>
+<li><p><code>消费者线程队列</code>: 线程会不停地处理任务队列中的任务。</p>
+</li>
+<li><p><code>管理者线程</code>: 监控 <code>消费者线程队列</code>，控制 <code>消费者线程队列</code> 中线程的个数。</p>
+</li>
+</ul>
+<p>操作系统：Ubuntu 20.04.4 LTS</p>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ol>
+<li><a href="https://subingwen.cn/linux/threadpool/">苏丙榅老师的多线程教程</a></li>
+</ol>
+<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><ol>
+<li>创建项目</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> my_threadpool
+<span class="token builtin class-name">cd</span> my_threadpool/
+code <span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="2">
+<li>进入 <code>VSCode</code> 中，如下图创建文件。</li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space//images/20220623161823.png"></p>
+<ol start="3">
+<li><p>关于如何在 <code>VSCode</code> 中配置 <code>C/C++</code> 环境，请参考 00008-C-C-和Python多线程初探。</p>
+</li>
+<li><p>配置 <code>VSCode</code> 中 <code>C/C++</code> 的调试文件 <code>./vscode/tasks.json</code>。当你第一次运行程序时，<code>C++ extension</code> 会自动创建 <code>tasks.json</code> 文件。但是由于我们创建了三个文件 <code>main.c</code>、<code>threadpool.c</code> 和 <code>threadpool.h</code>，所以需要修改一下编译参数。当然由于我们使用了 <code>&lt;pthread.h&gt;</code>，所以也要加 <code>-lpthread</code> 参数。</p>
+</li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space//images/20220623163203.png"></p>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff">&#123;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   "tasks": [
+</span><span class="token prefix unchanged"> </span><span class="token line">       &#123;
+</span><span class="token prefix unchanged"> </span><span class="token line">           "type": "cppbuild",
+</span><span class="token prefix unchanged"> </span><span class="token line">           "label": "C/C++: gcc-9 生成活动文件",
+</span><span class="token prefix unchanged"> </span><span class="token line">           "command": "/usr/bin/gcc-9",
+</span><span class="token prefix unchanged"> </span><span class="token line">           "args": [
+</span><span class="token prefix unchanged"> </span><span class="token line">               "-fdiagnostics-color=always",
+</span><span class="token prefix unchanged"> </span><span class="token line">               "-g",
+</span></span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span><span class="token line">                "$&#123;file&#125;",
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">                "$&#123;fileDirname&#125;/*.c",
+</span><span class="token prefix inserted">+</span><span class="token line">                "-lpthread",
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">               "-o",
+</span><span class="token prefix unchanged"> </span><span class="token line">               "$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;"
+</span><span class="token prefix unchanged"> </span><span class="token line">           ],
+</span><span class="token prefix unchanged"> </span><span class="token line">           "options": &#123;
+</span><span class="token prefix unchanged"> </span><span class="token line">               "cwd": "$&#123;fileDirname&#125;"
+</span><span class="token prefix unchanged"> </span><span class="token line">           &#125;,
+</span><span class="token prefix unchanged"> </span><span class="token line">           "problemMatcher": [
+</span><span class="token prefix unchanged"> </span><span class="token line">               "$gcc"
+</span><span class="token prefix unchanged"> </span><span class="token line">           ],
+</span><span class="token prefix unchanged"> </span><span class="token line">           "group": &#123;
+</span><span class="token prefix unchanged"> </span><span class="token line">               "kind": "build",
+</span><span class="token prefix unchanged"> </span><span class="token line">               "isDefault": true
+</span><span class="token prefix unchanged"> </span><span class="token line">           &#125;,
+</span><span class="token prefix unchanged"> </span><span class="token line">           "detail": "调试器生成的任务。"
+</span><span class="token prefix unchanged"> </span><span class="token line">       &#125;
+</span><span class="token prefix unchanged"> </span><span class="token line">   ],
+</span><span class="token prefix unchanged"> </span><span class="token line">   "version": "2.0.0"
+</span></span>&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="头文件-threadpool-h"><a href="#头文件-threadpool-h" class="headerlink" title="头文件-threadpool.h"></a>头文件-threadpool.h</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression">_THREADPOOL_H</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">_THREADPOOL_H</span></span>
+
+<span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token class-name">ThreadPool</span> ThreadPool<span class="token punctuation">;</span>
+<span class="token comment">// 创建线程池并初始化</span>
+ThreadPool <span class="token operator">*</span><span class="token function">threadPoolCreate</span><span class="token punctuation">(</span><span class="token keyword">int</span> min<span class="token punctuation">,</span> <span class="token keyword">int</span> max<span class="token punctuation">,</span> <span class="token keyword">int</span> queueSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 销毁线程池</span>
+<span class="token keyword">int</span> <span class="token function">threadPoolDestroy</span><span class="token punctuation">(</span>ThreadPool<span class="token operator">*</span> pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 给线程池添加任务</span>
+<span class="token keyword">void</span> <span class="token function">threadPoolAdd</span><span class="token punctuation">(</span>ThreadPool<span class="token operator">*</span> pool<span class="token punctuation">,</span> <span class="token keyword">void</span><span class="token punctuation">(</span><span class="token operator">*</span>func<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">void</span><span class="token operator">*</span> arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 获取线程池中工作的线程的个数</span>
+<span class="token keyword">int</span> <span class="token function">threadPoolBusyNum</span><span class="token punctuation">(</span>ThreadPool<span class="token operator">*</span> pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 获取线程池中活着的线程的个数</span>
+<span class="token keyword">int</span> <span class="token function">threadPoolAliveNum</span><span class="token punctuation">(</span>ThreadPool<span class="token operator">*</span> pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 工作的线程(消费者线程)任务函数</span>
+<span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">worker</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 管理者线程任务函数</span>
+<span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">manager</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 单个线程退出</span>
+<span class="token keyword">void</span> <span class="token function">threadExit</span><span class="token punctuation">(</span>ThreadPool<span class="token operator">*</span> pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span>  <span class="token comment">// _THREADPOOL_H</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="源文件-threadpool-c"><a href="#源文件-threadpool-c" class="headerlink" title="源文件-threadpool.c"></a>源文件-threadpool.c</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"threadpool.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;pthread.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+
+<span class="token keyword">const</span> <span class="token keyword">int</span> NUMBER <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 任务结构体</span>
+<span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token class-name">Task</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>function<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span><span class="token operator">*</span> arg<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>Task<span class="token punctuation">;</span>
+
+<span class="token comment">// 线程池结构体</span>
+<span class="token keyword">struct</span> <span class="token class-name">ThreadPool</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">// 任务队列</span>
+    Task<span class="token operator">*</span> taskQ<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> queueCapacity<span class="token punctuation">;</span>  <span class="token comment">// 容量</span>
+    <span class="token keyword">int</span> queueSize<span class="token punctuation">;</span>      <span class="token comment">// 当前任务个数</span>
+    <span class="token keyword">int</span> queueFront<span class="token punctuation">;</span>     <span class="token comment">// 队头 -> 取数据</span>
+    <span class="token keyword">int</span> queueRear<span class="token punctuation">;</span>      <span class="token comment">// 队尾 -> 放数据</span>
+
+    <span class="token class-name">pthread_t</span> managerID<span class="token punctuation">;</span>    <span class="token comment">// 管理者线程 ID</span>
+    <span class="token class-name">pthread_t</span> <span class="token operator">*</span>threadIDs<span class="token punctuation">;</span>   <span class="token comment">// 工作的线程 ID</span>
+    <span class="token keyword">int</span> minNum<span class="token punctuation">;</span>             <span class="token comment">// 最小线程数量</span>
+    <span class="token keyword">int</span> maxNum<span class="token punctuation">;</span>             <span class="token comment">// 最大线程数量</span>
+    <span class="token keyword">int</span> busyNum<span class="token punctuation">;</span>            <span class="token comment">// 忙的线程的个数</span>
+    <span class="token keyword">int</span> liveNum<span class="token punctuation">;</span>            <span class="token comment">// 存活的线程的个数</span>
+    <span class="token keyword">int</span> exitNum<span class="token punctuation">;</span>            <span class="token comment">// 要销毁的线程个数</span>
+    <span class="token class-name">pthread_mutex_t</span> mutexPool<span class="token punctuation">;</span>  <span class="token comment">// 锁整个的线程池</span>
+    <span class="token class-name">pthread_mutex_t</span> mutexBusy<span class="token punctuation">;</span>  <span class="token comment">// 锁 busyNum 变量</span>
+    <span class="token class-name">pthread_cond_t</span> notFull<span class="token punctuation">;</span>     <span class="token comment">// 任务队列是不是满了</span>
+    <span class="token class-name">pthread_cond_t</span> notEmpty<span class="token punctuation">;</span>    <span class="token comment">// 任务队列是不是空了</span>
+
+    <span class="token keyword">int</span> shutdown<span class="token punctuation">;</span>           <span class="token comment">// 是不是要销毁线程池, 销毁为 1, 不销毁为 0</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+ThreadPool<span class="token operator">*</span> <span class="token function">threadPoolCreate</span><span class="token punctuation">(</span><span class="token keyword">int</span> min<span class="token punctuation">,</span> <span class="token keyword">int</span> max<span class="token punctuation">,</span> <span class="token keyword">int</span> queueSize<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    ThreadPool<span class="token operator">*</span> pool <span class="token operator">=</span> <span class="token punctuation">(</span>ThreadPool<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>ThreadPool<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">do</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>pool <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"malloc threadpool fail ...\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        pool<span class="token operator">-></span>threadIDs <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">pthread_t</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token class-name">pthread_t</span><span class="token punctuation">)</span> <span class="token operator">*</span> max<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>pool<span class="token operator">-></span>threadIDs <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"malloc threadIDs fail ...\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token function">memset</span><span class="token punctuation">(</span>pool<span class="token operator">-></span>threadIDs<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token class-name">pthread_t</span><span class="token punctuation">)</span> <span class="token operator">*</span> max<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        pool<span class="token operator">-></span>minNum <span class="token operator">=</span> min<span class="token punctuation">;</span>
+        pool<span class="token operator">-></span>maxNum <span class="token operator">=</span> max<span class="token punctuation">;</span>
+        pool<span class="token operator">-></span>busyNum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        pool<span class="token operator">-></span>liveNum <span class="token operator">=</span> min<span class="token punctuation">;</span>    <span class="token comment">// 和最小个数相等</span>
+        pool<span class="token operator">-></span>exitNum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">pthread_mutex_init</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token operator">||</span>
+            <span class="token function">pthread_mutex_init</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexBusy<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token operator">||</span>
+            <span class="token function">pthread_cond_init</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>notEmpty<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token operator">||</span>
+            <span class="token function">pthread_cond_init</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>notFull<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"mutex or condition init fail ...\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token comment">// 任务队列</span>
+        pool<span class="token operator">-></span>taskQ <span class="token operator">=</span> <span class="token punctuation">(</span>Task<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>Task<span class="token punctuation">)</span> <span class="token operator">*</span> queueSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        pool<span class="token operator">-></span>queueCapacity <span class="token operator">=</span> queueSize<span class="token punctuation">;</span>
+        pool<span class="token operator">-></span>queueSize <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        pool<span class="token operator">-></span>queueFront <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        pool<span class="token operator">-></span>queueRear <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+        pool<span class="token operator">-></span>shutdown <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// 创建线程</span>
+        <span class="token function">pthread_create</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>managerID<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span> manager<span class="token punctuation">,</span> pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> min<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token function">pthread_create</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>threadIDs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span> worker<span class="token punctuation">,</span> pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> pool<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 释放资源</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>pool <span class="token operator">&amp;&amp;</span> pool<span class="token operator">-></span>threadIDs<span class="token punctuation">)</span> <span class="token function">free</span><span class="token punctuation">(</span>pool<span class="token operator">-></span>threadIDs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>pool <span class="token operator">&amp;&amp;</span> pool<span class="token operator">-></span>taskQ<span class="token punctuation">)</span> <span class="token function">free</span><span class="token punctuation">(</span>pool<span class="token operator">-></span>taskQ<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>pool<span class="token punctuation">)</span> <span class="token function">free</span><span class="token punctuation">(</span>pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">threadPoolDestroy</span><span class="token punctuation">(</span>ThreadPool<span class="token operator">*</span> pool<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>pool <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// 关闭线程池</span>
+    pool<span class="token operator">-></span>shutdown <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token comment">// 阻塞回收管理者线程</span>
+    <span class="token function">pthread_join</span><span class="token punctuation">(</span>pool<span class="token operator">-></span>managerID<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 唤醒阻塞的消费者线程</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> pool<span class="token operator">-></span>liveNum<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token function">pthread_cond_signal</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>notEmpty<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">// 释放堆内存</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>pool<span class="token operator">-></span>taskQ<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token function">free</span><span class="token punctuation">(</span>pool<span class="token operator">-></span>taskQ<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>pool<span class="token operator">-></span>threadIDs<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token function">free</span><span class="token punctuation">(</span>pool<span class="token operator">-></span>threadIDs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token function">pthread_mutex_destroy</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">pthread_mutex_destroy</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexBusy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">pthread_cond_destroy</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>notEmpty<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">pthread_cond_destroy</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>notFull<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">free</span><span class="token punctuation">(</span>pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pool <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+
+<span class="token keyword">void</span> <span class="token function">threadPoolAdd</span><span class="token punctuation">(</span>ThreadPool<span class="token operator">*</span> pool<span class="token punctuation">,</span> <span class="token keyword">void</span><span class="token punctuation">(</span><span class="token operator">*</span>func<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">void</span><span class="token operator">*</span> arg<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>pool<span class="token operator">-></span>queueSize <span class="token operator">==</span> pool<span class="token operator">-></span>queueCapacity <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>pool<span class="token operator">-></span>shutdown<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 阻塞生产者线程</span>
+        <span class="token function">pthread_cond_wait</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>notFull<span class="token punctuation">,</span> <span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>pool<span class="token operator">-></span>shutdown<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">// 添加任务</span>
+    pool<span class="token operator">-></span>taskQ<span class="token punctuation">[</span>pool<span class="token operator">-></span>queueRear<span class="token punctuation">]</span><span class="token punctuation">.</span>function <span class="token operator">=</span> func<span class="token punctuation">;</span>
+    pool<span class="token operator">-></span>taskQ<span class="token punctuation">[</span>pool<span class="token operator">-></span>queueRear<span class="token punctuation">]</span><span class="token punctuation">.</span>arg <span class="token operator">=</span> arg<span class="token punctuation">;</span>
+    pool<span class="token operator">-></span>queueRear <span class="token operator">=</span> <span class="token punctuation">(</span>pool<span class="token operator">-></span>queueRear <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">%</span> pool<span class="token operator">-></span>queueCapacity<span class="token punctuation">;</span>
+    pool<span class="token operator">-></span>queueSize<span class="token operator">++</span><span class="token punctuation">;</span>
+
+    <span class="token function">pthread_cond_signal</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>notEmpty<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">threadPoolBusyNum</span><span class="token punctuation">(</span>ThreadPool<span class="token operator">*</span> pool<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexBusy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> busyNum <span class="token operator">=</span> pool<span class="token operator">-></span>busyNum<span class="token punctuation">;</span>
+    <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexBusy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> busyNum<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">threadPoolAliveNum</span><span class="token punctuation">(</span>ThreadPool<span class="token operator">*</span> pool<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> aliveNum <span class="token operator">=</span> pool<span class="token operator">-></span>liveNum<span class="token punctuation">;</span>
+    <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> aliveNum<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">worker</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> arg<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    ThreadPool<span class="token operator">*</span> pool <span class="token operator">=</span> <span class="token punctuation">(</span>ThreadPool<span class="token operator">*</span><span class="token punctuation">)</span>arg<span class="token punctuation">;</span>
+
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 当前任务队列是否为空</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>pool<span class="token operator">-></span>queueSize <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>pool<span class="token operator">-></span>shutdown<span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token comment">// 阻塞工作线程</span>
+            <span class="token function">pthread_cond_wait</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>notEmpty<span class="token punctuation">,</span> <span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment">// 判断是不是要销毁线程</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>pool<span class="token operator">-></span>exitNum <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                pool<span class="token operator">-></span>exitNum<span class="token operator">--</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>pool<span class="token operator">-></span>liveNum <span class="token operator">></span> pool<span class="token operator">-></span>minNum<span class="token punctuation">)</span>
+                <span class="token punctuation">&#123;</span>
+                    pool<span class="token operator">-></span>liveNum<span class="token operator">--</span><span class="token punctuation">;</span>
+                    <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">threadExit</span><span class="token punctuation">(</span>pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token comment">// 判断线程池是否被关闭了</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>pool<span class="token operator">-></span>shutdown<span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">threadExit</span><span class="token punctuation">(</span>pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token comment">// 从任务队列中取出一个任务</span>
+        Task task<span class="token punctuation">;</span>
+        task<span class="token punctuation">.</span>function <span class="token operator">=</span> pool<span class="token operator">-></span>taskQ<span class="token punctuation">[</span>pool<span class="token operator">-></span>queueFront<span class="token punctuation">]</span><span class="token punctuation">.</span>function<span class="token punctuation">;</span>
+        task<span class="token punctuation">.</span>arg <span class="token operator">=</span> pool<span class="token operator">-></span>taskQ<span class="token punctuation">[</span>pool<span class="token operator">-></span>queueFront<span class="token punctuation">]</span><span class="token punctuation">.</span>arg<span class="token punctuation">;</span>
+        <span class="token comment">// 移动头结点</span>
+        pool<span class="token operator">-></span>queueFront <span class="token operator">=</span> <span class="token punctuation">(</span>pool<span class="token operator">-></span>queueFront <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">%</span> pool<span class="token operator">-></span>queueCapacity<span class="token punctuation">;</span>
+        pool<span class="token operator">-></span>queueSize<span class="token operator">--</span><span class="token punctuation">;</span>
+        <span class="token comment">// 解锁</span>
+        <span class="token function">pthread_cond_signal</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>notFull<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"thread %ld start working ...\n"</span><span class="token punctuation">,</span> <span class="token function">pthread_self</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexBusy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        pool<span class="token operator">-></span>busyNum<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexBusy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        task<span class="token punctuation">.</span><span class="token function">function</span><span class="token punctuation">(</span>task<span class="token punctuation">.</span>arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">free</span><span class="token punctuation">(</span>task<span class="token punctuation">.</span>arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        task<span class="token punctuation">.</span>arg <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"thread %ld end working ...\n"</span><span class="token punctuation">,</span> <span class="token function">pthread_self</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexBusy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        pool<span class="token operator">-></span>busyNum<span class="token operator">--</span><span class="token punctuation">;</span>
+        <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexBusy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">manager</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> arg<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    ThreadPool<span class="token operator">*</span> pool <span class="token operator">=</span> <span class="token punctuation">(</span>ThreadPool<span class="token operator">*</span><span class="token punctuation">)</span>arg<span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>pool<span class="token operator">-></span>shutdown<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 每隔 3s 检测一次</span>
+        <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// 取出线程池中任务的数量和当前线程的数量</span>
+        <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> queueSize <span class="token operator">=</span> pool<span class="token operator">-></span>queueSize<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> liveNum <span class="token operator">=</span> pool<span class="token operator">-></span>liveNum<span class="token punctuation">;</span>
+        <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// 取出忙的线程的数量</span>
+        <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexBusy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> busyNum <span class="token operator">=</span> pool<span class="token operator">-></span>busyNum<span class="token punctuation">;</span>
+        <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexBusy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// 添加线程</span>
+        <span class="token comment">// 任务的个数 > 存活的线程个数 &amp;&amp; 存活的线程数 &lt; 最大线程数</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>queueSize <span class="token operator">></span> liveNum <span class="token operator">&amp;&amp;</span> liveNum <span class="token operator">&lt;</span> pool<span class="token operator">-></span>maxNum<span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> counter <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> pool<span class="token operator">-></span>maxNum <span class="token operator">&amp;&amp;</span> counter <span class="token operator">&lt;</span> NUMBER
+                <span class="token operator">&amp;&amp;</span> pool<span class="token operator">-></span>liveNum <span class="token operator">&lt;</span> pool<span class="token operator">-></span>maxNum<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>pool<span class="token operator">-></span>threadIDs<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+                <span class="token punctuation">&#123;</span>
+                    <span class="token function">pthread_create</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>threadIDs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span> worker<span class="token punctuation">,</span> pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    counter<span class="token operator">++</span><span class="token punctuation">;</span>
+                    pool<span class="token operator">-></span>liveNum<span class="token operator">++</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">// 销毁线程</span>
+        <span class="token comment">// 忙的线程 * 2 &lt; 存活的线程数 &amp;&amp; 存活的线程 > 最小线程数</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>busyNum <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">&lt;</span> liveNum <span class="token operator">&amp;&amp;</span> liveNum <span class="token operator">></span> pool<span class="token operator">-></span>minNum<span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token function">pthread_mutex_lock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            pool<span class="token operator">-></span>exitNum <span class="token operator">=</span> NUMBER<span class="token punctuation">;</span>
+            <span class="token function">pthread_mutex_unlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>mutexPool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 让工作的线程自杀</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> NUMBER<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                <span class="token function">pthread_cond_signal</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pool<span class="token operator">-></span>notEmpty<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">void</span> <span class="token function">threadExit</span><span class="token punctuation">(</span>ThreadPool<span class="token operator">*</span> pool<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token class-name">pthread_t</span> tid <span class="token operator">=</span> <span class="token function">pthread_self</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> pool<span class="token operator">-></span>maxNum<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>pool<span class="token operator">-></span>threadIDs<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> tid<span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            pool<span class="token operator">-></span>threadIDs<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"threadExit() called, %ld exiting ...\n"</span><span class="token punctuation">,</span> tid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">pthread_exit</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="main-c"><a href="#main-c" class="headerlink" title="main.c"></a>main.c</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"threadpool.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;pthread.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+
+<span class="token keyword">void</span> <span class="token function">taskFunc</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> arg<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> num <span class="token operator">=</span> <span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span><span class="token punctuation">)</span>arg<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"thread %ld is working, number = %d\n"</span><span class="token punctuation">,</span>
+        <span class="token function">pthread_self</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">// 创建线程池</span>
+    ThreadPool<span class="token operator">*</span> pool <span class="token operator">=</span> <span class="token function">threadPoolCreate</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span><span class="token operator">*</span> num <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">*</span>num <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">100</span><span class="token punctuation">;</span>
+        <span class="token function">threadPoolAdd</span><span class="token punctuation">(</span>pool<span class="token punctuation">,</span> taskFunc<span class="token punctuation">,</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">threadPoolDestroy</span><span class="token punctuation">(</span>pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="运行文件"><a href="#运行文件" class="headerlink" title="运行文件"></a>运行文件</h3><ol>
+<li>打开 <code>main.c</code> 文件，点击右上角的调试按钮。</li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space//images/20220623172105.png"></p>
+<p><img src="https://cos.luyf-lemon-love.space//images/20220623172228.png"></p>
+<ol start="2">
+<li>output</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> is working, number <span class="token operator">=</span> <span class="token number">100</span>
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">101</span>
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">102</span>
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">103</span>
+thread <span class="token number">140737343211264</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> is working, number <span class="token operator">=</span> <span class="token number">104</span>
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">105</span>
+thread <span class="token number">140737343211264</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> is working, number <span class="token operator">=</span> <span class="token number">106</span>
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">107</span>
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">108</span>
+thread <span class="token number">140737309640448</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> is working, number <span class="token operator">=</span> <span class="token number">109</span>
+thread <span class="token number">140737318033152</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> is working, number <span class="token operator">=</span> <span class="token number">110</span>
+thread <span class="token number">140737343211264</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> is working, number <span class="token operator">=</span> <span class="token number">111</span>
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">112</span>
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">113</span>
+thread <span class="token number">140737309640448</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> is working, number <span class="token operator">=</span> <span class="token number">114</span>
+thread <span class="token number">140737318033152</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> is working, number <span class="token operator">=</span> <span class="token number">115</span>
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">116</span>
+thread <span class="token number">140737343211264</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> is working, number <span class="token operator">=</span> <span class="token number">117</span>
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">118</span>
+thread <span class="token number">140737318033152</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> is working, number <span class="token operator">=</span> <span class="token number">119</span>
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">120</span>
+thread <span class="token number">140737343211264</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> is working, number <span class="token operator">=</span> <span class="token number">121</span>
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">122</span>
+thread <span class="token number">140737309640448</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> is working, number <span class="token operator">=</span> <span class="token number">123</span>
+thread <span class="token number">140737318033152</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> is working, number <span class="token operator">=</span> <span class="token number">124</span>
+thread <span class="token number">140737318033152</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> is working, number <span class="token operator">=</span> <span class="token number">125</span>
+thread <span class="token number">140736951482112</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">127</span>
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">129</span>
+thread <span class="token number">140737343211264</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> is working, number <span class="token operator">=</span> <span class="token number">128</span>
+thread <span class="token number">140736951482112</span> is working, number <span class="token operator">=</span> <span class="token number">126</span>
+thread <span class="token number">140737309640448</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> is working, number <span class="token operator">=</span> <span class="token number">130</span>
+thread <span class="token number">140737301247744</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> is working, number <span class="token operator">=</span> <span class="token number">131</span>
+thread <span class="token number">140737318033152</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> is working, number <span class="token operator">=</span> <span class="token number">132</span>
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">133</span>
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">134</span>
+thread <span class="token number">140737343211264</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> is working, number <span class="token operator">=</span> <span class="token number">135</span>
+thread <span class="token number">140736951482112</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> is working, number <span class="token operator">=</span> <span class="token number">136</span>
+thread <span class="token number">140737309640448</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> is working, number <span class="token operator">=</span> <span class="token number">137</span>
+thread <span class="token number">140737301247744</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> is working, number <span class="token operator">=</span> <span class="token number">138</span>
+thread <span class="token number">140737318033152</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> is working, number <span class="token operator">=</span> <span class="token number">139</span>
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">140</span>
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">141</span>
+thread <span class="token number">140737343211264</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> is working, number <span class="token operator">=</span> <span class="token number">142</span>
+thread <span class="token number">140736951482112</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> is working, number <span class="token operator">=</span> <span class="token number">143</span>
+thread <span class="token number">140737309640448</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> is working, number <span class="token operator">=</span> <span class="token number">144</span>
+thread <span class="token number">140737301247744</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> is working, number <span class="token operator">=</span> <span class="token number">146</span>
+thread <span class="token number">140737301247744</span> is working, number <span class="token operator">=</span> <span class="token number">145</span>
+thread <span class="token number">140736943089408</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736943089408</span> is working, number <span class="token operator">=</span> <span class="token number">147</span>
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">148</span>
+thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">149</span>
+thread <span class="token number">140737343211264</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> is working, number <span class="token operator">=</span> <span class="token number">150</span>
+thread <span class="token number">140736951482112</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> is working, number <span class="token operator">=</span> <span class="token number">151</span>
+thread <span class="token number">140737309640448</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> is working, number <span class="token operator">=</span> <span class="token number">152</span>
+thread <span class="token number">140736934696704</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736934696704</span> is working, number <span class="token operator">=</span> <span class="token number">153</span>
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> is working, number <span class="token operator">=</span> <span class="token number">155</span>
+thread <span class="token number">140737343211264</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736943089408</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736943089408</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736943089408</span> is working, number <span class="token operator">=</span> <span class="token number">157</span>
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">158</span>
+thread <span class="token number">140737343211264</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> is working, number <span class="token operator">=</span> <span class="token number">156</span>
+thread <span class="token number">140737318033152</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> is working, number <span class="token operator">=</span> <span class="token number">159</span>
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">154</span>
+thread <span class="token number">140737301247744</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> is working, number <span class="token operator">=</span> <span class="token number">160</span>
+thread <span class="token number">140737309640448</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> is working, number <span class="token operator">=</span> <span class="token number">161</span>
+thread <span class="token number">140736934696704</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736934696704</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736934696704</span> is working, number <span class="token operator">=</span> <span class="token number">162</span>
+thread <span class="token number">140736943089408</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736943089408</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736943089408</span> is working, number <span class="token operator">=</span> <span class="token number">163</span>
+thread <span class="token number">140737309640448</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> is working, number <span class="token operator">=</span> <span class="token number">164</span>
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">165</span>
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">166</span>
+thread <span class="token number">140737301247744</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> is working, number <span class="token operator">=</span> <span class="token number">167</span>
+thread <span class="token number">140736951482112</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> is working, number <span class="token operator">=</span> <span class="token number">168</span>
+thread <span class="token number">140737343211264</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> is working, number <span class="token operator">=</span> <span class="token number">169</span>
+thread <span class="token number">140737318033152</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> is working, number <span class="token operator">=</span> <span class="token number">170</span>
+thread <span class="token number">140736934696704</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736934696704</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736934696704</span> is working, number <span class="token operator">=</span> <span class="token number">171</span>
+thread <span class="token number">140736926304000</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736926304000</span> is working, number <span class="token operator">=</span> <span class="token number">172</span>
+thread <span class="token number">140737309640448</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> is working, number <span class="token operator">=</span> <span class="token number">173</span>
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">174</span>
+thread <span class="token number">140736943089408</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736943089408</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736943089408</span> is working, number <span class="token operator">=</span> <span class="token number">175</span>
+thread <span class="token number">140736951482112</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> is working, number <span class="token operator">=</span> <span class="token number">176</span>
+thread <span class="token number">140737318033152</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> is working, number <span class="token operator">=</span> <span class="token number">177</span>
+thread <span class="token number">140737301247744</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> is working, number <span class="token operator">=</span> <span class="token number">178</span>
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">179</span>
+thread <span class="token number">140737343211264</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> is working, number <span class="token operator">=</span> <span class="token number">180</span>
+thread <span class="token number">140736934696704</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736934696704</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736934696704</span> is working, number <span class="token operator">=</span> <span class="token number">181</span>
+thread <span class="token number">140736926304000</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736926304000</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736926304000</span> is working, number <span class="token operator">=</span> <span class="token number">182</span>
+thread <span class="token number">140737309640448</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> is working, number <span class="token operator">=</span> <span class="token number">183</span>
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">184</span>
+thread <span class="token number">140736951482112</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> is working, number <span class="token operator">=</span> <span class="token number">185</span>
+thread <span class="token number">140737318033152</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> is working, number <span class="token operator">=</span> <span class="token number">186</span>
+thread <span class="token number">140736943089408</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736943089408</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736943089408</span> is working, number <span class="token operator">=</span> <span class="token number">187</span>
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">188</span>
+thread <span class="token number">140737301247744</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> is working, number <span class="token operator">=</span> <span class="token number">189</span>
+thread <span class="token number">140737343211264</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737343211264</span> is working, number <span class="token operator">=</span> <span class="token number">190</span>
+thread <span class="token number">140736934696704</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736934696704</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736934696704</span> is working, number <span class="token operator">=</span> <span class="token number">191</span>
+thread <span class="token number">140736926304000</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736926304000</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736926304000</span> is working, number <span class="token operator">=</span> <span class="token number">192</span>
+thread <span class="token number">140737309640448</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> is working, number <span class="token operator">=</span> <span class="token number">193</span>
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> is working, number <span class="token operator">=</span> <span class="token number">194</span>
+thread <span class="token number">140736951482112</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> is working, number <span class="token operator">=</span> <span class="token number">195</span>
+thread <span class="token number">140736943089408</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736943089408</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140736943089408</span> is working, number <span class="token operator">=</span> <span class="token number">196</span>
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> is working, number <span class="token operator">=</span> <span class="token number">197</span>
+thread <span class="token number">140737301247744</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> is working, number <span class="token operator">=</span> <span class="token number">198</span>
+thread <span class="token number">140737318033152</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> start working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> is working, number <span class="token operator">=</span> <span class="token number">199</span>
+thread <span class="token number">140737343211264</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736934696704</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736926304000</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737309640448</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737326425856</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736951482112</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140736943089408</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737334818560</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737301247744</span> end working <span class="token punctuation">..</span>.
+thread <span class="token number">140737318033152</span> end working <span class="token punctuation">..</span>.
+threadExit<span class="token punctuation">(</span><span class="token punctuation">)</span> called, <span class="token number">140737343211264</span> exiting <span class="token punctuation">..</span>.
+threadExit<span class="token punctuation">(</span><span class="token punctuation">)</span> called, <span class="token number">140736934696704</span> exiting <span class="token punctuation">..</span>.
+threadExit<span class="token punctuation">(</span><span class="token punctuation">)</span> called, <span class="token number">140736926304000</span> exiting <span class="token punctuation">..</span>.
+threadExit<span class="token punctuation">(</span><span class="token punctuation">)</span> called, <span class="token number">140737309640448</span> exiting <span class="token punctuation">..</span>.
+threadExit<span class="token punctuation">(</span><span class="token punctuation">)</span> called, <span class="token number">140737326425856</span> exiting <span class="token punctuation">..</span>.
+threadExit<span class="token punctuation">(</span><span class="token punctuation">)</span> called, <span class="token number">140736951482112</span> exiting <span class="token punctuation">..</span>.
+threadExit<span class="token punctuation">(</span><span class="token punctuation">)</span> called, <span class="token number">140736943089408</span> exiting <span class="token punctuation">..</span>.
+threadExit<span class="token punctuation">(</span><span class="token punctuation">)</span> called, <span class="token number">140737301247744</span> exiting <span class="token punctuation">..</span>.
+threadExit<span class="token punctuation">(</span><span class="token punctuation">)</span> called, <span class="token number">140737318033152</span> exiting <span class="token punctuation">..</span>.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>第十五篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2022/06/23/00015-c-yu-yan-xian-cheng-chi/">https://luyf-lemon-love.space/2022/06/23/00015-c-yu-yan-xian-cheng-chi/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/C/">
+                                    <span class="chip bg-color">C++</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                                    <span class="chip bg-color">多线程</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/06/26/00016-ctypes-python-de-wai-bu-han-shu-ku-ubuntu/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/20220604154341.png" class="responsive-img" alt="00016-ctypes --- Python 的外部函数库">
+                        
+                        <span class="card-title">00016-ctypes --- Python 的外部函数库</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C-C-%E5%92%8CPython%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/" class="post-category">
+                                    C/C++和Python混合编程
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/06/19/00014-c-yu-yan-duo-xian-cheng/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/20220604154620.png" class="responsive-img" alt="00014-C语言多线程">
+                        
+                        <span class="card-title">00014-C语言多线程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C/" class="post-category">
+                                    C++
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="chip bg-color">多线程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

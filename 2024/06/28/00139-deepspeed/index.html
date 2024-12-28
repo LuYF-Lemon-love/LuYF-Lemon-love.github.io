@@ -1,0 +1,2047 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00139 DeepSpeed, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言本文介绍了DeepSpeed。
+Hugging Face Github 主页: https://github.com/huggingface
+DeepSpeed is a PyTorch optimization library tha">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00139 DeepSpeed | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/063-趴着睡着的动漫美女.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00139 DeepSpeed</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大语言模型</span>
+                            </a>
+                        
+                            <a href="/tags/huggingface/">
+                                <span class="chip bg-color">huggingface</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                大语言模型
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-06-28
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文介绍了DeepSpeed。</p>
+<p>Hugging Face Github 主页: <a href="https://github.com/huggingface">https://github.com/huggingface</a></p>
+<p><a href="https://www.deepspeed.ai/">DeepSpeed</a> is a PyTorch optimization library that makes distributed training memory-efficient and fast. <strong>At it’s core is the <a href="https://hf.co/papers/1910.02054">Zero Redundancy Optimizer (ZeRO)</a> which enables training large models at scale.</strong> ZeRO works in several stages:</p>
+<ul>
+<li>ZeRO-1, <strong>optimizer state partioning across GPUs</strong></li>
+<li>ZeRO-2, <strong>gradient partitioning across GPUs</strong></li>
+<li>ZeRO-3, <strong>parameteter partitioning across GPUs</strong></li>
+</ul>
+<p><strong>In GPU-limited environments, ZeRO also enables offloading optimizer memory and computation from the GPU to the CPU to fit and train really large models on a single GPU.</strong> DeepSpeed is integrated with the Transformers [<code>Trainer</code>] class for all ZeRO stages and offloading. All you need to do is provide a config file or you can use a provided template. <strong>For inference, Transformers support ZeRO-3 and offloading since it allows loading huge models.</strong></p>
+<p>This guide will walk you through how to deploy DeepSpeed training, the features you can enable, how to setup the config files for different ZeRO stages, offloading, inference, and using DeepSpeed without the [<code>Trainer</code>].</p>
+<p>操作系统：Windows 11 家庭中文版</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://huggingface.co/docs/transformers/deepspeed">DeepSpeed</a></li>
+</ol>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>DeepSpeed is available to install from PyPI or Transformers (for more detailed installation options, take a look at the DeepSpeed <a href="https://www.deepspeed.ai/tutorials/advanced-install/">installation details</a> or the GitHub <a href="https://github.com/microsoft/deepspeed#installation">README</a>).</p>
+<p>If you’re having difficulties installing DeepSpeed, check the <a href="../debugging#deepspeed-cuda-installation">DeepSpeed CUDA installation</a> guide. While DeepSpeed has a pip installable PyPI package, it is highly recommended to <a href="https://www.deepspeed.ai/tutorials/advanced-install/#install-deepspeed-from-source">install it from source</a> to best match your hardware and to support certain features, like 1-bit Adam, which aren’t available in the PyPI distribution.</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> deepspeed<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> transformers<span class="token punctuation">[</span>deepspeed<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="Memory-requirements"><a href="#Memory-requirements" class="headerlink" title="Memory requirements"></a>Memory requirements</h2><p>Before you begin, it is a good idea to check whether you have enough GPU and CPU memory to fit your model. <strong>DeepSpeed provides a tool for estimating the required CPU&#x2F;GPU memory.</strong> For example, to estimate the memory requirements for the <a href="bigscience/T0_3B">bigscience&#x2F;T0_3B</a> model on a single GPU:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python <span class="token parameter variable">-c</span> <span class="token string">'from transformers import AutoModel; \
+from deepspeed.runtime.zero.stage3 import estimate_zero3_model_states_mem_needs_all_live; \
+model = AutoModel.from_pretrained("bigscience/T0_3B"); \
+estimate_zero3_model_states_mem_needs_all_live(model, num_gpus_per_node=1, num_nodes=1)'</span>
+<span class="token punctuation">[</span><span class="token punctuation">..</span>.<span class="token punctuation">]</span>
+Estimated memory needed <span class="token keyword">for</span> params, optim states and gradients <span class="token keyword">for</span> a:
+HW: Setup with <span class="token number">1</span> node, <span class="token number">1</span> GPU per node.
+SW: Model with 2783M total params, 65M largest layer params.
+  per CPU  <span class="token operator">|</span>  per GPU <span class="token operator">|</span>   Options
+   <span class="token number">70</span>.00GB <span class="token operator">|</span>   <span class="token number">0</span>.25GB <span class="token operator">|</span> <span class="token assign-left variable">offload_param</span><span class="token operator">=</span>cpu , <span class="token assign-left variable">offload_optimizer</span><span class="token operator">=</span>cpu , <span class="token assign-left variable">zero_init</span><span class="token operator">=</span><span class="token number">1</span>
+   <span class="token number">70</span>.00GB <span class="token operator">|</span>   <span class="token number">0</span>.25GB <span class="token operator">|</span> <span class="token assign-left variable">offload_param</span><span class="token operator">=</span>cpu , <span class="token assign-left variable">offload_optimizer</span><span class="token operator">=</span>cpu , <span class="token assign-left variable">zero_init</span><span class="token operator">=</span><span class="token number">0</span>
+   <span class="token number">62</span>.23GB <span class="token operator">|</span>   <span class="token number">5</span>.43GB <span class="token operator">|</span> <span class="token assign-left variable">offload_param</span><span class="token operator">=</span>none, <span class="token assign-left variable">offload_optimizer</span><span class="token operator">=</span>cpu , <span class="token assign-left variable">zero_init</span><span class="token operator">=</span><span class="token number">1</span>
+   <span class="token number">62</span>.23GB <span class="token operator">|</span>   <span class="token number">5</span>.43GB <span class="token operator">|</span> <span class="token assign-left variable">offload_param</span><span class="token operator">=</span>none, <span class="token assign-left variable">offload_optimizer</span><span class="token operator">=</span>cpu , <span class="token assign-left variable">zero_init</span><span class="token operator">=</span><span class="token number">0</span>
+    <span class="token number">0</span>.37GB <span class="token operator">|</span>  <span class="token number">46</span>.91GB <span class="token operator">|</span> <span class="token assign-left variable">offload_param</span><span class="token operator">=</span>none, <span class="token assign-left variable">offload_optimizer</span><span class="token operator">=</span>none, <span class="token assign-left variable">zero_init</span><span class="token operator">=</span><span class="token number">1</span>
+   <span class="token number">15</span>.56GB <span class="token operator">|</span>  <span class="token number">46</span>.91GB <span class="token operator">|</span> <span class="token assign-left variable">offload_param</span><span class="token operator">=</span>none, <span class="token assign-left variable">offload_optimizer</span><span class="token operator">=</span>none, <span class="token assign-left variable">zero_init</span><span class="token operator">=</span><span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>This means you either need a single 80GB GPU without CPU offload or a 8GB GPU and a ~60GB CPU to offload to (these are just the memory requirements for the parameters, optimizer states and gradients, and you’ll need a bit more for the CUDA kernels and activations). You should also consider the tradeoff between cost and speed because it’ll be cheaper to rent or buy a smaller GPU but it’ll take longer to train your model.</p>
+<p><strong>If you have enough GPU memory make sure you disable CPU&#x2F;NVMe offload to make everything faster.</strong></p>
+<h2 id="Select-a-ZeRO-stage"><a href="#Select-a-ZeRO-stage" class="headerlink" title="Select a ZeRO stage"></a>Select a ZeRO stage</h2><p>After you’ve installed DeepSpeed and have a better idea of your memory requirements, the next step is selecting a ZeRO stage to use. In order of <strong>fastest</strong> and <strong>most memory-efficient</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Fastest</th>
+<th>Memory efficient</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ZeRO-1</td>
+<td>ZeRO-3 + offload</td>
+</tr>
+<tr>
+<td>ZeRO-2</td>
+<td>ZeRO-3</td>
+</tr>
+<tr>
+<td>ZeRO-2 + offload</td>
+<td>ZeRO-2 + offload</td>
+</tr>
+<tr>
+<td>ZeRO-3</td>
+<td>ZeRO-2</td>
+</tr>
+<tr>
+<td>ZeRO-3 + offload</td>
+<td>ZeRO-1</td>
+</tr>
+</tbody></table>
+<p>To find what works best for you, start with the fastest approach and if you run out of memory, try the next stage which is slower but more memory efficient. Feel free to work in whichever direction you prefer (starting with the most memory efficient or fastest) to discover the appropriate balance between speed and memory usage.</p>
+<p>A general process you can use is (start with batch size of 1):</p>
+<ol>
+<li><strong>enable gradient checkpointing</strong></li>
+<li><strong>try ZeRO-2</strong></li>
+<li><strong>try ZeRO-2 and offload the optimizer</strong></li>
+<li><strong>try ZeRO-3</strong></li>
+<li><strong>try ZeRO-3 and offload parameters to the CPU</strong></li>
+<li><strong>try ZeRO-3 and offload parameters and the optimizer to the CPU</strong></li>
+<li><strong>try lowering various default values like a narrower search beam if you’re using the [<code>~GenerationMixin.generate</code>] method</strong></li>
+<li><strong>try mixed half-precision (fp16 on older GPU architectures and bf16 on Ampere) over full-precision weights</strong></li>
+<li><strong>add more hardware if possible or enable Infinity to offload parameters and the optimizer to a NVMe</strong></li>
+<li><strong>once you’re not running out of memory, measure effective throughput and then try to increase the batch size as large as you can to maximize GPU efficiency</strong></li>
+<li><strong>lastly, try to optimize your training setup by disabling some offload features or use a faster ZeRO stage and increasing&#x2F;decreasing the batch size to find the best tradeoff between speed and memory usage</strong></li>
+</ol>
+<h2 id="DeepSpeed-configuration-file"><a href="#DeepSpeed-configuration-file" class="headerlink" title="DeepSpeed configuration file"></a>DeepSpeed configuration file</h2><p>DeepSpeed works with the [<code>Trainer</code>] class by way of a config file containing all the parameters for configuring how you want setup your training run. When you execute your training script, DeepSpeed logs the configuration it received from [<code>Trainer</code>] to the console so you can see exactly what configuration was used.</p>
+<p>Find a complete list of DeepSpeed configuration options on the <a href="https://www.deepspeed.ai/docs/config-json/">DeepSpeed Configuration JSON</a> reference. You can also find more practical examples of various DeepSpeed configuration examples on the <a href="https://github.com/microsoft/DeepSpeedExamples">DeepSpeedExamples</a> repository or the main <a href="https://github.com/microsoft/DeepSpeed">DeepSpeed</a> repository. To quickly find specific examples, you can:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone https://github.com/microsoft/DeepSpeedExamples
+<span class="token builtin class-name">cd</span> DeepSpeedExamples
+<span class="token function">find</span> <span class="token builtin class-name">.</span> <span class="token parameter variable">-name</span> <span class="token string">'*json'</span>
+<span class="token comment"># find examples with the Lamb optimizer</span>
+<span class="token function">grep</span> <span class="token parameter variable">-i</span> Lamb <span class="token variable"><span class="token variable">$(</span><span class="token function">find</span> <span class="token builtin class-name">.</span> <span class="token parameter variable">-name</span> <span class="token string">'*json'</span><span class="token variable">)</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>The DeepSpeed configuration file is passed as a path to a JSON file if you’re training from the command line interface or as a nested <code>dict</code> object if you’re using the [<code>Trainer</code>] in a notebook setting.</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">TrainingArguments<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span> deepspeed<span class="token operator">=</span><span class="token string">"path/to/deepspeed_config.json"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">ds_config_dict <span class="token operator">=</span> <span class="token builtin">dict</span><span class="token punctuation">(</span>scheduler<span class="token operator">=</span>scheduler_params<span class="token punctuation">,</span> optimizer<span class="token operator">=</span>optimizer_params<span class="token punctuation">)</span>
+args <span class="token operator">=</span> TrainingArguments<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span> deepspeed<span class="token operator">=</span>ds_config_dict<span class="token punctuation">)</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model<span class="token punctuation">,</span> args<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="DeepSpeed-and-Trainer-parameters"><a href="#DeepSpeed-and-Trainer-parameters" class="headerlink" title="DeepSpeed and Trainer parameters"></a>DeepSpeed and Trainer parameters</h3><p>There are three types of configuration parameters:</p>
+<ol>
+<li><p>Some of the configuration parameters are shared by [<code>Trainer</code>] and DeepSpeed, and it can be difficult to identify errors when there are conflicting definitions. <strong>To make it easier, these shared configuration parameters are configured from the [<code>Trainer</code>] command line arguments.</strong></p>
+</li>
+<li><p>Some configuration parameters that are automatically derived from the model configuration so you don’t need to manually adjust these values. The [<code>Trainer</code>] uses a configuration value <code>auto</code> to determine set the most correct or efficient value. You could set your own configuration parameters explicitly, but you must take care to ensure the [<code>Trainer</code>] arguments and DeepSpeed configuration parameters agree. Mismatches may cause the training to fail in very difficult to detect ways!</p>
+</li>
+<li><p><strong>Some configuration parameters specific to DeepSpeed only which need to be manually set based on your training needs.</strong></p>
+</li>
+</ol>
+<p>You could also modify the DeepSpeed configuration and edit [<code>TrainingArguments</code>] from it:</p>
+<ol>
+<li><strong>Create or load a DeepSpeed configuration to used as the main configuration</strong></li>
+<li><strong>Create a [<code>TrainingArguments</code>] object based on these DeepSpeed configuration values</strong></li>
+</ol>
+<p><strong>Some values, such as <code>scheduler.params.total_num_steps</code> are calculated by the [<code>Trainer</code>] during training.</strong></p>
+<h3 id="ZeRO-configuration"><a href="#ZeRO-configuration" class="headerlink" title="ZeRO configuration"></a>ZeRO configuration</h3><p>There are three configurations, each corresponding to a different ZeRO stage. <strong>Stage 1 is not as interesting for scalability, and this guide focuses on stages 2 and 3.</strong> The <code>zero_optimization</code> configuration contains all the options for what to enable and how to configure them. For a more detailed explanation of each parameter, take a look at the <a href="https://www.deepspeed.ai/docs/config-json/">DeepSpeed Configuration JSON</a> reference.</p>
+<blockquote>
+<p>DeepSpeed doesn’t validate parameter names and any typos fallback on the parameter’s default setting. You can watch the DeepSpeed engine startup log messages to see what values it is going to use.</p>
+</blockquote>
+<p><strong>The following configurations must be setup with DeepSpeed because the [<code>Trainer</code>] doesn’t provide equivalent command line arguments.</strong></p>
+<p><strong>ZeRO-1 shards the optimizer states across GPUs, and you can expect a tiny speed up.</strong> The ZeRO-1 config can be setup like this:</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"zero_optimization"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token key atrule">"stage"</span><span class="token punctuation">:</span> <span class="token number">1</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>ZeRO-2 shards the optimizer and gradients across GPUs.</strong> This stage is <strong>primarily used for training</strong> since it’s features are not relevant to inference. Some important parameters to configure for better performance include:</p>
+<ul>
+<li><code>offload_optimizer</code> should be enabled to <strong>reduce GPU memory usage</strong>.</li>
+<li><code>overlap_comm</code> when set to <code>true</code> trades off increased GPU memory usage to lower allreduce latency. <strong>This feature uses 4.5x the <code>allgather_bucket_size</code> and <code>reduce_bucket_size</code> values.</strong> In this example, they’re set to <code>5e8</code> which means it requires 9GB of GPU memory. If your GPU memory is 8GB or less, you should reduce <code>overlap_comm</code> to lower the memory requirements and prevent an out-of-memory (OOM) error.</li>
+<li><code>allgather_bucket_size</code> and <code>reduce_bucket_size</code> trade off available GPU memory for communication speed. <strong>The smaller their values, the slower communication is and the more GPU memory is available.</strong> You can balance, for example, whether a bigger batch size is more important than a slightly slower training time.</li>
+<li><code>round_robin_gradients</code> is available in DeepSpeed 0.4.4 for CPU offloading. It parallelizes gradient copying to CPU memory among ranks by fine-grained gradient partitioning. Performance benefit grows with gradient accumulation steps (more copying between optimizer steps) or GPU count (increased parallelism).</li>
+</ul>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"zero_optimization"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token key atrule">"stage"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"offload_optimizer"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token key atrule">"device"</span><span class="token punctuation">:</span> <span class="token string">"cpu"</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"pin_memory"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"allgather_partitions"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"allgather_bucket_size"</span><span class="token punctuation">:</span> <span class="token number">5e8</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"overlap_comm"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"reduce_scatter"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"reduce_bucket_size"</span><span class="token punctuation">:</span> <span class="token number">5e8</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"contiguous_gradients"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+        <span class="token key atrule">"round_robin_gradients"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>ZeRO-3 shards the optimizer, gradient, and parameters across GPUs. <strong>Unlike ZeRO-2, ZeRO-3 can also be used for inference, in addition to training, because it allows large models to be loaded on multiple GPUs.</strong> Some important parameters to configure include:</p>
+<ul>
+<li><p><code>device: &quot;cpu&quot;</code> can help if you’re running out of GPU memory and if you have free CPU memory available. <strong>This allows offloading model parameters to the CPU.</strong></p>
+</li>
+<li><p><code>pin_memory: true</code> can <strong>improve throughput</strong>, but less memory becomes available for other processes because the pinned memory is reserved for the specific process that requested it and it’s typically accessed much faster than normal CPU memory.</p>
+</li>
+<li><p><code>stage3_max_live_parameters</code> is <strong>the upper limit on how many full parameters you want to keep on the GPU at any given time</strong>. Reduce this value if you encounter an OOM error.</p>
+</li>
+<li><p><code>stage3_max_reuse_distance</code> is a value for determining when a parameter is used again in the future, and it helps decide whether to throw the parameter away or to keep it. If the parameter is going to be reused (if the value is less than <code>stage3_max_reuse_distance</code>), then it is kept to reduce communication overhead. <strong>This is super helpful when activation checkpointing is enabled and you want to keep the parameter in the forward recompute until the backward pass.</strong> But reduce this value if you encounter an OOM error.</p>
+</li>
+<li><p><code>stage3_gather_16bit_weights_on_model_save</code> consolidates fp16 weights when a model is saved. <strong>For large models and multiple GPUs, this is an expensive in terms of memory and speed.</strong> You should enable it if you’re planning on resuming training.</p>
+</li>
+<li><p><code>sub_group_size</code> controls which parameters are updated during the optimizer step. <strong>Parameters are grouped into buckets of <code>sub_group_size</code> and each bucket is updated one at a time. When used with NVMe offload, <code>sub_group_size</code> determines when model states are moved in and out of CPU memory from during the optimization step. This prevents running out of CPU memory for extremely large models.</strong> <code>sub_group_size</code> can be left to its default value if you aren’t using NVMe offload, but you may want to change it if you:</p>
+<ol>
+<li><strong>Run into an OOM error during the optimizer step. In this case, reduce <code>sub_group_size</code> to reduce memory usage of the temporary buffers.</strong></li>
+<li><strong>The optimizer step is taking a really long time. In this case, increase <code>sub_group_size</code> to improve bandwidth utilization as a result of increased data buffers.</strong></li>
+</ol>
+</li>
+<li><p><code>reduce_bucket_size</code>, <code>stage3_prefetch_bucket_size</code>, and <code>stage3_param_persistence_threshold</code> are dependent on a model’s hidden size. <strong>It is recommended to set these values to <code>auto</code> and allow the [<code>Trainer</code>] to automatically assign the values.</strong></p>
+</li>
+</ul>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"zero_optimization"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token key atrule">"stage"</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"offload_optimizer"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token key atrule">"device"</span><span class="token punctuation">:</span> <span class="token string">"cpu"</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"pin_memory"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"offload_param"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token key atrule">"device"</span><span class="token punctuation">:</span> <span class="token string">"cpu"</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"pin_memory"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"overlap_comm"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"contiguous_gradients"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"sub_group_size"</span><span class="token punctuation">:</span> <span class="token number">1e9</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"reduce_bucket_size"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"stage3_prefetch_bucket_size"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"stage3_param_persistence_threshold"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"stage3_max_live_parameters"</span><span class="token punctuation">:</span> <span class="token number">1e9</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"stage3_max_reuse_distance"</span><span class="token punctuation">:</span> <span class="token number">1e9</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"stage3_gather_16bit_weights_on_model_save"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>You can use the <a href="https://deepspeed.readthedocs.io/en/latest/zero3.html#deepspeed.zero.Init"><code>deepspeed.zero.Init</code></a> context manager to initialize a model faster:</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> T5ForConditionalGeneration<span class="token punctuation">,</span> T5Config
+<span class="token keyword">import</span> deepspeed
+
+<span class="token keyword">with</span> deepspeed<span class="token punctuation">.</span>zero<span class="token punctuation">.</span>Init<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    config <span class="token operator">=</span> T5Config<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"google-t5/t5-small"</span><span class="token punctuation">)</span>
+    model <span class="token operator">=</span> T5ForConditionalGeneration<span class="token punctuation">(</span>config<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>For pretrained models, the DeepSped config file needs to have <code>is_deepspeed_zero3_enabled: true</code> setup in [<code>TrainingArguments</code>] and it needs a ZeRO configuration enabled. <strong>The [<code>TrainingArguments</code>] object must be created <strong>before</strong> calling the model [<code>~PreTrainedModel.from_pretrained</code>].</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoModel<span class="token punctuation">,</span> Trainer<span class="token punctuation">,</span> TrainingArguments
+
+training_args <span class="token operator">=</span> TrainingArguments<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span> deepspeed<span class="token operator">=</span>ds_config<span class="token punctuation">)</span>
+model <span class="token operator">=</span> AutoModel<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"google-t5/t5-small"</span><span class="token punctuation">)</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model<span class="token operator">=</span>model<span class="token punctuation">,</span> args<span class="token operator">=</span>training_args<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>You’ll need ZeRO-3 if the fp16 weights don’t fit on a single GPU. If you’re able to load fp16 weights, then make sure you specify <code>torch_dtype=torch.float16</code> in [<code>~PreTrainedModel.from_pretrained</code>].</p>
+<p>Another consideration for ZeRO-3 is if you have multiple GPUs, no single GPU has all the parameters unless it’s the parameters for the currently executing layer. <strong>To access all parameters from all the layers at once, such as loading pretrained model weights in [<code>~PreTrainedModel.from_pretrained</code>], one layer is loaded at a time and immediately partitioned to all GPUs.</strong> This is because for very large models, it isn’t possible to load the weights on one GPU and then distribute them across the other GPUs due to memory limitations.</p>
+<p><strong>If you encounter a model parameter weight that looks like the following, where <code>tensor([1.])</code> or the parameter size is 1 instead of a larger multi-dimensional shape, this means the parameter is partitioned and this is a ZeRO-3 placeholder.</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1.0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> device<span class="token operator">=</span><span class="token string">"cuda:0"</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>torch<span class="token punctuation">.</span>float16<span class="token punctuation">,</span> requires_grad<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>For more information about initializing large models with ZeRO-3 and accessing the parameters, take a look at the <a href="https://deepspeed.readthedocs.io/en/latest/zero3.html#constructing-massive-models">Constructing Massive Models</a> and <a href="https://deepspeed.readthedocs.io/en/latest/zero3.html#gathering-parameters">Gathering Parameters</a> guides.</p>
+<h3 id="NVMe-configuration"><a href="#NVMe-configuration" class="headerlink" title="NVMe configuration"></a>NVMe configuration</h3><p><strong><a href="https://hf.co/papers/2104.07857">ZeRO-Infinity</a> allows offloading model states to the CPU and&#x2F;or NVMe to save even more memory.</strong> Smart partitioning and tiling algorithms allow each GPU to send and receive very small amounts of data during offloading such that a modern NVMe can fit an even larger total memory pool than is available to your training process. <strong>ZeRO-Infinity requires ZeRO-3.</strong></p>
+<p><strong>Depending on the CPU and&#x2F;or NVMe memory available, you can offload both the <a href="https://www.deepspeed.ai/docs/config-json/#optimizer-offloading">optimizer states</a> and <a href="https://www.deepspeed.ai/docs/config-json/#parameter-offloading">parameters</a>, just one of them, or none.</strong> You should also make sure the <code>nvme_path</code> is pointing to an NVMe device, because while it still works with a normal hard drive or solid state drive, it’ll be significantly slower. With a modern NVMe, you can expect peak transfer speeds of ~3.5GB&#x2F;s for read and ~3GB&#x2F;s for write operations. Lastly, <a href="https://github.com/microsoft/DeepSpeed/issues/998">run a benchmark</a> on your training setup to determine the optimal <code>aio</code> configuration.</p>
+<p>The example ZeRO-3&#x2F;Infinity configuration file below sets most of the parameter values to <code>auto</code>, but you could also manually add these values.</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"fp16"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token key atrule">"enabled"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"loss_scale"</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"loss_scale_window"</span><span class="token punctuation">:</span> <span class="token number">1000</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"initial_scale_power"</span><span class="token punctuation">:</span> <span class="token number">16</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"hysteresis"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"min_loss_scale"</span><span class="token punctuation">:</span> <span class="token number">1</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+
+    <span class="token key atrule">"optimizer"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token key atrule">"type"</span><span class="token punctuation">:</span> <span class="token string">"AdamW"</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"params"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token key atrule">"lr"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"betas"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"eps"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"weight_decay"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+
+    <span class="token key atrule">"scheduler"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token key atrule">"type"</span><span class="token punctuation">:</span> <span class="token string">"WarmupLR"</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"params"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token key atrule">"warmup_min_lr"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"warmup_max_lr"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"warmup_num_steps"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+
+    <span class="token key atrule">"zero_optimization"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token key atrule">"stage"</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"offload_optimizer"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token key atrule">"device"</span><span class="token punctuation">:</span> <span class="token string">"nvme"</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"nvme_path"</span><span class="token punctuation">:</span> <span class="token string">"/local_nvme"</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"pin_memory"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"buffer_count"</span><span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"fast_init"</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"offload_param"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token key atrule">"device"</span><span class="token punctuation">:</span> <span class="token string">"nvme"</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"nvme_path"</span><span class="token punctuation">:</span> <span class="token string">"/local_nvme"</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"pin_memory"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"buffer_count"</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"buffer_size"</span><span class="token punctuation">:</span> <span class="token number">1e8</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"max_in_cpu"</span><span class="token punctuation">:</span> <span class="token number">1e9</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"aio"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token key atrule">"block_size"</span><span class="token punctuation">:</span> <span class="token number">262144</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"queue_depth"</span><span class="token punctuation">:</span> <span class="token number">32</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"thread_count"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"single_submit"</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span class="token punctuation">,</span>
+            <span class="token key atrule">"overlap_events"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"overlap_comm"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"contiguous_gradients"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"sub_group_size"</span><span class="token punctuation">:</span> <span class="token number">1e9</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"reduce_bucket_size"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"stage3_prefetch_bucket_size"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"stage3_param_persistence_threshold"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"stage3_max_live_parameters"</span><span class="token punctuation">:</span> <span class="token number">1e9</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"stage3_max_reuse_distance"</span><span class="token punctuation">:</span> <span class="token number">1e9</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"stage3_gather_16bit_weights_on_model_save"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+
+    <span class="token key atrule">"gradient_accumulation_steps"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+    <span class="token key atrule">"gradient_clipping"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+    <span class="token key atrule">"steps_per_print"</span><span class="token punctuation">:</span> <span class="token number">2000</span><span class="token punctuation">,</span>
+    <span class="token key atrule">"train_batch_size"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+    <span class="token key atrule">"train_micro_batch_size_per_gpu"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+    <span class="token key atrule">"wall_clock_breakdown"</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="DeepSpeed-features"><a href="#DeepSpeed-features" class="headerlink" title="DeepSpeed features"></a>DeepSpeed features</h2><p>There are a number of important parameters to specify in the DeepSpeed configuration file which are briefly described in this section.</p>
+<h3 id="Activation-gradient-checkpointing"><a href="#Activation-gradient-checkpointing" class="headerlink" title="Activation&#x2F;gradient checkpointing"></a>Activation&#x2F;gradient checkpointing</h3><p><strong>Activation and gradient checkpointing trades speed for more GPU memory which allows you to overcome scenarios where your GPU is out of memory or to increase your batch size for better performance.</strong> To enable this feature:</p>
+<ol>
+<li>For a Hugging Face model, set <code>model.gradient_checkpointing_enable()</code> or <code>--gradient_checkpointing</code> in the [<code>Trainer</code>].</li>
+<li>For a non-Hugging Face model, use the DeepSpeed <a href="https://deepspeed.readthedocs.io/en/latest/activation-checkpointing.html">Activation Checkpointing API</a>. You could also replace the Transformers modeling code and replace <code>torch.utils.checkpoint</code> with the DeepSpeed API. <strong>This approach is more flexible because you can offload the forward activations to the CPU memory instead of recalculating them.</strong></li>
+</ol>
+<h3 id="Optimizer-and-scheduler"><a href="#Optimizer-and-scheduler" class="headerlink" title="Optimizer and scheduler"></a>Optimizer and scheduler</h3><p>DeepSpeed and Transformers optimizer and scheduler can be mixed and matched as long as you don’t enable <code>offload_optimizer</code>. <strong>When <code>offload_optimizer</code> is enabled, you could use a non-DeepSpeed optimizer (except for LAMB) as long as it has both a CPU and GPU implementation.</strong></p>
+<p><strong>The optimizer and scheduler parameters for the config file can be set from the command line to avoid hard to find errors.</strong> For example, if the learning rate is set to a different value in another place you can override it from the command line. Aside from the optimizer and scheduler parameters, you’ll need to ensure your [<code>Trainer</code>] command line arguments match the DeepSpeed configuration.</p>
+<p>DeepSpeed offers several <a href="https://www.deepspeed.ai/docs/config-json/#optimizer-parameters">optimizers</a> (Adam, AdamW, OneBitAdam, and LAMB) but you can also import other optimizers from PyTorch. <strong>If you don’t configure the optimizer in the config, the [<code>Trainer</code>] automatically selects AdamW and either uses the supplied values or the default values for the following parameters from the command line: <code>lr</code>, <code>adam_beta1</code>, <code>adam_beta2</code>, <code>adam_epsilon</code>, <code>weight_decay</code>.</strong></p>
+<p>You can set the parameters to <code>&quot;auto&quot;</code> or manually input your own desired values.</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+   <span class="token key atrule">"optimizer"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+       <span class="token key atrule">"type"</span><span class="token punctuation">:</span> <span class="token string">"AdamW"</span><span class="token punctuation">,</span>
+       <span class="token key atrule">"params"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+         <span class="token key atrule">"lr"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+         <span class="token key atrule">"betas"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+         <span class="token key atrule">"eps"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+         <span class="token key atrule">"weight_decay"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span>
+       <span class="token punctuation">&#125;</span>
+   <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>You can also use an unsupported optimizer by adding the following to the top level configuration.</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+   <span class="token key atrule">"zero_allow_untested_optimizer"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>From DeepSpeed&#x3D;&#x3D;0.8.3 on, if you want to use offload, you’ll also need to the following to the top level configuration because offload works best with DeepSpeed’s CPU Adam optimizer.</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+   <span class="token key atrule">"zero_force_ds_cpu_optimizer"</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>DeepSpeed supports the LRRangeTest, OneCycle, WarmupLR and WarmupDecayLR learning rate <a href="https://www.deepspeed.ai/docs/config-json/#scheduler-parameters">schedulers</a>.</p>
+<p>Transformers and DeepSpeed provide two of the same schedulers:</p>
+<ul>
+<li><strong>WarmupLR</strong> is the same as <code>--lr_scheduler_type constant_with_warmup</code> in Transformers</li>
+<li><strong>WarmupDecayLR</strong> is the same as  <code>--lr_scheduler_type linear</code> in Transformers (<strong>this is the default scheduler used in Transformers</strong>)</li>
+</ul>
+<p><strong>If you don’t configure the scheduler in the config, the [<code>Trainer</code>] automatically selects WarmupDecayLR and either uses the supplied values or the default values for the following parameters from the command line: <code>warmup_min_lr</code>, <code>warmup_max_lr</code>, <code>warmup_num_steps</code>, <code>total_num_steps</code> (automatically calculated during run time if <code>max_steps</code> is not provided).</strong></p>
+<p>You can set the parameters to <code>&quot;auto&quot;</code> or manually input your own desired values.</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+   <span class="token key atrule">"scheduler"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+         <span class="token key atrule">"type"</span><span class="token punctuation">:</span> <span class="token string">"WarmupDecayLR"</span><span class="token punctuation">,</span>
+         <span class="token key atrule">"params"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+             <span class="token key atrule">"total_num_steps"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+             <span class="token key atrule">"warmup_min_lr"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+             <span class="token key atrule">"warmup_max_lr"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+             <span class="token key atrule">"warmup_num_steps"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span>
+         <span class="token punctuation">&#125;</span>
+     <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Precision"><a href="#Precision" class="headerlink" title="Precision"></a>Precision</h3><p><strong>Deepspeed supports fp32, fp16, and bf16 mixed precision.</strong></p>
+<p><strong>If your model doesn’t work well with mixed precision, for example if it wasn’t pretrained in mixed precision, you may encounter overflow or underflow issues which can cause NaN loss.</strong> For these cases, you should use full fp32 precision by explicitly disabling the default fp16 mode.</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"fp16"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token key atrule">"enabled"</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>For Ampere GPUs and PyTorch &gt; 1.7, it automatically switches to the more efficient <a href="https://pytorch.org/docs/stable/notes/cuda.html#tensorfloat-32-tf32-on-ampere-devices">tf32</a> format for some operations but the results are still in fp32. You can control it from the [<code>Trainer</code>] by setting <code>--tf32</code> to enable it, and <code>--tf32 0</code> or <code>--no_tf32</code> to disable it.</p>
+<p><strong>To configure PyTorch AMP-like fp16 mixed precision reduces memory usage and accelerates training speed.</strong> [<code>Trainer</code>] automatically enables or disables fp16 based on the value of <code>args.fp16_backend</code>, and the rest of the config can be set by you. fp16 is enabled from the command line when the following arguments are passed: <code>--fp16</code>, <code>--fp16_backend amp</code> or <code>--fp16_full_eval</code>.</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"fp16"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token key atrule">"enabled"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"loss_scale"</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"loss_scale_window"</span><span class="token punctuation">:</span> <span class="token number">1000</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"initial_scale_power"</span><span class="token punctuation">:</span> <span class="token number">16</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"hysteresis"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"min_loss_scale"</span><span class="token punctuation">:</span> <span class="token number">1</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>For additional DeepSpeed fp16 training options, take a look at the <a href="https://www.deepspeed.ai/docs/config-json/#fp16-training-options">FP16 Training Options</a> reference.</p>
+<p>To configure Apex-like fp16 mixed precision, setup the config as shown below with <code>&quot;auto&quot;</code> or your own values. [<code>Trainer</code>] automatically configure <code>amp</code> based on the values of <code>args.fp16_backend</code> and <code>args.fp16_opt_level</code>. It can also be enabled from the command line when the following arguments are passed: <code>--fp16</code>, <code>--fp16_backend apex</code> or <code>--fp16_opt_level 01</code>.</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"amp"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token key atrule">"enabled"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"opt_level"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>To use bf16, you’ll need at least DeepSpeed&#x3D;&#x3D;0.6.0. <strong>bf16 has the same dynamic range as fp32 and doesn’t require loss scaling.</strong> However, <strong>if you use <a href="#gradient-accumulation">gradient accumulation</a> with bf16, gradients are accumulated in bf16 which may not be desired because this format’s low precision can lead to lossy accumulation.</strong></p>
+<p>bf16 can be setup in the config file or enabled from the command line when the following arguments are passed: <code>--bf16</code> or <code>--bf16_full_eval</code>.</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"bf16"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token key atrule">"enabled"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Batch-size"><a href="#Batch-size" class="headerlink" title="Batch size"></a>Batch size</h3><p>The batch size can be auto-configured or explicitly set. <strong>If you choose to use the <code>&quot;auto&quot;</code> option, [<code>Trainer</code>] sets <code>train_micro_batch_size_per_gpu</code> to the value of <code>args.per_device_train_batch_size</code> and <code>train_batch_size</code> to <code>args.world_size * args.per_device_train_batch_size * args.gradient_accumulation_steps</code>.</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"train_micro_batch_size_per_gpu"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+    <span class="token key atrule">"train_batch_size"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Gradient-accumulation"><a href="#Gradient-accumulation" class="headerlink" title="Gradient accumulation"></a>Gradient accumulation</h3><p>Gradient accumulation can be auto-configured or explicitly set. <strong>If you choose to use the <code>&quot;auto&quot;</code> option, [<code>Trainer</code>] sets it to the value of <code>args.gradient_accumulation_steps</code>.</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"gradient_accumulation_steps"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Gradient-clipping"><a href="#Gradient-clipping" class="headerlink" title="Gradient clipping"></a>Gradient clipping</h3><p>Gradient clipping can be auto-configured or explicitly set. <strong>If you choose to use the <code>&quot;auto&quot;</code> option, [<code>Trainer</code>] sets it to the value of <code>args.max_grad_norm</code>.</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"gradient_clipping"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Communication-data-type"><a href="#Communication-data-type" class="headerlink" title="Communication data type"></a>Communication data type</h3><p>For communication collectives like <strong>reduction</strong>, <strong>gathering</strong> and <strong>scattering</strong> operations, a separate data type is used.</p>
+<p><strong>All gather and scatter operations are performed in the same data type the data is in.</strong> For example, if you’re training with bf16, the data is also gathered in bf16 because gathering is a non-lossy operation.</p>
+<p><strong>Reduce operations are lossy, for example when gradients are averaged across multiple GPUs.</strong> When the communication is done in fp16 or bf16, it is more likely to be lossy because adding multiple numbers in low precision isn’t exact. This is especially the case with bf16 which has a lower precision than fp16. <strong>For this reason, fp16 is the default for reduction operations because the loss is minimal when averaging gradients.</strong></p>
+<p>You can choose the communication data type by setting the <code>communication_data_type</code> parameter in the config file. <strong>For example, choosing fp32 adds a small amount of overhead but ensures the reduction operation is accumulated in fp32 and when it is ready, it is downcasted to whichever half-precision dtype you’re training in.</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"communication_data_type"</span><span class="token punctuation">:</span> <span class="token string">"fp32"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h2><p>DeepSpeed can be deployed by different launchers such as <a href="https://pytorch.org/docs/stable/elastic/run.html">torchrun</a>, the <code>deepspeed</code> launcher, or <a href="https://huggingface.co/docs/accelerate/basic_tutorials/launch#using-accelerate-launch">Accelerate</a>. To deploy, add <code>--deepspeed ds_config.json</code> to the [<code>Trainer</code>] command line. It’s recommended to use DeepSpeed’s <a href="https://deepspeed.readthedocs.io/en/latest/initialize.html#argument-parsing"><code>add_config_arguments</code></a> utility to add any necessary command line arguments to your code.</p>
+<p>This guide will show you how to deploy DeepSpeed with the <code>deepspeed</code> launcher for different training setups. You can check out this <a href="https://github.com/huggingface/transformers/issues/8771#issuecomment-759248400">post</a> for more practical usage examples.</p>
+<p><strong>To deploy DeepSpeed on multiple GPUs, add the <code>--num_gpus</code> parameter. If you want to use all available GPUs, you don’t need to add <code>--num_gpus</code>.</strong> The example below uses 2 GPUs.</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">deepspeed <span class="token parameter variable">--num_gpus</span><span class="token operator">=</span><span class="token number">2</span> examples/pytorch/translation/run_translation.py <span class="token punctuation">\</span>
+<span class="token parameter variable">--deepspeed</span> tests/deepspeed/ds_config_zero3.json <span class="token punctuation">\</span>
+<span class="token parameter variable">--model_name_or_path</span> google-t5/t5-small <span class="token parameter variable">--per_device_train_batch_size</span> <span class="token number">1</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">--output_dir</span> output_dir <span class="token parameter variable">--overwrite_output_dir</span> <span class="token parameter variable">--fp16</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">--do_train</span> <span class="token parameter variable">--max_train_samples</span> <span class="token number">500</span> <span class="token parameter variable">--num_train_epochs</span> <span class="token number">1</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">--dataset_name</span> wmt16 <span class="token parameter variable">--dataset_config</span> <span class="token string">"ro-en"</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">--source_lang</span> en <span class="token parameter variable">--target_lang</span> ro<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>To deploy DeepSpeed on a single GPU, add the <code>--num_gpus</code> parameter. It isn’t necessary to explicitly set this value if you only have 1 GPU because DeepSpeed deploys all GPUs it can see on a given node.</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">deepspeed <span class="token parameter variable">--num_gpus</span><span class="token operator">=</span><span class="token number">1</span> examples/pytorch/translation/run_translation.py <span class="token punctuation">\</span>
+<span class="token parameter variable">--deepspeed</span> tests/deepspeed/ds_config_zero2.json <span class="token punctuation">\</span>
+<span class="token parameter variable">--model_name_or_path</span> google-t5/t5-small <span class="token parameter variable">--per_device_train_batch_size</span> <span class="token number">1</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">--output_dir</span> output_dir <span class="token parameter variable">--overwrite_output_dir</span> <span class="token parameter variable">--fp16</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">--do_train</span> <span class="token parameter variable">--max_train_samples</span> <span class="token number">500</span> <span class="token parameter variable">--num_train_epochs</span> <span class="token number">1</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">--dataset_name</span> wmt16 <span class="token parameter variable">--dataset_config</span> <span class="token string">"ro-en"</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">--source_lang</span> en <span class="token parameter variable">--target_lang</span> ro<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>DeepSpeed is still useful with just 1 GPU because you can:</p>
+<ol>
+<li><strong>Offload some computations and memory to the CPU to make more GPU resources available to your model to use a larger batch size or fit a very large model that normally won’t fit.</strong></li>
+<li><strong>Minimize memory fragmentation with it’s smart GPU memory management system which also allows you to fit bigger models and data batches.</strong></li>
+</ol>
+<p>Set the <code>allgather_bucket_size</code> and <code>reduce_bucket_size</code> values to 2e8 in the <a href="#zero-configuration">ZeRO-2</a> configuration file to get better performance on a single GPU.</p>
+<h3 id="Multi-node-deployment"><a href="#Multi-node-deployment" class="headerlink" title="Multi-node deployment"></a>Multi-node deployment</h3><p>A node is one or more GPUs for running a workload. A more powerful setup is a multi-node setup which can be launched with the <code>deepspeed</code> launcher. For this guide, let’s assume there are two nodes with 8 GPUs each. The first node can be accessed <code>ssh hostname1</code> and the second node with <code>ssh hostname2</code>. <strong>Both nodes must be able to communicate with each other locally over ssh without a password.</strong></p>
+<p><strong>By default, DeepSpeed expects your multi-node environment to use a shared storage.</strong> If this is not the case and each node can only see the local filesystem, you need to adjust the config file to include a <a href="https://www.deepspeed.ai/docs/config-json/#checkpoint-options"><code>checkpoint</code></a> to allow loading without access to a shared filesystem:</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+  <span class="token key atrule">"checkpoint"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"use_node_local_storage"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>You could also use the [<code>Trainer</code>]’s <code>--save_on_each_node</code> argument to automatically add the above <code>checkpoint</code> to your config.</p>
+<p><strong>For <a href="https://pytorch.org/docs/stable/elastic/run.html">torchrun</a>, you have to ssh to each node and run the following command on both of them. The launcher waits until both nodes are synchronized before launching the training.</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python <span class="token parameter variable">-m</span> torch.run <span class="token parameter variable">--nproc_per_node</span><span class="token operator">=</span><span class="token number">8</span> <span class="token parameter variable">--nnode</span><span class="token operator">=</span><span class="token number">2</span> <span class="token parameter variable">--node_rank</span><span class="token operator">=</span><span class="token number">0</span> <span class="token parameter variable">--master_addr</span><span class="token operator">=</span>hostname1 <span class="token punctuation">\</span>
+<span class="token parameter variable">--master_port</span><span class="token operator">=</span><span class="token number">9901</span> your_program.py <span class="token operator">&lt;</span>normal cl args<span class="token operator">></span> <span class="token parameter variable">--deepspeed</span> ds_config.json<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>For the <code>deepspeed</code> launcher, start by creating a <code>hostfile</code>.</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hostname1 <span class="token assign-left variable">slots</span><span class="token operator">=</span><span class="token number">8</span>
+hostname2 <span class="token assign-left variable">slots</span><span class="token operator">=</span><span class="token number">8</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>Then you can launch the training with the following command. <strong>The <code>deepspeed</code> launcher automatically launches the command on both nodes at once.</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">deepspeed <span class="token parameter variable">--num_gpus</span> <span class="token number">8</span> <span class="token parameter variable">--num_nodes</span> <span class="token number">2</span> <span class="token parameter variable">--hostfile</span> hostfile <span class="token parameter variable">--master_addr</span> hostname1 <span class="token parameter variable">--master_port</span><span class="token operator">=</span><span class="token number">9901</span> <span class="token punctuation">\</span>
+your_program.py <span class="token operator">&lt;</span>normal cl args<span class="token operator">></span> <span class="token parameter variable">--deepspeed</span> ds_config.json<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>Check out the <a href="https://www.deepspeed.ai/getting-started/#resource-configuration-multi-node">Resource Configuration (multi-node)</a> guide for more details about configuring multi-node compute resources.</p>
+<h3 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h3><p>The <code>deepspeed</code> launcher doesn’t support deployment from a notebook so you’ll need to emulate the distributed environment. <strong>However, this only works for 1 GPU. If you want to use more than 1 GPU, you must use a multi-process environment for DeepSpeed to work.</strong> This means you have to use the <code>deepspeed</code> launcher which can’t be emulated as shown here.</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># DeepSpeed requires a distributed environment even when only one process is used.</span>
+<span class="token comment"># This emulates a launcher in the notebook</span>
+<span class="token keyword">import</span> os
+
+os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">"MASTER_ADDR"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"localhost"</span>
+os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">"MASTER_PORT"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"9994"</span>  <span class="token comment"># modify if RuntimeError: Address already in use</span>
+os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">"RANK"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"0"</span>
+os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">"LOCAL_RANK"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"0"</span>
+os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">"WORLD_SIZE"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"1"</span>
+
+<span class="token comment"># Now proceed as normal, plus pass the DeepSpeed config file</span>
+training_args <span class="token operator">=</span> TrainingArguments<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span> deepspeed<span class="token operator">=</span><span class="token string">"ds_config_zero3.json"</span><span class="token punctuation">)</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>train<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>If you want to create the config file on the fly in the notebook in the current directory, you could have a dedicated cell.</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">%</span><span class="token operator">%</span>bash
+cat <span class="token operator">&lt;&lt;</span><span class="token string">'EOT'</span> <span class="token operator">></span> ds_config_zero3<span class="token punctuation">.</span>json
+<span class="token punctuation">&#123;</span>
+    <span class="token string">"fp16"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"enabled"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token string">"loss_scale"</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token string">"loss_scale_window"</span><span class="token punctuation">:</span> <span class="token number">1000</span><span class="token punctuation">,</span>
+        <span class="token string">"initial_scale_power"</span><span class="token punctuation">:</span> <span class="token number">16</span><span class="token punctuation">,</span>
+        <span class="token string">"hysteresis"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+        <span class="token string">"min_loss_scale"</span><span class="token punctuation">:</span> <span class="token number">1</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+
+    <span class="token string">"optimizer"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"AdamW"</span><span class="token punctuation">,</span>
+        <span class="token string">"params"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token string">"lr"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+            <span class="token string">"betas"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+            <span class="token string">"eps"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+            <span class="token string">"weight_decay"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+
+    <span class="token string">"scheduler"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"WarmupLR"</span><span class="token punctuation">,</span>
+        <span class="token string">"params"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token string">"warmup_min_lr"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+            <span class="token string">"warmup_max_lr"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+            <span class="token string">"warmup_num_steps"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+
+    <span class="token string">"zero_optimization"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"stage"</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+        <span class="token string">"offload_optimizer"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token string">"device"</span><span class="token punctuation">:</span> <span class="token string">"cpu"</span><span class="token punctuation">,</span>
+            <span class="token string">"pin_memory"</span><span class="token punctuation">:</span> true
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token string">"offload_param"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token string">"device"</span><span class="token punctuation">:</span> <span class="token string">"cpu"</span><span class="token punctuation">,</span>
+            <span class="token string">"pin_memory"</span><span class="token punctuation">:</span> true
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token string">"overlap_comm"</span><span class="token punctuation">:</span> true<span class="token punctuation">,</span>
+        <span class="token string">"contiguous_gradients"</span><span class="token punctuation">:</span> true<span class="token punctuation">,</span>
+        <span class="token string">"sub_group_size"</span><span class="token punctuation">:</span> <span class="token number">1e9</span><span class="token punctuation">,</span>
+        <span class="token string">"reduce_bucket_size"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token string">"stage3_prefetch_bucket_size"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token string">"stage3_param_persistence_threshold"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token string">"stage3_max_live_parameters"</span><span class="token punctuation">:</span> <span class="token number">1e9</span><span class="token punctuation">,</span>
+        <span class="token string">"stage3_max_reuse_distance"</span><span class="token punctuation">:</span> <span class="token number">1e9</span><span class="token punctuation">,</span>
+        <span class="token string">"stage3_gather_16bit_weights_on_model_save"</span><span class="token punctuation">:</span> true
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+
+    <span class="token string">"gradient_accumulation_steps"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+    <span class="token string">"gradient_clipping"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+    <span class="token string">"steps_per_print"</span><span class="token punctuation">:</span> <span class="token number">2000</span><span class="token punctuation">,</span>
+    <span class="token string">"train_batch_size"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+    <span class="token string">"train_micro_batch_size_per_gpu"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+    <span class="token string">"wall_clock_breakdown"</span><span class="token punctuation">:</span> false
+<span class="token punctuation">&#125;</span>
+EOT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>If the training script is in a file and not in a notebook cell, you can launch <code>deepspeed</code> normally from the shell in a notebook cell. For example, to launch <code>run_translation.py</code>:</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">!git clone https<span class="token punctuation">:</span><span class="token operator">//</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>huggingface<span class="token operator">/</span>transformers
+!cd transformers<span class="token punctuation">;</span> deepspeed examples<span class="token operator">/</span>pytorch<span class="token operator">/</span>translation<span class="token operator">/</span>run_translation<span class="token punctuation">.</span>py <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>You could also use <code>%%bash</code> magic and write multi-line code to run the shell program, but you won’t be able to view the logs until training is complete.</strong> With <code>%%bash</code> magic, you don’t need to emulate a distributed environment.</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">%</span><span class="token operator">%</span>bash
+
+git clone https<span class="token punctuation">:</span><span class="token operator">//</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>huggingface<span class="token operator">/</span>transformers
+cd transformers
+deepspeed examples<span class="token operator">/</span>pytorch<span class="token operator">/</span>translation<span class="token operator">/</span>run_translation<span class="token punctuation">.</span>py <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Save-model-weights"><a href="#Save-model-weights" class="headerlink" title="Save model weights"></a>Save model weights</h2><p>DeepSpeed stores the main full precision fp32 weights in custom checkpoint optimizer files (the glob pattern looks like <code>global_step*/*optim_states.pt</code>) and are saved under the normal checkpoint.</p>
+<p>A model trained with ZeRO-2 saves the pytorch_model.bin weights in fp16. <strong>To save the model weights in fp16 for a model trained with ZeRO-3, you need to set <code>&quot;stage3_gather_16bit_weights_on_model_save&quot;: true</code> because the model weights are partitioned across multiple GPUs.</strong> Otherwise, the [<code>Trainer</code>] won’t save the weights in fp16 and it won’t create a pytorch_model.bin file. This is because DeepSpeed’s state_dict contains a placeholder instead of the real weights and you won’t be able to load them.</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"zero_optimization"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token key atrule">"stage3_gather_16bit_weights_on_model_save"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>The full precision weights shouldn’t be saved during training because it can require a lot of memory. It is usually best to save the fp32 weights offline after training is complete.</strong> But if you have a lot of free CPU memory, it is possible to save the fp32 weights during training. This section covers both online and offline approaches.</p>
+<h3 id="Online"><a href="#Online" class="headerlink" title="Online"></a>Online</h3><p>You must have saved at least one checkpoint to load the latest checkpoint as shown in the following:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers<span class="token punctuation">.</span>trainer_utils <span class="token keyword">import</span> get_last_checkpoint
+<span class="token keyword">from</span> deepspeed<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>zero_to_fp32 <span class="token keyword">import</span> load_state_dict_from_zero_checkpoint
+
+checkpoint_dir <span class="token operator">=</span> get_last_checkpoint<span class="token punctuation">(</span>trainer<span class="token punctuation">.</span>args<span class="token punctuation">.</span>output_dir<span class="token punctuation">)</span>
+fp32_model <span class="token operator">=</span> load_state_dict_from_zero_checkpoint<span class="token punctuation">(</span>trainer<span class="token punctuation">.</span>model<span class="token punctuation">,</span> checkpoint_dir<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>If you’ve enabled the <code>--load_best_model_at_end</code> parameter to track the best checkpoint in [<code>TrainingArguments</code>], you can finish training first and save the final model explicitly. Then you can reload it as shown below:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> deepspeed<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>zero_to_fp32 <span class="token keyword">import</span> load_state_dict_from_zero_checkpoint
+
+checkpoint_dir <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>trainer<span class="token punctuation">.</span>args<span class="token punctuation">.</span>output_dir<span class="token punctuation">,</span> <span class="token string">"checkpoint-final"</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>deepspeed<span class="token punctuation">.</span>save_checkpoint<span class="token punctuation">(</span>checkpoint_dir<span class="token punctuation">)</span>
+fp32_model <span class="token operator">=</span> load_state_dict_from_zero_checkpoint<span class="token punctuation">(</span>trainer<span class="token punctuation">.</span>model<span class="token punctuation">,</span> checkpoint_dir<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Once <code>load_state_dict_from_zero_checkpoint</code> is run, the model is no longer usable in DeepSpeed in the context of the same application. You’ll need to initialize the DeepSpeed engine again since <code>model.load_state_dict(state_dict)</code> removes all the DeepSpeed magic from it. <strong>Only use this at the very end of training.</strong></p>
+<p><strong>You can also extract and load the state_dict of the fp32 weights:</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> deepspeed<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>zero_to_fp32 <span class="token keyword">import</span> get_fp32_state_dict_from_zero_checkpoint
+
+state_dict <span class="token operator">=</span> get_fp32_state_dict_from_zero_checkpoint<span class="token punctuation">(</span>checkpoint_dir<span class="token punctuation">)</span>  <span class="token comment"># already on cpu</span>
+model <span class="token operator">=</span> model<span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span>
+model<span class="token punctuation">.</span>load_state_dict<span class="token punctuation">(</span>state_dict<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Offline"><a href="#Offline" class="headerlink" title="Offline"></a>Offline</h3><p><strong>DeepSpeed provides a zero_to_fp32.py script at the top-level of the checkpoint folder for extracting weights at any point.</strong> This is a standalone script and you don’t need a configuration file or [<code>Trainer</code>].</p>
+<p>For example, if your checkpoint folder looked like this:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">ls</span> <span class="token parameter variable">-l</span> output_dir/checkpoint-1/
+-rw-rw-r-- <span class="token number">1</span> stas stas <span class="token number">1</span>.4K Mar <span class="token number">27</span> <span class="token number">20</span>:42 config.json
+drwxrwxr-x <span class="token number">2</span> stas stas <span class="token number">4</span>.0K Mar <span class="token number">25</span> <span class="token number">19</span>:52 global_step1/
+-rw-rw-r-- <span class="token number">1</span> stas stas   <span class="token number">12</span> Mar <span class="token number">27</span> <span class="token number">13</span>:16 latest
+-rw-rw-r-- <span class="token number">1</span> stas stas 827K Mar <span class="token number">27</span> <span class="token number">20</span>:42 optimizer.pt
+-rw-rw-r-- <span class="token number">1</span> stas stas 231M Mar <span class="token number">27</span> <span class="token number">20</span>:42 pytorch_model.bin
+-rw-rw-r-- <span class="token number">1</span> stas stas  <span class="token number">623</span> Mar <span class="token number">27</span> <span class="token number">20</span>:42 scheduler.pt
+-rw-rw-r-- <span class="token number">1</span> stas stas <span class="token number">1</span>.8K Mar <span class="token number">27</span> <span class="token number">20</span>:42 special_tokens_map.json
+-rw-rw-r-- <span class="token number">1</span> stas stas 774K Mar <span class="token number">27</span> <span class="token number">20</span>:42 spiece.model
+-rw-rw-r-- <span class="token number">1</span> stas stas <span class="token number">1</span>.9K Mar <span class="token number">27</span> <span class="token number">20</span>:42 tokenizer_config.json
+-rw-rw-r-- <span class="token number">1</span> stas stas  <span class="token number">339</span> Mar <span class="token number">27</span> <span class="token number">20</span>:42 trainer_state.json
+-rw-rw-r-- <span class="token number">1</span> stas stas <span class="token number">2</span>.3K Mar <span class="token number">27</span> <span class="token number">20</span>:42 training_args.bin
+-rwxrw-r-- <span class="token number">1</span> stas stas <span class="token number">5</span>.5K Mar <span class="token number">27</span> <span class="token number">13</span>:16 zero_to_fp32.py*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>To reconstruct the fp32 weights from the DeepSpeed checkpoint (ZeRO-2 or ZeRO-3) subfolder <code>global_step1</code>, <strong>run the following command to create and consolidate the full fp32 weights from multiple GPUs into a single pytorch_model.bin file.</strong> The script automatically discovers the subfolder containing the checkpoint.</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">python zero_to_fp32<span class="token punctuation">.</span>py <span class="token punctuation">.</span> pytorch_model<span class="token punctuation">.</span><span class="token builtin">bin</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>Run <code>python zero_to_fp32.py -h</code> for more usage details. <strong>The script requires 2x the general RAM of the final fp32 weights.</strong></p>
+<h2 id="ZeRO-Inference"><a href="#ZeRO-Inference" class="headerlink" title="ZeRO Inference"></a>ZeRO Inference</h2><p><strong><a href="https://www.deepspeed.ai/2022/09/09/zero-inference.html">ZeRO Inference</a> places the model weights in CPU or NVMe memory to avoid burdening the GPU which makes it possible to run inference with huge models on a GPU.</strong> Inference doesn’t require any large additional amounts of memory for the optimizer states and gradients so you can fit much larger batches and&#x2F;or sequence lengths on the same hardware.</p>
+<p><strong>ZeRO Inference shares the same configuration file as <a href="#zero-configuration">ZeRO-3</a>, and ZeRO-2 and ZeRO-1 configs won’t work because they don’t provide any benefits for inference.</strong></p>
+<p><strong>To run ZeRO Inference, pass your usual training arguments to the [<code>TrainingArguments</code>] class and add the <code>--do_eval</code> argument.</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">deepspeed <span class="token parameter variable">--num_gpus</span><span class="token operator">=</span><span class="token number">2</span> your_program.py <span class="token operator">&lt;</span>normal cl args<span class="token operator">></span> <span class="token parameter variable">--do_eval</span> <span class="token parameter variable">--deepspeed</span> ds_config.json<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="Non-Trainer-DeepSpeed-integration"><a href="#Non-Trainer-DeepSpeed-integration" class="headerlink" title="Non-Trainer DeepSpeed integration"></a>Non-Trainer DeepSpeed integration</h2><p>DeepSpeed also works with Transformers without the [<code>Trainer</code>] class. <strong>This is handled by the [<code>HfDeepSpeedConfig</code>] which only takes care of gathering ZeRO-3 parameters and splitting a model across multiple GPUs when you call [<code>~PreTrainedModel.from_pretrained</code>].</strong></p>
+<p>If you want everything automatically taken care of for you, try using DeepSpeed with the [<code>Trainer</code>]! You’ll need to follow the <a href="https://www.deepspeed.ai/">DeepSpeed documentation</a>, and manually configure the parameter values in the config file (you can’t use the <code>&quot;auto&quot;</code> value).</p>
+<p><strong>To efficiently deploy ZeRO-3, you must instantiate the [<code>HfDeepSpeedConfig</code>] object before the model and keep that object alive:</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers<span class="token punctuation">.</span>integrations <span class="token keyword">import</span> HfDeepSpeedConfig
+<span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoModel
+<span class="token keyword">import</span> deepspeed
+
+ds_config <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">&#125;</span>  <span class="token comment"># deepspeed config object or path to the file</span>
+<span class="token comment"># must run before instantiating the model to detect zero 3</span>
+dschf <span class="token operator">=</span> HfDeepSpeedConfig<span class="token punctuation">(</span>ds_config<span class="token punctuation">)</span>  <span class="token comment"># keep this object alive</span>
+model <span class="token operator">=</span> AutoModel<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"openai-community/gpt2"</span><span class="token punctuation">)</span>
+engine <span class="token operator">=</span> deepspeed<span class="token punctuation">.</span>initialize<span class="token punctuation">(</span>model<span class="token operator">=</span>model<span class="token punctuation">,</span> config_params<span class="token operator">=</span>ds_config<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>[<code>HfDeepSpeedConfig</code>] is not required for ZeRO-1 or ZeRO-2.</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers<span class="token punctuation">.</span>integrations <span class="token keyword">import</span> HfDeepSpeedConfig
+<span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoModel<span class="token punctuation">,</span> AutoConfig
+<span class="token keyword">import</span> deepspeed
+
+ds_config <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">&#125;</span>  <span class="token comment"># deepspeed config object or path to the file</span>
+<span class="token comment"># must run before instantiating the model to detect zero 3</span>
+dschf <span class="token operator">=</span> HfDeepSpeedConfig<span class="token punctuation">(</span>ds_config<span class="token punctuation">)</span>  <span class="token comment"># keep this object alive</span>
+config <span class="token operator">=</span> AutoConfig<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"openai-community/gpt2"</span><span class="token punctuation">)</span>
+model <span class="token operator">=</span> AutoModel<span class="token punctuation">.</span>from_config<span class="token punctuation">(</span>config<span class="token punctuation">)</span>
+engine <span class="token operator">=</span> deepspeed<span class="token punctuation">.</span>initialize<span class="token punctuation">(</span>model<span class="token operator">=</span>model<span class="token punctuation">,</span> config_params<span class="token operator">=</span>ds_config<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Non-Trainer-ZeRO-Inference"><a href="#Non-Trainer-ZeRO-Inference" class="headerlink" title="Non-Trainer ZeRO Inference"></a>Non-Trainer ZeRO Inference</h3><p>To run ZeRO Inference without the [<code>Trainer</code>] in cases where you can’t fit a model onto a single GPU, try using additional GPUs or&#x2F;and offloading to CPU memory. The important nuance to understand here is that the way ZeRO is designed, you can process different inputs on different GPUs in parallel.</p>
+<p>Make sure to:</p>
+<ul>
+<li><strong>disable CPU offload if you have enough GPU memory (since it slows things down).</strong></li>
+<li><strong>enable bf16 if you have an Ampere or newer GPU to make things faster. If you don’t have one of these GPUs, you may enable fp16 as long as you don’t use a model pretrained in bf16 (T5 models) because it may lead to an overflow error.</strong></li>
+</ul>
+<p><strong>Take a look at the following script to get a better idea of how to run ZeRO Inference without the [<code>Trainer</code>] on a model that won’t fit on a single GPU.</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/env python</span>
+
+<span class="token comment"># This script demonstrates how to use Deepspeed ZeRO in an inference mode when one can't fit a model</span>
+<span class="token comment"># into a single GPU</span>
+<span class="token comment">#</span>
+<span class="token comment"># 1. Use 1 GPU with CPU offload</span>
+<span class="token comment"># 2. Or use multiple GPUs instead</span>
+<span class="token comment">#</span>
+<span class="token comment"># First you need to install deepspeed: pip install deepspeed</span>
+<span class="token comment">#</span>
+<span class="token comment"># Here we use a 3B "bigscience/T0_3B" model which needs about 15GB GPU RAM - so 1 largish or 2</span>
+<span class="token comment"># small GPUs can handle it. or 1 small GPU and a lot of CPU memory.</span>
+<span class="token comment">#</span>
+<span class="token comment"># To use a larger model like "bigscience/T0" which needs about 50GB, unless you have an 80GB GPU -</span>
+<span class="token comment"># you will need 2-4 gpus. And then you can adapt the script to handle more gpus if you want to</span>
+<span class="token comment"># process multiple inputs at once.</span>
+<span class="token comment">#</span>
+<span class="token comment"># The provided deepspeed config also activates CPU memory offloading, so chances are that if you</span>
+<span class="token comment"># have a lot of available CPU memory and you don't mind a slowdown you should be able to load a</span>
+<span class="token comment"># model that doesn't normally fit into a single GPU. If you have enough GPU memory the program will</span>
+<span class="token comment"># run faster if you don't want offload to CPU - so disable that section then.</span>
+<span class="token comment">#</span>
+<span class="token comment"># To deploy on 1 gpu:</span>
+<span class="token comment">#</span>
+<span class="token comment"># deepspeed --num_gpus 1 t0.py</span>
+<span class="token comment"># or:</span>
+<span class="token comment"># python -m torch.distributed.run --nproc_per_node=1 t0.py</span>
+<span class="token comment">#</span>
+<span class="token comment"># To deploy on 2 gpus:</span>
+<span class="token comment">#</span>
+<span class="token comment"># deepspeed --num_gpus 2 t0.py</span>
+<span class="token comment"># or:</span>
+<span class="token comment"># python -m torch.distributed.run --nproc_per_node=2 t0.py</span>
+
+<span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoTokenizer<span class="token punctuation">,</span> AutoConfig<span class="token punctuation">,</span> AutoModelForSeq2SeqLM
+<span class="token keyword">from</span> transformers<span class="token punctuation">.</span>integrations <span class="token keyword">import</span> HfDeepSpeedConfig
+<span class="token keyword">import</span> deepspeed
+<span class="token keyword">import</span> os
+<span class="token keyword">import</span> torch
+
+os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">"TOKENIZERS_PARALLELISM"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"false"</span>  <span class="token comment"># To avoid warnings about parallelism in tokenizers</span>
+
+<span class="token comment"># distributed setup</span>
+local_rank <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>getenv<span class="token punctuation">(</span><span class="token string">"LOCAL_RANK"</span><span class="token punctuation">,</span> <span class="token string">"0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+world_size <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>getenv<span class="token punctuation">(</span><span class="token string">"WORLD_SIZE"</span><span class="token punctuation">,</span> <span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>set_device<span class="token punctuation">(</span>local_rank<span class="token punctuation">)</span>
+deepspeed<span class="token punctuation">.</span>init_distributed<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+model_name <span class="token operator">=</span> <span class="token string">"bigscience/T0_3B"</span>
+
+config <span class="token operator">=</span> AutoConfig<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span>model_name<span class="token punctuation">)</span>
+model_hidden_size <span class="token operator">=</span> config<span class="token punctuation">.</span>d_model
+
+<span class="token comment"># batch size has to be divisible by world_size, but can be bigger than world_size</span>
+train_batch_size <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">*</span> world_size
+
+<span class="token comment"># ds_config notes</span>
+<span class="token comment">#</span>
+<span class="token comment"># - enable bf16 if you use Ampere or higher GPU - this will run in mixed precision and will be</span>
+<span class="token comment"># faster.</span>
+<span class="token comment">#</span>
+<span class="token comment"># - for older GPUs you can enable fp16, but it'll only work for non-bf16 pretrained models - e.g.</span>
+<span class="token comment"># all official t5 models are bf16-pretrained</span>
+<span class="token comment">#</span>
+<span class="token comment"># - set offload_param.device to "none" or completely remove the `offload_param` section if you don't</span>
+<span class="token comment"># - want CPU offload</span>
+<span class="token comment">#</span>
+<span class="token comment"># - if using `offload_param` you can manually finetune stage3_param_persistence_threshold to control</span>
+<span class="token comment"># - which params should remain on gpus - the larger the value the smaller the offload size</span>
+<span class="token comment">#</span>
+<span class="token comment"># For in-depth info on Deepspeed config see</span>
+<span class="token comment"># https://huggingface.co/docs/transformers/main/main_classes/deepspeed</span>
+
+<span class="token comment"># keeping the same format as json for consistency, except it uses lower case for true/false</span>
+<span class="token comment"># fmt: off</span>
+ds_config <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">"fp16"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"enabled"</span><span class="token punctuation">:</span> <span class="token boolean">False</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token string">"bf16"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"enabled"</span><span class="token punctuation">:</span> <span class="token boolean">False</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token string">"zero_optimization"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"stage"</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+        <span class="token string">"offload_param"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token string">"device"</span><span class="token punctuation">:</span> <span class="token string">"cpu"</span><span class="token punctuation">,</span>
+            <span class="token string">"pin_memory"</span><span class="token punctuation">:</span> <span class="token boolean">True</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token string">"overlap_comm"</span><span class="token punctuation">:</span> <span class="token boolean">True</span><span class="token punctuation">,</span>
+        <span class="token string">"contiguous_gradients"</span><span class="token punctuation">:</span> <span class="token boolean">True</span><span class="token punctuation">,</span>
+        <span class="token string">"reduce_bucket_size"</span><span class="token punctuation">:</span> model_hidden_size <span class="token operator">*</span> model_hidden_size<span class="token punctuation">,</span>
+        <span class="token string">"stage3_prefetch_bucket_size"</span><span class="token punctuation">:</span> <span class="token number">0.9</span> <span class="token operator">*</span> model_hidden_size <span class="token operator">*</span> model_hidden_size<span class="token punctuation">,</span>
+        <span class="token string">"stage3_param_persistence_threshold"</span><span class="token punctuation">:</span> <span class="token number">10</span> <span class="token operator">*</span> model_hidden_size
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token string">"steps_per_print"</span><span class="token punctuation">:</span> <span class="token number">2000</span><span class="token punctuation">,</span>
+    <span class="token string">"train_batch_size"</span><span class="token punctuation">:</span> train_batch_size<span class="token punctuation">,</span>
+    <span class="token string">"train_micro_batch_size_per_gpu"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token string">"wall_clock_breakdown"</span><span class="token punctuation">:</span> <span class="token boolean">False</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment"># fmt: on</span>
+
+<span class="token comment"># next line instructs transformers to partition the model directly over multiple gpus using</span>
+<span class="token comment"># deepspeed.zero.Init when model's `from_pretrained` method is called.</span>
+<span class="token comment">#</span>
+<span class="token comment"># **it has to be run before loading the model AutoModelForSeq2SeqLM.from_pretrained(model_name)**</span>
+<span class="token comment">#</span>
+<span class="token comment"># otherwise the model will first be loaded normally and only partitioned at forward time which is</span>
+<span class="token comment"># less efficient and when there is little CPU RAM may fail</span>
+dschf <span class="token operator">=</span> HfDeepSpeedConfig<span class="token punctuation">(</span>ds_config<span class="token punctuation">)</span>  <span class="token comment"># keep this object alive</span>
+
+<span class="token comment"># now a model can be loaded.</span>
+model <span class="token operator">=</span> AutoModelForSeq2SeqLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span>model_name<span class="token punctuation">)</span>
+
+<span class="token comment"># initialise Deepspeed ZeRO and store only the engine object</span>
+ds_engine <span class="token operator">=</span> deepspeed<span class="token punctuation">.</span>initialize<span class="token punctuation">(</span>model<span class="token operator">=</span>model<span class="token punctuation">,</span> config_params<span class="token operator">=</span>ds_config<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+ds_engine<span class="token punctuation">.</span>module<span class="token punctuation">.</span><span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># inference</span>
+
+<span class="token comment"># Deepspeed ZeRO can process unrelated inputs on each GPU. So for 2 gpus you process 2 inputs at once.</span>
+<span class="token comment"># If you use more GPUs adjust for more.</span>
+<span class="token comment"># And of course if you have just one input to process you then need to pass the same string to both gpus</span>
+<span class="token comment"># If you use only one GPU, then you will have only rank 0.</span>
+rank <span class="token operator">=</span> torch<span class="token punctuation">.</span>distributed<span class="token punctuation">.</span>get_rank<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> rank <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+    text_in <span class="token operator">=</span> <span class="token string">"Is this review positive or negative? Review: this is the best cast iron skillet you will ever buy"</span>
+<span class="token keyword">elif</span> rank <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+    text_in <span class="token operator">=</span> <span class="token string">"Is this review positive or negative? Review: this is the worst restaurant ever"</span>
+
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span>model_name<span class="token punctuation">)</span>
+inputs <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>encode<span class="token punctuation">(</span>text_in<span class="token punctuation">,</span> return_tensors<span class="token operator">=</span><span class="token string">"pt"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token operator">=</span>local_rank<span class="token punctuation">)</span>
+<span class="token keyword">with</span> torch<span class="token punctuation">.</span>no_grad<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    outputs <span class="token operator">=</span> ds_engine<span class="token punctuation">.</span>module<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>inputs<span class="token punctuation">,</span> synced_gpus<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+text_out <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>outputs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"rank</span><span class="token interpolation"><span class="token punctuation">&#123;</span>rank<span class="token punctuation">&#125;</span></span><span class="token string">:\n   in=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>text_in<span class="token punctuation">&#125;</span></span><span class="token string">\n  out=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>text_out<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Save the script as t0.py and launch it:</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ deepspeed <span class="token parameter variable">--num_gpus</span> <span class="token number">2</span> t0.py
+rank0:
+   <span class="token assign-left variable">in</span><span class="token operator">=</span>Is this review positive or negative? Review: this is the best cast iron skillet you will ever buy
+  <span class="token assign-left variable">out</span><span class="token operator">=</span>Positive
+rank1:
+   <span class="token assign-left variable">in</span><span class="token operator">=</span>Is this review positive or negative? Review: this is the worst restaurant ever
+  <span class="token assign-left variable">out</span><span class="token operator">=</span>negative<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>This is a very basic example and you’ll want to adapt it to your use case.</p>
+<h3 id="Generate"><a href="#Generate" class="headerlink" title="Generate"></a>Generate</h3><p><strong>Using multiple GPUs with ZeRO-3 for generation requires synchronizing the GPUs by setting <code>synced_gpus=True</code> in the [<code>~GenerationMixin.generate</code>] method.</strong> Otherwise, if one GPU is finished generating before another one, the whole system hangs because the remaining GPUs haven’t received the weight shard from the GPU that finished first.</p>
+<p>For Transformers&gt;&#x3D;4.28, <strong>if <code>synced_gpus</code> is automatically set to <code>True</code> if multiple GPUs are detected during generation.</strong></p>
+<h2 id="Troubleshoot"><a href="#Troubleshoot" class="headerlink" title="Troubleshoot"></a>Troubleshoot</h2><p>When you encounter an issue, you should consider whether DeepSpeed is the cause of the problem because often it isn’t (unless it’s super obviously and you can see DeepSpeed modules in the exception)! The first step should be to retry your setup without DeepSpeed, and if the problem persists, then you can report the issue. If the issue is a core DeepSpeed problem and unrelated to the Transformers integration, open an Issue on the <a href="https://github.com/microsoft/DeepSpeed">DeepSpeed repository</a>.</p>
+<p>For issues related to the Transformers integration, please provide the following information:</p>
+<ul>
+<li><p>the full DeepSpeed config file</p>
+</li>
+<li><p>the command line arguments of the [<code>Trainer</code>], or [<code>TrainingArguments</code>] arguments if you’re scripting the [<code>Trainer</code>] setup yourself (don’t dump the [<code>TrainingArguments</code>] which has dozens of irrelevant entries)</p>
+</li>
+<li><p>the outputs of:</p>
+</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python <span class="token parameter variable">-c</span> <span class="token string">'import torch; print(f"torch: &#123;torch.__version__&#125;")'</span>
+python <span class="token parameter variable">-c</span> <span class="token string">'import transformers; print(f"transformers: &#123;transformers.__version__&#125;")'</span>
+python <span class="token parameter variable">-c</span> <span class="token string">'import deepspeed; print(f"deepspeed: &#123;deepspeed.__version__&#125;")'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>a link to a Google Colab notebook to reproduce the issue</p>
+</li>
+<li><p>if impossible, a standard and non-custom dataset we can use and also try to use an existing example to reproduce the issue with</p>
+</li>
+</ul>
+<p>The following sections provide a guide for resolving two of the most common issues.</p>
+<h3 id="DeepSpeed-process-killed-at-startup"><a href="#DeepSpeed-process-killed-at-startup" class="headerlink" title="DeepSpeed process killed at startup"></a>DeepSpeed process killed at startup</h3><p>When the DeepSpeed process is killed during launch without a traceback, that usually means the program tried to allocate more CPU memory than your system has or your process tried to allocate more CPU memory than allowed leading the OS kernel to terminate the process. In this case, check whether your configuration file has either <code>offload_optimizer</code>, <code>offload_param</code> or both configured to offload to the CPU. </p>
+<p>If you have NVMe and ZeRO-3 setup, experiment with offloading to the NVMe (<a href="https://deepspeed.readthedocs.io/en/latest/memory.html">estimate</a> the memory requirements for your model).</p>
+<h3 id="NaN-loss"><a href="#NaN-loss" class="headerlink" title="NaN loss"></a>NaN loss</h3><p>NaN loss often occurs when a model is pretrained in bf16 and then you try to use it with fp16 (especially relevant for TPU trained models). To resolve this, use fp32 or bf16 if your hardware supports it (TPU, Ampere GPUs or newer).</p>
+<p>The other issue may be related to using fp16. For example, if this is your fp16 configuration:</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"fp16"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token key atrule">"enabled"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"loss_scale"</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"loss_scale_window"</span><span class="token punctuation">:</span> <span class="token number">1000</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"initial_scale_power"</span><span class="token punctuation">:</span> <span class="token number">16</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"hysteresis"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+        <span class="token key atrule">"min_loss_scale"</span><span class="token punctuation">:</span> <span class="token number">1</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>You might see the following <code>OVERFLOW!</code> messages in the logs:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">0</span>%<span class="token operator">|</span>                                                                                                                             <span class="token operator">|</span> <span class="token number">0</span>/189 <span class="token punctuation">[</span>00:0<span class="token operator"><span class="token file-descriptor important">0</span>&lt;</span>?, ?it/s<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>deepscale<span class="token punctuation">]</span> OVERFLOW<span class="token operator">!</span> Rank <span class="token number">0</span> Skipping step. Attempted loss scale: <span class="token number">262144</span>, reducing to <span class="token number">262144</span>
+  <span class="token number">1</span>%<span class="token operator">|</span>▌                                                                                                                    <span class="token operator">|</span> <span class="token number">1</span>/189 <span class="token punctuation">[</span>00:0<span class="token operator"><span class="token file-descriptor important">0</span>&lt;</span>01:26,  <span class="token number">2</span>.17it/s<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>deepscale<span class="token punctuation">]</span> OVERFLOW<span class="token operator">!</span> Rank <span class="token number">0</span> Skipping step. Attempted loss scale: <span class="token number">262144</span>, reducing to <span class="token number">131072.0</span>
+  <span class="token number">1</span>%<span class="token operator">|</span>█▏
+ <span class="token punctuation">[</span><span class="token punctuation">..</span>.<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>deepscale<span class="token punctuation">]</span> OVERFLOW<span class="token operator">!</span> Rank <span class="token number">0</span> Skipping step. Attempted loss scale: <span class="token number">1</span>, reducing to <span class="token number">1</span>
+ <span class="token number">14</span>%<span class="token operator">|</span>████████████████▌                                                                                                   <span class="token operator">|</span> <span class="token number">27</span>/189 <span class="token punctuation">[</span>00:1<span class="token operator"><span class="token file-descriptor important">4</span>&lt;</span>01:13,  <span class="token number">2</span>.21it/s<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>deepscale<span class="token punctuation">]</span> OVERFLOW<span class="token operator">!</span> Rank <span class="token number">0</span> Skipping step. Attempted loss scale: <span class="token number">1</span>, reducing to <span class="token number">1</span>
+ <span class="token number">15</span>%<span class="token operator">|</span>█████████████████▏                                                                                                  <span class="token operator">|</span> <span class="token number">28</span>/189 <span class="token punctuation">[</span>00:1<span class="token operator"><span class="token file-descriptor important">4</span>&lt;</span>01:13,  <span class="token number">2</span>.18it/s<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>deepscale<span class="token punctuation">]</span> OVERFLOW<span class="token operator">!</span> Rank <span class="token number">0</span> Skipping step. Attempted loss scale: <span class="token number">1</span>, reducing to <span class="token number">1</span>
+ <span class="token number">15</span>%<span class="token operator">|</span>█████████████████▊                                                                                                  <span class="token operator">|</span> <span class="token number">29</span>/189 <span class="token punctuation">[</span>00:1<span class="token operator"><span class="token file-descriptor important">5</span>&lt;</span>01:13,  <span class="token number">2</span>.18it/s<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>deepscale<span class="token punctuation">]</span> OVERFLOW<span class="token operator">!</span> Rank <span class="token number">0</span> Skipping step. Attempted loss scale: <span class="token number">1</span>, reducing to <span class="token number">1</span>
+<span class="token punctuation">[</span><span class="token punctuation">..</span>.<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>This means the DeepSpeed loss scaler is unable to find a scaling coefficient to overcome loss overflow. To fix it, try a higher <code>initial_scale_power</code> value (32 usually works).</p>
+<h2 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h2><p>DeepSpeed ZeRO is a powerful technology for training and loading very large models for inference with limited GPU resources, making it more accessible to everyone. To learn more about DeepSpeed, feel free to read the <a href="https://www.microsoft.com/en-us/research/search/?q=deepspeed">blog posts</a>, <a href="https://www.deepspeed.ai/getting-started/">documentation</a>, and <a href="https://github.com/microsoft/deepspeed">GitHub repository</a>. </p>
+<p>The following papers are also a great resource for learning more about ZeRO:</p>
+<ul>
+<li><a href="https://hf.co/papers/1910.02054">ZeRO: Memory Optimizations Toward Training Trillion Parameter Models</a></li>
+<li><a href="https://hf.co/papers/2101.06840">ZeRO-Offload: Democratizing Billion-Scale Model Training</a></li>
+<li><a href="https://hf.co/papers/2104.07857">ZeRO-Infinity: Breaking the GPU Memory Wall for Extreme Scale Deep Learning</a></li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百三十九篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2024/06/28/00139-deepspeed/">https://luyf-lemon-love.space/2024/06/28/00139-deepspeed/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大语言模型</span>
+                                </a>
+                            
+                                <a href="/tags/huggingface/">
+                                    <span class="chip bg-color">huggingface</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/06/29/00140-cpu-tui-li/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/001-win11-系统自带.jpg" class="responsive-img" alt="00140 CPU 推理">
+                        
+                        <span class="card-title">00140 CPU 推理</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-06-29
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/06/27/00138-wan-quan-fen-pian-shu-ju-bing-xing/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/066-泳装可爱动漫美女.jpg" class="responsive-img" alt="00138 完全分片数据并行">
+                        
+                        <span class="card-title">00138 完全分片数据并行</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

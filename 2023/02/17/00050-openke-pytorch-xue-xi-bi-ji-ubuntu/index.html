@@ -1,0 +1,2095 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00050-OpenKE-PyTorch 学习笔记, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言OpenKE 是 清华大学自然语言处理与社会人文计算实验室(THUNLP) 开发的知识图谱表示学习工具包.
+OpenKE 代码仓库链接: https://github.com/thunlp/OpenKE .
+操作系统：Ubuntu 20">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00050-OpenKE-PyTorch 学习笔记 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/007-雾中的高山.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00050-OpenKE-PyTorch 学习笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                                <span class="chip bg-color">知识图谱</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E8%A1%A5%E5%85%A8/">
+                                <span class="chip bg-color">知识图谱补全</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/PyTorch/" class="post-category">
+                                PyTorch
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-02-17
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a href="https://github.com/thunlp/OpenKE">OpenKE</a> 是 <a href="https://nlp.csai.tsinghua.edu.cn/">清华大学自然语言处理与社会人文计算实验室</a>(THUNLP) 开发的知识图谱表示学习工具包.</p>
+<p>OpenKE 代码仓库链接: <a href="https://github.com/thunlp/OpenKE">https://github.com/thunlp/OpenKE</a> .</p>
+<p>操作系统：<strong>Ubuntu 20.04.5 LTS</strong></p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><p><a href="https://nlp.csai.tsinghua.edu.cn/project/openke/">OpenKE：知识图谱表示学习工具包</a></p>
+</li>
+<li><p><a href="https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/README.md">OpenKE</a></p>
+</li>
+</ol>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>OpenKE 是 THUNLP 基于 TensorFlow、PyTorch 开发的用于将知识图谱嵌入到低维连续向量空间进行表示的开源框架。在 OpenKE 中，提供了快速且稳定的各类接口，也实现了诸多经典的知识表示学习模型。<strong>该框架易于扩展，基于框架设计新的知识表示模型也十分的方便</strong>。具体来说，OpenKE 具有如下特点：</p>
+<ol>
+<li><p>接口设计简单，可以轻松在各种不同的训练环境下部署模型。</p>
+</li>
+<li><p>底层的数据处理进行了优化，模型训练速度较快。</p>
+</li>
+<li><p>提供了轻量级的 C++ 模型实现，在 CPU 多线程环境下也能快速运行。</p>
+</li>
+<li><p>提供了大规模知识图谱的预训练向量，可以直接在下游任务中使用。</p>
+</li>
+<li><p>长期的工程维护来解决问题和满足新的需求。</p>
+</li>
+</ol>
+<blockquote>
+<p>OpenKE 工具包地址：<a href="https://github.com/thunlp/OpenKE">https://github.com/thunlp/OpenKE</a></p>
+</blockquote>
+<p>此前 THUNLP 还开源了知识图谱表示学习必读论文列表：<strong>KRLPapers</strong>，覆盖了较为经典的知识图谱表示学习领域的已发表论文、综述等，欢迎搭配使用。</p>
+<ul>
+<li>Papers论文列表地址：<a href="https://github.com/thunlp/KRLPapers">https://github.com/thunlp/KRLPapers</a> .</li>
+</ul>
+<h3 id="总体介绍"><a href="#总体介绍" class="headerlink" title="总体介绍"></a>总体介绍</h3><p>知识图谱是由实体（节点）和关系（不同类型的边）组成的多关系图。每条边都表示为形式(头实体、关系、尾实体)的三个部分，也称为事实，表示两个实体通过特定的关系连接在一起，例如(北京, 首都, 中国)。虽然在表示结构化数据方面很有效，但是这类三元组的底层符号特性通常使知识图谱很难操作。为了解决这个问题，<strong>知识图谱表示学习被引入，将实体和关系转化为连续的向量空间，从而简化操作，同时保留知识图谱的原有的结构。</strong>那些实体和关系嵌入能进一步应用于各种任务中，如<strong>知识图谱补全</strong>、<strong>关系提取</strong>、<strong>实体分类</strong>和<strong>实体解析</strong>。下表给出一些典型知识图谱的评分函数与模型形式：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/openke1.width-640.png"></p>
+<h3 id="设计思路与样例"><a href="#设计思路与样例" class="headerlink" title="设计思路与样例"></a>设计思路与样例</h3><p>整体设计分为三层，包括<strong>底层数据处理</strong>、<strong>中层模型构建</strong>和<strong>上层训练与评测策略</strong>，每一块均有足够封装，确保调用的方便。如下图所示，通过简单的代码可以对不同层的模块进行调用，最终支持知识图谱表示学习模型的训练与部署。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230217184419.png"></p>
+<blockquote>
+<p>上图中的 code 是 OpenKE 旧版的使用实例.</p>
+</blockquote>
+<p>使用 OpenKE 复现出的模型与公开论文中公布的历史最高结果相比是基本一致的，相关的参数和训练代码也作为使用案例在 OpenKE 工具包中。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230217184624.png"></p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><blockquote>
+<p>OpenKE 工具包将会长期维护并保持更新，欢迎大家使用 OpenKE 作为知识图谱表示学习领域学术研究和应用开发的工具。大家在使用过程中有任何问题或是意见和建议都欢迎提出。也欢迎大家加入我们，共同开发、完善 OpenKE 工具包。</p>
+</blockquote>
+<h3 id="相关论文"><a href="#相关论文" class="headerlink" title="相关论文"></a>相关论文</h3><p>[1] A Three-Way Model for Collective Learning on Multi-Relational Data. Nickel et al. Proceedings of ICML 2011.</p>
+<p>[2] Translating Embeddings for Modeling Multi-relational Data. Bordes et al. Proceedings of NIPS 2013.</p>
+<p>[3] Knowledge Graph Embedding by Translating on Hyperplanes. Wang et al. Proceedings of AAAI, 2014.</p>
+<p>[4] Learning Entity and Relation Embeddings for Knowledge Graph Completion. Lin et al. Proceedings of AAAI, 2015.</p>
+<p>[5] Knowledge Graph Embedding via Dynamic Mapping Matrix. Ji et al. Proceedings of ACL 2015.</p>
+<p>[6] Embedding Entities and Relations for Learning and Inference in Knowledge Bases. Yang et al. Proceedings of ICLR 2015.</p>
+<p>[7] Holographic Embeddings of Knowledge Graphs. Nickel et al. Proceedings of AAAI 2016.</p>
+<p>[8] Knowledge Graph Completion with Adaptive Sparse Transfer Matrix. Ji et al. Proceedings of AAAI 2016.</p>
+<p>[9] Complex Embeddings for Simple Link Prediction. Trouillon et al. Proceedings of ICML 2016.</p>
+<p>[10] Rotate: Knowledge Graph Embedding by Relational Rotation in Complex Space. Sun et al. Proceedings of ICLR 2018.</p>
+<p>[11] Simple Embedding for Link Prediction in Knowledge Graphs. Kazemi et al. Proceedings of NIPS 2018.</p>
+<h2 id="OpenKE-PyTorch"><a href="#OpenKE-PyTorch" class="headerlink" title="OpenKE-PyTorch"></a>OpenKE-PyTorch</h2><blockquote>
+<p>This repository is a subproject of THU-OpenSK, and all subprojects of THU-OpenSK are as follows.</p>
+<ul>
+<li><p><a href="https://www.github.com/thunlp/OpenNE">OpenNE</a></p>
+</li>
+<li><p><a href="https://www.github.com/thunlp/OpenKE">OpenKE</a></p>
+<ul>
+<li><p><a href="https://www.github.com/thunlp/KB2E">KB2E</a></p>
+</li>
+<li><p><a href="https://www.github.com/thunlp/TensorFlow-Transx">TensorFlow-Transx</a></p>
+</li>
+<li><p><a href="https://www.github.com/thunlp/Fast-TransX">Fast-TransX</a></p>
+</li>
+</ul>
+</li>
+<li><p><a href="https://www.github.com/thunlp/OpenNRE">OpenNRE</a></p>
+<ul>
+<li><a href="https://www.github.com/thunlp/JointNRE">JointNRE</a></li>
+</ul>
+</li>
+</ul>
+<p>An Open-source Framework for Knowledge Embedding implemented with PyTorch.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>More information is available on our website <a href="http://openke.thunlp.org/">http://openke.thunlp.org/</a></p>
+<p>Note: This document is an old version.</p>
+<p>If you use the code, please cite the following <a href="http://aclweb.org/anthology/D18-2024">paper</a>:</p>
+</blockquote>
+<pre class="line-numbers language-BibTex" data-language="BibTex"><code class="language-BibTex">@inproceedings&#123;han2018openke,
+  title&#x3D;&#123;OpenKE: An Open Toolkit for Knowledge Embedding&#125;,
+  author&#x3D;&#123;Han, Xu and Cao, Shulin and Lv Xin and Lin, Yankai and Liu, Zhiyuan and Sun, Maosong and Li, Juanzi&#125;,
+  booktitle&#x3D;&#123;Proceedings of EMNLP&#125;,
+  year&#x3D;&#123;2018&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><blockquote>
+<p>This is an Efficient implementation based on <strong>PyTorch</strong> for knowledge representation learning (KRL). We use <strong>C++</strong> to implement some underlying operations such as data preprocessing and negative sampling. For each specific model, it is implemented by PyTorch with Python interfaces so that there is a convenient platform to run models on <strong>GPUs</strong>. OpenKE composes 4 repositories:</p>
+</blockquote>
+<p>OpenKE-PyTorch: the project based on PyTorch, which provides <strong>the optimized and stable framework for knowledge graph embedding models</strong>.</p>
+<p><a href="https://github.com/thunlp/OpenKE/tree/OpenKE-Tensorflow1.0">OpenKE-Tensorflow1.0</a>: OpenKE implemented with <strong>TensorFlow</strong>, also providing the optimized and stable framework for knowledge graph embedding models.</p>
+<p><a href="https://github.com/thunlp/TensorFlow-TransX">TensorFlow-TransX</a>: light and simple version of OpenKE based on <strong>TensorFlow</strong>, including <strong>TransE</strong>, <strong>TransH</strong>, <strong>TransR</strong> and <strong>TransD</strong>.</p>
+<p><a href="https://github.com/thunlp/Fast-TransX">Fast-TransX</a>: <strong>efficient lightweight C++ inferences</strong> for TransE and its extended models utilizing the framework of OpenKE, including <strong>TransH</strong>, <strong>TransR</strong>, <strong>TransD</strong>, <strong>TranSparse</strong> and <strong>PTransE</strong>.</p>
+<blockquote>
+<p>We are now developing a new version of OpenKE-PyTorch. The project has been completely reconstructed and is faster, more extendable and the codes are easier to read and use now. If you need get to the old version, please refer to branch <a href="https://github.com/thunlp/OpenKE/tree/OpenKE-PyTorch(old)">OpenKE-PyTorch(old)</a>.</p>
+</blockquote>
+<h3 id="New-Features"><a href="#New-Features" class="headerlink" title="New Features"></a>New Features</h3><ul>
+<li><p>RotatE</p>
+</li>
+<li><p>More enhancing strategies (e.g., <strong>adversarial training</strong>)</p>
+</li>
+<li><p>More scripts of the typical models for the benchmark datasets.</p>
+</li>
+<li><p>More extendable interfaces</p>
+</li>
+</ul>
+<h3 id="Models"><a href="#Models" class="headerlink" title="Models"></a>Models</h3><ul>
+<li>RESCAL, DistMult, ComplEx, Analogy, TransE, TransH, TransR, TransD, SimplE, RotatE, HolE</li>
+</ul>
+<h3 id="Experimental-Settings"><a href="#Experimental-Settings" class="headerlink" title="Experimental Settings"></a>Experimental Settings</h3><blockquote>
+<p>For each test triplet, the head is removed and replaced by each of the entities from the entity set in turn. The scores of those corrupted triplets are first computed by the models and then sorted by the order. Then, we get the rank of the correct entity. This whole procedure is also repeated by removing those tail entities. We report the proportion of those correct entities ranked in the top 10&#x2F;3&#x2F;1 (<strong>Hits@10</strong>, <strong>Hits@3</strong>, <strong>Hits@1</strong>). <strong>The mean rank (MRR)</strong> and <strong>mean reciprocal rank (MRR)</strong> of the test triplets under this setting are also reported.</p>
+<p>Because some corrupted triplets may be in the training set and validation set. <strong>In this case, those corrupted triplets may be ranked above the test triplet, but this should not be counted as an error because both triplets are true.</strong> Hence, we remove those corrupted triplets appearing in the training, validation or test set, which ensures the corrupted triplets are not in the dataset. We report the proportion of those correct entities ranked in the top 10&#x2F;3&#x2F;1 (<strong>Hits@10 (filter)</strong>, <strong>Hits@3(filter)</strong>, <strong>Hits@1(filter)</strong>) under this setting. The mean rank (MRR (filter)) and mean reciprocal rank (MRR (filter)) of the test triplets under this setting are also reported.</p>
+<p>More details of the above-mentioned settings can be found from the papers <a href="http://papers.nips.cc/paper/5071-translating-embeddings-for-modeling-multi-relational-data.pdf">TransE</a>, <a href="http://proceedings.mlr.press/v48/trouillon16.pdf">ComplEx</a>.</p>
+<p>For those large-scale entity sets, to corrupt all entities with the whole entity set is time-costing. Hence, we also provide the experimental setting named “<a href="https://www.dbs.ifi.lmu.de/~krompass/papers/TypeConstrainedRepresentationLearningInKnowledgeGraphs.pdf">type constraint</a>“ to corrupt entities with some limited entity sets determining by their relations.</p>
+</blockquote>
+<h3 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h3><blockquote>
+<p>We have provided the hyper-parameters of some models to achieve the state-of-the-art performace (Hits@10 (filter)) on FB15K237 and WN18RR. These scripts can be founded in the folder <code>&quot;./examples/&quot;</code>. Up to now, these models include <code>TransE</code>, <code>TransH</code>, <code>TransR</code>, <code>TransD</code>, <code>DistMult</code>, <code>ComplEx</code>. The results of these models are as follows:</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">Model</th>
+<th align="center">WN18RR</th>
+<th align="center">FB15K237</th>
+<th align="center">WN18RR (Paper*)</th>
+<th align="center">FB15K237  (Paper*)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">TransE</td>
+<td align="center">0.512</td>
+<td align="center">0.476</td>
+<td align="center">0.501</td>
+<td align="center">0.486</td>
+</tr>
+<tr>
+<td align="center">TransH</td>
+<td align="center">0.507</td>
+<td align="center">0.490</td>
+<td align="center">-</td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="center">TransR</td>
+<td align="center">0.519</td>
+<td align="center">0.511</td>
+<td align="center">-</td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="center">TransD</td>
+<td align="center">0.508</td>
+<td align="center">0.487</td>
+<td align="center">-</td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="center">DistMult</td>
+<td align="center">0.479</td>
+<td align="center">0.419</td>
+<td align="center">0.49</td>
+<td align="center">0.419</td>
+</tr>
+<tr>
+<td align="center">ComplEx</td>
+<td align="center">0.485</td>
+<td align="center">0.426</td>
+<td align="center">0.51</td>
+<td align="center">0.428</td>
+</tr>
+<tr>
+<td align="center">ConvE</td>
+<td align="center">0.506</td>
+<td align="center">0.485</td>
+<td align="center">0.52</td>
+<td align="center">0.501</td>
+</tr>
+<tr>
+<td align="center">RotatE</td>
+<td align="center">0.549</td>
+<td align="center">0.479</td>
+<td align="center">-</td>
+<td align="center">0.480</td>
+</tr>
+<tr>
+<td align="center">RotatE (+adv)</td>
+<td align="center">0.565</td>
+<td align="center">0.522</td>
+<td align="center">0.571</td>
+<td align="center">0.533</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>We are still trying more hyper-parameters and more training strategies (e.g., adversarial training and label smoothing regularization) for these models.</strong> Hence, this table is still in change. We welcome everyone to help us update this table and hyper-parameters.</p>
+</blockquote>
+<h3 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h3><ol>
+<li><p>Install <a href="https://pytorch.org/get-started/locally/">PyTorch</a></p>
+</li>
+<li><p>Clone the OpenKE-PyTorch branch:</p>
+</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone <span class="token parameter variable">-b</span> OpenKE-PyTorch https://github.com/thunlp/OpenKE <span class="token parameter variable">--depth</span> <span class="token number">1</span>
+<span class="token builtin class-name">cd</span> OpenKE
+<span class="token builtin class-name">cd</span> openke<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="3">
+<li>Compile C++ files</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">bash</span> make.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="4">
+<li>Quick Start</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>/
+<span class="token function">cp</span> examples/train_transe_FB15K237.py ./
+python train_transe_FB15K237.py<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h3><ul>
+<li><p>For training, datasets contain three files:</p>
+<ul>
+<li><p><strong><code>train2id.txt</code></strong>: training file, the first line is the number of triples for training. Then the following lines are all in the format <em><strong>(e1, e2, rel)</strong></em> which indicates there is a relation <em><strong>rel</strong></em> between <em><strong>e1</strong></em> and <em><strong>e2</strong></em> . <strong>Note that train2id.txt contains ids from entitiy2id.txt and relation2id.txt instead of the names of the entities and relations. If you use your own datasets, please check the format of your training file. Files in the wrong format may cause segmentation fault.</strong></p>
+</li>
+<li><p><strong><code>entity2id.txt</code></strong>: all entities and corresponding ids, one per line. <strong>The first line is the number of entities.</strong></p>
+</li>
+<li><p><strong><code>relation2id.txt</code></strong>: all relations and corresponding ids, one per line. <strong>The first line is the number of relations.</strong></p>
+</li>
+</ul>
+</li>
+<li><p>For testing, datasets contain additional two files (totally five files):</p>
+<ul>
+<li><p><strong><code>test2id.txt</code></strong>: testing file, the first line is the number of triples for testing. Then the following lines are all in the format <em><strong>(e1, e2, rel)</strong></em>.</p>
+</li>
+<li><p><strong><code>valid2id.txt</code></strong>: validating file, the first line is the number of triples for validating. Then the following lines are all in the format <em><strong>(e1, e2, rel)</strong></em> .</p>
+</li>
+<li><p><strong><code>type_constrain.txt</code></strong>: type constraining file, <strong>the first line is the number of relations</strong>. Then the following lines are type constraints for each relation. <strong>For example, the relation with id 1200 has 4 types of head entities, which are 3123, 1034, 58 and 5733. The relation with id 1200 has 4 types of tail entities, which are 12123, 4388, 11087 and 11088.</strong> You can get this file through <strong><code>n-n.py</code></strong> in folder <strong>benchmarks&#x2F;FB15K</strong>.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="To-do"><a href="#To-do" class="headerlink" title="To do"></a>To do</h3><blockquote>
+<p>The document of the new version of OpenKE-PyTorch will come soon.</p>
+</blockquote>
+<h2 id="examples"><a href="#examples" class="headerlink" title="examples"></a>examples</h2><h3 id="train-analogy-WN18RR-py"><a href="#train-analogy-WN18RR-py" class="headerlink" title="train_analogy_WN18RR.py"></a><code>train_analogy_WN18RR.py</code></h3><p>link: <a href="https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_analogy_WN18RR.py">https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_analogy_WN18RR.py</a> .</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> openke
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>config <span class="token keyword">import</span> Trainer<span class="token punctuation">,</span> Tester
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>model <span class="token keyword">import</span> Analogy
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>loss <span class="token keyword">import</span> SoftplusLoss
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>strategy <span class="token keyword">import</span> NegativeSampling
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>data <span class="token keyword">import</span> TrainDataLoader<span class="token punctuation">,</span> TestDataLoader
+
+<span class="token comment"># dataloader for training</span>
+train_dataloader <span class="token operator">=</span> TrainDataLoader<span class="token punctuation">(</span>
+	in_path <span class="token operator">=</span> <span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> 
+	nbatches <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span>
+	threads <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> 
+	sampling_mode <span class="token operator">=</span> <span class="token string">"normal"</span><span class="token punctuation">,</span> 
+	bern_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	filter_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	neg_ent <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">,</span>
+	neg_rel <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># dataloader for test</span>
+test_dataloader <span class="token operator">=</span> TestDataLoader<span class="token punctuation">(</span><span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> <span class="token string">"link"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># define the model</span>
+analogy <span class="token operator">=</span> Analogy<span class="token punctuation">(</span>
+	ent_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_ent_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	rel_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_rel_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	dim <span class="token operator">=</span> <span class="token number">200</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># define the loss function</span>
+model <span class="token operator">=</span> NegativeSampling<span class="token punctuation">(</span>
+	model <span class="token operator">=</span> analogy<span class="token punctuation">,</span> 
+	loss <span class="token operator">=</span> SoftplusLoss<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	batch_size <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_batch_size<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+	regul_rate <span class="token operator">=</span> <span class="token number">1.0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># train the model</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model <span class="token operator">=</span> model<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> train_dataloader<span class="token punctuation">,</span> train_times <span class="token operator">=</span> <span class="token number">2000</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">,</span> opt_method <span class="token operator">=</span> <span class="token string">"adagrad"</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+analogy<span class="token punctuation">.</span>save_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/analogy.ckpt'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># test the model</span>
+analogy<span class="token punctuation">.</span>load_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/analogy.ckpt'</span><span class="token punctuation">)</span>
+tester <span class="token operator">=</span> Tester<span class="token punctuation">(</span>model <span class="token operator">=</span> analogy<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> test_dataloader<span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+tester<span class="token punctuation">.</span>run_link_prediction<span class="token punctuation">(</span>type_constrain <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="train-complex-WN18RR-py"><a href="#train-complex-WN18RR-py" class="headerlink" title="train_complex_WN18RR.py"></a><code>train_complex_WN18RR.py</code></h3><p>link: <a href="https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_complex_WN18RR.py">https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_complex_WN18RR.py</a> .</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> openke
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>config <span class="token keyword">import</span> Trainer<span class="token punctuation">,</span> Tester
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>model <span class="token keyword">import</span> ComplEx
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>loss <span class="token keyword">import</span> SoftplusLoss
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>strategy <span class="token keyword">import</span> NegativeSampling
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>data <span class="token keyword">import</span> TrainDataLoader<span class="token punctuation">,</span> TestDataLoader
+
+<span class="token comment"># dataloader for training</span>
+train_dataloader <span class="token operator">=</span> TrainDataLoader<span class="token punctuation">(</span>
+	in_path <span class="token operator">=</span> <span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> 
+	nbatches <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span>
+	threads <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> 
+	sampling_mode <span class="token operator">=</span> <span class="token string">"normal"</span><span class="token punctuation">,</span> 
+	bern_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	filter_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	neg_ent <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">,</span>
+	neg_rel <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># dataloader for test</span>
+test_dataloader <span class="token operator">=</span> TestDataLoader<span class="token punctuation">(</span><span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> <span class="token string">"link"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># define the model</span>
+complEx <span class="token operator">=</span> ComplEx<span class="token punctuation">(</span>
+	ent_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_ent_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	rel_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_rel_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	dim <span class="token operator">=</span> <span class="token number">200</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># define the loss function</span>
+model <span class="token operator">=</span> NegativeSampling<span class="token punctuation">(</span>
+	model <span class="token operator">=</span> complEx<span class="token punctuation">,</span> 
+	loss <span class="token operator">=</span> SoftplusLoss<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	batch_size <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_batch_size<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+	regul_rate <span class="token operator">=</span> <span class="token number">1.0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># train the model</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model <span class="token operator">=</span> model<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> train_dataloader<span class="token punctuation">,</span> train_times <span class="token operator">=</span> <span class="token number">2000</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">,</span> opt_method <span class="token operator">=</span> <span class="token string">"adagrad"</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+complEx<span class="token punctuation">.</span>save_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/complEx.ckpt'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># test the model</span>
+complEx<span class="token punctuation">.</span>load_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/complEx.ckpt'</span><span class="token punctuation">)</span>
+tester <span class="token operator">=</span> Tester<span class="token punctuation">(</span>model <span class="token operator">=</span> complEx<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> test_dataloader<span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+tester<span class="token punctuation">.</span>run_link_prediction<span class="token punctuation">(</span>type_constrain <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="train-distmult-WN18RR-py"><a href="#train-distmult-WN18RR-py" class="headerlink" title="train_distmult_WN18RR.py"></a><code>train_distmult_WN18RR.py</code></h3><p>link: <a href="https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_distmult_WN18RR.py">https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_distmult_WN18RR.py</a> .</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> openke
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>config <span class="token keyword">import</span> Trainer<span class="token punctuation">,</span> Tester
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>model <span class="token keyword">import</span> DistMult
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>loss <span class="token keyword">import</span> SoftplusLoss
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>strategy <span class="token keyword">import</span> NegativeSampling
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>data <span class="token keyword">import</span> TrainDataLoader<span class="token punctuation">,</span> TestDataLoader
+
+<span class="token comment"># dataloader for training</span>
+train_dataloader <span class="token operator">=</span> TrainDataLoader<span class="token punctuation">(</span>
+	in_path <span class="token operator">=</span> <span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> 
+	nbatches <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span>
+	threads <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> 
+	sampling_mode <span class="token operator">=</span> <span class="token string">"normal"</span><span class="token punctuation">,</span> 
+	bern_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	filter_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	neg_ent <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">,</span>
+	neg_rel <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># dataloader for test</span>
+test_dataloader <span class="token operator">=</span> TestDataLoader<span class="token punctuation">(</span><span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> <span class="token string">"link"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># define the model</span>
+distmult <span class="token operator">=</span> DistMult<span class="token punctuation">(</span>
+	ent_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_ent_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	rel_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_rel_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	dim <span class="token operator">=</span> <span class="token number">200</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># define the loss function</span>
+model <span class="token operator">=</span> NegativeSampling<span class="token punctuation">(</span>
+	model <span class="token operator">=</span> distmult<span class="token punctuation">,</span> 
+	loss <span class="token operator">=</span> SoftplusLoss<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	batch_size <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_batch_size<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+	regul_rate <span class="token operator">=</span> <span class="token number">1.0</span>
+<span class="token punctuation">)</span>
+
+
+<span class="token comment"># train the model</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model <span class="token operator">=</span> model<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> train_dataloader<span class="token punctuation">,</span> train_times <span class="token operator">=</span> <span class="token number">2000</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">,</span> opt_method <span class="token operator">=</span> <span class="token string">"adagrad"</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+distmult<span class="token punctuation">.</span>save_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/distmult.ckpt'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># test the model</span>
+distmult<span class="token punctuation">.</span>load_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/distmult.ckpt'</span><span class="token punctuation">)</span>
+tester <span class="token operator">=</span> Tester<span class="token punctuation">(</span>model <span class="token operator">=</span> distmult<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> test_dataloader<span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+tester<span class="token punctuation">.</span>run_link_prediction<span class="token punctuation">(</span>type_constrain <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="train-distmult-WN18RR-adv-py"><a href="#train-distmult-WN18RR-adv-py" class="headerlink" title="train_distmult_WN18RR_adv.py"></a><code>train_distmult_WN18RR_adv.py</code></h3><p>link: <a href="https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_distmult_WN18RR_adv.py">https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_distmult_WN18RR_adv.py</a> .</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> openke
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>config <span class="token keyword">import</span> Trainer<span class="token punctuation">,</span> Tester
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>model <span class="token keyword">import</span> DistMult
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>loss <span class="token keyword">import</span> SigmoidLoss
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>strategy <span class="token keyword">import</span> NegativeSampling
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>data <span class="token keyword">import</span> TrainDataLoader<span class="token punctuation">,</span> TestDataLoader
+
+<span class="token comment"># dataloader for training</span>
+train_dataloader <span class="token operator">=</span> TrainDataLoader<span class="token punctuation">(</span>
+	in_path <span class="token operator">=</span> <span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> 
+	batch_size <span class="token operator">=</span> <span class="token number">2000</span><span class="token punctuation">,</span>
+	threads <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span>
+	sampling_mode <span class="token operator">=</span> <span class="token string">"cross"</span><span class="token punctuation">,</span> 
+	bern_flag <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> 
+	filter_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	neg_ent <span class="token operator">=</span> <span class="token number">64</span><span class="token punctuation">,</span>
+	neg_rel <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># dataloader for test</span>
+test_dataloader <span class="token operator">=</span> TestDataLoader<span class="token punctuation">(</span><span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> <span class="token string">"link"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># define the model</span>
+distmult <span class="token operator">=</span> DistMult<span class="token punctuation">(</span>
+	ent_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_ent_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	rel_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_rel_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	dim <span class="token operator">=</span> <span class="token number">1024</span><span class="token punctuation">,</span>
+	margin <span class="token operator">=</span> <span class="token number">200.0</span><span class="token punctuation">,</span>
+	epsilon <span class="token operator">=</span> <span class="token number">2.0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># define the loss function</span>
+model <span class="token operator">=</span> NegativeSampling<span class="token punctuation">(</span>
+	model <span class="token operator">=</span> distmult<span class="token punctuation">,</span> 
+	loss <span class="token operator">=</span> SigmoidLoss<span class="token punctuation">(</span>adv_temperature <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	batch_size <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_batch_size<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+	l3_regul_rate <span class="token operator">=</span> <span class="token number">0.000005</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># train the model</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model <span class="token operator">=</span> model<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> train_dataloader<span class="token punctuation">,</span> train_times <span class="token operator">=</span> <span class="token number">400</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.002</span><span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">,</span> opt_method <span class="token operator">=</span> <span class="token string">"adam"</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+distmult<span class="token punctuation">.</span>save_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/distmult.ckpt'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># test the model</span>
+distmult<span class="token punctuation">.</span>load_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/distmult.ckpt'</span><span class="token punctuation">)</span>
+tester <span class="token operator">=</span> Tester<span class="token punctuation">(</span>model <span class="token operator">=</span> distmult<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> test_dataloader<span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+tester<span class="token punctuation">.</span>run_link_prediction<span class="token punctuation">(</span>type_constrain <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="train-hole-WN18RR-py"><a href="#train-hole-WN18RR-py" class="headerlink" title="train_hole_WN18RR.py"></a><code>train_hole_WN18RR.py</code></h3><p>link: <a href="https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_hole_WN18RR.py">https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_hole_WN18RR.py</a> .</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> openke
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>config <span class="token keyword">import</span> Trainer<span class="token punctuation">,</span> Tester
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>model <span class="token keyword">import</span> HolE
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>loss <span class="token keyword">import</span> SoftplusLoss
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>strategy <span class="token keyword">import</span> NegativeSampling
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>data <span class="token keyword">import</span> TrainDataLoader<span class="token punctuation">,</span> TestDataLoader
+
+<span class="token comment"># dataloader for training</span>
+train_dataloader <span class="token operator">=</span> TrainDataLoader<span class="token punctuation">(</span>
+	in_path <span class="token operator">=</span> <span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> 
+	nbatches <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span>
+	threads <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> 
+	sampling_mode <span class="token operator">=</span> <span class="token string">"normal"</span><span class="token punctuation">,</span> 
+	bern_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	filter_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+	neg_ent <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">,</span>
+	neg_rel <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># dataloader for test</span>
+test_dataloader <span class="token operator">=</span> TestDataLoader<span class="token punctuation">(</span><span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> <span class="token string">"link"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># define the model</span>
+hole <span class="token operator">=</span> HolE<span class="token punctuation">(</span>
+	ent_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_ent_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	rel_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_rel_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	dim <span class="token operator">=</span> <span class="token number">100</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># define the loss function</span>
+model <span class="token operator">=</span> NegativeSampling<span class="token punctuation">(</span>
+	model <span class="token operator">=</span> hole<span class="token punctuation">,</span> 
+	loss <span class="token operator">=</span> SoftplusLoss<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	batch_size <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_batch_size<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+	regul_rate <span class="token operator">=</span> <span class="token number">1.0</span>
+<span class="token punctuation">)</span>
+
+
+<span class="token comment"># train the model</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model <span class="token operator">=</span> model<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> train_dataloader<span class="token punctuation">,</span> train_times <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">,</span> opt_method <span class="token operator">=</span> <span class="token string">"adagrad"</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+hole<span class="token punctuation">.</span>save_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/hole.ckpt'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># test the model</span>
+hole<span class="token punctuation">.</span>load_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/hole.ckpt'</span><span class="token punctuation">)</span>
+tester <span class="token operator">=</span> Tester<span class="token punctuation">(</span>model <span class="token operator">=</span> hole<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> test_dataloader<span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+tester<span class="token punctuation">.</span>run_link_prediction<span class="token punctuation">(</span>type_constrain <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="train-rescal-FB15K237-py"><a href="#train-rescal-FB15K237-py" class="headerlink" title="train_rescal_FB15K237.py"></a><code>train_rescal_FB15K237.py</code></h3><p>link: <a href="https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_rescal_FB15K237.py">https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_rescal_FB15K237.py</a> .</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> openke
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>config <span class="token keyword">import</span> Trainer<span class="token punctuation">,</span> Tester
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>model <span class="token keyword">import</span> RESCAL
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>loss <span class="token keyword">import</span> MarginLoss
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>strategy <span class="token keyword">import</span> NegativeSampling
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>data <span class="token keyword">import</span> TrainDataLoader<span class="token punctuation">,</span> TestDataLoader
+
+<span class="token comment"># dataloader for training</span>
+train_dataloader <span class="token operator">=</span> TrainDataLoader<span class="token punctuation">(</span>
+	in_path <span class="token operator">=</span> <span class="token string">"./benchmarks/FB15K237/"</span><span class="token punctuation">,</span> 
+	nbatches <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span>
+	threads <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> 
+	sampling_mode <span class="token operator">=</span> <span class="token string">"normal"</span><span class="token punctuation">,</span> 
+	bern_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	filter_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	neg_ent <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">,</span>
+	neg_rel <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># dataloader for test</span>
+test_dataloader <span class="token operator">=</span> TestDataLoader<span class="token punctuation">(</span><span class="token string">"./benchmarks/FB15K237/"</span><span class="token punctuation">,</span> <span class="token string">"link"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># define the model</span>
+rescal <span class="token operator">=</span> RESCAL<span class="token punctuation">(</span>
+	ent_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_ent_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	rel_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_rel_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	dim <span class="token operator">=</span> <span class="token number">50</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># define the loss function</span>
+model <span class="token operator">=</span> NegativeSampling<span class="token punctuation">(</span>
+	model <span class="token operator">=</span> rescal<span class="token punctuation">,</span> 
+	loss <span class="token operator">=</span> MarginLoss<span class="token punctuation">(</span>margin <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	batch_size <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_batch_size<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+<span class="token punctuation">)</span>
+
+<span class="token comment"># train the model</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model <span class="token operator">=</span> model<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> train_dataloader<span class="token punctuation">,</span> train_times <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.1</span><span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">,</span> opt_method <span class="token operator">=</span> <span class="token string">"adagrad"</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+rescal<span class="token punctuation">.</span>save_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/rescal.ckpt'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># test the model</span>
+rescal<span class="token punctuation">.</span>load_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/rescal.ckpt'</span><span class="token punctuation">)</span>
+tester <span class="token operator">=</span> Tester<span class="token punctuation">(</span>model <span class="token operator">=</span> rescal<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> test_dataloader<span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+tester<span class="token punctuation">.</span>run_link_prediction<span class="token punctuation">(</span>type_constrain <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="train-rotate-WN18RR-adv-py"><a href="#train-rotate-WN18RR-adv-py" class="headerlink" title="train_rotate_WN18RR_adv.py"></a><code>train_rotate_WN18RR_adv.py</code></h3><p>link: <a href="https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_rotate_WN18RR_adv.py">https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_rotate_WN18RR_adv.py</a> .</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> openke
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>config <span class="token keyword">import</span> Trainer<span class="token punctuation">,</span> Tester
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>model <span class="token keyword">import</span> RotatE
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>loss <span class="token keyword">import</span> SigmoidLoss
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>strategy <span class="token keyword">import</span> NegativeSampling
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>data <span class="token keyword">import</span> TrainDataLoader<span class="token punctuation">,</span> TestDataLoader
+
+<span class="token comment"># dataloader for training</span>
+train_dataloader <span class="token operator">=</span> TrainDataLoader<span class="token punctuation">(</span>
+	in_path <span class="token operator">=</span> <span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> 
+	batch_size <span class="token operator">=</span> <span class="token number">2000</span><span class="token punctuation">,</span>
+	threads <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span>
+	sampling_mode <span class="token operator">=</span> <span class="token string">"cross"</span><span class="token punctuation">,</span> 
+	bern_flag <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> 
+	filter_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	neg_ent <span class="token operator">=</span> <span class="token number">64</span><span class="token punctuation">,</span>
+	neg_rel <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># dataloader for test</span>
+test_dataloader <span class="token operator">=</span> TestDataLoader<span class="token punctuation">(</span><span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> <span class="token string">"link"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># define the model</span>
+rotate <span class="token operator">=</span> RotatE<span class="token punctuation">(</span>
+	ent_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_ent_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	rel_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_rel_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	dim <span class="token operator">=</span> <span class="token number">1024</span><span class="token punctuation">,</span>
+	margin <span class="token operator">=</span> <span class="token number">6.0</span><span class="token punctuation">,</span>
+	epsilon <span class="token operator">=</span> <span class="token number">2.0</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># define the loss function</span>
+model <span class="token operator">=</span> NegativeSampling<span class="token punctuation">(</span>
+	model <span class="token operator">=</span> rotate<span class="token punctuation">,</span> 
+	loss <span class="token operator">=</span> SigmoidLoss<span class="token punctuation">(</span>adv_temperature <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	batch_size <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_batch_size<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+	regul_rate <span class="token operator">=</span> <span class="token number">0.0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># train the model</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model <span class="token operator">=</span> model<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> train_dataloader<span class="token punctuation">,</span> train_times <span class="token operator">=</span> <span class="token number">6000</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">2e-5</span><span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">,</span> opt_method <span class="token operator">=</span> <span class="token string">"adam"</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+rotate<span class="token punctuation">.</span>save_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/rotate.ckpt'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># test the model</span>
+rotate<span class="token punctuation">.</span>load_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/rotate.ckpt'</span><span class="token punctuation">)</span>
+tester <span class="token operator">=</span> Tester<span class="token punctuation">(</span>model <span class="token operator">=</span> rotate<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> test_dataloader<span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+tester<span class="token punctuation">.</span>run_link_prediction<span class="token punctuation">(</span>type_constrain <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="train-simple-WN18RR-py"><a href="#train-simple-WN18RR-py" class="headerlink" title="train_simple_WN18RR.py"></a><code>train_simple_WN18RR.py</code></h3><p>link: <a href="https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_simple_WN18RR.py">https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_simple_WN18RR.py</a> .</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> openke
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>config <span class="token keyword">import</span> Trainer<span class="token punctuation">,</span> Tester
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>model <span class="token keyword">import</span> SimplE
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>loss <span class="token keyword">import</span> SoftplusLoss
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>strategy <span class="token keyword">import</span> NegativeSampling
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>data <span class="token keyword">import</span> TrainDataLoader<span class="token punctuation">,</span> TestDataLoader
+
+<span class="token comment"># dataloader for training</span>
+train_dataloader <span class="token operator">=</span> TrainDataLoader<span class="token punctuation">(</span>
+	in_path <span class="token operator">=</span> <span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> 
+	nbatches <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span>
+	threads <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> 
+	sampling_mode <span class="token operator">=</span> <span class="token string">"normal"</span><span class="token punctuation">,</span> 
+	bern_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	filter_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	neg_ent <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">,</span>
+	neg_rel <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># dataloader for test</span>
+test_dataloader <span class="token operator">=</span> TestDataLoader<span class="token punctuation">(</span><span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> <span class="token string">"link"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># define the model</span>
+simple <span class="token operator">=</span> SimplE<span class="token punctuation">(</span>
+	ent_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_ent_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	rel_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_rel_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	dim <span class="token operator">=</span> <span class="token number">200</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># define the loss function</span>
+model <span class="token operator">=</span> NegativeSampling<span class="token punctuation">(</span>
+	model <span class="token operator">=</span> simple<span class="token punctuation">,</span> 
+	loss <span class="token operator">=</span> SoftplusLoss<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	batch_size <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_batch_size<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+	regul_rate <span class="token operator">=</span> <span class="token number">1.0</span>
+<span class="token punctuation">)</span>
+
+
+<span class="token comment"># train the model</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model <span class="token operator">=</span> model<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> train_dataloader<span class="token punctuation">,</span> train_times <span class="token operator">=</span> <span class="token number">2000</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">,</span> opt_method <span class="token operator">=</span> <span class="token string">"adagrad"</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+simple<span class="token punctuation">.</span>save_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/simple.ckpt'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># test the model</span>
+simple<span class="token punctuation">.</span>load_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/simple.ckpt'</span><span class="token punctuation">)</span>
+tester <span class="token operator">=</span> Tester<span class="token punctuation">(</span>model <span class="token operator">=</span> simple<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> test_dataloader<span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+tester<span class="token punctuation">.</span>run_link_prediction<span class="token punctuation">(</span>type_constrain <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="train-transd-FB15K237-py"><a href="#train-transd-FB15K237-py" class="headerlink" title="train_transd_FB15K237.py"></a><code>train_transd_FB15K237.py</code></h3><p>link: <a href="https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_transd_FB15K237.py">https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_transd_FB15K237.py</a> .</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> openke
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>config <span class="token keyword">import</span> Trainer<span class="token punctuation">,</span> Tester
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>model <span class="token keyword">import</span> TransD
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>loss <span class="token keyword">import</span> MarginLoss
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>strategy <span class="token keyword">import</span> NegativeSampling
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>data <span class="token keyword">import</span> TrainDataLoader<span class="token punctuation">,</span> TestDataLoader
+
+<span class="token comment"># dataloader for training</span>
+train_dataloader <span class="token operator">=</span> TrainDataLoader<span class="token punctuation">(</span>
+	in_path <span class="token operator">=</span> <span class="token string">"./benchmarks/FB15K237/"</span><span class="token punctuation">,</span> 
+	nbatches <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span>
+	threads <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> 
+	sampling_mode <span class="token operator">=</span> <span class="token string">"normal"</span><span class="token punctuation">,</span> 
+	bern_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	filter_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	neg_ent <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">,</span>
+	neg_rel <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token comment"># dataloader for test</span>
+test_dataloader <span class="token operator">=</span> TestDataLoader<span class="token punctuation">(</span><span class="token string">"./benchmarks/FB15K237/"</span><span class="token punctuation">,</span> <span class="token string">"link"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># define the model</span>
+transd <span class="token operator">=</span> TransD<span class="token punctuation">(</span>
+	ent_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_ent_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	rel_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_rel_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	dim_e <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">,</span> 
+	dim_r <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">,</span> 
+	p_norm <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	norm_flag <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># define the loss function</span>
+model <span class="token operator">=</span> NegativeSampling<span class="token punctuation">(</span>
+	model <span class="token operator">=</span> transd<span class="token punctuation">,</span> 
+	loss <span class="token operator">=</span> MarginLoss<span class="token punctuation">(</span>margin <span class="token operator">=</span> <span class="token number">4.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	batch_size <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_batch_size<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># train the model</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model <span class="token operator">=</span> model<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> train_dataloader<span class="token punctuation">,</span> train_times <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+transd<span class="token punctuation">.</span>save_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/transd.ckpt'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># test the model</span>
+transd<span class="token punctuation">.</span>load_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/transd.ckpt'</span><span class="token punctuation">)</span>
+tester <span class="token operator">=</span> Tester<span class="token punctuation">(</span>model <span class="token operator">=</span> transd<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> test_dataloader<span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+tester<span class="token punctuation">.</span>run_link_prediction<span class="token punctuation">(</span>type_constrain <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="train-transe-FB15K237-py"><a href="#train-transe-FB15K237-py" class="headerlink" title="train_transe_FB15K237.py"></a><code>train_transe_FB15K237.py</code></h3><p>link: <a href="https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_transe_FB15K237.py">https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_transe_FB15K237.py</a> .</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> openke
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>config <span class="token keyword">import</span> Trainer<span class="token punctuation">,</span> Tester
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>model <span class="token keyword">import</span> TransE
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>loss <span class="token keyword">import</span> MarginLoss
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>strategy <span class="token keyword">import</span> NegativeSampling
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>data <span class="token keyword">import</span> TrainDataLoader<span class="token punctuation">,</span> TestDataLoader
+
+<span class="token comment"># dataloader for training</span>
+train_dataloader <span class="token operator">=</span> TrainDataLoader<span class="token punctuation">(</span>
+	in_path <span class="token operator">=</span> <span class="token string">"./benchmarks/FB15K237/"</span><span class="token punctuation">,</span> 
+	nbatches <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span>
+	threads <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> 
+	sampling_mode <span class="token operator">=</span> <span class="token string">"normal"</span><span class="token punctuation">,</span> 
+	bern_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	filter_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	neg_ent <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">,</span>
+	neg_rel <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token comment"># dataloader for test</span>
+test_dataloader <span class="token operator">=</span> TestDataLoader<span class="token punctuation">(</span><span class="token string">"./benchmarks/FB15K237/"</span><span class="token punctuation">,</span> <span class="token string">"link"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># define the model</span>
+transe <span class="token operator">=</span> TransE<span class="token punctuation">(</span>
+	ent_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_ent_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	rel_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_rel_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	dim <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">,</span> 
+	p_norm <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	norm_flag <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># define the loss function</span>
+model <span class="token operator">=</span> NegativeSampling<span class="token punctuation">(</span>
+	model <span class="token operator">=</span> transe<span class="token punctuation">,</span> 
+	loss <span class="token operator">=</span> MarginLoss<span class="token punctuation">(</span>margin <span class="token operator">=</span> <span class="token number">5.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	batch_size <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_batch_size<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># train the model</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model <span class="token operator">=</span> model<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> train_dataloader<span class="token punctuation">,</span> train_times <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+transe<span class="token punctuation">.</span>save_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/transe.ckpt'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># test the model</span>
+transe<span class="token punctuation">.</span>load_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/transe.ckpt'</span><span class="token punctuation">)</span>
+tester <span class="token operator">=</span> Tester<span class="token punctuation">(</span>model <span class="token operator">=</span> transe<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> test_dataloader<span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+tester<span class="token punctuation">.</span>run_link_prediction<span class="token punctuation">(</span>type_constrain <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="train-transe-WN18-adv-sigmoidloss-py"><a href="#train-transe-WN18-adv-sigmoidloss-py" class="headerlink" title="train_transe_WN18_adv_sigmoidloss.py"></a><code>train_transe_WN18_adv_sigmoidloss.py</code></h3><p>link: <a href="https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_transe_WN18_adv_sigmoidloss.py">https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_transe_WN18_adv_sigmoidloss.py</a> .</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> openke
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>config <span class="token keyword">import</span> Trainer<span class="token punctuation">,</span> Tester
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>model <span class="token keyword">import</span> TransE
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>loss <span class="token keyword">import</span> SigmoidLoss
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>strategy <span class="token keyword">import</span> NegativeSampling
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>data <span class="token keyword">import</span> TrainDataLoader<span class="token punctuation">,</span> TestDataLoader
+
+<span class="token comment"># dataloader for training</span>
+train_dataloader <span class="token operator">=</span> TrainDataLoader<span class="token punctuation">(</span>
+	in_path <span class="token operator">=</span> <span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> 
+	batch_size <span class="token operator">=</span> <span class="token number">2000</span><span class="token punctuation">,</span>
+	threads <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span>
+	sampling_mode <span class="token operator">=</span> <span class="token string">"cross"</span><span class="token punctuation">,</span> 
+	bern_flag <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> 
+	filter_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	neg_ent <span class="token operator">=</span> <span class="token number">64</span><span class="token punctuation">,</span>
+	neg_rel <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># dataloader for test</span>
+test_dataloader <span class="token operator">=</span> TestDataLoader<span class="token punctuation">(</span><span class="token string">"./benchmarks/WN18RR/"</span><span class="token punctuation">,</span> <span class="token string">"link"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># define the model</span>
+transe <span class="token operator">=</span> TransE<span class="token punctuation">(</span>
+	ent_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_ent_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	rel_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_rel_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	dim <span class="token operator">=</span> <span class="token number">1024</span><span class="token punctuation">,</span> 
+	p_norm <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+	norm_flag <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">,</span>
+	margin <span class="token operator">=</span> <span class="token number">6.0</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># define the loss function</span>
+model <span class="token operator">=</span> NegativeSampling<span class="token punctuation">(</span>
+	model <span class="token operator">=</span> transe<span class="token punctuation">,</span> 
+	loss <span class="token operator">=</span> SigmoidLoss<span class="token punctuation">(</span>adv_temperature <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	batch_size <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_batch_size<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+	regul_rate <span class="token operator">=</span> <span class="token number">0.0</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># train the model</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model <span class="token operator">=</span> model<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> train_dataloader<span class="token punctuation">,</span> train_times <span class="token operator">=</span> <span class="token number">3000</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">2e-5</span><span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">,</span> opt_method <span class="token operator">=</span> <span class="token string">"adam"</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+transe<span class="token punctuation">.</span>save_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/transe_2.ckpt'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># test the model</span>
+transe<span class="token punctuation">.</span>load_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/transe_2.ckpt'</span><span class="token punctuation">)</span>
+tester <span class="token operator">=</span> Tester<span class="token punctuation">(</span>model <span class="token operator">=</span> transe<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> test_dataloader<span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+tester<span class="token punctuation">.</span>run_link_prediction<span class="token punctuation">(</span>type_constrain <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="train-transh-FB15K237-py"><a href="#train-transh-FB15K237-py" class="headerlink" title="train_transh_FB15K237.py"></a><code>train_transh_FB15K237.py</code></h3><p>link: <a href="https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_transh_FB15K237.py">https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_transh_FB15K237.py</a> .</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> openke
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>config <span class="token keyword">import</span> Trainer<span class="token punctuation">,</span> Tester
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>model <span class="token keyword">import</span> TransH
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>loss <span class="token keyword">import</span> MarginLoss
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>strategy <span class="token keyword">import</span> NegativeSampling
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>data <span class="token keyword">import</span> TrainDataLoader<span class="token punctuation">,</span> TestDataLoader
+
+<span class="token comment"># dataloader for training</span>
+train_dataloader <span class="token operator">=</span> TrainDataLoader<span class="token punctuation">(</span>
+	in_path <span class="token operator">=</span> <span class="token string">"./benchmarks/FB15K237/"</span><span class="token punctuation">,</span> 
+	nbatches <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span>
+	threads <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> 
+	sampling_mode <span class="token operator">=</span> <span class="token string">"normal"</span><span class="token punctuation">,</span> 
+	bern_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	filter_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	neg_ent <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">,</span>
+	neg_rel <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token comment"># dataloader for test</span>
+test_dataloader <span class="token operator">=</span> TestDataLoader<span class="token punctuation">(</span><span class="token string">"./benchmarks/FB15K237/"</span><span class="token punctuation">,</span> <span class="token string">"link"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># define the model</span>
+transh <span class="token operator">=</span> TransH<span class="token punctuation">(</span>
+	ent_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_ent_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	rel_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_rel_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	dim <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">,</span> 
+	p_norm <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	norm_flag <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+
+<span class="token comment"># define the loss function</span>
+model <span class="token operator">=</span> NegativeSampling<span class="token punctuation">(</span>
+	model <span class="token operator">=</span> transh<span class="token punctuation">,</span> 
+	loss <span class="token operator">=</span> MarginLoss<span class="token punctuation">(</span>margin <span class="token operator">=</span> <span class="token number">4.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	batch_size <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_batch_size<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+
+<span class="token comment"># train the model</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model <span class="token operator">=</span> model<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> train_dataloader<span class="token punctuation">,</span> train_times <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+transh<span class="token punctuation">.</span>save_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/transh.ckpt'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># test the model</span>
+transh<span class="token punctuation">.</span>load_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/transh.ckpt'</span><span class="token punctuation">)</span>
+tester <span class="token operator">=</span> Tester<span class="token punctuation">(</span>model <span class="token operator">=</span> transh<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> test_dataloader<span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+tester<span class="token punctuation">.</span>run_link_prediction<span class="token punctuation">(</span>type_constrain <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="train-transr-FB15K237-py"><a href="#train-transr-FB15K237-py" class="headerlink" title="train_transr_FB15K237.py"></a><code>train_transr_FB15K237.py</code></h3><p>link: <a href="https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_transr_FB15K237.py">https://github.com/thunlp/OpenKE/blob/OpenKE-PyTorch/examples/train_transr_FB15K237.py</a> .</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> openke
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>config <span class="token keyword">import</span> Trainer<span class="token punctuation">,</span> Tester
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>model <span class="token keyword">import</span> TransE<span class="token punctuation">,</span> TransR
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>loss <span class="token keyword">import</span> MarginLoss
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>module<span class="token punctuation">.</span>strategy <span class="token keyword">import</span> NegativeSampling
+<span class="token keyword">from</span> openke<span class="token punctuation">.</span>data <span class="token keyword">import</span> TrainDataLoader<span class="token punctuation">,</span> TestDataLoader
+
+<span class="token comment"># dataloader for training</span>
+train_dataloader <span class="token operator">=</span> TrainDataLoader<span class="token punctuation">(</span>
+	in_path <span class="token operator">=</span> <span class="token string">"./benchmarks/FB15K237/"</span><span class="token punctuation">,</span> 
+	nbatches <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span>
+	threads <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> 
+	sampling_mode <span class="token operator">=</span> <span class="token string">"normal"</span><span class="token punctuation">,</span> 
+	bern_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	filter_flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	neg_ent <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">,</span>
+	neg_rel <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token comment"># dataloader for test</span>
+test_dataloader <span class="token operator">=</span> TestDataLoader<span class="token punctuation">(</span>
+	in_path <span class="token operator">=</span> <span class="token string">"./benchmarks/FB15K237/"</span><span class="token punctuation">,</span>
+	sampling_mode <span class="token operator">=</span> <span class="token string">'link'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># define the model</span>
+transe <span class="token operator">=</span> TransE<span class="token punctuation">(</span>
+	ent_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_ent_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	rel_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_rel_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	dim <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">,</span> 
+	p_norm <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	norm_flag <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+
+model_e <span class="token operator">=</span> NegativeSampling<span class="token punctuation">(</span>
+	model <span class="token operator">=</span> transe<span class="token punctuation">,</span> 
+	loss <span class="token operator">=</span> MarginLoss<span class="token punctuation">(</span>margin <span class="token operator">=</span> <span class="token number">5.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	batch_size <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_batch_size<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+transr <span class="token operator">=</span> TransR<span class="token punctuation">(</span>
+	ent_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_ent_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	rel_tot <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_rel_tot<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	dim_e <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">,</span>
+	dim_r <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">,</span>
+	p_norm <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+	norm_flag <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">,</span>
+	rand_init <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+
+model_r <span class="token operator">=</span> NegativeSampling<span class="token punctuation">(</span>
+	model <span class="token operator">=</span> transr<span class="token punctuation">,</span>
+	loss <span class="token operator">=</span> MarginLoss<span class="token punctuation">(</span>margin <span class="token operator">=</span> <span class="token number">4.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	batch_size <span class="token operator">=</span> train_dataloader<span class="token punctuation">.</span>get_batch_size<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># pretrain transe</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model <span class="token operator">=</span> model_e<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> train_dataloader<span class="token punctuation">,</span> train_times <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+parameters <span class="token operator">=</span> transe<span class="token punctuation">.</span>get_parameters<span class="token punctuation">(</span><span class="token punctuation">)</span>
+transe<span class="token punctuation">.</span>save_parameters<span class="token punctuation">(</span><span class="token string">"./result/transr_transe.json"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># train transr</span>
+transr<span class="token punctuation">.</span>set_parameters<span class="token punctuation">(</span>parameters<span class="token punctuation">)</span>
+trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>model <span class="token operator">=</span> model_r<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> train_dataloader<span class="token punctuation">,</span> train_times <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+trainer<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+transr<span class="token punctuation">.</span>save_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/transr.ckpt'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># test the model</span>
+transr<span class="token punctuation">.</span>load_checkpoint<span class="token punctuation">(</span><span class="token string">'./checkpoint/transr.ckpt'</span><span class="token punctuation">)</span>
+tester <span class="token operator">=</span> Tester<span class="token punctuation">(</span>model <span class="token operator">=</span> transr<span class="token punctuation">,</span> data_loader <span class="token operator">=</span> test_dataloader<span class="token punctuation">,</span> use_gpu <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+tester<span class="token punctuation">.</span>run_link_prediction<span class="token punctuation">(</span>type_constrain <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="结语-1"><a href="#结语-1" class="headerlink" title="结语"></a>结语</h2><p>第五十篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2023/02/17/00050-openke-pytorch-xue-xi-bi-ji-ubuntu/">https://luyf-lemon-love.space/2023/02/17/00050-openke-pytorch-xue-xi-bi-ji-ubuntu/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                                    <span class="chip bg-color">知识图谱</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E8%A1%A5%E5%85%A8/">
+                                    <span class="chip bg-color">知识图谱补全</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/02/17/00051-vscode-zhu-ti-cha-jian-ubuntu/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/008-长腿.png" class="responsive-img" alt="00051-VSCode 主题插件">
+                        
+                        <span class="card-title">00051-VSCode 主题插件</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-02-17
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/" class="post-category">
+                                    实用技巧
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/VSCode/">
+                        <span class="chip bg-color">VSCode</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/02/15/00049-eigen-xue-xi-bi-ji-ubuntu/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/004-山.png" class="responsive-img" alt="00049-Eigen 学习笔记">
+                        
+                        <span class="card-title">00049-Eigen 学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C/" class="post-category">
+                                    C++
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,1489 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00222 NLP Course - Sharing pretrained models, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言在下面的步骤中，我们将看看分享预训练模型到🤗 Hub的最简单方法。有一些工具和实用程序可以帮助我们在Hub上轻松地分享和更新模型，我们将在下面进行探索。
+我们鼓励所有训练模型的用户通过分享它们来为社区做出贡献——即使是在非常特定的数据">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00222 NLP Course - Sharing pretrained models | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/023-%E7%B2%89%E7%BA%A2%E8%8A%AD%E6%AF%94%E5%85%94%E8%A3%99%E8%A3%85%E5%A5%B3%E5%AD%A9%20%E4%B8%80%E7%BE%A4%E5%85%94%E5%AD%90.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00222 NLP Course - Sharing pretrained models</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大语言模型</span>
+                            </a>
+                        
+                            <a href="/tags/huggingface/">
+                                <span class="chip bg-color">huggingface</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                大语言模型
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-11-04
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在下面的步骤中，我们将看看分享预训练模型到🤗 Hub的最简单方法。有一些工具和实用程序可以帮助我们在Hub上轻松地分享和更新模型，我们将在下面进行探索。</p>
+<p>我们鼓励所有训练模型的用户通过分享它们来为社区做出贡献——即使是在非常特定的数据集上训练的模型，分享它们也能帮助其他人，节省他们的时间和计算资源，并提供有用的训练成果。反过来，你也可以从其他人的工作中受益！</p>
+<p>创建新模型仓库有三种方法：</p>
+<ul>
+<li>使用 push_to_hub API</li>
+<li>使用 huggingface_hub Python 库</li>
+<li>使用网页界面</li>
+</ul>
+<p>一旦你创建了一个仓库，你可以通过 git 和 git-lfs 向其上传文件。在接下来的部分，我们将引导你创建模型仓库并上传文件到这些仓库。</p>
+<p>src link: <a href="https://huggingface.co/learn/nlp-course/chapter4/3">https://huggingface.co/learn/nlp-course/chapter4/3</a></p>
+<p>Operating System: Ubuntu 22.04.4 LTS</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://huggingface.co/learn/nlp-course/chapter4/3">NLP Course - Sharing pretrained models</a></li>
+</ol>
+<h2 id="使用-push-to-hub-API"><a href="#使用-push-to-hub-API" class="headerlink" title="使用 push_to_hub API"></a>使用 push_to_hub API</h2><p>上传文件到 Hub 最简单的方法是利用 push_to_hub API。</p>
+<p>在继续之前，你需要生成一个认证令牌，这样 huggingface_hub API 才知道你是谁，以及你拥有写入权限的命名空间。确保你处于已安装 transformers 的环境中（参见设置）。如果你在笔记本中，你可以使用以下函数进行登录：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> huggingface_hub <span class="token keyword">import</span> notebook_login
+
+notebook_login<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>在终端中，你可以运行：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">huggingface-cli login<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在这两种情况下，系统都会提示您输入用户名和密码，这些信息与您登录Hub时使用的信息相同。如果您还没有Hub个人资料，您应该在<a href="https://huggingface.co/join">这里</a>创建一个。</p>
+<p>太好了！现在您的身份验证令牌已存储在缓存文件夹中。让我们创建一些仓库吧！</p>
+<p>如果您已经使用Trainer API训练了一个模型，将模型上传到Hub最简单的方法是在定义TrainingArguments时设置push_to_hub&#x3D;True：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> TrainingArguments
+
+training_args <span class="token operator">=</span> TrainingArguments<span class="token punctuation">(</span>
+    <span class="token string">"bert-finetuned-mrpc"</span><span class="token punctuation">,</span> save_strategy<span class="token operator">=</span><span class="token string">"epoch"</span><span class="token punctuation">,</span> push_to_hub<span class="token operator">=</span><span class="token boolean">True</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>当您调用trainer.train()时，Trainer会在每次保存模型时（这里每个epoch）将您的模型上传到Hub，并存放在您的命名空间下的一个仓库中。该仓库的名称将与您选择的输出目录（这里是bert-finetuned-mrpc）相同，但您可以通过设置hub_model_id &#x3D; “a_different_name”来选择一个不同的名称。</p>
+<p>要将您的模型上传到您是其成员的组织，只需使用hub_model_id &#x3D; “my_organization&#x2F;my_repo_name”进行传递即可。</p>
+<p>训练完成后，您应该执行一次最终的trainer.push_to_hub()，以上传您模型的最后一个版本。它还会生成一个模型卡，其中包含所有相关的元数据，报告使用的超参数和评估结果！以下是在此类模型卡中可能找到的内容示例：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20241105212642.png"></p>
+<p>在更低的层面上，可以直接通过模型的push_to_hub()方法访问模型Hub，包括模型、分词器和配置对象。此方法负责创建仓库以及将模型和分词器文件直接推送到仓库，无需像我们下面将看到的API那样进行手动处理。</p>
+<p>为了了解其工作原理，让我们首先初始化一个模型和一个分词器：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoModelForMaskedLM<span class="token punctuation">,</span> AutoTokenizer
+
+checkpoint <span class="token operator">=</span> <span class="token string">"camembert-base"</span>
+
+model <span class="token operator">=</span> AutoModelForMaskedLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span>checkpoint<span class="token punctuation">)</span>
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span>checkpoint<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>您可以自由地对这些进行任何操作——向分词器添加标记，训练模型，对其进行微调。一旦您对结果模型、权重和分词器感到满意，您可以直接利用模型对象上可用的push_to_hub()方法：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">model<span class="token punctuation">.</span>push_to_hub<span class="token punctuation">(</span><span class="token string">"dummy-model"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这将在您的个人资料中创建一个名为 dummy-model 的新仓库，并使用您的模型文件填充它。对分词器也执行相同的操作，以便现在所有文件都可用在这个仓库中：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tokenizer<span class="token punctuation">.</span>push_to_hub<span class="token punctuation">(</span><span class="token string">"dummy-model"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>如果您属于某个组织，只需指定 organization 参数即可上传到该组织的命名空间：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tokenizer<span class="token punctuation">.</span>push_to_hub<span class="token punctuation">(</span><span class="token string">"dummy-model"</span><span class="token punctuation">,</span> organization<span class="token operator">=</span><span class="token string">"huggingface"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>如果您希望使用特定的 Hugging Face 令牌，您也可以自由地将其指定给 push_to_hub() 方法：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tokenizer<span class="token punctuation">.</span>push_to_hub<span class="token punctuation">(</span><span class="token string">"dummy-model"</span><span class="token punctuation">,</span> organization<span class="token operator">=</span><span class="token string">"huggingface"</span><span class="token punctuation">,</span> use_auth_token<span class="token operator">=</span><span class="token string">"&lt;TOKEN>"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>现在前往模型中心查找您新上传的模型：<a href="https://huggingface.co/user-or-organization/dummy-model%E3%80%82">https://huggingface.co/user-or-organization/dummy-model。</a></p>
+<p>点击“文件和版本”标签，您应该会看到如下屏幕截图中的文件：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20241109215252.png"></p>
+<p>正如您所看到的，push_to_hub() 方法接受多个参数，使得可以上传到特定的仓库或组织命名空间，或者使用不同的 API 令牌。我们建议您查看 <a href="https://huggingface.co/transformers/model_sharing">🤗 Transformers 文档</a>中直接提供的方法规范，以了解有哪些可能性。</p>
+<p>push_to_hub() 方法由 <a href="https://github.com/huggingface/huggingface_hub">huggingface_hub</a> Python 包支持，该包为 Hugging Face Hub 提供了一个直接的 API。它被集成在 🤗 Transformers 和其他几个机器学习库中，如 <a href="https://github.com/allenai/allennlp">allenlp</a>。虽然我们在本章中关注的是 🤗 Transformers 的集成，但将其集成到您自己的代码或库中是非常简单的。</p>
+<p>跳到最后一个部分，了解如何将文件上传到您新创建的仓库！</p>
+<h2 id="使用-huggingface-hub-Python-库"><a href="#使用-huggingface-hub-Python-库" class="headerlink" title="使用 huggingface_hub Python 库"></a>使用 huggingface_hub Python 库</h2><p>huggingface_hub Python 库是一个提供模型和数据集中心工具集的包。它提供了简单的方法和类，用于常见的任务，如获取中心上仓库的信息和管理它们。它提供了简单的 API，这些 API 在 git 之上工作，以管理这些仓库的内容，并将 Hub 集成到您的项目和库中。</p>
+<p>与使用 push_to_hub API 类似，这也需要您将 API 令牌保存在缓存中。为了做到这一点，您需要使用上一节中提到的 CLI 中的 login 命令（同样，如果在 Google Colab 中运行，请确保在这些命令前加上 ! 字符）：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">huggingface-cli login<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>huggingface_hub 包提供了几种方法和类，这对我们的目的非常有用。首先，有一些方法可以管理仓库的创建、删除等：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> huggingface_hub <span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token comment"># User management</span>
+    login<span class="token punctuation">,</span>
+    logout<span class="token punctuation">,</span>
+    whoami<span class="token punctuation">,</span>
+
+    <span class="token comment"># Repository creation and management</span>
+    create_repo<span class="token punctuation">,</span>
+    delete_repo<span class="token punctuation">,</span>
+    update_repo_visibility<span class="token punctuation">,</span>
+
+    <span class="token comment"># And some methods to retrieve/change information about the content</span>
+    list_models<span class="token punctuation">,</span>
+    list_datasets<span class="token punctuation">,</span>
+    list_metrics<span class="token punctuation">,</span>
+    list_repo_files<span class="token punctuation">,</span>
+    upload_file<span class="token punctuation">,</span>
+    delete_file<span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此外，它还提供了非常强大的 Repository 类来管理本地仓库。在接下来的几个部分中，我们将探索这些方法和那个类，以了解如何利用它们。</p>
+<p>create_repo 方法可用于在中心创建新仓库：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> huggingface_hub <span class="token keyword">import</span> create_repo
+
+create_repo<span class="token punctuation">(</span><span class="token string">"dummy-model"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>这将在您的命名空间中创建名为 dummy-model 的仓库。如果您愿意，您可以使用 organization 参数指定该仓库应属于哪个组织：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> huggingface_hub <span class="token keyword">import</span> create_repo
+
+create_repo<span class="token punctuation">(</span><span class="token string">"dummy-model"</span><span class="token punctuation">,</span> organization<span class="token operator">=</span><span class="token string">"huggingface"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>这将创建一个名为 dummy-model 的仓库，假设您属于该组织。其他可能有用的参数包括：</p>
+<ul>
+<li>private，用于指定仓库是否应对其他人可见。</li>
+<li>token，如果您想用给定的令牌覆盖缓存中的令牌。</li>
+<li>repo_type，如果您想创建一个数据集或空间而不是模型。接受的值有 “dataset” 和 “space”。</li>
+</ul>
+<p>一旦创建了仓库，我们应该向其中添加文件！跳到下一节，看看如何处理这个问题。</p>
+<h2 id="使用网页界面"><a href="#使用网页界面" class="headerlink" title="使用网页界面"></a>使用网页界面</h2><p>网页界面提供了在 Hub 中直接管理仓库的工具。使用这个界面，您可以轻松创建仓库，添加文件（甚至是大型文件！），探索模型，可视化差异，以及更多功能。</p>
+<p>要创建一个新仓库，请访问 huggingface.co&#x2F;new:</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20241110162155.png"></p>
+<p>首先，指定仓库的所有者：这可以是你或你所属的任何一个组织。如果你选择一个组织，该模型将出现在组织的页面上，并且该组织的每个成员都将有权限为该仓库做出贡献。</p>
+<p>接下来，输入你的模型名称。这同时也将是仓库的名称。最后，你可以指定你的模型是公开的还是私有的。私有模型对公众是不可见的。</p>
+<p>创建你的模型仓库后，你应该会看到一个类似这样的页面：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20241110163956.png"></p>
+<p>这是你的模型将被托管的地方。要开始填充内容，你可以直接从网页界面添加一个 README 文件。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20241110164927.png"></p>
+<p>README 文件使用 Markdown 格式——随意发挥吧！本章的第三部分专门介绍如何构建模型卡。模型卡对于提升你模型的价值至关重要，因为这是你告诉他人你的模型能做什么的地方。</p>
+<p>如果你查看“文件和版本”标签，你会看到那里还没有很多文件——只有你刚刚创建的 README.md 文件和用于跟踪大文件的 .gitattributes 文件。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20241110170648.png"></p>
+<p>接下来，我们将了解如何添加一些新文件。</p>
+<h2 id="上传模型文件"><a href="#上传模型文件" class="headerlink" title="上传模型文件"></a>上传模型文件</h2><p>Hugging Face Hub 上管理文件的系统基于 git 用于常规文件，以及 git-lfs（即 <a href="https://git-lfs.github.com/">Git 大文件存储</a>）用于更大的文件。</p>
+<p>在下一节中，我们将介绍三种不同的方法将文件上传到 Hub：通过 huggingface_hub 和通过 git 命令。</p>
+<h3 id="upload-file-方法"><a href="#upload-file-方法" class="headerlink" title="upload_file 方法"></a>upload_file 方法</h3><p>使用 upload_file 方法不需要在你的系统上安装 git 和 git-lfs。它使用 HTTP POST 请求直接将文件推送到 🤗 Hub。这种方法的一个限制是它不能处理大于 5GB 的文件。如果您的文件大于 5GB，请按照下面详细说明的另外两种方法操作。</p>
+<p>API 可以按照以下方式使用：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> huggingface_hub <span class="token keyword">import</span> upload_file
+
+upload_file<span class="token punctuation">(</span>
+    <span class="token string">"&lt;path_to_file>/config.json"</span><span class="token punctuation">,</span>
+    path_in_repo<span class="token operator">=</span><span class="token string">"config.json"</span><span class="token punctuation">,</span>
+    repo_id<span class="token operator">=</span><span class="token string">"&lt;namespace>/dummy-model"</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这将上传位于 <code>&lt;path_to_file&gt;</code> 的文件 config.json 到仓库的根目录下，作为 dummy-model 仓库的 config.json。其他可能有用的参数包括：</p>
+<ul>
+<li>token，如果你想要用给定的 token 覆盖存储在你缓存中的 token。</li>
+<li>repo_type，如果你想要上传到数据集或空间而不是模型。接受的值有 “dataset” 和 “space”。</li>
+</ul>
+<h3 id="仓库类"><a href="#仓库类" class="headerlink" title="仓库类"></a>仓库类</h3><p>仓库类以类似于 git 的方式管理本地仓库。它抽象了人们可能在使用 git 时遇到的大部分痛点，以提供我们所需要的功能。</p>
+<p>使用这个类需要安装 git 和 git-lfs，所以在开始之前，请确保你已经安装了 git-lfs（安装说明请参见<a href="https://git-lfs.github.com/">这里</a>）并进行了设置。</p>
+<p>为了开始使用我们刚刚创建的仓库，我们可以通过克隆远程仓库将其初始化到本地文件夹中：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> huggingface_hub <span class="token keyword">import</span> Repository
+
+repo <span class="token operator">=</span> Repository<span class="token punctuation">(</span><span class="token string">"&lt;path_to_dummy_folder>"</span><span class="token punctuation">,</span> clone_from<span class="token operator">=</span><span class="token string">"&lt;namespace>/dummy-model"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>这在我们的工作目录中创建了文件夹 <code>&lt;path_to_dummy_folder&gt;</code>。这个文件夹只包含 .gitattributes 文件，因为这是通过 create_repo 实例化仓库时创建的唯一文件。</p>
+<p>从这一点开始，我们可以利用几个传统的 git 方法：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">repo<span class="token punctuation">.</span>git_pull<span class="token punctuation">(</span><span class="token punctuation">)</span>
+repo<span class="token punctuation">.</span>git_add<span class="token punctuation">(</span><span class="token punctuation">)</span>
+repo<span class="token punctuation">.</span>git_commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+repo<span class="token punctuation">.</span>git_push<span class="token punctuation">(</span><span class="token punctuation">)</span>
+repo<span class="token punctuation">.</span>git_tag<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>还有其他的！我们建议查看<a href="https://github.com/huggingface/huggingface_hub/tree/main/src/huggingface_hub#advanced-programmatic-repository-management">这里</a>可用的 Repository 文档，以了解所有可用方法的总览。</p>
+<p>目前，我们有一个模型和一个分词器，我们想要推送到 hub。我们已经成功克隆了仓库，因此我们可以将文件保存在该仓库中。</p>
+<p>我们首先确保我们的本地克隆是最新的，方法是拉取最新的更改：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">repo<span class="token punctuation">.</span>git_pull<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>一旦完成，我们保存模型和分词器文件：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">model<span class="token punctuation">.</span>save_pretrained<span class="token punctuation">(</span><span class="token string">"&lt;path_to_dummy_folder>"</span><span class="token punctuation">)</span>
+tokenizer<span class="token punctuation">.</span>save_pretrained<span class="token punctuation">(</span><span class="token string">"&lt;path_to_dummy_folder>"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>现在 <code>&lt;path_to_dummy_folder&gt;</code> 包含了所有的模型和分词器文件。我们遵循通常的 git 工作流程，将文件添加到暂存区，提交它们，然后将它们推送到 hub：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">repo<span class="token punctuation">.</span>git_add<span class="token punctuation">(</span><span class="token punctuation">)</span>
+repo<span class="token punctuation">.</span>git_commit<span class="token punctuation">(</span><span class="token string">"Add model and tokenizer files"</span><span class="token punctuation">)</span>
+repo<span class="token punctuation">.</span>git_push<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>恭喜！你刚刚在 hub 上推送了你的第一个文件。</p>
+<h3 id="基于-git-的方法"><a href="#基于-git-的方法" class="headerlink" title="基于 git 的方法"></a>基于 git 的方法</h3><p>这是上传文件的最基本方法：我们将直接使用 git 和 git-lfs。之前的 方法抽象了大部分困难，但以下方法有一些注意事项，所以我们将遵循一个更复杂的使用案例。</p>
+<p>使用这个类需要安装 git 和 git-lfs，所以在开始之前，请确保你已经安装了 <a href="https://git-lfs.github.com/">git-lfs</a>（安装说明请参见这里）并进行了设置。</p>
+<p>首先初始化 git-lfs：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> lfs <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">Updated git hooks.
+Git LFS initialized.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>一旦完成，第一步是克隆你的模型仓库：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone https://huggingface.co/<span class="token operator">&lt;</span>namespace<span class="token operator">></span>/<span class="token operator">&lt;</span>your-model-id<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>我的用户名是 lysandre，我使用的模型名是 dummy，所以对我来说，命令最终看起来像下面这样：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone https://huggingface.co/lysandre/dummy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>现在我的工作目录中有一个名为 dummy 的文件夹。我可以 cd 进入该文件夹并查看内容：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> dummy <span class="token operator">&amp;&amp;</span> <span class="token function">ls</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">README.md<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>如果你刚刚使用 Hugging Face Hub 的 create_repo 方法创建了你的仓库，这个文件夹应该只包含一个隐藏的 .gitattributes 文件。如果你按照上一节的说明使用网页界面创建了一个仓库，这个文件夹应该包含一个单独的 README.md 文件以及一个隐藏的 .gitattributes 文件，如这里所示。</p>
+<p>添加一个常规大小的文件，比如配置文件、词汇文件，或者基本上任何几兆字节的文件，都是像在任何基于 git 的系统中那样完成的。然而，更大的文件必须通过 git-lfs 注册，以便将它们推送到 huggingface.co。</p>
+<p>让我们回到 Python 一会儿，生成我们想要提交到我们的 dummy 仓库的模型和分词器：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoModelForMaskedLM<span class="token punctuation">,</span> AutoTokenizer
+
+checkpoint <span class="token operator">=</span> <span class="token string">"camembert-base"</span>
+
+model <span class="token operator">=</span> AutoModelForMaskedLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span>checkpoint<span class="token punctuation">)</span>
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span>checkpoint<span class="token punctuation">)</span>
+
+<span class="token comment"># Do whatever with the model, train it, fine-tune it...</span>
+
+model<span class="token punctuation">.</span>save_pretrained<span class="token punctuation">(</span><span class="token string">"&lt;path_to_dummy_folder>"</span><span class="token punctuation">)</span>
+tokenizer<span class="token punctuation">.</span>save_pretrained<span class="token punctuation">(</span><span class="token string">"&lt;path_to_dummy_folder>"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>现在我们已经保存了一些模型和分词器工件，让我们再次查看 dummy 文件夹：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ls</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">config.json  pytorch_model.bin  README.md  sentencepiece.bpe.model  special_tokens_map.json tokenizer_config.json  tokenizer.json<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>如果你查看文件大小（例如，使用 ls -lh），你应该会看到模型状态字典文件（pytorch_model.bin）是唯一一个超过 400 MB 的异常值。</p>
+<blockquote>
+<p>✏️ 当从网页界面创建仓库时，.gitattributes 文件会自动设置，将具有某些扩展名（如 .bin 和 .h5）的文件视为大文件，git-lfs 将跟踪它们，而您无需进行任何必要的设置。</p>
+</blockquote>
+<p>我们现在可以像通常使用传统 Git 仓库一样继续操作。我们可以使用 git add 命令将所有文件添加到 Git 的暂存环境：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>然后我们可以查看当前暂存的文件：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> status<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">On branch main
+Your branch is up to date with &#39;origin&#x2F;main&#39;.
+
+Changes to be committed:
+  (use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)
+  modified:   .gitattributes
+	new file:   config.json
+	new file:   pytorch_model.bin
+	new file:   sentencepiece.bpe.model
+	new file:   special_tokens_map.json
+	new file:   tokenizer.json
+	new file:   tokenizer_config.json<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>同样，我们可以使用 git-lfs 的 status 命令来确保它正在跟踪正确的文件：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> lfs status<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">On branch main
+Objects to be pushed to origin&#x2F;main:
+
+
+Objects to be committed:
+
+	config.json (Git: bc20ff2)
+	pytorch_model.bin (LFS: 35686c2)
+	sentencepiece.bpe.model (LFS: 988bc5a)
+	special_tokens_map.json (Git: cb23931)
+	tokenizer.json (Git: 851ff3e)
+	tokenizer_config.json (Git: f0f7783)
+
+Objects not staged for commit:
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以看到，除了 pytorch_model.bin 和 sentencepiece.bpe.model 文件由 LFS 处理外，所有文件都由 Git 处理。太好了！</p>
+<p>让我们继续最后一步，提交并将文件推送到 huggingface.co 远程仓库：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"First model version"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">[main b08aab1] First model version
+ 7 files changed, 29027 insertions(+)
+  6 files changed, 36 insertions(+)
+ create mode 100644 config.json
+ create mode 100644 pytorch_model.bin
+ create mode 100644 sentencepiece.bpe.model
+ create mode 100644 special_tokens_map.json
+ create mode 100644 tokenizer.json
+ create mode 100644 tokenizer_config.json<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>推送可能需要一些时间，具体取决于你的互联网连接速度和文件的大小：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> push<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">Uploading LFS objects: 100% (1&#x2F;1), 433 MB | 1.3 MB&#x2F;s, done.
+Enumerating objects: 11, done.
+Counting objects: 100% (11&#x2F;11), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (9&#x2F;9), done.
+Writing objects: 100% (9&#x2F;9), 288.27 KiB | 6.27 MiB&#x2F;s, done.
+Total 9 (delta 1), reused 0 (delta 0), pack-reused 0
+To https:&#x2F;&#x2F;huggingface.co&#x2F;lysandre&#x2F;dummy
+   891b41d..b08aab1  main -&gt; main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果我们在完成后查看模型仓库，我们可以看到所有最近添加的文件：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20241110224354.png"></p>
+<p>用户界面允许你浏览模型文件和提交，并查看每次提交引入的差异：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/diffs.gif"></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百二十二篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2024/11/04/00222-nlp-course-sharing-pretrained-models/">https://luyf-lemon-love.space/2024/11/04/00222-nlp-course-sharing-pretrained-models/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大语言模型</span>
+                                </a>
+                            
+                                <a href="/tags/huggingface/">
+                                    <span class="chip bg-color">huggingface</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/11/10/00223-nlp-course-building-a-model-card/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/024-%C3%A4%C5%AE-%E7%9C%BC%E7%BD%A9-%E8%92%99%E7%9C%BC-%E7%99%BD%E8%89%B2%E8%A3%99%E5%AD%90%E5%A5%B3%E5%AD%A9.jpg" class="responsive-img" alt="00223 NLP Course - Building a model card">
+                        
+                        <span class="card-title">00223 NLP Course - Building a model card</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-11-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/11/04/00221-nlp-course-using-pretrained-models/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/022-%E7%AA%97%E8%BE%B9%E9%98%B3%E5%85%89%E5%B0%91%E5%A5%B3-%E7%BA%A2%E8%89%B2%E5%A4%96%E5%A5%97-%E7%99%BD%E8%89%B2%E8%A1%A3%E6%9C%8D.jpg" class="responsive-img" alt="00221 NLP Course - Using pretrained models">
+                        
+                        <span class="card-title">00221 NLP Course - Using pretrained models</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-11-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

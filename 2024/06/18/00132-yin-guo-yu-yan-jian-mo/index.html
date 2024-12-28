@@ -1,0 +1,1404 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00132 因果语言建模, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言本文介绍了如何进行因果语言建模。
+Hugging Face Github 主页: https://github.com/huggingface
+There are two types of language modeling, caus">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00132 因果语言建模 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/085-%E5%A5%BD%E7%9C%8B%E5%94%AF%E7%BE%8E%E5%8F%A4%E9%A3%8E%E7%9D%A1%E7%BE%8E%E4%BA%BA.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00132 因果语言建模</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大语言模型</span>
+                            </a>
+                        
+                            <a href="/tags/huggingface/">
+                                <span class="chip bg-color">huggingface</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                大语言模型
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-06-18
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文介绍了如何进行因果语言建模。</p>
+<p>Hugging Face Github 主页: <a href="https://github.com/huggingface">https://github.com/huggingface</a></p>
+<p>There are two types of language modeling, <strong>causal</strong> and <strong>masked</strong>. This guide illustrates <strong>causal language modeling</strong>.<br><strong>Causal language models are frequently used for text generation.</strong></p>
+<p>Causal language modeling predicts the next token in a sequence of tokens, and the model can only attend to tokens on<br>the left. <strong>This means the model cannot see future tokens.</strong> GPT-2 is an example of a causal language model.</p>
+<p>This guide will show you how to:</p>
+<ol>
+<li>Finetune <a href="https://huggingface.co/distilbert/distilgpt2">DistilGPT2</a> on the <a href="https://www.reddit.com/r/askscience/">r&#x2F;askscience</a> subset of the <a href="https://huggingface.co/datasets/eli5">ELI5</a> dataset.</li>
+<li>Use your finetuned model for inference.</li>
+</ol>
+<p>You can finetune other architectures for causal language modeling following the same steps in this guide.<br>Choose one of the following architectures:</p>
+<p><a href="../model_doc/bart">BART</a>, <a href="../model_doc/bert">BERT</a>, <a href="../model_doc/bert-generation">Bert Generation</a>, <a href="../model_doc/big_bird">BigBird</a>, <a href="../model_doc/bigbird_pegasus">BigBird-Pegasus</a>, <a href="../model_doc/biogpt">BioGpt</a>, <a href="../model_doc/blenderbot">Blenderbot</a>, <a href="../model_doc/blenderbot-small">BlenderbotSmall</a>, <a href="../model_doc/bloom">BLOOM</a>, <a href="../model_doc/camembert">CamemBERT</a>, <a href="../model_doc/code_llama">CodeLlama</a>, <a href="../model_doc/codegen">CodeGen</a>, <a href="../model_doc/cohere">Cohere</a>, <a href="../model_doc/cpmant">CPM-Ant</a>, <a href="../model_doc/ctrl">CTRL</a>, <a href="../model_doc/data2vec-text">Data2VecText</a>, <a href="../model_doc/electra">ELECTRA</a>, <a href="../model_doc/ernie">ERNIE</a>, <a href="../model_doc/falcon">Falcon</a>, <a href="../model_doc/fuyu">Fuyu</a>, <a href="../model_doc/gemma">Gemma</a>, <a href="../model_doc/git">GIT</a>, <a href="../model_doc/gpt-sw3">GPT-Sw3</a>, <a href="../model_doc/gpt2">OpenAI GPT-2</a>, <a href="../model_doc/gpt_bigcode">GPTBigCode</a>, <a href="../model_doc/gpt_neo">GPT Neo</a>, <a href="../model_doc/gpt_neox">GPT NeoX</a>, <a href="../model_doc/gpt_neox_japanese">GPT NeoX Japanese</a>, <a href="../model_doc/gptj">GPT-J</a>, <a href="../model_doc/llama">LLaMA</a>, <a href="../model_doc/mamba">Mamba</a>, <a href="../model_doc/marian">Marian</a>, <a href="../model_doc/mbart">mBART</a>, <a href="../model_doc/mega">MEGA</a>, <a href="../model_doc/megatron-bert">Megatron-BERT</a>, <a href="../model_doc/mistral">Mistral</a>, <a href="../model_doc/mixtral">Mixtral</a>, <a href="../model_doc/mpt">MPT</a>, <a href="../model_doc/musicgen">MusicGen</a>, <a href="../model_doc/musicgen_melody">MusicGen Melody</a>, <a href="../model_doc/mvp">MVP</a>, <a href="../model_doc/open-llama">OpenLlama</a>, <a href="../model_doc/openai-gpt">OpenAI GPT</a>, <a href="../model_doc/opt">OPT</a>, <a href="../model_doc/pegasus">Pegasus</a>, <a href="../model_doc/persimmon">Persimmon</a>, <a href="../model_doc/phi">Phi</a>, <a href="../model_doc/plbart">PLBart</a>, <a href="../model_doc/prophetnet">ProphetNet</a>, <a href="../model_doc/qdqbert">QDQBert</a>, <a href="../model_doc/qwen2">Qwen2</a>, <a href="../model_doc/reformer">Reformer</a>, <a href="../model_doc/rembert">RemBERT</a>, <a href="../model_doc/roberta">RoBERTa</a>, <a href="../model_doc/roberta-prelayernorm">RoBERTa-PreLayerNorm</a>, <a href="../model_doc/roc_bert">RoCBert</a>, <a href="../model_doc/roformer">RoFormer</a>, <a href="../model_doc/rwkv">RWKV</a>, <a href="../model_doc/speech_to_text_2">Speech2Text2</a>, <a href="../model_doc/stablelm">StableLm</a>, <a href="../model_doc/starcoder2">Starcoder2</a>, <a href="../model_doc/transfo-xl">Transformer-XL</a>, <a href="../model_doc/trocr">TrOCR</a>, <a href="../model_doc/whisper">Whisper</a>, <a href="../model_doc/xglm">XGLM</a>, <a href="../model_doc/xlm">XLM</a>, <a href="../model_doc/xlm-prophetnet">XLM-ProphetNet</a>, <a href="../model_doc/xlm-roberta">XLM-RoBERTa</a>, <a href="../model_doc/xlm-roberta-xl">XLM-RoBERTa-XL</a>, <a href="../model_doc/xlnet">XLNet</a>, <a href="../model_doc/xmod">X-MOD</a></p>
+<p>Before you begin, make sure you have all the necessary libraries installed:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> transformers datasets evaluate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>We encourage you to log in to your Hugging Face account so you can upload and share your model with the community. When prompted, enter your token to log in:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> huggingface_hub <span class="token keyword">import</span> notebook_login
+
+<span class="token operator">>></span><span class="token operator">></span> notebook_login<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>操作系统：Windows 11 家庭中文版</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://huggingface.co/docs/transformers/tasks/language_modeling">Causal language modeling</a></li>
+</ol>
+<h2 id="Load-ELI5-dataset"><a href="#Load-ELI5-dataset" class="headerlink" title="Load ELI5 dataset"></a>Load ELI5 dataset</h2><p>Start by loading the first 5000 examples from the <a href="https://huggingface.co/datasets/eli5_category">ELI5-Category</a> dataset with the 🤗 Datasets library. This’ll give you a chance to experiment and make sure everything works before spending more time training on the full dataset.</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> datasets <span class="token keyword">import</span> load_dataset
+
+<span class="token operator">>></span><span class="token operator">></span> eli5 <span class="token operator">=</span> load_dataset<span class="token punctuation">(</span><span class="token string">"eli5_category"</span><span class="token punctuation">,</span> split<span class="token operator">=</span><span class="token string">"train[:5000]"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>Split the dataset’s <code>train</code> split into a <strong>train</strong> and <strong>test</strong> set with the [<code>~datasets.Dataset.train_test_split</code>] method:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> eli5 <span class="token operator">=</span> eli5<span class="token punctuation">.</span>train_test_split<span class="token punctuation">(</span>test_size<span class="token operator">=</span><span class="token number">0.2</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>Then take a look at an example:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> eli5<span class="token punctuation">[</span><span class="token string">"train"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#123;</span><span class="token string">'q_id'</span><span class="token punctuation">:</span> <span class="token string">'7h191n'</span><span class="token punctuation">,</span>
+ <span class="token string">'title'</span><span class="token punctuation">:</span> <span class="token string">'What does the tax bill that was passed today mean? How will it affect Americans in each tax bracket?'</span><span class="token punctuation">,</span>
+ <span class="token string">'selftext'</span><span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+ <span class="token string">'category'</span><span class="token punctuation">:</span> <span class="token string">'Economics'</span><span class="token punctuation">,</span>
+ <span class="token string">'subreddit'</span><span class="token punctuation">:</span> <span class="token string">'explainlikeimfive'</span><span class="token punctuation">,</span>
+ <span class="token string">'answers'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'a_id'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'dqnds8l'</span><span class="token punctuation">,</span> <span class="token string">'dqnd1jl'</span><span class="token punctuation">,</span> <span class="token string">'dqng3i1'</span><span class="token punctuation">,</span> <span class="token string">'dqnku5x'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">'text'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"The tax bill is 500 pages long and there were a lot of changes still going on right to the end. It's not just an adjustment to the income tax brackets, it's a whole bunch of changes. As such there is no good answer to your question. The big take aways are: - Big reduction in corporate income tax rate will make large companies very happy. - Pass through rate change will make certain styles of business (law firms, hedge funds) extremely happy - Income tax changes are moderate, and are set to expire (though it's the kind of thing that might just always get re-applied without being made permanent) - People in high tax states (California, New York) lose out, and many of them will end up with their taxes raised."</span><span class="token punctuation">,</span>
+   <span class="token string">'None yet. It has to be reconciled with a vastly different house bill and then passed again.'</span><span class="token punctuation">,</span>
+   <span class="token string">'Also: does this apply to 2017 taxes? Or does it start with 2018 taxes?'</span><span class="token punctuation">,</span>
+   <span class="token string">'This article explains both the House and senate bills, including the proposed changes to your income taxes based on your income level. URL_0'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">'score'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">21</span><span class="token punctuation">,</span> <span class="token number">19</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">'text_urls'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+   <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+   <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+   <span class="token punctuation">[</span><span class="token string">'https://www.investopedia.com/news/trumps-tax-reform-what-can-be-done/'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ <span class="token string">'title_urls'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'url'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+ <span class="token string">'selftext_urls'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'url'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>While this may look like a lot, you’re only really interested in the <code>text</code> field.</strong> What’s cool about language modeling<br>tasks is you don’t need labels (also known as an unsupervised task) because the next word <em>is</em> the label.</p>
+<h2 id="Preprocess"><a href="#Preprocess" class="headerlink" title="Preprocess"></a>Preprocess</h2><p>The next step is to load <strong>a DistilGPT2 tokenizer</strong> to process the <code>text</code> subfield:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoTokenizer
+
+<span class="token operator">>></span><span class="token operator">></span> tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"distilbert/distilgpt2"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>You’ll notice from the example above, <strong>the <code>text</code> field is actually nested inside <code>answers</code>.</strong> This means you’ll need to<br>extract the <code>text</code> subfield from its nested structure with the <a href="https://huggingface.co/docs/datasets/process#flatten"><code>flatten</code></a> method:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> eli5 <span class="token operator">=</span> eli5<span class="token punctuation">.</span>flatten<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> eli5<span class="token punctuation">[</span><span class="token string">"train"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#123;</span><span class="token string">'q_id'</span><span class="token punctuation">:</span> <span class="token string">'7h191n'</span><span class="token punctuation">,</span>
+ <span class="token string">'title'</span><span class="token punctuation">:</span> <span class="token string">'What does the tax bill that was passed today mean? How will it affect Americans in each tax bracket?'</span><span class="token punctuation">,</span>
+ <span class="token string">'selftext'</span><span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+ <span class="token string">'category'</span><span class="token punctuation">:</span> <span class="token string">'Economics'</span><span class="token punctuation">,</span>
+ <span class="token string">'subreddit'</span><span class="token punctuation">:</span> <span class="token string">'explainlikeimfive'</span><span class="token punctuation">,</span>
+ <span class="token string">'answers.a_id'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'dqnds8l'</span><span class="token punctuation">,</span> <span class="token string">'dqnd1jl'</span><span class="token punctuation">,</span> <span class="token string">'dqng3i1'</span><span class="token punctuation">,</span> <span class="token string">'dqnku5x'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+ <span class="token string">'answers.text'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"The tax bill is 500 pages long and there were a lot of changes still going on right to the end. It's not just an adjustment to the income tax brackets, it's a whole bunch of changes. As such there is no good answer to your question. The big take aways are: - Big reduction in corporate income tax rate will make large companies very happy. - Pass through rate change will make certain styles of business (law firms, hedge funds) extremely happy - Income tax changes are moderate, and are set to expire (though it's the kind of thing that might just always get re-applied without being made permanent) - People in high tax states (California, New York) lose out, and many of them will end up with their taxes raised."</span><span class="token punctuation">,</span>
+  <span class="token string">'None yet. It has to be reconciled with a vastly different house bill and then passed again.'</span><span class="token punctuation">,</span>
+  <span class="token string">'Also: does this apply to 2017 taxes? Or does it start with 2018 taxes?'</span><span class="token punctuation">,</span>
+  <span class="token string">'This article explains both the House and senate bills, including the proposed changes to your income taxes based on your income level. URL_0'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+ <span class="token string">'answers.score'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">21</span><span class="token punctuation">,</span> <span class="token number">19</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+ <span class="token string">'answers.text_urls'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">[</span><span class="token string">'https://www.investopedia.com/news/trumps-tax-reform-what-can-be-done/'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+ <span class="token string">'title_urls'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'url'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+ <span class="token string">'selftext_urls'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'url'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Each subfield is now a separate column as indicated by the <code>answers</code> prefix, and the <code>text</code> field is a list now.</strong> Instead<br>of tokenizing each sentence separately, <strong>convert the list to a string so you can jointly tokenize them.</strong></p>
+<p>Here is a first preprocessing function to <strong>join the list of strings for each example</strong> and <strong>tokenize the result</strong>:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">def</span> <span class="token function">preprocess_function</span><span class="token punctuation">(</span>examples<span class="token punctuation">)</span><span class="token punctuation">:</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     <span class="token keyword">return</span> tokenizer<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">" "</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token keyword">for</span> x <span class="token keyword">in</span> examples<span class="token punctuation">[</span><span class="token string">"answers.text"</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>To apply this preprocessing function over the entire dataset, use the 🤗 Datasets [<code>~datasets.Dataset.map</code>] method. <strong>You can speed up the <code>map</code> function by setting <code>batched=True</code> to process multiple elements of the dataset at once</strong>, and <strong>increasing the number of processes with <code>num_proc</code></strong>. Remove any columns you don’t need:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> tokenized_eli5 <span class="token operator">=</span> eli5<span class="token punctuation">.</span><span class="token builtin">map</span><span class="token punctuation">(</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     preprocess_function<span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     batched<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     num_proc<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     remove_columns<span class="token operator">=</span>eli5<span class="token punctuation">[</span><span class="token string">"train"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>column_names<span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>This dataset contains the token sequences, but some of these are longer than the maximum input length for the model.</p>
+<p>You can now use a second preprocessing function to</p>
+<ul>
+<li><strong>concatenate all the sequences</strong></li>
+<li><strong>split the concatenated sequences into shorter chunks defined by <code>block_size</code></strong>, which should be both shorter than <strong>the maximum input length</strong> and <strong>short enough for your GPU RAM</strong>.</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> block_size <span class="token operator">=</span> <span class="token number">128</span>
+
+
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">def</span> <span class="token function">group_texts</span><span class="token punctuation">(</span>examples<span class="token punctuation">)</span><span class="token punctuation">:</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     <span class="token comment"># Concatenate all texts.</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     concatenated_examples <span class="token operator">=</span> <span class="token punctuation">&#123;</span>k<span class="token punctuation">:</span> <span class="token builtin">sum</span><span class="token punctuation">(</span>examples<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">for</span> k <span class="token keyword">in</span> examples<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     total_length <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>concatenated_examples<span class="token punctuation">[</span><span class="token builtin">list</span><span class="token punctuation">(</span>examples<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     <span class="token comment"># We drop the small remainder, we could add padding if the model supported it instead of this drop, you can</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     <span class="token comment"># customize this part to your needs.</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     <span class="token keyword">if</span> total_length <span class="token operator">>=</span> block_size<span class="token punctuation">:</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>         total_length <span class="token operator">=</span> <span class="token punctuation">(</span>total_length <span class="token operator">//</span> block_size<span class="token punctuation">)</span> <span class="token operator">*</span> block_size
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     <span class="token comment"># Split by chunks of block_size.</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     result <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>         k<span class="token punctuation">:</span> <span class="token punctuation">[</span>t<span class="token punctuation">[</span>i <span class="token punctuation">:</span> i <span class="token operator">+</span> block_size<span class="token punctuation">]</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> total_length<span class="token punctuation">,</span> block_size<span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>         <span class="token keyword">for</span> k<span class="token punctuation">,</span> t <span class="token keyword">in</span> concatenated_examples<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     <span class="token punctuation">&#125;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     result<span class="token punctuation">[</span><span class="token string">"labels"</span><span class="token punctuation">]</span> <span class="token operator">=</span> result<span class="token punctuation">[</span><span class="token string">"input_ids"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     <span class="token keyword">return</span> result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Apply the <code>group_texts</code> function over the entire dataset:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> lm_dataset <span class="token operator">=</span> tokenized_eli5<span class="token punctuation">.</span><span class="token builtin">map</span><span class="token punctuation">(</span>group_texts<span class="token punctuation">,</span> batched<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> num_proc<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>Now create a batch of examples using [<code>DataCollatorForLanguageModeling</code>]. It’s more efficient to <em>dynamically pad</em> the<br>sentences to the longest length in a batch during collation, instead of padding the whole dataset to the maximum length.</p>
+<p>Use the end-of-sequence token as the padding token and set <code>mlm=False</code>. <strong>This will use the inputs as labels shifted to the right by one element:</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> transformers <span class="token keyword">import</span> DataCollatorForLanguageModeling
+
+<span class="token operator">>></span><span class="token operator">></span> tokenizer<span class="token punctuation">.</span>pad_token <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>eos_token
+<span class="token operator">>></span><span class="token operator">></span> data_collator <span class="token operator">=</span> DataCollatorForLanguageModeling<span class="token punctuation">(</span>tokenizer<span class="token operator">=</span>tokenizer<span class="token punctuation">,</span> mlm<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Train"><a href="#Train" class="headerlink" title="Train"></a>Train</h2><p>You’re ready to start training your model now! Load DistilGPT2 with [<code>AutoModelForCausalLM</code>]:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoModelForCausalLM<span class="token punctuation">,</span> TrainingArguments<span class="token punctuation">,</span> Trainer
+
+<span class="token operator">>></span><span class="token operator">></span> model <span class="token operator">=</span> AutoModelForCausalLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"distilbert/distilgpt2"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>At this point, only three steps remain:</p>
+<ol>
+<li>Define your training hyperparameters in [<code>TrainingArguments</code>]. <strong>The only required parameter is <code>output_dir</code> which specifies where to save your model.</strong> You’ll push this model to the Hub by setting <code>push_to_hub=True</code> (you need to be signed in to Hugging Face to upload your model).</li>
+<li>Pass <strong>the training arguments</strong> to [<code>Trainer</code>] along with <strong>the model</strong>, <strong>datasets</strong>, and <strong>data collator</strong>.</li>
+<li>Call [<code>~Trainer.train</code>] to finetune your model.</li>
+</ol>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> training_args <span class="token operator">=</span> TrainingArguments<span class="token punctuation">(</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     output_dir<span class="token operator">=</span><span class="token string">"my_awesome_eli5_clm-model"</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     evaluation_strategy<span class="token operator">=</span><span class="token string">"epoch"</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     learning_rate<span class="token operator">=</span><span class="token number">2e-5</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     weight_decay<span class="token operator">=</span><span class="token number">0.01</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     push_to_hub<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">)</span>
+
+<span class="token operator">>></span><span class="token operator">></span> trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     model<span class="token operator">=</span>model<span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     args<span class="token operator">=</span>training_args<span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     train_dataset<span class="token operator">=</span>lm_dataset<span class="token punctuation">[</span><span class="token string">"train"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     eval_dataset<span class="token operator">=</span>lm_dataset<span class="token punctuation">[</span><span class="token string">"test"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     data_collator<span class="token operator">=</span>data_collator<span class="token punctuation">,</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">)</span>
+
+<span class="token operator">>></span><span class="token operator">></span> trainer<span class="token punctuation">.</span>train<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Once training is completed, use the [<code>~transformers.Trainer.evaluate</code>] method to evaluate your model and get its perplexity:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">import</span> math
+
+<span class="token operator">>></span><span class="token operator">></span> eval_results <span class="token operator">=</span> trainer<span class="token punctuation">.</span>evaluate<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Perplexity: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>math<span class="token punctuation">.</span>exp<span class="token punctuation">(</span>eval_results<span class="token punctuation">[</span><span class="token string">'eval_loss'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token format-spec">.2f</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+Perplexity<span class="token punctuation">:</span> <span class="token number">49.61</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Then share your model to the Hub with the [<code>~transformers.Trainer.push_to_hub</code>] method so everyone can use your model:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> trainer<span class="token punctuation">.</span>push_to_hub<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>For a more in-depth example of how to finetune a model for causal language modeling, take a look at the corresponding <a href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/language_modeling.ipynb">PyTorch notebook</a> or <a href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/language_modeling-tf.ipynb">TensorFlow notebook</a>.</p>
+<h2 id="Inference"><a href="#Inference" class="headerlink" title="Inference"></a>Inference</h2><p>Come up with a prompt you’d like to generate text from:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> prompt <span class="token operator">=</span> <span class="token string">"Somatic hypermutation allows the immune system to"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>The simplest way to try out your finetuned model for inference is to use it in a [<code>pipeline</code>]. Instantiate a <code>pipeline</code> for text generation with your model, and pass your text to it:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> transformers <span class="token keyword">import</span> pipeline
+
+<span class="token operator">>></span><span class="token operator">></span> generator <span class="token operator">=</span> pipeline<span class="token punctuation">(</span><span class="token string">"text-generation"</span><span class="token punctuation">,</span> model<span class="token operator">=</span><span class="token string">"username/my_awesome_eli5_clm-model"</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> generator<span class="token punctuation">(</span>prompt<span class="token punctuation">)</span>
+<span class="token punctuation">[</span><span class="token punctuation">&#123;</span><span class="token string">'generated_text'</span><span class="token punctuation">:</span> <span class="token string">"Somatic hypermutation allows the immune system to be able to effectively reverse the damage caused by an infection.\n\n\nThe damage caused by an infection is caused by the immune system's ability to perform its own self-correcting tasks."</span><span class="token punctuation">&#125;</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Tokenize the text and return the <code>input_ids</code> as PyTorch tensors:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoTokenizer
+
+<span class="token operator">>></span><span class="token operator">></span> tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"username/my_awesome_eli5_clm-model"</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> inputs <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>prompt<span class="token punctuation">,</span> return_tensors<span class="token operator">=</span><span class="token string">"pt"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>input_ids<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Use the [<code>~transformers.generation_utils.GenerationMixin.generate</code>] method to generate text.<br><strong>For more details about the different text generation strategies and parameters for controlling generation, check out the <a href="../generation_strategies">Text generation strategies</a> page.</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoModelForCausalLM
+
+<span class="token operator">>></span><span class="token operator">></span> model <span class="token operator">=</span> AutoModelForCausalLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"username/my_awesome_eli5_clm-model"</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> outputs <span class="token operator">=</span> model<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>inputs<span class="token punctuation">,</span> max_new_tokens<span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">,</span> do_sample<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> top_k<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span> top_p<span class="token operator">=</span><span class="token number">0.95</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Decode the generated token ids back into text:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> tokenizer<span class="token punctuation">.</span>batch_decode<span class="token punctuation">(</span>outputs<span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+<span class="token punctuation">[</span><span class="token string">"Somatic hypermutation allows the immune system to react to drugs with the ability to adapt to a different environmental situation. In other words, a system of 'hypermutation' can help the immune system to adapt to a different environmental situation or in some cases even a single life. In contrast, researchers at the University of Massachusetts-Boston have found that 'hypermutation' is much stronger in mice than in humans but can be found in humans, and that it's not completely unknown to the immune system. A study on how the immune system"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百三十二篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2024/06/18/00132-yin-guo-yu-yan-jian-mo/">https://luyf-lemon-love.space/2024/06/18/00132-yin-guo-yu-yan-jian-mo/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大语言模型</span>
+                                </a>
+                            
+                                <a href="/tags/huggingface/">
+                                    <span class="chip bg-color">huggingface</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/06/19/00133-yan-ma-yu-yan-jian-mo/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/094-%E9%87%91%E5%85%8B%E4%B8%9D-%E5%8D%88%E5%90%8E.jpg" class="responsive-img" alt="00133 掩码语言建模">
+                        
+                        <span class="card-title">00133 掩码语言建模</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-06-19
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/06/18/00131-wen-da/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/038-%E6%8A%A5%E7%BA%B8%E5%A2%99%E5%8F%AF%E7%88%B1%E5%A5%B3%E5%AD%A9%E8%90%A8%E5%8B%92%E8%8A%AC%E5%A6%AE-%E7%B2%89%E8%89%B2%E9%95%BF%E5%8F%91.jpg" class="responsive-img" alt="00131 问答">
+                        
+                        <span class="card-title">00131 问答</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

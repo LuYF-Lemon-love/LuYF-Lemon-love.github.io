@@ -1,0 +1,1519 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00149 Fully Sharded Data Parallel(FSDP) 学习笔记, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言本文介绍了Fully Sharded Data Parallel(FSDP)学习笔记。
+In this tutorial, we show how to use FSDP APIs, for simple MNIST models th">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00149 Fully Sharded Data Parallel(FSDP) 学习笔记 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/035-119929348.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00149 Fully Sharded Data Parallel(FSDP) 学习笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大语言模型</span>
+                            </a>
+                        
+                            <a href="/tags/PyTorch/">
+                                <span class="chip bg-color">PyTorch</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                大语言模型
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-07-31
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文介绍了Fully Sharded Data Parallel(FSDP)学习笔记。</p>
+<p>In this tutorial, we show how to use <a href="https://pytorch.org/docs/stable/fsdp.html">FSDP APIs</a>, for simple MNIST models that can be extended to other larger models such as <a href="https://huggingface.co/blog/zero-deepspeed-fairscale">HuggingFace BERT models</a>,<br><a href="https://pytorch.medium.com/training-a-1-trillion-parameter-model-with-pytorch-fully-sharded-data-parallel-on-aws-3ac13aa96cff">GPT 3 models up to 1T parameters</a>. </p>
+<p>操作系统：Windows 11 家庭中文版</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://pytorch.org/tutorials/intermediate/FSDP_tutorial.html">Getting Started with Fully Sharded Data Parallel(FSDP)</a></li>
+<li><a href="https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/">PyTorch FSDP</a></li>
+<li><a href="https://pytorch.org/docs/stable/notes/fsdp.html#fsdp-notes">FSDP Notes</a></li>
+</ol>
+<h2 id="How-FSDP-works"><a href="#How-FSDP-works" class="headerlink" title="How FSDP works"></a>How FSDP works</h2><p>In <a href="https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html">DistributedDataParallel</a>, (DDP) training, each process&#x2F; worker owns a replica of the model and processes a batch of data, finally it uses all-reduce to sum up gradients over different workers. In DDP the model weights and optimizer states are replicated across all workers. FSDP is a type of data parallelism that shards model parameters, optimizer states and gradients across DDP ranks. </p>
+<p>When training with FSDP, the GPU memory footprint is smaller than when training with DDP across all workers. This makes the training of some very large models feasible by allowing larger models or batch sizes to fit on device. This comes with the cost of increased communication volume. The communication overhead is reduced by internal optimizations like overlapping communication and computation.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240731235140.png"></p>
+<p>At a high level FSDP works as follow:</p>
+<p><strong>In constructor</strong></p>
+<ul>
+<li>Shard model parameters and each rank only keeps its own shard</li>
+</ul>
+<p><strong>In forward path</strong></p>
+<ul>
+<li>Run all_gather to collect all shards from all ranks to recover the full parameter in this FSDP unit</li>
+<li>Run forward computation</li>
+<li>Discard parameter shards it has just collected</li>
+</ul>
+<p><strong>In backward path</strong></p>
+<ul>
+<li>Run all_gather to collect all shards from all ranks to recover the full parameter in this FSDP unit</li>
+<li>Run backward computation</li>
+<li>Run reduce_scatter to sync gradients</li>
+<li>Discard parameters.</li>
+</ul>
+<p>One way to view FSDP’s sharding is to decompose the DDP gradient all-reduce into reduce-scatter and all-gather. Specifically, during the backward pass, FSDP reduces and scatters gradients, ensuring that each rank possesses a shard of the gradients. Then it updates the corresponding shard of the parameters in the optimizer step. Finally, in the subsequent forward pass, it performs an all-gather operation to collect and combine the updated parameter shards.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240731235646.png"></p>
+<h2 id="How-to-use-FSDP"><a href="#How-to-use-FSDP" class="headerlink" title="How to use FSDP"></a>How to use FSDP</h2><p>Here we use a toy model to run training on the MNIST dataset for demonstration purposes. The APIs and logic can be applied to training larger models as well. </p>
+<p><strong>Setup</strong></p>
+<p>1.1 Install PyTorch along with Torchvision</p>
+<p>See the <a href="https://pytorch.org/get-started/locally">Get Started guide</a> for information on installation.</p>
+<p>We add the following code snippets to a python script “FSDP_mnist.py”.</p>
+<p>1.2  Import necessary packages</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Based on: https://github.com/pytorch/examples/blob/master/mnist/main.py</span>
+<span class="token keyword">import</span> os
+<span class="token keyword">import</span> argparse
+<span class="token keyword">import</span> functools
+<span class="token keyword">import</span> torch
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn <span class="token keyword">as</span> nn
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>functional <span class="token keyword">as</span> F
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>optim <span class="token keyword">as</span> optim
+<span class="token keyword">from</span> torchvision <span class="token keyword">import</span> datasets<span class="token punctuation">,</span> transforms
+
+<span class="token keyword">from</span> torch<span class="token punctuation">.</span>optim<span class="token punctuation">.</span>lr_scheduler <span class="token keyword">import</span> StepLR
+
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>distributed <span class="token keyword">as</span> dist
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>multiprocessing <span class="token keyword">as</span> mp
+<span class="token keyword">from</span> torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>parallel <span class="token keyword">import</span> DistributedDataParallel <span class="token keyword">as</span> DDP
+<span class="token keyword">from</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data<span class="token punctuation">.</span>distributed <span class="token keyword">import</span> DistributedSampler
+<span class="token keyword">from</span> torch<span class="token punctuation">.</span>distributed<span class="token punctuation">.</span>fsdp <span class="token keyword">import</span> FullyShardedDataParallel <span class="token keyword">as</span> FSDP
+<span class="token keyword">from</span> torch<span class="token punctuation">.</span>distributed<span class="token punctuation">.</span>fsdp<span class="token punctuation">.</span>fully_sharded_data_parallel <span class="token keyword">import</span> <span class="token punctuation">(</span>
+    CPUOffload<span class="token punctuation">,</span>
+    BackwardPrefetch<span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">from</span> torch<span class="token punctuation">.</span>distributed<span class="token punctuation">.</span>fsdp<span class="token punctuation">.</span>wrap <span class="token keyword">import</span> <span class="token punctuation">(</span>
+    size_based_auto_wrap_policy<span class="token punctuation">,</span>
+    enable_wrap<span class="token punctuation">,</span>
+    wrap<span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>1.3 Distributed training setup. As we mentioned FSDP is a type of data parallelism which requires a distributed training environment, so here we use two helper functions to initialize the processes for distributed training and clean up.</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">setup</span><span class="token punctuation">(</span>rank<span class="token punctuation">,</span> world_size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">'MASTER_ADDR'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'localhost'</span>
+    os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">'MASTER_PORT'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'12355'</span>
+
+    <span class="token comment"># initialize the process group</span>
+    dist<span class="token punctuation">.</span>init_process_group<span class="token punctuation">(</span><span class="token string">"nccl"</span><span class="token punctuation">,</span> rank<span class="token operator">=</span>rank<span class="token punctuation">,</span> world_size<span class="token operator">=</span>world_size<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">cleanup</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    dist<span class="token punctuation">.</span>destroy_process_group<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>2.1  Define our toy model for handwritten digit classification. </p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Net</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>Net<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>conv1 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Conv2d<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">32</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>conv2 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Conv2d<span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">,</span> <span class="token number">64</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>dropout1 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Dropout<span class="token punctuation">(</span><span class="token number">0.25</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>dropout2 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Dropout<span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>fc1 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">9216</span><span class="token punctuation">,</span> <span class="token number">128</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>fc2 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">128</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>conv1<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> F<span class="token punctuation">.</span>relu<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>conv2<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> F<span class="token punctuation">.</span>relu<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> F<span class="token punctuation">.</span>max_pool2d<span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>dropout1<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> torch<span class="token punctuation">.</span>flatten<span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>fc1<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> F<span class="token punctuation">.</span>relu<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>dropout2<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>fc2<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        output <span class="token operator">=</span> F<span class="token punctuation">.</span>log_softmax<span class="token punctuation">(</span>x<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> output<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>2.2 Define a train function </p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">train</span><span class="token punctuation">(</span>args<span class="token punctuation">,</span> model<span class="token punctuation">,</span> rank<span class="token punctuation">,</span> world_size<span class="token punctuation">,</span> train_loader<span class="token punctuation">,</span> optimizer<span class="token punctuation">,</span> epoch<span class="token punctuation">,</span> sampler<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    model<span class="token punctuation">.</span>train<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    ddp_loss <span class="token operator">=</span> torch<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>rank<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> sampler<span class="token punctuation">:</span>
+        sampler<span class="token punctuation">.</span>set_epoch<span class="token punctuation">(</span>epoch<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> batch_idx<span class="token punctuation">,</span> <span class="token punctuation">(</span>data<span class="token punctuation">,</span> target<span class="token punctuation">)</span> <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>train_loader<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        data<span class="token punctuation">,</span> target <span class="token operator">=</span> data<span class="token punctuation">.</span>to<span class="token punctuation">(</span>rank<span class="token punctuation">)</span><span class="token punctuation">,</span> target<span class="token punctuation">.</span>to<span class="token punctuation">(</span>rank<span class="token punctuation">)</span>
+        optimizer<span class="token punctuation">.</span>zero_grad<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        output <span class="token operator">=</span> model<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+        loss <span class="token operator">=</span> F<span class="token punctuation">.</span>nll_loss<span class="token punctuation">(</span>output<span class="token punctuation">,</span> target<span class="token punctuation">,</span> reduction<span class="token operator">=</span><span class="token string">'sum'</span><span class="token punctuation">)</span>
+        loss<span class="token punctuation">.</span>backward<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        optimizer<span class="token punctuation">.</span>step<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        ddp_loss<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+=</span> loss<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        ddp_loss<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+
+    dist<span class="token punctuation">.</span>all_reduce<span class="token punctuation">(</span>ddp_loss<span class="token punctuation">,</span> op<span class="token operator">=</span>dist<span class="token punctuation">.</span>ReduceOp<span class="token punctuation">.</span>SUM<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> rank <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Train Epoch: &#123;&#125; \tLoss: &#123;:.6f&#125;'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>epoch<span class="token punctuation">,</span> ddp_loss<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">/</span> ddp_loss<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>2.3 Define a validation function </p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">test</span><span class="token punctuation">(</span>model<span class="token punctuation">,</span> rank<span class="token punctuation">,</span> world_size<span class="token punctuation">,</span> test_loader<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    model<span class="token punctuation">.</span><span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    correct <span class="token operator">=</span> <span class="token number">0</span>
+    ddp_loss <span class="token operator">=</span> torch<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>rank<span class="token punctuation">)</span>
+    <span class="token keyword">with</span> torch<span class="token punctuation">.</span>no_grad<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> data<span class="token punctuation">,</span> target <span class="token keyword">in</span> test_loader<span class="token punctuation">:</span>
+            data<span class="token punctuation">,</span> target <span class="token operator">=</span> data<span class="token punctuation">.</span>to<span class="token punctuation">(</span>rank<span class="token punctuation">)</span><span class="token punctuation">,</span> target<span class="token punctuation">.</span>to<span class="token punctuation">(</span>rank<span class="token punctuation">)</span>
+            output <span class="token operator">=</span> model<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+            ddp_loss<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+=</span> F<span class="token punctuation">.</span>nll_loss<span class="token punctuation">(</span>output<span class="token punctuation">,</span> target<span class="token punctuation">,</span> reduction<span class="token operator">=</span><span class="token string">'sum'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># sum up batch loss</span>
+            pred <span class="token operator">=</span> output<span class="token punctuation">.</span>argmax<span class="token punctuation">(</span>dim<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> keepdim<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>  <span class="token comment"># get the index of the max log-probability</span>
+            ddp_loss<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+=</span> pred<span class="token punctuation">.</span>eq<span class="token punctuation">(</span>target<span class="token punctuation">.</span>view_as<span class="token punctuation">(</span>pred<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            ddp_loss<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+
+    dist<span class="token punctuation">.</span>all_reduce<span class="token punctuation">(</span>ddp_loss<span class="token punctuation">,</span> op<span class="token operator">=</span>dist<span class="token punctuation">.</span>ReduceOp<span class="token punctuation">.</span>SUM<span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> rank <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        test_loss <span class="token operator">=</span> ddp_loss<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">/</span> ddp_loss<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Test set: Average loss: &#123;:.4f&#125;, Accuracy: &#123;&#125;/&#123;&#125; (&#123;:.2f&#125;%)\n'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>
+            test_loss<span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">(</span>ddp_loss<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">(</span>ddp_loss<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token number">1.</span>   <span class="token operator">*</span> ddp_loss<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">/</span> ddp_loss<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>2.4 Define a distributed train function that wraps the model in FSDP</p>
+<p><strong>Note: to save the FSDP model, we need to call the state_dict on each rank then on Rank 0 save the overall states.</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">fsdp_main</span><span class="token punctuation">(</span>rank<span class="token punctuation">,</span> world_size<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    setup<span class="token punctuation">(</span>rank<span class="token punctuation">,</span> world_size<span class="token punctuation">)</span>
+
+    transform<span class="token operator">=</span>transforms<span class="token punctuation">.</span>Compose<span class="token punctuation">(</span><span class="token punctuation">[</span>
+        transforms<span class="token punctuation">.</span>ToTensor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        transforms<span class="token punctuation">.</span>Normalize<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0.1307</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0.3081</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    dataset1 <span class="token operator">=</span> datasets<span class="token punctuation">.</span>MNIST<span class="token punctuation">(</span><span class="token string">'../data'</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> download<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+                        transform<span class="token operator">=</span>transform<span class="token punctuation">)</span>
+    dataset2 <span class="token operator">=</span> datasets<span class="token punctuation">.</span>MNIST<span class="token punctuation">(</span><span class="token string">'../data'</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span>
+                        transform<span class="token operator">=</span>transform<span class="token punctuation">)</span>
+
+    sampler1 <span class="token operator">=</span> DistributedSampler<span class="token punctuation">(</span>dataset1<span class="token punctuation">,</span> rank<span class="token operator">=</span>rank<span class="token punctuation">,</span> num_replicas<span class="token operator">=</span>world_size<span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    sampler2 <span class="token operator">=</span> DistributedSampler<span class="token punctuation">(</span>dataset2<span class="token punctuation">,</span> rank<span class="token operator">=</span>rank<span class="token punctuation">,</span> num_replicas<span class="token operator">=</span>world_size<span class="token punctuation">)</span>
+
+    train_kwargs <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">'batch_size'</span><span class="token punctuation">:</span> args<span class="token punctuation">.</span>batch_size<span class="token punctuation">,</span> <span class="token string">'sampler'</span><span class="token punctuation">:</span> sampler1<span class="token punctuation">&#125;</span>
+    test_kwargs <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">'batch_size'</span><span class="token punctuation">:</span> args<span class="token punctuation">.</span>test_batch_size<span class="token punctuation">,</span> <span class="token string">'sampler'</span><span class="token punctuation">:</span> sampler2<span class="token punctuation">&#125;</span>
+    cuda_kwargs <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">'num_workers'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+                    <span class="token string">'pin_memory'</span><span class="token punctuation">:</span> <span class="token boolean">True</span><span class="token punctuation">,</span>
+                    <span class="token string">'shuffle'</span><span class="token punctuation">:</span> <span class="token boolean">False</span><span class="token punctuation">&#125;</span>
+    train_kwargs<span class="token punctuation">.</span>update<span class="token punctuation">(</span>cuda_kwargs<span class="token punctuation">)</span>
+    test_kwargs<span class="token punctuation">.</span>update<span class="token punctuation">(</span>cuda_kwargs<span class="token punctuation">)</span>
+
+    train_loader <span class="token operator">=</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data<span class="token punctuation">.</span>DataLoader<span class="token punctuation">(</span>dataset1<span class="token punctuation">,</span><span class="token operator">**</span>train_kwargs<span class="token punctuation">)</span>
+    test_loader <span class="token operator">=</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data<span class="token punctuation">.</span>DataLoader<span class="token punctuation">(</span>dataset2<span class="token punctuation">,</span> <span class="token operator">**</span>test_kwargs<span class="token punctuation">)</span>
+    my_auto_wrap_policy <span class="token operator">=</span> functools<span class="token punctuation">.</span>partial<span class="token punctuation">(</span>
+        size_based_auto_wrap_policy<span class="token punctuation">,</span> min_num_params<span class="token operator">=</span><span class="token number">100</span>
+    <span class="token punctuation">)</span>
+    torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>set_device<span class="token punctuation">(</span>rank<span class="token punctuation">)</span>
+        
+        
+    init_start_event <span class="token operator">=</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>Event<span class="token punctuation">(</span>enable_timing<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    init_end_event <span class="token operator">=</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>Event<span class="token punctuation">(</span>enable_timing<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+    model <span class="token operator">=</span> Net<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>rank<span class="token punctuation">)</span>
+
+    model <span class="token operator">=</span> FSDP<span class="token punctuation">(</span>model<span class="token punctuation">)</span>
+
+    optimizer <span class="token operator">=</span> optim<span class="token punctuation">.</span>Adadelta<span class="token punctuation">(</span>model<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr<span class="token operator">=</span>args<span class="token punctuation">.</span>lr<span class="token punctuation">)</span>
+
+    scheduler <span class="token operator">=</span> StepLR<span class="token punctuation">(</span>optimizer<span class="token punctuation">,</span> step_size<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> gamma<span class="token operator">=</span>args<span class="token punctuation">.</span>gamma<span class="token punctuation">)</span>
+    init_start_event<span class="token punctuation">.</span>record<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> epoch <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> args<span class="token punctuation">.</span>epochs <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        train<span class="token punctuation">(</span>args<span class="token punctuation">,</span> model<span class="token punctuation">,</span> rank<span class="token punctuation">,</span> world_size<span class="token punctuation">,</span> train_loader<span class="token punctuation">,</span> optimizer<span class="token punctuation">,</span> epoch<span class="token punctuation">,</span> sampler<span class="token operator">=</span>sampler1<span class="token punctuation">)</span>
+        test<span class="token punctuation">(</span>model<span class="token punctuation">,</span> rank<span class="token punctuation">,</span> world_size<span class="token punctuation">,</span> test_loader<span class="token punctuation">)</span>
+        scheduler<span class="token punctuation">.</span>step<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    init_end_event<span class="token punctuation">.</span>record<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> rank <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"CUDA event elapsed time: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>init_start_event<span class="token punctuation">.</span>elapsed_time<span class="token punctuation">(</span>init_end_event<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1000</span><span class="token punctuation">&#125;</span></span><span class="token string">sec"</span></span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>model<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> args<span class="token punctuation">.</span>save_model<span class="token punctuation">:</span>
+        <span class="token comment"># use a barrier to make sure training is done on all ranks</span>
+        dist<span class="token punctuation">.</span>barrier<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        states <span class="token operator">=</span> model<span class="token punctuation">.</span>state_dict<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> rank <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            torch<span class="token punctuation">.</span>save<span class="token punctuation">(</span>states<span class="token punctuation">,</span> <span class="token string">"mnist_cnn.pt"</span><span class="token punctuation">)</span>
+        
+    cleanup<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>2.5 Finally, parse the arguments and set the main function</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    <span class="token comment"># Training settings</span>
+    parser <span class="token operator">=</span> argparse<span class="token punctuation">.</span>ArgumentParser<span class="token punctuation">(</span>description<span class="token operator">=</span><span class="token string">'PyTorch MNIST Example'</span><span class="token punctuation">)</span>
+    parser<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span><span class="token string">'--batch-size'</span><span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token operator">=</span><span class="token builtin">int</span><span class="token punctuation">,</span> default<span class="token operator">=</span><span class="token number">64</span><span class="token punctuation">,</span> metavar<span class="token operator">=</span><span class="token string">'N'</span><span class="token punctuation">,</span>
+                        <span class="token builtin">help</span><span class="token operator">=</span><span class="token string">'input batch size for training (default: 64)'</span><span class="token punctuation">)</span>
+    parser<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span><span class="token string">'--test-batch-size'</span><span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token operator">=</span><span class="token builtin">int</span><span class="token punctuation">,</span> default<span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">,</span> metavar<span class="token operator">=</span><span class="token string">'N'</span><span class="token punctuation">,</span>
+                        <span class="token builtin">help</span><span class="token operator">=</span><span class="token string">'input batch size for testing (default: 1000)'</span><span class="token punctuation">)</span>
+    parser<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span><span class="token string">'--epochs'</span><span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token operator">=</span><span class="token builtin">int</span><span class="token punctuation">,</span> default<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">,</span> metavar<span class="token operator">=</span><span class="token string">'N'</span><span class="token punctuation">,</span>
+                        <span class="token builtin">help</span><span class="token operator">=</span><span class="token string">'number of epochs to train (default: 14)'</span><span class="token punctuation">)</span>
+    parser<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span><span class="token string">'--lr'</span><span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token operator">=</span><span class="token builtin">float</span><span class="token punctuation">,</span> default<span class="token operator">=</span><span class="token number">1.0</span><span class="token punctuation">,</span> metavar<span class="token operator">=</span><span class="token string">'LR'</span><span class="token punctuation">,</span>
+                        <span class="token builtin">help</span><span class="token operator">=</span><span class="token string">'learning rate (default: 1.0)'</span><span class="token punctuation">)</span>
+    parser<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span><span class="token string">'--gamma'</span><span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token operator">=</span><span class="token builtin">float</span><span class="token punctuation">,</span> default<span class="token operator">=</span><span class="token number">0.7</span><span class="token punctuation">,</span> metavar<span class="token operator">=</span><span class="token string">'M'</span><span class="token punctuation">,</span>
+                        <span class="token builtin">help</span><span class="token operator">=</span><span class="token string">'Learning rate step gamma (default: 0.7)'</span><span class="token punctuation">)</span>
+    parser<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span><span class="token string">'--no-cuda'</span><span class="token punctuation">,</span> action<span class="token operator">=</span><span class="token string">'store_true'</span><span class="token punctuation">,</span> default<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span>
+                        <span class="token builtin">help</span><span class="token operator">=</span><span class="token string">'disables CUDA training'</span><span class="token punctuation">)</span>
+    parser<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span><span class="token string">'--seed'</span><span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token operator">=</span><span class="token builtin">int</span><span class="token punctuation">,</span> default<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> metavar<span class="token operator">=</span><span class="token string">'S'</span><span class="token punctuation">,</span>
+                        <span class="token builtin">help</span><span class="token operator">=</span><span class="token string">'random seed (default: 1)'</span><span class="token punctuation">)</span>
+    parser<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span><span class="token string">'--save-model'</span><span class="token punctuation">,</span> action<span class="token operator">=</span><span class="token string">'store_true'</span><span class="token punctuation">,</span> default<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span>
+                        <span class="token builtin">help</span><span class="token operator">=</span><span class="token string">'For Saving the current Model'</span><span class="token punctuation">)</span>
+    args <span class="token operator">=</span> parser<span class="token punctuation">.</span>parse_args<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    torch<span class="token punctuation">.</span>manual_seed<span class="token punctuation">(</span>args<span class="token punctuation">.</span>seed<span class="token punctuation">)</span>
+
+    WORLD_SIZE <span class="token operator">=</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>device_count<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    mp<span class="token punctuation">.</span>spawn<span class="token punctuation">(</span>fsdp_main<span class="token punctuation">,</span>
+        args<span class="token operator">=</span><span class="token punctuation">(</span>WORLD_SIZE<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        nprocs<span class="token operator">=</span>WORLD_SIZE<span class="token punctuation">,</span>
+        join<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>We have recorded cuda events to measure the time of FSDP model specifics. The CUDA event time was 110.85 seconds.</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python FSDP_mnist.py
+
+CUDA event elapsed <span class="token function">time</span> on training loop <span class="token number">40</span>.67462890625sec<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>Wrapping the model with FSDP, the model will look as follows, we can see the model has been wrapped in one FSDP unit.<br>Alternatively, we will look at adding the auto_wrap_policy next and will discuss the differences. </p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">FullyShardedDataParallel<span class="token punctuation">(</span>
+   <span class="token punctuation">(</span>_fsdp_wrapped_module<span class="token punctuation">)</span>: FlattenParamsWrapper<span class="token punctuation">(</span>
+       <span class="token punctuation">(</span>_fpw_module<span class="token punctuation">)</span>: Net<span class="token punctuation">(</span>
+       <span class="token punctuation">(</span>conv1<span class="token punctuation">)</span>: Conv2d<span class="token punctuation">(</span><span class="token number">1</span>, <span class="token number">32</span>, <span class="token assign-left variable">kernel_size</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">3</span>, <span class="token number">3</span><span class="token punctuation">)</span>, <span class="token assign-left variable">stride</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span>, <span class="token number">1</span><span class="token punctuation">))</span>
+       <span class="token punctuation">(</span>conv2<span class="token punctuation">)</span>: Conv2d<span class="token punctuation">(</span><span class="token number">32</span>, <span class="token number">64</span>, <span class="token assign-left variable">kernel_size</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">3</span>, <span class="token number">3</span><span class="token punctuation">)</span>, <span class="token assign-left variable">stride</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span>, <span class="token number">1</span><span class="token punctuation">))</span>
+       <span class="token punctuation">(</span>dropout1<span class="token punctuation">)</span>: Dropout<span class="token punctuation">(</span>p<span class="token operator">=</span><span class="token number">0.25</span>, <span class="token assign-left variable">inplace</span><span class="token operator">=</span>False<span class="token punctuation">)</span>
+       <span class="token punctuation">(</span>dropout2<span class="token punctuation">)</span>: Dropout<span class="token punctuation">(</span>p<span class="token operator">=</span><span class="token number">0.5</span>, <span class="token assign-left variable">inplace</span><span class="token operator">=</span>False<span class="token punctuation">)</span>
+       <span class="token punctuation">(</span>fc1<span class="token punctuation">)</span>: Linear<span class="token punctuation">(</span>in_features<span class="token operator">=</span><span class="token number">9216</span>, <span class="token assign-left variable">out_features</span><span class="token operator">=</span><span class="token number">128</span>, <span class="token assign-left variable">bias</span><span class="token operator">=</span>True<span class="token punctuation">)</span>
+       <span class="token punctuation">(</span>fc2<span class="token punctuation">)</span>: Linear<span class="token punctuation">(</span>in_features<span class="token operator">=</span><span class="token number">128</span>, <span class="token assign-left variable">out_features</span><span class="token operator">=</span><span class="token number">10</span>, <span class="token assign-left variable">bias</span><span class="token operator">=</span>True<span class="token punctuation">)</span>
+       <span class="token punctuation">)</span>
+   <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>The following is the peak memory usage from FSDP MNIST training on g4dn.12.xlarge AWS EC2 instance with 4 GPUs captured from PyTorch Profiler. </p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240801210735.png"></p>
+<p>Applying <em>auto_wrap_policy</em> in FSDP otherwise, FSDP will put the entire model in one FSDP unit, which will reduce computation efficiency and memory efficiency.<br>The way it works is that, suppose your model contains 100 Linear layers. If you do FSDP(model), there will only be one FSDP unit which wraps the entire model.<br>In that case, the allgather would collect the full parameters for all 100 linear layers, and hence won’t save CUDA memory for parameter sharding.<br>Also, there is only one blocking allgather call for the all 100 linear layers, there will not be communication and computation overlapping between layers. </p>
+<p>To avoid that, you can pass in an auto_wrap_policy, which will seal the current FSDP unit and start a new one automatically when the specified condition is met (e.g., size limit).<br>In that way you will have multiple FSDP units, and only one FSDP unit needs to collect full parameters at a time. E.g., suppose you have 5 FSDP units, and each wraps 20 linear layers.<br>Then, in the forward, the 1st FSDP unit will allgather parameters for the first 20 linear layers, do computation, discard the parameters and then move on to the next 20 linear layers. So, at any point in time, each rank only materializes parameters&#x2F;grads for 20 linear layers instead of 100.</p>
+<p>To do so in 2.4 we define the auto_wrap_policy and pass it to FSDP wrapper, in the following example, my_auto_wrap_policy defines that a layer could be wrapped or sharded by FSDP if the number of parameters in this layer is larger than 100.<br>If the number of parameters in this layer is smaller than 100, it will be wrapped with other small layers together by FSDP.<br>Finding an optimal auto wrap policy is challenging, PyTorch will add auto tuning for this config in the future. Without an auto tuning tool, it is good to profile your workflow using different auto wrap policies experimentally and find the optimal one.</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">my_auto_wrap_policy <span class="token operator">=</span> functools<span class="token punctuation">.</span>partial<span class="token punctuation">(</span>
+        size_based_auto_wrap_policy<span class="token punctuation">,</span> min_num_params<span class="token operator">=</span><span class="token number">20000</span>
+    <span class="token punctuation">)</span>
+torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>set_device<span class="token punctuation">(</span>rank<span class="token punctuation">)</span>
+model <span class="token operator">=</span> Net<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>rank<span class="token punctuation">)</span>
+
+model <span class="token operator">=</span> FSDP<span class="token punctuation">(</span>model<span class="token punctuation">,</span>
+    auto_wrap_policy<span class="token operator">=</span>my_auto_wrap_policy<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Applying the auto_wrap_policy, the model would be as follows:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">FullyShardedDataParallel<span class="token punctuation">(</span>
+<span class="token punctuation">(</span>_fsdp_wrapped_module<span class="token punctuation">)</span>: FlattenParamsWrapper<span class="token punctuation">(</span>
+  <span class="token punctuation">(</span>_fpw_module<span class="token punctuation">)</span>: Net<span class="token punctuation">(</span>
+    <span class="token punctuation">(</span>conv1<span class="token punctuation">)</span>: Conv2d<span class="token punctuation">(</span><span class="token number">1</span>, <span class="token number">32</span>, <span class="token assign-left variable">kernel_size</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">3</span>, <span class="token number">3</span><span class="token punctuation">)</span>, <span class="token assign-left variable">stride</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span>, <span class="token number">1</span><span class="token punctuation">))</span>
+    <span class="token punctuation">(</span>conv2<span class="token punctuation">)</span>: Conv2d<span class="token punctuation">(</span><span class="token number">32</span>, <span class="token number">64</span>, <span class="token assign-left variable">kernel_size</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">3</span>, <span class="token number">3</span><span class="token punctuation">)</span>, <span class="token assign-left variable">stride</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span>, <span class="token number">1</span><span class="token punctuation">))</span>
+    <span class="token punctuation">(</span>dropout1<span class="token punctuation">)</span>: Dropout<span class="token punctuation">(</span>p<span class="token operator">=</span><span class="token number">0.25</span>, <span class="token assign-left variable">inplace</span><span class="token operator">=</span>False<span class="token punctuation">)</span>
+    <span class="token punctuation">(</span>dropout2<span class="token punctuation">)</span>: Dropout<span class="token punctuation">(</span>p<span class="token operator">=</span><span class="token number">0.5</span>, <span class="token assign-left variable">inplace</span><span class="token operator">=</span>False<span class="token punctuation">)</span>
+    <span class="token punctuation">(</span>fc1<span class="token punctuation">)</span>: FullyShardedDataParallel<span class="token punctuation">(</span>
+      <span class="token punctuation">(</span>_fsdp_wrapped_module<span class="token punctuation">)</span>: FlattenParamsWrapper<span class="token punctuation">(</span>
+        <span class="token punctuation">(</span>_fpw_module<span class="token punctuation">)</span>: Linear<span class="token punctuation">(</span>in_features<span class="token operator">=</span><span class="token number">9216</span>, <span class="token assign-left variable">out_features</span><span class="token operator">=</span><span class="token number">128</span>, <span class="token assign-left variable">bias</span><span class="token operator">=</span>True<span class="token punctuation">)</span>
+      <span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+    <span class="token punctuation">(</span>fc2<span class="token punctuation">)</span>: Linear<span class="token punctuation">(</span>in_features<span class="token operator">=</span><span class="token number">128</span>, <span class="token assign-left variable">out_features</span><span class="token operator">=</span><span class="token number">10</span>, <span class="token assign-left variable">bias</span><span class="token operator">=</span>True<span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python FSDP_mnist.py
+
+CUDA event elapsed <span class="token function">time</span> on training loop <span class="token number">41</span>.89130859375sec<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>The following is the peak memory usage from FSDP with auto_wrap policy of MNIST training on a g4dn.12.xlarge AWS EC2 instance with 4 GPUs captured from PyTorch Profiler.<br>It can be observed that the peak memory usage on each device is smaller compared to FSDP without auto wrap policy applied, from ~75 MB to 66 MB.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240801212741.png"></p>
+<p><strong>CPU Off-loading</strong>: In case the model is very large that even with FSDP wouldn’t fit into GPUs, then CPU offload can be helpful here. </p>
+<p>Currently, only parameter and gradient CPU offload is supported. It can be enabled via passing in <code>cpu_offload=CPUOffload(offload_params=True)</code>.</p>
+<p>Note that this currently implicitly enables gradient offloading to CPU in order for params and grads to be on the same device to work with the optimizer. This API is subject to change. The default is None in which case there will be no offloading.</p>
+<p>Using this feature may slow down the training considerably, due to frequent copying of tensors from host to device, but it could help improve memory efficiency and train larger scale models. </p>
+<p>In 2.4 we just add it to the FSDP wrapper</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">model <span class="token operator">=</span> FSDP<span class="token punctuation">(</span>model<span class="token punctuation">,</span>
+    auto_wrap_policy<span class="token operator">=</span>my_auto_wrap_policy<span class="token punctuation">,</span>
+    cpu_offload<span class="token operator">=</span>CPUOffload<span class="token punctuation">(</span>offload_params<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>Compare it with DDP, if in 2.4 we just normally wrap the model in DPP, saving the changes in “DDP_mnist.py”.</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">model <span class="token operator">=</span> Net<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>rank<span class="token punctuation">)</span>
+model <span class="token operator">=</span> DDP<span class="token punctuation">(</span>model<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python DDP_mnist.py
+
+CUDA event elapsed <span class="token function">time</span> on training loop <span class="token number">39</span>.77766015625sec<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>The following is the peak memory usage from DDP MNIST training on g4dn.12.xlarge AWS EC2 instance with 4 GPUs captured from PyTorch profiler. </p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240801213745.png"></p>
+<p>Considering the toy example and tiny MNIST model we defined here, we can observe the difference between peak memory usage of DDP and FSDP.<br>In DDP each process holds a replica of the model, so the memory footprint is higher compared to FSDP which shards the model parameters, optimizer states and gradients over DDP ranks.<br>The peak memory usage using FSDP with auto_wrap policy is the lowest followed by FSDP and DDP. </p>
+<p>Also, looking at timings, considering the small model and running the training on a single machine, FSDP with and without auto_wrap policy performed almost as fast as DDP.<br>This example does not represent most of the real applications, for detailed analysis and comparison between DDP and FSDP please refer to this <a href="https://pytorch.medium.com/6c8da2be180d">blog post</a> .</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百四十九篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2024/07/31/00149-fully-sharded-data-parallel-fsdp-xue-xi-bi-ji/">https://luyf-lemon-love.space/2024/07/31/00149-fully-sharded-data-parallel-fsdp-xue-xi-bi-ji/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大语言模型</span>
+                                </a>
+                            
+                                <a href="/tags/PyTorch/">
+                                    <span class="chip bg-color">PyTorch</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/08/03/00150-shi-yong-dpo-wei-diao-llama-2/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/036-119926187.jpg" class="responsive-img" alt="00150 使用 DPO 微调 Llama 2">
+                        
+                        <span class="card-title">00150 使用 DPO 微调 Llama 2</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-08-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/07/28/00148-python-fire-xue-xi-bi-ji/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/033-119929478.jpg" class="responsive-img" alt="00148 Python Fire 学习笔记">
+                        
+                        <span class="card-title">00148 Python Fire 学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-28
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

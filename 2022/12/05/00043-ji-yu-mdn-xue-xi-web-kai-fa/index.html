@@ -1,0 +1,2638 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00043-基于 MDN 学习 Web 开发, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言MDN 是一个非常好的 Web 学习网站.
+
+Documenting web technologies, including CSS, HTML, and JavaScript, since 2005.
+
+操作系统：Ubuntu 20.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00043-基于 MDN 学习 Web 开发 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/7717849301.webp')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00043-基于 MDN 学习 Web 开发</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Web/">
+                                <span class="chip bg-color">Web</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
+                                计算机基础
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-12-05
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a href="https://developer.mozilla.org/zh-CN/">MDN</a> 是一个非常好的 <code>Web</code> 学习网站.</p>
+<blockquote>
+<p>Documenting web technologies, including CSS, HTML, and JavaScript, since 2005.</p>
+</blockquote>
+<p>操作系统：<strong>Ubuntu 20.04.5 LTS</strong></p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><p><a href="https://developer.mozilla.org/zh-CN/">MDN</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn">学习 Web 开发</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web">web 入门</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/Installing_basic_software">安装基础软件</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/What_will_your_website_look_like">设计网站外观</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/Dealing_with_files">处理文件</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/HTML_basics">HTML 基础</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/CSS_basics">CSS 基础</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/JavaScript_basics">JavaScript 基础</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/Publishing_your_website">发布网站</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/How_the_Web_works">万维网是如何工作的</a></p>
+</li>
+</ol>
+<h2 id="学习-Web-开发"><a href="#学习-Web-开发" class="headerlink" title="学习 Web 开发"></a>学习 Web 开发</h2><blockquote>
+<p>欢迎来到 MDN 学习区。本系列文章旨在为<code>零基础 Web 开发初学者</code>提供指导和开始编写网站代码<code>所需的所有内容</code>。</p>
+<p>该教程并不是“从入门到精通”类型的教程，<code>只能让你做到“从入门到适应”</code>。在此之后，你应该能够以你自己的方式学习 MDN 的其他内容，并接触到其它中、高级资源。</p>
+<p>从零开始学习 Web 开发<code>极具挑战性</code>，该教程将为你提供详细的资料，手把手帮助你轻松愉快地学习。无论你是正在学习 Web 开发的学生（自学或参与课程）、寻找材料的老师、编程爱好者，亦或是<code>仅仅想了解一点点 Web 技术</code>，我们都希望你能感到宾至如归。</p>
+</blockquote>
+<p>源教程地址: <a href="https://developer.mozilla.org/zh-CN/docs/Learn">https://developer.mozilla.org/zh-CN/docs/Learn</a> .</p>
+<h2 id="Web-入门"><a href="#Web-入门" class="headerlink" title="Web 入门"></a>Web 入门</h2><h3 id="Web-概述"><a href="#Web-概述" class="headerlink" title="Web 概述"></a>Web 概述</h3><p>源教程地址: <a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web">https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web</a> .</p>
+<blockquote>
+<p>web 入门是一个<strong>简要的系列</strong>，向你介绍 web 开发的实用性。你将配置你需要的工具<strong>来构建一个简单的网页</strong>，并发布一份属于你自己的代码。</p>
+</blockquote>
+<p>你的第一个网站</p>
+<blockquote>
+<p>创建一个专业的网站<strong>需要大量的工作</strong>，<strong>所以如果你是 web 开发的新手，我们鼓励你从小事做起</strong>。你不可能立马再建一个 Facebook，但做一个自己的简单网站并不难，我们将由此开始。</p>
+<p>通过阅读下面列出的文章，你将<strong>从零开始获得你的第一个在线网页</strong>。让我们开始吧！</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><code>安装基本软件</code>: 说到建设网站的工具，有很多可供选择的。<strong>如果你初入门径，你可能会被外面的一系列代码编辑器、框架和测试工具所迷惑</strong>。在这篇文章中，我们将逐步向你展示如何安装你需要的软件，以开始基本的 web 开发。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><code>你的网站会是什么样子？</code>: 在你开始为你的网站写代码之前，你应该先计划一下。<strong>需要展示什么信息</strong>？<strong>使用什么字体和颜色</strong>？我们概述了一个简单的方法，你可以按照这个方法来规划网站的内容和设计。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><code>文件处理</code>: 一个网站由许多文件组成：文本内容、代码、样式表、媒体内容，等等。当你建立一个网站时，<strong>你需要将这些文件组合成一个合理的结构，并确保它们能够相互交流</strong>。这篇文章解释了如何为你的网站建立一个合理的文件结构以及你应该注意的问题。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><code>HTML 基础知识</code>: <strong>超文本标记语言（HTML）是你用来组织你的网络内容，并赋予它意义和目的的代码</strong>。例如，我的内容是<strong>一组段落</strong>还是一个<strong>要点列表</strong>？我的页面上<strong>是否插入了图片</strong>？我有<strong>一个数据表</strong>吗？在你的接受能力之内，这篇文章提供了足够的信息，使你熟悉 HTML。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><code>CSS 基础知识</code>: <strong>层叠样式表（CSS）是你用来为你的网站设置样式的代码</strong>。例如，你希望文本是<strong>黑色</strong>还是<strong>红色</strong>？内容应该<strong>画在屏幕的什么地方</strong>？应该用什么<strong>背景图片</strong>和<strong>颜色</strong>来装饰你的网站？在这篇文章中，我们将带你了解你所需要的东西，以便开始使用。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><code>JavaScript 基础知识</code>: <strong>JavaScript 是一种编程语言，你用它来给你的网站添加交互功能</strong>。例如<strong>游戏</strong>、<strong>当按钮被按下或数据被输入表格时发生的事情</strong>、<strong>动态造型效果</strong>、<strong>动画</strong>等。这篇文章将让你了解这种令人兴奋的语言的潜力，以及如何开始使用。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><code>发布你的网站</code>: 一旦你完成了编写代码并组织构成你的网站的文件时，你需要把它们全部放在网上，以便人们能够找到它。这篇文章<strong>描述了如何以最简便的方式将你的简单示例上线至网络</strong>。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><code>万维网是如何工作的</code>: 当你访问你最喜欢的网站时，你可能不知道正有很多复杂的事情在后台发生。这篇文章概述了<strong>当你在电脑上浏览网页时发生的事情</strong>。</p>
+</blockquote>
+<h3 id="安装基础软件"><a href="#安装基础软件" class="headerlink" title="安装基础软件"></a>安装基础软件</h3><p>源教程地址: <a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/Installing_basic_software">https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/Installing_basic_software</a> .</p>
+<blockquote>
+<p>在安装基础软件中，我们向你展示了<strong>进行简单的 Web 开发需要哪些工具</strong>，以及如何正确安装它们。</p>
+</blockquote>
+<p>专业人士使用什么工具？</p>
+<blockquote>
+<ul>
+<li><strong>计算机</strong>。也许这对一些人来说听起来习以为常，但<strong>你们中的一些人正在使用手机或图书馆的电脑阅读这篇文章</strong>。对于重度的 Web 开发，最好购买<strong>一台运行 Windows、macOS 或 Linux 的台式机或笔记本电脑</strong>。</li>
+<li><strong>文本编辑器</strong>，用来写代码。可以是一个文本编辑器（如 <strong>Visual Studio Code</strong>、<strong>Sublime Text</strong>、<strong>Atom</strong>、<strong>GNU Emacs</strong> 或者 <strong>VIM</strong>），或一个混合编辑器（<strong>Dreamweaver</strong> 或 <strong>WebStorm</strong>）。Office 文档不适合这种用途，因为它们依赖隐藏的元素，会干扰网络浏览器使用的渲染引擎。</li>
+<li><strong>网络浏览器</strong>，用以测试代码。目前，最常用的浏览器是 <strong>Firefox</strong> 、<strong>Chrome</strong>、<strong>Opera</strong>、<strong>Safari</strong>、<strong>Internet Explorer</strong> 和 <strong>Microsoft Edge</strong>。你还应该测试你的网站在移动设备和你的目标受众可能仍在使用的任何旧浏览器（如 IE 8-10）上的表现。<strong>Lynx</strong>，<strong>一个基于文本的终端网络浏览器</strong>，对于查看视力障碍用户对你的网站的体验是非常好的。</li>
+<li><strong>图形编辑器</strong>，如 <strong>GIMP</strong>、<strong>Figma</strong>、**<a href="https://www.getpaint.net/">Paint.NET</a><strong>、</strong>Photoshop<strong>、</strong>Sketch** 或 <strong>XD</strong>，<strong>为你的网页制作图像或图形</strong>。</li>
+<li><strong>版本控制系统</strong>，<strong>用来管理服务器上的文件，与团队合作开展项目，共享代码和资产，避免编辑冲突</strong>。现在，<strong>Git</strong> 是最流行的版本控制系统，还有 <strong>GitHub</strong> 或 <strong>GitLab</strong> 托管服务。</li>
+<li><strong>FTP 工具</strong>，老式 Web 托管账户，以管理服务器上的文件（<strong>Git</strong> 正越来越多地取代 FTP 用于此目的）。有大量的 (S)FTP 程序可用，包括 <strong>Cyberduck</strong>、<strong>Fetch</strong> 和 <strong>FileZilla</strong>。</li>
+<li><strong>自动化构建工具</strong>，如 <strong>Webpack</strong>、<strong>Grunt</strong> 或 <strong>Gulp</strong>，以自动执行重复性任务，如<strong>简化代码</strong>和<strong>运行测试</strong>。</li>
+<li><strong>库</strong>、<strong>框架</strong>等，以加快编写常用功能。<strong>一个库往往是一个现有的 JavaScript 或 CSS 文件，它提供了现成的功能，供你在代码中使用</strong>。<strong>框架则更进一步，为你提供一个完整的系统和一些自定义的语法，让你在上面写一个 Web 应用</strong>。</li>
+<li>此外还有更多的工具！</li>
+</ul>
+</blockquote>
+<p>现在，我究竟需要什么工具？</p>
+<blockquote>
+<p>这看起来是一个冗长的清单，但幸运的是，你可以在不了解这些东西的情况下开始进行 Web 开发。在这篇文章中，我们只为你准备了最基本的东西——<strong>一个文本编辑器</strong>和<strong>一些现代网络浏览器</strong>。</p>
+</blockquote>
+<p><strong>安装文本编辑器</strong></p>
+<blockquote>
+<p>你的电脑上可能已经有<strong>一个基本的文本编辑器</strong>。默认情况下，Windows 是 <strong>Notepad</strong> ，macOS 则有 <strong>TextEdit</strong>。Linux 发行版有所不同；Ubuntu 下是 <strong>gedit</strong> 。</p>
+<p>对于 <strong>Web</strong> 开发，你可能可以做得比<strong>记事本</strong>或 <strong>TextEdit</strong> 更好。我们建议从 <strong>Visual Studio Code</strong> 开始，它是一个免费的编辑器，提供实时预览和代码提示。</p>
+</blockquote>
+<p><strong>安装现代网络浏览器</strong></p>
+<blockquote>
+<p>现在，我们将安装<strong>几个桌面网络浏览器</strong>来测试我们的代码。在下面选择你的操作系统，然后点击相关链接，下载你喜欢的浏览器：</p>
+<ul>
+<li><strong>Linux</strong>：Firefox 、Chrome 、Opera 、Brave.</li>
+<li><strong>Windows</strong>：Firefox 、Chrome 、Opera 、Internet Explorer 、Microsoft Edge 、Brave （Windows 10 默认带有 Edge；如果你有 Windows 7 或以上版本，你可以安装 Internet Explorer 11；否则，你应该安装一个替代浏览器）。</li>
+<li><strong>macOS</strong>：Firefox 、Chrome 、Opera 、Safari 、Brave （macOS 和 iOS 默认带有 Safari 浏览器）。</li>
+</ul>
+<p>在继续之前，你应该<strong>至少安装两款这样的浏览器</strong>，并准备好进行测试。</p>
+<p><strong>备注</strong>： <strong>Internet Explorer</strong> 与一些现代网络功能不兼容，它可能无法运行你的项目。你通常不需要为你的 Web 项目与它兼容而操心，因为很少还有人在使用它——至少在你学习的时候不要太担心它。你可能会在以后遇到一个需要支持它的项目。</p>
+</blockquote>
+<p><strong>安装本地 Web 服务器</strong></p>
+<blockquote>
+<p>有些例子需要通过 <strong>Web 服务器</strong>才能成功运行。你可以在这找到该怎么做<a href="https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/set_up_a_local_testing_server">如何设置本地测试服务器？</a></p>
+</blockquote>
+<h3 id="设计网站外观"><a href="#设计网站外观" class="headerlink" title="设计网站外观"></a>设计网站外观</h3><p>源教程地址: <a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/What_will_your_website_look_like">https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/What_will_your_website_look_like</a> .</p>
+<blockquote>
+<p>设计网站外观？ 在为网站编写代码之前必须进行规划和设计工作，包括“<strong>网站提供什么信息</strong>？”、“<strong>想要什么字体和颜色</strong>？”、“<strong>网站是做什么的</strong>？”</p>
+</blockquote>
+<p>第一步：计划</p>
+<blockquote>
+<p><strong>在做任何事情之前都需要一些想法</strong>。网站要达到哪种目的？一个网站基本上可以做任何事情，但对于<strong>第一次尝试，应该保持简单</strong>。我们将从创建一个包含<strong>一个标题</strong>、<strong>一张图片</strong>和<strong>几个段落</strong>的简单网页开始。</p>
+<p>首先，请考虑以下问题：</p>
+<ul>
+<li><p><strong>网站的主题是什么？</strong> 你喜欢狗、上海、还是吃豆人？</p>
+</li>
+<li><p><strong>基于所选主题要展示哪些信息？</strong> 写下标题和几段文字，构思一个用于展示的图像。</p>
+</li>
+<li><p><strong>网站采用怎样的外观？</strong> 用高阶术语来说，背景颜色是什么？使用哪种字体比较合适：正式的、卡通的、粗体、瘦体？</p>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>备注</strong>： 复杂项目需要更详细的指引，深入到<strong>颜色</strong>、<strong>字体</strong>、<strong>页面上项目之间的间距</strong>、<strong>适当的书写风格</strong>等所有细节。这有时被称为设计指南、设计系统或品牌手册，参见：<a href="https://design.firefox.com/photon/">Firefox Photon Design System</a>。</p>
+</blockquote>
+<p>绘制草图</p>
+<blockquote>
+<p><strong>接下来，拿起笔和纸，大致勾勒出你所希望的网站样子</strong>。虽然第一个简单的网页没有太多的草图，但你现在应该养成这样做的习惯。画草图很有用——并且不需要梵高的手法！</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221211154501.png"></p>
+<blockquote>
+<p><strong>备注：</strong> 即使在实际的复杂网站中，设计团队通常也是从粗略的草图开始设计的，再使用图形编辑器或 Web 技术建立数字模拟图。</p>
+<p>Web 团队通常包括一个平面设计师和一个用户体验 (UX) 设计师。平面设计师把网站的视觉效果放在一起。用户体验设计师则以一种更抽象的模式来解决用户如何体验及与网站交互方面的问题。</p>
+</blockquote>
+<p>选定内容</p>
+<blockquote>
+<p>此时可以开始组织网页上的内容了。</p>
+</blockquote>
+<p><strong>文本</strong></p>
+<blockquote>
+<p>准备好刚才撰写的标题和文字。</p>
+</blockquote>
+<p><strong>主题颜色</strong></p>
+<blockquote>
+<p>使用<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Colors/Color_picker_tool">色彩选择器</a>挑选心仪的颜色。当选中某种颜色时，会显示一个六位神秘代码，类似于<code>#660066</code>。它是一个<strong>十六进制数</strong>，用于表示颜色。将其复制并暂存。</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221211155126.png"></p>
+<p><strong>图像</strong></p>
+<blockquote>
+<p>访问 Google 图像搜索 来搜索合适的图片。</p>
+<ol>
+<li><p>当找到你想要的图像时，点击该图像以获得其放大的视图。</p>
+</li>
+<li><p>右键单击图像（Mac 上为 Ctrl + 单击），选择将图像另存为…，并选择一个安全的地方来保存你的图像。或者，从浏览器地址栏中复制图片的网址，以便以后使用。</p>
+</li>
+</ol>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221211155519.png"></p>
+<blockquote>
+<p>请注意，<strong>网络上的大多数图片，包括谷歌图片中的图片，都是有版权的</strong>。为了减少侵权的可能性，可以使用谷歌的许可证过滤器。点击<strong>工具</strong>按钮，然后点击下面出现的<strong>使用权限</strong>选项。你应该选择<strong>知识共享许可</strong>这个选项。</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221211155751.png"></p>
+<p><strong>字体</strong></p>
+<blockquote>
+<p>要选择一种字体：</p>
+<ol>
+<li><p>访问 Google Fonts 选择一种喜欢的字体。</p>
+</li>
+<li><p>将谷歌给你的代码行复制至文本编辑器中，以保存备用。</p>
+</li>
+<li><p>关于使用谷歌字体的更多细节，请参见本页面</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="处理文件"><a href="#处理文件" class="headerlink" title="处理文件"></a>处理文件</h3><p>源教程地址: <a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/Dealing_with_files">https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/Dealing_with_files</a> .</p>
+<blockquote>
+<p>一个网站包含许多文件：<strong>文本内容</strong>、<strong>代码</strong>、<strong>样式表</strong>、<strong>媒体内容</strong>，等等。当你建立一个网站时，<strong>你需要在计算机上将这些文件以合理的结构组织起来，确保文件之间交互畅通</strong>，并在你最终将它们上传到服务器之前使你的所有内容看起来正确。处理文件讨论了一些你应该注意的问题，以便你能<strong>为你的网站建立一个合理的文件结构</strong>。</p>
+</blockquote>
+<p>网站应该保存在何处？</p>
+<blockquote>
+<p>对于本地网站，<strong>应将所有相关文件放在一个单独文件夹中</strong>，<strong>可以映射出服务器端站点文件结构</strong>。这个文件夹可以放在任何你喜欢的地方，但你应该把它放在你能轻易找到的地方，也许是在你的桌面上，在你的主页文件夹里，或者在你的硬盘根目录下。</p>
+<ol>
+<li><p><strong>选择一个地方来存储你的网站项目</strong>。在你选择的地方，创建一个名为 <strong>web-projects</strong>（或类似）的新文件夹。这是你所有的网站项目的存放地。</p>
+</li>
+<li><p><strong>在这个文件夹中，创建另一个文件夹来存放你的第一个网站</strong>。称之为 <strong>test-site</strong>（或更有想象力的东西）。</p>
+</li>
+</ol>
+</blockquote>
+<p>关于大小写和空格的提示</p>
+<blockquote>
+<p>你会注意到，在这篇文章中，我们要求你<strong>完全用小写字母命名文件夹和文件，没有空格</strong>。这是因为：</p>
+<ol>
+<li><p><strong>许多计算机，特别是网络服务器，是区分大小写的</strong>。因此，假如你把一张图片放在你的网站上 <code>test-site/MyImage.jpg</code>，然后在一个不同的文件中，你试图以 <code>test-site/myimage.jpg</code> 来调用该图片，它可能无法工作。</p>
+</li>
+<li><p><strong>浏览器、网络服务器和编程语言对空格的处理并不一致</strong>。例如，如果你在文件名中使用空格，一些系统可能将其视为两个文件名。一些服务器会用“%20”（URL 中空格的字符代码）替换文件名中的区域，导致所有链接被破坏。<strong>最好用连字符而不是下划线来分隔单词</strong>。对比 <strong><code>my-file.html</code></strong> 与 **<code>my_file.html</code>**。</p>
+</li>
+</ol>
+<p>简言之，<strong>文件名中应使用连字符</strong>。谷歌搜索引擎把连字符当作单词的分隔符，但不会识别下划线。基于此，最好在一开始就养成习惯，<strong>文件夹和文件名使用小写，用短横线来分隔</strong>。这可以避免许多问题。</p>
+</blockquote>
+<p>网站应该使用什么结构？</p>
+<blockquote>
+<p>接下来，让我们看看我们的测试网站应该是什么结构。在我们创建的任何网站项目中，最常见的是一个<strong>主页 HTML 文件</strong>和<strong>包含图像、样式文件和脚本文件的文件夹</strong>。现在让我们来创建这些：</p>
+<ol>
+<li><p><code>index.html</code>：这个文件一般会包含主页内容，也就是人们第一次进入网站时看到的文字和图片。使用文本编辑器，创建一个名为<code>index.html</code>的新文件，并将其保存在<strong>test-site</strong>文件夹内。</p>
+</li>
+<li><p><strong>images 文件夹</strong>：这个文件夹包含网站上使用的所有图片。在 test-site 文件夹内创建一个名为 images 的文件夹。</p>
+</li>
+<li><p><strong>styles 文件夹</strong>：这个文件夹包含用于设置内容样式的 CSS 代码（例如，设置文本和背景颜色）。在你的 test-site 文件夹内创建一个名为 styles 的文件夹。</p>
+</li>
+<li><p><strong>scripts 文件夹</strong>：<strong>这个文件夹包含所有用于向网站添加交互功能的 JavaScript 代码（例如，点击时加载数据的按钮）</strong>。在 test-site 文件夹内创建一个名为 scripts 的文件夹。</p>
+</li>
+</ol>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>备注：</strong> 在 Windows 上你可能看不到文件扩展名，因为 Windows 有一个默认开启的<strong>隐藏已知文件类型的扩展名</strong>的选项。一般来说，你可以通过 Windows 资源管理器，选择<strong>文件夹选项</strong>选项，取消勾选<strong>隐藏已知文件类型的扩展名</strong>复选框，然后点击<strong>确认</strong>将其关闭。对于涉及你的 Windows 版本的更多具体信息，你可以在网上搜索。</p>
+</blockquote>
+<p>文件路径</p>
+<blockquote>
+<p><strong>为使文件间正常交互，应为每个文件提供访问路径，所以一个文件知道另一个文件的位置</strong>。为作为演示，我们将在 <code>index.html</code> 中插入一小段 <strong>HTML</strong>，并使其显示你在“你的网站会是什么样？“一文中选择的图片。或者，你可以在你的电脑上或从网上选择一个现有的图片，并在下面的步骤中使用它：</p>
+<ol>
+<li><p><strong>将你之前选择的图片复制到你的 images 文件夹</strong>。</p>
+</li>
+<li><p>打开你的 <code>index.html</code> 文件，<strong>并准确地将以下代码插入该文件中</strong>。当下不要对其感到困惑——我们将在本系列的后面更详细地研究这些结构。</p>
+</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>My test page<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>My test image<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<ol start="3">
+<li><p>该行代码 <code>&lt;img src=&quot;&quot; alt=&quot;My test image&quot;&gt;</code> 用于向页面中插入图片。我们需要告知 HTML 图片的位置。这张图片位于 <strong>images</strong> 目录下，与 <code>index.html</code> 处于同一目录。为了从 <code>index.html</code> 访问到我们的图像，我们需要的文件路径是 <code>images/your-image-filename</code>。例如，这里的图像叫做 <code>firefox-icon.png</code>，那么文件路径就是 <code>images/firefox-icon.png</code>。</p>
+</li>
+<li><p>在 HTML 代码 <code>src=&quot;&quot;</code> 的双引号之间插入文件路径。</p>
+</li>
+<li><p>保存 HTML 文件，然后使用浏览器打开（双击该文件）。你应该看到新网页显示了新的图像！</p>
+</li>
+</ol>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221211212007.png"></p>
+<hr>
+<blockquote>
+<p>文件路径的一些通用规则：</p>
+<ol>
+<li><p>若引用的目标文件与 <code>HTML</code> 文件同级，<code>只需直接使用文件名</code>，例如：<code>my-image.jpg</code>。</p>
+</li>
+<li><p><code>要引用子目录中的文件，请在路径前面写上目录名，再加上一个正斜杠</code>。例如：<code>subdirectory/my-image.jpg</code>。</p>
+</li>
+<li><p><code>若引用的目标文件位于 HTML 文件的上级，需要加上两个点</code>。举个例子，如果 <code>index.html</code> 在 <code>test-site</code> 的一个子文件夹内，而 <code>my-image.jpg</code> 在 <code>test-site</code> 内，你可以使用<code>../my-image.jpg</code> 从 <code>index.html</code> 引用 <code>my-image.jpg</code>。</p>
+</li>
+<li><p>以上方法可以随意组合，比如：<code>../subdirectory/another-subdirectory/my-image.jpg</code>。</p>
+</li>
+</ol>
+<p>这是你目前需要知道的全部内容。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>备注：</strong> Windows 的文件系统使用<strong>反斜杠</strong>而不是<strong>正斜杠</strong>，例如：<code>C:\Windows</code>。这在 HTML 中并不重要——即使你在 Windows 系统上进行开发，<strong>你也应该在代码中使用正斜杠</strong>。</p>
+</blockquote>
+<p>还应该做些什么？</p>
+<blockquote>
+<p>现在你的文件夹结构应该看起来像这样：</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221211212102.png"></p>
+<h3 id="HTML-基础"><a href="#HTML-基础" class="headerlink" title="HTML 基础"></a>HTML 基础</h3><p>源教程地址: <a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/HTML_basics">https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/HTML_basics</a> .</p>
+<blockquote>
+<p><strong>超文本标记语言</strong> (英语：<strong>Hypertext Markup Language</strong>，简称：<strong>HTML</strong> ) 是一种用来<strong>结构化 Web 网页及其内容的标记语言</strong>。网页内容可以是：<strong>一组段落</strong>、<strong>一个重点信息列表</strong>、<strong>也可以含有图片和数据表</strong>。正如标题所示，本文将对 HTML 及其功能做一个基本介绍。</p>
+</blockquote>
+<p>HTML到底是什么？</p>
+<blockquote>
+<p>HTML 不是一门编程语言，而是一种用于<strong>定义内容结构</strong>的标记语言。HTML 由一系列的元素（elements）组成，<strong>这些元素可以用来包围不同部分的内容，使其以某种方式呈现或者工作</strong>。<strong>一对标签（ tags）可以为一段文字或者一张图片添加超链接，将文字设置为斜体，改变字号，等等</strong>。例如，键入下面一行内容：</p>
+</blockquote>
+<pre class="line-numbers language-none"><code class="language-none">My cat is very grumpy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>可以将这行文字封装成<strong>一个段落</strong>（paragraph）元素来使其在单独一行呈现：</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>My cat is very grumpy<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>HTML 元素详解</strong></p>
+<blockquote>
+<p>让我们深入探索一下这个段落元素。</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221212015620.png"></p>
+<blockquote>
+<p>这个元素的主要部分有：</p>
+<ol>
+<li><p><strong>开始标签</strong>（Opening tag）：包含元素的名称（本例为 p），被大于号、小于号所包围。<strong>表示元素从这里开始或者开始起作用</strong> —— 在本例中即段落由此开始。</p>
+</li>
+<li><p><strong>结束标签</strong>（Closing tag）：与开始标签相似，只是其在元素名之前包含了一个斜杠。<strong>这表示着元素的结尾</strong> —— 在本例中即段落在此结束。初学者常常会犯忘记包含结束标签的错误，这可能会产生一些奇怪的结果。</p>
+</li>
+<li><p><strong>内容</strong>（Content）：元素的内容，本例中就是所输入的文本本身。</p>
+</li>
+<li><p><strong>元素</strong>（Element）：<strong>开始标签、结束标签与内容相结合，便是一个完整的元素</strong>。</p>
+</li>
+</ol>
+<p>元素也可以有<strong>属性</strong>（Attribute）：</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221212020059.png"></p>
+<blockquote>
+<p>属性包含了关于元素的一些额外信息，<strong>这些信息本身不应显现在内容中</strong>。本例中，<strong>class 是属性名称</strong>，<strong>editor-note 是属性的值</strong>。<strong>class 属性可为元素提供一个标识名称</strong>，以便进一步为元素指定样式或进行其他操作时使用。</p>
+<p>属性应该包含：</p>
+<ol>
+<li><p><strong>在属性与元素名称（或上一个属性，如果有超过一个属性的话）之间的空格符</strong>。</p>
+</li>
+<li><p><strong>属性的名称，并接上一个等号</strong>。</p>
+</li>
+<li><p><strong>由引号所包围的属性值</strong>。</p>
+</li>
+</ol>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>备注</strong>： 不包含 <strong>ASCII</strong> 空格（以及 “ ‘ &#96; &#x3D; &lt; &gt; ）的简单属性值可以不使用引号，但是建议将所有属性值用引号括起来，这样的代码一致性更佳，更易于阅读。</p>
+</blockquote>
+<p><strong>嵌套元素</strong></p>
+<blockquote>
+<p>也可以将一个元素置于其他元素之中 —— 称作<code>嵌套</code>。要表明猫咪非常暴躁，可以将“very”用 <code>&lt;strong&gt;</code> 元素包围，爆字将突出显示：</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>My cat is <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">></span></span>very<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">></span></span> grumpy.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>必须保证元素嵌套次序正确：本例首先使用 <code>&lt;p&gt;</code> 标签，然后是 <code>&lt;strong&gt;</code> 标签，因此要先结束 <code>&lt;strong&gt;</code> 标签，最后再结束 <code>&lt;p&gt;</code> 标签。这样是不对的：</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>My cat is <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">></span></span>very grumpy.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>元素必须正确地开始和结束，才能清楚地显示出正确的嵌套层次。否则浏览器就得自己猜测，虽然它会竭尽全力，但很大程度不会给你期望的结果。所以一定要避免！</p>
+</blockquote>
+<p><strong>空元素</strong></p>
+<blockquote>
+<p>不包含任何内容的元素称为空元素。比如 <code>&lt;img&gt;</code> 元素：</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>images/firefox-icon.png<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>My test image<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>本元素包含两个属性，但是并没有 <code>&lt;/img&gt;</code> 结束标签，元素里也没有内容。这是因为图像元素不需要通过内容来产生效果，它的作用是向其所在的位置嵌入一个图像。</p>
+</blockquote>
+<p><strong>HTML 文档详解</strong></p>
+<blockquote>
+<p>以上介绍了一些基本的 HTML 元素，但孤木不成林。现在来看看单个元素如何彼此协同构成一个完整的 HTML 页面。回顾<code>文件处理</code>小节中创建的 <code>index.html</code> 示例：</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>My test page<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>images/firefox-icon.png<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>My test image<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>这里有：</p>
+<ul>
+<li><p><code>&lt;!DOCTYPE html&gt;</code> — 文档类型。混沌初分，HTML 尚在襁褓（大约是 1991&#x2F;92 年）之时，<code>DOCTYPE</code> 用来链接一些 HTML 编写守则，比如自动查错之类。<code>DOCTYPE 在当今作用有限，仅用于保证文档正常读取。现在知道这些就足够了</code>。</p>
+</li>
+<li><p><code>&lt;html&gt;&lt;/html&gt;</code> — <code>&lt;html&gt;</code> 元素。<strong>该元素包含整个页面的内容，也称作根元素</strong>。</p>
+</li>
+<li><p><code>&lt;head&gt;&lt;/head&gt;</code> — <code>&lt;head&gt;</code> 元素。该元素的内容对用户不可见，其中包含例如面向搜索引擎的搜索关键字（keywords）、页面描述、CSS 样式表和字符编码声明等。</p>
+</li>
+<li><p><code>&lt;meta charset=&quot;utf-8&quot;&gt;</code> — 该元素指定文档使用 <code>UTF-8</code> 字符编码，UTF-8 包括绝大多数人类已知语言的字符。基本上 UTF-8 可以处理任何文本内容，还可以避免以后出现某些问题，没有理由再选用其他编码。</p>
+</li>
+<li><p><code>&lt;title&gt;&lt;/title&gt;</code> — <code>&lt;title&gt;</code> 元素。该元素设置页面的标题，显示在浏览器标签页上，也作为收藏网页的描述文字。</p>
+</li>
+<li><p><code>&lt;body&gt;&lt;/body&gt;</code> — <code>&lt;body&gt;</code> 元素。该元素包含期望让用户在访问页面时看到的内容，包括<strong>文本</strong>、<strong>图像</strong>、<strong>视频</strong>、<strong>游戏</strong>、<strong>可播放的音轨</strong>或其他内容。</p>
+</li>
+</ul>
+</blockquote>
+<p>图像</p>
+<blockquote>
+<p>重温一下 <code>&lt;img&gt;</code> 元素：</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>images/firefox-icon.png<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>My test image<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>像之前所讲，该元素通过包含图像文件路径的地址属性 <strong>src</strong>，可在所在位置嵌入图像。</p>
+<p>该元素还包括一个<strong>替换文字属性 alt</strong>，是图像的描述内容，用于当图像不能被用户看见时显示，不可见的原因可能是：</p>
+<ol>
+<li><p><strong>用户有视觉障碍</strong>。视障用户可以使用屏幕阅读器来朗读 alt 属性的内容。</p>
+</li>
+<li><p><strong>有些错误使图像无法显示</strong>。可以试着故意将 src 属性里的路径改错。保存并刷新页面就可以在图像位置看到：</p>
+</li>
+</ol>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221212024026.png"></p>
+<blockquote>
+<p>alt 属性的关键字即“描述文本”。<strong>alt 文本应向用户完整地传递图像要表达的意思</strong>。用 “测试图片” 来描述 Firefox 标志并不合适，修改成 “Firefox 标志：一只盘旋在地球上的火狐” 就好多了。</p>
+<p>可以试着为图像编写一些更好的 alt 文本。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>备注</strong>： 更多信息请参阅<a href="https://developer.mozilla.org/zh-CN/docs/Learn/Accessibility">无障碍访问</a>。</p>
+</blockquote>
+<p>标记文本</p>
+<blockquote>
+<p>本段包含了一些最常用的文本标记 HTML 元素。</p>
+</blockquote>
+<p><strong>标题（Heading）</strong></p>
+<blockquote>
+<p>标题元素可用于<strong>指定内容的标题</strong>和<strong>子标题</strong>。就像一本书的书名、每章的大标题、小标题，等。HTML 文档也是一样。HTML 包括六个级别的标题， <code>&lt;h1&gt; (en-US)–&lt;h6&gt; (en-US)</code> ，一般最多用到 3-4 级标题。</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>主标题<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">></span></span>顶层标题<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h3</span><span class="token punctuation">></span></span>子标题<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h3</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h4</span><span class="token punctuation">></span></span>次子标题<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h4</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>可以尝试在 <code>&lt;img&gt;</code> 元素上面添加一个合适的标题。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>备注：</strong> 你可以看到第一级标题是有隐式的主题样式。<strong>不要使用标题元素来加大、加粗字体</strong>，因为标题对于<code>无障碍访问</code>和<code>搜索引擎优化</code>等问题非常有意义。要保持页面结构清晰，标题整洁，不要发生标题级别跳跃。</p>
+</blockquote>
+<p><strong>段落（Paragraph）</strong></p>
+<blockquote>
+<p>如上文所讲，<code>&lt;p&gt;</code> 元素是用来指定段落的。通常用于指定常规的文本内容：</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>这是一个段落<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>试着添加一些文本（在<code>设计网站的外观</code>小节）到一个或几个段落中，并把它们放在你的 <code>&lt;img&gt;</code> 元素下方。</p>
+</blockquote>
+<p><strong>列表（List）</strong></p>
+<blockquote>
+<p>Web 上的许多内容都是列表，HTML 有一些特别的列表元素。标记列表通常包括<code>至少两个元素</code>。最常用的列表类型为：</p>
+<ol>
+<li><p><strong>无序列表</strong>（Unordered List）中项目的顺序并不重要，就像购物列表。用一个 <code>&lt;ul&gt;</code> 元素包围。</p>
+</li>
+<li><p><strong>有序列表</strong>（Ordered List）中项目的顺序很重要，就像烹调指南。用一个 <code>&lt;ol&gt;</code> 元素包围。</p>
+</li>
+</ol>
+<p>列表的每个项目用一个列表项目（List Item）元素 <code>&lt;li&gt;</code> 包围。</p>
+<p>比如，要将下面的段落片段改成一个列表：</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>At Mozilla, we're a global community of technologists, thinkers, and builders working together… <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>可以这样更改标记：</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>At Mozilla, we're a global community of<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>technologists<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>thinkers<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>builders<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>working together… <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>试着在示例页面中添加一个有序列表和无序列表。</p>
+</blockquote>
+<p>链接</p>
+<blockquote>
+<p>链接非常重要 — 它们赋予 Web 网络属性。要植入一个链接，我们需要使用一个简单的元素 — <code>&lt;a&gt;</code> — a 是 “anchor” （锚）的缩写。要将一些文本添加到链接中，只需如下几步：</p>
+<ol>
+<li><p>选择一些文本。比如“Mozilla Manifesto”。</p>
+</li>
+<li><p>将文本包含在 <code>&lt;a&gt;</code> 元素内，就像这样：</p>
+</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span><span class="token punctuation">></span></span>Mozilla Manifesto<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<ol start="3">
+<li>为此 <code>&lt;a&gt;</code> 元素添加一个 <code>href</code> 属性，就像这样：</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Mozilla Manifesto<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<ol start="4">
+<li>把属性的值设置为所需网址：</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://www.mozilla.org/zh-CN/about/manifesto/<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Mozilla Manifesto<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>如果网址开始部分省略了 <code>https://</code> 或者 <code>http://</code>，可能会得到错误的结果。在完成一个链接后，可以试着点击它来确保指向正确。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>备注：</strong> href 这个名字可能开始看起来有点令人费解，代表超文本引用（ hypertext reference）。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>现在就为页面添加一个链接吧。</p>
+</blockquote>
+<p>小结</p>
+<blockquote>
+<p>如果你一直跟着这篇文章里的指导做的话，你应该完成了一个像下面这样的页面。（你也可以<a href="https://mdn.github.io/beginner-html-site/">从这查看</a>）：</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221212030620.png"></p>
+<blockquote>
+<p>如果你遇到困难，你可以将 Github 上的<a href="https://github.com/mdn/beginner-html-site/blob/gh-pages/index.html">完整示例代码</a>与你的文件进行比较。</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>My test page<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>Mozilla is cool<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>images/firefox-icon.png<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>The Firefox logo: a flaming fox surrounding the Earth.<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>At Mozilla, we’re a global community of<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span> <span class="token comment">&lt;!-- changed to list in the tutorial --></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>technologists<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>thinkers<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>builders<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>working together to keep the Internet alive and accessible, so people worldwide can be informed contributors and creators of the Web. We believe this act of human collaboration across an open platform is essential to individual growth and our collective future.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Read the <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://www.mozilla.org/en-US/about/manifesto/<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Mozilla Manifesto<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span> to learn even more about the values and principles that guide the pursuit of our mission.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>在这里，我们只是介绍了一点点 HTML。要学习更多，访问我们的 <a href="https://developer.mozilla.org/zh-CN/docs/Learn/HTML">HTML 学习主题页面</a> 。</p>
+</blockquote>
+<h3 id="CSS-基础"><a href="#CSS-基础" class="headerlink" title="CSS 基础"></a>CSS 基础</h3><p>源教程地址: <a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/CSS_basics">https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/CSS_basics</a> .</p>
+<blockquote>
+<p><strong>层叠样式表</strong>（Cascading Style Sheet，简称：CSS）是为网页添加样式的代码。本节将介绍 <strong>CSS</strong> 的基础知识，并解答类似问题：怎样将文本设置为<strong>黑色</strong>或<strong>红色</strong>？怎样将内容<strong>显示在屏幕的特定位置</strong>？怎样用<strong>背景图片</strong>或<strong>颜色</strong>来装饰网页？</p>
+</blockquote>
+<p>CSS究竟什么来头？</p>
+<blockquote>
+<p>和 HTML 类似，CSS 也不是真正的编程语言，甚至不是标记语言。它是一门<strong>样式表语言</strong>，这也就是说人们可以用它来选择性地为 HTML 元素添加样式。举例来说，要选择一个 HTML 页面里<strong>所有的段落元素</strong>，然后将其中的文本改成<strong>红色</strong>，可以这样写 CSS：</p>
+</blockquote>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">p</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>不妨试一下：首先新建一个 <code>styles</code> 文件夹，在其中新建一个 <code>style.css</code> 文件，将这三行 CSS 保存在这个新文件中。</p>
+<p>然后再将该 CSS 文件<strong>连接</strong>至 HTML 文档，否则 CSS 代码不会对 HTML 文档在浏览器里的显示效果有任何影响。</p>
+<ol>
+<li>打开 <code>index.html</code> 文件，然后将下面一行粘贴到<strong>文档头</strong>（也就是 <code>&lt;head&gt;</code> 和 <code>&lt;/head&gt;</code> 标签之间）。</li>
+</ol>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>styles/style.css<span class="token punctuation">"</span></span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>保存 <code>index.html</code> 并用浏览器将其打开。应该看到以下页面：</li>
+</ol>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230204220531.png"></p>
+<blockquote>
+<p>如果段落文字变红，那么祝贺你，你已经成功地迈出了 CSS 学习的第一步。</p>
+</blockquote>
+<p><strong>“CSS 规则集”详解</strong></p>
+<blockquote>
+<p>让我们来仔细看一看上述 CSS：</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230204221017.png"></p>
+<blockquote>
+<p>整个结构称为 <strong>规则集</strong>（通常简称“规则”），各部分释义如下：</p>
+<ol>
+<li><p><strong>选择器（Selector）</strong>：HTML 元素的名称位于规则集开始。它选择了一个或多个需要添加样式的<em>元素</em>（在这个例子中就是 <code>p</code> 元素）。要给不同元素添加样式只需要更改选择器就行了。</p>
+</li>
+<li><p><strong>声明（Declaration）</strong>：一个单独的规则，如 <code>color: red;</code> 用来指定添加样式元素的<strong>属性</strong>。</p>
+</li>
+<li><p><strong>属性（Properties）</strong>：改变 HTML 元素样式的途径。（本例中 color 就是 <code>&lt;p&gt;</code> 元素的属性。）CSS 中，由编写人员决定修改哪个属性以改变规则。</p>
+</li>
+<li><p><strong>属性的值（Property value）</strong>：在属性的右边，冒号后面即属性的值，它从指定属性的众多外观中选择一个值（我们除了 <code>red</code> 之外还有很多属性值可以用于 <code>color</code> ）。</p>
+</li>
+</ol>
+<p>注意其他重要的语法：</p>
+<p>属性应该包含：</p>
+<ul>
+<li><p>每个规则集（除了选择器的部分）都应该包含在成对的大括号里（<code>&#123;&#125;</code>）。</p>
+</li>
+<li><p>在每个声明里要用冒号（<code>:</code>）将属性与属性值分隔开。</p>
+</li>
+<li><p>在每个规则集里要用分号（<code>;</code>）将各个声明分隔开。</p>
+</li>
+</ul>
+<p>如果要同时修改多个属性，只需要将它们用分号隔开，就像这样：</p>
+</blockquote>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">p</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 500px<span class="token punctuation">;</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 1px solid black<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>多元素选择</strong></p>
+<blockquote>
+<p>也可以选择多种类型的元素并为它们添加一组相同的样式。将不同的选择器用<strong>逗号</strong>分开。例如：</p>
+</blockquote>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">p, li, h1</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>不同类型的选择器</strong></p>
+<blockquote>
+<p>选择器有许多不同的类型。上面只介绍了<strong>元素选择器</strong>，用来选择 HTML 文档中给定的元素。但是选择操作可以更加具体。下面是一些常用的选择器类型：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">选择器名称</th>
+<th align="center">选择的内容</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">元素选择器（也称作标签或类型选择器）</td>
+<td align="center">所有指定 (该) 类型的 HTML 元素</td>
+<td align="center"><code>p</code> 选择 <code>&lt;p&gt;</code></td>
+</tr>
+<tr>
+<td align="center">ID 选择器</td>
+<td align="center">具有特定 ID 的元素（单一 HTML 页面中，每个 ID 只对应一个元素，一个元素只对应一个 ID）</td>
+<td align="center"><code>#my-id</code> 选择 <code>&lt;p id=&quot;my-id&quot;&gt;</code> 或 <code>&lt;a id=&quot;my-id&quot;&gt;</code></td>
+</tr>
+<tr>
+<td align="center">类选择器</td>
+<td align="center">具有特定类的元素（单一页面中，一个类可以有多个实例）</td>
+<td align="center"><code>.my-class</code> 选择 <code>&lt;p class=&quot;my-class&quot;&gt;</code> 和 <code>&lt;a class=&quot;my-class&quot;&gt;</code></td>
+</tr>
+<tr>
+<td align="center">属性选择器</td>
+<td align="center">拥有特定属性的元素</td>
+<td align="center"><code>img[src]</code> 选择 <code>&lt;img src=&quot;myimage.png&quot;&gt;</code> 而不是 <code>&lt;img&gt;</code></td>
+</tr>
+<tr>
+<td align="center">伪（Pseudo）类选择器</td>
+<td align="center">特定状态下的特定元素（比如鼠标指针悬停）</td>
+<td align="center"><code>a:hover</code> 仅在鼠标指针悬停在链接上时选择 <code>&lt;a&gt;</code>。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>选择器的种类远不止于此，更多信息请参阅 <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors">选择器</a>。</p>
+</blockquote>
+<p>字体和文本</p>
+<blockquote>
+<p><strong>备注</strong>： 再一次说明，中文字体文件较大，不适合直接用于 <strong>Web Font</strong>。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>在探索了一些 CSS 基础后，我们来把更多规则和信息添加至 <code>style.css</code> 中，从而让示例更美观。首先，让字体和文本变得更漂亮。</p>
+<ol>
+<li>第一步，找到之前 Google Font 输出的地址。并以 <code>&lt;link&gt;</code> 元素的形式添加进 <code>index.html</code> 文档头（ <code>&lt;head&gt;</code> 和 <code>&lt;/head&gt;</code> 之间的任意位置）。代码（为当前网页下载 Open Sans 字体，从而使自定义 CSS 中可以对 HTML 元素应用这个字体。）如下：</li>
+</ol>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://fonts.font.im/css?family=Open+Sans<span class="token punctuation">"</span></span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text/css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li><p>接下来，删除 <code>style.css</code> 文件中已有的规则。虽然测试是成功的了，但是红字看起来并不太舒服。</p>
+</li>
+<li><p>将下列代码添加到相应的位置，用你在 Google Fonts 找到的字体替代 <code>font-family</code> 中的占位行。（ <code>font-family</code> 意味着你想要你的文本使用的字体。）这条规则首先为整个页面设定了一个全局字体和字号（因为 <code>&lt;html&gt;</code> 是整个页面的父元素，而且它所有的子元素都会继承相同的 <code>font-size</code> 和 <code>font-family</code>）：</p>
+</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">html</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* px 表示“像素（pixels）”: 基础字号为 10 像素 */</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> 10px<span class="token punctuation">;</span>
+  <span class="token comment">/* Google fonts 输出的 CSS */</span>
+  <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">'Open Sans'</span><span class="token punctuation">,</span> sans-serif<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p><strong>备注</strong>： CSS 文档中所有位于 <code>/*</code> 和 <code>*/</code> 之间的内容都是 CSS 注释，它会被浏览器在渲染代码时忽略。你可以在这里写下对你现在要做的事情有帮助的笔记。</p>
+</blockquote>
+<blockquote>
+<p><strong>备注</strong>： <code>/*</code> <code>*/</code> 不可嵌套，<code>/*这样的注释是/*不行*/的*/</code>。CSS 不接受 <code>//</code> 注释。</p>
+<ol start="4">
+<li>接下来为文档体内的元素（<code>&lt;h1&gt; (en-US)</code>、<code>&lt;li&gt;</code> 和 <code>&lt;p&gt;</code>）设置字号。将<code>标题居中</code>显示，并为<code>正文</code>设置<code>行高</code>和<code>字间距</code>，从而提高页面的可读性。</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">h1</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> 60px<span class="token punctuation">;</span>
+  <span class="token property">text-align</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token selector">p, li</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> 16px<span class="token punctuation">;</span>
+  <span class="token comment">/* line-height 后面可以跟不同的参数，如果是数字，就是当前字体大小乘上数字 */</span>
+  <span class="token property">line-height</span><span class="token punctuation">:</span> 2<span class="token punctuation">;</span>
+  <span class="token property">letter-spacing</span><span class="token punctuation">:</span> 1px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>可以随时调整这些 <code>px</code> 值来获得满意的结果，以下是大体效果：</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230204230916.png"></p>
+<p>一切皆盒子</p>
+<blockquote>
+<p>编写 CSS 时你会发现，你的工作好像是围绕着一个一个盒子展开的——设置尺寸、颜色、位置，等等。页面里大部分 HTML 元素都可以被看作若干层叠的盒子。</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230204231305.png"></p>
+<blockquote>
+<p>并不意外，CSS 布局主要就是基于盒模型的。每个占据页面空间的块都有这样的属性：</p>
+<ul>
+<li><p><code>padding</code>：即内边距，围绕着内容（比如段落）的空间。</p>
+</li>
+<li><p><code>border</code>：即边框，紧接着内边距的线。</p>
+</li>
+<li><p><code>margin</code>：即外边距，围绕元素外部的空间。</p>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230205211248.png"></p>
+<blockquote>
+<p>这里还使用了：</p>
+<ul>
+<li><p><code>width</code> ：元素的宽度</p>
+</li>
+<li><p><code>background-color</code> ：元素内容和内边距底下的颜色</p>
+</li>
+<li><p><code>color</code> ：元素内容（通常是文本）的颜色</p>
+</li>
+<li><p><code>text-shadow</code> ：为元素内的文本设置阴影</p>
+</li>
+<li><p><code>display</code> ：设置元素的显示模式（暂略）</p>
+</li>
+</ul>
+<p>开始在页面中添加更多 CSS 吧！大胆将这些新规则都添加到页面的底部，而不要纠结改变属性值会带来什么结果。</p>
+</blockquote>
+<p><strong>更改页面颜色</strong></p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">html</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> #00539F<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>这条规则将整个页面的背景颜色设置为所计划的颜色。</p>
+</blockquote>
+<p><strong>文档体格式设置</strong></p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">body</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 600px<span class="token punctuation">;</span>
+  <span class="token property">margin</span><span class="token punctuation">:</span> 0 auto<span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> #FF9500<span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> 0 20px 20px 20px<span class="token punctuation">;</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 5px solid black<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>现在是 <code>&lt;body&gt;</code> 元素。以上条声明，我们来逐条查看：</p>
+<ul>
+<li><p><code>width: 600px;</code> —— 强制页面永远保持 600 像素宽。</p>
+</li>
+<li><p><code>margin: 0 auto;</code> —— 为 <code>margin</code> 或 <code>padding</code> 等属性设置两个值时，第一个值代表元素的上方和下方（在这个例子中设置为 <code>0</code>），而第二个值代表左边和右边（在这里，<code>auto</code> 是一个特殊的值，意思是水平方向上左右对称）。你也可以使用一个，三个或四个值，参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/margin#%E5%8F%96%E5%80%BC">这里</a> 。</p>
+</li>
+<li><p><code>background-color: #FF9500;</code> —— 如前文所述，指定元素的背景颜色。我们给 body 用了一种略微偏红的橘色以与深蓝色的 <code>&lt;html&gt;</code> 元素形成反差，你也可以尝试其它颜色。</p>
+</li>
+<li><p><code>padding: 0 20px 20px 20px;</code> —— 我们给内边距设置了四个值来让内容四周产生一点空间。这一次我们不设置上方的内边距，设置右边，下方，左边的内边距为 20 像素。值以上、右、下、左的顺序排列。</p>
+</li>
+<li><p><code>border: 5px solid black;</code> —— 直接为 body 设置 5 像素的黑色实线边框。</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>定位页面主标题并添加样式</strong></p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">h1</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">margin</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> 20px 0<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #00539F<span class="token punctuation">;</span>
+  <span class="token property">text-shadow</span><span class="token punctuation">:</span> 3px 3px 1px black<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>你可能发现页面的顶部有一个难看的间隙，那是因为浏览器会在没有任何 CSS 的情况下 给 <code>&lt;h1&gt; (en-US)</code> 等元素设置一些默认样式。但这并不是个好主意，因为我们希望一个没有任何样式的网页也有基本的可读性。为了去掉那个间隙，我们通过设置 <code>margin: 0;</code> 来覆盖默认样式。</p>
+<p>至此，我们已经把标题的上下内边距设置为 20 像素，并且将标题文本与 HTML 的背景颜色设为一致。</p>
+<p>需要注意的是，这里使用了一个 <code>text-shadow</code> 属性，它可以为元素中的文本提供阴影。四个值含义如下：</p>
+<ul>
+<li><p>第一个值设置<strong>水平偏移值</strong> —— 即阴影右移的像素数（负值左移）。</p>
+</li>
+<li><p>第二个值设置<strong>垂直偏移值</strong> —— 即阴影下移的像素数（负值上移）。</p>
+</li>
+<li><p>第三个值设置阴影的<strong>模糊半径</strong> —— 值越大产生的阴影越模糊。</p>
+</li>
+<li><p>第四个值设置阴影的基色。</p>
+</li>
+</ul>
+<p>不妨尝试不同的值看看能得出什么结果。</p>
+</blockquote>
+<p><strong>图像居中</strong></p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">img</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span>
+  <span class="token property">margin</span><span class="token punctuation">:</span> 0 auto<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>最后，我们把图像居中来使页面更美观。可以复用 body 的 <code>margin: 0 auto</code> ，但是需要一点点调整。 <code>&lt;body&gt;</code> 元素是<strong>块级</strong>元素，意味着它占据了页面的空间并且能够赋予外边距和其他改变间距的值。而图片是<strong>内联</strong>元素，不具备块级元素的一些功能。所以为了使图像有外边距，我们必须使用 <code>display: block</code> 给予其块级行为。</p>
+<p><strong>备注：</strong> 以上说明假定所选图片小于页面宽度（600 pixels）。更大的图片会溢出 body 并占据页面的其他位置。要解决这个问题，可以： 1）使用 <strong>图片编辑器</strong> 来减小图片宽度； 2）用 CSS 限制图片大小，即减小 <code>&lt;img&gt;</code> 元素 <code>width</code> 属性的值（比如 <code>400 px</code>）。</p>
+<p><strong>备注：</strong> 如果你暂时不能理解 <code>display: block</code> 和块级元素与行内元素的差别也没关系；随着你对 CSS 学习的深入，你将明白这个问题。<code>display</code> 属性的更多信息请查看 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/display">参考页面</a> 。</p>
+</blockquote>
+<p>小结</p>
+<blockquote>
+<p>如果你按部就班完成本文的实践，那么最终可以得到以下页面（可以 <a href="https://roy-tian.github.io/learning-area/extras/getting-started-web/beginner-html-site-styled/">查看我们的版本</a> )：</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230205213916.png"></p>
+<blockquote>
+<p>若遇到问题，可以参考 GitHub 上的 <a href="https://github.com/roy-tian/learning-area/tree/master/extras/getting-started-web/beginner-html-site-styled">完整示例代码</a> 做对比。</p>
+<p>本章介绍的 CSS 知识非常有限，更多内容请访问 <a href="https://developer.mozilla.org/zh-CN/docs/Learn/CSS">CSS 学习页面</a>。</p>
+</blockquote>
+<h3 id="JavaScript-基础"><a href="#JavaScript-基础" class="headerlink" title="JavaScript 基础"></a>JavaScript 基础</h3><p>源教程地址: <a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/JavaScript_basics">https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/JavaScript_basics</a> .</p>
+<blockquote>
+<p>JavaScript 是一门编程语言，可为网站添加交互功能（例如：<strong>游戏</strong>、<strong>动态样式</strong>、<strong>动画</strong>以及在按下按钮或收到表单数据时做出的响应等）。本文介绍了 JavaScript 的精彩之处和主要用途。</p>
+</blockquote>
+<p>JavaScript到底是什么？</p>
+<blockquote>
+<p>JavaScript（缩写：JS）是一门完备的动态编程语言。当应用于 HTML 文档时，可为网站提供动态交互特性。由布兰登·艾克（Brendan Eich，Mozilla 项目、Mozilla 基金会和 Mozilla 公司的联合创始人）发明。</p>
+<p>JavaScript 的应用场合极其广泛，简单到幻灯片、照片库、浮动布局和响应按钮点击，复杂到游戏、2D&#x2F;3D 动画、大型数据库驱动程序等等。</p>
+<p>JavaScript 相当简洁，却非常灵活。开发者们基于 JavaScript 核心编写了大量实用工具，可以使 开发工作事半功倍。其中包括：</p>
+<ul>
+<li><p>浏览器应用程序接口（API）—— 浏览器内置的 API 提供了丰富的功能，比如：<strong>动态创建 HTML 和设置 CSS 样式</strong>、<strong>从用户的摄像头采集处理视频流</strong>、<strong>生成 3D 图像与音频样本</strong>等等。</p>
+</li>
+<li><p>第三方 API —— 让开发者可以在自己的站点中整合其它内容提供者（Twitter、Facebook 等）提供的功能。</p>
+</li>
+<li><p>第三方框架和库 —— 用来快速构建网站和应用。</p>
+</li>
+</ul>
+<p>本节是一篇 JavaScript 简介，因此这个阶段不会对 JavaScript 语言和上述工具做过多的介绍。之后可以到 <a href="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript">JavaScript 学习区</a> 和 MDN 的其它地方学习更多细节。</p>
+<p>下面对语言核心做一个不完整介绍，期间还可以接触到一些浏览器 API 特性。</p>
+</blockquote>
+<p>“Hello-World!”示例</p>
+<blockquote>
+<p>读到这里你一定很激动，诚然 —— JavaScript 是最振奋人心的 Web 技术之一，而且在娴熟驾驭之后，你的网站在功能和创新力上将达到一个新的维度。</p>
+<p>然而，JavaScript 比 HTML 和 CSS 学习起来更加复杂一点，所以必须一步一个脚印地学习。首先，来看看如何在页面中添加一些基本的 JavaScript 脚本来建造一个“Hello world!”示例（一切始于 Hello World）。</p>
+<p><strong>警告：</strong> 如果你没有完成之前的课程实践，可下载 <a href="https://github.com/roy-tian/learning-area/raw/master/extras/getting-started-web/beginner-html-site-styled.zip">上一章节示例的压缩包</a> 并在本地解压作出发点。</p>
+<ol>
+<li><p>首先，打开你的测试站点，创建一个名为 <code>scripts</code> 的文件夹。然后在其中创建一个名为 <code>main.js</code> 的文件。</p>
+</li>
+<li><p>下一步，在 <code>index.html</code> 文件 <code>&lt;/body&gt;</code> 标签前的新行添加以下代码。</p>
+</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>scripts/main.js<span class="token punctuation">"</span></span> <span class="token attr-name">defer</span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<ol start="3">
+<li><p>与 CSS 的 <code>&lt;link&gt;</code> 元素类似，它将 JavaScript 引入页面以作用于 HTML（以及 CSS 等页面上所有内容）：</p>
+</li>
+<li><p>现在将以下代码添加到 <code>main.js</code> 文件中：</p>
+</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> myHeading <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'h1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+myHeading<span class="token punctuation">.</span>textContent <span class="token operator">=</span> <span class="token string">'Hello world!'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<blockquote>
+<ol start="5">
+<li>最后，保存 HTML 和 JavaScript 文件，用浏览器打开 <code>index.html</code>。可以看到如下内容：</li>
+</ol>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230212132758.png"></p>
+<blockquote>
+<p><strong>备注：</strong> 我们将 <code>&lt;script&gt;</code> 放在 HTML 文件的底部附近的原因是浏览器会按照代码在文件中的顺序加载 HTML。<strong>如果先加载的 JavaScript 期望修改其下方的 HTML，那么它可能由于 HTML 尚未被加载而失效。因此，将 JavaScript 代码放在 HTML 页面的底部附近通常是最好的策略。</strong></p>
+</blockquote>
+<p><strong>发生了什么？</strong></p>
+<blockquote>
+<p>JavaScript 把页面的标题改成了“Hello world!” 。首先用 <code>querySelector()</code> 函数获取标题的引用，并把它储存在 <code>myHeading</code> 变量中。这与 CSS 选择器的用法非常相像：若要对某个元素进行操作，首先得选择它。</p>
+<p>之后，把 <code>myHeading</code> 变量的属性 <code>textContent</code> （标题内容）修改为“Hello world!” 。</p>
+<p><strong>备注：</strong> 上面用到的两个函数都来自 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model">文档对象模型 (DOM) API</a>，均用于控制文档。</p>
+</blockquote>
+<p>JavaScript快速入门</p>
+<blockquote>
+<p>我们来学习一些 JavaScript 的核心特性，从而更好地理解它的运行机制。学习这些知识很有意义，因为这些原理普遍适用于所有编程语言，掌握好它们，可以做到融会贯通。</p>
+<p><strong>警告：</strong> 学习本节时，请尝试将示例代码输入到 JavaScript 控制台里看看会发生什么。JavaScript 控制台的更多信息请查看 <strong>浏览器开发者工具</strong>。</p>
+</blockquote>
+<p><strong>变量（Variable）</strong></p>
+<blockquote>
+<p><strong>变量</strong> 是存储值的容器。要声明一个变量，先输入关键字 <code>let</code> 或 <code>var</code>，然后输入合适的名称：</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> myVariable<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p><strong>备注：</strong> 行末的分号表示当前语句结束，<strong>不过只有在单行内需要分割多条语句时，这个分号才是必须的。</strong>然而，一些人认为每条语句末尾加分号是一种好的风格。分号使用规则的更多细节请参阅 JavaScript 分号使用指南（英文页面）。</p>
+<p><strong>备注：</strong> 几乎任何内容都可以作为变量名，但还是有一些限制（请参阅 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Grammar_and_types#%e5%8f%98%e9%87%8f">变量命名规则</a>）。如果你不确定，还可以 <a href="https://mothereff.in/js-variables">验证变量名</a> 是否有效。</p>
+<p><strong>备注：</strong> JavaScript 对<strong>大小写敏感</strong>，<code>myVariable</code> 和 <code>myvariable</code> 是不同的。如果代码出现问题了，先检查一下大小写！</p>
+<p><strong>备注：</strong> 想要了解更多关于 <code>var</code> 和 <code>let</code> 的不同点，可以参阅 <a href="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/First_steps/Variables#var_%E4%B8%8E_let_%E7%9A%84%E5%8C%BA%E5%88%AB">var 与 let 的区别</a>。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>变量定义后可以进行赋值：</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">myVariable <span class="token operator">=</span> <span class="token string">'李雷'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>也可以将定义、赋值操作写在同一行：</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> myVariable <span class="token operator">=</span> <span class="token string">'李雷'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>可以直接通过变量名取得变量的值：</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">myVariable<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>变量在赋值后是可以更改的：</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> myVariable <span class="token operator">=</span> <span class="token string">'李雷'</span><span class="token punctuation">;</span>
+myVariable <span class="token operator">=</span> <span class="token string">'韩梅梅'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>注意变量可以有不同的 <strong>数据类型</strong> ：</p>
+</blockquote>
+<table>
+  <thead>
+    <tr>
+      <th scope="row">变量</th>
+      <th scope="col">解释</th>
+      <th scope="col">示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">String</th>
+      <td>字符串（一串文本）：字符串的值必须用引号（单双均可，必须成对）扩起来。</td>
+      <td><code>let myVariable = '李雷';</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Number</th>
+      <td>数字：无需引号。</td>
+      <td><code>let myVariable = 10;</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Boolean</th>
+      <td>
+        布尔值（真 / 假）： <code>true</code>/<code>false</code> 是 JS
+        里的特殊关键字，无需引号。
+      </td>
+      <td><code>let myVariable = true;</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Array</th>
+      <td>数组：用于在单一引用中存储多个值的结构。</td>
+      <td>
+        <code>let myVariable = [1, '李雷', '韩梅梅', 10];</code><br>元素引用方法：<code>myVariable[0]</code>,
+        <code>myVariable[1]</code> ……
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Object</th>
+      <td>对象：JavaScript 里一切皆对象，一切皆可储存在变量里。这一点要牢记于心。</td>
+      <td><code>let myVariable = document.querySelector('h1');</code><br>以及上面所有示例都是对象。</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+<p>那么变量有什么用呢？我们说，编程时它们无所不在。如果值无法改变，那么就无法做任何动态的工作，比如发送个性化的问候，或是改变在图片库当前展示的图片。</p>
+</blockquote>
+<p><strong>注释</strong></p>
+<blockquote>
+<p>类似于 CSS，JavaScript 中可以添加注释。</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">/*
+这里的所有内容
+都是注释。
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>如果注释只有一行，可以更简单地将注释放在两个斜杠之后，就像这样：</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 这是一条注释。</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>运算符</strong></p>
+<blockquote>
+<p>运算符 是一类数学符号，可以根据两个值（或变量）产生结果。以下表格中介绍了一些最简单的运算符，可以在浏览器控制台里尝试一下后面的示例。</p>
+<p><strong>备注：</strong> 这里说“根据两个值（或变量）产生结果”是不严谨的，计算两个变量的运算符称为“二元运算符”，还有一元运算符和三元运算符，下表中的“取非”就是一元运算符。</p>
+</blockquote>
+<table>
+  <thead>
+    <tr>
+      <th scope="row">运算符</th>
+      <th scope="col">解释</th>
+      <th scope="col">符号</th>
+      <th scope="col">示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">加</th>
+      <td>将两个数字相加，或拼接两个字符串。</td>
+      <td><code>+</code></td>
+      <td><code>6 + 9;<br>"Hello " + "world!";</code></td>
+    </tr>
+    <tr>
+      <th scope="row">减、乘、除</th>
+      <td>这些运算符操作与基础算术一致。只是乘法写作星号，除法写作斜杠。</td>
+      <td><code>-</code>, <code>*</code>, <code>/</code></td>
+      <td><code>9 - 3;<br>8 * 2; //乘法在 JS 中是一个星号<br>9 / 3;</code></td>
+    </tr>
+    <tr>
+      <th scope="row">赋值运算符</th>
+      <td>为变量赋值（你之前已经见过这个符号了）</td>
+      <td><code>=</code></td>
+      <td><code>let myVariable = '李雷';</code></td>
+    </tr>
+    <tr>
+      <th scope="row">等于</th>
+      <td>
+        测试两个值是否相等，并返回一个 <code>true</code>/<code>false</code>
+        （布尔）值。
+      </td>
+      <td><code>===</code></td>
+      <td><code>let myVariable = 3;<br>myVariable === 4; // false</code></td>
+    </tr>
+    <tr>
+      <th scope="row">不等于</th>
+      <td>
+        和等于运算符相反，测试两个值是否不相等，并返回一个
+        <code>true</code>/<code>false</code> （布尔）值。
+      </td>
+      <td><code>!==</code></td>
+      <td><code><code>let myVariable = 3;</code><br>myVariable !== 3; //
+false</code></td>
+    </tr>
+    <tr>
+      <th scope="row">取非</th>
+      <td>返回逻辑相反的值，比如当前值为真，则返回 <code>false</code>。</td>
+      <td><code>!</code></td>
+      <td>原式为真，但经取非后值为 <code>false</code>：<br><code>let myVariable = 3;<br>!(myVariable === 3); // false</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+<p>运算符种类远不止这些，不过目前上表已经够用了。完整列表请参阅 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators">表达式和运算符</a>。</p>
+<p><strong>备注：</strong> 不同类型数据之间的计算可能出现奇怪的结果，因此必须正确引用变量，才能得出预期结果。比如在控制台输入 <code>&quot;35&quot; + &quot;25&quot;</code>，为什么不能得到 <code>60</code>？因为引号将数字转换成了字符串，所以结果是连接两个字符串而不是把两个数字相加。输入 <code>35 + 25</code> 才能得到正确结果。</p>
+</blockquote>
+<p><strong>条件语句</strong></p>
+<blockquote>
+<p>条件语句是一种代码结构，用来测试表达式的真假，并根据测试结果运行不同的代码。一个常用的条件语句是 <code>if ... else</code>。下面是一个示例：</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> iceCream <span class="token operator">=</span> <span class="token string">'chocolate'</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>iceCream <span class="token operator">===</span> <span class="token string">'chocolate'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'我最喜欢巧克力冰激淋了。'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'但是巧克力才是我的最爱呀……'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p><code>if ( ... )</code> 中的表达式进行测试，用（上文所提到的）等于运算符来比较变量 <code>iceCream</code> 与字符串 <code>&#39;chocolate&#39;</code> 是否相等。如果返回 <code>true</code>，则运行第一个代码块；如果返回 <code>false</code>，则跳过第一块直接运行 <code>else</code> 之后的第二个代码块。</p>
+</blockquote>
+<p><strong>函数（Function）</strong></p>
+<blockquote>
+<p><strong>函数</strong> 用来封装可复用的功能。如果没有函数，一段特定的操作过程用几次就要重复写几次，而使用函数则只需写下函数名和一些简短的信息。之前已经涉及过一些函数，比如：</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> myVariable <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'h1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'hello!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p><code>document.querySelector</code> 和 <code>alert</code> 是浏览器内置的函数，随时可用。</p>
+<p>如果代码中有一个类似变量名后加小括号 <code>()</code> 的东西，很可能就是一个函数。函数通常包括参数，参数中保存着一些必要的数据。它们位于括号内部，<strong>多个参数之间用逗号分开</strong>。</p>
+<p>比如， <code>alert()</code> 函数在浏览器窗口内弹出一个警告框，还应为其提供一个字符串参数，以告诉它警告框里要显示的内容。</p>
+<p>好消息是：<strong>人人都能定义自己的函数</strong>。下面的示例是为两个参数进行乘法运算的函数：</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">multiply</span><span class="token punctuation">(</span><span class="token parameter">num1<span class="token punctuation">,</span> num2</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">let</span> result <span class="token operator">=</span> num1 <span class="token operator">*</span> num2<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>尝试在控制台运行这个函数，不妨多试几组参数，比如：</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">multiply</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">multiply</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">multiply</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p><strong>备注：</strong> <code>return</code> 语句告诉浏览器当前函数返回 <code>result</code> 变量。这是一点很有必要，因为函数内定义的变量只能在函数内使用。这叫做变量的 作用域。（详见 <strong>变量作用域</strong>。）</p>
+</blockquote>
+<p><strong>事件</strong></p>
+<blockquote>
+<p>事件能为网页添加真实的交互能力。它可以捕捉浏览器操作并运行一些代码做为响应。最简单的事件是<strong>点击事件</strong>，鼠标的点击操作会触发该事件。可尝试将下面的代码输入到控制台，然后点击页面的任意位置：</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"html"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"别戳我，我怕疼。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>将事件与元素绑定有许多方法。在这里选用了 <code>&lt;html&gt;</code> 元素，然后调用了它的 <code>addEventListener()</code> 方法，将事件名称（’click’）以及其回调函数（当事件发生时，调用该函数）传入该函数中作为调用参数。</p>
+<p>刚刚我们传递给 <code>addEventListener()</code> 的函数被称为<code>匿名函数</code>，因为它没有名字。<code>匿名函数还有另一种我们称之为箭头函数的写法，箭头函数使用 () =&gt; 代替 function ()</code>：</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'html'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'别戳我，我怕疼。'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>完善示例网页</p>
+<blockquote>
+<p>现在你已经具备了一些 JavaScript 基础，下面来为示例网页添加一些更酷的特性。</p>
+</blockquote>
+<p><strong>添加一个图像切换器</strong></p>
+<blockquote>
+<p>这里将用新的 <code>DOM API</code> 为网页添加另一张图片，并用 JavaScript 使图片在点击时进行切换。</p>
+<ol>
+<li><p>首先，找到另一张你想要在你的页面上展示的图片，且尺寸与第一张图片尽可能相同。</p>
+</li>
+<li><p>将这张图片储存在你的<code>images</code>目录下。</p>
+</li>
+<li><p>将图片重命名为<code>&#39;firefox2.png&#39;</code>（去掉引号）。</p>
+</li>
+<li><p>打开 <code>main.js</code> 文件，输入下面的 <code>JavaScript</code> 代码 ( 请删除刚才的 “hello world” 脚本)：</p>
+</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> myImage <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'img'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+myImage<span class="token punctuation">.</span><span class="token function-variable function">onclick</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> mySrc <span class="token operator">=</span> myImage<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">'src'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>mySrc <span class="token operator">===</span> <span class="token string">'images/firefox-icon.png'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      myImage<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">'src'</span><span class="token punctuation">,</span> <span class="token string">'images/firefox2.png'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+      myImage<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">'src'</span><span class="token punctuation">,</span> <span class="token string">'images/firefox-icon.png'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<ol start="5">
+<li>保存所有文件并用浏览器打开 <code>index.html</code> 。点击图片可以发现它能够切换了！</li>
+</ol>
+<p>这里首先把 <code>&lt;img&gt;</code> 元素的引用存放在 <code>myImage</code> 变量里。然后将这个变量的 <code>onclick</code> 事件与一个匿名函数绑定。每次点击图片时：</p>
+<ol>
+<li><p>获取这张图片的 <code>src</code> 属性值。</p>
+</li>
+<li><p>用一个条件句来判断 <code>src</code> 的值是否等于原始图像的路径：</p>
+<ul>
+<li><p>如果是，则将 <code>src</code> 的值改为第二张图片的路径，并在 <code>&lt;img&gt;</code> 内加载该图片。</p>
+</li>
+<li><p>如果不是（意味着它已经修改过）, 则把 <code>src</code> 的值重新设置为原始图片的路径，即原始状态。</p>
+</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p><strong>添加个性化欢迎信息</strong></p>
+<blockquote>
+<p>下面来添加另一段代码，在用户初次进入站点时将网页的标题改成一段个性化欢迎信息（即在标题中添加用户的名字）。名字信息会由 <code>Web Storage API</code> 保存下来，即使用户关闭页面之后再重新打开，仍可得到之前的信息。还会添加一个选项，可以根据需要改变用户名字以更新欢迎信息。</p>
+<ol>
+<li>打开 <code>index.html</code>，在 <code>&lt;script&gt;</code> 标签前添加以下代码，将在页面底部显示一个“切换用户”字样的按钮：</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">></span></span>切换用户<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<ol start="2">
+<li>将以下 <code>JavaScript</code> 代码原封不动添加到 <code>main.js</code> 文件底部，将获取新按钮和标题的引用，并保存至变量中：</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> myButton <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'button'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> myHeading <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'h1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>3.然后添加以下函数来设置个性化欢迎信息。（函数需要在调用后生效，下文中提供了两种对该函数的调用方式）。 该函数首先调用了 <code>prompt()</code> 函数，与 <code>alert()</code> 类似会弹出一个对话框。但是这里需要用户输入数据，并在确定后将数据存储在 <code>myName</code> 变量里。接下来将调用 <code>localStorage API</code>，它可以将数据存储在浏览器中供后续获取。这里用 <code>localStorage</code> 的 <code>setItem()</code> 函数来创建一个’name’ 数据项，并把 <code>myName</code> 变量复制给它。最后将 <code>textContent</code> 属性设置为一个欢迎字符串加上这个新设置的名字。</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">setUserName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">let</span> myName <span class="token operator">=</span> <span class="token function">prompt</span><span class="token punctuation">(</span><span class="token string">'请输入你的名字。'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  localStorage<span class="token punctuation">.</span><span class="token function">setItem</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">,</span> myName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  myHeading<span class="token punctuation">.</span>textContent <span class="token operator">=</span> <span class="token string">'Mozilla 酷毙了，'</span> <span class="token operator">+</span> myName<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<ol start="4">
+<li>接下来，添加以下的 <code>if ... else</code> 块。我们可以称之为初始化代码，因为它在页面初次读取时进行构造工作。这里首次使用了取非运算符（逻辑非，用 <code>!</code> 表示）来检测 ‘name’ 数据是否存在。若不存在，调用 <code>setUserName()</code> 创建。若存在（即用户上次访问时设置过），调用 <code>getItem()</code> 获取保存的名字，像上文的 <code>setUserName()</code> 那样设置 <code>textContent</code>。</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>localStorage<span class="token punctuation">.</span><span class="token function">getItem</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">setUserName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">let</span> storedName <span class="token operator">=</span> localStorage<span class="token punctuation">.</span><span class="token function">getItem</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  myHeading<span class="token punctuation">.</span>textContent <span class="token operator">=</span> <span class="token string">'Mozilla 酷毙了，'</span> <span class="token operator">+</span> storedName<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<ol start="5">
+<li>最后，为按钮设置 <code>onclick</code> 事件处理器。按钮按下时运行 <code>setUserName()</code> 函数。这样用户就可以通过按这个按钮来自由设置新名字了：</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">myButton<span class="token punctuation">.</span><span class="token function-variable function">onclick</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   <span class="token function">setUserName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>第一次访问网页时，页面将询问用户名并发出一段个性化的信息。可随时点击按钮来改变用户名。告诉你一个额外的福利，因为用户名是保存在 <code>localStorage</code> 里的，网页关闭后也不会丢失，所以重新打开浏览器时所设置的名字信息将依然存在:)</p>
+</blockquote>
+<p><strong>用户名为 null?</strong></p>
+<blockquote>
+<p>运行示例代码，弹出输入用户名的对话框，试着按下 <code>取消</code> 按钮。此时标题会显示为“Mozilla 酷毙了，null”。这是因为取消提示对话框后值将设置为 <code>null</code>，这是 JavaScript 中的一个特殊值，<strong>表示引用不存在</strong>。</p>
+<p>也可以不输入任何名字直接按 <code>确认</code>，你的标题会显示为“Mozilla 酷毙了，”，原因么显而易见。</p>
+<p>要避免这些问题，应该更新 <code>setUserName()</code> 来检查用户是否输入了 <code>null</code> 或者<code>空名字</code>：</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">setUserName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">let</span> myName <span class="token operator">=</span> <span class="token function">prompt</span><span class="token punctuation">(</span><span class="token string">'请输入你的名字。'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>myName<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">setUserName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    localStorage<span class="token punctuation">.</span><span class="token function">setItem</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">,</span> myName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    myHeading<span class="token punctuation">.</span>textContent <span class="token operator">=</span> <span class="token string">'Mozilla 酷毙了，'</span> <span class="token operator">+</span> myName<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>用人话说就是：如果 <code>myName</code> 没有值或值为 <code>null</code>，就再次从头运行 <code>setUserName()</code>。如果有值（上面的表达式结果不为真），就把值存储到 <code>localStorage</code> 并且设置标题。</p>
+</blockquote>
+<p>小结</p>
+<blockquote>
+<p>如果你按部就班完成本文的实践，那么最终可以得到以下页面（可以 <a href="https://roy-tian.github.io/learning-area/extras/getting-started-web/beginner-html-site-scripted/">查看我们的版本</a>）：</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230212151228.png"></p>
+<p>若遇到问题，可以参考 GitHub 上的 <a href="https://github.com/roy-tian/learning-area/tree/master/extras/getting-started-web/beginner-html-site-scripted">完整示例代码</a> 进行对比。</p>
+<p>本章介绍的 JavaScript 知识非常有限，更多内容请访问 <a href="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript">Javascript 学习页面</a>。</p>
+<h3 id="发布网站"><a href="#发布网站" class="headerlink" title="发布网站"></a>发布网站</h3><p>源教程地址: <a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/Publishing_your_website">https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/Publishing_your_website</a> .</p>
+<blockquote>
+<p>在你已经写好了代码并且整理好了你网站的全部文件后，你需要将它们全部上线，这样别人才能看到。这篇文章将向你展示如何轻松地将你简单的示例代码传到网上。</p>
+</blockquote>
+<p>有哪些方法可供选择？</p>
+<blockquote>
+<p>发布一个网页并不是三言两语就能简单说明的，这主要是因为我们有很多种方法去完成它。在这篇文章里我们并不准备讲述所有方法，而是从初学者的视角讨论以下三种常见的方式的利弊，然后带你看看我们将要使用的一种方法。</p>
+</blockquote>
+<p><strong>获取主机服务和域名</strong></p>
+<blockquote>
+<p>如果你想要完全控制你发布的网页，那么你将需要花钱购置：</p>
+<ol>
+<li><p>主机服务——在主机服务提供商的 <strong>Web 服务器</strong>上租用文件空间。将你网站的文件上传到这里，然后服务器会提供 Web 用户需求的内容。</p>
+</li>
+<li><p><strong>域名</strong>——一个可以让人们访问的独一无二的地址，比如 <code>http://www.mozilla.org</code> 或 <code>http://www.bbc.co.uk</code>。你可以从<strong>域名注册商</strong>租借域名。</p>
+</li>
+</ol>
+<p>许多专业的网站通过这种方法接入互联网。</p>
+<p>此外，你将需要一个 <strong>文件传输协议</strong> 程序 ( 点击<a href="https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/Tools_and_setup/How_much_does_it_cost#%e8%bd%af%e4%bb%b6">钻研在网络上做某些事情要花费多少：软件</a>查看详细信息 ) 来将网站文件上传到服务器。不同的 FTP 程序涵盖了不同的范围，但是你通常需要使用主机服务提供商给你的详细信息（比如用户名、密码、主机名）登录到 Web 服务器。然后程序在两个窗口里分别显示本地文件和服务器文件，这样你就可以在它们之间进行传输：</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230212163132.png"></p>
+<p><em>寻找主机服务和域名的建议</em></p>
+<blockquote>
+<ul>
+<li><p>我们不会推荐任何商业化的主机公司。要找到主机公司和域名注册商，只需要搜索 “网络主机服务” 和 “域名” 来找到一家出售域名的公司。所有这种类型的公司都允许你查看你想要的域名是否可用。</p>
+</li>
+<li><p>你的家庭或办公 <strong>网络服务提供商</strong> 可能会提供一些受限制的的小型主机空间。它们的能使用的功能都会受到限制，但是它们会非常适合你的第一个实验的——联系一下他们！</p>
+</li>
+<li><p>有一些免费服务比如 <a href="https://neocities.org/">Neocities</a> ， <a href="https://www.blogger.com/">Blogspot</a> ，和 <a href="https://wordpress.com/">Wordpress</a> 。重复一遍，一分钱一分货，不过它们对于你的初次实验可能会是很理想的。免费服务大部分也不需要 FTP 软件来上传文件——你只需要将文件拖入到它们网页的界面里。</p>
+</li>
+<li><p>有时公司会打包提供主机服务和域名。</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>使用在线工具如 GitHub 或 Google App Engine</strong></p>
+<blockquote>
+<p>有一些工具能使你在线发布网站 :</p>
+<ol>
+<li><p><code>GitHub</code> 是一个“社交编程”网站。它允许你上传代码库并储存在 <code>Git</code> 版本控制系统里。然后你可以协作代码项目，系统是默认开源的，也就是说世界上任何人都可以找到你 GitHub 上的代码。去使用 GitHub，从中学习并且提高自己吧！你也可以对别人的代码那样做！这是一个非常重要、有用的社区，而且 Git&#x2F;GitHub 是非常流行的 <strong>版本控制系统</strong> — 大部分科技公司在工作中使用它。GitHub 有一个非常有用的特点叫 <a href="https://pages.github.com/">GitHub pages</a>，允许你将网站代码放在网上。</p>
+</li>
+<li><p>Google App Engine 是一个让你可以在 Google 的基础架构上构建和运行应用的强劲平台——无论你是需要从头开始构建多级 web 应用还是托管一个静态网站。参阅<a href="https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/Tools_and_setup/How_do_you_host_your_website_on_Google_App_Engine">How do you host your website on Google App Engine?</a>以获取更多信息。</p>
+</li>
+</ol>
+<p>不同于大部分其它托管服务，这类工具通常是免费的，不过你只能使用有限的功能。</p>
+</blockquote>
+<p><strong>使用像 CodePen 这样基于 Web 的集成开发环境</strong></p>
+<blockquote>
+<p>有许多 web 应用能够仿真一个网站开发环境。你可以在这种应用——通常只有一个标签页——里输入 HTML、CSS 和 JavaScript 代码然后像显示网页一样显示代码的结果。通常这些工具都很简单，对学习很有帮助，而且至少有免费的基本功能，它们在一个独特的网址显示你提交的网页。不过，这些应用的基础功能很有限，而且应用通常不提供空间来存储图像等内容。</p>
+<p>使用一下以下几种工具，看看你最喜欢哪一个：</p>
+<ul>
+<li><p><a href="https://jsfiddle.net/">JSFiddle</a></p>
+</li>
+<li><p><a href="https://glitch.com/">Glitch</a></p>
+</li>
+<li><p><a href="http://jsbin.com/">JSBin</a></p>
+</li>
+<li><p><a href="https://codepen.io/">CodePen</a></p>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230212164607.png"></p>
+<p>通过GitHub发布</p>
+<blockquote>
+<p>现在，让我们通过 Github 页面告诉你公布的你的代码是如此的简单。</p>
+<ol>
+<li><p>首先， <a href="https://github.com/join">注册一个 GitHub 账号</a>， 并确认你的邮箱地址。</p>
+</li>
+<li><p>接下来，你需要创建一个新的资源库 ( repository ) 来存放你的文件。</p>
+</li>
+<li><p>在这个页面上，在 <code>Repository name</code> 输入框里输入 <code>username.github.io</code>，<code>username</code> 是你的用户名。比如，我们的朋友 <code>bobsmith</code> 会输入 <code>bobsmith.github.io</code>。同时勾选 <code>Initialize this repository with a README</code>，然后点击 <code>Create repository</code>。</p>
+</li>
+</ol>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230212165108.png"></p>
+<blockquote>
+<ol start="4">
+<li>然后，将你的网站文件夹里的内容拖拽到你的资源库 ( repository )，再点击 <code>Commit changes</code>。</li>
+</ol>
+<p><strong>备注：</strong> 确保你的文件夹有一个 <code>index.html</code> 文件。</p>
+<ol start="5">
+<li>现在将你的浏览器转到 <code>username.github.io</code> 来在线查看你的网站。比如，如果用户名为 <code>chrisdavidmills</code>, 请转到 <code>chrisdavidmills.github.io</code>。</li>
+</ol>
+<p><strong>备注：</strong> 你的网站可能需要几分钟的时间才能投入使用。如果它不能立即工作，你可能需要等待几分钟，然后再试一次。</p>
+<p>想要了解更多，请看 <a href="https://help.github.com/categories/github-pages-basics/">GitHub Pages Help</a>.</p>
+</blockquote>
+<p>延展阅读</p>
+<blockquote>
+<ul>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/Web_mechanics/What_is_a_web_server">什么是网络服务器？</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/Web_mechanics/What_is_a_domain_name">什么是域名？</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/Tools_and_setup/How_much_does_it_cost">钻研在网络上做某些事情要花费多少？</a></p>
+</li>
+<li><p><a href="https://www.codecademy.com/learn/deploy-a-website">Deploy a Website</a>（英文）：来自 Codeacademy 的一个很好的教程，它比本教程更进一步，并展示了一些其他技术。</p>
+</li>
+<li><p>Scott Murray 的 <a href="http://alignedleft.com/resources/cheap-web-hosting">Cheap or free static web hosting</a> （价格低廉或免费的静态 Web 主机服务）包含一些对可用的 Web 主机服务的建议。</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="万维网是如何工作的"><a href="#万维网是如何工作的" class="headerlink" title="万维网是如何工作的"></a>万维网是如何工作的</h3><p>源教程地址: <a href="https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/How_the_Web_works">https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/How_the_Web_works</a> .</p>
+<blockquote>
+<p>这篇文章简单描述了你在计算机或手机上通过浏览器访问网页时发生了什么。</p>
+<p>这个理论在短期内对你编写网页代码不会有实质性的帮助，但是不久之后你就会真正受益于理解了后台究竟发生了什么。</p>
+</blockquote>
+<p>客户端和服务器</p>
+<blockquote>
+<p>连接到互联网的计算机被称作客户端和服务器。下面是一个简单描述它们如何交互的图表：</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230212195211.png"></p>
+<blockquote>
+<ul>
+<li><p>客户端是典型的 Web 用户入网设备（比如，你连接了 Wi-Fi 的电脑，或接入移动网络的手机）和设备上可联网的软件（通常使用像 Firefox 和 Chrome 的浏览器）。</p>
+</li>
+<li><p>服务器是存储网页，站点和应用的计算机。当一个客户端设备想要获取一个网页时，一份网页的拷贝将从服务器上下载到客户端机器上来在用户浏览器上显示。</p>
+</li>
+</ul>
+</blockquote>
+<p>其他部分</p>
+<blockquote>
+<p>上文所述的客户端和服务器并不能完成全部工作。还有其他必要的部分，我们将在下面讲述。</p>
+<p>现在，让我们假设 Web 就是一条路。路的一端是客户端，就像你的家。另一端则是服务器，就像你想去的商店。</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20230212195616.png"></p>
+<blockquote>
+<p>除了客户端和服务器，我们还需要了解：</p>
+<p><strong>备注：</strong> 我感觉下面的比喻还不是很契合。我感觉再合理一点的比喻：</p>
+<p>假如你生活在一个封闭的村子叫做“盘溪新村”，村子盛产苹果。</p>
+<ul>
+<li><p><strong>互联网:</strong> 好比地球上众横交错的道路。</p>
+</li>
+<li><p><strong>网络连接:</strong> 道路通到了村子路口。从此，村子里的苹果就可以运出去卖了。</p>
+</li>
+<li><p><strong>TCP&#x2F;IP:</strong> 为了将村里的苹果能规范有效的运卖出去而不出问题，村长作出如下规定：“用规格刚好 20 cm * 20 cm * 20 cm 的泡沫箱来装，之后外面又用相应规格的纸箱包裹上，最后打上透明胶”。并且要求，对方收到时，一定要外包装完好，不然就会补发。而且还给对方发了一张发货单，明确说明了，苹果有多少，是用什么方法包装的，只有货和发货单对上了，对方才会确认收货。</p>
+</li>
+<li><p><strong>DNS:</strong> 突然一天，郭德纲想吃苹果，就跟于谦说，“我听说盘溪新村（域名）的苹果好，要他们那个套餐一选项啊！”，于谦一听，得，也不知道盘溪新村在哪，打开地图查（DNS）吧，一查，好嘛，江苏省苏州市（IP 地址），于是于谦去了苏州，找了村子，告诉村长，要套餐一，要用顺丰快递，并且留下了北京德云社的地址。</p>
+</li>
+<li><p><strong>HTTP:</strong> 过了几天，德云社的人一看，有快递来了，来了这么一句，“只收‘顺丰’，拒收其他快递”。司机忙说，“是顺丰，是顺丰”，这才对上暗号，德云社的人收下了货。</p>
+</li>
+<li><p><strong>组成文件:</strong> 送来的货可不止一车，而且也不止一种苹果，这车是红富士，那车黄富士的。</p>
+<ul>
+<li><p><strong>代码:</strong> 有点像，村长事先安排的说明书，让司机到了地方，如何卸车，货放到什么位置，而德云社的看说明书，知道什么样的苹果放到什么位置上，什么样苹果如何食用最佳，等等。</p>
+</li>
+<li><p><strong>资源:</strong> 不同种类的苹果。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>一点拙见，在下抛砖引玉，希望有更好理解的比喻。</p>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><p><strong>网络连接:</strong> 允许你在互联网上发送和接受数据。基本上和你家到商店的街道差不多。</p>
+</li>
+<li><p><strong>TCP&#x2F;IP:</strong> 传输控制协议和因特网互连协议是定义数据如何传输的通信协议。这就像你去商店购物所使用的交通方式，比如汽车或自行车（或是你能想到的其他可能）。</p>
+</li>
+<li><p><strong>DNS:</strong> 域名系统服务器像是一本网站通讯录。当你在浏览器内输入一个网址时，浏览器获取网页之前将会查看域名系统。浏览器需要找到存放你想要的网页的服务器，才能发送 HTTP 请求到正确的地方。就像你要知道商店的地址才能到达那。</p>
+</li>
+<li><p><strong>HTTP:</strong> 超文本传输协议是一个定义客户端和服务器间交流的语言的协议（protocol）。就像你下订单时所说的话一样。</p>
+</li>
+<li><p><strong>组成文件:</strong> 一个网页由许多文件组成，就像商店里不同的商品一样。这些文件有两种类型：</p>
+<ul>
+<li><p><strong>代码:</strong> 网页大体由 HTML、CSS、JavaScript 组成，不过你会在后面看到不同的技术。</p>
+</li>
+<li><p><strong>资源:</strong> 这是其他组成网页的东西的集合，比如图像、音乐、视频、Word 文档、PDF 文件。</p>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>到底发生了什么？</p>
+<blockquote>
+<p>当你在浏览器里输入一个网址时（在我们的例子里就是走向商店的路上时）：</p>
+<ol>
+<li><p>浏览器在域名系统（DNS）服务器上找出存放网页的服务器的实际地址（找出商店的位置）。</p>
+</li>
+<li><p>浏览器发送 HTTP 请求信息到服务器来请拷贝一份网页到客户端（你走到商店并下订单）。这条消息，包括其他所有在客户端和服务器之间传递的数据都是通过互联网使用 TCP&#x2F;IP 协议传输的。</p>
+</li>
+<li><p>服务器同意客户端的请求后，会返回一个“200 OK”信息，意味着“你可以查看这个网页，给你～”，然后开始将网页的文件以数据包的形式传输到浏览器（商店给你商品，你将商品带回家）。</p>
+</li>
+<li><p>浏览器将数据包聚集成完整的网页然后将网页呈现给你（商品到了你的门口 —— 新东西，好棒！）。</p>
+</li>
+</ol>
+</blockquote>
+<p>解析组成文件的顺序</p>
+<blockquote>
+<p>当浏览器向服务器发送请求获取 HTML 文件时，HTML 文件通常包含 <code>&lt;link&gt;</code> 和 <code>&lt;script&gt;</code> 元素，这些元素分别指向了外部的 CSS 样式表文件和 JavaScript 脚本文件。了解这些文件被浏览器解析的顺序是很重要的：</p>
+<ul>
+<li><p>浏览器首先解析 HTML 文件，并从中识别出所有的 <code>&lt;link&gt;</code> 和 <code>&lt;script&gt;</code> 元素，获取它们指向的外部文件的链接。</p>
+</li>
+<li><p>继续解析 HTML 文件的同时，浏览器根据外部文件的链接向服务器发送请求，获取并解析 CSS 文件和 JavaScript 脚本文件。</p>
+</li>
+<li><p>接着浏览器会给解析后的 HTML 文件生成一个 DOM 树（在内存中），会给解析后的 CSS 文件生成一个 CSSOM 树（在内存中），并且会编译和执行解析后的 JavaScript 脚本文件。</p>
+</li>
+<li><p>伴随着构建 DOM 树、应用 CSSOM 树的样式、以及执行 JavaScript 脚本文件，浏览器会在屏幕上绘制出网页的界面；用户看到网页界面也就可以跟网页进行交互了。</p>
+</li>
+</ul>
+</blockquote>
+<p>DNS解析</p>
+<blockquote>
+<p>真正的网址看上去并不像你输入到地址框中的那样美好且容易记忆。它们是一串数字，像 <code>63.245.217.105</code>。</p>
+<p>这叫做 IP 地址，它代表了一个互联网上独特的位置。然而，它并不容易记忆，不是吗？那就是域名系统（DNS）被发明的原因。它们是将你输入浏览器的地址（像 <code>&quot;mozilla.org&quot;</code>）与实际 IP 地址相匹配的特殊的服务器。</p>
+<p>网页可以通过 IP 地址直接访问。您可以通过在 <a href="https://www.nslookup.io/website-to-ip-lookup/">DNS 查询工具</a> 等工具中输入域名来查找网站的 IP 地址。</p>
+</blockquote>
+<p>数据包详解</p>
+<blockquote>
+<p>前面我们用“包”来描述了数据从服务器到客户端传输的格式。这是什么意思？基本上，当数据在 Web 上传输时，是以成千上万的小数据块的形式传输的。大量不同的用户都可以同时下载同一个网页。如果网页以单个大的数据块形式传输，一次就只有一个用户下载，无疑会让 Web 非常没有效率并且失去很多乐趣。</p>
+</blockquote>
+<p>扩展阅读</p>
+<blockquote>
+<ul>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/Web_mechanics/How_does_the_Internet_work">互联网是如何工作的</a></p>
+</li>
+<li><p><a href="https://dev.opera.com/articles/http-basic-introduction/">HTTP — 一种应用级协议</a></p>
+</li>
+<li><p><a href="https://dev.opera.com/articles/http-lets-get-it-on/">HTTP：让我们开始吧！</a></p>
+</li>
+<li><p><a href="https://dev.opera.com/articles/http-response-codes/">HTTP：响应代码</a></p>
+</li>
+</ul>
+</blockquote>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第四十三篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2022/12/05/00043-ji-yu-mdn-xue-xi-web-kai-fa/">https://luyf-lemon-love.space/2022/12/05/00043-ji-yu-mdn-xue-xi-web-kai-fa/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Web/">
+                                    <span class="chip bg-color">Web</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/12/19/00044-bai-du-fan-yi-tong-yong-fan-yi-api-jie-ru-wen-dang-xue-xi-bi-ji/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/0437605176.webp" class="responsive-img" alt="00044-百度翻译通用翻译 API 接入文档学习笔记">
+                        
+                        <span class="card-title">00044-百度翻译通用翻译 API 接入文档学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-12-19
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/" class="post-category">
+                                    实用技巧
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/12/05/00042-tiobe-index-ji-shi/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/8895607487.png" class="responsive-img" alt="00042-TIOBE Index 纪实">
+                        
+                        <span class="card-title">00042-TIOBE Index 纪实</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C/" class="post-category">
+                                    C++
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

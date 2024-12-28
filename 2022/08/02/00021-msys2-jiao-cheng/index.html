@@ -1,0 +1,2044 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00021-MSYS2 教程, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言MSYS2 是一个适用于 Windows 的软件分发和构建平台。
+MSYS2 是一系列工具和库，为您提供易于使用的环境，用于构建、安装和运行 Windows 软件。包含名为 mintty 的 bash 命令行终端、git 等版本控制系统">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00021-MSYS2 教程 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/下载 (1).png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00021-MSYS2 教程</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/C/">
+                                <span class="chip bg-color">C++</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
+                                计算机基础
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-08-02
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><a href="https://www.msys2.org/">MSYS2</a> 是一个适用于 Windows 的软件分发和构建平台。</p>
+<p>MSYS2 是一系列工具和库，为您提供易于使用的环境，用于构建、安装和运行 Windows 软件。包含名为 <code>mintty</code> 的 <code>bash</code> 命令行终端、<code>git</code> 等版本控制系统、<code>tar</code> 等工具，这些工具是 <code>Cygwin</code> 的修改版本。MSYS2 为 <code>GCC</code>、<code>mingw-w64</code>、<code>CPython</code>、<code>CMake</code>、<code>Meson</code>、<code>OpenSSL</code>、<code>FFmpeg</code>、<code>Rust</code>、<code>Ruby</code> 等提供了最新的原生版本。</p>
+<p>MSYS2 具有一个名为 <code>Pacman</code> 的软件包管理系统。</p>
+<p>操作系统：<strong>Windows 10 专业版</strong></p>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ol>
+<li><p><a href="https://www.msys2.org/">MSYS2</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/401188789">给萌新的C&#x2F;C++环境搭建攻略（VSCode和MSYS2）</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/wodexinhaoleng1/article/details/119712635">问题解决：系统上禁止运行脚本</a></p>
+</li>
+</ol>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>关于如何安装 <code>MSYS2</code> 可以参考官方文档 <a href="https://www.msys2.org/">MSYS2</a> 或者 00020-GCC-on-Windows。</p>
+<h3 id="MSYS2-vs-Cygwin"><a href="#MSYS2-vs-Cygwin" class="headerlink" title="MSYS2 vs Cygwin"></a>MSYS2 vs Cygwin</h3><blockquote>
+<p>The unixy tools in MSYS2 are directly based on Cygwin, so there is some overlap there. While Cygwin focuses on building Unix software on Windows as is, MSYS2 focuses on building native software built against the Windows APIs.</p>
+</blockquote>
+<h3 id="Environments"><a href="#Environments" class="headerlink" title="Environments"></a>Environments</h3><p>MSYS2 具有不同的环境&#x2F;子系统，首先，你必须决定使用哪一个。环境之间的差异主要是环境变量、默认编译器&#x2F;链接器、体系结构和使用的系统库等。如果你不确定，请使用 <code>MINGW64</code>。</p>
+<p><strong>MSYS</strong> 环境包含基础的 unix&#x2F;cygwin 工具，它处于 &#x2F;msys64&#x2F;usr 目录，这些工具始终处于激活状态。所有其他环境都继承自 <strong>MSYS</strong> 环境，并在其上添加各种工具。</p>
+<p>例如，在 MINGW64 环境中，环境变量 <code>$PATH</code> 为 <code>/msys64/mingw64/bin:/msys64/usr/bin</code>，可以获得所有 mingw64 的工具以及所有 msys 工具。</p>
+<h4 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+<th>Prefix</th>
+<th>Toolchain</th>
+<th>Architecture</th>
+<th>C Library</th>
+<th>C++ Library</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://cos.luyf-lemon-love.space/images/20220803155912.png" alt="msys"></td>
+<td><strong>MSYS</strong></td>
+<td><code>/usr</code></td>
+<td>gcc</td>
+<td>x86_64</td>
+<td>cygwin</td>
+<td>libstdc++</td>
+</tr>
+<tr>
+<td><img src="https://cos.luyf-lemon-love.space/images/20220803160001.png" alt="mingw64"></td>
+<td><strong>MINGW64</strong></td>
+<td><code>/mingw64</code></td>
+<td>gcc</td>
+<td>x86_64</td>
+<td>msvcrt</td>
+<td>libstdc++</td>
+</tr>
+<tr>
+<td><img src="https://cos.luyf-lemon-love.space/images/20220803160033.png" alt="ucrt64"></td>
+<td><strong>UCRT64</strong></td>
+<td><code>/ucrt64</code></td>
+<td>gcc</td>
+<td>x86_64</td>
+<td>ucrt</td>
+<td>libstdc++</td>
+</tr>
+<tr>
+<td><img src="https://cos.luyf-lemon-love.space/images/20220803160111.png" alt="clang64"></td>
+<td><strong>CLANG64</strong></td>
+<td><code>/clang64</code></td>
+<td>llvm</td>
+<td>x86_64</td>
+<td>ucrt</td>
+<td>libc++</td>
+</tr>
+<tr>
+<td><img src="https://cos.luyf-lemon-love.space/images/20220803160139.png" alt="mingw32"></td>
+<td><strong>MINGW32</strong></td>
+<td><code>/mingw32</code></td>
+<td>gcc</td>
+<td>i686</td>
+<td>msvcrt</td>
+<td>libstdc++</td>
+</tr>
+<tr>
+<td><img src="https://cos.luyf-lemon-love.space/images/20220803160311.png" alt="clang32"></td>
+<td><strong>CLANG32</strong></td>
+<td><code>/clang32</code></td>
+<td>llvm</td>
+<td>i686</td>
+<td>ucrt</td>
+<td>libc++</td>
+</tr>
+<tr>
+<td><img src="https://cos.luyf-lemon-love.space/images/20220803160335.png" alt="clangarm64"></td>
+<td><strong>CLANGARM64</strong></td>
+<td><code>/clangarm64</code></td>
+<td>llvm</td>
+<td>aarch64</td>
+<td>ucrt</td>
+<td>libc++</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>The active environment is selected via the MSYSTEM environment variable. Setting MSYSTEM to UCRT64 and starting a login shell will put you in that environment.</p>
+</blockquote>
+<h4 id="GCC-vs-LLVM-Clang"><a href="#GCC-vs-LLVM-Clang" class="headerlink" title="GCC vs LLVM&#x2F;Clang"></a>GCC vs LLVM&#x2F;Clang</h4><p>These are <strong>the default compilers&#x2F;toolchains</strong> used for building all packages in the respective repositories.</p>
+<p>基于 <strong>GCC</strong> 的环境：</p>
+<ul>
+<li><p>目前已广泛测试&#x2F;使用。</p>
+</li>
+<li><p>Fortran 支持。</p>
+</li>
+<li><p>虽然在 MINGW 环境中也存在一个 Clang 包，但该包仍然使用 GNU 链接器和 GNU C++ 库。在某些情况下，Clang 也用于构建软件包，如上游更喜欢 Clang 而不是 GCC。</p>
+</li>
+</ul>
+<p>基于 <strong>LLVM&#x2F;Clang</strong> 的环境：</p>
+<ul>
+<li><p>仅使用 LLVM 工具、LLD 作为链接器，LIBC++ 作为C++标准库。</p>
+</li>
+<li><p>Clang 提供 ASAN 支持。</p>
+</li>
+<li><p>对 TLS 的原生支持（Thread-local storage）。</p>
+</li>
+<li><p>LLD 比 LD 快，但不支持 LD 支持的所有特性。</p>
+</li>
+<li><p>一些工具与 GNU 工具不完全等效。</p>
+</li>
+<li><p>支持 Microsoft Windows 10 上的 ARM64&#x2F;AArch64 架构。</p>
+</li>
+</ul>
+<h4 id="MSVCRT-vs-UCRT"><a href="#MSVCRT-vs-UCRT" class="headerlink" title="MSVCRT vs UCRT"></a>MSVCRT vs UCRT</h4><p>这些是 Microsoft Windows 上 C 标准库的两个变体。</p>
+<p>默认情况下，MSVCRT（Microsoft Visual C++ Runtime）在所有 Microsoft Windows 版本上都可用，但由于向后兼容性问题，与 C99 不兼容并且缺少某些功能。</p>
+<ul>
+<li><p>与 C99 不兼容。</p>
+</li>
+<li><p><strong>mingw-w64</strong> 提供替换函数，在许多情况下兼容 C99。</p>
+</li>
+<li><p>不支持 <strong>UTF-8 locale</strong>。</p>
+</li>
+<li><p>与 MSVCRT 链接的二进制文件不应与 UCRT 二进制文件混合，因为内部结构和数据类型不同。（更严格地说，不应混合使用为不同目标构建的对象文件或静态库。为不同的 CRT 构建的 DLL 可以混合使用，只要它们不共享 CRT 对象。）相同的规则适用于 MSVC 编译的二进制文件，因为 MSVC 默认使用 UCRT（如果未更改）。</p>
+</li>
+<li><p>开箱即用，适用于每个 Microsoft Windows 版本。</p>
+</li>
+</ul>
+<p>UCRT（Universal C Runtime）是一个较新的版本，默认情况下也被 Microsoft Visual Studio 使用。它与 MSVC 效果相同。</p>
+<ul>
+<li><p>在生成和运行时，与 MSVC 具有较好的兼容性。</p>
+</li>
+<li><p>默认情况下，它仅在 Windows 10 上提供，对于旧版本，您必须自己提供它。</p>
+</li>
+</ul>
+<h3 id="Terminals"><a href="#Terminals" class="headerlink" title="Terminals"></a>Terminals</h3><h4 id="Mintty"><a href="#Mintty" class="headerlink" title="Mintty"></a>Mintty</h4><p><strong>Mintty</strong> 是 MSYS2 中的默认终端应用程序，包含在安装程序中。所有 MSYS2 环境有单独的启动器以及相应的.ini配置文件 （msys2{.exe，.ini}&#x2F;mingw32{.exe，.ini}&#x2F;mingw64{.exe，.ini}），因此可以轻松配置环境并将启动器固定到 Windows 任务栏。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220803195550.png"></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220803195606.png"></p>
+<h4 id="Windows-Terminal"><a href="#Windows-Terminal" class="headerlink" title="Windows Terminal"></a>Windows Terminal</h4><p>如果你在电脑上安装了很多环境，就会发现有一大堆各种不同的命令行入口，管理起来十分不便。使用 <strong>Windows Terminal</strong> 可以将各种命令行界面入口整合到一起，界面也更加美观，还能改善部分命令行界面的复制粘贴体验。</p>
+<p><strong>Windows Terminal</strong> 可以直接在 win10 自带的微软商店里免费下载。而在 win11 则是默认的命令行程序（但是仍然推荐去商店更新一下，因为自带的版本比较古旧，甚至没有图形化的设置界面）。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220803200803.png"></p>
+<p>我安装的是 <strong>Windows Terminal Preview</strong>。</p>
+<p><strong>Windows Terminal</strong> 默认情况下支持 cmd、powershell 和 WSL，也可以扩展支持 MSYS2 shell。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220803201434.png"></p>
+<ol>
+<li><p>打开 <strong>Windows Terminal Preview</strong>，在选项卡下拉菜单中选择 “设置”，然后点选择 “打开 JSON 文件”，这将打开一个名为 <code>settings.json</code> 的 JSON 配置文件。</p>
+</li>
+<li><p>修改配置文件 <code>profiles</code> 键的代码。请注意，这些示例假定 MSYS2 安装在 <code>D:\lyf_computer_language\msys64</code>，<a href="https://gitforwindows.org/">Git for Windows</a> 安装在 <code>D:\lyf_computer_language\Git</code>。</p>
+</li>
+</ol>
+<pre class="line-numbers language-diff" data-language="diff"><code class="language-diff"><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   "defaultProfile": "&#123;61c54bbd-c2c6-5271-96e7-009a87ff44bf&#125;",
+</span><span class="token prefix unchanged"> </span><span class="token line">   "profiles": 
+</span><span class="token prefix unchanged"> </span><span class="token line">   &#123;
+</span><span class="token prefix unchanged"> </span><span class="token line">       "defaults": &#123;&#125;,
+</span><span class="token prefix unchanged"> </span><span class="token line">       "list": 
+</span><span class="token prefix unchanged"> </span><span class="token line">       [
+</span><span class="token prefix unchanged"> </span><span class="token line">           &#123;
+</span><span class="token prefix unchanged"> </span><span class="token line">               "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+</span><span class="token prefix unchanged"> </span><span class="token line">               "guid": "&#123;61c54bbd-c2c6-5271-96e7-009a87ff44bf&#125;",
+</span><span class="token prefix unchanged"> </span><span class="token line">               "hidden": false,
+</span><span class="token prefix unchanged"> </span><span class="token line">               "name": "Windows PowerShell"
+</span><span class="token prefix unchanged"> </span><span class="token line">           &#125;,
+</span><span class="token prefix unchanged"> </span><span class="token line">           &#123;
+</span><span class="token prefix unchanged"> </span><span class="token line">               "commandline": "%SystemRoot%\\System32\\cmd.exe",
+</span><span class="token prefix unchanged"> </span><span class="token line">               "guid": "&#123;0caa0dad-35be-5f56-a8ff-afceeeaa6101&#125;",
+</span><span class="token prefix unchanged"> </span><span class="token line">               "hidden": false,
+</span><span class="token prefix unchanged"> </span><span class="token line">               "name": "\u547d\u4ee4\u63d0\u793a\u7b26"
+</span><span class="token prefix unchanged"> </span><span class="token line">           &#125;,
+</span><span class="token prefix unchanged"> </span><span class="token line">           &#123;
+</span><span class="token prefix unchanged"> </span><span class="token line">               "guid": "&#123;b453ae62-4e3d-5e58-b989-0a998ec441b8&#125;",
+</span><span class="token prefix unchanged"> </span><span class="token line">               "hidden": false,
+</span><span class="token prefix unchanged"> </span><span class="token line">               "name": "Azure Cloud Shell",
+</span><span class="token prefix unchanged"> </span><span class="token line">               "source": "Windows.Terminal.Azure"
+</span><span class="token prefix unchanged"> </span><span class="token line">           &#125;,
+</span><span class="token prefix unchanged"> </span><span class="token line">           &#123;
+</span><span class="token prefix unchanged"> </span><span class="token line">               "guid": "&#123;3c74f569-3ac8-5b00-9edd-c44fdb1f04b1&#125;",
+</span><span class="token prefix unchanged"> </span><span class="token line">               "hidden": false,
+</span><span class="token prefix unchanged"> </span><span class="token line">               "name": "Developer Command Prompt for VS 2019",
+</span><span class="token prefix unchanged"> </span><span class="token line">               "source": "Windows.Terminal.VisualStudio"
+</span><span class="token prefix unchanged"> </span><span class="token line">           &#125;,
+</span><span class="token prefix unchanged"> </span><span class="token line">           &#123;
+</span><span class="token prefix unchanged"> </span><span class="token line">               "guid": "&#123;741d64b9-17f1-5c5b-965a-9d6cc79aa835&#125;",
+</span><span class="token prefix unchanged"> </span><span class="token line">               "hidden": false,
+</span><span class="token prefix unchanged"> </span><span class="token line">               "name": "Developer PowerShell for VS 2019",
+</span><span class="token prefix unchanged"> </span><span class="token line">               "source": "Windows.Terminal.VisualStudio"
+</span><span class="token prefix unchanged"> </span><span class="token line">           &#125;,
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">            &#123;
+</span><span class="token prefix inserted">+</span><span class="token line">                "altGrAliasing": true,
+</span><span class="token prefix inserted">+</span><span class="token line">                "antialiasingMode": "grayscale",
+</span><span class="token prefix inserted">+</span><span class="token line">                "closeOnExit": "graceful",
+</span><span class="token prefix inserted">+</span><span class="token line">                "colorScheme": "Campbell",
+</span><span class="token prefix inserted">+</span><span class="token line">                "commandline": "D:/lyf_computer_language/Git/bin/bash.exe",
+</span><span class="token prefix inserted">+</span><span class="token line">                "cursorShape": "bar",
+</span><span class="token prefix inserted">+</span><span class="token line">                "font": 
+</span><span class="token prefix inserted">+</span><span class="token line">                &#123;
+</span><span class="token prefix inserted">+</span><span class="token line">                    "face": "Cascadia Mono",
+</span><span class="token prefix inserted">+</span><span class="token line">                    "size": 12
+</span><span class="token prefix inserted">+</span><span class="token line">                &#125;,
+</span><span class="token prefix inserted">+</span><span class="token line">                "guid": "&#123;7cf12cde-90ed-4420-95e5-1bbcb223c824&#125;",
+</span><span class="token prefix inserted">+</span><span class="token line">                "hidden": false,
+</span><span class="token prefix inserted">+</span><span class="token line">                "historySize": 9001,
+</span><span class="token prefix inserted">+</span><span class="token line">                "icon": "D:/lyf_computer_language/Git/mingw64/share/git/git-for-windows.ico",
+</span><span class="token prefix inserted">+</span><span class="token line">                "name": "git bash",
+</span><span class="token prefix inserted">+</span><span class="token line">                "padding": "8, 8, 8, 8",
+</span><span class="token prefix inserted">+</span><span class="token line">                "snapOnInput": true,
+</span><span class="token prefix inserted">+</span><span class="token line">                "startingDirectory": "%USERPROFILE%",
+</span><span class="token prefix inserted">+</span><span class="token line">                "useAcrylic": false
+</span><span class="token prefix inserted">+</span><span class="token line">            &#125;,
+</span><span class="token prefix inserted">+</span><span class="token line">            &#123;
+</span><span class="token prefix inserted">+</span><span class="token line">                "commandline": "D:/lyf_computer_language/msys64/msys2_shell.cmd -defterm -here -no-start -mingw64",
+</span><span class="token prefix inserted">+</span><span class="token line">                "font": 
+</span><span class="token prefix inserted">+</span><span class="token line">                &#123;
+</span><span class="token prefix inserted">+</span><span class="token line">                    "face": "Lucida Console",
+</span><span class="token prefix inserted">+</span><span class="token line">                    "size": 18
+</span><span class="token prefix inserted">+</span><span class="token line">                &#125;,
+</span><span class="token prefix inserted">+</span><span class="token line">                "guid": "&#123;17da3cac-b318-431e-8a3e-7fcdefe6d114&#125;",
+</span><span class="token prefix inserted">+</span><span class="token line">                "icon": "D:/lyf_computer_language/msys64/mingw64.ico",
+</span><span class="token prefix inserted">+</span><span class="token line">                "name": "MINGW64 / MSYS2",
+</span><span class="token prefix inserted">+</span><span class="token line">                "startingDirectory": "D:/lyf_computer_language/msys64/home/%USERNAME%"
+</span><span class="token prefix inserted">+</span><span class="token line">            &#125;,
+</span><span class="token prefix inserted">+</span><span class="token line">            &#123;
+</span><span class="token prefix inserted">+</span><span class="token line">                "commandline": "D:/lyf_computer_language/msys64/msys2_shell.cmd -defterm -here -no-start -clang64",
+</span><span class="token prefix inserted">+</span><span class="token line">                "font": 
+</span><span class="token prefix inserted">+</span><span class="token line">                &#123;
+</span><span class="token prefix inserted">+</span><span class="token line">                    "face": "Lucida Console",
+</span><span class="token prefix inserted">+</span><span class="token line">                    "size": 18
+</span><span class="token prefix inserted">+</span><span class="token line">                &#125;,
+</span><span class="token prefix inserted">+</span><span class="token line">                "guid": "&#123;17da3cac-b318-431e-8a3e-7fcdefe6d112&#125;",
+</span><span class="token prefix inserted">+</span><span class="token line">                "icon": "D:/lyf_computer_language/msys64/clang64.ico",
+</span><span class="token prefix inserted">+</span><span class="token line">                "name": "CLANG64 / MSYS2",
+</span><span class="token prefix inserted">+</span><span class="token line">                "startingDirectory": "D:/lyf_computer_language/msys64/home/%USERNAME%"
+</span><span class="token prefix inserted">+</span><span class="token line">            &#125;,
+</span><span class="token prefix inserted">+</span><span class="token line">            &#123;
+</span><span class="token prefix inserted">+</span><span class="token line">                "commandline": "D:/lyf_computer_language/msys64/msys2_shell.cmd -defterm -here -no-start -msys",
+</span><span class="token prefix inserted">+</span><span class="token line">                "font": 
+</span><span class="token prefix inserted">+</span><span class="token line">                &#123;
+</span><span class="token prefix inserted">+</span><span class="token line">                    "face": "Lucida Console",
+</span><span class="token prefix inserted">+</span><span class="token line">                    "size": 18
+</span><span class="token prefix inserted">+</span><span class="token line">                &#125;,
+</span><span class="token prefix inserted">+</span><span class="token line">                "guid": "&#123;71160544-14d8-4194-af25-d05feeac7233&#125;",
+</span><span class="token prefix inserted">+</span><span class="token line">                "icon": "D:/lyf_computer_language/msys64/msys2.ico",
+</span><span class="token prefix inserted">+</span><span class="token line">                "name": "MSYS / MSYS2",
+</span><span class="token prefix inserted">+</span><span class="token line">                "startingDirectory": "D:/lyf_computer_language/msys64/home/%USERNAME%"
+</span><span class="token prefix inserted">+</span><span class="token line">            &#125;
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       ]
+</span><span class="token prefix unchanged"> </span><span class="token line">   &#125;,</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="https://cos.luyf-lemon-love.space/images/20220803204323.png"></p>
+<blockquote>
+<p>You can make one of the MSYS2 profiles the default by setting the defaultProfile key to the guid value of one of the profile entries.</p>
+</blockquote>
+<h4 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h4><p>如果 <code>Windows PowerShell</code> 报告 <code>系统上禁止运行脚本</code> 问题。可以参考 <a href="https://blog.csdn.net/wodexinhaoleng1/article/details/119712635">问题解决：系统上禁止运行脚本</a>。</p>
+<ol>
+<li><p>以 <code>管理员权限</code> 打开 <code>Windows PowerShell</code>，输入 <code>set-ExecutionPolicy RemoteSigned</code>，输入 <code>a</code> 或者 <code>y</code>。</p>
+</li>
+<li><p>测试是否更改成功：输入 <code>get-executionpolicy</code> ，结果为 <code>RemoteSigned</code> 表示成功。</p>
+</li>
+</ol>
+<h3 id="Package-Management"><a href="#Package-Management" class="headerlink" title="Package Management"></a>Package Management</h3><h4 id="Package-repositories"><a href="#Package-repositories" class="headerlink" title="Package repositories"></a>Package repositories</h4><p>The MSYS2 software distribution uses a port of <code>pacman</code> (known from Arch Linux) to manage (install, remove and update) binary packages and also to build those packages in the first place.</p>
+<p>There are 6 package repositories, the “classical” ones <code>msys2</code>, <code>mingw32</code>, and <code>mingw64</code> and the newer <code>ucrt64</code>, <code>clang32</code>, and <code>clang64</code>.</p>
+<p>The packages in <code>msys2</code> are named just like on a Linux distribution, the packages in the others are prefixed by either <code>mingw-w64-i686-</code> for 32-bit packages, or <code>mingw-w64-x86_64-</code> for 64-bit packages with a secondary prefix <code>clang</code> or <code>ucrt</code> where applicable.</p>
+<h4 id="Finding-a-package"><a href="#Finding-a-package" class="headerlink" title="Finding a package"></a>Finding a package</h4><p>查找软件包</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-Ss</span> <span class="token operator">&lt;</span>name or part of the name of the package<span class="token operator">></span>
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacman <span class="token parameter variable">-Ss</span> openjp
+mingw32/mingw-w64-i686-openjpeg <span class="token number">1.5</span>.2-7
+    An <span class="token function">open</span> <span class="token builtin class-name">source</span> JPEG <span class="token number">2000</span> codec <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+mingw32/mingw-w64-i686-openjpeg2 <span class="token number">2.5</span>.0-2
+    An <span class="token function">open</span> <span class="token builtin class-name">source</span> JPEG <span class="token number">2000</span> codec <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+mingw64/mingw-w64-x86_64-openjpeg <span class="token number">1.5</span>.2-7
+    An <span class="token function">open</span> <span class="token builtin class-name">source</span> JPEG <span class="token number">2000</span> codec <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+mingw64/mingw-w64-x86_64-openjpeg2 <span class="token number">2.5</span>.0-2 <span class="token punctuation">[</span>已安装<span class="token punctuation">]</span>
+    An <span class="token function">open</span> <span class="token builtin class-name">source</span> JPEG <span class="token number">2000</span> codec <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+ucrt64/mingw-w64-ucrt-x86_64-openjpeg <span class="token number">1.5</span>.2-7
+    An <span class="token function">open</span> <span class="token builtin class-name">source</span> JPEG <span class="token number">2000</span> codec <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+ucrt64/mingw-w64-ucrt-x86_64-openjpeg2 <span class="token number">2.5</span>.0-2
+    An <span class="token function">open</span> <span class="token builtin class-name">source</span> JPEG <span class="token number">2000</span> codec <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+clang32/mingw-w64-clang-i686-openjpeg <span class="token number">1.5</span>.2-7
+    An <span class="token function">open</span> <span class="token builtin class-name">source</span> JPEG <span class="token number">2000</span> codec <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+clang32/mingw-w64-clang-i686-openjpeg2 <span class="token number">2.5</span>.0-2
+    An <span class="token function">open</span> <span class="token builtin class-name">source</span> JPEG <span class="token number">2000</span> codec <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+clang64/mingw-w64-clang-x86_64-openjpeg <span class="token number">1.5</span>.2-7
+    An <span class="token function">open</span> <span class="token builtin class-name">source</span> JPEG <span class="token number">2000</span> codec <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+clang64/mingw-w64-clang-x86_64-openjpeg2 <span class="token number">2.5</span>.0-2
+    An <span class="token function">open</span> <span class="token builtin class-name">source</span> JPEG <span class="token number">2000</span> codec <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>你能发现 <code>mingw-w64-x86_64-openjpeg2</code> 包已被安装，其他包没有被安装。</p>
+<p>只想在已安装的软件包中搜索</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-Qs</span> <span class="token operator">&lt;</span>name or part of the name of the package<span class="token operator">></span>
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacman <span class="token parameter variable">-Qs</span> openjp
+local/mingw-w64-x86_64-openjpeg2 <span class="token number">2.5</span>.0-2
+    An <span class="token function">open</span> <span class="token builtin class-name">source</span> JPEG <span class="token number">2000</span> codec <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Installing-a-package"><a href="#Installing-a-package" class="headerlink" title="Installing a package"></a>Installing a package</h4><p>安装包</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> <span class="token operator">&lt;</span>name of the package<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>If the package has dependencies which are not installed, <code>pacman</code> will ask you whether you would like to install the dependencies in the first place.</p>
+<p><code>pacman -S</code> also accepts virtual package names and package group names. Virtual package names can be often encountered with packages built from Git, e.g. <code>msys2-launcher-git</code> can be installed by requesting <code>msys-launcher</code>. Package groups simplify installation of related packages, e.g. install <code>base-devel</code> to get basic development tools.</p>
+<p>Please note that neither of those are real packages, so the commands below won’t accept these names and you need to use the real package names instead.</p>
+</blockquote>
+<h4 id="Uninstalling-a-package"><a href="#Uninstalling-a-package" class="headerlink" title="Uninstalling a package"></a>Uninstalling a package</h4><blockquote>
+<p>The following command will remove a package (but not its dependencies nor any files produced by running it):</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-R</span> <span class="token operator">&lt;</span>name of the package<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="Installing-a-specific-version-of-a-package-or-a-stand-alone-packages"><a href="#Installing-a-specific-version-of-a-package-or-a-stand-alone-packages" class="headerlink" title="Installing a specific version of a package or a stand-alone packages"></a>Installing a specific version of a package or a stand-alone packages</h4><blockquote>
+<p>Older (or pre-release) versions of packages can be installed directly from the package archive (<code>.tar.zst</code> or <code>.tar.xz</code>). <a href="https://repo.msys2.org/">The data store</a> for the repositories contains older versions of packages, but beware that you might need to recursively find correct versions of dependencies for the desired package. Once downloaded, the package can be installed like this:</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-U</span> <span class="token operator">&lt;</span>packagefile.tar.zst<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>or</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-U</span> <span class="token operator">&lt;</span>packagefile.tar.xz<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="Finding-dependencies-of-a-package"><a href="#Finding-dependencies-of-a-package" class="headerlink" title="Finding dependencies of a package"></a>Finding dependencies of a package</h4><p>You can use <code>pactree</code> to figure out which packages are needed to make a package working properly:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN MSYS ~
+$ pactree mingw-w64-x86_64-gettext
+mingw-w64-x86_64-gettext
+├─mingw-w64-x86_64-expat
+├─mingw-w64-x86_64-gcc-libs
+│ ├─mingw-w64-x86_64-gmp
+│ ├─mingw-w64-x86_64-mpc
+│ │ └─mingw-w64-x86_64-mpfr
+│ │   └─mingw-w64-x86_64-gmp
+│ ├─mingw-w64-x86_64-mpfr
+│ └─mingw-w64-x86_64-libwinpthread-git provides mingw-w64-x86_64-libwinpthread
+└─mingw-w64-x86_64-libiconv<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Alternatively you can use <code>pacman -Qi</code> to get the list of <code>direct</code> dependencies of a package:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacman <span class="token parameter variable">-Qi</span> mingw-w64-x86_64-gettext
+名字           <span class="token builtin class-name">:</span> mingw-w64-x86_64-gettext
+版本           <span class="token builtin class-name">:</span> <span class="token number">0.21</span>-3
+描述           <span class="token builtin class-name">:</span> GNU internationalization library <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+架构           <span class="token builtin class-name">:</span> any
+URL            <span class="token builtin class-name">:</span> https://www.gnu.org/software/gettext/
+软件许可       <span class="token builtin class-name">:</span> GPL3  partial:LGPL2.1
+组             <span class="token builtin class-name">:</span> 无
+提供           <span class="token builtin class-name">:</span> 无
+依赖于         <span class="token builtin class-name">:</span> mingw-w64-x86_64-expat  mingw-w64-x86_64-gcc-libs
+                 mingw-w64-x86_64-libiconv
+可选依赖       <span class="token builtin class-name">:</span> 无
+依赖它         <span class="token builtin class-name">:</span> mingw-w64-x86_64-libidn2  mingw-w64-x86_64-libpsl
+                 mingw-w64-x86_64-libtre-git  mingw-w64-x86_64-libxml2
+                 mingw-w64-x86_64-make  mingw-w64-x86_64-p11-kit
+                 mingw-w64-x86_64-rhash  mingw-w64-x86_64-xz
+被可选依赖     <span class="token builtin class-name">:</span> 无
+与它冲突       <span class="token builtin class-name">:</span> 无
+取代           <span class="token builtin class-name">:</span> 无
+安装后大小     <span class="token builtin class-name">:</span> <span class="token number">17.47</span> MiB
+打包者         <span class="token builtin class-name">:</span> CI <span class="token punctuation">(</span>msys2-autobuild/f765fe5e/1689836820<span class="token punctuation">)</span>
+编译日期       <span class="token builtin class-name">:</span> <span class="token number">2022</span>年01月13日 <span class="token number">6</span>:36:51
+安装日期       <span class="token builtin class-name">:</span> <span class="token number">2022</span>年07月19日 <span class="token number">19</span>:55:58
+安装原因       <span class="token builtin class-name">:</span> 作为其他软件包的依赖关系安装
+安装脚本       <span class="token builtin class-name">:</span> 否
+验证者         <span class="token builtin class-name">:</span> 数字签名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Finding-out-which-package-a-file-belongs-to"><a href="#Finding-out-which-package-a-file-belongs-to" class="headerlink" title="Finding out which package a file belongs to"></a>Finding out which package a file belongs to</h4><p>Use the following command to trace a file back to its owning package:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-Qo</span> <span class="token operator">&lt;</span>full <span class="token function">file</span> path<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>Note that this operation only compares the file paths, so proper capitalization and the <code>.exe</code> suffix (if applicable) is required. Also note that this works only on <code>installed packages</code>, it will not scan the whole package repositories.</p>
+<h4 id="Finding-which-package-will-install-the-file-you-need"><a href="#Finding-which-package-will-install-the-file-you-need" class="headerlink" title="Finding which package will install the file you need"></a>Finding which package will install the file you need</h4><p>The two recommended tools that can scan a repository and find packages that contain specific files are <code>pacman -F</code> and <code>pkgfile</code>. Below are examples of <code>pacman -F</code> usage:</p>
+<p>Call <code>pacman -Fy</code> to update your package database. To find an <code>exact match</code>, call <code>pacman -F &lt;filename&gt;</code> (don’t include the path in the filename). To find a <code>substring match</code>, call <code>pacman -Fx &lt;filename&gt;</code>.</p>
+<p>Note that this operation only compares the file paths, so proper capitalization and the <code>.exe</code> suffix (if applicable) is required.</p>
+<h4 id="Listing-installed-packages"><a href="#Listing-installed-packages" class="headerlink" title="Listing installed packages"></a>Listing installed packages</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacman <span class="token parameter variable">-Qqe</span>
+base
+base-devel
+clang
+cmake
+filesystem
+meson
+mingw-w64-clang-x86_64-clang
+mingw-w64-clang-x86_64-clang-analyzer
+mingw-w64-clang-x86_64-clang-tools-extra
+mingw-w64-clang-x86_64-compiler-rt
+mingw-w64-clang-x86_64-crt-git
+mingw-w64-clang-x86_64-gcc-compat
+mingw-w64-clang-x86_64-headers-git
+mingw-w64-clang-x86_64-libc++
+mingw-w64-clang-x86_64-libc++abi
+mingw-w64-clang-x86_64-libmangle-git
+mingw-w64-clang-x86_64-libunwind
+mingw-w64-clang-x86_64-libwinpthread-git
+mingw-w64-clang-x86_64-lld
+mingw-w64-clang-x86_64-lldb
+mingw-w64-clang-x86_64-llvm
+mingw-w64-clang-x86_64-make
+mingw-w64-clang-x86_64-openmp
+mingw-w64-clang-x86_64-pkgconf
+mingw-w64-clang-x86_64-polly
+mingw-w64-clang-x86_64-tools-git
+mingw-w64-clang-x86_64-winpthreads-git
+mingw-w64-clang-x86_64-winstorecompat-git
+mingw-w64-x86_64-binutils
+mingw-w64-x86_64-boost
+mingw-w64-x86_64-cmake
+mingw-w64-x86_64-crt-git
+mingw-w64-x86_64-gcc
+mingw-w64-x86_64-gcc-ada
+mingw-w64-x86_64-gcc-fortran
+mingw-w64-x86_64-gcc-libgfortran
+mingw-w64-x86_64-gcc-libs
+mingw-w64-x86_64-gcc-objc
+mingw-w64-x86_64-gdb
+mingw-w64-x86_64-gdb-multiarch
+mingw-w64-x86_64-headers-git
+mingw-w64-x86_64-libgccjit
+mingw-w64-x86_64-libmangle-git
+mingw-w64-x86_64-libwinpthread-git
+mingw-w64-x86_64-make
+mingw-w64-x86_64-openjpeg2
+mingw-w64-x86_64-pkgconf
+mingw-w64-x86_64-protobuf-c
+mingw-w64-x86_64-pugixml
+mingw-w64-x86_64-tools-git
+mingw-w64-x86_64-winpthreads-git
+mingw-w64-x86_64-winstorecompat-git
+msys2-runtime
+pactoys
+protobuf-devel
+python
+tree
+<span class="token function">unzip</span>
+<span class="token function">vim</span>
+<span class="token function">zip</span>
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Package-Naming"><a href="#Package-Naming" class="headerlink" title="Package Naming"></a>Package Naming</h3><h4 id="Overview-1"><a href="#Overview-1" class="headerlink" title="Overview"></a>Overview</h4><p>不同环境的 <code>the package prefix</code> - <code>MINGW_PACKAGE_PREFIX</code>。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+<th>Package Prefix</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://cos.luyf-lemon-love.space/images/20220803155912.png" alt="msys"></td>
+<td><strong>MSYS</strong></td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><img src="https://cos.luyf-lemon-love.space/images/20220803160001.png" alt="mingw64"></td>
+<td><strong>MINGW64</strong></td>
+<td><code>mingw-w64-x86_64-</code></td>
+</tr>
+<tr>
+<td><img src="https://cos.luyf-lemon-love.space/images/20220803160033.png" alt="ucrt64"></td>
+<td><strong>UCRT64</strong></td>
+<td><code>mingw-w64-ucrt-x86_64-</code></td>
+</tr>
+<tr>
+<td><img src="https://cos.luyf-lemon-love.space/images/20220803160111.png" alt="clang64"></td>
+<td><strong>CLANG64</strong></td>
+<td><code>mingw-w64-clang-x86_64-</code></td>
+</tr>
+<tr>
+<td><img src="https://cos.luyf-lemon-love.space/images/20220803160139.png" alt="mingw32"></td>
+<td><strong>MINGW32</strong></td>
+<td><code>mingw-w64-i686-</code></td>
+</tr>
+<tr>
+<td><img src="https://cos.luyf-lemon-love.space/images/20220803160311.png" alt="clang32"></td>
+<td><strong>CLANG32</strong></td>
+<td><code>mingw-w64-clang-i686-</code></td>
+</tr>
+<tr>
+<td><img src="https://cos.luyf-lemon-love.space/images/20220803160335.png" alt="clangarm64"></td>
+<td><strong>CLANGARM64</strong></td>
+<td><code>mingw-w64-clang-aarch64-</code></td>
+</tr>
+</tbody></table>
+<h4 id="Avoiding-writing-long-package-names"><a href="#Avoiding-writing-long-package-names" class="headerlink" title="Avoiding writing long package names"></a>Avoiding writing long package names</h4><p>Use <code>pacboy</code> to install <strong>mingw</strong> packages without having to type the long package names (install <code>pacboy</code> first using <code>pacman -S pactoys</code> if necessary). Examples:</p>
+<ul>
+<li><p><code>pacboy</code> installs the listed packages for one or more environments. The selection of environments for each package is controlled by <code>appending suffixes</code> on the package name.</p>
+</li>
+<li><p>In particular, adding the <code>:p</code> suffix installs the package for <code>the current environment only</code>.</p>
+</li>
+<li><p><code>If no suffix is given, the selection of environments depends on what environment you&#39;re currently in</code> - e.g. in a mingw64 environment, it currently defaults to installing the package for both mingw32 and mingw64.</p>
+</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacboy <span class="token builtin class-name">help</span>
+
+    Pacboy <span class="token number">2016.6</span>.24
+    Copyright <span class="token punctuation">(</span>C<span class="token punctuation">)</span> <span class="token number">2015</span>, <span class="token number">2016</span> Renato Silva
+    Licensed under BSD
+
+    This is a pacman wrapper <span class="token keyword">for</span> MSYS2 <span class="token function">which</span> handles the package prefixes
+    automatically, and provides human-friendly commands <span class="token keyword">for</span> common tasks.
+
+    Usage:
+        pacboy <span class="token punctuation">[</span>command<span class="token punctuation">]</span> <span class="token punctuation">[</span>arguments<span class="token punctuation">]</span>
+        Arguments will be passed to pacman after translation:
+
+        For <span class="token number">64</span>-bit MSYS2 shell:
+            name:i means i686-only
+            name:x means x86_64-only
+            name:z means clang-i686-only
+            name:c means clang-x86_64-only
+            name:u means ucrt-x86_64-only
+            name:a means clang-aarch64-only
+            name:p means MINGW_PACKAGE_PREFIX-only
+
+        For MSYS shell:
+            name:m means mingw-w64
+            name:l means mingw-w64-clang
+
+        For all shells:
+            name: disables any translation <span class="token keyword">for</span> name
+            repository::name means repository/name
+
+    Commands:
+        <span class="token function">sync</span>        Shorthand <span class="token keyword">for</span> <span class="token parameter variable">--sync</span> or <span class="token parameter variable">--upgrade</span>
+        update      Shorthand <span class="token keyword">for</span> <span class="token parameter variable">--sync</span> <span class="token parameter variable">--refresh</span> <span class="token parameter variable">--sysupgrade</span>
+        refresh     Shorthand <span class="token keyword">for</span> <span class="token parameter variable">--sync</span> <span class="token parameter variable">--refresh</span>
+        <span class="token function">find</span>        Shorthand <span class="token keyword">for</span> <span class="token parameter variable">--sync</span> <span class="token parameter variable">--search</span>
+        packages    Shorthand <span class="token keyword">for</span> <span class="token parameter variable">--sync</span> <span class="token parameter variable">--list</span>
+        files       Shorthand <span class="token keyword">for</span> <span class="token parameter variable">--query</span> <span class="token parameter variable">--list</span> <span class="token punctuation">[</span>--file<span class="token punctuation">]</span>
+        info        Shorthand <span class="token keyword">for</span> <span class="token parameter variable">--query</span> <span class="token parameter variable">--info</span> <span class="token punctuation">[</span>--file<span class="token punctuation">]</span>
+        origin      Shorthand <span class="token keyword">for</span> <span class="token parameter variable">--query</span> <span class="token parameter variable">--owns</span> or <span class="token parameter variable">--files</span>
+        remove      Shorthand <span class="token keyword">for</span> <span class="token parameter variable">--remove</span> <span class="token parameter variable">--recursive</span>
+        debug       Verbose output <span class="token keyword">for</span> the above commands<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Here are examples of using the <code>:x</code>, <code>:i</code> and <code>:m</code> suffixes for installing packages for the <code>mingw64</code>, <code>mingw32</code> and <code>both environments</code>:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacboy <span class="token parameter variable">-S</span> x265:x
+正在解析依赖关系<span class="token punctuation">..</span>.
+正在查找软件包冲突<span class="token punctuation">..</span>.
+
+软件包 <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> mingw-w64-x86_64-x265-3.5-3
+
+下载大小：       <span class="token number">2.92</span> MiB
+全部安装大小：  <span class="token number">65.20</span> MiB
+
+:: 进行安装吗？ <span class="token punctuation">[</span>Y/n<span class="token punctuation">]</span> n
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacboy <span class="token parameter variable">-S</span> x265:i
+正在解析依赖关系<span class="token punctuation">..</span>.
+正在查找软件包冲突<span class="token punctuation">..</span>.
+
+软件包 <span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span> mingw-w64-i686-gcc-libs-12.1.0-3  mingw-w64-i686-gmp-6.2.1-3
+           mingw-w64-i686-libwinpthread-git-10.0.0.r54.gb4116e310-1
+           mingw-w64-i686-mpc-1.2.1-1  mingw-w64-i686-mpfr-4.1.0.p13-1
+           mingw-w64-i686-x265-3.5-3
+
+下载大小：       <span class="token number">3.52</span> MiB
+全部安装大小：  <span class="token number">30.04</span> MiB
+
+:: 进行安装吗？ <span class="token punctuation">[</span>Y/n<span class="token punctuation">]</span> n
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacboy <span class="token parameter variable">-S</span> x265:m
+正在解析依赖关系<span class="token punctuation">..</span>.
+正在查找软件包冲突<span class="token punctuation">..</span>.
+
+软件包 <span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span> mingw-w64-i686-gcc-libs-12.1.0-3  mingw-w64-i686-gmp-6.2.1-3
+           mingw-w64-i686-libwinpthread-git-10.0.0.r54.gb4116e310-1
+           mingw-w64-i686-mpc-1.2.1-1  mingw-w64-i686-mpfr-4.1.0.p13-1
+           mingw-w64-i686-x265-3.5-3  mingw-w64-x86_64-x265-3.5-3
+
+下载大小：       <span class="token number">6.44</span> MiB
+全部安装大小：  <span class="token number">95.24</span> MiB
+
+:: 进行安装吗？ <span class="token punctuation">[</span>Y/n<span class="token punctuation">]</span> n<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Repositories-and-Mirrors"><a href="#Repositories-and-Mirrors" class="headerlink" title="Repositories and Mirrors"></a>Repositories and Mirrors</h3><h4 id="Active-environments"><a href="#Active-environments" class="headerlink" title="Active environments"></a>Active environments</h4><p>The package manager uses only environments that are configured under <code>/etc/pacman.conf</code>. You may add&#x2F;uncomment&#x2F;remove&#x2F;comment those as needed:</p>
+<pre class="line-numbers language-none"><code class="language-none"># always include msys!
+[msys]
+Include &#x3D; &#x2F;etc&#x2F;pacman.d&#x2F;mirrorlist.msys
+
+[mingw32]
+Include &#x3D; &#x2F;etc&#x2F;pacman.d&#x2F;mirrorlist.mingw
+
+[mingw64]
+Include &#x3D; &#x2F;etc&#x2F;pacman.d&#x2F;mirrorlist.mingw
+
+[ucrt64]
+Include &#x3D; &#x2F;etc&#x2F;pacman.d&#x2F;mirrorlist.mingw
+
+[clang64]
+Include &#x3D; &#x2F;etc&#x2F;pacman.d&#x2F;mirrorlist.mingw
+
+[clang32]
+Include &#x3D; &#x2F;etc&#x2F;pacman.d&#x2F;mirrorlist.mingw
+
+#[clangarm64]
+#Include &#x3D; &#x2F;etc&#x2F;pacman.d&#x2F;mirrorlist.mingw<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>To launch an environment either use the wrapper executables like <code>ucrt64.exe</code> or call <code>msys2_shell.cmd</code> with either the matching parameter like <code>msys2_shell.cmd -clang64</code> or by setting <code>MSYSTEM</code>.</p>
+<h3 id="Tips-and-Tricks"><a href="#Tips-and-Tricks" class="headerlink" title="Tips and Tricks"></a>Tips and Tricks</h3><h4 id="Show-the-license-information-of-a-package"><a href="#Show-the-license-information-of-a-package" class="headerlink" title="Show the license information of a package"></a>Show the license information of a package</h4><p>To list the license of an installed package you can run:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ pacman <span class="token parameter variable">-Qi</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'^Licenses'</span>
+Licenses        <span class="token builtin class-name">:</span> Apache <span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>To list the license of a package in the sync database you can run:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ pacman <span class="token parameter variable">-Si</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'^Licenses'</span>
+Licenses        <span class="token builtin class-name">:</span> Apache <span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>To list all license files installed by a package in the recommended location:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ pacman <span class="token parameter variable">-Ql</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-E</span> <span class="token string">"/share/licenses/.+/.+"</span>
+meson /usr/share/licenses/meson/COPYING<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>Note that not every package includes the license text as a file, nor puts it in this specific recommended location.</p>
+<h4 id="Listing-the-content-of-a-package"><a href="#Listing-the-content-of-a-package" class="headerlink" title="Listing the content of a package"></a>Listing the content of a package</h4><p>If you would like to know what has been installed as a part of a specific package use the following command:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-Ql</span> <span class="token operator">&lt;</span>name of the package<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>Example:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-Ql</span> mingw-w64-x86_64-pugixml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mingw-w64-x86_64-pugixml /mingw64/
+mingw-w64-x86_64-pugixml /mingw64/bin/
+mingw-w64-x86_64-pugixml /mingw64/bin/libpugixml.dll
+mingw-w64-x86_64-pugixml /mingw64/include/
+mingw-w64-x86_64-pugixml /mingw64/include/pugixml-1.8/
+mingw-w64-x86_64-pugixml /mingw64/include/pugixml-1.8/pugiconfig.hpp
+mingw-w64-x86_64-pugixml /mingw64/include/pugixml-1.8/pugixml.hpp
+mingw-w64-x86_64-pugixml /mingw64/lib/
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/pugixml-config-noconfig.cmake
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/pugixml-config.cmake
+mingw-w64-x86_64-pugixml /mingw64/lib/pkgconfig/
+mingw-w64-x86_64-pugixml /mingw64/lib/pkgconfig/pugixml.pc
+mingw-w64-x86_64-pugixml /mingw64/lib/pugixml-1.8/
+mingw-w64-x86_64-pugixml /mingw64/lib/pugixml-1.8/libpugixml.dll.a<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>As you can see the package contains:</p>
+<ul>
+<li><p>a binary executable library file (libpugixml.dll),</p>
+</li>
+<li><p>a static library (libpugixml.dll.a),</p>
+</li>
+<li><p>2 header files (pugixml.hpp, pugiconfig.hpp),</p>
+</li>
+<li><p>2 cmake files,</p>
+</li>
+<li><p>and a PKGCONFIG file (pugixml.pc).</p>
+</li>
+</ul>
+<blockquote>
+<p>请注意上面的命令不能够在 <code>Mintty</code> 中输出想要的结果。可以使用 <code>Windows PowerShell</code> 运行上面的命令。要在 <code>Windows PowerShell</code> 运行上面的命令，需要配置环境变量，可以参考 00020-GCC-on-Windows</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN MSYS ~
+$ <span class="token function">which</span> meson
+/usr/bin/meson
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$ pacman <span class="token parameter variable">-Qi</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'^Licenses'</span>
+
+lyf@DESKTOP-GV2QHKN MSYS ~
+$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">版权所有 <span class="token punctuation">(</span>C<span class="token punctuation">)</span> Microsoft Corporation。保留所有权利。
+尝试新的跨平台 PowerShell https://aka.ms/pscore6
+PS C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>lyf<span class="token operator">></span> pacman <span class="token parameter variable">-Qi</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'^Licenses'</span>
+error: package <span class="token string">'meson'</span> was not found
+PS C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>lyf<span class="token operator">></span> pacman <span class="token parameter variable">-S</span> meson
+resolving dependencies<span class="token punctuation">..</span>.
+looking <span class="token keyword">for</span> conflicting packages<span class="token punctuation">..</span>.
+
+Packages <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> meson-0.63.0-1
+
+Total Installed Size:  <span class="token number">7.84</span> MiB
+
+:: Proceed with installation? <span class="token punctuation">[</span>Y/n<span class="token punctuation">]</span>
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> checking keys <span class="token keyword">in</span> keyring                                 <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> checking package integrity                               <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> loading package files                                    <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> checking <span class="token keyword">for</span> <span class="token function">file</span> conflicts                              <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+:: Processing package changes<span class="token punctuation">..</span>.
+PS C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>lyf<span class="token operator">></span> pacman <span class="token parameter variable">-Ss</span> meson
+    High-productivity build system <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+mingw64/mingw-w64-x86_64-meson <span class="token number">0.63</span>.0-1
+    High-productivity build system <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+ucrt64/mingw-w64-ucrt-x86_64-meson <span class="token number">0.63</span>.0-1
+    High-productivity build system <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+clang32/mingw-w64-clang-i686-meson <span class="token number">0.63</span>.0-1
+    High-productivity build system <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+clang64/mingw-w64-clang-x86_64-meson <span class="token number">0.63</span>.0-1
+    High-productivity build system <span class="token punctuation">(</span>mingw-w64<span class="token punctuation">)</span>
+msys/meson <span class="token number">0.63</span>.0-1 <span class="token punctuation">[</span>installed<span class="token punctuation">]</span>
+    High-productivity build system
+PS C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>lyf<span class="token operator">></span> pacman <span class="token parameter variable">-Qi</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'^Licenses'</span>
+Licenses        <span class="token builtin class-name">:</span> spdx:Apache-2.0
+PS C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>lyf<span class="token operator">></span> pacman <span class="token parameter variable">-Si</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'^Licenses'</span>
+Licenses        <span class="token builtin class-name">:</span> spdx:Apache-2.0
+checking dependencies<span class="token punctuation">..</span>.
+
+Packages <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> meson-0.63.0-1
+
+Total Removed Size:  <span class="token number">7.84</span> MiB
+
+:: Do you want to remove these packages? <span class="token punctuation">[</span>Y/n<span class="token punctuation">]</span>
+:: Processing package changes<span class="token punctuation">..</span>.
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> removing meson                                           <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+PS C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>lyf<span class="token operator">></span> pacman <span class="token parameter variable">-Si</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'^Licenses'</span>
+Licenses        <span class="token builtin class-name">:</span> spdx:Apache-2.0
+PS C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>lyf<span class="token operator">></span> pacman <span class="token parameter variable">-Ql</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-E</span> <span class="token string">"/share/licenses/.+/.+"</span>
+error: package <span class="token string">'meson'</span> was not found
+PS C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>lyf<span class="token operator">></span> pacman <span class="token parameter variable">-S</span> meson
+resolving dependencies<span class="token punctuation">..</span>.
+looking <span class="token keyword">for</span> conflicting packages<span class="token punctuation">..</span>.
+
+Packages <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> meson-0.63.0-1
+
+Total Installed Size:  <span class="token number">7.84</span> MiB
+
+:: Proceed with installation? <span class="token punctuation">[</span>Y/n<span class="token punctuation">]</span>
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> checking keys <span class="token keyword">in</span> keyring                                 <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> checking package integrity                               <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> loading package files                                    <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> checking <span class="token keyword">for</span> <span class="token function">file</span> conflicts                              <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> checking available disk space                            <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+:: Processing package changes<span class="token punctuation">..</span>.
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> installing meson                                         <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+PS C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>lyf<span class="token operator">></span> pacman <span class="token parameter variable">-Ql</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-E</span> <span class="token string">"/share/licenses/.+/.+"</span>
+meson /usr/share/licenses/meson/COPYING
+PS C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>lyf<span class="token operator">></span> pacman <span class="token parameter variable">-Ql</span> mingw-w64-x86_64-pugixml
+error: package <span class="token string">'mingw-w64-x86_64-pugixml'</span> was not found
+PS C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>lyf<span class="token operator">></span> pacman <span class="token parameter variable">-S</span> mingw-w64-x86_64-pugixml
+resolving dependencies<span class="token punctuation">..</span>.
+looking <span class="token keyword">for</span> conflicting packages<span class="token punctuation">..</span>.
+
+Packages <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> mingw-w64-x86_64-pugixml-1.12.1-1
+
+Total Installed Size:  <span class="token number">0.82</span> MiB
+
+:: Proceed with installation? <span class="token punctuation">[</span>Y/n<span class="token punctuation">]</span>
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> checking keys <span class="token keyword">in</span> keyring                                 <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> checking package integrity                               <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> loading package files                                    <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> checking <span class="token keyword">for</span> <span class="token function">file</span> conflicts                              <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> checking available disk space                            <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+:: Processing package changes<span class="token punctuation">..</span>.
+<span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span> installing mingw-w64-x86_64-pugixml                      <span class="token punctuation">[</span><span class="token comment">#################################] 100%</span>
+PS C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>lyf<span class="token operator">></span> pacman <span class="token parameter variable">-Ql</span> mingw-w64-x86_64-pugixml
+mingw-w64-x86_64-pugixml /mingw64/
+mingw-w64-x86_64-pugixml /mingw64/bin/
+mingw-w64-x86_64-pugixml /mingw64/bin/libpugixml.dll
+mingw-w64-x86_64-pugixml /mingw64/include/
+mingw-w64-x86_64-pugixml /mingw64/include/pugiconfig.hpp
+mingw-w64-x86_64-pugixml /mingw64/include/pugixml.hpp
+mingw-w64-x86_64-pugixml /mingw64/lib/
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/pugixml-config-version.cmake
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/pugixml-config.cmake
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/pugixml-targets-release.cmake
+mingw-w64-x86_64-pugixml /mingw64/lib/cmake/pugixml/pugixml-targets.cmake
+mingw-w64-x86_64-pugixml /mingw64/lib/libpugixml.a
+mingw-w64-x86_64-pugixml /mingw64/lib/libpugixml.dll.a
+mingw-w64-x86_64-pugixml /mingw64/lib/pkgconfig/
+mingw-w64-x86_64-pugixml /mingw64/lib/pkgconfig/pugixml.pc
+mingw-w64-x86_64-pugixml /mingw64/share/
+mingw-w64-x86_64-pugixml /mingw64/share/licenses/
+mingw-w64-x86_64-pugixml /mingw64/share/licenses/pugixml/
+mingw-w64-x86_64-pugixml /mingw64/share/licenses/pugixml/LICENSE
+PS C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>lyf<span class="token operator">></span> <span class="token function">history</span>
+
+  Id CommandLine
+  -- -----------
+   <span class="token number">1</span> pacman <span class="token parameter variable">-Qi</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'^Licenses'</span>
+   <span class="token number">2</span> pacman <span class="token parameter variable">-S</span> meson
+   <span class="token number">3</span> pacman <span class="token parameter variable">-Ss</span> meson
+   <span class="token number">4</span> pacman <span class="token parameter variable">-Qi</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'^Licenses'</span>
+   <span class="token number">5</span> pacman <span class="token parameter variable">-Si</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'^Licenses'</span>
+   <span class="token number">6</span> pacman <span class="token parameter variable">-R</span> meson
+   <span class="token number">7</span> pacman <span class="token parameter variable">-Si</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'^Licenses'</span>
+   <span class="token number">8</span> pacman <span class="token parameter variable">-Ql</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-E</span> <span class="token string">"/share/licenses/.+/.+"</span>
+   <span class="token number">9</span> pacman <span class="token parameter variable">-S</span> meson
+  <span class="token number">10</span> pacman <span class="token parameter variable">-Ql</span> meson <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-E</span> <span class="token string">"/share/licenses/.+/.+"</span>
+  <span class="token number">11</span> pacman <span class="token parameter variable">-Ql</span> mingw-w64-x86_64-pugixml
+  <span class="token number">12</span> pacman <span class="token parameter variable">-S</span> mingw-w64-x86_64-pugixml
+  <span class="token number">13</span> pacman <span class="token parameter variable">-Ql</span> mingw-w64-x86_64-pugixml
+
+
+PS C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>lyf<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Using-CMake-in-MSYS2"><a href="#Using-CMake-in-MSYS2" class="headerlink" title="Using CMake in MSYS2"></a>Using CMake in MSYS2</h3><h4 id="Installing"><a href="#Installing" class="headerlink" title="Installing"></a>Installing</h4><p>When building projects for Windows with CMake (as opposed to building projects that are going to run in MSYS2 posix emulation runtime) make sure to install the MinGW version of CMake, i.e. installing e.g. <code>mingw-w64-x86_64-cmake</code>.</p>
+<p>You also want to install a tool for actually doing the build. The current recommended default is Ninja, which you can install from the <code>mingw-w64-x86_64-ninja</code> package.</p>
+<p>Other alternatives are <code>make</code> or <code>mingw-w64-x86_64-make</code>, for building with <code>GNU Make</code> running either as a <code>MSYS2</code> or <code>MinGW</code> process.</p>
+<h4 id="Building"><a href="#Building" class="headerlink" title="Building"></a>Building</h4><p>When running the CMake configuration command, it’s recommended to explicitly specify the desired build file generator with the <code>-G</code> option. MSYS2 provided CMake defaults to <code>Ninja</code> (but this is not the default in upstream CMake, so <code>it&#39;s safest to explicitly specify it</code>).</p>
+<p>Thus, to configure and build a CMake based project, you can run the following commands:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ cmake <span class="token parameter variable">-G</span> Ninja <span class="token operator">&lt;</span>path-to-source<span class="token operator">></span> <span class="token parameter variable">-DCMAKE_BUILD_TYPE</span><span class="token operator">=</span>Release
+$ cmake <span class="token parameter variable">--build</span> <span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>The relevant generator alternatives are:</p>
+<ul>
+<li><p><code>-G Ninja</code></p>
+</li>
+<li><p><code>-G &quot;MSYS Makefiles&quot;</code></p>
+</li>
+<li><p><code>-G &quot;MinGW Makefiles&quot;</code></p>
+</li>
+</ul>
+<p>If building by invoking <code>cmake --build</code>, the same command works for all generator choices. Alternatively, to build by directly invoking the build tool, you can call <code>ninja</code>, <code>make</code> or <code>mingw32-make</code> respectively for those three alternatives.</p>
+<h3 id="MSYS2-Introduction"><a href="#MSYS2-Introduction" class="headerlink" title="MSYS2-Introduction"></a>MSYS2-Introduction</h3><p><code>MSYS2</code> is software distribution and a building platform for Windows. It provides <code>a Unix-like environment</code>, a command-line interface and a software repository making it easier to install, use, build and port software on Windows. That means <code>Bash</code>, <code>Autotools</code>, <code>Make</code>, <code>Git</code>, <code>GCC</code>, <code>GDB</code>…, all easily installable through <code>Pacman</code>, a fully-featured package manager.</p>
+<p>It is an independent rewrite of MSys, based on modern Cygwin (POSIX compatibility layer) and MinGW-w64 with the aim of better interoperability with native Windows software.</p>
+<p>Both 32-bit and 64-bit variants exist and receive mostly the same level of support.</p>
+<h4 id="Subsystems"><a href="#Subsystems" class="headerlink" title="Subsystems"></a>Subsystems</h4><p>MSYS2 consists of three subsystems and their corresponding package repositories, <code>msys2</code>, <code>mingw32</code>, and <code>mingw64</code>.</p>
+<p>The <code>mingw</code> subsystems provide native Windows programs and are the main focus of the project. These programs are built to co-operate well with other Windows programs, independently of the other subsystems. This part builds on the MinGW-w64 project.</p>
+<p>The <code>msys2</code> subsystem provides an emulated mostly-POSIX-compliant environment for building software, package management, and shell scripting. These programs live in <code>a virtual single-root filesystem</code> (the root is the MSYS2 installation directory). Some effort is made to have the programs work well with native Windows programs, but it’s not seamless. This part builds on the Cygwin project.</p>
+<p>Each of the subsystems provides its own native (i.e. target&#x3D;host) compiler toolchain, in <code>mingw-w64-i686-toolchain</code>, and <code>mingw-w64-x86_64-toolchain</code>. There are also cross compiler toolchains with host&#x3D;{i686,x86_64}-pc-msys and target&#x3D;{i686,x86_64}-w64-mingw32 in <code>mingw-w64-cross-toolchain</code>, but these are of limited use because <code>there are no library packages for them</code>.</p>
+<h4 id="Shells"><a href="#Shells" class="headerlink" title="Shells"></a>Shells</h4><p>Every subsystem has an associated “shell”, which is essentially a set of environment variables that allow the subsystems to co-operate properly. These shells can be invoked using launchers in the MSYS2 installation directory or using the shortcuts in the Windows Start menu. The launchers set the <code>MSYSTEM</code> variable and open a terminal window (mintty) with a proper shell (bash). Bash in turn sources <code>/etc/profile</code> which sets the environment depending on the value of <code>MSYSTEM</code>.</p>
+<p>Without the correct environment, various things may and will (sometimes silently) break. The exception is using mingw subsystems from pure Windows, which shouldn’t require any special environment apart from an entry in <code>PATH</code>. Do not set <code>MSYSTEM</code> outside of the shells, because that will also break things.</p>
+<h4 id="PATH"><a href="#PATH" class="headerlink" title="PATH"></a>PATH</h4><p>For optimal usage, MSYS2 automatically strips your <code>PATH</code> environment variable, essentially only leaving <code>C:\Windows\System32</code> and few others. This behavior can be controlled by setting the variable <code>MSYS2_PATH_TYPE</code> before starting a shell or using a correct argument when executing the launcher script. Beware that mixing in programs from other MSYS2 installations, Cygwin installations, compiler toolchains or even various other programs is not supported and will probably break things in unexpected ways. Do not have these things in <code>PATH</code> when running MSYS2 unless you know what you’re doing.</p>
+<p>Use <code>msys2</code> shell for running <code>pacman</code>, <code>makepkg</code>, <code>makepkg-mingw</code> and for building POSIX-dependent software that you don’t intend to distribute. Use <code>mingw</code> shells for building native Windows software and other tasks.</p>
+<h4 id="Packages"><a href="#Packages" class="headerlink" title="Packages"></a>Packages</h4><p>MSYS2 uses a port of <strong>pacman</strong> (known from Arch Linux) for package management. This brings many powerful features such as dependency resolution and simple complete system upgrades, as well as providing the build system (<code>makepkg-mingw</code>) - which is used to make these packages.</p>
+<p>Packages for <code>msys2</code> are built from recipes in the <code>msys2-packages</code> Git repository, packages for <code>mingw</code> are in <code>mingw-packages</code>. Official repositories are on GitHub under user the msys2 organization. When looking for <code>msys2</code> packages or deciding to create a new one, keep in mind that MSYS2 doesn’t intend to compete with Cygwin or duplicate their efforts. The set of things that belong to the <code>msys2</code> subsystem is pretty small and needs to stay that way.</p>
+<p>You might be wondering why there appears to be only one architecture variant of the <code>msys2</code> repository. In reality there are two, but the decision about which one to use is made at the time you install it, depending on whether you installed the <code>i686</code> or the <code>x86_64</code> version. It is possible to install both if you wish. Actually, you can have multiple installations of each on your computer, but you should never run programs from two different MSYS2 XXbit variants at the same time due to DLL address space and version conflicts. Also note that the uninstaller will only remove the most recently installed one of each variant).</p>
+<h4 id="File-system"><a href="#File-system" class="headerlink" title="File system"></a>File system</h4><p>The virtual filesystem contains:</p>
+<table>
+<thead>
+<tr>
+<th>Paths</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/bin</code>, <code>/dev</code>, <code>/home</code>, <code>/opt</code>, <code>/proc</code>, <code>/tmp</code>, <code>/var</code></td>
+<td>essential POSIX stuff</td>
+</tr>
+<tr>
+<td><code>/etc</code>, <code>/usr</code></td>
+<td><code>msys2</code> subsystem</td>
+</tr>
+<tr>
+<td><code>/mingw32</code>, <code>/mingw64</code></td>
+<td><code>mingw</code> subsystems</td>
+</tr>
+<tr>
+<td><code>/c</code>, <code>/d</code>, …</td>
+<td>mount points for Windows drives</td>
+</tr>
+<tr>
+<td><code>/*.xml</code>, <code>/maintenancetool.*</code>, <code>InstallationLog.txt</code></td>
+<td>(un)installer</td>
+</tr>
+<tr>
+<td><code>/autorebase.bat</code>, <code>/msys2_shell.cmd</code>, <code>/msys2.ico</code></td>
+<td>shell entry points</td>
+</tr>
+</tbody></table>
+<h3 id="mingw32-make"><a href="#mingw32-make" class="headerlink" title="mingw32-make"></a>mingw32-make</h3><p>MSYS2 provides two versions of make, one in the <code>make</code> package and one in the <code>mingw-w64-&#123;i686,x86_64&#125;-make</code> packages. The latter one is called <code>mingw32-make</code> on command line, is fully native and doesn’t depend on <code>msys2</code> shells. The downside is that it doesn’t work with many <code>Makefile</code>s. Unless you know what you’re doing, use the regular <code>make</code>.</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>第二十一篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2022/08/02/00021-msys2-jiao-cheng/">https://luyf-lemon-love.space/2022/08/02/00021-msys2-jiao-cheng/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/C/">
+                                    <span class="chip bg-color">C++</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/08/05/00022-cmake-examples-xue-xi-bi-ji/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/弗雷尔卓德.png" class="responsive-img" alt="00022-CMake Examples 学习笔记">
+                        
+                        <span class="card-title">00022-CMake Examples 学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-05
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    计算机基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                    <a href="/tags/make/">
+                        <span class="chip bg-color">make</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/08/02/00020-gcc-on-windows/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/下载.png" class="responsive-img" alt="00020-GCC on Windows">
+                        
+                        <span class="card-title">00020-GCC on Windows</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    计算机基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

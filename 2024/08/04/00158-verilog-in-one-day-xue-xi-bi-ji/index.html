@@ -1,0 +1,1648 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00158 Verilog In One Day 学习笔记, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言本文介绍了Verilog。
+操作系统：Windows 11 家庭中文版
+参考文档
+Verilog In One Day
+
+介绍每个新学习者的梦想都是在一天内理解Verilog，至少足够使用它。接下来的几页是我试图让这个梦想成为现实的尝试">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00158 Verilog In One Day 学习笔记 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/041-119876678.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00158 Verilog In One Day 学习笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Verilog/">
+                                <span class="chip bg-color">Verilog</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Verilog/" class="post-category">
+                                Verilog
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-08-04
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文介绍了Verilog。</p>
+<p>操作系统：Windows 11 家庭中文版</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://www.asic-world.com/verilog/verilog_one_day.html">Verilog In One Day</a></li>
+</ol>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>每个新学习者的梦想都是在一天内理解Verilog，至少足够使用它。接下来的几页是我试图让这个梦想成为现实的尝试。会有一些理论和例子，后面跟着一些练习。本教程不会教你如何编程；它是为那些有一些编程经验的人设计的。即使Verilog同时执行不同的代码块，而不是大多数编程语言的顺序执行，仍然有很多相似之处。一些数字设计背景也很有帮助。</p>
+<p>Verilog之前的生活是充满原理图的生活。每一个设计，无论复杂与否，都是通过原理图设计的。它们难以验证，容易出错，导致设计、验证……设计、验证……设计、验证……的开发周期漫长而乏味。</p>
+<p>当Verilog到来时，我们突然对逻辑电路有了不同的思考方式。Verilog设计周期更像是传统的编程周期，这就是本教程将引导您完成的内容。事情是这样的：</p>
+<ul>
+<li>规格（规格）</li>
+<li>高级设计</li>
+<li>低级（微）设计</li>
+<li>RTL编码</li>
+<li>验证</li>
+<li>合成。</li>
+</ul>
+<p>清单上的第一个是规范——我们将在设计中设置哪些限制和要求？我们试图构建什么？在本教程中，我们将构建一个双代理仲裁器：一个在竞争主导权的两个代理中进行选择的设备。这里有一些我们可能会写的规范。</p>
+<ul>
+<li>两个代理仲裁者。</li>
+<li>主动高异步复位。</li>
+<li>固定优先级，代理0的优先级高于代理1</li>
+<li>只要请求被断言，授予就会被断言。</li>
+</ul>
+<p>一旦我们有了规格，我们就可以绘制框图，这基本上是通过系统的数据流的抽象（什么进入或流出黑匣子？）。由于我们举的例子很简单，我们可以有一个如下所示的框图。我们还不担心魔法黑匣子里有什么。</p>
+<h3 id="仲裁器框图"><a href="#仲裁器框图" class="headerlink" title="仲裁器框图"></a>仲裁器框图</h3><p><img src="https://cos.luyf-lemon-love.space/images/20240804213120.png"></p>
+<p>现在，如果我们在没有Verilog的情况下设计这台机器，标准程序会要求我们绘制一个状态机。从那里，我们会为每个触发器制作一个包含状态转换的真值表。然后，我们会绘制卡诺图，从K图中我们可以得到优化的电路。这种方法适用于小设计，但对于大型设计，这种流程变得复杂且容易出错。这就是Verilog的用武之地，并向我们展示了另一种方法。</p>
+<h3 id="低级设计"><a href="#低级设计" class="headerlink" title="低级设计"></a>低级设计</h3><p>要了解Verilog如何帮助我们设计仲裁器，让我们继续我们的状态机——现在我们进入低级设计，揭开上一张图的黑匣子，看看我们的输入如何影响机器。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240804221126.png"></p>
+<p>每个圆圈代表机器可以处于的状态。每个状态对应一个输出。状态之间的箭头是状态转换，由导致转换的事件标记。例如，最左边的橙色箭头表示，如果机器处于状态GNT0（输出对应于GNT0的信号）并接收!req_0的输入，机器将移动到状态IDLE并输出对应于该状态的信号。此状态机描述了您需要的系统的所有逻辑。下一步是将其全部放入Verilog。</p>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p>我们需要回溯一点来做到这一点。如果您查看第一张图片中的仲裁块，我们可以看到它有一个名称(“arbiter”)和输入&#x2F;输出端口（req_0、req_1、gnt_0和gnt_1）。</p>
+<p>由于Verilog是一种HDL（硬件描述语言——一种用于集成电路概念设计的语言），它也需要具备这些东西。在Verilog中，我们称之为“黑匣子”模块。这是程序中的一个保留字，用于指代具有输入、输出和内部逻辑工作的东西；它们是其他编程语言中返回函数的大致等价物。</p>
+<h3 id="模块“arbiter”代码"><a href="#模块“arbiter”代码" class="headerlink" title="模块“arbiter”代码"></a>模块“arbiter”代码</h3><p>如果您仔细查看arbiter块，我们会看到有箭头标记（输入的传入和输出的传出）。在Verilog中，在我们声明了模块名称和端口名称后，我们可以定义每个端口的方向。（版本说明：在Verilog 2001中，我们可以同时定义端口和端口方向）下面显示了代码。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token keyword">module</span> arbiter <span class="token punctuation">(</span>
+<span class="token comment">// Two slashes make a comment line.</span>
+clock      <span class="token punctuation">,</span> <span class="token comment">// clock</span>
+reset      <span class="token punctuation">,</span> <span class="token comment">// Active high, syn reset</span>
+req_0      <span class="token punctuation">,</span> <span class="token comment">// Request 0</span>
+req_1      <span class="token punctuation">,</span> <span class="token comment">// Request 1</span>
+gnt_0      <span class="token punctuation">,</span> <span class="token comment">// Grant 0</span>
+gnt_1        <span class="token comment">// Grant 1</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//-------------Input Ports-----------------------------</span>
+<span class="token comment">// Note : all commands are semicolon-delimited</span>
+<span class="token keyword">input</span>           clock               <span class="token punctuation">;</span>
+<span class="token keyword">input</span>           reset               <span class="token punctuation">;</span>
+<span class="token keyword">input</span>           req_0               <span class="token punctuation">;</span>
+<span class="token keyword">input</span>           req_1               <span class="token punctuation">;</span>
+<span class="token comment">//-------------Output Ports----------------------------</span>
+<span class="token keyword">output</span>        gnt_0                 <span class="token punctuation">;</span>
+<span class="token keyword">output</span>        gnt_1                 <span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里我们只有两种类型的端口，输入和输出。在现实生活中，我们也可以有双向端口。Verilog允许我们将双向端口定义为“inout”。</p>
+<p>双向端口示例:</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token keyword">inout</span> read_enable<span class="token punctuation">;</span> <span class="token comment">// port named read_enable is bi-directional</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>您如何定义向量信号（由超过一位的序列组成的信号）？Verilog也提供了一种简单的方法来定义这些。</p>
+<p>矢量信号示例:</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token keyword">inout</span> <span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">:</span><span class="token number">0</span><span class="token punctuation">]</span> address<span class="token punctuation">;</span> <span class="token comment">//port "address" is bidirectional</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>请注意，[7:0]意味着我们使用的是小端约定——你从最右边的0开始开始向量，然后向左移动。如果我们使用[0:7]，我们将使用大端约定，从左向右移动。字节序是一种纯粹任意的方式来决定你的数据将以哪种方式“读取”，但系统之间确实有所不同，因此一致地使用右字节序很重要。作为一个类比，想想一些语言（英语）是从左到右（大端）写的，而其他语言（阿拉伯语）是从右到左（小端）写的。知道语言的流动方式对于能够阅读它至关重要，但流动方向本身被任意设置了几年。</p>
+<p>小结:</p>
+<ul>
+<li>我们了解了如何在Verilog中定义块&#x2F;模块。</li>
+<li>我们学会了如何定义端口和端口方向。</li>
+<li>我们学习了如何声明向量&#x2F;标量端口。</li>
+</ul>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>数据类型和硬件有什么关系？实际上没什么。人们只是想再写一种包含数据类型的语言。这完全是没有必要的；没有意义。</p>
+<p>但是等等……硬件确实有两种驱动程序。</p>
+<p>（驱动程序？那些是什么？）</p>
+<p>驱动器是一种可以驱动负载的数据类型。基本上，在物理电路中，驱动器是电子可以穿过&#x2F;进入的任何东西。</p>
+<ul>
+<li>可以存储值的驱动程序（例如：触发器）。</li>
+<li>不能存储值但连接两点的驱动程序（例如：电线）。</li>
+</ul>
+<p>第一种类型的驱动程序在Verilog中称为reg（“寄存器”的缩写）。第二种数据类型称为线（用于… well，“线”）。您可以参考花絮部分以更好地理解它。</p>
+<p>还有很多其他数据类型——例如，寄存器可以是有符号的、无符号的、浮点的……作为新手，现在不要担心它们。</p>
+<p>Examples:</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token keyword">wire</span> and_gate_output<span class="token punctuation">;</span> <span class="token comment">// "and_gate_output" is a wire that only outputs</span>
+
+<span class="token keyword">reg</span> d_flip_flop_output<span class="token punctuation">;</span> <span class="token comment">// "d_flip_flop_output" is a register; it stores and outputs a value</span>
+
+<span class="token keyword">reg</span> <span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">:</span><span class="token number">0</span><span class="token punctuation">]</span> address_bus<span class="token punctuation">;</span> <span class="token comment">// "address_bus" is a little-endian 8-bit register</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>小结:</p>
+<ul>
+<li>线数据类型用于连接两个点。</li>
+<li>Reg数据类型用于存储值。</li>
+<li>愿上帝保佑其余的数据类型。总有一天你会看到他们的。</li>
+</ul>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p>谢天谢地，这里的运算符和其他编程语言中的运算符是一样的。他们取两个值并比较（或以其他方式对它们进行操作）以产生第三个结果——常见的例子是加法、相等、逻辑和…为了让我们的生活更轻松，几乎所有运算符（至少下面列表中的运算符）都与C编程语言中的运算符完全相同。</p>
+<table>
+<thead>
+<tr>
+<th align="center">Operator Type</th>
+<th align="center">Operator Symbol</th>
+<th align="center">Operation Performed</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Arithmetic</td>
+<td align="center"><code>*</code></td>
+<td align="center">Multiply</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">&#x2F;</td>
+<td align="center">Division</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">+</td>
+<td align="center">Add</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center">Subtract</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">%</td>
+<td align="center">Modulus</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">+</td>
+<td align="center">Unary plus</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center">Unary minus</td>
+</tr>
+<tr>
+<td align="center">Logical</td>
+<td align="center">!</td>
+<td align="center">Logical negation</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">&amp;&amp;</td>
+<td align="center">Logical and</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>||</code></td>
+<td align="center">Logical or</td>
+</tr>
+<tr>
+<td align="center">Relational</td>
+<td align="center">&gt;</td>
+<td align="center">Greater than</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">&lt;</td>
+<td align="center">Less than</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">&gt;&#x3D;</td>
+<td align="center">Greater than or equal</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">&lt;&#x3D;</td>
+<td align="center">Less than or equal</td>
+</tr>
+<tr>
+<td align="center">Equality</td>
+<td align="center">&#x3D;&#x3D;</td>
+<td align="center">Equality</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">!&#x3D;</td>
+<td align="center">inequality</td>
+</tr>
+<tr>
+<td align="center">Reduction</td>
+<td align="center">~</td>
+<td align="center">Bitwise negation</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">~&amp;</td>
+<td align="center">nand</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>|</code></td>
+<td align="center">or</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">&#96;~</td>
+<td align="center">&#96;</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>^</code></td>
+<td align="center">xor</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>^~</code></td>
+<td align="center">xnor</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>~^</code></td>
+<td align="center">xnor</td>
+</tr>
+<tr>
+<td align="center">Shift</td>
+<td align="center">&gt;&gt;</td>
+<td align="center">Right shift</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">&lt;&lt;</td>
+<td align="center">Left shift</td>
+</tr>
+<tr>
+<td align="center">Concatenation</td>
+<td align="center">{ }</td>
+<td align="center">Concatenation</td>
+</tr>
+<tr>
+<td align="center">Conditional</td>
+<td align="center">?</td>
+<td align="center">conditional</td>
+</tr>
+</tbody></table>
+<p>示例:</p>
+<ul>
+<li>a &#x3D; b + c ; &#x2F;&#x2F;这很简单</li>
+<li>a &#x3D; 1 &lt;&lt; 5 ; &#x2F;&#x2F;嗯，让我想想，好的，把“1”向左移动5个位置。</li>
+<li>a &#x3D; !b ; &#x2F;&#x2F;那么它是否反转b？？？</li>
+<li>a &#x3D; ~b ; &#x2F;&#x2F;要分配给“a”多少次，可能会导致多个驱动程序。</li>
+</ul>
+<p>小结:</p>
+<p>让我们再次参加C语言培训，它们（几乎）就像C语言一样。</p>
+<h2 id="控制语句"><a href="#控制语句" class="headerlink" title="控制语句"></a>控制语句</h2><p>等等，这是什么？if，else，repeat，while，for，case——它是Verilog，看起来和C语言一模一样（可能还有你用来编程的任何其他语言）！即使功能看起来和C语言一样，Verilog是一个HDL，所以描述应该翻译成硬件。这意味着你在使用控制语句时必须小心（否则你的设计可能无法在硬件中实现）。</p>
+<h3 id="If-else"><a href="#If-else" class="headerlink" title="If-else"></a>If-else</h3><p>if-else语句检查条件以决定是否执行一部分代码。如果满足条件，则执行代码。否则，它运行代码的另一部分。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token comment">// begin and end act like curly braces in C/C++.</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>enable <span class="token operator">==</span> <span class="token number">1'b1</span><span class="token punctuation">)</span> <span class="token keyword">begin</span>
+  data <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> <span class="token comment">// Decimal assigned</span>
+  address <span class="token operator">=</span> <span class="token number">16'hDEAD</span><span class="token punctuation">;</span> <span class="token comment">// Hexadecimal</span>
+  wr_enable <span class="token operator">=</span> <span class="token number">1'b1</span><span class="token punctuation">;</span> <span class="token comment">// Binary  </span>
+<span class="token keyword">end</span> <span class="token keyword">else</span> <span class="token keyword">begin</span>
+  data <span class="token operator">=</span> <span class="token number">32'b0</span><span class="token punctuation">;</span>
+  wr_enable <span class="token operator">=</span> <span class="token number">1'b0</span><span class="token punctuation">;</span>
+  address <span class="token operator">=</span> address <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>  
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以在条件检查中使用任何运算符，就像在C语言中一样。如果需要，我们可以嵌套if else语句；没有else的语句也可以，但是在建模组合逻辑时，它们有自己的问题，以防它们导致闩锁（这并不总是正确的）。</p>
+<h3 id="Case"><a href="#Case" class="headerlink" title="Case"></a>Case</h3><p>case语句用于我们有一个变量需要检查多个值的地方。就像地址解码器一样，输入是一个地址，需要检查它可以获取的所有值。我们不使用多个嵌套的if-else语句，每个值一个，而是使用单个case语句：这类似于C++等语言中的switch语句。</p>
+<p>case语句以保留字case开头，以保留字endcase结尾（Verilog不使用括号来分隔代码块）。case、冒号和您希望执行的语句都列在这两个分隔符中。有一个默认case也是一个好主意。就像有限状态机（FSM）一样，如果Verilog机器进入一个非覆盖语句，机器就会挂起。将语句默认为返回空闲可以保护我们的安全。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token function">case</span><span class="token punctuation">(</span>address<span class="token punctuation">)</span>
+  <span class="token number">0</span> <span class="token punctuation">:</span> <span class="token kernel-function property">$display</span> <span class="token punctuation">(</span><span class="token string">"It is 11:40PM"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token number">1</span> <span class="token punctuation">:</span> <span class="token kernel-function property">$display</span> <span class="token punctuation">(</span><span class="token string">"I am feeling sleepy"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token number">2</span> <span class="token punctuation">:</span> <span class="token kernel-function property">$display</span>  <span class="token punctuation">(</span><span class="token string">"Let me skip this tutorial"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">default</span> <span class="token punctuation">:</span> <span class="token kernel-function property">$display</span>  <span class="token punctuation">(</span><span class="token string">"Need to complete"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">endcase</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>看起来地址值是3，所以我仍在编写本教程。</p>
+<p>注意：if-else和case语句的一个共同点是，如果您没有涵盖所有case（If-else中没有’else’或Case中没有’default’），并且您正在尝试编写组合语句，则合成工具将推断Latch。</p>
+<h3 id="While"><a href="#While" class="headerlink" title="While"></a>While</h3><p>如果分配给它检查的条件返回true，while语句会重复执行其中的代码。虽然循环通常不用于现实生活中的模型，但它们用于测试台。与其他语句块一样，它们由开始和结束分隔。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token keyword">while</span> <span class="token punctuation">(</span>free_time<span class="token punctuation">)</span> <span class="token keyword">begin</span>
+ <span class="token kernel-function property">$display</span> <span class="token punctuation">(</span><span class="token string">"Continue with webpage development"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>只要设置free_time变量，开始和结束中的代码就会被执行。即打印“继续Web开发”。让我们看一个更奇怪的例子，它使用了大多数Verilog结构。嗯，你没听错。Verilog的保留字比VHDL少，在这几个中，我们在实际编码中使用的更少。Verilog真好……太对了。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token keyword">module</span> counter <span class="token punctuation">(</span>clk<span class="token punctuation">,</span>rst<span class="token punctuation">,</span>enable<span class="token punctuation">,</span>count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">input</span> clk<span class="token punctuation">,</span> rst<span class="token punctuation">,</span> enable<span class="token punctuation">;</span>
+<span class="token keyword">output</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">:</span><span class="token number">0</span><span class="token punctuation">]</span> count<span class="token punctuation">;</span>
+<span class="token keyword">reg</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">:</span><span class="token number">0</span><span class="token punctuation">]</span> count<span class="token punctuation">;</span>
+  	  	          
+<span class="token important">always @</span> <span class="token punctuation">(</span><span class="token keyword">posedge</span> clk <span class="token keyword">or</span> <span class="token keyword">posedge</span> rst<span class="token punctuation">)</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>rst<span class="token punctuation">)</span> <span class="token keyword">begin</span>
+  count <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span> <span class="token keyword">else</span> <span class="token keyword">begin</span> <span class="token punctuation">:</span> COUNT
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>enable<span class="token punctuation">)</span> <span class="token keyword">begin</span>
+    count <span class="token operator">&lt;=</span> count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">disable</span> COUNT<span class="token punctuation">;</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">endmodule</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面的例子使用了Verilog的大部分结构。你会注意到一个叫做always的新块——这说明了Verilog的一个关键特性。正如我们之前提到的，大多数软件语言都是按顺序执行的——也就是说，一个语句接一个语句。另一方面，Verilog程序通常有许多并行执行的语句。当其中列出的一个或多个条件得到满足时，所有标有always的块都将同时运行。</p>
+<p>在上面的例子中，always块将在rst或clk达到正边时运行——也就是说，当它们的值从0上升到1时。您可以在程序中同时运行两个或多个always块（此处未显示，但常用）。</p>
+<p>我们可以通过使用保留字disable来禁用代码块。在上面的示例中，在每个计数器增量之后，COUNT代码块（此处未显示）被禁用。</p>
+<h3 id="For-loop"><a href="#For-loop" class="headerlink" title="For loop"></a>For loop</h3><p>Verilog中的for循环几乎与C或C++中的循环完全相同。唯一的区别是Verilog不支持++和–运算符。不是像在C中那样编写i++，而是需要写出它的完整操作等价物，i&#x3D;i+1。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">16</span><span class="token punctuation">;</span> i <span class="token operator">=</span> i <span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">begin</span>
+	  	<span class="token kernel-function property">$display</span> <span class="token punctuation">(</span><span class="token string">"Current value of i is %d"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>此代码将按顺序打印从0到15的数字。在将for循环用于寄存器传输逻辑（RTL）时要小心，并确保您的代码实际上可以在硬件中正常实现……并且您的循环不是无限的。</p>
+<h3 id="Repeat"><a href="#Repeat" class="headerlink" title="Repeat"></a>Repeat</h3><p>Repeat类似于我们刚刚介绍的for循环。当我们声明for循环时，我们不是显式指定一个变量并将其递增，而是告诉程序在代码中运行多少次，并且没有变量递增（除非我们希望它们是，就像在这个例子中一样）。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token keyword">repeat</span> <span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span> <span class="token keyword">begin</span>
+  <span class="token kernel-function property">$display</span> <span class="token punctuation">(</span><span class="token string">"Current value of i is %d"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>输出与前面的for循环程序示例完全相同。在实际硬件实现中使用重复（或for循环）相对较少。</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><ul>
+<li>While，if-else，case（switch）语句与C语言中的相同。</li>
+<li>If-else和case语句要求组合逻辑涵盖所有case。</li>
+<li>for循环与C中相同，但没有++和–运算符。</li>
+<li>Repeat与for循环相同，但没有递增变量。</li>
+</ul>
+<h2 id="Variable-Assignment"><a href="#Variable-Assignment" class="headerlink" title="Variable Assignment"></a>Variable Assignment</h2><p>在数字中，有两种类型的元素，组合的和顺序的。我们当然知道这一点。但问题是“我们如何在Verilog中建模？”Verilog提供了两种建模组合逻辑的方法，只有一种建模顺序逻辑的方法。</p>
+<ul>
+<li>可以使用assign和always语句对组合元素进行建模。</li>
+<li>序列元素可以仅使用always语句建模。</li>
+<li>还有第三个块，仅在测试台中使用：它被称为初始语句。</li>
+</ul>
+<h3 id="Initial-Blocks"><a href="#Initial-Blocks" class="headerlink" title="Initial Blocks"></a>Initial Blocks</h3><p>顾名思义，初始块在模拟开始时只执行一次。这在编写测试台时很有用。如果我们有多个初始块，那么它们都在模拟开始时执行。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token keyword">initial</span> <span class="token keyword">begin</span>
+  	  	clk <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  	  	reset <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  	  	req_0 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  	  	req_1 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在上面的示例中，在模拟开始时（即当时间&#x3D;0时），开始和结束块内的所有变量都被驱动为零。</p>
+<p>转到下一页，讨论assign和always语句。</p>
+<h2 id="Always-Blocks"><a href="#Always-Blocks" class="headerlink" title="Always Blocks"></a>Always Blocks</h2><p>顾名思义，always块总是执行，不像初始块只执行一次（在模拟开始时）。第二个区别是always块应该有一个敏感列表或与之相关的延迟。</p>
+<p>敏感列表是告诉always块何时执行代码块的列表，如下figure所示。保留字’always’后的@符号表示该块将在符号@后括号中的条件“处”触发。</p>
+<p>关于always块的一个重要注意事项：它不能驱动线数据类型，但可以驱动reg和integer数据类型。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token important">always  @</span> <span class="token punctuation">(</span>a <span class="token keyword">or</span> b <span class="token keyword">or</span> sel<span class="token punctuation">)</span>
+<span class="token keyword">begin</span>
+  y <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>sel <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">begin</span>
+    y <span class="token operator">=</span> a<span class="token punctuation">;</span>
+  <span class="token keyword">end</span> <span class="token keyword">else</span> <span class="token keyword">begin</span>
+    y <span class="token operator">=</span> b<span class="token punctuation">;</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面的例子是一个2:1的mux，输入为a和b；sel是选择输入，y是mux输出。在任何组合逻辑中，只要输入发生变化，输出就会发生变化。这个理论应用于always块时意味着，只要输入变量（或输出控制变量）发生变化，就需要执行always块内的代码。这些变量是敏感列表中包含的变量，即a、b和sel。</p>
+<p>敏感列表有两种类型：电平敏感（用于组合电路）和边缘敏感（用于触发器）。下面的代码是相同的2:1 Mux，但输出y现在是触发器输出。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token important">always  @</span> <span class="token punctuation">(</span><span class="token keyword">posedge</span> clk <span class="token punctuation">)</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>reset <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">begin</span>
+  y <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>sel <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">begin</span>
+  y <span class="token operator">&lt;=</span> a<span class="token punctuation">;</span>
+<span class="token keyword">end</span> <span class="token keyword">else</span> <span class="token keyword">begin</span>
+  y <span class="token operator">&lt;=</span> b<span class="token punctuation">;</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们通常必须重置触发器，因此每次时钟从0转换到1（posedge）时，我们检查重置是否被断言（同步重置），然后我们继续使用正常逻辑。如果我们仔细观察，我们会发现在组合逻辑的情况下，我们有“&#x3D;”表示赋值，对于顺序块，我们有“&lt;&#x3D;”运算符。嗯，“&#x3D;”是阻塞赋值，“&lt;&#x3D;”是非阻塞赋值。“&#x3D;”在开始&#x2F;结束内按顺序执行代码，而非阻塞“&lt;&#x3D;”并行执行。</p>
+<p>我们可以有一个没有敏感列表的always块，在这种情况下，我们需要有一个延迟，如下面的代码所示。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token important">always</span>  <span class="token keyword">begin</span>
+  <span class="token number">#5</span> clk <span class="token operator">=</span> <span class="token operator">~</span>clk<span class="token punctuation">;</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>语句前面的#5将其执行延迟5个时间单位。</p>
+<h3 id="Assign-Statement"><a href="#Assign-Statement" class="headerlink" title="Assign Statement"></a>Assign Statement</h3><p>赋值语句仅用于对组合逻辑进行建模，并且是连续执行的。因此赋值语句称为“连续赋值语句”，因为没有敏感列表。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token keyword">assign</span> out <span class="token operator">=</span> <span class="token punctuation">(</span>enable<span class="token punctuation">)</span> <span class="token operator">?</span> data <span class="token punctuation">:</span> <span class="token number">1'bz</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>上面的例子是一个三态缓冲区。当使能为1时，数据被驱动到out，否则out被拉到高阻抗。我们可以有嵌套的条件运算符来构造复用器、解码器和编码器。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token keyword">assign</span> out <span class="token operator">=</span> data<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这个例子是一个简单的缓冲区。</p>
+<h2 id="Task-and-Function"><a href="#Task-and-Function" class="headerlink" title="Task and Function"></a>Task and Function</h2><p>当一次又一次地重复同样的旧东西时，Verilog，像任何其他编程语言一样，提供了解决重复使用的代码的方法，这些代码被称为任务和函数。我希望我有类似的网页，只是叫它一次又一次地打印这种编程语言的东西。</p>
+<p>下面的代码用于计算偶数奇偶校验。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token keyword">function</span> parity<span class="token punctuation">;</span>
+<span class="token keyword">input</span> <span class="token punctuation">[</span><span class="token number">31</span><span class="token punctuation">:</span><span class="token number">0</span><span class="token punctuation">]</span> data<span class="token punctuation">;</span>
+<span class="token keyword">integer</span> i<span class="token punctuation">;</span>
+<span class="token keyword">begin</span>
+  parity <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>i<span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">32</span><span class="token punctuation">;</span> i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">begin</span>
+    parity <span class="token operator">=</span> parity <span class="token operator">^</span> data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token keyword">endfunction</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>函数和任务具有相同的语法；一个区别是任务可以有延迟，而函数不能有任何延迟。这意味着函数可用于对组合逻辑进行建模。</p>
+<p>第二个区别是函数可以返回值，而任务不能。</p>
+<h2 id="Test-Benches"><a href="#Test-Benches" class="headerlink" title="Test Benches"></a>Test Benches</h2><p>好的，我们已经根据设计文档编写了代码，现在怎么办？</p>
+<p>我们需要测试它，看看它是否符合规格。大多数时候，这和我们在大学时代在数字实验室里做的是一样的：驱动输入，将输出与期望值匹配。让我们看看仲裁器测试台。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog"><span class="token keyword">module</span> arbiter <span class="token punctuation">(</span>
+clock<span class="token punctuation">,</span> 
+reset<span class="token punctuation">,</span> 
+req_0<span class="token punctuation">,</span>
+req_1<span class="token punctuation">,</span> 
+gnt_0<span class="token punctuation">,</span>
+gnt_1
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">input</span> clock<span class="token punctuation">,</span> reset<span class="token punctuation">,</span> req_0<span class="token punctuation">,</span> req_1<span class="token punctuation">;</span>
+<span class="token keyword">output</span> gnt_0<span class="token punctuation">,</span> gnt_1<span class="token punctuation">;</span>
+
+<span class="token keyword">reg</span> gnt_0<span class="token punctuation">,</span> gnt_1<span class="token punctuation">;</span>
+
+<span class="token important">always @</span> <span class="token punctuation">(</span><span class="token keyword">posedge</span> clock <span class="token keyword">or</span> <span class="token keyword">posedge</span> reset<span class="token punctuation">)</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>reset<span class="token punctuation">)</span> <span class="token keyword">begin</span>
+ gnt_0 <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+ gnt_1 <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>req_0<span class="token punctuation">)</span> <span class="token keyword">begin</span>
+  gnt_0 <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  gnt_1 <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>req_1<span class="token punctuation">)</span> <span class="token keyword">begin</span>
+  gnt_0 <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  gnt_1 <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">endmodule</span>
+<span class="token comment">// Testbench Code Goes here</span>
+<span class="token keyword">module</span> arbiter_tb<span class="token punctuation">;</span>
+
+<span class="token keyword">reg</span> clock<span class="token punctuation">,</span> reset<span class="token punctuation">,</span> req0<span class="token punctuation">,</span>req1<span class="token punctuation">;</span>
+<span class="token keyword">wire</span> gnt0<span class="token punctuation">,</span>gnt1<span class="token punctuation">;</span>
+
+<span class="token keyword">initial</span> <span class="token keyword">begin</span>
+  <span class="token kernel-function property">$monitor</span> <span class="token punctuation">(</span><span class="token string">"req0=%b,req1=%b,gnt0=%b,gnt1=%b"</span><span class="token punctuation">,</span> req0<span class="token punctuation">,</span>req1<span class="token punctuation">,</span>gnt0<span class="token punctuation">,</span>gnt1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  clock <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  reset <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  req0 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  req1 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token number">#5</span> reset <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token number">#15</span> reset <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token number">#10</span> req0 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token number">#10</span> req0 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token number">#10</span> req1 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token number">#10</span> req1 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token number">#10</span> <span class="token operator">&#123;</span>req0<span class="token punctuation">,</span>req1<span class="token operator">&#125;</span> <span class="token operator">=</span> <span class="token number">2'b11</span><span class="token punctuation">;</span>
+  <span class="token number">#10</span> <span class="token operator">&#123;</span>req0<span class="token punctuation">,</span>req1<span class="token operator">&#125;</span> <span class="token operator">=</span> <span class="token number">2'b00</span><span class="token punctuation">;</span>
+  <span class="token number">#10</span> <span class="token kernel-function property">$finish</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span>
+
+<span class="token important">always</span> <span class="token keyword">begin</span>
+ <span class="token number">#5</span> clock <span class="token operator">=</span> <span class="token operator">!</span>clock<span class="token punctuation">;</span>
+<span class="token keyword">end</span>
+
+arbiter U0 <span class="token punctuation">(</span>
+<span class="token punctuation">.</span>clock <span class="token punctuation">(</span>clock<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span>reset <span class="token punctuation">(</span>reset<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span>req_0 <span class="token punctuation">(</span>req0<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span>req_1 <span class="token punctuation">(</span>req1<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span>gnt_0 <span class="token punctuation">(</span>gnt0<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">.</span>gnt_1 <span class="token punctuation">(</span>gnt1<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">endmodule</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>看起来我们已经将所有仲裁器输入声明为reg，输出声明为wire；嗯，这是真的。我们这样做是因为测试台需要驱动输入并需要监控输出。</p>
+<p>在我们声明了所有需要的变量后，我们将所有输入初始化为已知状态：我们在初始块中这样做。初始化后，我们按照我们想要测试仲裁器的顺序断言&#x2F;取消断言重置、req0、req1。时钟是用一个always块生成的。</p>
+<p>在我们完成测试后，我们需要停止模拟器。好吧，我们使用$完成来终止模拟。$Monitor用于监控信号列表中的变化，并以我们想要的格式打印它们。</p>
+<pre class="line-numbers language-verilog" data-language="verilog"><code class="language-verilog">req0<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>req1<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>gnt0<span class="token operator">=</span>x<span class="token punctuation">,</span>gnt1<span class="token operator">=</span>x
+req0<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>req1<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>gnt0<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>gnt1<span class="token operator">=</span><span class="token number">0</span>
+req0<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>req1<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>gnt0<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>gnt1<span class="token operator">=</span><span class="token number">0</span>
+req0<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>req1<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>gnt0<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>gnt1<span class="token operator">=</span><span class="token number">0</span>
+req0<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>req1<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>gnt0<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>gnt1<span class="token operator">=</span><span class="token number">0</span>
+req0<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>req1<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>gnt0<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>gnt1<span class="token operator">=</span><span class="token number">0</span>
+req0<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>req1<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>gnt0<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>gnt1<span class="token operator">=</span><span class="token number">1</span>
+req0<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>req1<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>gnt0<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>gnt1<span class="token operator">=</span><span class="token number">1</span>
+req0<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>req1<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>gnt0<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>gnt1<span class="token operator">=</span><span class="token number">1</span>
+req0<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>req1<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>gnt0<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>gnt1<span class="token operator">=</span><span class="token number">0</span>
+req0<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>req1<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>gnt0<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>gnt1<span class="token operator">=</span><span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我已经使用Icarus Verilog模拟器生成了上述输出。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百五十八篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2024/08/04/00158-verilog-in-one-day-xue-xi-bi-ji/">https://luyf-lemon-love.space/2024/08/04/00158-verilog-in-one-day-xue-xi-bi-ji/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Verilog/">
+                                    <span class="chip bg-color">Verilog</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/08/07/00159-dong-tai-bi-zhi-00021-00030/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/20240807212312.png" class="responsive-img" alt="00159 动态壁纸 (00021-00030)">
+                        
+                        <span class="card-title">00159 动态壁纸 (00021-00030)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-08-07
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%8A%A8%E6%80%81%E5%A3%81%E7%BA%B8/" class="post-category">
+                                    动态壁纸
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%8A%A8%E6%80%81%E5%A3%81%E7%BA%B8/">
+                        <span class="chip bg-color">动态壁纸</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/08/04/00157-dong-tai-bi-zhi-00011-00020/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/20240804155343.png" class="responsive-img" alt="00157 动态壁纸 (00011-00020)">
+                        
+                        <span class="card-title">00157 动态壁纸 (00011-00020)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%8A%A8%E6%80%81%E5%A3%81%E7%BA%B8/" class="post-category">
+                                    动态壁纸
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%8A%A8%E6%80%81%E5%A3%81%E7%BA%B8/">
+                        <span class="chip bg-color">动态壁纸</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

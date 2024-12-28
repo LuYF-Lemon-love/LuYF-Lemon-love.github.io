@@ -1,0 +1,1772 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00038-Markdown 杂项, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言介绍一些 Markdown 杂项。
+操作系统：Ubuntu 20.04.5 LTS
+参考文档
+CSDN Markdown 公式编号
+
+MarkDown数学公式基本语法
+
+MarkDown编辑器字体颜色设置
+
+Markdown如何实现表格">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00038-Markdown 杂项 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/2923448421..png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00038-Markdown 杂项</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Markdown/">
+                                <span class="chip bg-color">Markdown</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%9D%82%E9%A1%B9/" class="post-category">
+                                杂项
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-11-26
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>介绍一些 <code>Markdown</code> 杂项。</p>
+<p>操作系统：<strong>Ubuntu 20.04.5 LTS</strong></p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><p><a href="https://blog.csdn.net/chengyq116/article/details/91175054">CSDN Markdown 公式编号</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_38342510/article/details/124064158">MarkDown数学公式基本语法</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_43559187/article/details/120913021">MarkDown编辑器字体颜色设置</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/mahoon411/article/details/125871243">Markdown如何实现表格的合并单元格</a></p>
+</li>
+<li><p><a href="https://katex.org/docs/supported.html">KaTeX</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/482828562">Latex#对齐（align）#入门教程</a></p>
+</li>
+</ol>
+<h2 id="数学公式编号"><a href="#数学公式编号" class="headerlink" title="数学公式编号"></a>数学公式编号</h2><p><code>\tag&#123;n&#125;</code> 标签为<code>数学公式</code>设置编号, <code>n</code> 为编号, 公式编号<code>右对齐</code>.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">$$Dets = \mathcal&#123;H(\Phi_&#123;det&#125;)&#125; \tag&#123;1&#125;$$<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>$$Dets &#x3D; \mathcal{H(\Phi_{det})} \tag{1}$$</p>
+<h2 id="常用符号"><a href="#常用符号" class="headerlink" title="常用符号"></a>常用符号</h2><table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">TeX</th>
+<th align="center">符号</th>
+<th align="center">TeX</th>
+<th align="center">符号</th>
+<th align="center">TeX</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$\vee$</td>
+<td align="center"><code>$\vee$ or $\lor$</code></td>
+<td align="center">$\wedge$</td>
+<td align="center"><code>$\wedge$ or $\land$</code></td>
+<td align="center">$pi$</td>
+<td align="center"><code>$pi$</code></td>
+</tr>
+<tr>
+<td align="center">$\Rightarrow$</td>
+<td align="center"><code>$\Rightarrow$</code></td>
+<td align="center">$\infty$</td>
+<td align="center"><code>$\infty$</code></td>
+<td align="center">$\cdots$</td>
+<td align="center"><code>$\cdots$</code></td>
+</tr>
+<tr>
+<td align="center">$\nu$</td>
+<td align="center"><code>$\nu$</code></td>
+<td align="center">$\simeq$</td>
+<td align="center"><code>$\simeq$</code></td>
+<td align="center">$\mathcal{L}$</td>
+<td align="center"><code>$\mathcal&#123;L&#125;$</code></td>
+</tr>
+<tr>
+<td align="center">$\gamma$</td>
+<td align="center"><code>$\gamma$</code></td>
+<td align="center">$\ell$</td>
+<td align="center"><code>$\ell$</code></td>
+<td align="center">$\in$</td>
+<td align="center"><code>$\in$</code></td>
+</tr>
+<tr>
+<td align="center">$[]$</td>
+<td align="center"><code>$[]$</code></td>
+<td align="center">${}$</td>
+<td align="center"><code>$\&#123;\&#125;$</code></td>
+<td align="center">$|$</td>
+<td align="center"><code>$|$</code></td>
+</tr>
+<tr>
+<td align="center">$\cup$</td>
+<td align="center"><code>$\cup$</code></td>
+<td align="center">$\mathbb{R}$</td>
+<td align="center"><code>$\mathbb&#123;R&#125;$</code></td>
+<td align="center">$\times$</td>
+<td align="center"><code>$\times$</code></td>
+</tr>
+<tr>
+<td align="center">$\mid$</td>
+<td align="center"><code>$\mid$</code></td>
+<td align="center">space</td>
+<td align="center"><code>$\quad$</code></td>
+<td align="center">$\leq$</td>
+<td align="center"><code>$\leq$</code></td>
+</tr>
+<tr>
+<td align="center">$θ$</td>
+<td align="center"><code>$θ$</code></td>
+<td align="center">$\hat{s}$</td>
+<td align="center"><code>$\hat&#123;s&#125;$</code></td>
+<td align="center">$\circ$</td>
+<td align="center"><code>$\circ$</code></td>
+</tr>
+<tr>
+<td align="center">$\mathbf{h}$</td>
+<td align="center"><code>$\mathbf&#123;h&#125;$</code></td>
+<td align="center">$J$</td>
+<td align="center"><code>$J$</code></td>
+<td align="center">$\parallel$</td>
+<td align="center"><code>$\parallel$</code></td>
+</tr>
+<tr>
+<td align="center">$\left(\right)$</td>
+<td align="center"><code>$\left(\right)$</code></td>
+<td align="center">$\lambda$</td>
+<td align="center"><code>$\lambda$</code></td>
+<td align="center">$\Phi$</td>
+<td align="center"><code>$\Phi$</code></td>
+</tr>
+<tr>
+<td align="center">$\bar{x}$</td>
+<td align="center"><code>$\bar&#123;x&#125;$</code></td>
+<td align="center">$\vec{x}$</td>
+<td align="center"><code>$\vec&#123;x&#125;$</code></td>
+<td align="center">$\infty$</td>
+<td align="center"><code>$\infty$</code></td>
+</tr>
+<tr>
+<td align="center">$\varepsilon$</td>
+<td align="center"><code>$\varepsilon$</code></td>
+<td align="center">$\cap$</td>
+<td align="center"><code>$\cap$</code></td>
+<td align="center">$\subset$</td>
+<td align="center"><code>$\subset$</code></td>
+</tr>
+<tr>
+<td align="center">$\approx$</td>
+<td align="center"><code>$\approx$</code></td>
+<td align="center">$\sigma$</td>
+<td align="center"><code>$\sigma$</code></td>
+<td align="center">$\ne$</td>
+<td align="center"><code>$\ne$</code></td>
+</tr>
+<tr>
+<td align="center">$\cdot$</td>
+<td align="center"><code>$\cdot$</code></td>
+<td align="center">$\odot$</td>
+<td align="center"><code>$\odot$</code></td>
+<td align="center">$\mathcal{X}$</td>
+<td align="center"><code>$\mathcal&#123;X&#125;$</code></td>
+</tr>
+<tr>
+<td align="center">$\top$</td>
+<td align="center"><code>$\top$</code></td>
+<td align="center">$\dots$</td>
+<td align="center"><code>$\dots$</code></td>
+<td align="center">$\mathcal{R}$</td>
+<td align="center"><code>$\mathcal&#123;R&#125;$</code></td>
+</tr>
+<tr>
+<td align="center">$\vdots$</td>
+<td align="center"><code>$\vdots$</code></td>
+<td align="center">$\ddots$</td>
+<td align="center"><code>$\ddots$</code></td>
+<td align="center">$\neq$</td>
+<td align="center"><code>$\neq$</code></td>
+</tr>
+<tr>
+<td align="center">$\mathcal{V}$</td>
+<td align="center"><code>$\mathcal&#123;V&#125;$</code></td>
+<td align="center">$\langle\rangle$</td>
+<td align="center"><code>$\langle\rangle$</code></td>
+<td align="center">$\iff$</td>
+<td align="center"><code>$\iff$</code></td>
+</tr>
+<tr>
+<td align="center">$\Lambda$</td>
+<td align="center"><code>$\Lambda$</code></td>
+<td align="center">$\epsilon$</td>
+<td align="center"><code>$\epsilon$</code></td>
+<td align="center">$\forall$</td>
+<td align="center"><code>$\forall$</code></td>
+</tr>
+<tr>
+<td align="center">$\checkmark$</td>
+<td align="center"><code>$\checkmark$</code></td>
+<td align="center">$\otimes$</td>
+<td align="center"><code>$\otimes$</code></td>
+<td align="center">$\lgroup \rgroup$</td>
+<td align="center"><code>$\lgroup \rgroup$</code></td>
+</tr>
+<tr>
+<td align="center">$\Delta$</td>
+<td align="center"><code>$\Delta$</code></td>
+<td align="center">$\Epsilon$</td>
+<td align="center"><code>$\Epsilon$</code></td>
+<td align="center">$\Psi$</td>
+<td align="center"><code>$\Psi$</code></td>
+</tr>
+<tr>
+<td align="center">$\mapsto$</td>
+<td align="center"><code>$\mapsto$</code></td>
+<td align="center">$\eta$</td>
+<td align="center"><code>$\eta$</code></td>
+<td align="center">$\mathcal{D}$</td>
+<td align="center"><code>$\mathcal&#123;D&#125;$</code></td>
+</tr>
+<tr>
+<td align="center">$\mathcal{N}$</td>
+<td align="center"><code>$\mathcal&#123;N&#125;$</code></td>
+<td align="center">$\Theta$</td>
+<td align="center"><code>$\Theta$</code></td>
+<td align="center">$\theta$</td>
+<td align="center"><code>$\theta$</code></td>
+</tr>
+<tr>
+<td align="center">$\mathcal{E}$</td>
+<td align="center"><code>$\mathcal&#123;E&#125;$</code></td>
+<td align="center">$\tilde{x}$</td>
+<td align="center"><code>$\tilde&#123;x&#125;$</code></td>
+<td align="center">$\psi$</td>
+<td align="center"><code>$\psi$</code></td>
+</tr>
+<tr>
+<td align="center">$\mathcal{T}$</td>
+<td align="center"><code>$\mathcal&#123;T&#125;$</code></td>
+<td align="center">$\mathcal{C}$</td>
+<td align="center"><code>$\mathcal&#123;C&#125;$</code></td>
+<td align="center">$\backslash$</td>
+<td align="center"><code>$\backslash$</code></td>
+</tr>
+<tr>
+<td align="center">$\mathcal{G}$</td>
+<td align="center"><code>$\mathcal&#123;G&#125;$</code></td>
+<td align="center">$\mathcal{O}$</td>
+<td align="center"><code>$\mathcal&#123;O&#125;$</code></td>
+<td align="center">$\alpha$</td>
+<td align="center"><code>$\alpha$</code></td>
+</tr>
+<tr>
+<td align="center">$\kappa$</td>
+<td align="center"><code>$\kappa$</code></td>
+<td align="center">$\log$</td>
+<td align="center"><code>$\log$</code></td>
+<td align="center">$\Vert$</td>
+<td align="center"><code>$\Vert$</code></td>
+</tr>
+<tr>
+<td align="center">$\operatorname{Re}$</td>
+<td align="center"><code>$\operatorname&#123;Re&#125;$</code></td>
+<td align="center">$\operatorname{diag}$</td>
+<td align="center"><code>$\operatorname&#123;diag&#125;$</code></td>
+<td align="center">$\overline{t}$</td>
+<td align="center"><code>$\overline&#123;t&#125;$</code></td>
+</tr>
+<tr>
+<td align="center">$\Iota$</td>
+<td align="center"><code>$\Iota$</code></td>
+<td align="center">$\iota$</td>
+<td align="center"><code>$\iota$</code></td>
+<td align="center">换行符</td>
+<td align="center"><code>$\\$</code></td>
+</tr>
+<tr>
+<td align="center">$\varphi$</td>
+<td align="center"><code>$\varphi$</code></td>
+<td align="center">$\Omega$</td>
+<td align="center"><code>$\Omega$</code></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h2 id="数学运算符"><a href="#数学运算符" class="headerlink" title="数学运算符"></a>数学运算符</h2><h3 id="分数"><a href="#分数" class="headerlink" title="分数"></a>分数</h3><p>$$<br>\frac{M}{N}<br>$$</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">$$
+\frac&#123;M&#125;&#123;N&#125;
+$$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h3><p>$$<br>R^2<br>$$</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">$$
+R^2
+$$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="求和符号"><a href="#求和符号" class="headerlink" title="求和符号"></a>求和符号</h3><p>$$<br>\sum_1^\infty n<br>$$</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">$$
+\sum_1^\infty n
+$$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Max"><a href="#Max" class="headerlink" title="Max"></a>Max</h3><p>$$<br>a&#x3D;\max_{1\leq j \leq s}<br>$$</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">$$
+a=\max_&#123;1\leq j \leq s&#125;
+$$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="并集"><a href="#并集" class="headerlink" title="并集"></a>并集</h3><p>$$<br>\tilde{x}&#x3D;\bigcup_{h^{‘}\in \mathcal{E}}(h^{‘},r,t)\cup \bigcup_{t^{‘}\in \mathcal{E}}(h,r,t^{‘})<br>$$</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">$$
+\tilde&#123;x&#125;=\bigcup_&#123;h^&#123;'&#125;\in \mathcal&#123;E&#125;&#125;(h^&#123;'&#125;,r,t)\cup \bigcup_&#123;t^&#123;'&#125;\in \mathcal&#123;E&#125;&#125;(h,r,t^&#123;'&#125;)
+$$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="根号"><a href="#根号" class="headerlink" title="根号"></a>根号</h3><p>$$<br>\sqrt[n]{M}<br>$$</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">$$
+\sqrt[n]&#123;M&#125;
+$$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="分段函数"><a href="#分段函数" class="headerlink" title="分段函数"></a>分段函数</h3><p>$$<br>x &#x3D; \begin{cases}<br>   a &amp;\text{if } b \<br>   c &amp;\text{if } d<br>\end{cases}<br>$$</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">$$
+x = \begin&#123;cases&#125;
+   a &amp;\text&#123;if &#125; b \\
+   c &amp;\text&#123;if &#125; d
+\end&#123;cases&#125;
+$$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="公式块"><a href="#公式块" class="headerlink" title="公式块"></a>公式块</h3><p>$$<br>\begin{gather}<br>   a&#x3D;b \<br>   e&#x3D;b+c<br>\end{gather}<br>$$</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">$$
+\begin&#123;gather&#125;
+   a=b \\
+   e=b+c
+\end&#123;gather&#125;
+$$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="矩阵块"><a href="#矩阵块" class="headerlink" title="矩阵块"></a>矩阵块</h3><p>$$<br>\begin{bmatrix}<br>   a &amp; b \<br>   c &amp; d<br>\end{bmatrix}<br>$$</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">$$
+\begin&#123;bmatrix&#125;
+   a &amp; b \\
+   c &amp; d
+\end&#123;bmatrix&#125;
+$$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="括号"><a href="#括号" class="headerlink" title="括号"></a>括号</h2><table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">TeX</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$\big( \Big( \bigg( \Bigg($</td>
+<td align="center"><code>$\big( \Big( \bigg( \Bigg($</code></td>
+</tr>
+<tr>
+<td align="center">$\big[ \Big[ \bigg[ \Bigg[$</td>
+<td align="center"><code>$\big[ \Big[ \bigg[ \Bigg[$</code></td>
+</tr>
+<tr>
+<td align="center">$\big{ \Big{ \bigg{ \Bigg{$</td>
+<td align="center"><code>$\big\&#123; \Big\&#123; \bigg\&#123; \Bigg\&#123;$</code></td>
+</tr>
+<tr>
+<td align="center">$\big \langle \Big \langle \bigg \langle \Bigg \langle$</td>
+<td align="center"><code>$\big \langle \Big \langle \bigg \langle \Bigg \langle$</code></td>
+</tr>
+<tr>
+<td align="center">$\big \rangle \Big \rangle \bigg \rangle \Bigg \rangle$</td>
+<td align="center"><code>$\big \rangle \Big \rangle \bigg \rangle \Bigg \rangle$</code></td>
+</tr>
+<tr>
+<td align="center">$\big| \Big| \bigg| \Bigg|$</td>
+<td align="center"><code>$\big| \Big| \bigg| \Bigg|$</code></td>
+</tr>
+<tr>
+<td align="center">$\big\</td>
+<td align="center">\Big\</td>
+</tr>
+<tr>
+<td align="center">$\big \lceil \Big \lceil \bigg \lceil \Bigg \lceil$</td>
+<td align="center"><code>$\big \lceil \Big \lceil \bigg \lceil \Bigg \lceil$</code></td>
+</tr>
+<tr>
+<td align="center">$\big \rceil \Big \rceil \bigg \rceil \Bigg \rceil$</td>
+<td align="center"><code>$\big \rceil \Big \rceil \bigg \rceil \Bigg \rceil$</code></td>
+</tr>
+<tr>
+<td align="center">$\big \lfloor \Big \lfloor \bigg \lfloor \Bigg \lfloor$</td>
+<td align="center"><code>$\big \lfloor \Big \lfloor \bigg \lfloor \Bigg \lfloor$</code></td>
+</tr>
+<tr>
+<td align="center">$\big \rfloor \Big \rfloor \bigg \rfloor \Bigg \rfloor$</td>
+<td align="center"><code>$\big \rfloor \Big \rfloor \bigg \rfloor \Bigg \rfloor$</code></td>
+</tr>
+</tbody></table>
+<h2 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h2><p>$$<br>\begin{split}f_r(h,t)&#x3D;&amp;\operatorname{Re}(&lt;h,r,\overline{t}&gt;)\<br>        &#x3D;&amp;\operatorname{Re}(\sum_{i&#x3D;1}^{n}h_ir_i\overline{t}_i)\<br>        &#x3D;&amp;&lt;\operatorname{Re}(h),\operatorname{Re}(r),\operatorname{Re}(t)&gt;\<br>         &amp;+&lt;\operatorname{Re}(h),\operatorname{Im}(r),\operatorname{Im}(t)&gt;\<br>         &amp;+&lt;\operatorname{Im}(h),\operatorname{Re}(r),\operatorname{Im}(t)&gt;\<br>         &amp;-&lt;\operatorname{Im}(h),\operatorname{Im}(r),\operatorname{Re}(t)&gt;\end{split}<br>$$</p>
+<pre class="line-numbers language-none"><code class="language-none">$$
+\begin&#123;split&#125;f_r(h,t)&#x3D;&amp;\operatorname&#123;Re&#125;(&lt;h,r,\overline&#123;t&#125;&gt;)\\
+        &#x3D;&amp;\operatorname&#123;Re&#125;(\sum_&#123;i&#x3D;1&#125;^&#123;n&#125;h_ir_i\overline&#123;t&#125;_i)\\
+        &#x3D;&amp;&lt;\operatorname&#123;Re&#125;(h),\operatorname&#123;Re&#125;(r),\operatorname&#123;Re&#125;(t)&gt;\\
+         &amp;+&lt;\operatorname&#123;Re&#125;(h),\operatorname&#123;Im&#125;(r),\operatorname&#123;Im&#125;(t)&gt;\\
+         &amp;+&lt;\operatorname&#123;Im&#125;(h),\operatorname&#123;Re&#125;(r),\operatorname&#123;Im&#125;(t)&gt;\\
+         &amp;-&lt;\operatorname&#123;Im&#125;(h),\operatorname&#123;Im&#125;(r),\operatorname&#123;Re&#125;(t)&gt;\end&#123;split&#125;
+$$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><h3 id="颜色"><a href="#颜色" class="headerlink" title="颜色"></a>颜色</h3><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">浅红色文字：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#dd0000<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>浅红色文字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+深红色文字：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#660000<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>深红色文字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+浅绿色文字：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#00dd00<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>浅绿色文字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+深绿色文字：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#006600<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>深绿色文字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+浅蓝色文字：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#0000dd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>浅蓝色文字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+深蓝色文字：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#000066<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>深蓝色文字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+浅黄色文字：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#dddd00<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>浅黄色文字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+深黄色文字：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#666600<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>深黄色文字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+浅青色文字：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#00dddd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>浅青色文字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+深青色文字：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#006666<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>深青色文字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+浅紫色文字：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#dd00dd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>浅紫色文字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+深紫色文字：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#660066<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>深紫色文字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<p>浅红色文字：<font color="#dd0000">浅红色文字</font><br/><br>深红色文字：<font color="#660000">深红色文字</font><br/><br>浅绿色文字：<font color="#00dd00">浅绿色文字</font><br/><br>深绿色文字：<font color="#006600">深绿色文字</font><br/><br>浅蓝色文字：<font color="#0000dd">浅蓝色文字</font><br/><br>深蓝色文字：<font color="#000066">深蓝色文字</font><br/><br>浅黄色文字：<font color="#dddd00">浅黄色文字</font><br/><br>深黄色文字：<font color="#666600">深黄色文字</font><br/><br>浅青色文字：<font color="#00dddd">浅青色文字</font><br/><br>深青色文字：<font color="#006666">深青色文字</font><br/><br>浅紫色文字：<font color="#dd00dd">浅紫色文字</font><br/><br>深紫色文字：<font color="#660066">深紫色文字</font><br/></p>
+<h3 id="大小"><a href="#大小" class="headerlink" title="大小"></a>大小</h3><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">size为1：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>size为1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+size为2：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>size为2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+size为3：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>size为3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+size为4：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>size为4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+size为5：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>5<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>size为5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+size为6：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>6<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>size为6<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+size为7：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>7<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>size为7<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+size为8：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>size为8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+size为9：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>9<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>size为9<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+size为10：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>10<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>size为10<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<p>size为1：<font size="1">size为1</font><br/><br>size为2：<font size="2">size为2</font><br/><br>size为3：<font size="3">size为3</font><br/><br>size为4：<font size="4">size为4</font><br/><br>size为5：<font size="5">size为5</font><br/><br>size为6：<font size="6">size为6</font><br/><br>size为7：<font size="7">size为7</font><br/><br>size为8：<font size="8">size为8</font><br/><br>size为9：<font size="9">size为9</font><br/><br>size为10：<font size="10">size为10</font><br/></p>
+<h3 id="字体-1"><a href="#字体-1" class="headerlink" title="字体"></a>字体</h3><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">face</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>黑体<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>我是黑体字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">face</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>宋体<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>我是宋体字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">face</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>微软雅黑<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>我是微软雅黑字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">face</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fantasy<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>我是fantasy字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">face</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Helvetica<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>我是Helvetica字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<p><font face="黑体">我是黑体字</font><br/><br><font face="宋体">我是宋体字</font><br/><br><font face="微软雅黑">我是微软雅黑字</font><br/><br><font face="fantasy">我是fantasy字</font><br/><br><font face="Helvetica">我是Helvetica字</font><br/></p>
+<h3 id="背景色"><a href="#背景色" class="headerlink" title="背景色"></a>背景色</h3><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">bgcolor</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>#FF00FF</span><span class="token punctuation">></span></span>背景色的设置是按照十六进制颜色值：#FF00FF<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">bgcolor</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>#FF83FA</span><span class="token punctuation">></span></span>背景色的设置是按照十六进制颜色值：#FF83FA<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">bgcolor</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>#D1EEEE</span><span class="token punctuation">></span></span>背景色的设置是按照十六进制颜色值：#D1EEEE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">bgcolor</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>#C0FF3E</span><span class="token punctuation">></span></span>背景色的设置是按照十六进制颜色值：#C0FF3E<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">bgcolor</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>#54FF9F</span><span class="token punctuation">></span></span>背景色的设置是按照十六进制颜色值：#54FF9F<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">bgcolor</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>DarkSeaGreen</span><span class="token punctuation">></span></span>这里的背景色是：DarkSeaGreen<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<table>
+    <tr>
+        <td bgcolor=#FF00FF>背景色的设置是按照十六进制颜色值：#FF00FF</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td bgcolor=#FF83FA>背景色的设置是按照十六进制颜色值：#FF83FA</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td bgcolor=#D1EEEE>背景色的设置是按照十六进制颜色值：#D1EEEE</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td bgcolor=#C0FF3E>背景色的设置是按照十六进制颜色值：#C0FF3E</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td bgcolor=#54FF9F>背景色的设置是按照十六进制颜色值：#54FF9F</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td bgcolor=DarkSeaGreen>这里的背景色是：DarkSeaGreen</td>
+    </tr>
+</table>
+
+<h2 id="合并单元格"><a href="#合并单元格" class="headerlink" title="合并单元格"></a>合并单元格</h2><p>实现单元格合并的属性:</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">按行合并：rowspan
+按列合并：colspan<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span> <span class="token attr-name">colspan</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>计算机网络分层模型<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span> <span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token punctuation">></span></span>OSI七层模型<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>TCP/IP四层模型<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>TCP/IP五层模型<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>  
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span> <span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span> <span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>应用层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">rowspan</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>应用层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">rowspan</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>应用层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>表示层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>会话层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>传输层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>传输层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>传输层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>网络层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>网络层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>网络层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>数据链路层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">rowspan</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>网络接口层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>数据链路层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>物理层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>物理层<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<table>
+    <tr>
+        <th colspan="3">计算机网络分层模型</th>
+    </tr >
+    <tr>
+        <td >OSI七层模型</td>
+        <td>TCP/IP四层模型</td>
+        <td>TCP/IP五层模型</td>  
+    </tr >
+    <tr >
+        <td>应用层</td>
+        <td rowspan="3">应用层</td>
+        <td rowspan="3">应用层</td>
+    </tr>
+    <tr>
+        <td>表示层</td>
+    </tr>
+    <tr>
+        <td>会话层</td>
+    </tr>
+    <tr>
+        <td>传输层</td>
+        <td>传输层</td>
+       <td>传输层</td>
+    </tr>
+    <tr>
+       <td>网络层</td>
+        <td>网络层</td>
+       <td>网络层</td>
+    </tr>
+    <tr>
+        <td>数据链路层</td>
+        <td rowspan="2">网络接口层</td>
+       <td>数据链路层</td>
+    </tr>
+    <tr>
+        <td>物理层</td>
+        <td>物理层</td>
+    </tr>
+</table>
+
+<h2 id="链接文字斜体"><a href="#链接文字斜体" class="headerlink" title="链接文字斜体"></a>链接文字斜体</h2><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token url">[<span class="token content"><span class="token italic"><span class="token punctuation">_</span><span class="token content">Ray Tracing in One Weekend</span><span class="token punctuation">_</span></span></span>](<span class="token url">https://raytracing.github.io/books/RayTracingInOneWeekend.html</span>)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><a href="https://raytracing.github.io/books/RayTracingInOneWeekend.html"><em>Ray Tracing in One Weekend</em></a></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第三十八篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2022/11/26/00038-markdown-za-xiang/">https://luyf-lemon-love.space/2022/11/26/00038-markdown-za-xiang/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Markdown/">
+                                    <span class="chip bg-color">Markdown</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/11/27/00039-shi-yong-pandas-wei-transe-yu-chu-li-shu-ju/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/8885233608..png" class="responsive-img" alt="00039-使用 pandas 为 TransE 预处理数据">
+                        
+                        <span class="card-title">00039-使用 pandas 为 TransE 预处理数据</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-11-27
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                        <span class="chip bg-color">知识图谱</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E8%A1%A5%E5%85%A8/">
+                        <span class="chip bg-color">知识图谱补全</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/11/26/00037-using-opencv-with-gcc-and-cmake/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/4637983068..png" class="responsive-img" alt="00037-Using OpenCV with gcc and CMake">
+                        
+                        <span class="card-title">00037-Using OpenCV with gcc and CMake</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C/" class="post-category">
+                                    C++
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                    <a href="/tags/make/">
+                        <span class="chip bg-color">make</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

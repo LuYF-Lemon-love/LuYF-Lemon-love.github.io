@@ -1,0 +1,1963 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00166 PEP 8 – Style Guide for Python Code, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言PEP 8-Python代码样式指南。
+操作系统：Windows 11 家庭中文版
+参考文档
+PEP 8 – Style Guide for Python Code
+
+介绍本文档给出了组成Python主发行版中标准库的Python代码的">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00166 PEP 8 – Style Guide for Python Code | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/048-119850762.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00166 PEP 8 – Style Guide for Python Code</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python/">
+                                <span class="chip bg-color">Python</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-08-31
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>PEP 8-Python代码样式指南。</p>
+<p>操作系统：Windows 11 家庭中文版</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://peps.python.org/pep-0008/">PEP 8 – Style Guide for Python Code</a></li>
+</ol>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>本文档给出了组成Python主发行版中标准库的Python代码的编码约定。</p>
+<h2 id="愚蠢的一致性是小头脑的妖精"><a href="#愚蠢的一致性是小头脑的妖精" class="headerlink" title="愚蠢的一致性是小头脑的妖精"></a>愚蠢的一致性是小头脑的妖精</h2><p>Guido的关键见解之一是代码的阅读频率远高于编写频率。这里提供的指南旨在提高代码的易读性，并使其在各种Python代码中保持一致。正如PEP 20所说，“可读性很重要”。</p>
+<p>风格指南是关于一致性的。与此风格指南的一致性很重要。项目内的一致性更重要。一个模块或功能内的一致性是最重要的。</p>
+<p>但是，知道什么时候不一致——有时风格指南建议不适用。有疑问时，用你最好的判断。看看其他例子，决定什么看起来最好。不要犹豫，问！</p>
+<p>特别是：不要为了遵守这个PEP而破坏向后兼容性！</p>
+<p>忽略特定指南的其他一些充分理由：</p>
+<ol>
+<li>应用该指南会使代码的可读性降低，即使对于习惯于阅读遵循此PEP的代码的人也是如此。</li>
+<li>与周围的代码保持一致，这些代码也会破坏它（可能是出于历史原因）——尽管这也是一个清理别人烂摊子的机会（以真正的XP风格）。</li>
+<li>因为有问题的代码早于指南的引入，并且没有其他理由修改该代码。</li>
+<li>当代码需要与不支持样式指南推荐的功能的旧版本Python保持兼容时。</li>
+</ol>
+<h2 id="代码布局"><a href="#代码布局" class="headerlink" title="代码布局"></a>代码布局</h2><h3 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a>缩进</h3><p>每个缩进级别使用4个空格。</p>
+<blockquote>
+<p>Continuation lines should align wrapped elements either vertically using Python’s implicit line joining inside parentheses, brackets and braces, or using a hanging indent. When using a hanging indent the following should be considered; there should be no arguments on the first line and further indentation should be used to clearly distinguish itself as a continuation line:</p>
+</blockquote>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+
+<span class="token comment"># Aligned with opening delimiter.</span>
+foo <span class="token operator">=</span> long_function_name<span class="token punctuation">(</span>var_one<span class="token punctuation">,</span> var_two<span class="token punctuation">,</span>
+                         var_three<span class="token punctuation">,</span> var_four<span class="token punctuation">)</span>
+
+<span class="token comment"># Add 4 spaces (an extra level of indentation) to distinguish arguments from the rest.</span>
+<span class="token keyword">def</span> <span class="token function">long_function_name</span><span class="token punctuation">(</span>
+        var_one<span class="token punctuation">,</span> var_two<span class="token punctuation">,</span> var_three<span class="token punctuation">,</span>
+        var_four<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>var_one<span class="token punctuation">)</span>
+
+<span class="token comment"># Hanging indents should add a level.</span>
+foo <span class="token operator">=</span> long_function_name<span class="token punctuation">(</span>
+    var_one<span class="token punctuation">,</span> var_two<span class="token punctuation">,</span>
+    var_three<span class="token punctuation">,</span> var_four<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+
+<span class="token comment"># Arguments on first line forbidden when not using vertical alignment.</span>
+foo <span class="token operator">=</span> long_function_name<span class="token punctuation">(</span>var_one<span class="token punctuation">,</span> var_two<span class="token punctuation">,</span>
+    var_three<span class="token punctuation">,</span> var_four<span class="token punctuation">)</span>
+
+<span class="token comment"># Further indentation required as indentation is not distinguishable.</span>
+<span class="token keyword">def</span> <span class="token function">long_function_name</span><span class="token punctuation">(</span>
+    var_one<span class="token punctuation">,</span> var_two<span class="token punctuation">,</span> var_three<span class="token punctuation">,</span>
+    var_four<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>var_one<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>4空格规则对于连续行是可选的。</p>
+<p>Optional:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Hanging indents *may* be indented to other than 4 spaces.</span>
+foo <span class="token operator">=</span> long_function_name<span class="token punctuation">(</span>
+  var_one<span class="token punctuation">,</span> var_two<span class="token punctuation">,</span>
+  var_three<span class="token punctuation">,</span> var_four<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>当if语句的条件部分足够长，需要跨多行写入时，值得注意的是，两个字符关键字（即if）加上单个空格加上左括号的组合会为多行条件的后续行创建一个自然的4空格缩进。这可能会与嵌套在if语句中的缩进代码套件产生视觉冲突，后者也会自然缩进到4个空格。此PEP对于如何（或是否）进一步直观地将此类条件行与if语句中的嵌套套件区分开来没有明确的立场。在这种情况下，可接受的选项包括但不限于：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># No extra indentation.</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>this_is_one_thing <span class="token keyword">and</span>
+    that_is_another_thing<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    do_something<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Add a comment, which will provide some distinction in editors</span>
+<span class="token comment"># supporting syntax highlighting.</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>this_is_one_thing <span class="token keyword">and</span>
+    that_is_another_thing<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># Since both conditions are true, we can frobnicate.</span>
+    do_something<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Add some extra indentation on the conditional continuation line.</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>this_is_one_thing
+        <span class="token keyword">and</span> that_is_another_thing<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    do_something<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>（另请参阅下面关于是在二元运算符之前还是之后中断的讨论。）</p>
+<blockquote>
+<p>The closing brace&#x2F;bracket&#x2F;parenthesis on multiline constructs may either line up under the first non-whitespace character of the last line of list, as in:</p>
+</blockquote>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">my_list <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span>
+result <span class="token operator">=</span> some_function_that_takes_arguments<span class="token punctuation">(</span>
+    <span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">,</span>
+    <span class="token string">'d'</span><span class="token punctuation">,</span> <span class="token string">'e'</span><span class="token punctuation">,</span> <span class="token string">'f'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>或者它可以排列在开始多行构造的行的第一个字符下，如：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">my_list <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+result <span class="token operator">=</span> some_function_that_takes_arguments<span class="token punctuation">(</span>
+    <span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">,</span>
+    <span class="token string">'d'</span><span class="token punctuation">,</span> <span class="token string">'e'</span><span class="token punctuation">,</span> <span class="token string">'f'</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="制表符还是空格？"><a href="#制表符还是空格？" class="headerlink" title="制表符还是空格？"></a>制表符还是空格？</h3><p>空格是首选的缩进方法。</p>
+<p>制表符应仅用于与已使用制表符缩进的代码保持一致。</p>
+<p>Python不允许混合制表符和空格进行缩进。</p>
+<h3 id="Maximum-Line-Length"><a href="#Maximum-Line-Length" class="headerlink" title="Maximum Line Length"></a>Maximum Line Length</h3><p>将所有行限制为最多79个字符。</p>
+<p>对于结构限制较少（文档字符串或注释）的流动长文本块，行长应限制为72个字符。</p>
+<p>限制所需的编辑器窗口宽度可以让多个文件并排打开，并且在使用在相邻列中显示两个版本的代码审查工具时效果很好。</p>
+<p>大多数工具中的默认换行会破坏代码的视觉结构，使其更难理解。选择这些限制是为了避免在窗口宽度设置为80的编辑器中换行，即使该工具在换行时在最后一列中放置了标记字形。一些基于Web的工具可能根本不提供动态换行。</p>
+<p>一些团队非常喜欢更长的行长。对于专门或主要由能够就此问题达成一致的团队维护的代码，可以将行长限制增加到99个字符，前提是注释和文档字符串仍然以72个字符包装。</p>
+<p>Python标准库是保守的，要求将行限制为79个字符（文档字符串&#x2F;注释限制为72个）。</p>
+<blockquote>
+<p>The preferred way of wrapping long lines is by using Python’s implied line continuation inside parentheses, brackets and braces. Long lines can be broken over multiple lines by wrapping expressions in parentheses. These should be used in preference to using a backslash for line continuation.</p>
+</blockquote>
+<p>反斜杠有时可能仍然合适。例如，长的、多个with语句在Python 3.10之前不能使用隐式延续，因此在这种情况下可以接受反斜杠：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'/path/to/some/file/you/want/to/read'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> file_1<span class="token punctuation">,</span> \
+     <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'/path/to/some/file/being/written'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> file_2<span class="token punctuation">:</span>
+    file_2<span class="token punctuation">.</span>write<span class="token punctuation">(</span>file_1<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>（有关此类多行with语句缩进的进一步想法，请参阅之前关于多行if语句的讨论。）</p>
+<p>另一种这样的情况是assert语句。</p>
+<p>确保适当地缩进继续行。</p>
+<h3 id="应该在二元运算符之前还是之后换行？"><a href="#应该在二元运算符之前还是之后换行？" class="headerlink" title="应该在二元运算符之前还是之后换行？"></a>应该在二元运算符之前还是之后换行？</h3><p>几十年来，推荐的风格是在二进制运算符之后中断。但这可能会在两个方面损害易读性：运算符往往分散在屏幕上的不同列中，每个运算符都被从其操作数移开，移到前一行。在这里，眼睛必须做额外的工作来判断哪些项目被添加，哪些项目被减去：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token comment"># operators sit far away from their operands</span>
+income <span class="token operator">=</span> <span class="token punctuation">(</span>gross_wages <span class="token operator">+</span>
+          taxable_interest <span class="token operator">+</span>
+          <span class="token punctuation">(</span>dividends <span class="token operator">-</span> qualified_dividends<span class="token punctuation">)</span> <span class="token operator">-</span>
+          ira_deduction <span class="token operator">-</span>
+          student_loan_interest<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>为了解决这个易读性问题，数学家及其出版商遵循相反的惯例。唐纳德·克努特在他的《计算机与排版》系列中解释了传统规则：“虽然一段中的公式总是在二进制运算和关系之后中断，但显示的公式总是在二进制运算之前中断”。</p>
+<p>遵循数学的传统通常会产生更具可读性的代码：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token comment"># easy to match operators with operands</span>
+income <span class="token operator">=</span> <span class="token punctuation">(</span>gross_wages
+          <span class="token operator">+</span> taxable_interest
+          <span class="token operator">+</span> <span class="token punctuation">(</span>dividends <span class="token operator">-</span> qualified_dividends<span class="token punctuation">)</span>
+          <span class="token operator">-</span> ira_deduction
+          <span class="token operator">-</span> student_loan_interest<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在Python代码中，只要约定在本地保持一致，就允许在二进制运算符之前或之后中断。对于新代码，建议使用Knuth的风格。</p>
+<h3 id="空白行"><a href="#空白行" class="headerlink" title="空白行"></a>空白行</h3><p>用两个空行包围顶级函数和类定义。</p>
+<p>类内的方法定义被一个空行包围。</p>
+<p>可以使用额外的空行（有节制地）来分隔相关功能组。空行可以在一堆相关的单行（例如一组虚拟实现）之间省略。</p>
+<p>在函数中谨慎地使用空行来指示逻辑部分。</p>
+<p>Python接受Control-L（即^L）换页字符作为空格；许多工具将这些字符视为页面分隔符，因此您可以使用它们来分隔文件相关部分的页面。请注意，一些编辑器和基于Web的代码查看器可能无法将Control-L识别为换页，并将在其位置显示另一个字形。</p>
+<h3 id="源文件编码"><a href="#源文件编码" class="headerlink" title="源文件编码"></a>源文件编码</h3><p>核心Python发行版中的代码应始终使用UTF-8，并且不应具有编码声明。</p>
+<p>在标准库中，非UTF-8编码应仅用于测试目的。谨慎使用非ASCII字符，最好仅用于表示地点和人名。如果使用非ASCII字符作为数据，请避免使用嘈杂的Unicode字符，如z̯̯͡a̧͎̺l̡͓̫g̹̲o̡̼̘ 和字节顺序标记。</p>
+<p>Python标准库中的所有标识符都必须使用仅限ASCII的标识符，并且应该在可行的情况下使用英文单词（在许多情况下，使用非英文的缩写和技术术语）。</p>
+<p>鼓励具有全球受众的开源项目采用类似的政策。</p>
+<h3 id="Imports"><a href="#Imports" class="headerlink" title="Imports"></a>Imports</h3><ul>
+<li>导入通常应在单独的行上：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">import</span> os
+<span class="token keyword">import</span> sys<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">import</span> sys<span class="token punctuation">,</span> os<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>不过可以这么说：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">from</span> subprocess <span class="token keyword">import</span> Popen<span class="token punctuation">,</span> PIPE<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>导入总是放在文件的顶部，就在任何模块注释和文档字符串之后，在模块全局变量和常量之前。</li>
+</ul>
+<p>导入应按以下顺序分组：</p>
+<ol>
+<li>标准库导入。</li>
+<li>相关第三方进口。</li>
+<li>本地应用程序&#x2F;库特定的导入。</li>
+</ol>
+<p>您应该在每组导入之间放置一个空行。</p>
+<ul>
+<li>建议使用绝对导入，因为如果导入系统配置不正确（例如包中的目录最终位于sys.path上），它们通常更具可读性并且往往表现更好（或至少提供更好的错误消息）：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> mypkg<span class="token punctuation">.</span>sibling
+<span class="token keyword">from</span> mypkg <span class="token keyword">import</span> sibling
+<span class="token keyword">from</span> mypkg<span class="token punctuation">.</span>sibling <span class="token keyword">import</span> example<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>但是，显式相对导入是绝对导入的可接受替代方案，尤其是在处理复杂的包布局时，使用绝对导入会不必要地冗长：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> <span class="token punctuation">.</span> <span class="token keyword">import</span> sibling
+<span class="token keyword">from</span> <span class="token punctuation">.</span>sibling <span class="token keyword">import</span> example<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>标准库代码应避免复杂的包布局并始终使用绝对导入。</p>
+<ul>
+<li>从包含类的模块导入类时，通常可以拼写为：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> myclass <span class="token keyword">import</span> MyClass
+<span class="token keyword">from</span> foo<span class="token punctuation">.</span>bar<span class="token punctuation">.</span>yourclass <span class="token keyword">import</span> YourClass<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>如果此拼写导致本地名称冲突，请显式拼写它们：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> myclass
+<span class="token keyword">import</span> foo<span class="token punctuation">.</span>bar<span class="token punctuation">.</span>yourclass<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>使用 myclass.MyClass 和 foo.bar.yourclass.YourClass.</p>
+<ul>
+<li>应该避免通配符导入（<code>from &lt;module&gt; import *</code>），因为它们会使命名空间中存在哪些名称变得不清楚，从而混淆读者和许多自动化工具。通配符导入有一个合理的用例，即将内部接口作为公共API的一部分重新发布（例如，用可选加速器模块的定义覆盖接口的纯Python实现，并且事先不知道哪些定义将被覆盖）。</li>
+</ul>
+<p>以这种方式重新发布名称时，以下关于公共和内部接口的指南仍然适用。</p>
+<h3 id="模块级Dunder名称"><a href="#模块级Dunder名称" class="headerlink" title="模块级Dunder名称"></a>模块级Dunder名称</h3><p>模块级别的“Dunders”（即带有两个前导和两个尾随下划线的名称），如__all__、__author__、__version__等。应该放在模块文档字符串之后，但放在任何导入语句之前，除了__future__导入。Python要求未来导入必须出现在模块中除文档字符串之外的任何其他代码之前：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">"""This is the example module.
+
+This module does stuff.
+"""</span>
+
+<span class="token keyword">from</span> __future__ <span class="token keyword">import</span> barry_as_FLUFL
+
+__all__ <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">]</span>
+__version__ <span class="token operator">=</span> <span class="token string">'0.1'</span>
+__author__ <span class="token operator">=</span> <span class="token string">'Cardinal Biggles'</span>
+
+<span class="token keyword">import</span> os
+<span class="token keyword">import</span> sys<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="String-Quotes"><a href="#String-Quotes" class="headerlink" title="String Quotes"></a>String Quotes</h2><p>在Python中，单引号字符串和双引号字符串是一样的。这个PEP对此不做推荐。选择一个规则并坚持下去。但是，当一个字符串包含单引号或双引号字符时，使用另一个来避免字符串中的反斜杠。它提高了易读性。</p>
+<p>对于三引号字符串，始终使用双引号字符以与PEP 257中的文档字符串约定保持一致。</p>
+<h2 id="表达式和语句中的空格"><a href="#表达式和语句中的空格" class="headerlink" title="表达式和语句中的空格"></a>表达式和语句中的空格</h2><h3 id="Pet-Peeves"><a href="#Pet-Peeves" class="headerlink" title="Pet Peeves"></a>Pet Peeves</h3><p>在以下情况下避免无关的空格：</p>
+<ul>
+<li>紧接在括号、括号或大括号内：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+spam<span class="token punctuation">(</span>ham<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>eggs<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+spam<span class="token punctuation">(</span> ham<span class="token punctuation">[</span> <span class="token number">1</span> <span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> eggs<span class="token punctuation">:</span> <span class="token number">2</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>在尾随逗号和后面的右括号之间：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+foo <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+bar <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>紧接在逗号、分号或冒号之前：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">if</span> x <span class="token operator">==</span> <span class="token number">4</span><span class="token punctuation">:</span> <span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span> x<span class="token punctuation">,</span> y <span class="token operator">=</span> y<span class="token punctuation">,</span> x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">if</span> x <span class="token operator">==</span> <span class="token number">4</span> <span class="token punctuation">:</span> <span class="token keyword">print</span><span class="token punctuation">(</span>x <span class="token punctuation">,</span> y<span class="token punctuation">)</span> <span class="token punctuation">;</span> x <span class="token punctuation">,</span> y <span class="token operator">=</span> y <span class="token punctuation">,</span> x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>然而，在切片中，冒号的作用类似于二元运算符，并且应该在两边具有相等的数量（将其视为具有最低优先级的运算符）。在扩展切片中，两个冒号必须应用相同数量的行间距。例外：当省略切片参数时，空格将被省略：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+ham<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">,</span> ham<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token number">9</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> ham<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">9</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> ham<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> ham<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token number">9</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+ham<span class="token punctuation">[</span>lower<span class="token punctuation">:</span>upper<span class="token punctuation">]</span><span class="token punctuation">,</span> ham<span class="token punctuation">[</span>lower<span class="token punctuation">:</span>upper<span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> ham<span class="token punctuation">[</span>lower<span class="token punctuation">:</span><span class="token punctuation">:</span>step<span class="token punctuation">]</span>
+ham<span class="token punctuation">[</span>lower<span class="token operator">+</span>offset <span class="token punctuation">:</span> upper<span class="token operator">+</span>offset<span class="token punctuation">]</span>
+ham<span class="token punctuation">[</span><span class="token punctuation">:</span> upper_fn<span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">:</span> step_fn<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span> ham<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span> step_fn<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">]</span>
+ham<span class="token punctuation">[</span>lower <span class="token operator">+</span> offset <span class="token punctuation">:</span> upper <span class="token operator">+</span> offset<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+ham<span class="token punctuation">[</span>lower <span class="token operator">+</span> offset<span class="token punctuation">:</span>upper <span class="token operator">+</span> offset<span class="token punctuation">]</span>
+ham<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span> <span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">,</span> ham<span class="token punctuation">[</span><span class="token number">1</span> <span class="token punctuation">:</span><span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">,</span> ham<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token number">9</span> <span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span>
+ham<span class="token punctuation">[</span>lower <span class="token punctuation">:</span> <span class="token punctuation">:</span> step<span class="token punctuation">]</span>
+ham<span class="token punctuation">[</span> <span class="token punctuation">:</span> upper<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>紧接在开始函数调用的参数列表的左括号之前：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+spam<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+spam <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>紧接在开始索引或切片的左括号之前：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+dct<span class="token punctuation">[</span><span class="token string">'key'</span><span class="token punctuation">]</span> <span class="token operator">=</span> lst<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+dct <span class="token punctuation">[</span><span class="token string">'key'</span><span class="token punctuation">]</span> <span class="token operator">=</span> lst <span class="token punctuation">[</span>index<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>赋值（或其他）运算符周围的多个空格以将其与另一个空格对齐：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+x <span class="token operator">=</span> <span class="token number">1</span>
+y <span class="token operator">=</span> <span class="token number">2</span>
+long_variable <span class="token operator">=</span> <span class="token number">3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+x             <span class="token operator">=</span> <span class="token number">1</span>
+y             <span class="token operator">=</span> <span class="token number">2</span>
+long_variable <span class="token operator">=</span> <span class="token number">3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="其他建议"><a href="#其他建议" class="headerlink" title="其他建议"></a>其他建议</h3><ul>
+<li><p>避免在任何地方尾随空格。因为它通常是不可见的，所以可能会令人困惑：例如，反斜杠后跟空格和换行符不算作行延续标记。一些编辑器不保留它，许多项目（如CPython本身）有拒绝它的预提交挂钩。</p>
+</li>
+<li><p>始终在两侧用单个空格包围这些二元运算符：赋值（&#x3D;）、增量赋值 （+&#x3D;, -&#x3D; 等）、比较 （&#x3D;&#x3D;, &lt;, &gt;, !&#x3D;, &lt;&gt;, &lt;&#x3D;, &gt;&#x3D;, in、not in、is not）、布尔值（and、or、not）。</p>
+</li>
+<li><p>如果使用不同优先级的运算符，请考虑在优先级最低的运算符周围添加空格。使用您自己的判断；但是，永远不要使用多个空格，并且在二元运算符的两边始终有相同数量的空格：</p>
+</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span>
+submitted <span class="token operator">+=</span> <span class="token number">1</span>
+x <span class="token operator">=</span> x<span class="token operator">*</span><span class="token number">2</span> <span class="token operator">-</span> <span class="token number">1</span>
+hypot2 <span class="token operator">=</span> x<span class="token operator">*</span>x <span class="token operator">+</span> y<span class="token operator">*</span>y
+c <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token operator">+</span>b<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>a<span class="token operator">-</span>b<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+i<span class="token operator">=</span>i<span class="token operator">+</span><span class="token number">1</span>
+submitted <span class="token operator">+=</span><span class="token number">1</span>
+x <span class="token operator">=</span> x <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">-</span> <span class="token number">1</span>
+hypot2 <span class="token operator">=</span> x <span class="token operator">*</span> x <span class="token operator">+</span> y <span class="token operator">*</span> y
+c <span class="token operator">=</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> b<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>a <span class="token operator">-</span> b<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>函数注释应使用冒号的正常规则，如果存在，则始终在-&gt;箭头周围有空格。（有关函数注释的更多信息，请参阅下面的函数注释。）：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">def</span> <span class="token function">munge</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">:</span> AnyStr<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">def</span> <span class="token function">munge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> PosInt<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">def</span> <span class="token function">munge</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">:</span>AnyStr<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">def</span> <span class="token function">munge</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>PosInt<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>当用于指示关键字参数或用于指示未注释函数参数的默认值时，不要在&#x3D;符号周围使用空格：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">def</span> <span class="token function">complex</span><span class="token punctuation">(</span>real<span class="token punctuation">,</span> imag<span class="token operator">=</span><span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> magic<span class="token punctuation">(</span>r<span class="token operator">=</span>real<span class="token punctuation">,</span> i<span class="token operator">=</span>imag<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">def</span> <span class="token function">complex</span><span class="token punctuation">(</span>real<span class="token punctuation">,</span> imag <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> magic<span class="token punctuation">(</span>r <span class="token operator">=</span> real<span class="token punctuation">,</span> i <span class="token operator">=</span> imag<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>但是，当将参数注释与默认值结合使用时，请在&#x3D;符号周围使用空格：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">def</span> <span class="token function">munge</span><span class="token punctuation">(</span>sep<span class="token punctuation">:</span> AnyStr <span class="token operator">=</span> <span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">def</span> <span class="token function">munge</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">:</span> AnyStr<span class="token punctuation">,</span> sep<span class="token punctuation">:</span> AnyStr <span class="token operator">=</span> <span class="token boolean">None</span><span class="token punctuation">,</span> limit<span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">def</span> <span class="token function">munge</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">:</span> AnyStr<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">def</span> <span class="token function">munge</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">:</span> AnyStr<span class="token punctuation">,</span> limit <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>通常不鼓励复合语句（同一行上的多个语句）：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">if</span> foo <span class="token operator">==</span> <span class="token string">'blah'</span><span class="token punctuation">:</span>
+    do_blah_thing<span class="token punctuation">(</span><span class="token punctuation">)</span>
+do_one<span class="token punctuation">(</span><span class="token punctuation">)</span>
+do_two<span class="token punctuation">(</span><span class="token punctuation">)</span>
+do_three<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>而不是：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">if</span> foo <span class="token operator">==</span> <span class="token string">'blah'</span><span class="token punctuation">:</span> do_blah_thing<span class="token punctuation">(</span><span class="token punctuation">)</span>
+do_one<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> do_two<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> do_three<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>虽然有时将if&#x2F;for&#x2F;while与一个小主体放在同一行是可以的，但永远不要对多子句语句这样做。还要避免折叠这么长的行！</li>
+</ul>
+<p>而不是：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">if</span> foo <span class="token operator">==</span> <span class="token string">'blah'</span><span class="token punctuation">:</span> do_blah_thing<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> x <span class="token keyword">in</span> lst<span class="token punctuation">:</span> total <span class="token operator">+=</span> x
+<span class="token keyword">while</span> t <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">:</span> t <span class="token operator">=</span> delay<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>绝对不是：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">if</span> foo <span class="token operator">==</span> <span class="token string">'blah'</span><span class="token punctuation">:</span> do_blah_thing<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span> do_non_blah_thing<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">try</span><span class="token punctuation">:</span> something<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">finally</span><span class="token punctuation">:</span> cleanup<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+do_one<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> do_two<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> do_three<span class="token punctuation">(</span><span class="token builtin">long</span><span class="token punctuation">,</span> argument<span class="token punctuation">,</span>
+                             <span class="token builtin">list</span><span class="token punctuation">,</span> like<span class="token punctuation">,</span> this<span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> foo <span class="token operator">==</span> <span class="token string">'blah'</span><span class="token punctuation">:</span> one<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> two<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> three<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="何时使用尾随逗号"><a href="#何时使用尾随逗号" class="headerlink" title="何时使用尾随逗号"></a>何时使用尾随逗号</h2><p>尾随逗号通常是可选的，除非在制作一个元素的元组时它们是强制性的。为清楚起见，建议将后者括在（技术上多余的）括号中：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+FILES <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'setup.cfg'</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+FILES <span class="token operator">=</span> <span class="token string">'setup.cfg'</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>当尾随逗号是多余的时，当使用版本管理系统时，当值、参数或导入项的列表预计会随着时间的推移而扩展时，它们通常很有帮助。这种模式是将每个值（等）单独放在一行上，总是添加尾随逗号，并在下一行添加右括号&#x2F;括号&#x2F;大括号。然而，在与结束分隔符相同的行上有尾随逗号是没有意义的（除了上面的单例元组）：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+FILES <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string">'setup.cfg'</span><span class="token punctuation">,</span>
+    <span class="token string">'tox.ini'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span>
+initialize<span class="token punctuation">(</span>FILES<span class="token punctuation">,</span>
+           error<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+           <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+FILES <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'setup.cfg'</span><span class="token punctuation">,</span> <span class="token string">'tox.ini'</span><span class="token punctuation">,</span><span class="token punctuation">]</span>
+initialize<span class="token punctuation">(</span>FILES<span class="token punctuation">,</span> error<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>与代码相矛盾的注释比没有注释更糟糕。当代码更改时，始终优先保持注释最新！</p>
+<p>注释应该是完整的句子。第一个单词应该大写，除非它是以小写字母开头的标识符（永远不要改变标识符的大小写！）。</p>
+<p>块注释通常由一个或多个由完整句子组成的段落组成，每个句子以句号结尾。</p>
+<p>在多句注释中，除了在最后一句话之后，你应该在句子结束后使用一个或两个空格。</p>
+<p>确保你的注释清晰，并且容易被你所写语言的其他使用者理解。</p>
+<p>来自非英语国家的Python编码员：请用英语写下您的评论，除非您120%确定不会说您的语言的人永远不会阅读该代码。</p>
+<h3 id="Block-Comments"><a href="#Block-Comments" class="headerlink" title="Block Comments"></a>Block Comments</h3><p>块注释通常应用于它们后面的一些（或全部）代码，并缩进到与该代码相同的级别。块注释的每一行都以#和单个空格开头（除非注释中的文本缩进）。</p>
+<p>块注释中的段落由包含单个#的行分隔。</p>
+<h3 id="Inline-Comments"><a href="#Inline-Comments" class="headerlink" title="Inline Comments"></a>Inline Comments</h3><p>谨慎使用内联注释。</p>
+<p>内联注释是与语句在同一行上的注释。内联注释应与语句至少用两个空格分隔。它们应该以#和单个空格开头。</p>
+<p>内联注释是不必要的，如果它们陈述了显而易见的内容，实际上会分散注意力。不要这样做：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">x <span class="token operator">=</span> x <span class="token operator">+</span> <span class="token number">1</span>                 <span class="token comment"># Increment x</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>但有时，这很有用：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">x <span class="token operator">=</span> x <span class="token operator">+</span> <span class="token number">1</span>                 <span class="token comment"># Compensate for border</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="Documentation-Strings"><a href="#Documentation-Strings" class="headerlink" title="Documentation Strings"></a>Documentation Strings</h3><p>编写好的留档字符串（又名“文档字符串”）的约定在PEP 257中永垂不朽。</p>
+<ul>
+<li>为所有公共模块、函数、类和方法编写文档字符串。非公共方法不需要文档字符串，但您应该有一个注释来描述该方法的作用。此注释应出现在def行之后。</li>
+<li>PEP 257描述了良好的文档字符串约定。请注意，最重要的是，结束多行文档字符串的”””应该单独在一行上：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">"""Return a foobang
+
+Optional plotz says to frobnicate the bizbaz first.
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>对于一行字符串，请将结尾”””保持在同一行：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">"""Return an ex-parrot."""</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="命名约定"><a href="#命名约定" class="headerlink" title="命名约定"></a>命名约定</h2><p>Python库的命名约定有点混乱，所以我们永远不会完全一致——尽管如此，这里是目前推荐的命名标准。新的模块和包（包括第三方框架）应该按照这些标准编写，但是如果现有库有不同的风格，内部一致性是首选。</p>
+<h3 id="Overriding-Principle"><a href="#Overriding-Principle" class="headerlink" title="Overriding Principle"></a>Overriding Principle</h3><p>作为API的公共部分对用户可见的名称应遵循反映用法而不是实现的约定。</p>
+<h3 id="描述性：命名样式"><a href="#描述性：命名样式" class="headerlink" title="描述性：命名样式"></a>描述性：命名样式</h3><p>有许多不同的命名风格。它有助于识别正在使用的命名风格，独立于它们的用途。</p>
+<p>通常区分以下命名样式：</p>
+<ul>
+<li>b (single lowercase letter)</li>
+<li>B (single uppercase letter)</li>
+<li>lowercase</li>
+<li>lower_case_with_underscores</li>
+<li>UPPERCASE</li>
+<li>UPPER_CASE_WITH_UNDERSCORES</li>
+<li>CapitalizedWords (or CapWords, or CamelCase – so named because of the bumpy look of its letters). This is also sometimes known as StudlyCaps.</li>
+</ul>
+<p>Note: When using acronyms in CapWords, capitalize all the letters of the acronym. Thus HTTPServerError is better than HttpServerError.</p>
+<ul>
+<li>mixedCase (differs from CapitalizedWords by initial lowercase character!)</li>
+<li>Capitalized_Words_With_Underscores (ugly!)</li>
+</ul>
+<p>还有一种使用短唯一前缀将相关名称组合在一起的风格。这在Python中使用不多，但为了完整性而提到。例如，os.stat()函数返回一个元组，其项目传统上具有st_mode、st_size、st_mtime等名称。（这样做是为了强调与POSIX系统调用结构字段的对应关系，这有助于程序员熟悉这一点。）</p>
+<p>X11库对其所有公共函数使用前导X。在Python中，这种样式通常被认为是不必要的，因为属性和方法名称以对象为前缀，函数名称以模块名称为前缀。</p>
+<p>此外，以下使用前导或尾随下划线的特殊形式被识别（这些通常可以与任何案例约定相结合）：</p>
+<ul>
+<li><code>_single_leading_underscore</code>: weak “internal use” indicator. E.g. from M import * does not import objects whose names start with an underscore.</li>
+<li><code>single_trailing_underscore_</code>: used by convention to avoid conflicts with Python keyword, e.g. :</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tkinter<span class="token punctuation">.</span>Toplevel<span class="token punctuation">(</span>master<span class="token punctuation">,</span> class_<span class="token operator">=</span><span class="token string">'ClassName'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><code>__double_leading_underscore</code>: when naming a class attribute, invokes name mangling (inside class FooBar, <code>__boo</code> becomes <code>_FooBar__boo</code>; see below).</li>
+<li><code>__double_leading_and_trailing_underscore__</code>: “magic” objects or attributes that live in user-controlled namespaces. E.g. <code>__init__</code>, <code>__import__</code> or <code>__file__</code>. Never invent such names; only use them as documented.</li>
+</ul>
+<h3 id="规范性：命名约定"><a href="#规范性：命名约定" class="headerlink" title="规范性：命名约定"></a>规范性：命名约定</h3><h4 id="要避免的名称"><a href="#要避免的名称" class="headerlink" title="要避免的名称"></a>要避免的名称</h4><p>切勿使用字符“l”（小写字母el）、“O”（大写字母oh）或“I”（大写字母eye）作为单字符变量名称。</p>
+<p>在某些字体中，这些字符与数字1和0无法区分。当想使用“l”时，请改用“L”。</p>
+<h4 id="ASCII兼容性"><a href="#ASCII兼容性" class="headerlink" title="ASCII兼容性"></a>ASCII兼容性</h4><p>标准库中使用的标识符必须与ASCII兼容，如PEP 3131的策略部分所述。</p>
+<h4 id="包和模块名称"><a href="#包和模块名称" class="headerlink" title="包和模块名称"></a>包和模块名称</h4><p>模块应该有简短的全小写名称。如果可以提高易读性，可以在模块名称中使用下划线。Python包也应该有简短的全小写名称，尽管不鼓励使用下划线。</p>
+<p>当用C或C++编写的扩展模块附带提供更高级别（例如更面向对象）接口的Python模块时，C&#x2F;C++模块具有前导下划线（例如_socket）。</p>
+<h4 id="类名称"><a href="#类名称" class="headerlink" title="类名称"></a>类名称</h4><p>类名通常应使用CapWords约定。</p>
+<p>在接口被记录并主要用作可调用对象的情况下，可以使用函数的命名约定。</p>
+<p>请注意，内置名称有一个单独的约定：大多数内置名称是单个单词（或两个单词一起运行），CapWords约定仅用于异常名称和内置常量。</p>
+<h4 id="类型变量名"><a href="#类型变量名" class="headerlink" title="类型变量名"></a>类型变量名</h4><p>PEP 484中引入的类型变量的名称通常应该使用更喜欢短名称的CapWords：T、AnyStr、Num。建议在用于声明协变或逆变行为的变量中添加后缀_co或_contra：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> typing <span class="token keyword">import</span> TypeVar
+
+VT_co <span class="token operator">=</span> TypeVar<span class="token punctuation">(</span><span class="token string">'VT_co'</span><span class="token punctuation">,</span> covariant<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+KT_contra <span class="token operator">=</span> TypeVar<span class="token punctuation">(</span><span class="token string">'KT_contra'</span><span class="token punctuation">,</span> contravariant<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="异常名称"><a href="#异常名称" class="headerlink" title="异常名称"></a>异常名称</h4><p>因为异常应该是类，所以类命名约定在这里适用。但是，您应该在异常名称上使用后缀“错误”（如果异常实际上是错误）。</p>
+<h4 id="全局变量名"><a href="#全局变量名" class="headerlink" title="全局变量名"></a>全局变量名</h4><p>（让我们希望这些变量仅用于一个模块内。）约定与函数的约定大致相同。</p>
+<p>设计用于<code>from M import*</code>的模块应该使用<code>__all__</code>机制来防止导出全局变量，或者使用旧的约定，在这些全局变量前加上下划线（您可能希望这样做以指示这些全局变量是“模块非公共的”）。</p>
+<h4 id="函数和变量名"><a href="#函数和变量名" class="headerlink" title="函数和变量名"></a>函数和变量名</h4><p>函数名应该是小写的，根据需要用下划线分隔单词，以提高易读性。</p>
+<p>变量名遵循与函数名相同的约定。</p>
+<p>为了保持向后兼容性，仅在已经是流行样式的上下文（例如threading.py）中允许使用mixedCase。</p>
+<h4 id="功能和方法参数"><a href="#功能和方法参数" class="headerlink" title="功能和方法参数"></a>功能和方法参数</h4><p>始终使用self作为实例方法的第一个参数。</p>
+<p>始终将cls用于类方法的第一个参数。</p>
+<p>如果函数参数的名称与保留关键字冲突，通常最好附加单个尾随下划线，而不是使用缩写或拼写损坏。因此class_比clss更好。（也许更好的方法是使用同义词来避免这种冲突。）</p>
+<h4 id="方法名称和实例变量"><a href="#方法名称和实例变量" class="headerlink" title="方法名称和实例变量"></a>方法名称和实例变量</h4><p>使用函数命名规则：必要时小写，单词用下划线分隔，以提高易读性。</p>
+<p>仅对非公共方法和实例变量使用一个前导下划线。</p>
+<p>为避免与子类发生名称冲突，请使用两个前导下划线来调用Python的名称修饰规则。</p>
+<p>Python将这些名称与类名混为一谈：如果类Foo有一个名为<code>__a</code>的属性，则Foo无法访问它。<code>__a</code>。（坚持的用户仍然可以通过调用<code>Foo._Foo__a</code>来获得访问权限。）通常，双前导下划线只能用于避免与设计为子类的类中的属性发生名称冲突。</p>
+<p>注意：关于<code>__names</code>的使用有一些争议（见下文）。</p>
+<h4 id="Constants"><a href="#Constants" class="headerlink" title="Constants"></a>Constants</h4><p>常量通常在模块级别上定义，并用所有大写字母书写，下划线分隔单词。示例包括MAX_OVERFLOW和TOTAL。</p>
+<h4 id="为继承而设计"><a href="#为继承而设计" class="headerlink" title="为继承而设计"></a>为继承而设计</h4><p>始终决定一个类的方法和实例变量（统称为“属性”）应该是公共的还是非公共的。如果有疑问，请选择非公共；稍后将其公开比将公共属性非公开更容易。</p>
+<p>公共属性是您希望类中不相关的客户端使用的属性，并承诺避免向后不兼容的更改。非公共属性是那些不打算被第三方使用的属性；您不能保证非公共属性不会更改甚至被删除。</p>
+<p>我们在这里不使用术语“私有”，因为在Python中没有任何属性是真正私有的（通常没有不必要的工作量）。</p>
+<p>另一类属性是那些属于“子类应用编程接口”（在其他语言中通常称为“受保护的”）的属性。一些类被设计为继承自，以扩展或修改类行为的各个方面。在设计这样的类时，要注意明确决定哪些属性是公共的，哪些是子类应用编程接口的一部分，哪些是真正只供基类使用的。</p>
+<p>考虑到这一点，以下是Pythonic指南：</p>
+<ul>
+<li><p>公共属性不应有前导下划线。</p>
+</li>
+<li><p>如果您的公共属性名称与保留关键字冲突，请在属性名称后附加单个尾随下划线。这比缩写或损坏的拼写更可取。（然而，尽管有此规则，“cls”是已知为类的任何变量或参数的首选拼写，尤其是类方法的第一个参数。）</p>
+</li>
+</ul>
+<p>注意1：有关类方法，请参阅上面的参数名称推荐。</p>
+<ul>
+<li>对于简单的公共数据属性，最好只公开属性名称，而不使用复杂的访问器&#x2F;修改器方法。请记住，如果您发现简单的数据属性需要增长功能行为，Python为未来的增强提供了一条简单的途径。在这种情况下，使用属性将功能实现隐藏在简单的数据属性访问语法后面。</li>
+</ul>
+<p>注意1：尽量保持功能行为没有副作用，尽管缓存等副作用通常没问题。</p>
+<p>注意2：避免将属性用于计算昂贵的操作；属性表示法使调用者相信访问（相对）便宜。</p>
+<ul>
+<li>如果你的类打算被子类化，并且你有不想让子类使用的属性，考虑用双前导下划线命名它们，不要尾随下划线。这会调用Python的名称修饰算法，在该算法中，类的名称被修饰成属性名称。如果子类无意中包含具有相同名称的属性，这有助于避免属性名称冲突。</li>
+</ul>
+<p>注意1：请注意，在损坏的名称中只使用了简单的类名，因此如果子类同时选择相同的类名和属性名，您仍然可以获得名称冲突。</p>
+<p>注2：名称修改可能会使某些用途不太方便，例如调试和__getattr__()。然而，名称修改算法有据可查，易于手动执行。</p>
+<p>注意3：不是每个人都喜欢名字修饰。尽量平衡避免意外名字冲突的需要和高级呼叫者的潜在用途。</p>
+<h3 id="公共和内部接口"><a href="#公共和内部接口" class="headerlink" title="公共和内部接口"></a>公共和内部接口</h3><p>任何向后兼容性保证仅适用于公共接口。因此，用户能够清楚地区分公共接口和内部接口非常重要。</p>
+<p>文档化的接口被认为是公共的，除非留档明确声明它们是临时接口或内部接口，不受通常的向后兼容性保证的约束。所有未文档化的接口都应该被假定为内部接口。</p>
+<p>为了更好地支持自省，模块应该使用__all__属性在其公共API中显式声明名称。将__all__设置为空列表表示模块没有公共API。</p>
+<p>即使__all__设置得当，内部接口（包、模块、类、函数、属性或其他名称）仍然应该以单个前导下划线为前缀。</p>
+<p>如果任何包含的命名空间（包、模块或类）被视为内部的，则接口也被视为内部的。</p>
+<p>导入的名称应始终被视为实现细节。其他模块不得依赖对此类导入名称的间接访问，除非它们是包含模块API的明确记录的一部分，例如os.path或公开子模块功能的包的__init__模块。</p>
+<h2 id="编程建议"><a href="#编程建议" class="headerlink" title="编程建议"></a>编程建议</h2><ul>
+<li>代码的编写方式不应不利于Python的其他实现（PyPy、Jython、IronPython、Cython、Philco等）。</li>
+</ul>
+<p>例如，对于形式为a+&#x3D;b或a&#x3D;a+b的语句，不要依赖CPython的就地字符串连接的有效实现。这种优化即使在CPython中也是脆弱的（它只适用于某些类型），并且根本不存在于不使用重新计数的实现中。在库的性能敏感部分，应该使用<code>&#39;&#39;.join()</code>形式。这将确保连接在各种实现中以线性时间发生。</p>
+<ul>
+<li>Comparisons to singletons like None should always be done with is or is not, never the equality operators.</li>
+</ul>
+<p>Also, beware of writing if x when you really mean if x is not None – e.g. when testing whether a variable or argument that defaults to None was set to some other value. The other value might have a type (such as a container) that could be false in a boolean context!</p>
+<ul>
+<li>Use is not operator rather than not … is. While both expressions are functionally identical, the former is more readable and preferred:</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">if</span> foo <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">None</span><span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">if</span> <span class="token keyword">not</span> foo <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>When implementing ordering operations with rich comparisons, it is best to implement all six operations (<code>__eq__</code>, <code>__ne__</code>, <code>__lt__</code>, <code>__le__</code>, <code>__gt__</code>, <code>__ge__</code>) rather than relying on other code to only exercise a particular comparison.</li>
+</ul>
+<p>To minimize the effort involved, the <code>functools.total_ordering()</code> decorator provides a tool to generate missing comparison methods.</p>
+<p>PEP 207 indicates that reflexivity rules are assumed by Python. Thus, the interpreter may swap y &gt; x with x &lt; y, y &gt;&#x3D; x with x &lt;&#x3D; y, and may swap the arguments of x &#x3D;&#x3D; y and x !&#x3D; y. The sort() and min() operations are guaranteed to use the &lt; operator and the max() function uses the &gt; operator. However, it is best to implement all six operations so that confusion doesn’t arise in other contexts.</p>
+<ul>
+<li>始终使用def语句而不是将lambda表达式直接绑定到标识符的赋值语句：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">def</span> <span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">return</span> <span class="token number">2</span><span class="token operator">*</span>x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+f <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> <span class="token number">2</span><span class="token operator">*</span>x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>第一种形式意味着结果函数对象的名称特别是“f”而不是通用的“<code>&lt;lambda&gt;</code>”。这对于一般的回溯和字符串表示更有用。赋值语句的使用消除了lambda表达式相对于显式def语句的唯一好处（即它可以嵌入到更大的表达式中）</p>
+<ul>
+<li>Derive exceptions from Exception rather than BaseException. Direct inheritance from BaseException is reserved for exceptions where catching them is almost always the wrong thing to do.</li>
+</ul>
+<p>Design exception hierarchies based on the distinctions that code catching the exceptions is likely to need, rather than the locations where the exceptions are raised. Aim to answer the question “What went wrong?” programmatically, rather than only stating that “A problem occurred” (see PEP 3151 for an example of this lesson being learned for the builtin exception hierarchy)</p>
+<p>Class naming conventions apply here, although you should add the suffix “Error” to your exception classes if the exception is an error. Non-error exceptions that are used for non-local flow control or other forms of signaling need no special suffix.</p>
+<ul>
+<li>Use exception chaining appropriately. raise X from Y should be used to indicate explicit replacement without losing the original traceback.</li>
+</ul>
+<p>When deliberately replacing an inner exception (using raise X from None), ensure that relevant details are transferred to the new exception (such as preserving the attribute name when converting KeyError to AttributeError, or embedding the text of the original exception in the new exception message).</p>
+<ul>
+<li>When catching exceptions, mention specific exceptions whenever possible instead of using a bare except:</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">try</span><span class="token punctuation">:</span>
+    <span class="token keyword">import</span> platform_specific_module
+<span class="token keyword">except</span> ImportError<span class="token punctuation">:</span>
+    platform_specific_module <span class="token operator">=</span> <span class="token boolean">None</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>A bare except: clause will catch SystemExit and KeyboardInterrupt exceptions, making it harder to interrupt a program with Control-C, and can disguise other problems. If you want to catch all exceptions that signal program errors, use except Exception: (bare except is equivalent to except BaseException:).</p>
+<p>A good rule of thumb is to limit use of bare ‘except’ clauses to two cases:</p>
+<ol>
+<li>If the exception handler will be printing out or logging the traceback; at least the user will be aware that an error has occurred.</li>
+<li>If the code needs to do some cleanup work, but then lets the exception propagate upwards with raise. try…finally can be a better way to handle this case.</li>
+</ol>
+<ul>
+<li><p>When catching operating system errors, prefer the explicit exception hierarchy introduced in Python 3.3 over introspection of errno values.</p>
+</li>
+<li><p>Additionally, for all try&#x2F;except clauses, limit the try clause to the absolute minimum amount of code necessary. Again, this avoids masking bugs:</p>
+</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    value <span class="token operator">=</span> collection<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+<span class="token keyword">except</span> KeyError<span class="token punctuation">:</span>
+    <span class="token keyword">return</span> key_not_found<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> handle_value<span class="token punctuation">(</span>value<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    <span class="token comment"># Too broad!</span>
+    <span class="token keyword">return</span> handle_value<span class="token punctuation">(</span>collection<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">except</span> KeyError<span class="token punctuation">:</span>
+    <span class="token comment"># Will also catch KeyError raised by handle_value()</span>
+    <span class="token keyword">return</span> key_not_found<span class="token punctuation">(</span>key<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>When a resource is local to a particular section of code, use a with statement to ensure it is cleaned up promptly and reliably after use. A try&#x2F;finally statement is also acceptable.</p>
+</li>
+<li><p>上下文管理器在执行获取和释放资源以外的操作时应通过单独的函数或方法调用：</p>
+</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">with</span> conn<span class="token punctuation">.</span>begin_transaction<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    do_stuff_in_transaction<span class="token punctuation">(</span>conn<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">with</span> conn<span class="token punctuation">:</span>
+    do_stuff_in_transaction<span class="token punctuation">(</span>conn<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>后一个示例没有提供任何信息来指示<code>__enter__</code>和<code>__exit__</code>方法正在做的事情不是在事务后关闭连接。在这种情况下，显式很重要。</p>
+<ul>
+<li>在返回语句中保持一致。函数中的所有返回语句都应该返回表达式，或者它们都不应该返回表达式。如果任何返回语句返回表达式，任何没有返回值的返回语句都应该明确地将其声明为<code>return None</code>，并且应该在函数的末尾出现一个显式返回语句（如果可以访问）：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+
+<span class="token keyword">def</span> <span class="token function">foo</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> x <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> math<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token boolean">None</span>
+
+<span class="token keyword">def</span> <span class="token function">bar</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> x <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token boolean">None</span>
+    <span class="token keyword">return</span> math<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+
+<span class="token keyword">def</span> <span class="token function">foo</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> x <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> math<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">bar</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> x <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span>
+    <span class="token keyword">return</span> math<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>Use ‘’.startswith() and ‘’.endswith() instead of string slicing to check for prefixes or suffixes.</li>
+</ul>
+<p>startswith() and endswith() are cleaner and less error prone:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">if</span> foo<span class="token punctuation">.</span>startswith<span class="token punctuation">(</span><span class="token string">'bar'</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">if</span> foo<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'bar'</span><span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>Object type comparisons should always use isinstance() instead of comparing types directly:</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">if</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">if</span> <span class="token builtin">type</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token keyword">is</span> <span class="token builtin">type</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>对于序列（字符串、列表、元组），使用空序列为false的事实：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">if</span> <span class="token keyword">not</span> seq<span class="token punctuation">:</span>
+<span class="token keyword">if</span> seq<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>seq<span class="token punctuation">)</span><span class="token punctuation">:</span>
+<span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token builtin">len</span><span class="token punctuation">(</span>seq<span class="token punctuation">)</span><span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>不要编写依赖重要尾随空格的字符串文字。这种尾随空格在视觉上无法区分，一些编辑器（or more recently, reindent.py）会修剪它们。</p>
+</li>
+<li><p>不要使用&#x3D;&#x3D;将布尔值与True或False进行比较：</p>
+</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+<span class="token keyword">if</span> greeting<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">if</span> greeting <span class="token operator">==</span> <span class="token boolean">True</span><span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>更糟：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">if</span> greeting <span class="token keyword">is</span> <span class="token boolean">True</span><span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>Use of the flow control statements <code>return/break/continue</code> within the finally suite of a <code>try...finally</code>, where the flow control statement would jump outside the finally suite, is discouraged. This is because such statements will implicitly cancel any active exception that is propagating through the finally suite:</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+<span class="token keyword">def</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        <span class="token number">1</span> <span class="token operator">/</span> <span class="token number">0</span>
+    <span class="token keyword">finally</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token number">42</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="函数注释"><a href="#函数注释" class="headerlink" title="函数注释"></a>函数注释</h3><p>随着PEP 484的接受，函数注释的样式规则发生了变化。</p>
+<ul>
+<li><p>函数注释应使用PEP 484语法（上一节中有一些注释格式建议）。</p>
+</li>
+<li><p>不再鼓励之前在本PEP中推荐的注释样式实验。</p>
+</li>
+<li><p>然而，在stdlib之外，现在鼓励在PEP 484规则内进行实验。例如，使用PEP 484样式类型注释标记大型第三方库或应用程序，查看添加这些注释有多容易，并观察它们的存在是否增加了代码的可理解性。</p>
+</li>
+<li><p>Python标准库在采用此类注释时应该保守，但它们允许用于新代码和大型重构。</p>
+</li>
+<li><p>对于想要对函数注释进行不同使用的代码，建议对表单进行注释：</p>
+</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># type: ignore</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>靠近文件顶部；这告诉类型检查器忽略所有注释。（可以在PEP 484中找到禁用类型检查器投诉的更细粒度方法。）</p>
+<ul>
+<li><p>Like linters, type checkers are optional, separate tools. Python interpreters by default should not issue any messages due to type checking and should not alter their behavior based on annotations.</p>
+</li>
+<li><p>Users who don’t want to use type checkers are free to ignore them. However, it is expected that users of third party library packages may want to run type checkers over those packages. For this purpose PEP 484 recommends the use of stub files: .pyi files that are read by the type checker in preference of the corresponding .py files. Stub files can be distributed with a library, or separately (with the library author’s permission) through the typeshed repo.</p>
+</li>
+</ul>
+<h3 id="变量注释"><a href="#变量注释" class="headerlink" title="变量注释"></a>变量注释</h3><p>PEP 526引入了变量注释。对它们的样式建议类似于上面描述的函数注释：</p>
+<ul>
+<li>模块级变量、类和实例变量以及局部变量的注释应该在冒号后面有一个空格。</li>
+<li>冒号前不应该有空格。</li>
+<li>如果赋值有右手边，那么等号两边应该正好有一个空格：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Correct:</span>
+
+code<span class="token punctuation">:</span> <span class="token builtin">int</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Point</span><span class="token punctuation">:</span>
+    coords<span class="token punctuation">:</span> Tuple<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">]</span>
+    label<span class="token punctuation">:</span> <span class="token builtin">str</span> <span class="token operator">=</span> <span class="token string">'&lt;unknown>'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Wrong:</span>
+
+code<span class="token punctuation">:</span><span class="token builtin">int</span>  <span class="token comment"># No space after colon</span>
+code <span class="token punctuation">:</span> <span class="token builtin">int</span>  <span class="token comment"># Space before colon</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Test</span><span class="token punctuation">:</span>
+    result<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token operator">=</span><span class="token number">0</span>  <span class="token comment"># No spaces around equality sign</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>Although the PEP 526 is accepted for Python 3.6, the variable annotation syntax is the preferred syntax for stub files on all versions of Python (see PEP 484 for details).</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百六十六篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2024/08/31/00166-pep-8-style-guide-for-python-code/">https://luyf-lemon-love.space/2024/08/31/00166-pep-8-style-guide-for-python-code/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python/">
+                                    <span class="chip bg-color">Python</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/09/01/00167-zai-vs-code-zhong-ge-shi-hua-python/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/049-119850762.jpg" class="responsive-img" alt="00167 在VS Code中格式化Python">
+                        
+                        <span class="card-title">00167 在VS Code中格式化Python</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-09-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/VSCode/">
+                        <span class="chip bg-color">VSCode</span>
+                    </a>
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/08/31/00165-subprocess-zi-jin-cheng-guan-li-xue-xi-bi-ji/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/047-119867946.jpg" class="responsive-img" alt="00165 subprocess --- 子进程管理 学习笔记">
+                        
+                        <span class="card-title">00165 subprocess --- 子进程管理 学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-31
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%9A%E8%BF%9B%E7%A8%8B/">
+                        <span class="chip bg-color">多进程</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%85%A8%E5%B1%80%E8%A7%A3%E9%87%8A%E5%99%A8%E9%94%81%EF%BC%88GIL%EF%BC%89/">
+                        <span class="chip bg-color">全局解释器锁（GIL）</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

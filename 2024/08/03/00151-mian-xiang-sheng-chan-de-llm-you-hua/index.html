@@ -1,0 +1,1739 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00151 面向生产的 LLM 优化, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言本文介绍了面向生产的 LLM 优化。
+Hugging Face Github 主页: https://github.com/huggingface
+
+注意 : 本文同时也是 Transformers 的文档。
+以 GPT3&amp;#x2F;4">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00151 面向生产的 LLM 优化 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/037-119916609.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00151 面向生产的 LLM 优化</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大语言模型</span>
+                            </a>
+                        
+                            <a href="/tags/huggingface/">
+                                <span class="chip bg-color">huggingface</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                大语言模型
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-08-03
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文介绍了面向生产的 LLM 优化。</p>
+<p>Hugging Face Github 主页: <a href="https://github.com/huggingface">https://github.com/huggingface</a></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803151454.png"></p>
+<p><em><strong>注意</strong></em> : <em>本文同时也是 <a href="https://huggingface.co/docs/transformers/llm_tutorial_optimization">Transformers</a> 的文档。</em></p>
+<p>以 GPT3&#x2F;4、<a href="https://huggingface.co/tiiuae/falcon-40b">Falcon</a> 以及 <a href="https://huggingface.co/meta-llama/Llama-2-70b-hf">LLama</a> 为代表的大语言模型 (Large Language Model，LLM) 在处理以人为中心的任务上能力突飞猛进，俨然已成为现代知识型行业的重要工具。</p>
+<p>然而，在实际部署这些模型时，我们仍面临不少挑战:</p>
+<ul>
+<li>为了展现可媲美人类的文本理解和生成能力，<strong>LLM 的参数量一般需要达到数十亿</strong> (参见 <a href="https://arxiv.org/abs/2001.08361">Kaplan 等人</a>、<a href="https://arxiv.org/abs/2206.07682">Wei 等人</a> 的论述)，随之而来的是对推理内存的巨大需求。</li>
+<li>在许多实际任务中，LLM 需要广泛的上下文信息，<strong>这就要求模型在推理过程中能够处理很长的输入序列</strong>。</li>
+</ul>
+<p>这些挑战的关键在于增强 LLM 的计算和存储效能，特别是如何增强长输入序列的计算和存储效能。</p>
+<p>本文，我们将回顾迄今为止那些最有效的技术，以应对高效 LLM 部署的挑战:</p>
+<ol>
+<li><strong>低精度</strong>: 研究表明，<strong>低精度 (即 8 比特和 4 比特) 推理可提高计算效率，且对模型性能没有显著影响。</strong></li>
+<li><strong>Flash 注意力</strong>: Flash 注意力是注意力算法的一个变种，<strong>它不仅更节省内存，而且通过优化 GPU 内存利用率从而提升了计算效率。</strong></li>
+<li><strong>架构创新</strong>: 考虑到 LLM 推理的部署方式始终为: 输入序列为长文本的自回归文本生成，因此业界提出了专门的模型架构，以实现更高效的推理。这方面最重要的进展有 **<a href="https://arxiv.org/abs/2108.12409">Alibi</a>、<a href="https://arxiv.org/abs/2104.09864">旋转式嵌入 (rotary embeddings) </a>、<a href="https://arxiv.org/abs/1911.02150">多查询注意力 (Multi-Query Attention，MQA) </a> 以及 <a href="https://arxiv.org/abs/2305.13245">分组查询注意 (Grouped Query Attention，GQA) </a>**。</li>
+</ol>
+<p>本文，我们将从张量的角度对自回归生成进行分析。我们深入研究了低精度的利弊，对最新的注意力算法进行了全面的探索，并讨论了改进的 LLM 架构。在此过程中，我们用实际的例子来展示每项技术所带来的改进。</p>
+<p>操作系统：Windows 11 家庭中文版</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://huggingface.co/blog/optimize-llm">Optimizing your LLM in production</a></li>
+<li><a href="https://huggingface.co/blog/zh/optimize-llm">面向生产的 LLM 优化</a></li>
+</ol>
+<h2 id="充分利用低精度的力量"><a href="#充分利用低精度的力量" class="headerlink" title="充分利用低精度的力量"></a>充分利用低精度的力量</h2><p>通过将 LLM 视为一组权重矩阵及权重向量，并将文本输入视为向量序列，可以更好地理解 LLM 的内存需求。下面， <em>权重</em> 表示模型的所有权重矩阵及向量。</p>
+<p>迄今为止，一个 LLM 至少有数十亿参数。每个参数均为十进制数，例如 <code>4.5689</code> 通常存储成 <a href="https://en.wikipedia.org/wiki/Single-precision_floating-point_format">float32</a>、<a href="https://en.wikipedia.org/wiki/Bfloat16_floating-point_format">bfloat16</a> 或 <a href="https://en.wikipedia.org/wiki/Half-precision_floating-point_format">float16</a> 格式。因此，我们能够轻松算出加载 LLM 所需的内存:</p>
+<blockquote>
+<p><strong><em>加载 $X$ B 参数的 FP32 模型权重需要大约 4 * $X$ GB 显存</em></strong></p>
+</blockquote>
+<p>现如今，很少有模型以 float32 精度进行训练，通常都是以 bfloat16 精度训练的，在很少情况下还会以 float16 精度训练。因此速算公式就变成了:</p>
+<blockquote>
+<p><strong><em>加载有 $X$ B 参数的 BF16&#x2F;FP16 模型权重需要大约 2 * $X$ GB 显存</em></strong></p>
+</blockquote>
+<p><strong>对于较短的文本输入 (词元数小于 1024)，推理的内存需求很大程度上取决于模型权重的大小。因此，现在我们假设推理的内存需求等于将模型加载到 GPU 中所需的显存量。</strong></p>
+<p>我们举几个例子来说明用 bfloat16 加载模型大约需要多少显存:</p>
+<ul>
+<li><strong>GPT3</strong> 需要 2 * 175 GB &#x3D; <strong>350 GB</strong> 显存</li>
+<li><a href="https://huggingface.co/bigscience/bloom"><strong>Bloom</strong></a> 需要 2 * 176 GB &#x3D; <strong>352 GB</strong> 显存</li>
+<li><a href="https://huggingface.co/meta-llama/Llama-2-70b-hf"><strong>Llama-2-70b</strong></a> 需要 2 * 70 GB &#x3D; <strong>140 GB</strong> 显存</li>
+<li><a href="https://huggingface.co/tiiuae/falcon-40b"><strong>Falcon-40b</strong></a> 需要 2 * 40 GB &#x3D; <strong>80 GB</strong> 显存</li>
+<li><a href="https://huggingface.co/mosaicml/mpt-30b"><strong>MPT-30b</strong></a> 需要 2 * 30 GB &#x3D; <strong>60 GB</strong> 显存</li>
+<li><a href="https://huggingface.co/bigcode/starcoder"><strong>bigcode&#x2F;starcoder</strong></a> 需要 2 * 15.5 &#x3D; <strong>31 GB</strong> 显存</li>
+</ul>
+<p>迄今为止，市面上显存最大的 GPU 芯片是 80GB 显存的 A100。<strong>前面列出的大多数模型需要超过 80GB 才能加载，因此必然需要 <a href="https://huggingface.co/docs/transformers/perf_train_gpu_many#tensor-parallelism">张量并行</a> 和&#x2F;或 <a href="https://huggingface.co/docs/transformers/perf_train_gpu_many#naive-model-parallelism-vertical-and-pipeline-parallelism">流水线并行</a>。</strong></p>
+<p><strong>🤗 Transformers 不支持开箱即用的张量并行，因为它需要特定的模型架构编写方式。</strong> 如果你对以张量并行友好的方式编写模型感兴趣，可随时查看 <a href="https://github.com/huggingface/text-generation-inference/tree/main/server/text_generation_server/models/custom_modeling">TGI(text generation inference) 库</a>。</p>
+<p><strong>🤗 Transformers 开箱即用地支持简单的流水线并行。为此，只需使用 <code>device=&quot;auto&quot;</code> 加载模型，它会自动将不同层放到相应的 GPU 上</strong>，详见 <a href="https://huggingface.co/docs/accelerate/v0.22.0/en/concept_guides/big_model_inference">此处</a>。<br>但请注意，虽然非常有效，但这种简单的流水线并行并不能解决 GPU 空闲的问题。可参考 <a href="https://huggingface.co/docs/transformers/v4.15.0/parallelism#naive-model-parallel-vertical-and-pipeline-parallel">此处</a> 了解更高级的流水线并行技术。</p>
+<p>如果你能访问 8 x 80GB A100 节点，你可以按如下方式加载 BLOOM:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">!</span>pip <span class="token function">install</span> transformers accelerate bitsandbytes optimum<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoModelForCausalLM
+
+model <span class="token operator">=</span> AutoModelForCausalLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"bigscience/bloom"</span><span class="token punctuation">,</span> device_map<span class="token operator">=</span><span class="token string">"auto"</span><span class="token punctuation">,</span> pad_token_id<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>通过使用 <code>device_map=&quot;auto&quot;</code> ，注意力层将均匀分布在所有可用的 GPU 上。</strong></p>
+<p>本文，我们选用 <a href="https://huggingface.co/bigcode/octocoder">bigcode&#x2F;octocoder</a> 模型，因为它可以在单个 40GB A100 GPU 上运行。请注意，下文所有的内存和速度优化同样适用于需要模型或张量并行的模型。</p>
+<p>由于我们以 bfloat16 精度加载模型，根据上面的速算公式，预计使用 <code>“bigcode/octocoder”</code> 运行推理所需的显存约为 31 GB。我们试试吧！</p>
+<p><strong>首先加载模型和分词器，并将两者传递给 <code>Transformers</code> 的 <a href="https://huggingface.co/docs/transformers/main_classes/pipelines">pipeline</a>。</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoModelForCausalLM<span class="token punctuation">,</span> AutoTokenizer<span class="token punctuation">,</span> pipeline
+<span class="token keyword">import</span> torch
+
+model <span class="token operator">=</span> AutoModelForCausalLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"bigcode/octocoder"</span><span class="token punctuation">,</span> torch_dtype<span class="token operator">=</span>torch<span class="token punctuation">.</span>bfloat16<span class="token punctuation">,</span> device_map<span class="token operator">=</span><span class="token string">"auto"</span><span class="token punctuation">,</span> pad_token_id<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"bigcode/octocoder"</span><span class="token punctuation">)</span>
+
+pipe <span class="token operator">=</span> pipeline<span class="token punctuation">(</span><span class="token string">"text-generation"</span><span class="token punctuation">,</span> model<span class="token operator">=</span>model<span class="token punctuation">,</span> tokenizer<span class="token operator">=</span>tokenizer<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">prompt <span class="token operator">=</span> <span class="token string">"Question: Please write a function in Python that transforms bytes to Giga bytes.\n\nAnswer:"</span>
+
+result <span class="token operator">=</span> pipe<span class="token punctuation">(</span>prompt<span class="token punctuation">,</span> max_new_tokens<span class="token operator">=</span><span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"generated_text"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token builtin">len</span><span class="token punctuation">(</span>prompt<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong>:</p>
+<pre class="line-numbers language-none"><code class="language-none">Here is a Python function that transforms bytes to Giga bytes:\n\n&#96;&#96;&#96;python\ndef bytes_to_giga_bytes(bytes):\n return bytes &#x2F; 1024 &#x2F; 1024 &#x2F; 1024\n&#96;&#96;&#96;\n\nThis function takes a single<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>好，现在我们可以把生成的函数直接用于将字节数转换为千兆字节数。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">bytes_to_giga_bytes</span><span class="token punctuation">(</span><span class="token builtin">bytes</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">return</span> <span class="token builtin">bytes</span> <span class="token operator">/</span> <span class="token number">1024</span> <span class="token operator">/</span> <span class="token number">1024</span> <span class="token operator">/</span> <span class="token number">1024</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>我们直接调用 <code>torch.cuda.max_memory_allocated</code> 来测量 GPU 显存的峰值占用。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">bytes_to_giga_bytes<span class="token punctuation">(</span>torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>max_memory_allocated<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>输出</strong>:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">29.0260648727417</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>相当接近我们的速算结果！我们可以看到这个数字并不完全准确，因为从字节到千字节需要乘以 1024 而不是 1000。因此，速算公式也可以理解为“最多 $X$ GB”。</p>
+<p>请注意，如果我们尝试以全 float32 精度运行模型，则需要高达 64GB 的显存。</p>
+<blockquote>
+<p><strong>现在几乎所有模型都是用 bfloat16 中训练的，如果 <a href="https://discuss.pytorch.org/t/bfloat16-native-support/117155/5">你的 GPU 支持 bfloat16</a> 的话，你就不应该以 float32 来运行推理。float32 并不会提供比训练精度更好的推理结果。</strong></p>
+</blockquote>
+<p>如果你不确定 Hub 上的模型权重的精度如何，可随时查看模型配置文件内的 <code>torch_dtype</code> 项， <em>如</em> <a href="https://huggingface.co/THUDM/chatglm3-6b/blob/main/config.json#L37">此处</a>。建议在使用 <code>from_pretrained(..., torch_dtype=...)</code> 加载模型时将精度设置为与配置文件中的精度相同，除非该接口的默认精度为 float32。这样的话，你就可以使用 <code>float16</code> 或 <code>bfloat16</code> 来推理了。</p>
+<p><strong>我们再定义一个 <code>flush(...)</code> 函数来释放所有已分配的显存，以便我们可以准确测量分配的 GPU 显存的峰值。</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">del</span> pipe
+<span class="token keyword">del</span> model
+
+<span class="token keyword">import</span> gc
+<span class="token keyword">import</span> torch
+
+<span class="token keyword">def</span> <span class="token function">flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  gc<span class="token punctuation">.</span>collect<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>empty_cache<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>reset_peak_memory_stats<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>下一个实验我们就可以调用它了。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">flush<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>在最新的 accelerate 库中，你还可以使用名为 <code>release_memory()</code> 的方法。</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> accelerate<span class="token punctuation">.</span>utils <span class="token keyword">import</span> release_memory
+<span class="token comment"># ...</span>
+
+release_memory<span class="token punctuation">(</span>model<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>那如果你的 GPU 没有 32GB 显存怎么办？<strong>研究发现，模型权重可以量化为 8 比特或 4 比特，而对模型输出没有明显影响 (参见 <a href="https://arxiv.org/abs/2208.07339">Dettmers 等人的论文</a>)。</strong></p>
+<p>甚至可以将模型量化为 3 或 2 比特，对输出的影响仍可接受，如最近的 <a href="https://arxiv.org/pdf/2210.17323.pdf">GPTQ 论文</a> 🤯 所示。</p>
+<p><strong>总的来讲，量化方案旨在降低权重的精度，同时尽量保持模型的推理结果尽可能准确 ( <em>即</em> 尽可能接近 bfloat16)。</strong></p>
+<p><strong>请注意，量化对于文本生成特别有效，因为我们关心的是选择 <em>最可能的下一个词元的分布</em> ，而不真正关心下一个词元的确切 <em>logit</em> 值。所以，只要下一个词元 <em>logit</em> 大小顺序保持相同， <code>argmax</code> 或 <code>topk</code> 操作的结果就会相同。</strong></p>
+<p>量化技术有很多，我们在这里不作详细讨论，但一般来说，所有量化技术的工作原理如下:</p>
+<ol>
+<li><strong>将所有权重量化至目标精度</strong></li>
+<li><strong>加载量化权重，并把 <code>bfloat16</code> 精度的输入向量序列传给模型</strong></li>
+<li><strong>将权重动态反量化为 <code>bfloat16</code> ，并基于 <code>bfloat16</code> 精度与输入进行计算</strong></li>
+<li><strong>计算后，将权重再次量化回目标精度。[译者注: 这一步一般不需要做]</strong></li>
+</ol>
+<p>简而言之，这意味着原来的每个 <em>输入数据 - 权重矩阵乘</em> ，其中 $X$ 为 <em>输入</em> ， $W$ 为权重矩阵，$Y$ 为输出:</p>
+<p>$$ Y &#x3D; X \times W $$</p>
+<p>都变成了:</p>
+<p>$$ Y &#x3D; X \times \text{dequantize}(W); \text{quantize}(W) $$</p>
+<p><strong>当输入向量走过模型计算图时，所有权重矩阵都会依次执行反量化和重量化操作。</strong></p>
+<p>因此，使用权重量化时，推理时间通常 <strong>不会</strong> 减少，反而会增加。</p>
+<p>到此为止理论讲完了，我们可以开始试试了！要使用 Transformer 权重量化方案，请确保<br><a href="https://github.com/TimDettmers/bitsandbytes"><code>bitsandbytes</code></a> 库已安装。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">!</span>pip <span class="token function">install</span> bitsandbytes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>然后，只需在 <code>from_pretrained</code> 中添加 <code>load_in_8bit=True</code> 参数，即可用 8 比特量化加载模型。</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">model <span class="token operator">=</span> AutoModelForCausalLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"bigcode/octocoder"</span><span class="token punctuation">,</span> load_in_8bit<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> pad_token_id<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>现在，再次运行我们的示例，并测量其显存使用情况。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">pipe <span class="token operator">=</span> pipeline<span class="token punctuation">(</span><span class="token string">"text-generation"</span><span class="token punctuation">,</span> model<span class="token operator">=</span>model<span class="token punctuation">,</span> tokenizer<span class="token operator">=</span>tokenizer<span class="token punctuation">)</span>
+
+result <span class="token operator">=</span> pipe<span class="token punctuation">(</span>prompt<span class="token punctuation">,</span> max_new_tokens<span class="token operator">=</span><span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"generated_text"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token builtin">len</span><span class="token punctuation">(</span>prompt<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong>:</p>
+<pre class="line-numbers language-none"><code class="language-none">Here is a Python function that transforms bytes to Giga bytes:\n\n&#96;&#96;&#96;python\ndef bytes_to_giga_bytes(bytes):\n return bytes &#x2F; 1024 &#x2F; 1024 &#x2F; 1024\n&#96;&#96;&#96;\n\nThis function takes a single<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>很好，我们得到了与之前一样的结果，这就说明准确性没有损失！我们看一下这次用了多少显存。</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">bytes_to_giga_bytes<span class="token punctuation">(</span>torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>max_memory_allocated<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>输出</strong>:</p>
+<pre class="line-numbers language-none"><code class="language-none">15.219234466552734<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>显存明显减少！降至 15GB 多一点，这样就可以在 4090 这样的消费级 GPU 上运行该模型了。</p>
+<p><strong>我们看到内存效率有了很大的提高，且模型的输出没啥退化。同时，我们也注意到推理速度出现了轻微的减慢。</strong></p>
+<p>删除模型并再次刷一下显存。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">del</span> model
+<span class="token keyword">del</span> pipe<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">flush<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>然后，我们看下 4 比特量化的 GPU 显存消耗峰值是多少。可以用与之前相同的 API 将模型量化为 4 比特 - 这次参数设置为 <code>load_in_4bit=True</code> 而不是 <code>load_in_8bit=True</code> 。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">model <span class="token operator">=</span> AutoModelForCausalLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"bigcode/octocoder"</span><span class="token punctuation">,</span> load_in_4bit<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> low_cpu_mem_usage<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> pad_token_id<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+pipe <span class="token operator">=</span> pipeline<span class="token punctuation">(</span><span class="token string">"text-generation"</span><span class="token punctuation">,</span> model<span class="token operator">=</span>model<span class="token punctuation">,</span> tokenizer<span class="token operator">=</span>tokenizer<span class="token punctuation">)</span>
+
+result <span class="token operator">=</span> pipe<span class="token punctuation">(</span>prompt<span class="token punctuation">,</span> max_new_tokens<span class="token operator">=</span><span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"generated_text"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token builtin">len</span><span class="token punctuation">(</span>prompt<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong>:</p>
+<pre class="line-numbers language-none"><code class="language-none">Here is a Python function that transforms bytes to Giga bytes:\n\n&#96;&#96;&#96;\ndef bytes_to_gigabytes(bytes):\n return bytes &#x2F; 1024 &#x2F; 1024 &#x2F; 1024\n&#96;&#96;&#96;\n\nThis function takes a single argument<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>输出几乎与以前相同 - 只是在代码片段之前缺了 <code>python</code> 这个词。我们看下需要多少显存。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">bytes_to_giga_bytes<span class="token punctuation">(</span>torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>max_memory_allocated<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>输出</strong>:</p>
+<pre class="line-numbers language-none"><code class="language-none">9.543574333190918<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>仅需 9.5GB！对于参数量大于 150 亿的模型来说，确实不算多。</p>
+<p><strong>虽然我们这里看到模型的准确性几乎没有下降，但与 8 比特量化或完整的 <code>bfloat16</code> 推理相比，4 比特量化实际上通常会导致不同的结果。</strong> 到底用不用它，就看用户自己抉择了。</p>
+<p>另请注意，<strong>与 8 比特量化相比，其推理速度会更慢一些</strong>，这是由于 4 比特量化使用了更激进的量化方法，导致 $\text{quantize}$ 和  $\text {dequantize}$ 在推理过程中花的时间更长。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">del</span> model
+<span class="token keyword">del</span> pipe<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">flush<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>总的来说，我们发现以 8 比特精度运行 <code>OctoCoder</code> 将所需的 GPU 显存 从 32GB 减少到仅 15GB，而以 4 比特精度运行模型则进一步将所需的 GPU 显存减少到 9GB 多一点。</p>
+<p>4 比特量化让模型可以在 RTX3090、V100 和 T4 等大多数人都可以轻松获取的 GPU 上运行。</p>
+<p>更多有关量化的信息以及有关如何量化模型以使其显存占用比 4 比特更少，我们建议大家查看 <a href="https://huggingface.co/docs/transformers/main/en/main_classes/quantization#autogptq-integration%60"><code>AutoGPTQ</code></a> 的实现。</p>
+<blockquote>
+<p><strong>总结一下，重要的是要记住，模型量化会提高内存效率，但会牺牲准确性，在某些情况下还会牺牲推理时间。</strong></p>
+</blockquote>
+<p>如果 GPU 显存对你而言不是问题，通常不需要考虑量化。然而，如果不量化，许多 GPU 根本无法运行 LLM，在这种情况下，4 比特和 8 比特量化方案是非常有用的工具。</p>
+<p>更详细的使用信息，我们强烈建议你查看 <a href="https://huggingface.co/docs/transformers/main_classes/quantization#general-usage">Transformers 的量化文档</a>。</p>
+<p>接下来，我们看看如何用更好的算法和改进的模型架构来提高计算和内存效率。</p>
+<h2 id="Flash-注意力-速度飞跃"><a href="#Flash-注意力-速度飞跃" class="headerlink" title="Flash 注意力: 速度飞跃"></a>Flash 注意力: 速度飞跃</h2><p>当今表现最好的 LLM 其基本架构大体相似，包括前馈层、激活层、层归一化层以及最重要的自注意力层。</p>
+<p><strong>自注意力层是大语言模型 (LLM) 的核心，因为其使模型能够理解输入词元之间的上下文关系。然而，自注意力层在计算以及峰值显存这两个方面都随着输入词元的数目 (也称为 <em>序列长度</em> ，下文用 $N$ 表示) 呈 <em>二次方</em> 增长。</strong></p>
+<p>虽然这对于较短的输入序列 (输入词元数小于 1000) 来说并不明显，但对于较长的输入序列 (如: 约 16000 个输入词元) 来说，就会成为一个严重的问题。</p>
+<p>我们仔细分析一下。计算长度为 $N$ 的输入序列 $\mathbf{X}$ 的自注意力层的输出 $\mathbf{O}$ ，其公式为:</p>
+<p>$$ \textbf{O} &#x3D; \text{Attn}(\mathbf{X}) &#x3D; \mathbf{V} \times \text{Softmax}(\mathbf{QK}^T) \text{ ，其中 } \mathbf{Q} &#x3D; \mathbf{W}_q \mathbf{X}, \mathbf{V} &#x3D; \mathbf{W}_v \mathbf{X}, \mathbf{K} &#x3D; \mathbf{W}_k \mathbf{X} $$</p>
+<p>$\mathbf{X} &#x3D; (\mathbf{x} <em>1, … \mathbf{x}</em> {N})$ 是注意力层的输入序列。投影 $\mathbf{Q}$ 和  $\mathbf{K}$ 也是 $N$ 个向量组成的序列，<strong>其乘积 $\mathbf{QK}^T$ 的大小为 $N^2$ 。</strong></p>
+<p>LLM 通常有多个注意力头，因此可以并行进行多个自注意力计算。<br><strong>假设 LLM 有 40 个注意力头并以 bfloat16 精度运行，我们可以计算出存储 $\mathbf{QK^T}$ 矩阵的内存需求为 $40 \times 2 \times N^2$ 字节。</strong> 当 $N&#x3D;1000$ 时仅需要大约 50MB 的显存，但当 $N&#x3D;16000$ 时，我们需要 19GB 的显存，当 $N&#x3D;100,000$ 时，仅存储 $\mathbf{QK}^T$ 矩阵就需要近 1TB。</p>
+<p>总之，随着输入上下文越来越长，默认的自注意力算法所需的内存很快就会变得非常昂贵。</p>
+<p>伴随着 LLM 在文本理解和生成方面的进展，它们正被应用于日益复杂的任务。之前，我们主要用模型来对几个句子进行翻译或摘要，但现在我们会用这些模型来管理整页的文本，这就要求它们具有处理长输入文本的能力。</p>
+<p>我们如何摆脱长输入文本对内存的过高要求？我们需要一种新的方法让我们在计算自注意力机制时能够摆脱 $QK^T$ 矩阵。 <a href="https://arxiv.org/abs/2205.14135">Tri Dao 等人</a> 开发了这样一种新算法，并将其称为 <strong>Flash 注意力</strong>。</p>
+<p><strong>简而言之，Flash 注意力将 $\mathbf{V} \times \text{Softmax}(\mathbf{QK}^T)$ 的计算分解成若干步骤，通过迭代多个 softmax 计算步来将输出分成多个较小的块进行计算:</strong></p>
+<p>$$ \textbf{O} <em>i \leftarrow s^a</em> {ij} \times \textbf{O} <em>i + s^b</em> {ij} \times \mathbf{V} <em>{j} \times \text{Softmax}(\mathbf{QK}^T</em> {i,j}) \text{，在 } i, j \text{ 上迭代} $$</p>
+<p>其中 $s^a_{ij}$ 和  $s^b_{ij}$ 是随着每个 $i$ 和  $j$ 迭代更新的 softmax 统计归一化值。</p>
+<p>请注意，整个 Flash 注意力有点复杂，这里已经大大简化了。如果想要深入理解，可以阅读 <a href="https://arxiv.org/pdf/2205.14135.pdf">Flash Attention 的论文</a>。</p>
+<p>要点如下:</p>
+<blockquote>
+<p>通过跟踪 softmax 统计归一化值再加上一些聪明的数学技巧，与默认的自注意力层相比，Flash 注意力的计算结果 <strong>完全相同</strong>，而内存成本仅随着 $N$ 线性增加。</p>
+</blockquote>
+<p><strong>仅看这个公式，直觉上来讲，Flash 注意力肯定比默认的自注意力公式要慢很多，因为需要进行更多的计算。确实，与普通注意力相比，Flash 注意力需要更多的 FLOP，因为需要不断重新计算 softmax 统计归一化值 (如果感兴趣，请参阅 <a href="https://arxiv.org/pdf/2205.14135.pdf">论文</a> 以了解更多详细信息)。</strong></p>
+<blockquote>
+<p><strong>然而，与默认注意力相比，Flash 注意力的推理速度要快得多，这是因为它能够显著减少对较慢的高带宽显存的需求，而更多使用了更快的片上内存 (SRAM)。</strong></p>
+</blockquote>
+<p><strong>从本质上讲，Flash 注意力确保所有中间写入和读取操作都可以使用快速 <em>片上</em> SRAM 来完成，而不必访问较慢的显存来计算输出向量 $\mathbf{O}$。</strong></p>
+<p>实际上，如果能用的话，我们没有理由不用 Flash 注意力。<strong>该算法在数学上给出相同的输出，但速度更快且内存效率更高。</strong></p>
+<p>我们看一个实际的例子。</p>
+<p>我们的 <code>OctoCoder</code> 模型现在被输入了长得多的提示，其中包括所谓的“系统提示”。系统提示用于引导 LLM 去适应特定的用户任务。</p>
+<p>接下来，我们使用系统提示，引导 <code>OctoCoder</code> 成为更好的编程助手。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">system_prompt <span class="token operator">=</span> <span class="token triple-quoted-string string">"""Below are a series of dialogues between various people and an AI technical assistant.
+The assistant tries to be helpful, polite, honest, sophisticated, emotionally aware, and humble but knowledgeable.
+The assistant is happy to help with code questions and will do their best to understand exactly what is needed.
+It also tries to avoid giving false or misleading information, and it caveats when it isn't entirely sure about the right answer.
+That said, the assistant is practical really does its best, and doesn't let caution get too much in the way of being useful.
+
+The Starcoder models are a series of 15.5B parameter models trained on 80+ programming languages from The Stack (v1.2) (excluding opt-out requests).
+The model uses Multi Query Attention, was trained using the Fill-in-the-Middle objective, and with 8,192 tokens context window for a trillion tokens of heavily deduplicated data.
+
+-----
+
+Question: Write a function that takes two lists and returns a list that has alternating elements from each input list.
+
+Answer: Sure. Here is a function that does that.
+
+def alternating(list1, list2):
+   results = []
+   for i in range(len(list1)):
+       results.append(list1[i])
+       results.append(list2[i])
+   return results
+
+Question: Can you write some test cases for this function?
+
+Answer: Sure, here are some tests.
+
+assert alternating([10, 20, 30], [1, 2, 3]) == [10, 1, 20, 2, 30, 3]
+assert alternating([True, False], [4, 5]) == [True, 4, False, 5]
+assert alternating([], []) == []
+
+Question: Modify the function so that it returns all input elements when the lists have uneven length. The elements from the longer list should be at the end.
+
+Answer: Here is the modified function.
+
+def alternating(list1, list2):
+   results = []
+   for i in range(min(len(list1), len(list2))):
+       results.append(list1[i])
+       results.append(list2[i])
+   if len(list1) > len(list2):
+       results.extend(list1[i+1:])
+   else:
+       results.extend(list2[i+1:])
+   return results
+
+-----
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>为了演示需要，我们将系统提示复制十倍，以便输入长度足够长以观察 Flash 注意力带来的内存节省。然后在其后加上原始提示 <code>&quot;Question: Please write a function in Python that transforms bytes to Giga bytes.\n\nAnswer: Here&quot;</code> :</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">long_prompt <span class="token operator">=</span> <span class="token number">10</span> <span class="token operator">*</span> system_prompt <span class="token operator">+</span> prompt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>以 bfloat16 精度再次初始化模型。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">model <span class="token operator">=</span> AutoModelForCausalLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"bigcode/octocoder"</span><span class="token punctuation">,</span> torch_dtype<span class="token operator">=</span>torch<span class="token punctuation">.</span>bfloat16<span class="token punctuation">,</span> device_map<span class="token operator">=</span><span class="token string">"auto"</span><span class="token punctuation">)</span>
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"bigcode/octocoder"</span><span class="token punctuation">)</span>
+
+pipe <span class="token operator">=</span> pipeline<span class="token punctuation">(</span><span class="token string">"text-generation"</span><span class="token punctuation">,</span> model<span class="token operator">=</span>model<span class="token punctuation">,</span> tokenizer<span class="token operator">=</span>tokenizer<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>现在，我们可以像以前一样运行模型，同时测量其峰值 GPU 显存需求及推理时间。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> time
+
+start_time <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+result <span class="token operator">=</span> pipe<span class="token punctuation">(</span>long_prompt<span class="token punctuation">,</span> max_new_tokens<span class="token operator">=</span><span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"generated_text"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token builtin">len</span><span class="token punctuation">(</span>long_prompt<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Generated in </span><span class="token interpolation"><span class="token punctuation">&#123;</span>time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start_time<span class="token punctuation">&#125;</span></span><span class="token string"> seconds."</span></span><span class="token punctuation">)</span>
+result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong>:</p>
+<pre class="line-numbers language-none"><code class="language-none">Generated in 10.96854019165039 seconds.
+Sure. Here is a function that does that.\n\ndef bytes_to_giga(bytes):\n return bytes &#x2F; 1024 &#x2F; 1024 &#x2F; 1024\n\nAnswer: Sure. Here is a function that does that.\n\ndef<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>输出与之前一样，但是这一次，模型会多次重复答案，直到达到 60 个词元为止。这并不奇怪，因为出于演示目的，我们将系统提示重复了十次，从而提示模型重复自身。</p>
+<p><strong>注意</strong>，在实际应用中，系统提示不应重复十次 —— 一次就够了！</p>
+<p>我们测量一下峰值 GPU 显存需求。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">bytes_to_giga_bytes<span class="token punctuation">(</span>torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>max_memory_allocated<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>输出</strong>:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">37.668193340301514</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>正如我们所看到的，峰值 GPU 显存需求现在明显高于以前，这主要是因为输入序列变长了。整个生成过程也需要一分多钟的时间。</p>
+<p>我们调用 <code>flush()</code> 来释放 GPU 内存以供下一个实验使用。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">flush<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>为便于比较，我们运行相同的函数，但启用 Flash 注意力。<br><strong>为此，我们将模型转换为 <a href="https://huggingface.co/docs/optimum/bettertransformer/overview">BetterTransformers</a>，这会因此而启用 PyTorch 的 <a href="https://pytorch.org/docs/master/generated/torch.nn.functional.scaled_dot_product_attention">SDPA 自注意力</a>，其实现是基于 Flash 注意力的。</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">model<span class="token punctuation">.</span>to_bettertransformer<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>现在我们运行与之前完全相同的代码片段，但此时 Transformers 在底层将使用 Flash 注意力。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">start_time <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">with</span> torch<span class="token punctuation">.</span>backends<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>sdp_kernel<span class="token punctuation">(</span>enable_flash<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> enable_math<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> enable_mem_efficient<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    result <span class="token operator">=</span> pipe<span class="token punctuation">(</span>long_prompt<span class="token punctuation">,</span> max_new_tokens<span class="token operator">=</span><span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"generated_text"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token builtin">len</span><span class="token punctuation">(</span>long_prompt<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Generated in </span><span class="token interpolation"><span class="token punctuation">&#123;</span>time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start_time<span class="token punctuation">&#125;</span></span><span class="token string"> seconds."</span></span><span class="token punctuation">)</span>
+result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong>:</p>
+<pre class="line-numbers language-none"><code class="language-none">Generated in 3.0211617946624756 seconds.
+ Sure. Here is a function that does that.\n\ndef bytes_to_giga(bytes):\n return bytes &#x2F; 1024 &#x2F; 1024 &#x2F; 1024\n\nAnswer: Sure. Here is a function that does that.\n\ndef<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>结果与之前完全相同，但由于 Flash 注意力，我们可以观察到非常显著的加速。</strong></p>
+<p>我们最后一次测量一下内存消耗。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">bytes_to_giga_bytes<span class="token punctuation">(</span>torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>max_memory_allocated<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>输出</strong>:</p>
+<pre class="line-numbers language-none"><code class="language-none">32.617331981658936<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>我们几乎一下就回到了原来的 29GB 峰值 GPU 显存。</strong></p>
+<p><strong>我们可以观察到，与刚开始的短输入序列相比，使用 Flash 注意力且输入长序列时，我们只多用了大约 100MB 的 GPU 显存。</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">flush<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="架构背后的科学-长文本输入和聊天式-LLM-的策略选择"><a href="#架构背后的科学-长文本输入和聊天式-LLM-的策略选择" class="headerlink" title="架构背后的科学: 长文本输入和聊天式 LLM 的策略选择"></a>架构背后的科学: 长文本输入和聊天式 LLM 的策略选择</h2><p>到目前为止，我们已经研究了通过以下方式提高计算和内存效率:</p>
+<ul>
+<li>将权重转换为较低精度的格式</li>
+<li>用内存和计算效率更高的版本替换自注意力算法</li>
+</ul>
+<p>现在让我们看看如何改变 LLM 的架构，使其对于需要长文本输入的任务更高效， <em>例如</em> :</p>
+<ul>
+<li>检索增强问答</li>
+<li>总结</li>
+<li>聊天</li>
+</ul>
+<p><strong>请注意， <em>聊天</em> 应用不仅需要 LLM 处理长文本输入，还需要 LLM 能够有效地处理用户和助手之间的多轮对话 (例如 ChatGPT)。</strong></p>
+<p>一旦经过训练，LLM 的基本架构就很难改变，因此提前考虑 LLM 的任务特征并相应地优化模型架构非常重要。模型架构中有两个重要组件很快就会成为长输入序列的内存和&#x2F;或性能瓶颈。</p>
+<ul>
+<li><strong>位置嵌入 (positional embeddings)</strong></li>
+<li><strong>键值缓存 (key-value cache)</strong></li>
+</ul>
+<p>我们来一一详细探讨:</p>
+<h3 id="改进-LLM-的位置嵌入"><a href="#改进-LLM-的位置嵌入" class="headerlink" title="改进 LLM 的位置嵌入"></a>改进 LLM 的位置嵌入</h3><p>自注意力机制计算每个词元间的相关系数。例如，文本输入序列 <em>“Hello”, “I”, “love”, “you”</em> 的  $\text{Softmax}(\mathbf{QK}^T)$ 矩阵看起来如下:</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803151759.png"></p>
+<p>每个词元都会被赋予一个概率值，表示其对另一个词元的关注度。<strong>例如， <em>“love”</em> 这个词关注 <em>“Hello”</em> 这个词的概率为 0.05%，关注 <em>“I”</em> 的概率为 0.3%，而对自己的关注概率则为 0.65%。</strong></p>
+<p><strong>基于自注意力但没有位置嵌入的 LLM 在理解输入文本彼此的相对位置上会遇到很大困难。</strong> 这是因为在经由 $\mathbf{QK}^T$ 来计算相关概率时，其计算是与词元间的相对距离无关的，即该计算与词元间的相对距离的关系为 $O(1)$。因此，对于没有位置嵌入的 LLM，每个词元似乎与所有其他词元等距。 <em>此时</em> ，区分 <em>“Hello I love you”</em> 和 <em>“You love I hello”</em> 会比较困难。</p>
+<p>为了让能够 LLM 理解语序，需要额外的 <em>提示</em> ，通常我们用 <em>位置编码</em> (也称为 <em>位置嵌入</em> ) 来注入这种提示。位置编码将每个词元的位置编码为数字，LLM 可以利用这些数字更好地理解语序。</p>
+<p><a href="https://arxiv.org/abs/1706.03762"><em>Attention Is All You Need</em> </a> 论文引入了正弦位置嵌入 $\mathbf{P} &#x3D; \mathbf{p}_1, \ldots, \mathbf{p}_N$。其中每个向量 $\mathbf{p}_i$ 为其位置 $i$ 的正弦函数。然后将位置编码与输入序列向量简单相加 $\mathbf{\hat{X}} &#x3D; \mathbf{\hat{x}}_1, \ldots, \mathbf{\hat{x}}_N$ &#x3D; $\mathbf{x}_1 + \mathbf{p}_1, \ldots, \mathbf{x}_N + \mathbf{p}_N$ 从而提示模型更好地学习语序。</p>
+<p>其他工作 (如 <a href="https://arxiv.org/abs/1810.04805">Devlin 等人的工作</a>) 没有使用固定位置嵌入，而是使用可训练的位置编码，在训练期间学习位置嵌入 $\mathbf{P}$。</p>
+<p>曾经，正弦位置嵌入以及可训练位置嵌入是将语序编码进 LLM 的主要方法，但这两个方法会有一些问题:</p>
+<ol>
+<li><p>正弦位置嵌入以及可训练位置嵌入都是绝对位置嵌入， <em>即</em> 为每个位置 id ($0, \ldots, N$) 生成一个唯一的嵌入。正如 <a href="https://arxiv.org/abs/2009.13658">Huang et al.</a> 和 <a href="https://arxiv.org/abs/2104.09864">Su et al.</a> 的工作所示，绝对位置嵌入会导致 LLM 在处理长文本输入时性能较差。<strong>对长文本输入而言，如果模型能够学习输入词元间的相对距离而不是它们的绝对位置，会比较好。</strong></p>
+</li>
+<li><p><strong>当使用训练位置嵌入时，LLM 必须在固定的输入长度 $N$上进行训练，因此如果推理时的输入长度比训练长度更长，外插会比较麻烦。</strong></p>
+</li>
+</ol>
+<p>最近，可以解决上述问题的相对位置嵌入变得越来越流行，其中应用最多的有两个:</p>
+<ul>
+<li><strong><a href="https://arxiv.org/abs/2104.09864">旋转位置嵌入 (Rotary Position Embedding， RoPE) </a></strong></li>
+<li><strong><a href="https://arxiv.org/abs/2108.12409">ALiBi</a></strong></li>
+</ul>
+<p><strong><em>RoPE</em> 和 <em>ALiBi</em> 都认为，最好直接在自注意力算法中向 LLM 提示语序，因为词元是通过自注意力机制互相关联的。</strong> 更具体地说，应该通过修改 $\mathbf{QK}^T$ 的计算来提示语序。</p>
+<p>简而言之， <em>RoPE</em> 指出位置信息可以编码为 <code>查询 - 键值对</code> ， <em>如</em> $\mathbf{q}_i$ 和 $\mathbf{x}_j$ 通过分别将每个向量根据其在句子中的位置 $i, j$ 旋转角度 $\theta \times i$ 和 $\theta \times j$:</p>
+<p>$$ \mathbf{\hat{q}}_i^T \mathbf{\hat{x}}_j &#x3D; \mathbf <em>i^T \mathbf{R}</em> {\theta, i -j} \mathbf_j. $$</p>
+<p>$\mathbf{R}_{\theta, i - j}$ 表示旋转矩阵。 $\theta$ 在不可训练的预定义值，其值取决于训练期间最大输入序列长度。</p>
+<blockquote>
+<p><strong>通过这样做，$\mathbf{q}_i$ 和 $\mathbf{q}_j$ 之间的概率得分仅受 $i \ne j$ 是否成立这一条件影响，且其值仅取决于相对距离 $i - j$，而与每个向量的具体位置 $i$ 和  $j$ 无关。</strong></p>
+</blockquote>
+<p>如今，多个最重要的 LLM 使用了 <em>RoPE</em> ，例如:</p>
+<ul>
+<li><a href="https://huggingface.co/tiiuae/falcon-40b"><strong>Falcon</strong></a></li>
+<li><a href="https://arxiv.org/abs/2302.13971"><strong>Llama</strong></a></li>
+<li><a href="https://arxiv.org/pdf/2204.02311.pdf"><strong>PaLM</strong></a></li>
+</ul>
+<p><strong>另一个方案是 <em>ALiBi</em> ， 它提出了一种更简单的相对位置编码方案。在计算 softmax 之前，$\mathbf{QK}^T$ 矩阵的每个元素会减去被一个预定义系数 <code>m</code> 缩放后的对应两个向量间的相对距离。</strong></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240803151915.png"></p>
+<p><strong>如 <a href="https://arxiv.org/abs/2108.12409">ALiBi</a> 论文所示，这种简单的相对位置编码使得模型即使在很长的文本输入序列中也能保持高性能。</strong></p>
+<p>当前也有多个最重要的 LLM 使用了 <em>ALiBi</em> ，如:</p>
+<ul>
+<li><strong>MPT</strong> <a href="https://huggingface.co/mosaicml/mpt-30b"></a></li>
+<li><strong>BLOOM</strong> <a href="https://huggingface.co/bigscience/bloom"></a></li>
+</ul>
+<p><strong><em>RoPE</em> 和 <em>ALiBi</em> 位置编码都可以外推到训练期间未见的输入长度，而事实证明，与 <em>RoPE</em> 相比， <em>ALiBi</em> 的外推效果要好得多。</strong> 对于 ALiBi，只需简单地增加下三角位置矩阵的值以匹配输入序列的长度即可。而对于 <em>RoPE</em> ，如果输入长度比训练期间的输入长得多，使用训练期间 $\theta$ 值的生成效果不好， <em>参见</em> <a href="https://arxiv.org/abs/2108.12409">Press et al.</a>。然而，社区已经找到了一些调整 $\theta$ 的有效技巧。从而允许 <em>RoPE</em> 位置嵌入能够很好地应对输入序列外插的状况 (请参阅 <a href="https://github.com/huggingface/transformers/pull/24653">此处</a>)。</p>
+<blockquote>
+<p>RoPE 和 ALiBi 都是相对位置嵌入，其嵌入参数是 <em>不可</em> 训练的，而是基于以下直觉:</p>
+</blockquote>
+<ul>
+<li><strong>有关输入文本的位置提示应直接提供给自注意力层的 $QK^T$ 矩阵</strong></li>
+<li><strong>应该激励 LLM 学习基于恒定 <em>相对</em> 距离的位置编码</strong></li>
+<li><strong>输入词元间彼此距离越远，它们的 <code>查询 - 键</code> 概率越低。 RoPE 和 ALiBi 都降低了距离较远词元间的 <code>查询 - 键</code> 概率。RoPE 通过增加 <code>查询 - 键</code> 向量之间的夹角来减少它们的向量积。而 ALiBi 通过从向量积中减去一个更大的数来达成这个目的。</strong></li>
+</ul>
+<p>总之，打算部署在需要处理长文本输入的任务中的 LLM 可以通过相对位置嵌入 (例如 RoPE 和 ALiBi) 来进行更好的训练。另请注意，使用了 RoPE 和 ALiBi 的 LLM 即使是仅在固定长度 (例如 $N_1 &#x3D; 2048$) 上训练的，其仍然可以在推理时通过位置嵌入外插来处理比 $N_1$ 长得多的文本输入 (如 $N_2 &#x3D; 8192 &gt; N_1$)。</p>
+<h3 id="键值缓存"><a href="#键值缓存" class="headerlink" title="键值缓存"></a>键值缓存</h3><p><strong>使用 LLM 进行自回归文本生成的工作原理是把输入序列输入给模型，并采样获得下一个词元，再将获得的词元添加到输入序列后面，如此往复，直到 LLM 生成一个表示结束的词元。</strong></p>
+<p>请查阅 <a href="https://huggingface.co/docs/transformers/llm_tutorial#generate-text">Transformer 的文本生成教程</a> 以更直观地了解自回归生成的工作原理。</p>
+<p><strong>下面，我们快速运行一个代码段来展示自回归是如何工作的。我们简单地使用 <code>torch.argmax</code> 获取最有可能的下一个词元。</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">input_ids <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>prompt<span class="token punctuation">,</span> return_tensors<span class="token operator">=</span><span class="token string">"pt"</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">"input_ids"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span><span class="token string">"cuda"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  next_logits <span class="token operator">=</span> model<span class="token punctuation">(</span>input_ids<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">"logits"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+  next_token_id <span class="token operator">=</span> torch<span class="token punctuation">.</span>argmax<span class="token punctuation">(</span>next_logits<span class="token punctuation">,</span>dim<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+  input_ids <span class="token operator">=</span> torch<span class="token punctuation">.</span>cat<span class="token punctuation">(</span><span class="token punctuation">[</span>input_ids<span class="token punctuation">,</span> next_token_id<span class="token punctuation">]</span><span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"shape of input_ids"</span><span class="token punctuation">,</span> input_ids<span class="token punctuation">.</span>shape<span class="token punctuation">)</span>
+
+generated_text <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>batch_decode<span class="token punctuation">(</span>input_ids<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">5</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+generated_text<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong>:</p>
+<pre class="line-numbers language-none"><code class="language-none">shape of input_ids torch.Size([1, 21])
+shape of input_ids torch.Size([1, 22])
+shape of input_ids torch.Size([1, 23])
+shape of input_ids torch.Size([1, 24])
+shape of input_ids torch.Size([1, 25])
+[&#39; Here is a Python function&#39;]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>正如我们所看到的，每次我们都把刚刚采样出的词元添加到输入文本中。</strong></p>
+<p>除了极少数例外，LLM 都是基于因果语言模型的目标函数进行训练的，因此我们不需要注意力矩阵的上三角部分 - 这就是为什么在上面的两个图中，上三角的注意力分数是空的 ( <em>也即</em> 概率为 0)。想要快速入门因果语言模型，你可以参考这篇 <a href="https://jalammar.github.io/illustrated-gpt2/#part-2-illustrated-self-attention"><em>图解自注意力</em></a> 博文。</p>
+<p><strong>因此，当前词元 <em>永远仅</em> 依赖于其前面的词元，更具体地说，$\mathbf{q} <em>i$ 向量永远与任何 $j &gt; i$ 的键、值向量无关联。相反 $\mathbf{q} <em>i$ 仅关注其之前的键、值向量 $\mathbf{k}</em> {m &lt; i}, \mathbf{v}</em> {m &lt; i} \text{，} m \in {0, \ldots i - 1}$。为了减少不必要的计算，因此可以把先前所有步的每一层的键、值向量缓存下来。</strong></p>
+<p>接下来，我们将告诉 LLM 在每次前向传播中都利用键值缓存来减少计算量。<strong>在 Transformers 中，我们可以通过将 <code>use_cache</code> 参数传给 <code>forward</code> 来利用键值缓存，这样的话，每次推理仅需传当前词元给 <code>forward</code> 就可以。</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">past_key_values <span class="token operator">=</span> <span class="token boolean">None</span> <span class="token comment"># past_key_values is the key-value cache</span>
+generated_tokens <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+next_token_id <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>prompt<span class="token punctuation">,</span> return_tensors<span class="token operator">=</span><span class="token string">"pt"</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">"input_ids"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span><span class="token string">"cuda"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  next_logits<span class="token punctuation">,</span> past_key_values <span class="token operator">=</span> model<span class="token punctuation">(</span>next_token_id<span class="token punctuation">,</span> past_key_values<span class="token operator">=</span>past_key_values<span class="token punctuation">,</span> use_cache<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to_tuple<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  next_logits <span class="token operator">=</span> next_logits<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+  next_token_id <span class="token operator">=</span> torch<span class="token punctuation">.</span>argmax<span class="token punctuation">(</span>next_logits<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"shape of input_ids"</span><span class="token punctuation">,</span> next_token_id<span class="token punctuation">.</span>shape<span class="token punctuation">)</span>
+  <span class="token comment"># past_key_values are a tuple (one for each Transformer layer) of tuples (one for the keys, one for the values)</span>
+  <span class="token comment"># cached keys and values each are of shape (batch_size, num_heads, sequence_length, embed_size_per_head)</span>
+  <span class="token comment"># hence let's print how many cached keys and values we have for the first Transformer layer</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"number of cached keys of the first Transformer layer"</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>past_key_values<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"number of cached values of the first Transformer layer"</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>past_key_values<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  
+  generated_tokens<span class="token punctuation">.</span>append<span class="token punctuation">(</span>next_token_id<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+generated_text <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>batch_decode<span class="token punctuation">(</span>generated_tokens<span class="token punctuation">)</span>
+generated_text<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong>:</p>
+<pre class="line-numbers language-none"><code class="language-none">shape of input_ids torch.Size([1, 1])
+number of cached keys of the first Transformer layer: 20
+number of cached values of the first Transformer layer: 20
+shape of input_ids torch.Size([1, 1])
+number of cached keys of the first Transformer layer: 21
+number of cached values of the first Transformer layer: 21
+shape of input_ids torch.Size([1, 1])
+number of cached keys of the first Transformer layer: 22
+number of cached values of the first Transformer layer: 22
+shape of input_ids torch.Size([1, 1])
+number of cached keys of the first Transformer layer: 23
+number of cached values of the first Transformer layer: 23
+shape of input_ids torch.Size([1, 1])
+number of cached keys of the first Transformer layer: 24
+number of cached values of the first Transformer layer: 24
+[&#39; Here&#39;, &#39; is&#39;, &#39; a&#39;, &#39; Python&#39;, &#39; function&#39;]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>正如我们所看到的，当使用键值缓存时，输入文本的长度 <em>没有</em> 增加，每次都只有一个向量。另一方面，键值缓存的长度每解码步都增加了一。</strong></p>
+<blockquote>
+<p><strong>利用键值缓存意味着 $\mathbf{QK}^T$ 本质上减少为 $\mathbf{q}_c\mathbf{K}^T$，其中 $\mathbf{q}_c$ 是当前输入词元的查询投影，它 <em>始终</em> 只是单个向量。</strong></p>
+</blockquote>
+<p>使用键值缓存有两个优点:</p>
+<ul>
+<li><strong>与计算完整的 $\mathbf{QK}^T$ 矩阵相比，计算量更小，计算效率显著提高，因此推理速度也随之提高。</strong></li>
+<li><strong>所需的最大内存不随生成的词元数量呈二次方增加，而仅呈线性增加。</strong></li>
+</ul>
+<blockquote>
+<p><strong>用户应该 <em>始终</em> 使用键值缓存，因为它的生成结果相同且能显著加快长输入序列的生成速度。当使用文本 pipeline 或 <a href="https://huggingface.co/docs/transformers/main_classes/text_generation"><code>generate</code> 方法</a> 时，Transformers 默认启用键值缓存。</strong></p>
+</blockquote>
+<p><strong>请注意，键值缓存对于聊天等需要多轮自回归解码的应用程序特别有用。</strong> 我们看一个例子。</p>
+<pre class="line-numbers language-none"><code class="language-none">User: How many people live in France?
+Assistant: Roughly 75 million people live in France
+User: And how many are in Germany?
+Assistant: Germany has ca. 81 million inhabitants<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在这个聊天示例中，LLM 需自回归解码两次:</p>
+<ol>
+<li>第一次，键值缓存为空，输入提示为 <code>&quot;User: How many people live in France?&quot;</code> ，模型自回归生成文本 <code>&quot;Roughly 75 million people live in France&quot;</code> ，同时在每个解码步添加键值缓存。</li>
+<li>第二次输入提示为 <code>&quot;User: How many people live in France? \n Assistant: Roughly 75 million people live in France \n User: And how many in Germany?&quot;</code> 。由于缓存，前两个句子的所有键值向量都已经计算出来。因此输入提示仅包含 <code>&quot;User: And how many in Germany?&quot;</code> 。在处理缩短的输入提示时，计算出的键值向量将添加到第一次解码的键值缓存后面。然后，助手使用键值缓存自回归地生成第二个问题的答案 <code>&quot;Germany has ca. 81 million inhabitants&quot;</code> ，该键值缓存是 <code>&quot;User: How many people live in France? \n Assistant: Roughly 75 million people live in France \n User: And how many are in Germany?&quot;</code> 的编码向量序列。</li>
+</ol>
+<p>这里需要注意两件事:</p>
+<ol>
+<li><strong>保留所有上下文对于在聊天场景中部署的 LLM 至关重要，以便 LLM 理解对话的所有上文。例如，上面的示例中，LLM 需要了解用户在询问 <code>&quot;And how many are in Germany&quot;</code> 时指的是人口。</strong></li>
+<li><strong>键值缓存对于聊天非常有用，因为它允许我们不断增长聊天历史记录的编码缓存，而不必对聊天历史记录从头开始重新编码 (当使用编码器 - 解码器时架构时我们就不得不这么做)。</strong></li>
+</ol>
+<p>然而，还有一个问题。<strong>虽然 $\mathbf{QK}^T$ 矩阵所需的峰值内存显著减少，但对于长输入序列或多轮聊天，将键值缓存保留在内存中还是会非常昂贵。请记住，键值缓存需要存储先前所有输入向量 $\mathbf{x}_i \text{, for } i \in {1, \ldots, c - 1}$ 的所有层、所有注意力头的键值向量。</strong></p>
+<p>我们计算一下我们之前使用的 LLM <code>bigcode/octocoder</code> 需要存储在键值缓存中的浮点数的个数。浮点数的个数等于序列长度的两倍乘以注意力头的个数乘以注意力头的维度再乘以层数。假设输入序列长度为 16000，我们计算得出:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">config <span class="token operator">=</span> model<span class="token punctuation">.</span>config
+<span class="token number">2</span> <span class="token operator">*</span> <span class="token number">16_000</span> <span class="token operator">*</span> config<span class="token punctuation">.</span>n_layer <span class="token operator">*</span> config<span class="token punctuation">.</span>n_head <span class="token operator">*</span> config<span class="token punctuation">.</span>n_embd <span class="token operator">//</span> config<span class="token punctuation">.</span>n_head<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>输出</strong>:</p>
+<pre class="line-numbers language-none"><code class="language-none">7864320000<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>大约 80 亿个浮点数！以 <code>float16</code> 精度存储 80 亿个浮点值需要大约 15 GB 的显存，大约是模型本身权重的一半！</strong></p>
+<p>研究人员提出了两种方法，用于显著降低键值缓存的内存成本:</p>
+<ol>
+<li><p><a href="https://arxiv.org/abs/1911.02150">多查询注意力 (Multi-Query-Attention，MQA) </a></p>
+<p> 多查询注意力机制是 Noam Shazeer 在 <em>Fast Transformer Decoding: One Write-Head is All You Need</em> 论文中提出的。正如标题所示，Noam 发现，可以在所有注意力头之间共享同一对键、值投影权重，而不是使用 <code>n_head</code> 对键值投影权重，这并不会显著降低模型的性能。</p>
+<blockquote>
+<p><strong>通过共享同一对键、值投影权重，键值向量 $\mathbf{k}_i, \mathbf{v}_i$ 在所有注意力头上相同，这意味着我们只需要缓存 1 个键值投影对，而不需要 <code>n_head</code> 对。</strong></p>
+</blockquote>
+<p> 由于大多数 LLM 有 20 到 100 个注意力头，MQA 显著减少了键值缓存的内存消耗。因此，对于本文中使用的 LLM，假设输入序列长度为 16000，其所需的内存消耗从 15 GB 减少到不到 400 MB。</p>
+<p> 除了节省内存之外，MQA 还可以提高计算效率。在自回归解码中，需要重新加载大的键值向量，与当前的键值向量对相串接，然后将其输入到每一步的 $\mathbf{q}_c\mathbf{K}^T$ 计算中。<strong>对于自回归解码，不断重新加载所需的内存带宽可能成为严重的性能瓶颈。</strong> 通过减少键值向量的大小，需要访问的内存更少，从而减少内存带宽瓶颈。欲了解更多详细信息，请查看 <a href="https://arxiv.org/abs/1911.02150">Noam 的论文</a>。</p>
+<p> <strong>这里的重点是，只有使用键值缓存时，将键值注意力头的数量减少到 1 才有意义。</strong> 没有键值缓存时，模型单次前向传播的峰值内存消耗保持不变，因为每个注意力头查询向量不同，因此每个注意力头的 $\mathbf{QK}^T$ 矩阵也不相同。</p>
+<p> MQA 已被社区广泛采用，现已被许多流行的 LLM 所采用:</p>
+<ul>
+<li><a href="https://huggingface.co/tiiuae/falcon-40b"><strong>Falcon</strong></a></li>
+<li><a href="https://arxiv.org/pdf/2204.02311.pdf"><strong>PaLM</strong></a></li>
+<li><a href="https://huggingface.co/mosaicml/mpt-30b"><strong>MPT</strong></a></li>
+<li><a href="https://huggingface.co/bigscience/bloom"><strong>BLOOM</strong></a></li>
+</ul>
+<p> 此外，本文所使用的检查点 - <code>bigcode/octocoder</code> - 也使用了 MQA。</p>
+</li>
+<li><p><a href="https://arxiv.org/abs/2305.13245">分组查询注意力 (Grouped-Query-Attention，GQA) </a></p>
+<p> 分组查询注意力由来自 Google 的 Ainslie 等人提出，它们发现，与原始的多头键值投影相比，使用 MQA 通常会导致生成质量下降。该论文认为，通过不太大幅度地减少查询头投影权重的数量可以获得更高的模型性能。<strong>不应仅使用单个键值投影权重，而应使用 <code>n &lt; n_head</code> 个键值投影权重。通过将 <code>n</code> 设为比 <code>n_head</code> 小得多的值 (例如 2，4 或 8)，几乎可以保留 MQA 带来的所有内存和速度增益，同时更少地牺牲模型能力，或者说说仅略微牺牲模型性能。</strong></p>
+<p> 此外，<strong>GQA 的作者发现，现有的模型检查点可以通过 <em>升级训练</em> ，变成 GQA 架构，而其所需的计算量仅为原始预训练计算的 5%。虽然 5% 的原始预训练计算量仍然很大，但 GQA <em>升级训练</em> 允许现有 checkpoint 通过这个机制，升级成能处理长输入序列的 checkpoint，这点还是挺诱人的。</strong></p>
+<p> GQA 最近才被提出，这就是为什么截至本文撰写时其被采用得较少。GQA 最著名的应用是 <a href="https://huggingface.co/meta-llama/Llama-2-70b-hf">Llama-v2</a>。</p>
+<blockquote>
+<p><strong>总之，如果部署自回归解码的 LLM 并且需要处理长输入序列 (例如聊天)，我们强烈建议使用 GQA 或 MQA。</strong></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>研究界不断提出新的、巧妙的方法来加速更大的 LLM 的推理。<strong>举个例子，一个颇有前景的研究方向是 <a href="https://arxiv.org/abs/2211.17192">投机解码</a>，其中“简单词元”是由更小、更快的语言模型生成的，而只有“难词元”是由 LLM 本身生成的。</strong> 详细介绍超出了本文的范围，但可以阅读这篇 <a href="https://huggingface.co/blog/zh/assisted-generation">不错的博文</a>。</p>
+<p>GPT3&#x2F;4、Llama-2-70b、Claude、PaLM 等海量 LLM 能够在 <a href="https://huggingface.co/chat/">Hugging Face Chat</a> 或 ChatGPT 等聊天应用中快速运行的原因是很大一部分归功于上述精度、算法和架构方面的改进。展望未来，GPU、TPU 等加速器只会变得更快且内存更大，但人们仍然应该始终确保使用最好的可用算法和架构来获得最大的收益 🤗。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百五十一篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2024/08/03/00151-mian-xiang-sheng-chan-de-llm-you-hua/">https://luyf-lemon-love.space/2024/08/03/00151-mian-xiang-sheng-chan-de-llm-you-hua/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大语言模型</span>
+                                </a>
+                            
+                                <a href="/tags/huggingface/">
+                                    <span class="chip bg-color">huggingface</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/08/03/00152-stackllama-yong-rlhf-xun-lian-llama-de-shou-ba-shou-jiao-cheng/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/038-119887888.jpg" class="responsive-img" alt="00152 “StackLLaMA”: 用 RLHF 训练 LLaMA 的手把手教程">
+                        
+                        <span class="card-title">00152 “StackLLaMA”: 用 RLHF 训练 LLaMA 的手把手教程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-08-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/08/03/00150-shi-yong-dpo-wei-diao-llama-2/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/036-119926187.jpg" class="responsive-img" alt="00150 使用 DPO 微调 Llama 2">
+                        
+                        <span class="card-title">00150 使用 DPO 微调 Llama 2</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

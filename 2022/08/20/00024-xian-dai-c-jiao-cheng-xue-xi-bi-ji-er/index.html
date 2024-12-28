@@ -1,0 +1,3246 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00024-现代 C++ 教程学习笔记（二）, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言现代 C++ 教程：高速上手 C++ 11&amp;#x2F;14&amp;#x2F;17&amp;#x2F;20（第二版） 是欧长坤 (hi[at]changkun.de) 用中文写的。
+本人的笔记对应的书籍最后更新时间为 2022 年 7 月 17 日。
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00024-现代 C++ 教程学习笔记（二） | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/OrnnkaalRocks_1Full.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00024-现代 C++ 教程学习笔记（二）</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/C/">
+                                <span class="chip bg-color">C++</span>
+                            </a>
+                        
+                            <a href="/tags/make/">
+                                <span class="chip bg-color">make</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/C/" class="post-category">
+                                C++
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-08-20
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a href="https://changkun.de/modern-cpp/">现代 C++ 教程：高速上手 C++ 11&#x2F;14&#x2F;17&#x2F;20（第二版）</a> 是欧长坤 (hi[at]changkun.de) 用中文写的。</p>
+<p>本人的笔记对应的书籍最后更新时间为 2022 年 7 月 17 日。</p>
+<p>本书的官网为 <a href="https://changkun.de/modern-cpp/">https://changkun.de/modern-cpp/</a> 。可以在线阅读或者下载 PDF 版本。</p>
+<p>本书 GitHub 的地址为 <a href="https://github.com/changkun/modern-cpp-tutorial">https://github.com/changkun/modern-cpp-tutorial</a> 。</p>
+<p>本书 code 的地址为 <a href="https://github.com/changkun/modern-cpp-tutorial/tree/master/code">https://github.com/changkun/modern-cpp-tutorial/tree/master/code</a> 。</p>
+<p>本书 exercises 的地址为 <a href="https://github.com/changkun/modern-cpp-tutorial/tree/master/exercises">https://github.com/changkun/modern-cpp-tutorial/tree/master/exercises</a> 。</p>
+<p>操作系统：<strong>Windows 10 专业版</strong></p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://changkun.de/modern-cpp/">现代 C++ 教程：高速上手 C++ 11&#x2F;14&#x2F;17&#x2F;20（第二版）</a></li>
+</ol>
+<h2 id="第-3-章-语言运行期的强化"><a href="#第-3-章-语言运行期的强化" class="headerlink" title="第 3 章 语言运行期的强化"></a>第 3 章 语言运行期的强化</h2><h3 id="Lambda-表达式"><a href="#Lambda-表达式" class="headerlink" title="Lambda 表达式"></a>Lambda 表达式</h3><p><code>Lambda</code> 表达式是现代 <code>C++</code> 中最重要的特性之一，而 <code>Lambda</code> 表达式，实际上就是提供了一个类似<code>匿名函数</code>的特性，而<code>匿名函数</code>则是在需要一个函数，但是又不想费力去命名一个函数的情况下去使用的。这样的场景其实有很多很多，所以<code>匿名函数</code>几乎是现代编程语言的标配。</p>
+<h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><p><code>Lambda</code> 表达式的基本语法如下：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">[捕获列表](参数列表) mutable(可选) 异常属性 -&gt; 返回类型 &#123;
+&#x2F;&#x2F; 函数体
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>上面的语法规则除了 <code>[捕获列表]</code> 内的东西外，其他部分都很好理解，只是一般函数的函数名被略去，<code>返回值</code>使用了一个 <code>-&gt;</code> 的形式进行（我们在上一节前面的<code>尾返回类型</code>已经提到过这种写法了）。</p>
+<p>所谓<code>捕获列表</code>，其实可以理解为<code>参数</code>的一种类型，<code>Lambda</code> 表达式<code>内部函数体</code>在默认情况下是不能够使用函数体外部的变量的，这时候<code>捕获列表</code>可以起到<code>传递外部数据</code>的作用。根据传递的行为，捕获列表也分为以下几种：</p>
+<p><strong>1. 值捕获</strong></p>
+<p>与<code>参数传值</code>类似，<code>值捕获</code>的前提是变量可以拷贝，不同之处则在于，被捕获的变量在 <code>Lambda</code> 表达式被<code>创建时拷贝</code>，而<code>非调用时才拷贝</code>：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void lambda_value_capture() &#123;
+    int value &#x3D; 1;
+    auto copy_value &#x3D; [value] &#123;
+        return value;
+    &#125;;
+    value &#x3D; 100;
+    auto stored_value &#x3D; copy_value();
+    std::cout &lt;&lt; &quot;stored_value &#x3D; &quot; &lt;&lt; stored_value &lt;&lt; std::endl;
+    &#x2F;&#x2F; 这时, stored_value &#x3D;&#x3D; 1, 而 value &#x3D;&#x3D; 100.
+    &#x2F;&#x2F; 因为 copy_value 在创建时就保存了一份 value 的拷贝
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>2. 引用捕获</strong></p>
+<p>与<code>引用传参</code>类似，<code>引用捕获</code>保存的是<code>引用</code>，值会发生变化。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void lambda_reference_capture() &#123;
+    int value &#x3D; 1;
+    auto copy_value &#x3D; [&amp;value] &#123;
+        return value;
+    &#125;;
+    value &#x3D; 100;
+    auto stored_value &#x3D; copy_value();
+    std::cout &lt;&lt; &quot;stored_value &#x3D; &quot; &lt;&lt; stored_value &lt;&lt; std::endl;
+    &#x2F;&#x2F; 这时, stored_value &#x3D;&#x3D; 100, value &#x3D;&#x3D; 100.
+    &#x2F;&#x2F; 因为 copy_value 保存的是引用
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>3. 隐式捕获</strong></p>
+<p>手动书写捕获列表有时候是非常复杂的，这种机械性的工作可以交给编译器来处理，这时候可以在捕获列表中写一个 <code>&amp;</code> 或 <code>=</code> 向编译器声明采用<code>引用捕获</code>或者<code>值捕获</code>。</p>
+<p>总结一下，捕获提供了 <code>Lambda</code> 表达式对外部值进行使用的功能，<code>捕获列表</code>的最常用的四种形式可以是：</p>
+<ul>
+<li><p><code>[]</code> 空捕获列表。</p>
+</li>
+<li><p><code>[name1, name2, ...]</code> 捕获一系列变量。</p>
+</li>
+<li><p><code>[&amp;]</code> 引用捕获, 让编译器自行推导引用列表。</p>
+</li>
+<li><p><code>[=]</code> 值捕获, 让编译器自行推导值捕获列表。</p>
+</li>
+</ul>
+<p><strong>4. 表达式捕获</strong></p>
+<p>上面提到的<code>值捕获</code>、<code>引用捕获</code>都是已经在<code>外层作用域声明的变量</code>，因此这些捕获方式捕获的均为<code>左值</code>，而不能捕获<code>右值</code>。</p>
+<p><code>C++14</code> 给与了我们方便，允许捕获的成员用任意的表达式进行初始化，这就允许了<code>右值的捕获</code>，<code>被声明的捕获变量类型</code>会根据表达式进行判断，判断方式与使用 <code>auto</code> 本质上是相同的：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;  &#x2F;&#x2F; std::make_unique
+#include &lt;utility&gt; &#x2F;&#x2F; std::move
+
+void lambda_expression_capture() &#123;
+    auto important &#x3D; std::make_unique&lt;int&gt;(1);
+    auto add &#x3D; [v1 &#x3D; 1, v2 &#x3D; std::move(important)](int x, int y) -&gt; int &#123;
+        return x+y+v1+(*v2);
+    &#125;;
+    std::cout &lt;&lt; add(3,4) &lt;&lt; std::endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在上面的代码中，<code>important</code> 是一个<code>独占指针</code>，是不能够被 “&#x3D;” 值捕获到，这时候我们可以将其转移为<code>右值</code>，在表达式中初始化。</p>
+<h4 id="泛型-Lambda"><a href="#泛型-Lambda" class="headerlink" title="泛型 Lambda"></a>泛型 Lambda</h4><p>从 <code>C++14</code> 开始，<code>Lambda</code> 函数的形式参数可以使用 <code>auto</code> 关键字来产生<code>意义上的泛型</code>：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto add &#x3D; [](auto x, auto y) &#123;
+    return x+y;
+&#125;;
+
+add(1, 2);
+add(1.1, 2.2);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Files"><a href="#Files" class="headerlink" title="Files"></a>Files</h4><ol>
+<li>运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /f/vscode/cpp_projects/modern-cpp-tutorial/code/
+<span class="token function">mkdir</span> <span class="token number">3</span>
+<span class="token builtin class-name">cd</span> <span class="token number">3</span>/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="2">
+<li>创建 <code>3.1.lambda.basic.cpp</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 3.1.lambda.basic.cpp
+&#x2F;&#x2F; created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com&gt;
+
+#include &lt;iostream&gt;
+#include &lt;memory&gt; &#x2F;&#x2F; std::make_unique
+#include &lt;utility&gt; &#x2F;&#x2F; std::move
+
+void lambda_value_capture() &#123;
+        int value &#x3D; 1;
+        auto copy_value &#x3D; [value] &#123;
+                return value;
+        &#125;;
+        value &#x3D; 100;
+        auto stored_value &#x3D; copy_value();
+        std::cout &lt;&lt; &quot;stored_value &#x3D; &quot; &lt;&lt; stored_value &lt;&lt; std::endl;
+        &#x2F;&#x2F; At this moment, stored_value &#x3D;&#x3D; 1, and value &#x3D;&#x3D; 100.
+        &#x2F;&#x2F; Because copy_value has copied when its was created.
+&#125;
+
+void lambda_reference_capture() &#123;
+        int value &#x3D; 1;
+        auto copy_value &#x3D; [&amp;value] &#123;
+                return value;
+        &#125;;
+        value &#x3D; 100;
+        auto stored_value &#x3D; copy_value();
+        std::cout &lt;&lt; &quot;stored_value &#x3D; &quot; &lt;&lt; stored_value &lt;&lt; std::endl;
+        &#x2F;&#x2F; At this moment, stored_value &#x3D;&#x3D; 100, value &#x3D;&#x3D; 100.
+        &#x2F;&#x2F; Because copy_value stores reference
+&#125;
+
+void lambda_expression_capture() &#123;
+        auto important &#x3D; std::make_unique&lt;int&gt;(1);
+        auto add &#x3D; [v1 &#x3D; 1, v2 &#x3D; std::move(important)](int x, int y) -&gt; int &#123;
+                return x+y+v1+(*v2);
+        &#125;;
+        std::cout &lt;&lt; add(3,4) &lt;&lt; std::endl;
+&#125;
+
+void lambda_generic() &#123;
+        auto generic &#x3D; [](auto x, auto y) &#123;
+                return x+y;
+        &#125;;
+
+        std::cout &lt;&lt; generic(1, 2) &lt;&lt; std::endl;
+        std::cout &lt;&lt; generic(1.1, 2.2) &lt;&lt; std::endl;
+&#125;
+
+int main() &#123;
+
+        lambda_value_capture();
+        lambda_reference_capture();
+        lambda_expression_capture();
+        lambda_generic();
+
+        return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="3">
+<li>创建 <code>Makefile</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile"><span class="token comment"># Makefile</span>
+<span class="token comment"># created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com></span>
+
+<span class="token target symbol">all</span><span class="token punctuation">:</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">patsubst</span> %.cpp, %.out, <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">wildcard</span> *.cpp<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token target symbol">%.out</span><span class="token punctuation">:</span> %.cpp Makefile
+        clang++ <span class="token variable">$&lt;</span> -o <span class="token variable">$@</span> -std<span class="token operator">=</span>c++2a -pedantic
+
+<span class="token target symbol">clean</span><span class="token punctuation">:</span>
+        rm *.out<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ tree
+<span class="token builtin class-name">.</span>
+├── <span class="token number">3.1</span>.lambda.basic.cpp
+└── Makefile
+
+<span class="token number">0</span> directories, <span class="token number">2</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">make</span>
+clang++ <span class="token number">3.1</span>.lambda.basic.cpp <span class="token parameter variable">-o</span> <span class="token number">3.1</span>.lambda.basic.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp  <span class="token number">3.1</span>.lambda.basic.out  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ./3.1.lambda.basic.out
+stored_value <span class="token operator">=</span> <span class="token number">1</span>
+stored_value <span class="token operator">=</span> <span class="token number">100</span>
+<span class="token number">9</span>
+<span class="token number">3</span>
+<span class="token number">3.3</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">make</span> clean
+<span class="token function">rm</span> *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="函数对象包装器"><a href="#函数对象包装器" class="headerlink" title="函数对象包装器"></a>函数对象包装器</h3><p>这部分内容虽然属于标准库的一部分，但是从本质上来看，它却增强了 <code>C++ 语言运行时</code>的能力，这部分内容也相当重要，所以放到这里来进行介绍。</p>
+<h4 id="std-function"><a href="#std-function" class="headerlink" title="std::function"></a>std::function</h4><p><code>Lambda 表达式</code>的本质是一个和<code>函数对象类型</code>相似的<code>类型</code>（称为<code>闭包类型</code>）的对象（称为<code>闭包对象</code>），当 <code>Lambda 表达式</code>的捕获列表为空时，<code>闭包对象</code>还能够转换为<code>函数指针值</code>进行传递，例如：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+
+using foo &#x3D; void(int); &#x2F;&#x2F; 定义函数类型, using 的使用见上一节中的别名语法
+void functional(foo f) &#123; &#x2F;&#x2F; 参数列表中定义的函数类型 foo 被视为退化后的函数指针类型 foo*
+    f(1); &#x2F;&#x2F; 通过函数指针调用函数
+&#125;
+
+int main() &#123;
+    auto f &#x3D; [](int value) &#123;
+        std::cout &lt;&lt; value &lt;&lt; std::endl;
+    &#125;;
+    functional(f); &#x2F;&#x2F; 传递闭包对象，隐式转换为 foo* 类型的函数指针值
+    f(1); &#x2F;&#x2F; lambda 表达式调用
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面的代码给出了两种不同的调用形式，一种是将 <code>Lambda</code> 作为函数类型传递进行调用，而另一种则是直接调用 <code>Lambda</code> 表达式，在 <code>C++11</code> 中，统一了这些概念，将能够被调用的对象的类型，统一称之为<code>可调用类型</code>。而这种类型，便是通过 <code>std::function</code> 引入的。</p>
+<p><code>C++11</code> <code>std::function</code> 是一种通用、多态的函数封装，它的实例可以对任何可以调用的目标实体进行<code>存储</code>、<code>复制</code>和<code>调用</code>操作，它也是对 <code>C++</code> 中现有的<code>可调用实体</code>的一种<code>类型安全</code>的包裹（相对来说，<code>函数指针</code>的调用不是<code>类型安全</code>的），换句话说，就是函数的<code>容器</code>。当我们有了函数的容器之后便能够更加方便的将<code>函数</code>、<code>函数指针</code>作为对象进行处理。例如：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;functional&gt;
+#include &lt;iostream&gt;
+
+int foo(int para) &#123;
+    return para;
+&#125;
+
+int main() &#123;
+    &#x2F;&#x2F; std::function 包装了一个返回值为 int, 参数为 int 的函数
+    std::function&lt;int(int)&gt; func &#x3D; foo;
+
+    int important &#x3D; 10;
+    std::function&lt;int(int)&gt; func2 &#x3D; [&amp;](int value) -&gt; int &#123;
+        return 1+value+important;
+    &#125;;
+    std::cout &lt;&lt; func(10) &lt;&lt; std::endl;
+    std::cout &lt;&lt; func2(10) &lt;&lt; std::endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="std-bind-和-std-placeholder"><a href="#std-bind-和-std-placeholder" class="headerlink" title="std::bind 和 std::placeholder"></a>std::bind 和 std::placeholder</h4><p>而 <code>std::bind</code> 则是用来绑定函数调用的参数的，它解决的需求是我们有时候可能并不一定能够一次性获得调用某个函数的全部参数，通过这个函数，我们<code>可以将部分调用参数提前绑定到函数身上成为一个新的对象，然后在参数齐全后，完成调用</code>。例如：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int foo(int a, int b, int c) &#123;
+    ;
+&#125;
+int main() &#123;
+    &#x2F;&#x2F; 将参数1,2绑定到函数 foo 上，
+    &#x2F;&#x2F; 但使用 std::placeholders::_1 来对第一个参数进行占位
+    auto bindFoo &#x3D; std::bind(foo, std::placeholders::_1, 1,2);
+    &#x2F;&#x2F; 这时调用 bindFoo 时，只需要提供第一个参数即可
+    bindFoo(1);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>提示：注意 <code>auto</code> 关键字的妙用。有时候我们可能不太熟悉一个函数的返回值类型，但是我们却可以通过 <code>auto</code> 的使用来规避这一问题的出现。</p>
+</blockquote>
+<h4 id="Files-1"><a href="#Files-1" class="headerlink" title="Files"></a>Files</h4><ol>
+<li>运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /f/vscode/cpp_projects/modern-cpp-tutorial/code/3/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>创建 <code>3.2.function.wrap.cpp</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 3.2.function.wrap.cpp
+&#x2F;&#x2F; created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com&gt;
+
+#include &lt;functional&gt;
+#include &lt;iostream&gt;
+
+using foo &#x3D; void(int);  &#x2F;&#x2F; function pointer
+void functional(foo f) &#123;
+        f(1);
+&#125;
+
+int foo2(int para) &#123;
+        return para;
+&#125;
+
+int foo3(int a, int b, int c) &#123;
+        return 0;
+&#125;
+
+int main() &#123;
+
+        auto f &#x3D; [](int value) &#123;
+                std::cout &lt;&lt; value &lt;&lt; std::endl;
+        &#125;;
+        functional(f);  &#x2F;&#x2F; call by function pointer
+        f(1);           &#x2F;&#x2F; call by lambda expression
+
+        &#x2F;&#x2F; std::function wraps a function that take int parameter and returns int value
+        std::function&lt;int(int)&gt; func &#x3D; foo2;
+
+        int important &#x3D; 10;
+        std::function&lt;int(int)&gt; func2 &#x3D; [&amp;](int value) -&gt; int &#123;
+                return 1+value+important;
+        &#125;;
+        std::cout &lt;&lt; func(10) &lt;&lt; std::endl;
+        std::cout &lt;&lt; func2(10) &lt;&lt; std::endl;
+
+        &#x2F;&#x2F; bind parameter 1, 2 on function foo, and use std::placeholders::_1 as placeholder
+        &#x2F;&#x2F; for the first parameter.
+        auto bindFoo &#x3D; std::bind(foo3, std::placeholders::_1, 1, 2);
+        &#x2F;&#x2F; when call bindFoo, we only need one param left
+        bindFoo(1);
+
+        return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ tree
+<span class="token builtin class-name">.</span>
+├── <span class="token number">3.1</span>.lambda.basic.cpp
+├── <span class="token number">3.2</span>.function.wrap.cpp
+└── Makefile
+
+<span class="token number">0</span> directories, <span class="token number">3</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp  <span class="token number">3.2</span>.function.wrap.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">make</span>
+clang++ <span class="token number">3.1</span>.lambda.basic.cpp <span class="token parameter variable">-o</span> <span class="token number">3.1</span>.lambda.basic.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.2</span>.function.wrap.cpp <span class="token parameter variable">-o</span> <span class="token number">3.2</span>.function.wrap.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp  <span class="token number">3.2</span>.function.wrap.cpp  Makefile
+<span class="token number">3.1</span>.lambda.basic.out  <span class="token number">3.2</span>.function.wrap.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ./3.2.function.wrap.out
+<span class="token number">1</span>
+<span class="token number">1</span>
+<span class="token number">10</span>
+<span class="token number">21</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">make</span> clean
+<span class="token function">rm</span> *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp  <span class="token number">3.2</span>.function.wrap.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><p><code>右值引用</code>是 <code>C++11</code> 引入的与 <code>Lambda</code> 表达式齐名的重要特性之一。它的引入解决了 <code>C++</code> 中大量的历史遗留问题，消除了诸如 <code>std::vector</code>、<code>std::string</code> 之类的额外开销，也才使得函数对象容器 <code>std::function</code> 成为了可能。</p>
+<h4 id="左值、右值的纯右值、将亡值、右值"><a href="#左值、右值的纯右值、将亡值、右值" class="headerlink" title="左值、右值的纯右值、将亡值、右值"></a>左值、右值的纯右值、将亡值、右值</h4><p>要弄明白<code>右值引用</code>到底是怎么一回事，必须要对<code>左值</code>和<code>右值</code>做一个明确的理解。</p>
+<p><code>左值</code> (lvalue, left value)，顾名思义就是赋值符号左边的值。准确来说，左值是表达式（不一定是赋值表达式）后依然存在的<code>持久对象</code>。</p>
+<p><code>右值</code> (rvalue, right value)，右边的值，是指表达式结束后就不再存在的<code>临时对象</code>。</p>
+<p>而 <code>C++11</code> 中为了引入强大的<code>右值引用</code>，将右值的概念进行了进一步的划分，分为：<code>纯右值</code>、<code>将亡值</code>。</p>
+<p><code>纯右值</code> (prvalue, pure rvalue)，纯粹的右值，要么是<code>纯粹的字面量</code>，例如 <code>10</code>, <code>true</code>；要么是<code>求值结果</code>相当于<code>字面量</code>或<code>匿名临时对象</code>，例如 <code>1+2</code>。非引用返回的<code>临时变量</code>、<code>运算表达式产生的临时变量</code>、<code>原始字面量</code>、<code>Lambda 表达式</code>都属于<code>纯右值</code>。</p>
+<p>需要注意的是，<code>字面量</code>除了<code>字符串字面量</code>以外，均为<code>纯右值</code>。而<code>字符串字面量</code>是一个<code>左值</code>，类型为 <code>const char 数组</code>。例如：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;type_traits&gt;
+
+int main() &#123;
+    &#x2F;&#x2F; 正确，&quot;01234&quot; 类型为 const char [6]，因此是左值
+    const char (&amp;left)[6] &#x3D; &quot;01234&quot;;
+
+    &#x2F;&#x2F; 断言正确，确实是 const char [6] 类型，注意 decltype(expr) 在 expr 是左值
+    &#x2F;&#x2F; 且非无括号包裹的 id 表达式与类成员表达式时，会返回左值引用
+    static_assert(std::is_same&lt;decltype(&quot;01234&quot;), const char(&amp;)[6]&gt;::value, &quot;&quot;);
+
+    &#x2F;&#x2F; 错误，&quot;01234&quot; 是左值，不可被右值引用
+    &#x2F;&#x2F; const char (&amp;&amp;right)[6] &#x3D; &quot;01234&quot;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>但是注意，<code>数组可以被隐式转换成相对应的指针类型</code>，而<code>转换表达式的结果（如果不是左值引用）则一定是个右值（右值引用为将亡值，否则为纯右值）</code>。例如：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">const char*   p   &#x3D; &quot;01234&quot;;  &#x2F;&#x2F; 正确，&quot;01234&quot; 被隐式转换为 const char*
+const char*&amp;&amp; pr  &#x3D; &quot;01234&quot;;  &#x2F;&#x2F; 正确，&quot;01234&quot; 被隐式转换为 const char*，该转换的结果是纯右值
+&#x2F;&#x2F; const char*&amp; pl &#x3D; &quot;01234&quot;; &#x2F;&#x2F; 错误，此处不存在 const char* 类型的左值<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>**将亡值(xvalue, expiring value)**，是 <code>C++11</code> 为了引入<code>右值引用</code>而提出的概念（因此在<code>传统 C++</code> 中，<code>纯右值</code>和<code>右值</code>是同一个概念），也就是<code>即将被销毁、却能够被移动的值</code>。</p>
+<p><code>将亡值</code>可能稍有些难以理解，我们来看这样的代码：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::vector&lt;int&gt; foo() &#123;
+    std::vector&lt;int&gt; temp &#x3D; &#123;1, 2, 3, 4&#125;;
+    return temp;
+&#125;
+
+std::vector&lt;int&gt; v &#x3D; foo();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在这样的代码中，就传统的理解而言，函数 <code>foo</code> 的返回值 <code>temp</code> 在内部创建然后被赋值给 <code>v</code>，然而 <code>v</code> 获得这个对象时，会将整个 <code>temp</code> 拷贝一份，然后把 <code>temp</code> 销毁，如果这个 <code>temp</code> 非常大，这将造成<code>大量额外的开销</code>（这也就是<code>传统 C++</code> 一直被诟病的问题）。在最后一行中，<code>v</code> 是<code>左值</code>、<code>foo()</code> 返回的值就是<code>右值</code>（也是<code>纯右值</code>）。但是，<code>v</code> 可以被别的变量捕获到，而 <code>foo()</code> 产生的那个返回值作为一个<code>临时值</code>，一旦被 <code>v</code> 复制后，将立即被<code>销毁</code>，无法获取、也不能修改。而<code>将亡值</code>就定义了这样一种行为：<code>临时的值能够被识别、同时又能够被移动</code>。</p>
+<p>在 <code>C++11</code> 之后，编译器为我们做了一些工作，此处的左值 <code>temp</code> 会被进行此<code>隐式右值转换</code>，等价于 <code>static_cast&lt;std::vector&lt;int&gt; &amp;&amp;&gt;(temp)</code>，进而此处的 <code>v</code> 会将 <code>foo</code> 局部返回的值进行<code>移动</code>。也就是后面我们将会提到的<code>移动语义</code>。</p>
+<h4 id="右值引用和左值引用"><a href="#右值引用和左值引用" class="headerlink" title="右值引用和左值引用"></a>右值引用和左值引用</h4><p>要拿到一个<code>将亡值</code>，就需要用到<code>右值引用</code>：<code>T &amp;&amp;</code>，其中 <code>T</code> 是类型。<code>右值引用的声明让这个临时值的生命周期得以延长、只要变量还活着，那么将亡值将继续存活</code>。</p>
+<p><code>C++11</code> 提供了 <code>std::move</code> 这个方法将<code>左值</code>参数无条件的转换为<code>右值</code>，有了它我们就能够方便的获得一个<code>右值临时对象</code>，例如：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+void reference(std::string&amp; str) &#123;
+    std::cout &lt;&lt; &quot;左值&quot; &lt;&lt; std::endl;
+&#125;
+void reference(std::string&amp;&amp; str) &#123;
+    std::cout &lt;&lt; &quot;右值&quot; &lt;&lt; std::endl;
+&#125;
+
+int main()
+&#123;
+    std::string lv1 &#x3D; &quot;string,&quot;; &#x2F;&#x2F; lv1 是一个左值
+    &#x2F;&#x2F; std::string&amp;&amp; r1 &#x3D; lv1; &#x2F;&#x2F; 非法, 右值引用不能引用左值
+    std::string&amp;&amp; rv1 &#x3D; std::move(lv1); &#x2F;&#x2F; 合法, std::move可以将左值转移为右值
+    std::cout &lt;&lt; rv1 &lt;&lt; std::endl; &#x2F;&#x2F; string,
+
+    const std::string&amp; lv2 &#x3D; lv1 + lv1; &#x2F;&#x2F; 合法, 常量左值引用能够延长临时变量的生命周期
+    &#x2F;&#x2F; lv2 +&#x3D; &quot;Test&quot;; &#x2F;&#x2F; 非法, 常量引用无法被修改
+    std::cout &lt;&lt; lv2 &lt;&lt; std::endl; &#x2F;&#x2F; string,string,
+
+    std::string&amp;&amp; rv2 &#x3D; lv1 + lv2; &#x2F;&#x2F; 合法, 右值引用延长临时对象生命周期
+    rv2 +&#x3D; &quot;Test&quot;; &#x2F;&#x2F; 合法, 非常量引用能够修改临时变量
+    std::cout &lt;&lt; rv2 &lt;&lt; std::endl; &#x2F;&#x2F; string,string,string,Test
+
+    reference(rv2); &#x2F;&#x2F; 输出左值
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>rv2</code> 虽然引用了一个<code>右值</code>，但由于它是一个引用，所以 <code>rv2</code> 依然是一个<code>左值</code>。</p>
+<p>注意，这里有一个很有趣的<code>历史遗留问题</code>，我们先看下面的代码：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+
+int main() &#123;
+    &#x2F;&#x2F; int &amp;a &#x3D; std::move(1);    &#x2F;&#x2F; 不合法，非常量左引用无法引用右值
+    const int &amp;b &#x3D; std::move(1); &#x2F;&#x2F; 合法, 常量左引用允许引用右值
+
+    std::cout &lt;&lt; a &lt;&lt; b &lt;&lt; std::endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>第一个问题，为什么不允许非常量引用绑定到非左值？这是因为这种做法存在<code>逻辑错误</code>：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void increase(int &amp; v) &#123;
+    v++;
+&#125;
+void foo() &#123;
+    double s &#x3D; 1;
+    increase(s);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>由于 <code>int&amp;</code> 不能引用 <code>double</code> 类型的参数，因此必须产生一个<code>临时值</code>来保存 <code>s</code> 的值，从而当 <code>increase()</code> 修改这个临时值时，调用完成后 <code>s</code> 本身并没有被修改。</p>
+<p>第二个问题，为什么<code>常量引用允许绑定到非左值</code>？原因很简单，因为 <code>Fortran</code> 需要。</p>
+<h5 id="Files-2"><a href="#Files-2" class="headerlink" title="Files"></a>Files</h5><ol>
+<li>运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /f/vscode/cpp_projects/modern-cpp-tutorial/code/3/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>创建 <code>3.3.rvalue.cpp</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 3.3.rvalue.cpp
+&#x2F;&#x2F; created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com&gt;
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+void reference(std::string&amp; str) &#123;
+        std::cout &lt;&lt; &quot;lvalue&quot; &lt;&lt; std::endl;
+&#125;
+void reference(std::string&amp;&amp; str) &#123;
+        std::cout &lt;&lt; &quot;rvalue&quot; &lt;&lt; std::endl;
+&#125;
+
+int main()
+&#123;
+        std::string lv1 &#x3D; &quot;string,&quot;;    &#x2F;&#x2F; lv1 is a lvalue
+        &#x2F;&#x2F; std::string&amp;&amp; r1 &#x3D; lv1;      &#x2F;&#x2F; illegal, rvalue can&#39;t ref to lvalue
+        std::string&amp;&amp; rv1 &#x3D; std::move(lv1);     &#x2F;&#x2F; legal, std::move can convert lvalue to rvalue
+        std::cout &lt;&lt; rv1 &lt;&lt; std::endl;          &#x2F;&#x2F; string,
+
+        const std::string&amp; lv2 &#x3D; lv1 + lv1;     &#x2F;&#x2F; legal, const lvalue reference can extend temp variable&#39;s lifecycle
+        &#x2F;&#x2F; lv2 +&#x3D; &quot;Test&quot;;                       &#x2F;&#x2F; illegal, const ref can&#39;t be modified
+        std::cout &lt;&lt; lv2 &lt;&lt; std::endl;          &#x2F;&#x2F; string,string
+
+        std::string&amp;&amp; rv2&#x3D; lv1 + lv2;           &#x2F;&#x2F; legal, rvalue ref extend lifecycle
+        rv2 +&#x3D; &quot;string&quot;;                        &#x2F;&#x2F; legal, non-const reference can be modified
+        std::cout &lt;&lt; rv2 &lt;&lt; std::endl;          &#x2F;&#x2F; string,string,string
+
+        reference(rv2);                         &#x2F;&#x2F; output: lvalue
+
+        return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="3">
+<li>创建 <code>3.4.historical.cpp</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 3.4.historical.cpp
+&#x2F;&#x2F; created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com&gt;
+
+#include &lt;iostream&gt;
+
+int main() &#123;
+        &#x2F;&#x2F; int &amp;a &#x3D; std::move(1);       &#x2F;&#x2F; illegal, non-const lvalue reference cannot ref rvalue
+        const int &amp;b &#x3D; std::move(1);    &#x2F;&#x2F; legal, const lvalue reference can
+
+        std::cout &lt;&lt; b &lt;&lt; std::endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ tree
+<span class="token builtin class-name">.</span>
+├── <span class="token number">3.1</span>.lambda.basic.cpp
+├── <span class="token number">3.2</span>.function.wrap.cpp
+├── <span class="token number">3.3</span>.rvalue.cpp
+├── <span class="token number">3.4</span>.historical.cpp
+└── Makefile
+
+<span class="token number">0</span> directories, <span class="token number">5</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp   <span class="token number">3.3</span>.rvalue.cpp      Makefile
+<span class="token number">3.2</span>.function.wrap.cpp  <span class="token number">3.4</span>.historical.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">make</span>
+clang++ <span class="token number">3.1</span>.lambda.basic.cpp <span class="token parameter variable">-o</span> <span class="token number">3.1</span>.lambda.basic.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.2</span>.function.wrap.cpp <span class="token parameter variable">-o</span> <span class="token number">3.2</span>.function.wrap.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.3</span>.rvalue.cpp <span class="token parameter variable">-o</span> <span class="token number">3.3</span>.rvalue.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.4</span>.historical.cpp <span class="token parameter variable">-o</span> <span class="token number">3.4</span>.historical.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp   <span class="token number">3.3</span>.rvalue.out
+<span class="token number">3.1</span>.lambda.basic.out   <span class="token number">3.4</span>.historical.cpp
+<span class="token number">3.2</span>.function.wrap.cpp  <span class="token number">3.4</span>.historical.out
+<span class="token number">3.2</span>.function.wrap.out  Makefile
+<span class="token number">3.3</span>.rvalue.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ./3.3.rvalue.out
+string,
+string,string,
+string,string,string,string
+lvalue
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ./3.4.historical.out
+<span class="token number">1</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">make</span> clean
+<span class="token function">rm</span> *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp   <span class="token number">3.3</span>.rvalue.cpp      Makefile
+<span class="token number">3.2</span>.function.wrap.cpp  <span class="token number">3.4</span>.historical.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="移动语义"><a href="#移动语义" class="headerlink" title="移动语义"></a>移动语义</h4><p><code>传统 C++</code> 通过<code>拷贝构造函数</code>和<code>赋值操作符</code>为类对象设计了<code>拷贝/复制</code>的概念，但为了<code>实现对资源的移动操作，调用者必须使用先复制、再析构的方式，否则就需要自己实现移动对象的接口</code>。试想，搬家的时候是把家里的东西直接搬到新家去，而不是将所有东西复制一份（重买）再放到新家、再把原来的东西全部扔掉（销毁），这是非常反人类的一件事情。</p>
+<p><code>传统的 C++</code> 没有区分 <code>移动</code>和 <code>拷贝</code> 的概念，造成了大量的数据拷贝，浪费时间和空间。<code>右值引用</code>的出现恰好就解决了这两个概念的混淆问题，例如：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+class A &#123;
+public:
+    int *pointer;
+    A():pointer(new int(1)) &#123;
+        std::cout &lt;&lt; &quot;构造&quot; &lt;&lt; pointer &lt;&lt; std::endl;
+    &#125;
+    A(A&amp; a):pointer(new int(*a.pointer)) &#123;
+        std::cout &lt;&lt; &quot;拷贝&quot; &lt;&lt; pointer &lt;&lt; std::endl;
+    &#125; &#x2F;&#x2F; 无意义的对象拷贝
+    A(A&amp;&amp; a):pointer(a.pointer) &#123;
+        a.pointer &#x3D; nullptr;
+        std::cout &lt;&lt; &quot;移动&quot; &lt;&lt; pointer &lt;&lt; std::endl;
+    &#125;
+    ~A()&#123;
+        std::cout &lt;&lt; &quot;析构&quot; &lt;&lt; pointer &lt;&lt; std::endl;
+        delete pointer;
+    &#125;
+&#125;;
+&#x2F;&#x2F; 防止编译器优化
+A return_rvalue(bool test) &#123;
+    A a,b;
+    if(test) return a; &#x2F;&#x2F; 等价于 static_cast&lt;A&amp;&amp;&gt;(a);
+    else return b;     &#x2F;&#x2F; 等价于 static_cast&lt;A&amp;&amp;&gt;(b);
+&#125;
+int main() &#123;
+    A obj &#x3D; return_rvalue(false);
+    std::cout &lt;&lt; &quot;obj:&quot; &lt;&lt; std::endl;
+    std::cout &lt;&lt; obj.pointer &lt;&lt; std::endl;
+    std::cout &lt;&lt; *obj.pointer &lt;&lt; std::endl;
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在上面的代码中：</p>
+<ol>
+<li><p>首先会在 <code>return_rvalue</code> 内部构造两个 <code>A</code> 对象，于是获得两个构造函数的输出；</p>
+</li>
+<li><p>函数返回后，产生一个<code>将亡值</code>，被 <code>A</code> 的移动构造（<code>A(A&amp;&amp;)</code>）引用，从而延长生命周期，并将这个<code>右值</code>中的指针拿到，保存到了 <code>obj</code> 中，而<code>将亡值的指针</code>被设置为 <code>nullptr</code>，防止了这块内存区域被销毁。</p>
+</li>
+</ol>
+<p>从而<code>避免了无意义的拷贝构造</code>，加强了性能。再来看看涉及标准库的例子：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt; &#x2F;&#x2F; std::cout
+#include &lt;utility&gt; &#x2F;&#x2F; std::move
+#include &lt;vector&gt; &#x2F;&#x2F; std::vector
+#include &lt;string&gt; &#x2F;&#x2F; std::string
+
+int main() &#123;
+
+    std::string str &#x3D; &quot;Hello world.&quot;;
+    std::vector&lt;std::string&gt; v;
+
+    &#x2F;&#x2F; 将使用 push_back(const T&amp;), 即产生拷贝行为
+    v.push_back(str);
+    &#x2F;&#x2F; 将输出 &quot;str: Hello world.&quot;
+    std::cout &lt;&lt; &quot;str: &quot; &lt;&lt; str &lt;&lt; std::endl;
+
+    &#x2F;&#x2F; 将使用 push_back(const T&amp;&amp;), 不会出现拷贝行为
+    &#x2F;&#x2F; 而整个字符串会被移动到 vector 中，所以有时候 std::move 会用来减少拷贝出现的开销
+    &#x2F;&#x2F; 这步操作后, str 中的值会变为空
+    v.push_back(std::move(str));
+    &#x2F;&#x2F; 将输出 &quot;str: &quot;
+    std::cout &lt;&lt; &quot;str: &quot; &lt;&lt; str &lt;&lt; std::endl;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="Files-3"><a href="#Files-3" class="headerlink" title="Files"></a>Files</h5><ol>
+<li>运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /f/vscode/cpp_projects/modern-cpp-tutorial/code/3/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>创建 <code>3.5.move.semantics.cpp</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 3.5.move.semantics.cpp
+&#x2F;&#x2F; created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com&gt;
+
+#include &lt;iostream&gt;
+
+class A &#123;
+public:
+        int *pointer;
+        A():pointer(new int(1)) &#123;
+                std::cout &lt;&lt; &quot;construct&quot; &lt;&lt; pointer &lt;&lt; std::endl;
+        &#125;
+
+        A(A&amp; a):pointer(new int(*a.pointer)) &#123;
+                std::cout &lt;&lt; &quot;copy&quot; &lt;&lt; pointer &lt;&lt; std::endl;
+        &#125; &#x2F;&#x2F; meaningless object copy
+
+        A(A&amp;&amp; a):pointer(a.pointer) &#123;
+                a.pointer &#x3D; nullptr;
+                std::cout &lt;&lt; &quot;move&quot; &lt;&lt; pointer &lt;&lt; std::endl;
+        &#125;
+
+        ~A()&#123;
+                std::cout &lt;&lt; &quot;destruct&quot; &lt;&lt; pointer &lt;&lt; std::endl;
+                delete pointer;
+        &#125;
+&#125;;
+
+&#x2F;&#x2F; avoid compiler optimization
+A return_rvalue(bool test) &#123;
+        A a,b;
+        if(test) return a;      &#x2F;&#x2F; equal to static_cast&lt;A&amp;&amp;&gt;(a);
+        else return b;          &#x2F;&#x2F; equal to static_cast&lt;A&amp;&amp;&gt;(b);
+&#125;
+
+int main() &#123;
+        A obj &#x3D; return_rvalue(false);
+        std::cout &lt;&lt; &quot;obj:&quot; &lt;&lt; std::endl;
+        std::cout &lt;&lt; obj.pointer &lt;&lt; std::endl;
+        std::cout &lt;&lt; *obj.pointer &lt;&lt; std::endl;
+        return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="3">
+<li>创建 <code>3.6.move.semantics.cpp</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 3.6.move.semantics.cpp
+&#x2F;&#x2F; created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com&gt;
+
+#include &lt;iostream&gt; &#x2F;&#x2F; std::cout
+#include &lt;utility&gt; &#x2F;&#x2F; std::move
+#include &lt;vector&gt; &#x2F;&#x2F; std::vector
+#include &lt;string&gt; &#x2F;&#x2F; std::string
+
+int main() &#123;
+
+        std::string str &#x3D; &quot;Hello world.&quot;;
+        std::vector&lt;std::string&gt; v;
+
+        &#x2F;&#x2F; use push_back(const T&amp;), copy
+        v.push_back(str);
+        &#x2F;&#x2F; &quot;str: Hello world.&quot;
+        std::cout &lt;&lt; &quot;str: &quot; &lt;&lt; str &lt;&lt; std::endl;
+
+        &#x2F;&#x2F; use push_back(const T&amp;&amp;), no copy
+        &#x2F;&#x2F; the string will be moved to vector, and therefore std::move can reduce copy cost
+        v.push_back(std::move(str));
+        &#x2F;&#x2F; str is empty now
+        std::cout &lt;&lt; &quot;str: &quot; &lt;&lt; str &lt;&lt; std::endl;
+
+        return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ tree
+<span class="token builtin class-name">.</span>
+├── <span class="token number">3.1</span>.lambda.basic.cpp
+├── <span class="token number">3.2</span>.function.wrap.cpp
+├── <span class="token number">3.3</span>.rvalue.cpp
+├── <span class="token number">3.4</span>.historical.cpp
+├── <span class="token number">3.5</span>.move.semantics.cpp
+├── <span class="token number">3.6</span>.move.semantics.cpp
+└── Makefile
+
+<span class="token number">0</span> directories, <span class="token number">7</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp   <span class="token number">3.4</span>.historical.cpp      Makefile
+<span class="token number">3.2</span>.function.wrap.cpp  <span class="token number">3.5</span>.move.semantics.cpp
+<span class="token number">3.3</span>.rvalue.cpp         <span class="token number">3.6</span>.move.semantics.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">make</span>
+clang++ <span class="token number">3.1</span>.lambda.basic.cpp <span class="token parameter variable">-o</span> <span class="token number">3.1</span>.lambda.basic.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.2</span>.function.wrap.cpp <span class="token parameter variable">-o</span> <span class="token number">3.2</span>.function.wrap.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.3</span>.rvalue.cpp <span class="token parameter variable">-o</span> <span class="token number">3.3</span>.rvalue.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.4</span>.historical.cpp <span class="token parameter variable">-o</span> <span class="token number">3.4</span>.historical.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.5</span>.move.semantics.cpp <span class="token parameter variable">-o</span> <span class="token number">3.5</span>.move.semantics.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.6</span>.move.semantics.cpp <span class="token parameter variable">-o</span> <span class="token number">3.6</span>.move.semantics.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp   <span class="token number">3.4</span>.historical.out
+<span class="token number">3.1</span>.lambda.basic.out   <span class="token number">3.5</span>.move.semantics.cpp
+<span class="token number">3.2</span>.function.wrap.cpp  <span class="token number">3.5</span>.move.semantics.out
+<span class="token number">3.2</span>.function.wrap.out  <span class="token number">3.6</span>.move.semantics.cpp
+<span class="token number">3.3</span>.rvalue.cpp         <span class="token number">3.6</span>.move.semantics.out
+<span class="token number">3.3</span>.rvalue.out         Makefile
+<span class="token number">3.4</span>.historical.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ./3.5.move.semantics.out
+construct000002B19FC567D0
+construct000002B19FC56810
+move000002B19FC56810
+destruct0000000000000000
+destruct000002B19FC567D0
+obj:
+000002B19FC56810
+<span class="token number">1</span>
+destruct000002B19FC56810
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ./3.6.move.semantics.out
+str: Hello world.
+str:
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">make</span> clean
+<span class="token function">rm</span> *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp   <span class="token number">3.4</span>.historical.cpp      Makefile
+<span class="token number">3.2</span>.function.wrap.cpp  <span class="token number">3.5</span>.move.semantics.cpp
+<span class="token number">3.3</span>.rvalue.cpp         <span class="token number">3.6</span>.move.semantics.cpp
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="完美转发"><a href="#完美转发" class="headerlink" title="完美转发"></a>完美转发</h4><p>前面我们提到了，一个声明的<code>右值引用</code>其实是一个<code>左值</code>。这就为我们进行<code>参数转发（传递）</code>造成了问题：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void reference(int&amp; v) &#123;
+    std::cout &lt;&lt; &quot;左值&quot; &lt;&lt; std::endl;
+&#125;
+void reference(int&amp;&amp; v) &#123;
+    std::cout &lt;&lt; &quot;右值&quot; &lt;&lt; std::endl;
+&#125;
+template &lt;typename T&gt;
+void pass(T&amp;&amp; v) &#123;
+    std::cout &lt;&lt; &quot;普通传参:&quot;;
+    reference(v); &#x2F;&#x2F; 始终调用 reference(int&amp;)
+&#125;
+int main() &#123;
+    std::cout &lt;&lt; &quot;传递右值:&quot; &lt;&lt; std::endl;
+    pass(1); &#x2F;&#x2F; 1是右值, 但输出是左值
+
+    std::cout &lt;&lt; &quot;传递左值:&quot; &lt;&lt; std::endl;
+    int l &#x3D; 1;
+    pass(l); &#x2F;&#x2F; l 是左值, 输出左值
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>对于 <code>pass(1)</code> 来说，虽然传递的是<code>右值</code>，但由于 <code>v</code> 是一个<code>引用</code>，所以同时也是<code>左值</code>。因此 <code>reference(v)</code> 会调用 <code>reference(int&amp;)</code>，输出<code>左值</code>。而对于 <code>pass(l)</code> 而言，<code>l</code> 是一个<code>左值</code>，为什么会成功传递给 <code>pass(T&amp;&amp;)</code> 呢？</p>
+<p>这是基于<code>引用坍缩规则</code>的：在<code>传统 C++</code> 中，我们不能够对一个<code>引用类型</code>继续进行<code>引用</code>，但 <code>C++</code> 由于<code>右值引用</code>的出现而放宽了这一做法，从而产生了<code>引用坍缩规则</code>，允许我们对<code>引用</code>进行<code>引用</code>， 既能<code>左引用</code>，又能<code>右引用</code>。但是却遵循如下规则：</p>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>函数形参类型</strong></th>
+<th align="center"><strong>实参参数类型</strong></th>
+<th align="center"><strong>推导后函数形参类型</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">T&amp;</td>
+<td align="center">左引用</td>
+<td align="center">T&amp;</td>
+</tr>
+<tr>
+<td align="center">T&amp;</td>
+<td align="center">右引用</td>
+<td align="center">T&amp;</td>
+</tr>
+<tr>
+<td align="center">T&amp;&amp;</td>
+<td align="center">左引用</td>
+<td align="center">T&amp;</td>
+</tr>
+<tr>
+<td align="center">T&amp;&amp;</td>
+<td align="center">右引用</td>
+<td align="center">T&amp;&amp;</td>
+</tr>
+</tbody></table>
+<p>因此，<code>模板函数</code>中使用 <code>T&amp;&amp;</code> 不一定能进行<code>右值引用</code>，当传入<code>左值</code>时，此函数的引用将被推导为<code>左值</code>。更准确的讲，<strong>无论模板参数是什么类型的引用，当且仅当实参类型为右引用时，模板参数才能被推导为右引用类型</strong>。这才使得 <code>v</code> 作为<code>左值</code>的<code>成功传递</code>。</p>
+<p><code>完美转发</code>就是基于上述规律产生的。所谓<code>完美转发</code>，就是为了让我们在<code>传递参数</code>的时候，<code>保持原来的参数类型（左引用保持左引用，右引用保持右引用）</code>。为了解决这个问题，我们应该使用 <code>std::forward</code> 来进行<code>参数的转发（传递）</code>：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;utility&gt;
+void reference(int&amp; v) &#123;
+    std::cout &lt;&lt; &quot;左值引用&quot; &lt;&lt; std::endl;
+&#125;
+void reference(int&amp;&amp; v) &#123;
+    std::cout &lt;&lt; &quot;右值引用&quot; &lt;&lt; std::endl;
+&#125;
+template &lt;typename T&gt;
+void pass(T&amp;&amp; v) &#123;
+    std::cout &lt;&lt; &quot;              普通传参: &quot;;
+    reference(v);
+    std::cout &lt;&lt; &quot;       std::move 传参: &quot;;
+    reference(std::move(v));
+    std::cout &lt;&lt; &quot;    std::forward 传参: &quot;;
+    reference(std::forward&lt;T&gt;(v));
+    std::cout &lt;&lt; &quot;static_cast&lt;T&amp;&amp;&gt; 传参: &quot;;
+    reference(static_cast&lt;T&amp;&amp;&gt;(v));
+&#125;
+int main() &#123;
+    std::cout &lt;&lt; &quot;传递右值:&quot; &lt;&lt; std::endl;
+    pass(1);
+
+    std::cout &lt;&lt; &quot;传递左值:&quot; &lt;&lt; std::endl;
+    int v &#x3D; 1;
+    pass(v);
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>输出结果为：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">传递右值:
+              普通传参: 左值引用
+       std::move 传参: 右值引用
+    std::forward 传参: 右值引用
+static_cast<span class="token operator">&lt;</span>T<span class="token operator">&amp;&amp;</span><span class="token operator">></span> 传参: 右值引用
+传递左值:
+              普通传参: 左值引用
+       std::move 传参: 右值引用
+    std::forward 传参: 左值引用
+static_cast<span class="token operator">&lt;</span>T<span class="token operator">&amp;&amp;</span><span class="token operator">></span> 传参: 左值引用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>无论传递参数为<code>左值</code>还是<code>右值</code>，<code>普通传参都会将参数作为左值进行转发</code>，所以 <code>std::move</code> 总会接受到一个<code>左值</code>，从而转发调用了<code>reference(int&amp;&amp;)</code> 输出<code>右值引用</code>。</p>
+<p>唯独 <code>std::forward</code> 即没有造成任何多余的拷贝，同时<code>完美转发(传递)了函数的实参给了内部调用的其他函数</code>。</p>
+<p><code>std::forward</code> 和 <code>std::move</code> 一样，没有做任何事情，<code>std::move</code> 单纯的将<code>左值</code>转化为<code>右值</code>，<code>std::forward</code> 也只是单纯的将参数做了一个类型的转换，从现象上来看，<code>std::forward&lt;T&gt;(v)</code> 和 <code>static_cast&lt;T&amp;&amp;&gt;(v)</code> 是完全一样的。</p>
+<p>读者可能会好奇，为何一条语句能够针对两种类型的返回对应的值，我们再简单看一看 <code>std::forward</code> 的具体实现机制，<code>std::forward</code> 包含<code>两个重载</code>：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename _Tp&gt;
+constexpr _Tp&amp;&amp; forward(typename std::remove_reference&lt;_Tp&gt;::type&amp; __t) noexcept
+&#123; return static_cast&lt;_Tp&amp;&amp;&gt;(__t); &#125;
+
+template&lt;typename _Tp&gt;
+constexpr _Tp&amp;&amp; forward(typename std::remove_reference&lt;_Tp&gt;::type&amp;&amp; __t) noexcept
+&#123;
+    static_assert(!std::is_lvalue_reference&lt;_Tp&gt;::value, &quot;template argument&quot;
+        &quot; substituting _Tp is an lvalue reference type&quot;);
+    return static_cast&lt;_Tp&amp;&amp;&gt;(__t);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在这份实现中，<code>std::remove_reference</code> 的功能是消除类型中的<code>引用</code>，<code>std::is_lvalue_reference</code> 则用于检查类型推导是否正确，在 <code>std::forward</code> 的第二个实现中检查了接收到的值确实是一个<code>左值</code>，进而体现了<code>坍缩规则</code>。</p>
+<p>当 <code>std::forward</code> 接受<code>左值</code>时，<code>_Tp</code> 被推导为<code>左值</code>，所以返回值为<code>左值</code>；而当其接受<code>右值</code>时，<code>_Tp</code> 被推导为<code>右值引用</code>，则基于<code>坍缩规则</code>，返回值便成为了 <code>&amp;&amp; + &amp;&amp;</code> 的右值。可见 <code>std::forward</code> 的原理在于<code>巧妙的利用了模板类型推导中产生的差异</code>。</p>
+<p>这时我们能回答这样一个问题：<code>为什么在使用循环语句的过程中，auto&amp;&amp; 是最安全的方式？</code> 因为当 <code>auto</code> 被推导为不同的<code>左右引用</code>时，与 <code>&amp;&amp;</code> 的坍缩组合是<code>完美转发</code>。</p>
+<h5 id="Files-4"><a href="#Files-4" class="headerlink" title="Files"></a>Files</h5><ol>
+<li>运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /f/vscode/cpp_projects/modern-cpp-tutorial/code/3/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>创建 <code>3.7.perfect.forward.cpp</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 3.7.perfect.forward.cpp
+&#x2F;&#x2F; created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com&gt;
+
+#include &lt;iostream&gt;
+#include &lt;utility&gt;
+
+void reference(int&amp; v) &#123;
+        std::cout &lt;&lt; &quot;lvalue reference&quot; &lt;&lt; std::endl;
+&#125;
+
+void reference(int&amp;&amp; v) &#123;
+        std::cout &lt;&lt; &quot;rvalue reference&quot; &lt;&lt; std::endl;
+&#125;
+
+template &lt;typename T&gt;
+void pass(T&amp;&amp; v) &#123;
+        std::cout &lt;&lt; &quot;          normal param passing: &quot;;
+        reference(v);
+        std::cout &lt;&lt; &quot;       std::move param passing: &quot;;
+        reference(std::move(v));
+        std::cout &lt;&lt; &quot;    std::forward param passing: &quot;;
+        reference(std::forward&lt;T&gt;(v));
+        std::cout &lt;&lt; &quot;static_cast&lt;T&amp;&amp;&gt; param passing: &quot;;
+        reference(static_cast&lt;T&amp;&amp;&gt;(v));
+&#125;
+
+int main() &#123;
+        std::cout &lt;&lt; &quot;rvalue pass:&quot; &lt;&lt; std::endl;
+        pass(1);
+
+        std::cout &lt;&lt; &quot;lvalue pass:&quot; &lt;&lt; std::endl;
+        int l &#x3D; 1;
+        pass(l);
+
+        return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ tree
+<span class="token builtin class-name">.</span>
+├── <span class="token number">3.1</span>.lambda.basic.cpp
+├── <span class="token number">3.2</span>.function.wrap.cpp
+├── <span class="token number">3.3</span>.rvalue.cpp
+├── <span class="token number">3.4</span>.historical.cpp
+├── <span class="token number">3.5</span>.move.semantics.cpp
+├── <span class="token number">3.6</span>.move.semantics.cpp
+├── <span class="token number">3.7</span>.perfect.forward.cpp
+└── Makefile
+
+<span class="token number">0</span> directories, <span class="token number">8</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp   <span class="token number">3.5</span>.move.semantics.cpp
+<span class="token number">3.2</span>.function.wrap.cpp  <span class="token number">3.6</span>.move.semantics.cpp
+<span class="token number">3.3</span>.rvalue.cpp         <span class="token number">3.7</span>.perfect.forward.cpp
+<span class="token number">3.4</span>.historical.cpp     Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">make</span>
+clang++ <span class="token number">3.1</span>.lambda.basic.cpp <span class="token parameter variable">-o</span> <span class="token number">3.1</span>.lambda.basic.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.2</span>.function.wrap.cpp <span class="token parameter variable">-o</span> <span class="token number">3.2</span>.function.wrap.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.3</span>.rvalue.cpp <span class="token parameter variable">-o</span> <span class="token number">3.3</span>.rvalue.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.4</span>.historical.cpp <span class="token parameter variable">-o</span> <span class="token number">3.4</span>.historical.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.5</span>.move.semantics.cpp <span class="token parameter variable">-o</span> <span class="token number">3.5</span>.move.semantics.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.6</span>.move.semantics.cpp <span class="token parameter variable">-o</span> <span class="token number">3.6</span>.move.semantics.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">3.7</span>.perfect.forward.cpp <span class="token parameter variable">-o</span> <span class="token number">3.7</span>.perfect.forward.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp   <span class="token number">3.5</span>.move.semantics.cpp
+<span class="token number">3.1</span>.lambda.basic.out   <span class="token number">3.5</span>.move.semantics.out
+<span class="token number">3.2</span>.function.wrap.cpp  <span class="token number">3.6</span>.move.semantics.cpp
+<span class="token number">3.2</span>.function.wrap.out  <span class="token number">3.6</span>.move.semantics.out
+<span class="token number">3.3</span>.rvalue.cpp         <span class="token number">3.7</span>.perfect.forward.cpp
+<span class="token number">3.3</span>.rvalue.out         <span class="token number">3.7</span>.perfect.forward.out
+<span class="token number">3.4</span>.historical.cpp     Makefile
+<span class="token number">3.4</span>.historical.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ ./3.7.perfect.forward.out
+rvalue pass:
+          normal param passing: lvalue reference
+       std::move param passing: rvalue reference
+    std::forward param passing: rvalue reference
+static_cast<span class="token operator">&lt;</span>T<span class="token operator">&amp;&amp;</span><span class="token operator">></span> param passing: rvalue reference
+lvalue pass:
+          normal param passing: lvalue reference
+       std::move param passing: rvalue reference
+    std::forward param passing: lvalue reference
+static_cast<span class="token operator">&lt;</span>T<span class="token operator">&amp;&amp;</span><span class="token operator">></span> param passing: lvalue reference
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">make</span> clean
+<span class="token function">rm</span> *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$ <span class="token function">ls</span>
+<span class="token number">3.1</span>.lambda.basic.cpp   <span class="token number">3.5</span>.move.semantics.cpp
+<span class="token number">3.2</span>.function.wrap.cpp  <span class="token number">3.6</span>.move.semantics.cpp
+<span class="token number">3.3</span>.rvalue.cpp         <span class="token number">3.7</span>.perfect.forward.cpp
+<span class="token number">3.4</span>.historical.cpp     Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/3
+$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本章介绍了现代 <code>C++</code> 中最为重要的几个<code>语言运行时的增强</code>，其中笔者认为本节中提到的所有特性都是值得掌握的：</p>
+<ol>
+<li><p><code>Lambda</code> 表达式。</p>
+</li>
+<li><p><code>函数对象容器 std::function</code>。</p>
+</li>
+<li><p><code>右值引用</code>。</p>
+</li>
+</ol>
+<h3 id="进一步阅读的参考文献"><a href="#进一步阅读的参考文献" class="headerlink" title="进一步阅读的参考文献"></a>进一步阅读的参考文献</h3><ol>
+<li><a href="https://www.amazon.cn/dp/B007JFSCPY">Bjarne Stroustrup, C++ 语言的设计与演化</a></li>
+</ol>
+<h2 id="第-4-章-容器"><a href="#第-4-章-容器" class="headerlink" title="第 4 章 容器"></a>第 4 章 容器</h2><h3 id="线性容器"><a href="#线性容器" class="headerlink" title="线性容器"></a>线性容器</h3><h4 id="std-array"><a href="#std-array" class="headerlink" title="std::array"></a>std::array</h4><p>看到这个容器的时候肯定会出现这样的问题：</p>
+<ol>
+<li><p>为什么要引入 <code>std::array</code> 而不是直接使用 <code>std::vector</code>？</p>
+</li>
+<li><p>已经有了<code>传统数组</code>，为什么要用 <code>std::array</code>?</p>
+</li>
+</ol>
+<p>先回答第一个问题，与 <code>std::vector</code> 不同，<code>std::array</code> 对象的<code>大小是固定的</code>，如果容器大小是固定的，那么可以优先考虑使用 <code>std::array</code> 容器。另外由于 <code>std::vector</code> 是<code>自动扩容</code>的，当存入大量的数据后，并且对容器进行了删除操作，<code>容器并不会自动归还被删除元素相应的内存</code>，这时候就需要手动运行 <code>shrink_to_fit()</code> 释放这部分内存。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::vector&lt;int&gt; v;
+std::cout &lt;&lt; &quot;size:&quot; &lt;&lt; v.size() &lt;&lt; std::endl;         &#x2F;&#x2F; 输出 0
+std::cout &lt;&lt; &quot;capacity:&quot; &lt;&lt; v.capacity() &lt;&lt; std::endl; &#x2F;&#x2F; 输出 0
+
+&#x2F;&#x2F; 如下可看出 std::vector 的存储是自动管理的，按需自动扩张
+&#x2F;&#x2F; 但是如果空间不足，需要重新分配更多内存，而重分配内存通常是性能上有开销的操作
+v.push_back(1);
+v.push_back(2);
+v.push_back(3);
+std::cout &lt;&lt; &quot;size:&quot; &lt;&lt; v.size() &lt;&lt; std::endl;         &#x2F;&#x2F; 输出 3
+std::cout &lt;&lt; &quot;capacity:&quot; &lt;&lt; v.capacity() &lt;&lt; std::endl; &#x2F;&#x2F; 输出 4
+
+&#x2F;&#x2F; 这里的自动扩张逻辑与 Golang 的 slice 很像
+v.push_back(4);
+v.push_back(5);
+std::cout &lt;&lt; &quot;size:&quot; &lt;&lt; v.size() &lt;&lt; std::endl;         &#x2F;&#x2F; 输出 5
+std::cout &lt;&lt; &quot;capacity:&quot; &lt;&lt; v.capacity() &lt;&lt; std::endl; &#x2F;&#x2F; 输出 8
+
+&#x2F;&#x2F; 如下可看出容器虽然清空了元素，但是被清空元素的内存并没有归还
+v.clear();                                             
+std::cout &lt;&lt; &quot;size:&quot; &lt;&lt; v.size() &lt;&lt; std::endl;         &#x2F;&#x2F; 输出 0
+std::cout &lt;&lt; &quot;capacity:&quot; &lt;&lt; v.capacity() &lt;&lt; std::endl; &#x2F;&#x2F; 输出 8
+
+&#x2F;&#x2F; 额外内存可通过 shrink_to_fit() 调用返回给系统
+v.shrink_to_fit();
+std::cout &lt;&lt; &quot;size:&quot; &lt;&lt; v.size() &lt;&lt; std::endl;         &#x2F;&#x2F; 输出 0
+std::cout &lt;&lt; &quot;capacity:&quot; &lt;&lt; v.capacity() &lt;&lt; std::endl; &#x2F;&#x2F; 输出 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>而第二个问题就更加简单，使用 <code>std::array</code> 能够让代码变得更加“现代化”，而且封装了一些操作函数，比如<code>获取数组大小</code>以及<code>检查是否非空</code>，同时还能够友好的使用标准库中的<code>容器算法</code>，比如 <code>std::sort</code>。</p>
+<p>使用 <code>std::array</code> 很简单，只需指定其<code>类型</code>和<code>大小</code>即可：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::array&lt;int, 4&gt; arr &#x3D; &#123;1, 2, 3, 4&#125;;
+
+arr.empty(); &#x2F;&#x2F; 检查容器是否为空
+arr.size();  &#x2F;&#x2F; 返回容纳的元素数
+
+&#x2F;&#x2F; 迭代器支持
+for (auto &amp;i : arr)
+&#123;
+    &#x2F;&#x2F; ...
+&#125;
+
+&#x2F;&#x2F; 用 lambda 表达式排序
+std::sort(arr.begin(), arr.end(), [](int a, int b) &#123;
+    return b &lt; a;
+&#125;);
+
+&#x2F;&#x2F; 数组大小参数必须是常量表达式
+constexpr int len &#x3D; 4;
+std::array&lt;int, len&gt; arr &#x3D; &#123;1, 2, 3, 4&#125;;
+
+&#x2F;&#x2F; 非法,不同于 C 风格数组，std::array 不会自动退化成 T*
+&#x2F;&#x2F; int *arr_p &#x3D; arr;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>当我们开始用上了 <code>std::array</code> 时，难免会遇到要将其兼容 <code>C</code> 风格的接口，这里有三种做法：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void foo(int *p, int len) &#123;
+    return;
+&#125;
+
+std::array&lt;int, 4&gt; arr &#x3D; &#123;1,2,3,4&#125;;
+
+&#x2F;&#x2F; C 风格接口传参
+&#x2F;&#x2F; foo(arr, arr.size()); &#x2F;&#x2F; 非法, 无法隐式转换
+foo(&amp;arr[0], arr.size());
+foo(arr.data(), arr.size());
+
+&#x2F;&#x2F; 使用 &#96;std::sort&#96;
+std::sort(arr.begin(), arr.end());<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="std-forward-list"><a href="#std-forward-list" class="headerlink" title="std::forward_list"></a>std::forward_list</h4><p><code>std::forward_list</code> 是一个<code>列表容器</code>，使用方法和 <code>std::list</code> 基本类似，因此我们就不花费篇幅进行介绍了。</p>
+<p>需要知道的是，和 <code>std::list</code> 的<code>双向链表</code>的实现不同，<code>std::forward_list</code> 使用<code>单向链表</code>进行实现，提供了 <code>O(1)</code> 复杂度的元素插入，<code>不支持快速随机访问（这也是链表的特点）</code>，也是标准库容器中唯一一个不提供 <code>size()</code> 方法的容器。当不需要双向迭代时，具有比 <code>std::list</code> 更高的空间利用率。</p>
+<h4 id="Files-5"><a href="#Files-5" class="headerlink" title="Files"></a>Files</h4><ol>
+<li>运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /f/vscode/cpp_projects/modern-cpp-tutorial/code/
+<span class="token function">mkdir</span> <span class="token number">4</span>
+<span class="token builtin class-name">cd</span> <span class="token number">4</span>/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="2">
+<li>创建 <code>4.1.linear.container.cpp</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 4.1.linear.container.cpp
+&#x2F;&#x2F; created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com&gt;
+
+#include &lt;iostream&gt;
+#include &lt;array&gt;
+#include &lt;vector&gt;
+
+void foo(int *p, int len) &#123;
+        for (int i &#x3D; 0; i !&#x3D; len; ++i) &#123;
+                std::cout &lt;&lt; p[i] &lt;&lt; std::endl;
+        &#125;
+&#125;
+
+int main() &#123;
+        std::vector&lt;int&gt; v;
+        std::cout &lt;&lt; &quot;size:&quot; &lt;&lt; v.size() &lt;&lt; std::endl;          &#x2F;&#x2F; output 0
+        std::cout &lt;&lt; &quot;capacity:&quot; &lt;&lt; v.capacity() &lt;&lt; std::endl;  &#x2F;&#x2F; output 0
+
+        &#x2F;&#x2F; As you can see, the storage of std::vector is automatically managed and
+        &#x2F;&#x2F; automatically expanded as needed.
+        &#x2F;&#x2F; But if there is not enough space, you need to redistribute more memory,
+        &#x2F;&#x2F; and reallocating memory is usually a performance-intensive operation.
+        v.push_back(1);
+        v.push_back(2);
+        v.push_back(3);
+        std::cout &lt;&lt; &quot;size:&quot; &lt;&lt; v.size() &lt;&lt; std::endl;          &#x2F;&#x2F; output 3
+        std::cout &lt;&lt; &quot;capacity:&quot; &lt;&lt; v.capacity() &lt;&lt; std::endl;  &#x2F;&#x2F; output 4
+
+        &#x2F;&#x2F; The auto-expansion logic here is very similar to Golang&#39;s slice.
+        v.push_back(4);
+        v.push_back(5);
+        std::cout &lt;&lt; &quot;size:&quot; &lt;&lt; v.size() &lt;&lt; std::endl;          &#x2F;&#x2F; output 5
+        std::cout &lt;&lt; &quot;capacity:&quot; &lt;&lt; v.capacity() &lt;&lt; std::endl;  &#x2F;&#x2F; output 8
+
+        &#x2F;&#x2F; As can be seen below, although the container empties the element,
+        &#x2F;&#x2F; the memory of the emptied element is not returned.
+        v.clear();
+        std::cout &lt;&lt; &quot;size:&quot; &lt;&lt; v.size() &lt;&lt; std::endl;          &#x2F;&#x2F; output 0
+        std::cout &lt;&lt; &quot;capacity:&quot; &lt;&lt; v.capacity() &lt;&lt; std::endl;  &#x2F;&#x2F; output 8
+
+        &#x2F;&#x2F; Additional memory can be returned to the system via the shrink_to_fit() call
+        v.shrink_to_fit();
+        std::cout &lt;&lt; &quot;size:&quot; &lt;&lt; v.size() &lt;&lt; std::endl;          &#x2F;&#x2F; output 0
+        std::cout &lt;&lt; &quot;capacity:&quot; &lt;&lt; v.capacity() &lt;&lt; std::endl;  &#x2F;&#x2F; output 0
+
+        std::array&lt;int, 4&gt; arr &#x3D; &#123;1, 4, 3, 2&#125;;
+
+        &#x2F;&#x2F;int len &#x3D; 4;
+        &#x2F;&#x2F;std::array&lt;int, len&gt; arr &#x3D; &#123;1,2,3,4&#125;; &#x2F;&#x2F; illegal, size of array must be constexpr
+
+        &#x2F;&#x2F; C style parameter passing
+        &#x2F;&#x2F; foo(arr, arr.size());                &#x2F;&#x2F; illegal, cannot convert implicitly
+        foo(&amp;arr[0], arr.size());
+        foo(arr.data(), arr.size());
+
+        &#x2F;&#x2F; more usage
+        std::sort(arr.begin(), arr.end());
+        for (auto &amp;i : arr)
+                std::cout &lt;&lt; i &lt;&lt; std::endl;
+
+        return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="3">
+<li>创建 <code>Makefile</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile"><span class="token comment"># Makefile</span>
+<span class="token comment"># created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com></span>
+
+<span class="token target symbol">all</span><span class="token punctuation">:</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">patsubst</span> %.cpp, %.out, <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">wildcard</span> *.cpp<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token target symbol">%.out</span><span class="token punctuation">:</span> %.cpp Makefile
+        clang++ <span class="token variable">$&lt;</span> -o <span class="token variable">$@</span> -std<span class="token operator">=</span>c++2a -pedantic
+
+<span class="token target symbol">clean</span><span class="token punctuation">:</span>
+        rm *.out<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ tree
+<span class="token builtin class-name">.</span>
+├── <span class="token number">4.1</span>.linear.container.cpp
+└── Makefile
+
+<span class="token number">0</span> directories, <span class="token number">2</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">ls</span>
+<span class="token number">4.1</span>.linear.container.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">make</span>
+clang++ <span class="token number">4.1</span>.linear.container.cpp <span class="token parameter variable">-o</span> <span class="token number">4.1</span>.linear.container.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">ls</span>
+<span class="token number">4.1</span>.linear.container.cpp  <span class="token number">4.1</span>.linear.container.out  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ./4.1.linear.container.out
+size:0
+capacity:0
+size:3
+capacity:4
+size:5
+capacity:8
+size:0
+capacity:8
+size:0
+capacity:0
+<span class="token number">1</span>
+<span class="token number">4</span>
+<span class="token number">3</span>
+<span class="token number">2</span>
+<span class="token number">1</span>
+<span class="token number">4</span>
+<span class="token number">3</span>
+<span class="token number">2</span>
+<span class="token number">1</span>
+<span class="token number">2</span>
+<span class="token number">3</span>
+<span class="token number">4</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">make</span> clean
+<span class="token function">rm</span> *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">ls</span>
+<span class="token number">4.1</span>.linear.container.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="无序容器"><a href="#无序容器" class="headerlink" title="无序容器"></a>无序容器</h3><p>我们已经熟知了<code>传统 C++</code> 中的<code>有序容器</code> <code>std::map</code>&#x2F;<code>std::set</code>，这些元素内部通过<code>红黑树</code>进行实现，<code>插入</code>和<code>搜索</code>的平均复杂度均为 <code>O(log(size))</code>。在插入元素时候，会根据 <code>&lt;</code> 操作符比较元素大小并判断元素是否相同，并选择合适的位置插入到容器中。当对这个容器中的元素进行<code>遍历</code>时，输出结果会按照 <code>&lt;</code> 操作符的顺序来逐个<code>遍历</code>。</p>
+<p>而<code>无序容器</code>中的元素是<code>不进行排序</code>的，内部通过 <code>Hash</code> 表实现，<code>插入</code>和<code>搜索</code>元素的平均复杂度为 <code>O(constant)</code>，<code>在不关心容器内部元素顺序时，能够获得显著的性能提升</code>。</p>
+<p><code>C++11</code> 引入了的两组<code>无序容器</code>分别是：<code>std::unordered_map</code>&#x2F;<code>std::unordered_multimap</code> 和 <code>std::unordered_set</code>&#x2F;<code>std::unordered_multiset</code>。</p>
+<p>它们的用法和原有的 <code>std::map</code>&#x2F;<code>std::multimap</code>&#x2F;<code>std::set</code>&#x2F;<code>set::multiset</code> 基本类似，由于这些容器我们已经很熟悉了，便不一一举例，我们直接来比较一下 <code>std::map</code> 和 <code>std::unordered_map</code>：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;unordered_map&gt;
+#include &lt;map&gt;
+
+int main() &#123;
+    &#x2F;&#x2F; 两组结构按同样的顺序初始化
+    std::unordered_map&lt;int, std::string&gt; u &#x3D; &#123;
+        &#123;1, &quot;1&quot;&#125;,
+        &#123;3, &quot;3&quot;&#125;,
+        &#123;2, &quot;2&quot;&#125;
+    &#125;;
+    std::map&lt;int, std::string&gt; v &#x3D; &#123;
+        &#123;1, &quot;1&quot;&#125;,
+        &#123;3, &quot;3&quot;&#125;,
+        &#123;2, &quot;2&quot;&#125;
+    &#125;;
+
+    &#x2F;&#x2F; 分别对两组结构进行遍历
+    std::cout &lt;&lt; &quot;std::unordered_map&quot; &lt;&lt; std::endl;
+    for( const auto &amp; n : u)
+        std::cout &lt;&lt; &quot;Key:[&quot; &lt;&lt; n.first &lt;&lt; &quot;] Value:[&quot; &lt;&lt; n.second &lt;&lt; &quot;]\n&quot;;
+
+    std::cout &lt;&lt; std::endl;
+    std::cout &lt;&lt; &quot;std::map&quot; &lt;&lt; std::endl;
+    for( const auto &amp; n : v)
+        std::cout &lt;&lt; &quot;Key:[&quot; &lt;&lt; n.first &lt;&lt; &quot;] Value:[&quot; &lt;&lt; n.second &lt;&lt; &quot;]\n&quot;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>最终的输出结果为：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">std::unordered_map
+Key:<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> Value:<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+Key:<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> Value:<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>
+Key:<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> Value:<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+
+std::map
+Key:<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> Value:<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+Key:<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> Value:<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+Key:<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> Value:<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Files-6"><a href="#Files-6" class="headerlink" title="Files"></a>Files</h4><ol>
+<li>运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /f/vscode/cpp_projects/modern-cpp-tutorial/code/4/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>创建 <code>4.2.unordered.map.cpp</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 4.2.unordered.map.cpp
+&#x2F;&#x2F; created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com&gt;
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;unordered_map&gt;
+#include &lt;map&gt;
+
+int main() &#123;
+
+        &#x2F;&#x2F; initialized in same order
+        std::unordered_map&lt;int, std::string&gt; u &#x3D; &#123;
+                &#123;1, &quot;1&quot;&#125;,
+                &#123;3, &quot;3&quot;&#125;,
+                &#123;2, &quot;2&quot;&#125;
+        &#125;;
+        std::map&lt;int, std::string&gt; v &#x3D; &#123;
+                &#123;1, &quot;1&quot;&#125;,
+                &#123;3, &quot;3&quot;&#125;,
+                &#123;2, &quot;2&quot;&#125;
+        &#125;;
+
+        &#x2F;&#x2F; iterates in the same way
+        std::cout &lt;&lt; &quot;std::unordered_map&quot; &lt;&lt; std::endl;
+        for ( const auto &amp; n : u)
+                std::cout &lt;&lt; &quot;Key:[&quot; &lt;&lt; n.first &lt;&lt; &quot;] Value:[&quot; &lt;&lt; n.second &lt;&lt; &quot;]\n&quot;;
+
+        std::cout &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;std::map&quot; &lt;&lt; std::endl;
+        for ( const auto &amp; n : v)
+                std::cout &lt;&lt; &quot;Key:[&quot; &lt;&lt; n.first &lt;&lt; &quot;] Value:[&quot; &lt;&lt; n.second &lt;&lt; &quot;]\n&quot;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ tree
+<span class="token builtin class-name">.</span>
+├── <span class="token number">4.1</span>.linear.container.cpp
+├── <span class="token number">4.2</span>.unordered.map.cpp
+└── Makefile
+
+<span class="token number">0</span> directories, <span class="token number">3</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">ls</span>
+<span class="token number">4.1</span>.linear.container.cpp  <span class="token number">4.2</span>.unordered.map.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">make</span>
+clang++ <span class="token number">4.1</span>.linear.container.cpp <span class="token parameter variable">-o</span> <span class="token number">4.1</span>.linear.container.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">4.2</span>.unordered.map.cpp <span class="token parameter variable">-o</span> <span class="token number">4.2</span>.unordered.map.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">ls</span>
+<span class="token number">4.1</span>.linear.container.cpp  <span class="token number">4.2</span>.unordered.map.cpp  Makefile
+<span class="token number">4.1</span>.linear.container.out  <span class="token number">4.2</span>.unordered.map.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ./4.2.unordered.map.out
+std::unordered_map
+Key:<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> Value:<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+Key:<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> Value:<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>
+Key:<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> Value:<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+
+std::map
+Key:<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> Value:<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+Key:<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> Value:<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+Key:<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> Value:<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">make</span> clean
+<span class="token function">rm</span> *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">ls</span>
+<span class="token number">4.1</span>.linear.container.cpp  <span class="token number">4.2</span>.unordered.map.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><p>了解过 <code>Python</code> 的程序员应该知道<code>元组</code>的概念，纵观<code>传统 C++</code> 中的容器，除了 <code>std::pair</code> 外，似乎没有现成的结构能够用来存放<code>不同类型</code>的数据（通常我们会自己定义结构）。但 <code>std::pair</code> 的缺陷是显而易见的，<code>只能保存两个元素</code>。</p>
+<h4 id="元组基本操作"><a href="#元组基本操作" class="headerlink" title="元组基本操作"></a>元组基本操作</h4><p>关于<code>元组</code>的使用有三个核心的函数：</p>
+<ol>
+<li><p><code>std::make_tuple</code>: 构造<code>元组</code>。</p>
+</li>
+<li><p><code>std::get</code>: 获得<code>元组</code>某个位置的值。</p>
+</li>
+<li><p><code>std::tie</code>: <code>元组拆包</code>。</p>
+</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;tuple&gt;
+#include &lt;iostream&gt;
+
+auto get_student(int id)
+&#123;
+    &#x2F;&#x2F; 返回类型被推断为 std::tuple&lt;double, char, std::string&gt;
+
+    if (id &#x3D;&#x3D; 0)
+        return std::make_tuple(3.8, &#39;A&#39;, &quot;张三&quot;);
+    if (id &#x3D;&#x3D; 1)
+        return std::make_tuple(2.9, &#39;C&#39;, &quot;李四&quot;);
+    if (id &#x3D;&#x3D; 2)
+        return std::make_tuple(1.7, &#39;D&#39;, &quot;王五&quot;);
+    return std::make_tuple(0.0, &#39;D&#39;, &quot;null&quot;);
+    &#x2F;&#x2F; 如果只写 0 会出现推断错误, 编译失败
+&#125;
+
+int main()
+&#123;
+    auto student &#x3D; get_student(0);
+    std::cout &lt;&lt; &quot;ID: 0, &quot;
+    &lt;&lt; &quot;GPA: &quot; &lt;&lt; std::get&lt;0&gt;(student) &lt;&lt; &quot;, &quot;
+    &lt;&lt; &quot;成绩: &quot; &lt;&lt; std::get&lt;1&gt;(student) &lt;&lt; &quot;, &quot;
+    &lt;&lt; &quot;姓名: &quot; &lt;&lt; std::get&lt;2&gt;(student) &lt;&lt; &#39;\n&#39;;
+
+    double gpa;
+    char grade;
+    std::string name;
+
+    &#x2F;&#x2F; 元组进行拆包
+    std::tie(gpa, grade, name) &#x3D; get_student(1);
+    std::cout &lt;&lt; &quot;ID: 1, &quot;
+    &lt;&lt; &quot;GPA: &quot; &lt;&lt; gpa &lt;&lt; &quot;, &quot;
+    &lt;&lt; &quot;成绩: &quot; &lt;&lt; grade &lt;&lt; &quot;, &quot;
+    &lt;&lt; &quot;姓名: &quot; &lt;&lt; name &lt;&lt; &#39;\n&#39;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>std::get</code> 除了<code>使用常量获取元组对象</code>外，<code>C++14</code> 增加了<code>使用类型来获取元组中的对象</code>：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::tuple&lt;std::string, double, double, int&gt; t(&quot;123&quot;, 4.5, 6.7, 8);
+std::cout &lt;&lt; std::get&lt;std::string&gt;(t) &lt;&lt; std::endl;
+std::cout &lt;&lt; std::get&lt;double&gt;(t) &lt;&lt; std::endl; &#x2F;&#x2F; 非法, 引发编译期错误
+std::cout &lt;&lt; std::get&lt;3&gt;(t) &lt;&lt; std::endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="运行期索引"><a href="#运行期索引" class="headerlink" title="运行期索引"></a>运行期索引</h4><p>如果你仔细思考一下可能就会发现上面代码的问题，<code>std::get&lt;&gt;</code> 依赖一个编译期的<code>常量</code>，所以下面的方式是不合法的：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int index &#x3D; 1;
+std::get&lt;index&gt;(t);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>那么要怎么处理？答案是，使用 <code>std::variant&lt;&gt;</code>（<code>C++ 17</code> 引入），提供给 <code>variant&lt;&gt;</code> 的<code>类型模板参数</code>可以让一个 <code>variant&lt;&gt;</code> 从而容纳提供的<code>几种类型的变量</code>（在其他语言，例如 <code>Python/JavaScript</code> 等，表现为<code>动态类型</code>）：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;variant&gt;
+template &lt;size_t n, typename... T&gt;
+constexpr std::variant&lt;T...&gt; _tuple_index(const std::tuple&lt;T...&gt;&amp; tpl, size_t i) &#123;
+    if constexpr (n &gt;&#x3D; sizeof...(T))
+        throw std::out_of_range(&quot;越界.&quot;);
+    if (i &#x3D;&#x3D; n)
+        return std::variant&lt;T...&gt;&#123; std::in_place_index&lt;n&gt;, std::get&lt;n&gt;(tpl) &#125;;
+    return _tuple_index&lt;(n &lt; sizeof...(T)-1 ? n+1 : 0)&gt;(tpl, i);
+&#125;
+template &lt;typename... T&gt;
+constexpr std::variant&lt;T...&gt; tuple_index(const std::tuple&lt;T...&gt;&amp; tpl, size_t i) &#123;
+    return _tuple_index&lt;0&gt;(tpl, i);
+&#125;
+template &lt;typename T0, typename ... Ts&gt;
+std::ostream &amp; operator&lt;&lt; (std::ostream &amp; s, std::variant&lt;T0, Ts...&gt; const &amp; v) &#123; 
+    std::visit([&amp;](auto &amp;&amp; x)&#123; s &lt;&lt; x;&#125;, v); 
+    return s;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这样我们就能：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int i &#x3D; 1;
+std::cout &lt;&lt; tuple_index(t, i) &lt;&lt; std::endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="元组合并与遍历"><a href="#元组合并与遍历" class="headerlink" title="元组合并与遍历"></a>元组合并与遍历</h4><p>还有一个常见的需求就是<code>合并两个元组</code>，这可以通过 <code>std::tuple_cat</code> 来实现：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto new_tuple &#x3D; std::tuple_cat(get_student(1), std::move(t));<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>马上就能够发现，应该如何<code>快速遍历一个元组</code>？但是我们刚才介绍了如何在运行期通过非常数索引一个 <code>tuple</code> 那么遍历就变得简单了，首先我们需要知道一个<code>元组的长度</code>，可以：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template &lt;typename T&gt;
+auto tuple_len(T &amp;tpl) &#123;
+    return std::tuple_size&lt;T&gt;::value;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这样就能够对元组进行迭代了：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 迭代
+for(int i &#x3D; 0; i !&#x3D; tuple_len(new_tuple); ++i)
+    &#x2F;&#x2F; 运行期索引
+    std::cout &lt;&lt; tuple_index(new_tuple, i) &lt;&lt; std::endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Files-7"><a href="#Files-7" class="headerlink" title="Files"></a>Files</h4><ol>
+<li>运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /f/vscode/cpp_projects/modern-cpp-tutorial/code/4/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>创建 <code>4.3.tuples.cpp</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 4.3.tuples.cpp
+&#x2F;&#x2F; created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com&gt;
+
+#include &lt;tuple&gt;
+#include &lt;iostream&gt;
+#include &lt;variant&gt;
+
+auto get_student(int id)
+&#123;
+        if (id &#x3D;&#x3D; 0)
+                return std::make_tuple(3.8, &#39;A&#39;, &quot;John&quot;);
+        if (id &#x3D;&#x3D; 1)
+                return std::make_tuple(2.9, &#39;C&#39;, &quot;Jack&quot;);
+        if (id &#x3D;&#x3D; 2)
+                return std::make_tuple(1.7, &#39;D&#39;, &quot;Ive&quot;);
+        &#x2F;&#x2F; return type is std::tuple&lt;double, char, std::string&gt;
+        return std::make_tuple(0.0, &#39;D&#39;, &quot;null&quot;);
+&#125;
+
+template &lt;size_t n, typename... T&gt;
+constexpr std::variant&lt;T...&gt; _tuple_index(const std::tuple&lt;T...&gt;&amp; tpl, size_t i) &#123;
+        if constexpr (n &gt;&#x3D; sizeof...(T))
+                throw std::out_of_range(&quot;out of range.&quot;);
+        if (i &#x3D;&#x3D; n)
+                return std::variant&lt;T...&gt;&#123; std::in_place_index&lt;n&gt;, std::get&lt;n&gt;(tpl) &#125;;
+        return _tuple_index&lt;(n &lt; sizeof...(T)-1 ? n+1 : 0)&gt;(tpl, i);
+&#125;
+
+template &lt;typename... T&gt;
+constexpr std::variant&lt;T...&gt; tuple_index(const std::tuple&lt;T...&gt;&amp; tpl, size_t i) &#123;
+        return _tuple_index&lt;0&gt;(tpl, i);
+&#125;
+
+template &lt;typename T&gt;
+auto tuple_len(T &amp;tpl) &#123;
+        return std::tuple_size&lt;T&gt;::value;
+&#125;
+
+template &lt;typename T0, typename ... Ts&gt;
+std::ostream &amp; operator&lt;&lt; (std::ostream &amp; s, std::variant&lt;T0, Ts...&gt; const &amp; v) &#123;
+        std::visit([&amp;](auto &amp;&amp; x)&#123; s &lt;&lt; x;&#125;, v);
+        return s;
+&#125;
+
+int main()
+&#123;
+        auto student &#x3D; get_student(0);
+        std::cout &lt;&lt; &quot;ID: 0, &quot;
+                  &lt;&lt; &quot;GPA: &quot;   &lt;&lt; std::get&lt;0&gt;(student) &lt;&lt; &quot;, &quot;
+                  &lt;&lt; &quot;Grade: &quot; &lt;&lt; std::get&lt;1&gt;(student) &lt;&lt; &quot;, &quot;
+                  &lt;&lt; &quot;Name: &quot;  &lt;&lt; std::get&lt;2&gt;(student) &lt;&lt; &#39;\n&#39;;
+
+        double gpa;
+        char grade;
+        std::string name;
+
+        &#x2F;&#x2F; tuple unpack
+        std::tie(gpa, grade, name) &#x3D; get_student(1);
+        std::cout &lt;&lt; &quot;ID: 1, &quot;
+                  &lt;&lt; &quot;GPA: &quot;   &lt;&lt; gpa   &lt;&lt; &quot;, &quot;
+                  &lt;&lt; &quot;Grade: &quot; &lt;&lt; grade &lt;&lt; &quot;, &quot;
+                  &lt;&lt; &quot;Name: &quot;  &lt;&lt; name  &lt;&lt; &#39;\n&#39;;
+
+        std::tuple&lt;std::string, double, double, int&gt; t(&quot;123&quot;, 4.5, 6.7, 8);
+        std::cout &lt;&lt; std::get&lt;std::string&gt;(t) &lt;&lt; std::endl;
+        &#x2F;&#x2F; std::cout &lt;&lt; std::get&lt;double&gt;(t) &lt;&lt; std::endl; &#x2F;&#x2F; illegal, runtime error
+        std::cout &lt;&lt; std::get&lt;3&gt;(t) &lt;&lt; std::endl;
+
+        &#x2F;&#x2F; concat
+        auto new_tuple &#x3D; std::tuple_cat(get_student(1), std::move(t));
+
+        &#x2F;&#x2F; iteration
+        for (int i &#x3D; 0; i !&#x3D; tuple_len(new_tuple); ++i) &#123;
+                std::cout &lt;&lt; tuple_index(new_tuple, i) &lt;&lt; std::endl; &#x2F;&#x2F; runtime indexing
+        &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ tree
+<span class="token builtin class-name">.</span>
+├── <span class="token number">4.1</span>.linear.container.cpp
+├── <span class="token number">4.2</span>.unordered.map.cpp
+├── <span class="token number">4.3</span>.tuples.cpp
+└── Makefile
+
+<span class="token number">0</span> directories, <span class="token number">4</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">ls</span>
+<span class="token number">4.1</span>.linear.container.cpp  <span class="token number">4.3</span>.tuples.cpp
+<span class="token number">4.2</span>.unordered.map.cpp     Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">make</span>
+clang++ <span class="token number">4.1</span>.linear.container.cpp <span class="token parameter variable">-o</span> <span class="token number">4.1</span>.linear.container.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">4.2</span>.unordered.map.cpp <span class="token parameter variable">-o</span> <span class="token number">4.2</span>.unordered.map.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">4.3</span>.tuples.cpp <span class="token parameter variable">-o</span> <span class="token number">4.3</span>.tuples.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">ls</span>
+<span class="token number">4.1</span>.linear.container.cpp  <span class="token number">4.2</span>.unordered.map.out  Makefile
+<span class="token number">4.1</span>.linear.container.out  <span class="token number">4.3</span>.tuples.cpp
+<span class="token number">4.2</span>.unordered.map.cpp     <span class="token number">4.3</span>.tuples.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ ./4.3.tuples.out
+ID: <span class="token number">0</span>, GPA: <span class="token number">3.8</span>, Grade: A, Name: John
+ID: <span class="token number">1</span>, GPA: <span class="token number">2.9</span>, Grade: C, Name: Jack
+<span class="token number">123</span>
+<span class="token number">8</span>
+<span class="token number">2.9</span>
+C
+Jack
+<span class="token number">123</span>
+<span class="token number">4.5</span>
+<span class="token number">6.7</span>
+<span class="token number">8</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">make</span> clean
+<span class="token function">rm</span> *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$ <span class="token function">ls</span>
+<span class="token number">4.1</span>.linear.container.cpp  <span class="token number">4.3</span>.tuples.cpp
+<span class="token number">4.2</span>.unordered.map.cpp     Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/4
+$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>本章简单介绍了<code>现代 C++</code> 中新增的容器，它们的用法和<code>传统 C++</code> 中已有的容器类似，相对简单，可以根据实际场景丰富的选择需要使用的容器，从而获得更好的性能。</p>
+<p><code>std::tuple</code> 虽然有效，但是标准库提供的功能有限，没办法满足<code>运行期索引</code>和<code>迭代</code>的需求，好在我们还有其他的方法可以自行实现。</p>
+<h2 id="第-5-章-智能指针与内存管理"><a href="#第-5-章-智能指针与内存管理" class="headerlink" title="第 5 章 智能指针与内存管理"></a>第 5 章 智能指针与内存管理</h2><h3 id="RAII-与引用计数"><a href="#RAII-与引用计数" class="headerlink" title="RAII 与引用计数"></a>RAII 与引用计数</h3><p>了解 <code>Objective-C/Swift</code> 的程序员应该知道<code>引用计数</code>的概念。<code>引用计数</code>这种计数是为了<code>防止内存泄露</code>而产生的。<code>基本想法是对于动态分配的对象，进行引用计数，每当增加一次对同一个对象的引用，那么引用对象的引用计数就会增加一次，每删除一次引用，引用计数就会减一，当一个对象的引用计数减为零时，就自动删除指向的堆内存。</code></p>
+<p>在<code>传统 C++</code> 中，<code>记得</code>手动释放资源，总不是最佳实践。因为我们很有可能就忘记了去释放资源而导致泄露。所以通常的做法是对于一个对象而言，我们<code>在构造函数的时候申请空间，而在析构函数（在离开作用域时调用）的时候释放空间</code>，也就是我们常说的 <code>RAII 资源获取即初始化技术</code>。</p>
+<p>凡事都有例外，我们总会有需要将对象在自由存储上分配的需求，在<code>传统 C++</code> 里我们只好使用 <code>new</code> 和 <code>delete</code> 去<code>记得</code>对资源进行释放。而 <code>C++11</code> 引入了<code>智能指针</code>的概念，使用了<code>引用计数</code>的想法，让程序员不再需要关心手动释放内存。这些<code>智能指针</code>包括 <code>std::shared_ptr</code>&#x2F;<code>std::unique_ptr</code>&#x2F;<code>std::weak_ptr</code>，使用它们需要包含头文件 <code>&lt;memory&gt;</code>。</p>
+<blockquote>
+<p>注意：<code>引用计数</code>不是<code>垃圾回收</code>，<code>引用计数</code>能够尽快收回不再被使用的对象，同时<code>在回收的过程中也不会造成长时间的等待</code>，<code>更能够清晰明确的表明资源的生命周期</code>。</p>
+</blockquote>
+<h3 id="std-shared-ptr"><a href="#std-shared-ptr" class="headerlink" title="std::shared_ptr"></a>std::shared_ptr</h3><p><code>std::shared_ptr</code> 是一种<code>智能指针</code>，它能够记录多少个 <code>shared_ptr</code> 共同指向一个对象，从而消除显式的调用 <code>delete</code>，<code>当引用计数变为零的时候就会将对象自动删除</code>。</p>
+<p>但还不够，因为使用 <code>std::shared_ptr</code> 仍然需要使用 <code>new</code> 来调用，这使得代码出现了某种程度上的不对称。</p>
+<p><code>std::make_shared</code> 就能够用来消除显式的使用 <code>new</code>，所以 <code>std::make_shared</code> 会分配创建传入参数中的对象，并返回这个对象类型的 <code>std::shared_ptr</code> 指针。例如：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+void foo(std::shared_ptr&lt;int&gt; i) &#123;
+    (*i)++;
+&#125;
+int main() &#123;
+    &#x2F;&#x2F; auto pointer &#x3D; new int(10); &#x2F;&#x2F; illegal, no direct assignment
+    &#x2F;&#x2F; Constructed a std::shared_ptr
+    auto pointer &#x3D; std::make_shared&lt;int&gt;(10);
+    foo(pointer);
+    std::cout &lt;&lt; *pointer &lt;&lt; std::endl; &#x2F;&#x2F; 11
+    &#x2F;&#x2F; The shared_ptr will be destructed before leaving the scope
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>std::shared_ptr</code> 可以通过 <code>get()</code> 方法来获取<code>原始指针</code>，通过 <code>reset()</code> 来减少一个引用计数，并通过 <code>use_count()</code> 来查看一个对象的引用计数。例如：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto pointer &#x3D; std::make_shared&lt;int&gt;(10);
+auto pointer2 &#x3D; pointer; &#x2F;&#x2F; 引用计数+1
+auto pointer3 &#x3D; pointer; &#x2F;&#x2F; 引用计数+1
+int *p &#x3D; pointer.get();  &#x2F;&#x2F; 这样不会增加引用计数
+std::cout &lt;&lt; &quot;pointer.use_count() &#x3D; &quot; &lt;&lt; pointer.use_count() &lt;&lt; std::endl;   &#x2F;&#x2F; 3
+std::cout &lt;&lt; &quot;pointer2.use_count() &#x3D; &quot; &lt;&lt; pointer2.use_count() &lt;&lt; std::endl; &#x2F;&#x2F; 3
+std::cout &lt;&lt; &quot;pointer3.use_count() &#x3D; &quot; &lt;&lt; pointer3.use_count() &lt;&lt; std::endl; &#x2F;&#x2F; 3
+
+pointer2.reset();
+std::cout &lt;&lt; &quot;reset pointer2:&quot; &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;pointer.use_count() &#x3D; &quot; &lt;&lt; pointer.use_count() &lt;&lt; std::endl;   &#x2F;&#x2F; 2
+std::cout &lt;&lt; &quot;pointer2.use_count() &#x3D; &quot;
+          &lt;&lt; pointer2.use_count() &lt;&lt; std::endl;           &#x2F;&#x2F; pointer2 已 reset; 0
+std::cout &lt;&lt; &quot;pointer3.use_count() &#x3D; &quot; &lt;&lt; pointer3.use_count() &lt;&lt; std::endl; &#x2F;&#x2F; 2
+pointer3.reset();
+std::cout &lt;&lt; &quot;reset pointer3:&quot; &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;pointer.use_count() &#x3D; &quot; &lt;&lt; pointer.use_count() &lt;&lt; std::endl;   &#x2F;&#x2F; 1
+std::cout &lt;&lt; &quot;pointer2.use_count() &#x3D; &quot; &lt;&lt; pointer2.use_count() &lt;&lt; std::endl; &#x2F;&#x2F; 0
+std::cout &lt;&lt; &quot;pointer3.use_count() &#x3D; &quot;
+          &lt;&lt; pointer3.use_count() &lt;&lt; std::endl;           &#x2F;&#x2F; pointer3 已 reset; 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Files-8"><a href="#Files-8" class="headerlink" title="Files"></a>Files</h4><ol>
+<li>运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令构建项目目录。</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /f/vscode/cpp_projects/modern-cpp-tutorial/code/
+<span class="token function">mkdir</span> <span class="token number">5</span>
+<span class="token builtin class-name">cd</span> <span class="token number">5</span>/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="2">
+<li>创建 <code>5.1.shared.ptr.a.cpp</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 5.1.shared.ptr.a.cpp
+&#x2F;&#x2F; created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com&gt;
+
+#include &lt;iostream&gt;
+#include &lt;memory&gt;
+
+void foo(std::shared_ptr&lt;int&gt; i)
+&#123;
+        (*i)++;
+&#125;
+
+int main()
+&#123;
+        &#x2F;&#x2F; auto pointer &#x3D; new int(10); &#x2F;&#x2F; illegal, no direct assignment
+        &#x2F;&#x2F; std::shared_ptr construction
+        auto pointer &#x3D; std::make_shared&lt;int&gt;(10);
+        auto pointer2 &#x3D; pointer;        &#x2F;&#x2F; reference count + 1
+        auto pointer3 &#x3D; pointer;        &#x2F;&#x2F; reference count + 1
+
+        foo(pointer);
+        std::cout &lt;&lt; *pointer &lt;&lt; std::endl; &#x2F;&#x2F; 11
+        int *p &#x3D; pointer.get();             &#x2F;&#x2F; does not increase reference count
+
+        std::cout &lt;&lt; &quot;pointer.use_count() &#x3D; &quot; &lt;&lt; pointer.use_count() &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;pointer2.use_count() &#x3D; &quot; &lt;&lt; pointer2.use_count() &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;pointer3.use_count() &#x3D; &quot; &lt;&lt; pointer3.use_count() &lt;&lt; std::endl;
+
+        pointer2.reset();
+        std::cout &lt;&lt; &quot;reset pointer2:&quot; &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;pointer.use_count() &#x3D; &quot; &lt;&lt; pointer.use_count() &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;pointer2.use_count() &#x3D; &quot; &lt;&lt; pointer2.use_count() &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;pointer3.use_count() &#x3D; &quot; &lt;&lt; pointer3.use_count() &lt;&lt; std::endl;
+
+        pointer3.reset();
+        std::cout &lt;&lt; &quot;reset pointer3:&quot; &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;pointer.use_count() &#x3D; &quot; &lt;&lt; pointer.use_count() &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;pointer2.use_count() &#x3D; &quot; &lt;&lt; pointer2.use_count() &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;pointer3.use_count() &#x3D; &quot; &lt;&lt; pointer3.use_count() &lt;&lt; std::endl;
+        std::cout &lt;&lt; *pointer &lt;&lt; std::endl; &#x2F;&#x2F; reference count equals 0, illegal access
+
+        &#x2F;&#x2F; Before leaving the scope, the pointer is destructed and
+        &#x2F;&#x2F; the reference count is reduced to 0
+        return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="3">
+<li>创建 <code>Makefile</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile"><span class="token comment"># Makefile</span>
+<span class="token comment"># created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com></span>
+
+<span class="token target symbol">all</span><span class="token punctuation">:</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">patsubst</span> %.cpp, %.out, <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">wildcard</span> *.cpp<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token target symbol">%.out</span><span class="token punctuation">:</span> %.cpp Makefile
+        clang++ <span class="token variable">$&lt;</span> -o <span class="token variable">$@</span> -std<span class="token operator">=</span>c++2a -pedantic
+
+<span class="token target symbol">clean</span><span class="token punctuation">:</span>
+        rm *.out<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ tree
+<span class="token builtin class-name">.</span>
+├── <span class="token number">5.1</span>.shared.ptr.a.cpp
+└── Makefile
+
+<span class="token number">0</span> directories, <span class="token number">2</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">ls</span>
+<span class="token number">5.1</span>.shared.ptr.a.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">make</span>
+clang++ <span class="token number">5.1</span>.shared.ptr.a.cpp <span class="token parameter variable">-o</span> <span class="token number">5.1</span>.shared.ptr.a.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">ls</span>
+<span class="token number">5.1</span>.shared.ptr.a.cpp  <span class="token number">5.1</span>.shared.ptr.a.out  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ./5.1.shared.ptr.a.out
+<span class="token number">11</span>
+pointer.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">3</span>
+pointer2.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">3</span>
+pointer3.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">3</span>
+reset pointer2:
+pointer.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">2</span>
+pointer2.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span>
+pointer3.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">2</span>
+reset pointer3:
+pointer.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">1</span>
+pointer2.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span>
+pointer3.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token number">11</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">make</span> clean
+<span class="token function">rm</span> *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">ls</span>
+<span class="token number">5.1</span>.shared.ptr.a.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="std-unique-ptr"><a href="#std-unique-ptr" class="headerlink" title="std::unique_ptr"></a>std::unique_ptr</h3><p><code>std::unique_ptr</code> 是一种独占的<code>智能指针</code>，它禁止其他<code>智能指针</code>与其共享同一个对象，从而保证代码的安全：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">std::unique_ptr&lt;int&gt; pointer &#x3D; std::make_unique&lt;int&gt;(10); &#x2F;&#x2F; make_unique 从 C++14 引入
+std::unique_ptr&lt;int&gt; pointer2 &#x3D; pointer; &#x2F;&#x2F; 非法<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><code>make_unique</code> 并不复杂，<code>C++11</code> 没有提供 <code>std::make_unique</code>，可以自行实现：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T, typename ...Args&gt;
+std::unique_ptr&lt;T&gt; make_unique( Args&amp;&amp; ...args ) &#123;
+  return std::unique_ptr&lt;T&gt;( new T( std::forward&lt;Args&gt;(args)... ) );
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>至于为什么没有提供，<code>C++</code> 标准委员会主席 <code>Herb Sutter</code> 在他的<a href="https://herbsutter.com/gotw/_102/">博客</a>中提到原因是因为<code>被他们忘记了</code>。</p>
+</blockquote>
+<p>既然是<code>独占</code>，换句话说就是不可复制。但是，我们可以利用 <code>std::move</code> 将其转移给其他的 <code>unique_ptr</code>，例如：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+
+struct Foo &#123;
+    Foo() &#123; std::cout &lt;&lt; &quot;Foo::Foo&quot; &lt;&lt; std::endl; &#125;
+    ~Foo() &#123; std::cout &lt;&lt; &quot;Foo::~Foo&quot; &lt;&lt; std::endl; &#125;
+    void foo() &#123; std::cout &lt;&lt; &quot;Foo::foo&quot; &lt;&lt; std::endl; &#125;
+&#125;;
+
+void f(const Foo &amp;) &#123;
+    std::cout &lt;&lt; &quot;f(const Foo&amp;)&quot; &lt;&lt; std::endl;
+&#125;
+
+int main() &#123;
+    std::unique_ptr&lt;Foo&gt; p1(std::make_unique&lt;Foo&gt;());
+    &#x2F;&#x2F; p1 不空, 输出
+    if (p1) p1-&gt;foo();
+    &#123;
+        std::unique_ptr&lt;Foo&gt; p2(std::move(p1));
+        &#x2F;&#x2F; p2 不空, 输出
+        f(*p2);
+        &#x2F;&#x2F; p2 不空, 输出
+        if(p2) p2-&gt;foo();
+        &#x2F;&#x2F; p1 为空, 无输出
+        if(p1) p1-&gt;foo();
+        p1 &#x3D; std::move(p2);
+        &#x2F;&#x2F; p2 为空, 无输出
+        if(p2) p2-&gt;foo();
+        std::cout &lt;&lt; &quot;p2 被销毁&quot; &lt;&lt; std::endl;
+    &#125;
+    &#x2F;&#x2F; p1 不空, 输出
+    if (p1) p1-&gt;foo();
+    &#x2F;&#x2F; Foo 的实例会在离开作用域时被销毁
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Files-9"><a href="#Files-9" class="headerlink" title="Files"></a>Files</h4><ol>
+<li>运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /f/vscode/cpp_projects/modern-cpp-tutorial/code/5/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>创建 <code>5.2.unique.ptr.cpp</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 5.2.unique.ptr.cpp
+&#x2F;&#x2F; created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com&gt;
+
+#include &lt;iostream&gt;
+#include &lt;memory&gt;
+struct Foo &#123;
+        Foo()      &#123; std::cout &lt;&lt; &quot;Foo::Foo&quot; &lt;&lt; std::endl; &#125;
+        ~Foo()     &#123; std::cout &lt;&lt; &quot;Foo::~Foo&quot; &lt;&lt; std::endl; &#125;
+        void foo() &#123; std::cout &lt;&lt; &quot;Foo::foo&quot; &lt;&lt; std::endl; &#125;
+&#125;;
+
+void f(const Foo &amp;) &#123;
+        std::cout &lt;&lt; &quot;f(const Foo&amp;)&quot; &lt;&lt; std::endl;
+&#125;
+
+int main() &#123;
+        std::unique_ptr&lt;Foo&gt; p1(std::make_unique&lt;Foo&gt;());
+
+        &#x2F;&#x2F; p1 is not empty, prints
+        if (p1) p1-&gt;foo();
+        &#123;
+                std::unique_ptr&lt;Foo&gt; p2(std::move(p1));
+
+                &#x2F;&#x2F; p2 is not empty, prints
+                f(*p2);
+
+                &#x2F;&#x2F; p2 is not empty, prints
+                if(p2) p2-&gt;foo();
+
+                &#x2F;&#x2F; p1 is empty, no prints
+                if(p1) p1-&gt;foo();
+
+                p1 &#x3D; std::move(p2);
+
+                &#x2F;&#x2F; p2 is empty, no prints
+                if(p2) p2-&gt;foo();
+                std::cout &lt;&lt; &quot;p2 was destroyed&quot; &lt;&lt; std::endl;
+        &#125;
+        &#x2F;&#x2F; p1 is not empty, prints
+        if (p1) p1-&gt;foo();
+
+        &#x2F;&#x2F; Foo instance will be destroyed when leaving the scope
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ tree
+<span class="token builtin class-name">.</span>
+├── <span class="token number">5.1</span>.shared.ptr.a.cpp
+├── <span class="token number">5.2</span>.unique.ptr.cpp
+└── Makefile
+
+<span class="token number">0</span> directories, <span class="token number">3</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">ls</span>
+<span class="token number">5.1</span>.shared.ptr.a.cpp  <span class="token number">5.2</span>.unique.ptr.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">make</span>
+clang++ <span class="token number">5.1</span>.shared.ptr.a.cpp <span class="token parameter variable">-o</span> <span class="token number">5.1</span>.shared.ptr.a.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">5.2</span>.unique.ptr.cpp <span class="token parameter variable">-o</span> <span class="token number">5.2</span>.unique.ptr.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">ls</span>
+<span class="token number">5.1</span>.shared.ptr.a.cpp  <span class="token number">5.2</span>.unique.ptr.cpp  Makefile
+<span class="token number">5.1</span>.shared.ptr.a.out  <span class="token number">5.2</span>.unique.ptr.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ./5.2.unique.ptr.out
+Foo::Foo
+Foo::foo
+f<span class="token punctuation">(</span>const Foo<span class="token operator">&amp;</span><span class="token punctuation">)</span>
+Foo::foo
+p2 was destroyed
+Foo::foo
+Foo::~Foo
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">make</span> clean
+<span class="token function">rm</span> *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">ls</span>
+<span class="token number">5.1</span>.shared.ptr.a.cpp  <span class="token number">5.2</span>.unique.ptr.cpp  Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="std-weak-ptr"><a href="#std-weak-ptr" class="headerlink" title="std::weak_ptr"></a>std::weak_ptr</h3><p>如果你仔细思考 <code>std::shared_ptr</code> 就会发现依然存在着资源无法释放的问题。看下面这个例子：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">struct A;
+struct B;
+
+struct A &#123;
+    std::shared_ptr&lt;B&gt; pointer;
+    ~A() &#123;
+        std::cout &lt;&lt; &quot;A 被销毁&quot; &lt;&lt; std::endl;
+    &#125;
+&#125;;
+struct B &#123;
+    std::shared_ptr&lt;A&gt; pointer;
+    ~B() &#123;
+        std::cout &lt;&lt; &quot;B 被销毁&quot; &lt;&lt; std::endl;
+    &#125;
+&#125;;
+int main() &#123;
+    auto a &#x3D; std::make_shared&lt;A&gt;();
+    auto b &#x3D; std::make_shared&lt;B&gt;();
+    a-&gt;pointer &#x3D; b;
+    b-&gt;pointer &#x3D; a;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>运行结果是 <code>A</code>,<code>B</code> 都不会被销毁，这是因为 <code>a</code>,<code>b</code> 内部的 <code>pointer</code> 同时又引用了 <code>a</code>,<code>b</code>，这使得 <code>a</code>,<code>b</code> 的引用计数均变为了 <code>2</code>，而离开作用域时，<code>a</code>,<code>b</code> 智能指针被析构，却只能造成这块区域的引用计数减一，这样就导致了 <code>a</code>,<code>b</code> 对象指向的内存区域引用计数不为零，而外部已经没有办法找到这块区域了，也就造成了<code>内存泄露</code>，如下图：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220825125601.png"></p>
+<p>解决这个问题的办法就是使用<code>弱引用指针</code> <code>std::weak_ptr</code>，<code>std::weak_ptr</code> 是一种<code>弱引用</code>（相比较而言 <code>std::shared_ptr</code> 就是一种<code>强引用</code>）。<code>弱引用不会引起引用计数增加</code>，当换用<code>弱引用</code>时候，最终的释放流程如下图所示：</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220825125816.png"></p>
+<p>在上图中，最后一步只剩下 <code>B</code>，而 <code>B</code> 并没有任何<code>智能指针</code>引用它，因此这块内存资源也会被释放。</p>
+<p><code>std::weak_ptr</code> 没有 <code>*</code> 运算符和 <code>-&gt;</code> 运算符，所以<code>不能够对资源进行操作</code>，它可以用于检查 <code>std::shared_ptr</code> 是否存在，其 <code>expired()</code> 方法能<code>在资源未被释放时</code>，会返回 <code>false</code>，否则返回 <code>true</code>；除此之外，它也可以用于获取指向原始对象的 <code>std::shared_ptr</code> 指针，其 <code>lock()</code> 方法在原始对象未被释放时，返回一个指向原始对象的 <code>std::shared_ptr</code> 指针，进而访问原始对象的资源，否则返回 <code>nullptr</code>。</p>
+<h4 id="Files-10"><a href="#Files-10" class="headerlink" title="Files"></a>Files</h4><ol>
+<li>运行开始菜单的 “MSYS2 MinGW Clang x64”，运行下面命令进入项目目录。</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /f/vscode/cpp_projects/modern-cpp-tutorial/code/5/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>创建 <code>5.3.weak.ptr.cpp</code> 文件，粘贴下面代码。</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 5.3.weak.ptr.cpp
+&#x2F;&#x2F; created by LuYF-Lemon-love &lt;luyanfeng_nlp@qq.com&gt;
+
+#include &lt;iostream&gt;
+#include &lt;memory&gt;
+
+class A;
+class B;
+
+class A &#123;
+public:
+        &#x2F;&#x2F; std::shared_ptr&lt;B&gt; pointer;
+        std::weak_ptr&lt;B&gt; pointer;
+        ~A() &#123;
+                std::cout &lt;&lt; &quot;A was destroyed&quot; &lt;&lt; std::endl;
+        &#125;
+&#125;;
+
+class B &#123;
+public:
+        std::shared_ptr&lt;A&gt; pointer;
+        ~B() &#123;
+                std::cout &lt;&lt; &quot;B was destroyed&quot; &lt;&lt; std::endl;
+        &#125;
+&#125;;
+
+int main() &#123;
+        std::shared_ptr&lt;A&gt; a &#x3D; std::make_shared&lt;A&gt;();
+        std::shared_ptr&lt;B&gt; b &#x3D; std::make_shared&lt;B&gt;();
+        a-&gt;pointer &#x3D; b;
+        b-&gt;pointer &#x3D; a;
+
+        return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ tree
+<span class="token builtin class-name">.</span>
+├── <span class="token number">5.1</span>.shared.ptr.a.cpp
+├── <span class="token number">5.2</span>.unique.ptr.cpp
+├── <span class="token number">5.3</span>.weak.ptr.cpp
+└── Makefile
+
+<span class="token number">0</span> directories, <span class="token number">4</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">ls</span>
+<span class="token number">5.1</span>.shared.ptr.a.cpp  <span class="token number">5.3</span>.weak.ptr.cpp
+<span class="token number">5.2</span>.unique.ptr.cpp    Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">make</span>
+clang++ <span class="token number">5.1</span>.shared.ptr.a.cpp <span class="token parameter variable">-o</span> <span class="token number">5.1</span>.shared.ptr.a.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">5.2</span>.unique.ptr.cpp <span class="token parameter variable">-o</span> <span class="token number">5.2</span>.unique.ptr.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+clang++ <span class="token number">5.3</span>.weak.ptr.cpp <span class="token parameter variable">-o</span> <span class="token number">5.3</span>.weak.ptr.out <span class="token parameter variable">-std</span><span class="token operator">=</span>c++2a <span class="token parameter variable">-pedantic</span>
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">ls</span>
+<span class="token number">5.1</span>.shared.ptr.a.cpp  <span class="token number">5.2</span>.unique.ptr.out  Makefile
+<span class="token number">5.1</span>.shared.ptr.a.out  <span class="token number">5.3</span>.weak.ptr.cpp
+<span class="token number">5.2</span>.unique.ptr.cpp    <span class="token number">5.3</span>.weak.ptr.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ ./5.3.weak.ptr.out
+B was destroyed
+A was destroyed
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">make</span> clean
+<span class="token function">rm</span> *.out
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$ <span class="token function">ls</span>
+<span class="token number">5.1</span>.shared.ptr.a.cpp  <span class="token number">5.3</span>.weak.ptr.cpp
+<span class="token number">5.2</span>.unique.ptr.cpp    Makefile
+
+lyf@DESKTOP-GV2QHKN CLANG64 /f/vscode/cpp_projects/modern-cpp-tutorial/code/5
+$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><p><code>智能指针</code>这种技术并不新奇，在很多语言中都是一种常见的技术，<code>现代 C++</code> 将这项技术引进，在一定程度上消除了 <code>new</code>&#x2F;<code>delete</code> 的滥用，是一种更加成熟的编程范式。</p>
+<h3 id="进一步阅读的参考资料"><a href="#进一步阅读的参考资料" class="headerlink" title="进一步阅读的参考资料"></a>进一步阅读的参考资料</h3><ol>
+<li><a href="https://stackoverflow.com/questions/12580432/why-does-c11-have-make-shared-but-not-make-unique">stackoverflow 上关于『C++11为什么没有 make_unique』的讨论</a></li>
+</ol>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二十四篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2022/08/20/00024-xian-dai-c-jiao-cheng-xue-xi-bi-ji-er/">https://luyf-lemon-love.space/2022/08/20/00024-xian-dai-c-jiao-cheng-xue-xi-bi-ji-er/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/C/">
+                                    <span class="chip bg-color">C++</span>
+                                </a>
+                            
+                                <a href="/tags/make/">
+                                    <span class="chip bg-color">make</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/08/26/00025-xian-dai-c-jiao-cheng-xue-xi-bi-ji-san/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/noxus_expansion_01.jpg" class="responsive-img" alt="00025-现代 C++ 教程学习笔记（三）">
+                        
+                        <span class="card-title">00025-现代 C++ 教程学习笔记（三）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C/" class="post-category">
+                                    C++
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                    <a href="/tags/make/">
+                        <span class="chip bg-color">make</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/08/16/00023-xian-dai-c-jiao-cheng-xue-xi-bi-ji-yi/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/shadow_ruination_03.jpg" class="responsive-img" alt="00023-现代 C++ 教程学习笔记（一）">
+                        
+                        <span class="card-title">00023-现代 C++ 教程学习笔记（一）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C/" class="post-category">
+                                    C++
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                    <a href="/tags/make/">
+                        <span class="chip bg-color">make</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

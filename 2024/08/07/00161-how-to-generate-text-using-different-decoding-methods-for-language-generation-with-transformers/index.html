@@ -1,0 +1,1501 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00161 How to generate text: using different decoding methods for language generation with Transformers, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言本文介绍了🤗 PEFT：在低资源硬件上对十亿规模模型进行参数高效微调。
+
+Hugging Face Github 主页: https://github.com/huggingface
+操作系统：Windows 11 家庭中文版
+参考文">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00161 How to generate text: using different decoding methods for language generation with Transformers | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/043-119867946.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00161 How to generate text: using different decoding methods for language generation with Transformers</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大语言模型</span>
+                            </a>
+                        
+                            <a href="/tags/huggingface/">
+                                <span class="chip bg-color">huggingface</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                大语言模型
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-08-07
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文介绍了🤗 PEFT：在低资源硬件上对十亿规模模型进行参数高效微调。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240807230611.png"></p>
+<p>Hugging Face Github 主页: <a href="https://github.com/huggingface">https://github.com/huggingface</a></p>
+<p>操作系统：Windows 11 家庭中文版</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://huggingface.co/blog/how-to-generate">How to generate text: using different decoding methods for language generation with Transformers</a></li>
+<li><a href="https://huggingface.co/blog/zh/how-to-generate">如何生成文本: 通过 Transformers 用不同的解码方法生成文本</a></li>
+</ol>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In recent years, there has been an increasing interest in open-ended language generation thanks to the rise of large transformer-based language models trained on millions of webpages, including OpenAI’s <a href="https://openai.com/blog/chatgpt">ChatGPT</a> and Meta’s <a href="https://ai.meta.com/blog/large-language-model-llama-meta-ai/">LLaMA</a>. The results on conditioned open-ended language generation are impressive, having shown to <a href="https://ai.googleblog.com/2021/10/introducing-flan-more-generalizable.html">generalize to new tasks</a>, <a href="https://huggingface.co/blog/starcoder">handle code</a>, or <a href="https://openai.com/research/whisper">take non-text data as input</a>. Besides <strong>the improved transformer architecture</strong> and <strong>massive unsupervised training data</strong>, <strong>better decoding methods</strong> have also played an important role.</p>
+<p>This blog post gives a brief overview of different decoding strategies and more importantly shows how <em>you</em> can implement them with very little effort using the popular <code>transformers</code> library!</p>
+<p>All of the following functionalities can be used for <strong>auto-regressive</strong> language generation (<a href="http://jalammar.github.io/illustrated-gpt2/">here</a> a refresher). In short, <em>auto-regressive</em> language generation is based on the assumption that the probability distribution of a word sequence can be decomposed into the product of conditional next word distributions:</p>
+<p>$$ P(w_{1:T} | W_0 ) &#x3D; \prod_{t&#x3D;1}^T P(w_{t} | w_{1: t-1}, W_0) \text{ ,with }  w_{1: 0} &#x3D; \emptyset, $$</p>
+<p>and $W_0$ being the initial <em>context</em> word sequence. <strong>The length $T$ of the word sequence is usually determined <em>on-the-fly</em> and corresponds to the timestep $t&#x3D;T$ the EOS token is generated from $P(w_{t} | w_{1: t-1}, W_{0})$.</strong></p>
+<p>We will give a tour of the currently most prominent decoding methods, mainly <em>Greedy search</em>, <em>Beam search</em>, and <em>Sampling</em>.</p>
+<p>Let’s quickly install transformers and load the model. We will use GPT2 in PyTorch for demonstration, but the API is 1-to-1 the same for TensorFlow and JAX.</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">!pip install <span class="token operator">-</span>q transformers<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoModelForCausalLM<span class="token punctuation">,</span> AutoTokenizer
+<span class="token keyword">import</span> torch
+
+torch_device <span class="token operator">=</span> <span class="token string">"cuda"</span> <span class="token keyword">if</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token string">"cpu"</span>
+
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"gpt2"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># add the EOS token as PAD token to avoid warnings</span>
+model <span class="token operator">=</span> AutoModelForCausalLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"gpt2"</span><span class="token punctuation">,</span> pad_token_id<span class="token operator">=</span>tokenizer<span class="token punctuation">.</span>eos_token_id<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>torch_device<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Greedy-Search"><a href="#Greedy-Search" class="headerlink" title="Greedy Search"></a>Greedy Search</h2><p>Greedy search is the simplest decoding method. It selects the word with the highest probability as its next word: $w_t &#x3D; argmax_{w}P(w | w_{1:t-1})$ at each timestep $t$. The following sketch shows greedy search.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240807231329.png"></p>
+<p>Starting from the word $\text{“The”}$, the algorithm greedily chooses the next word of highest probability $\text{“nice”}$ and so on, so that the final generated word sequence is $(\text{“The”}, \text{“nice”}, \text{“woman”})$ having an overall probability of $0.5 \times 0.4 &#x3D; 0.2$ .</p>
+<p>In the following we will generate word sequences using GPT2 on the context $(\text{“I”}, \text{“enjoy”}, \text{“walking”}, \text{“with”}, \text{“my”}, \text{“cute”}, \text{“dog”})$. Let’s see how greedy search can be used in <code>transformers</code>:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># encode context the generation is conditioned on</span>
+model_inputs <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span><span class="token string">'I enjoy walking with my cute dog'</span><span class="token punctuation">,</span> return_tensors<span class="token operator">=</span><span class="token string">'pt'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>torch_device<span class="token punctuation">)</span>
+
+<span class="token comment"># generate 40 new tokens</span>
+greedy_output <span class="token operator">=</span> model<span class="token punctuation">.</span>generate<span class="token punctuation">(</span><span class="token operator">**</span>model_inputs<span class="token punctuation">,</span> max_new_tokens<span class="token operator">=</span><span class="token number">40</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Output:\n"</span> <span class="token operator">+</span> <span class="token number">100</span> <span class="token operator">*</span> <span class="token string">'-'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>greedy_output<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">Output:
+----------------------------------------------------------------------------------------------------
+I enjoy walking with my cute dog, but I&#39;m not sure if I&#39;ll ever be able to walk with my dog. I&#39;m not sure if I&#39;ll ever be able to walk with my dog.
+
+I&#39;m not sure<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Alright! We have generated our first short text with GPT2 😊. <strong>The generated words following the context are reasonable, but the model quickly starts repeating itself! This is a very common problem in language generation in general and seems to be even more so in greedy and beam search</strong> - check out <a href="https://arxiv.org/abs/1610.02424">Vijayakumar et al., 2016</a> and <a href="https://arxiv.org/abs/1701.03185">Shao et al., 2017</a>.</p>
+<p><strong>The major drawback of greedy search though is that it misses high probability words hidden behind a low probability word as can be seen in our sketch above:</strong></p>
+<p>The word $\text{“has”}$ with its high conditional probability of $0.9$ is hidden behind the word $\text{“dog”}$, which has only the second-highest conditional probability, so that greedy search misses the word sequence $\text{“The”}, \text{“dog”}, \text{“has”}$ .</p>
+<p>Thankfully, we have beam search to alleviate this problem!</p>
+<h2 id="Beam-search"><a href="#Beam-search" class="headerlink" title="Beam search"></a>Beam search</h2><p><strong>Beam search reduces the risk of missing hidden high probability word sequences by keeping the most likely <code>num_beams</code> of hypotheses at each time step and eventually choosing the hypothesis that has the overall highest probability.</strong> Let’s illustrate with <code>num_beams=2</code>:</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240807231424.png"></p>
+<p>At time step 1, besides the most likely hypothesis $(\text{“The”}, \text{“nice”})$, beam search also keeps track of the second most likely one $(\text{“The”}, \text{“dog”})$. At time step 2, beam search finds that the word sequence $(\text{“The”}, \text{“dog”}, \text{“has”})$, has with $0.36$ a higher probability than $(\text{“The”}, \text{“nice”}, \text{“woman”})$, which has $0.2$ . Great, it has found the most likely word sequence in our toy example!</p>
+<p><strong>Beam search will always find an output sequence with higher probability than greedy search, but is not guaranteed to find the most likely output.</strong></p>
+<p>Let’s see how beam search can be used in <code>transformers</code>. <strong>We set <code>num_beams &gt; 1</code> and <code>early_stopping=True</code> so that generation is finished when all beam hypotheses reached the EOS token.</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># activate beam search and early_stopping</span>
+beam_output <span class="token operator">=</span> model<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>
+    <span class="token operator">**</span>model_inputs<span class="token punctuation">,</span>
+    max_new_tokens<span class="token operator">=</span><span class="token number">40</span><span class="token punctuation">,</span>
+    num_beams<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span>
+    early_stopping<span class="token operator">=</span><span class="token boolean">True</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Output:\n"</span> <span class="token operator">+</span> <span class="token number">100</span> <span class="token operator">*</span> <span class="token string">'-'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>beam_output<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">Output:
+----------------------------------------------------------------------------------------------------
+I enjoy walking with my cute dog, but I&#39;m not sure if I&#39;ll ever be able to walk with him again.
+
+I&#39;m not sure if I&#39;ll ever be able to walk with him again. I&#39;m not sure<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>While the result is arguably more fluent, the output still includes repetitions of the same word sequences.</strong> One of the available remedies is to introduce <em>n-grams</em> (<em>a.k.a</em> word sequences of n words) penalties as introduced by <a href="https://arxiv.org/abs/1705.04304">Paulus et al. (2017)</a> and <a href="https://arxiv.org/abs/1701.02810">Klein et al. (2017)</a>. <strong>The most common <em>n-grams</em> penalty makes sure that no <em>n-gram</em> appears twice by manually setting the probability of next words that could create an already seen <em>n-gram</em> to 0.</strong></p>
+<p>Let’s try it out by setting <code>no_repeat_ngram_size=2</code> so that no <em>2-gram</em> appears twice:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># set no_repeat_ngram_size to 2</span>
+beam_output <span class="token operator">=</span> model<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>
+    <span class="token operator">**</span>model_inputs<span class="token punctuation">,</span>
+    max_new_tokens<span class="token operator">=</span><span class="token number">40</span><span class="token punctuation">,</span>
+    num_beams<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span>
+    no_repeat_ngram_size<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span>
+    early_stopping<span class="token operator">=</span><span class="token boolean">True</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Output:\n"</span> <span class="token operator">+</span> <span class="token number">100</span> <span class="token operator">*</span> <span class="token string">'-'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>beam_output<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">Output:
+----------------------------------------------------------------------------------------------------
+I enjoy walking with my cute dog, but I&#39;m not sure if I&#39;ll ever be able to walk with him again.
+
+I&#39;ve been thinking about this for a while now, and I think it&#39;s time for me to<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Nice, that looks much better! We can see that the repetition does not appear anymore. <strong>Nevertheless, <em>n-gram</em> penalties have to be used with care.</strong> An article generated about the city <em>New York</em> should not use a <em>2-gram</em> penalty or otherwise, the name of the city would only appear once in the whole text!</p>
+<p><strong>Another important feature about beam search is that we can compare the top beams after generation and choose the generated beam that fits our purpose best.</strong></p>
+<p><strong>In <code>transformers</code>, we simply set the parameter <code>num_return_sequences</code> to the number of highest scoring beams that should be returned. Make sure though that <code>num_return_sequences &lt;= num_beams</code>!</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># set return_num_sequences > 1</span>
+beam_outputs <span class="token operator">=</span> model<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>
+    <span class="token operator">**</span>model_inputs<span class="token punctuation">,</span>
+    max_new_tokens<span class="token operator">=</span><span class="token number">40</span><span class="token punctuation">,</span>
+    num_beams<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span>
+    no_repeat_ngram_size<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span>
+    num_return_sequences<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span>
+    early_stopping<span class="token operator">=</span><span class="token boolean">True</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># now we have 3 output sequences</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Output:\n"</span> <span class="token operator">+</span> <span class="token number">100</span> <span class="token operator">*</span> <span class="token string">'-'</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i<span class="token punctuation">,</span> beam_output <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>beam_outputs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"&#123;&#125;: &#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> tokenizer<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>beam_output<span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">Output:
+----------------------------------------------------------------------------------------------------
+0: I enjoy walking with my cute dog, but I&#39;m not sure if I&#39;ll ever be able to walk with him again.
+
+I&#39;ve been thinking about this for a while now, and I think it&#39;s time for me to
+1: I enjoy walking with my cute dog, but I&#39;m not sure if I&#39;ll ever be able to walk with her again.
+
+I&#39;ve been thinking about this for a while now, and I think it&#39;s time for me to
+2: I enjoy walking with my cute dog, but I&#39;m not sure if I&#39;ll ever be able to walk with him again.
+
+I&#39;ve been thinking about this for a while now, and I think it&#39;s a good idea to
+3: I enjoy walking with my cute dog, but I&#39;m not sure if I&#39;ll ever be able to walk with him again.
+
+I&#39;ve been thinking about this for a while now, and I think it&#39;s time to take a
+4: I enjoy walking with my cute dog, but I&#39;m not sure if I&#39;ll ever be able to walk with him again.
+
+I&#39;ve been thinking about this for a while now, and I think it&#39;s a good idea.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>As can be seen, the five beam hypotheses are only marginally different to each other</strong> - which should not be too surprising when using only 5 beams.</p>
+<p><strong>In open-ended generation, a couple of reasons have been brought forward why beam search might not be the best possible option:</strong></p>
+<ul>
+<li><p><strong>Beam search can work very well in tasks where the length of the desired generation is more or less predictable as in machine translation or summarization</strong> - see <a href="https://arxiv.org/abs/1808.10006">Murray et al. (2018)</a> and <a href="https://arxiv.org/abs/1808.09582">Yang et al. (2018)</a>. <strong>But this is not the case for open-ended generation where the desired output length can vary greatly, e.g. dialog and story generation.</strong></p>
+</li>
+<li><p><strong>We have seen that beam search heavily suffers from repetitive generation.</strong> This is especially hard to control with <em>n-gram</em>- or other penalties in story generation since finding a good trade-off between inhibiting repetition and repeating cycles of identical <em>n-grams</em> requires a lot of finetuning.</p>
+</li>
+<li><p><strong>As argued in <a href="https://arxiv.org/abs/1904.09751">Ari Holtzman et al. (2019)</a>, high quality human language does not follow a distribution of high probability next words. In other words, as humans, we want generated text to surprise us and not to be boring&#x2F;predictable.</strong> The authors show this nicely by plotting the probability, a model would give to human text vs. what beam search does.</p>
+</li>
+</ul>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240807231517.png"></p>
+<p><strong>So let’s stop being boring and introduce some randomness 🤪.</strong></p>
+<h2 id="Sampling"><a href="#Sampling" class="headerlink" title="Sampling"></a>Sampling</h2><p><strong>In its most basic form, sampling means randomly picking the next word $w_t$ according to its conditional probability distribution:</strong></p>
+<p>$$ w_t \sim P(w|w_{1:t-1}) $$</p>
+<p>Taking the example from above, the following graphic visualizes language generation when sampling.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240807231547.png"></p>
+<p><strong>It becomes obvious that language generation using sampling is not <em>deterministic</em> anymore. The word $(\text{“car”})$ is sampled from the conditioned probability distribution $P(w | \text{“The”})$, followed by sampling $(\text{“drives”})$ from $P(w | \text{“The”}, \text{“car”})$ .</strong></p>
+<p><strong>In <code>transformers</code>, we set <code>do_sample=True</code> and deactivate <em>Top-K</em> sampling (more on this later) via <code>top_k=0</code>.</strong> In the following, we will fix the random seed for illustration purposes. Feel free to change the <code>set_seed</code> argument to obtain different results, or to remove it for non-determinism.</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># set seed to reproduce results. Feel free to change the seed though to get different results</span>
+<span class="token keyword">from</span> transformers <span class="token keyword">import</span> set_seed
+set_seed<span class="token punctuation">(</span><span class="token number">42</span><span class="token punctuation">)</span>
+
+<span class="token comment"># activate sampling and deactivate top_k by setting top_k sampling to 0</span>
+sample_output <span class="token operator">=</span> model<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>
+    <span class="token operator">**</span>model_inputs<span class="token punctuation">,</span>
+    max_new_tokens<span class="token operator">=</span><span class="token number">40</span><span class="token punctuation">,</span>
+    do_sample<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+    top_k<span class="token operator">=</span><span class="token number">0</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Output:\n"</span> <span class="token operator">+</span> <span class="token number">100</span> <span class="token operator">*</span> <span class="token string">'-'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>sample_output<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">Output:
+----------------------------------------------------------------------------------------------------
+I enjoy walking with my cute dog for the rest of the day, but this had me staying in an unusual room and not going on nights out with friends (which will always be wondered for a mere minute or so at this point).<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>Interesting! The text seems alright - but when taking a closer look, it is not very coherent and doesn’t sound like it was written by a human. <strong>That is the big problem when sampling word sequences: The models often generate incoherent gibberish</strong>, <em>cf.</em> <a href="https://arxiv.org/abs/1904.09751">Ari Holtzman et al. (2019)</a>.</p>
+<p><strong>A trick is to make the distribution $P(w|w_{1:t-1})$ sharper (increasing the likelihood of high probability words and decreasing the likelihood of low probability words) by lowering the so-called <code>temperature</code> of the <a href="https://en.wikipedia.org/wiki/Softmax_function#Smooth_arg_max">softmax</a>.</strong></p>
+<p>An illustration of applying temperature to our example from above could look as follows.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240807231626.png"></p>
+<p>The conditional next word distribution of step $t&#x3D;1$ becomes much sharper leaving almost no chance for word $(\text{“car”})$ to be selected.</p>
+<p><strong>Let’s see how we can cool down the distribution in the library by setting <code>temperature=0.6</code>:</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># set seed to reproduce results. Feel free to change the seed though to get different results</span>
+set_seed<span class="token punctuation">(</span><span class="token number">42</span><span class="token punctuation">)</span>
+
+<span class="token comment"># use temperature to decrease the sensitivity to low probability candidates</span>
+sample_output <span class="token operator">=</span> model<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>
+    <span class="token operator">**</span>model_inputs<span class="token punctuation">,</span>
+    max_new_tokens<span class="token operator">=</span><span class="token number">40</span><span class="token punctuation">,</span>
+    do_sample<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+    top_k<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>
+    temperature<span class="token operator">=</span><span class="token number">0.6</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Output:\n"</span> <span class="token operator">+</span> <span class="token number">100</span> <span class="token operator">*</span> <span class="token string">'-'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>sample_output<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">Output:
+----------------------------------------------------------------------------------------------------
+I enjoy walking with my cute dog, but I don&#39;t like to chew on it. I like to eat it and not chew on it. I like to be able to walk with my dog.&quot;
+
+So how did you decide<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>OK. There are less weird n-grams and the output is a bit more coherent now! <strong>While applying temperature can make a distribution less random, in its limit, when setting <code>temperature</code> $\to 0$, temperature scaled sampling becomes equal to greedy decoding and will suffer from the same problems as before.</strong></p>
+<h3 id="Top-K-Sampling"><a href="#Top-K-Sampling" class="headerlink" title="Top-K Sampling"></a>Top-K Sampling</h3><p><a href="https://arxiv.org/pdf/1805.04833.pdf">Fan et. al (2018)</a> introduced a simple, but very powerful sampling scheme, called <em><strong>Top-K</strong></em> sampling. <strong>In <em>Top-K</em> sampling, the <em>K</em> most likely next words are filtered and the probability mass is redistributed among only those <em>K</em> next words.</strong> GPT2 adopted this sampling scheme, which was one of the reasons for its success in story generation.</p>
+<p>We extend the range of words used for both sampling steps in the example above from 3 words to 10 words to better illustrate <em>Top-K</em> sampling.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240807231721.png"></p>
+<p>Having set $K &#x3D; 6$, in both sampling steps we limit our sampling pool to 6 words. <strong>While the 6 most likely words, defined as $V_{\text{top-K}}$ encompass only <em>ca.</em> two-thirds of the whole probability mass in the first step, it includes almost all of the probability mass in the second step. Nevertheless, we see that it successfully eliminates the rather weird candidates $(\text{<code>not&quot;&#125;, \text&#123;</code>the”}, \text{<code>small&quot;&#125;, \text&#123;</code>told”})$ in the second sampling step.</strong></p>
+<p>Let’s see how <em>Top-K</em> can be used in the library by setting <code>top_k=50</code>:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># set seed to reproduce results. Feel free to change the seed though to get different results</span>
+set_seed<span class="token punctuation">(</span><span class="token number">42</span><span class="token punctuation">)</span>
+
+<span class="token comment"># set top_k to 50</span>
+sample_output <span class="token operator">=</span> model<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>
+    <span class="token operator">**</span>model_inputs<span class="token punctuation">,</span>
+    max_new_tokens<span class="token operator">=</span><span class="token number">40</span><span class="token punctuation">,</span>
+    do_sample<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+    top_k<span class="token operator">=</span><span class="token number">50</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Output:\n"</span> <span class="token operator">+</span> <span class="token number">100</span> <span class="token operator">*</span> <span class="token string">'-'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>sample_output<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">Output:
+----------------------------------------------------------------------------------------------------
+I enjoy walking with my cute dog for the rest of the day, but this time it was hard for me to figure out what to do with it. (One reason I asked this for a few months back is that I had a<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>Not bad at all! The text is arguably the most <em>human-sounding</em> text so far. <strong>One concern though with <em>Top-K</em> sampling is that it does not dynamically adapt the number of words that are filtered from the next word probability distribution $P(w|w_{1:t-1})$.</strong> This can be problematic as some words might be sampled from a very sharp distribution (distribution on the right in the graph above), whereas others from a much more flat distribution (distribution on the left in the graph above).</p>
+<p>In step $t&#x3D;1$, <em>Top-K</em> eliminates the possibility to sample $(\text{“people”}, \text{“big”}, \text{“house”}, \text{“cat”})$, which seem like reasonable candidates. On the other hand, in step $t&#x3D;2$ the method includes the arguably ill-fitted words $(\text{“down”}, \text{“a”})$ in the sample pool of words. <strong>Thus, limiting the sample pool to a fixed size <em>K</em> could endanger the model to produce gibberish for sharp distributions and limit the model’s creativity for flat distribution.</strong> This intuition led <a href="https://arxiv.org/abs/1904.09751">Ari Holtzman et al. (2019)</a> to create <em><strong>Top-p</strong></em>- or <em><strong>nucleus</strong></em>-sampling.</p>
+<h3 id="Top-p-nucleus-sampling"><a href="#Top-p-nucleus-sampling" class="headerlink" title="Top-p (nucleus) sampling"></a>Top-p (nucleus) sampling</h3><p><strong>Instead of sampling only from the most likely <em>K</em> words, in <em>Top-p</em> sampling chooses from the smallest possible set of words whose cumulative probability exceeds the probability <em>p</em>. The probability mass is then redistributed among this set of words.</strong> This way, the size of the set of words (<em>a.k.a</em> the number of words in the set) can dynamically increase and decrease according to the next word’s probability distribution. Ok, that was very wordy, let’s visualize.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20240807231810.png"></p>
+<p>Having set $p&#x3D;0.92$, <em>Top-p</em> sampling picks the <em>minimum</em> number of words to exceed together $p&#x3D;92%$ of the probability mass, defined as $V_{\text{top-p}}$. In the first example, this included the 9 most likely words, whereas it only has to pick the top 3 words in the second example to exceed 92%. <strong>Quite simple actually! It can be seen that it keeps a wide range of words where the next word is arguably less predictable, <em>e.g.</em> $P(w | \text{“The’’})$, and only a few words when the next word seems more predictable, <em>e.g.</em> $P(w | \text{“The”}, \text{“car”})$.</strong></p>
+<p>Alright, time to check it out in <code>transformers</code>! We activate <em>Top-p</em> sampling by setting <code>0 &lt; top_p &lt; 1</code>:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># set seed to reproduce results. Feel free to change the seed though to get different results</span>
+set_seed<span class="token punctuation">(</span><span class="token number">42</span><span class="token punctuation">)</span>
+
+<span class="token comment"># set top_k to 50</span>
+sample_output <span class="token operator">=</span> model<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>
+    <span class="token operator">**</span>model_inputs<span class="token punctuation">,</span>
+    max_new_tokens<span class="token operator">=</span><span class="token number">40</span><span class="token punctuation">,</span>
+    do_sample<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+    top_p<span class="token operator">=</span><span class="token number">0.92</span><span class="token punctuation">,</span>
+    top_k<span class="token operator">=</span><span class="token number">0</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Output:\n"</span> <span class="token operator">+</span> <span class="token number">100</span> <span class="token operator">*</span> <span class="token string">'-'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>sample_output<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">Output:
+----------------------------------------------------------------------------------------------------
+I enjoy walking with my cute dog for the rest of the day, but this had me staying in an unusual room and not going on nights out with friends (which will always be my yearning for such a spacious screen on my desk<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>Great, that sounds like it could have been written by a human. Well, maybe not quite yet.</p>
+<p><strong>While in theory, <em>Top-p</em> seems more elegant than <em>Top-K</em>, both methods work well in practice. <em>Top-p</em> can also be used in combination with <em>Top-K</em>, which can avoid very low ranked words while allowing for some dynamic selection.</strong></p>
+<p>Finally, to get multiple independently sampled outputs, we can <em>again</em> set the parameter <code>num_return_sequences &gt; 1</code>:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># set seed to reproduce results. Feel free to change the seed though to get different results</span>
+set_seed<span class="token punctuation">(</span><span class="token number">42</span><span class="token punctuation">)</span>
+
+<span class="token comment"># set top_k = 50 and set top_p = 0.95 and num_return_sequences = 3</span>
+sample_outputs <span class="token operator">=</span> model<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>
+    <span class="token operator">**</span>model_inputs<span class="token punctuation">,</span>
+    max_new_tokens<span class="token operator">=</span><span class="token number">40</span><span class="token punctuation">,</span>
+    do_sample<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+    top_k<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span>
+    top_p<span class="token operator">=</span><span class="token number">0.95</span><span class="token punctuation">,</span>
+    num_return_sequences<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Output:\n"</span> <span class="token operator">+</span> <span class="token number">100</span> <span class="token operator">*</span> <span class="token string">'-'</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i<span class="token punctuation">,</span> sample_output <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>sample_outputs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"&#123;&#125;: &#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> tokenizer<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>sample_output<span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<pre class="line-numbers language-none"><code class="language-none">Output:
+----------------------------------------------------------------------------------------------------
+0: I enjoy walking with my cute dog for the rest of the day, but this time it was hard for me to figure out what to do with it. When I finally looked at this for a few moments, I immediately thought, &quot;
+1: I enjoy walking with my cute dog. The only time I felt like walking was when I was working, so it was awesome for me. I didn&#39;t want to walk for days. I am really curious how she can walk with me
+2: I enjoy walking with my cute dog (Chama-I-I-I-I-I), and I really enjoy running. I play in a little game I play with my brother in which I take pictures of our houses.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Cool, now you should have all the tools to let your model write your stories with <code>transformers</code>!</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>As <em>ad-hoc</em> decoding methods, <em>top-p</em> and <em>top-K</em> sampling seem to produce more fluent text than traditional <em>greedy</em> - and <em>beam</em> search on open-ended language generation. <strong>There is evidence that the apparent flaws of <em>greedy</em> and <em>beam</em> search - mainly generating repetitive word sequences - are caused by the model (especially the way the model is trained), rather than the decoding method, <em>cf.</em> <a href="https://arxiv.org/pdf/1908.04319.pdf">Welleck et al. (2019)</a>.</strong> Also, as demonstrated in <a href="https://arxiv.org/abs/2002.02492">Welleck et al. (2020)</a>, it looks as <em>top-K</em> and <em>top-p</em> sampling also suffer from generating repetitive word sequences.</p>
+<p><strong>In <a href="https://arxiv.org/pdf/1908.04319.pdf">Welleck et al. (2019)</a>, the authors show that according to human evaluations, <em>beam</em> search can generate more fluent text than <em>Top-p</em> sampling, when adapting the model’s training objective.</strong></p>
+<p><strong>Open-ended language generation is a rapidly evolving field of research and as it is often the case there is no one-size-fits-all method here, so one has to see what works best in one’s specific use case.</strong></p>
+<p>Fortunately, <em>you</em> can try out all the different decoding methods in <code>transfomers</code> 🤗 – you can have an overview of the available methods <a href="https://huggingface.co/docs/transformers/generation_strategies#decoding-strategies">here</a>.</p>
+<h2 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2><p><code>generate</code> has evolved into a highly composable method, with flags to manipulate the resulting text in many<br>directions that were not covered in this blog post. Here are a few helpful pages to guide you:</p>
+<ul>
+<li><p><a href="https://huggingface.co/docs/transformers/generation_strategies#default-text-generation-configuration">How to parameterize <code>generate</code></a></p>
+</li>
+<li><p><a href="https://huggingface.co/docs/transformers/generation_strategies#streaming">How to stream the output</a></p>
+</li>
+<li><p><a href="https://huggingface.co/docs/transformers/en/main_classes/text_generation#transformers.GenerationConfig">Full list of decoding options</a></p>
+</li>
+<li><p><a href="https://huggingface.co/docs/transformers/en/main_classes/text_generation#transformers.GenerationMixin.generate"><code>generate</code> API reference</a></p>
+</li>
+<li><p><a href="https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard">LLM score leaderboard</a></p>
+</li>
+</ul>
+<p>If you find that navigating our docs is challenging and you can’t easily find what you’re looking for, drop us a message in <a href="https://github.com/huggingface/transformers/issues/24575">this GitHub issue</a>. Your feedback is critical to set our future direction! 🤗</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百六十一篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2024/08/07/00161-how-to-generate-text-using-different-decoding-methods-for-language-generation-with-transformers/">https://luyf-lemon-love.space/2024/08/07/00161-how-to-generate-text-using-different-decoding-methods-for-language-generation-with-transformers/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大语言模型</span>
+                                </a>
+                            
+                                <a href="/tags/huggingface/">
+                                    <span class="chip bg-color">huggingface</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/08/08/00162-da-gui-mo-transformer-mo-xing-8-bi-te-ju-zhen-cheng-jian-jie/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/044-119867946.jpg" class="responsive-img" alt="00162 大规模 Transformer 模型 8 比特矩阵乘简介">
+                        
+                        <span class="card-title">00162 大规模 Transformer 模型 8 比特矩阵乘简介</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-08-08
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/08/07/00160-peft-zai-di-zi-yuan-ying-jian-shang-dui-shi-yi-gui-mo-mo-xing-jin-xing-can-shu-gao-xiao-wei-diao/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/042-119867946.jpg" class="responsive-img" alt="00160 PEFT：在低资源硬件上对十亿规模模型进行参数高效微调">
+                        
+                        <span class="card-title">00160 PEFT：在低资源硬件上对十亿规模模型进行参数高效微调</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

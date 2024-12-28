@@ -1,0 +1,2155 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00041-DRKG 原论文学习笔记, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言DRKG 是一个由 Amazon Web Services Shanghai AI Lab 联合多家科研机构开源的综合生物知识图谱, 涉及基因、药物、疾病、生物学过程、副作用和症状. DRKG 包括 DrugBank、Hetionet、">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00041-DRKG 原论文学习笔记 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/1110.webp')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00041-DRKG 原论文学习笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                                <span class="chip bg-color">知识图谱</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E8%A1%A5%E5%85%A8/">
+                                <span class="chip bg-color">知识图谱补全</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Paper/" class="post-category">
+                                Paper
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-11-30
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>DRKG</strong> 是一个由 <strong>Amazon Web Services Shanghai AI Lab</strong> 联合多家科研机构<strong>开源的综合生物知识图谱</strong>, 涉及<strong>基因</strong>、<strong>药物</strong>、<strong>疾病</strong>、<strong>生物学过程</strong>、<strong>副作用和症状</strong>. <strong>DRKG</strong> 包括 <strong>DrugBank</strong>、<strong>Hetionet</strong>、<strong>GNBR</strong>、<strong>String</strong>、<strong>IntAct</strong> 和 <strong>DGIdb</strong> 六个现有数据库的信息, 以及<strong>从近期新冠病毒的相关医学文献中挖掘的数据</strong>. <strong>DRKG</strong> 知识图谱包含属于 <strong>13</strong> 种实体类型的 <strong>97,238</strong> 个实体, 以及属于 <strong>107</strong> 种关系类型的 <strong>5,874,261</strong> 个三元组. 同一实体对之间可能存在多种交互类型.</p>
+<p><strong>DRKG</strong> 原论文链接: <a href="https://github.com/gnn4dr/DRKG/blob/master/DRKG%20Drug%20Repurposing%20Knowledge%20Graph.pdf">DRKG Drug Repurposing Knowledge Graph</a>.</p>
+<p><strong>原仓库地址</strong>: <a href="https://github.com/gnn4dr/DRKG">https://github.com/gnn4dr/DRKG</a> .</p>
+<p>操作系统：<strong>Ubuntu 20.04.5 LTS</strong></p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><div id = "1"></div>
+
+<ol>
+<li><a href="https://github.com/gnn4dr/DRKG/blob/master/DRKG%20Drug%20Repurposing%20Knowledge%20Graph.pdf">DRKG Drug Repurposing Knowledge Graph</a>.</li>
+</ol>
+<div id = "2"></div>
+
+<ol start="2">
+<li>B. Kotnis and V. Nastase, “Analysis of the impact of negative sampling on link prediction in knowledge graphs,” 2017.</li>
+</ol>
+<h2 id="项目仓库-Drug-Repurposing-Knowledge-Graph-DRKG"><a href="#项目仓库-Drug-Repurposing-Knowledge-Graph-DRKG" class="headerlink" title="项目仓库 - Drug Repurposing Knowledge Graph (DRKG)"></a>项目仓库 - Drug Repurposing Knowledge Graph (DRKG)</h2><p><strong>药物再利用知识图谱</strong> (Drug Repurposing Knowledge Graph, DRKG)<a href="#1"><sup>1</sup></a> 是一个涉及<strong>基因</strong>、<strong>药物</strong>、<strong>疾病</strong>、<strong>生物过程</strong>、<strong>副作用</strong>和<strong>症状</strong>的<strong>综合生物知识图谱</strong>. <strong>DRKG</strong> 包括来自 <strong>DrugBank</strong>、<strong>Hetionet</strong>、<strong>GNBR</strong>、<strong>String</strong>、<strong>IntAct</strong> 和 <strong>DGIdb</strong> 等<strong>六个现有数据库的信息</strong>, 以及从最近发表的 <strong>Covid19</strong> 出版物中收集的数据. 它包含属于 <strong>13</strong> 种实体类型的 <strong>97,238</strong> 个实体; 以及属于 <strong>107</strong> 种关系类型的 <strong>5,874,261</strong> 个三元组. 这 <strong>107</strong> 种关系类型显示了 <strong>13</strong> 种实体类型之间的交互类型（<strong>同一种实体对之间可能存在多种交互类型</strong>), 如下图所示. 它还包括很多关于如何使用<strong>统计方法</strong>或使用<strong>机器学习方法</strong>（如<strong>知识图谱嵌入</strong>）探索和分析 DRKG 的 notebooks.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221130135805.png"></p>
+<p><strong>Figure</strong>: <strong>Interactions</strong> in the DRKG. <strong>The number next to an edge</strong> indicates <strong>the number of relation-types</strong> for that entity-pair in DRKG.</p>
+<h3 id="Statistics-of-DRKG"><a href="#Statistics-of-DRKG" class="headerlink" title="Statistics of DRKG"></a>Statistics of DRKG</h3><p><strong>The type-wise distribution of the entities</strong> in DRKG and their <strong>original data-source(s)</strong> is shown in following table.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Entity type</th>
+<th align="right">Drugbank</th>
+<th align="right">GNBR</th>
+<th align="right">Hetionet</th>
+<th align="right">STRING</th>
+<th align="right">IntAct</th>
+<th align="right">DGIdb</th>
+<th align="right">Bibliography</th>
+<th align="right">Total Entities</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Anatomy</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">400</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">400</td>
+</tr>
+<tr>
+<td align="left">Atc</td>
+<td align="right">4,048</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">4,048</td>
+</tr>
+<tr>
+<td align="left">Biological Process</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">11,381</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">11,381</td>
+</tr>
+<tr>
+<td align="left">Cellular Component</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">1,391</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">1,391</td>
+</tr>
+<tr>
+<td align="left">Compound</td>
+<td align="right">9,708</td>
+<td align="right">11,961</td>
+<td align="right">1,538</td>
+<td align="right">-</td>
+<td align="right">153</td>
+<td align="right">6,348</td>
+<td align="right">6,250</td>
+<td align="right">24,313</td>
+</tr>
+<tr>
+<td align="left">Disease</td>
+<td align="right">1,182</td>
+<td align="right">4,746</td>
+<td align="right">257</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">33</td>
+<td align="right">5,103</td>
+</tr>
+<tr>
+<td align="left">Gene</td>
+<td align="right">4,973</td>
+<td align="right">27,111</td>
+<td align="right">19,145</td>
+<td align="right">18,316</td>
+<td align="right">16,321</td>
+<td align="right">2,551</td>
+<td align="right">3,181</td>
+<td align="right">39,220</td>
+</tr>
+<tr>
+<td align="left">Molecular Function</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">2,884</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">2,884</td>
+</tr>
+<tr>
+<td align="left">Pathway</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">1,822</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">1,822</td>
+</tr>
+<tr>
+<td align="left">Pharmacologic Class</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">345</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">345</td>
+</tr>
+<tr>
+<td align="left">Side Effect</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">5,701</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">5,701</td>
+</tr>
+<tr>
+<td align="left">Symptom</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">415</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">415</td>
+</tr>
+<tr>
+<td align="left">Tax</td>
+<td align="right">-</td>
+<td align="right">215</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">215</td>
+</tr>
+<tr>
+<td align="left">Total</td>
+<td align="right">19,911</td>
+<td align="right">44,033</td>
+<td align="right">45,279</td>
+<td align="right">18,316</td>
+<td align="right">16,474</td>
+<td align="right">8,899</td>
+<td align="right">9,464</td>
+<td align="right">97,238</td>
+</tr>
+</tbody></table>
+<p>The following table shows <strong>the number of triplets</strong> between <strong>different entity-type pairs</strong> in DRKG for DRKG and various datasources.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Entity-type pair</th>
+<th align="right">Drugbank</th>
+<th align="right">GNBR</th>
+<th align="right">Hetionet</th>
+<th align="right">STRING</th>
+<th align="right">IntAct</th>
+<th align="right">DGIdb</th>
+<th align="right">Bibliography</th>
+<th align="right">Total interactions</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">(Gene, Gene)</td>
+<td align="right">-</td>
+<td align="right">66,722</td>
+<td align="right">474,526</td>
+<td align="right">1,496,708</td>
+<td align="right">254,346</td>
+<td align="right">-</td>
+<td align="right">58,629</td>
+<td align="right">2,350,931</td>
+</tr>
+<tr>
+<td align="left">(Compound, Gene)</td>
+<td align="right">24,801</td>
+<td align="right">80,803</td>
+<td align="right">51,429</td>
+<td align="right">-</td>
+<td align="right">1,805</td>
+<td align="right">26,290</td>
+<td align="right">25,666</td>
+<td align="right">210,794</td>
+</tr>
+<tr>
+<td align="left">(Disease, Gene)</td>
+<td align="right">-</td>
+<td align="right">95,399</td>
+<td align="right">27,977</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">461</td>
+<td align="right">123,837</td>
+</tr>
+<tr>
+<td align="left">(Atc, Compound)</td>
+<td align="right">15,750</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">15,750</td>
+</tr>
+<tr>
+<td align="left">(Compound, Compound)</td>
+<td align="right">1,379,271</td>
+<td align="right">-</td>
+<td align="right">6,486</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">1,385,757</td>
+</tr>
+<tr>
+<td align="left">(Compound, Disease)</td>
+<td align="right">4,968</td>
+<td align="right">77,782</td>
+<td align="right">1,145</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">83,895</td>
+</tr>
+<tr>
+<td align="left">(Gene, Tax)</td>
+<td align="right">-</td>
+<td align="right">14,663</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">14,663</td>
+</tr>
+<tr>
+<td align="left">(Biological Process, Gene)</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">559,504</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">559,504</td>
+</tr>
+<tr>
+<td align="left">(Disease, Symptom)</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">3,357</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">3,357</td>
+</tr>
+<tr>
+<td align="left">(Anatomy, Disease)</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">3,602</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">3,602</td>
+</tr>
+<tr>
+<td align="left">(Disease, Disease)</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">543</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">543</td>
+</tr>
+<tr>
+<td align="left">(Anatomy, Gene)</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">726,495</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">726,495</td>
+</tr>
+<tr>
+<td align="left">(Gene, Molecular Function)</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">97,222</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">97,222</td>
+</tr>
+<tr>
+<td align="left">(Compound, Pharmacologic Class)</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">1,029</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">1,029</td>
+</tr>
+<tr>
+<td align="left">(Cellular Component, Gene)</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">73,566</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">73,566</td>
+</tr>
+<tr>
+<td align="left">(Gene, Pathway)</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">84,372</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">84,372</td>
+</tr>
+<tr>
+<td align="left">(Compound, Side Effect)</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">138,944</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">138,944</td>
+</tr>
+<tr>
+<td align="left">Total</td>
+<td align="right">1,424,790</td>
+<td align="right">335,369</td>
+<td align="right">2,250,197</td>
+<td align="right">1,496,708</td>
+<td align="right">256,151</td>
+<td align="right">26,290</td>
+<td align="right">84,756</td>
+<td align="right">5,874,261</td>
+</tr>
+</tbody></table>
+<h3 id="Download-DRKG"><a href="#Download-DRKG" class="headerlink" title="Download DRKG"></a>Download DRKG</h3><p>为了分析 <strong>DRKG</strong>, 你可以直接使用下面的命令下载 <strong>DRKG</strong>:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://dgl-data.s3-us-west-2.amazonaws.com/dataset/DRKG/drkg.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>(<strong>不推荐</strong>) 如果你使用原仓库提供的 <strong>notebooks</strong>, 不需要手动下载 <strong>DRKG</strong>.</p>
+<p>解压 <strong>drkg.tar.gz</strong>, 会得到下面的文件:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./drkg.tsv
+./entity2src.tsv
+./relation_glossary.tsv
+./embed
+./embed/DRKG_TransE_l2_relation.npy
+./embed/relations.tsv
+./embed/entities.tsv
+./embed/Readme.md
+./embed/DRKG_TransE_l2_entity.npy
+./embed/mol_contextpred.npy
+./embed/mol_masking.npy
+./embed/mol_infomax.npy
+./embed/mol_edgepred.npy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="DRKG-dataset"><a href="#DRKG-dataset" class="headerlink" title="DRKG dataset"></a>DRKG dataset</h4><p>数据集包含<strong>四部分</strong>:</p>
+<ul>
+<li><p><strong>drkg.tsv</strong>, 一个包含原始 <strong>DRKG</strong> 三元组 (格式为 <strong>(h, r, t)</strong>) 的 <strong>tsv</strong> 文件.</p>
+</li>
+<li><p><strong>embed</strong>, 一个包含使用全部 <strong>drkg.tsv</strong> 文件为<strong>训练集</strong>的<strong>预训练知识图谱嵌入</strong>和 <a href="https://github.com/gnn4dr/DRKG/blob/master/drugbank_info/drugbank_smiles.txt">molecule SMILES</a> 的预训练 GNN 分子嵌入的<strong>目录</strong>.</p>
+</li>
+<li><p><strong>entity2src.tsv</strong>, <strong>DRKG</strong> 中的实体到源数据的<strong>映射文件</strong>.</p>
+</li>
+<li><p><strong>relation_glossary.tsv</strong>, DRKG 关系类型的解释文件, 以及相关的源信息.</p>
+</li>
+</ul>
+<h4 id="Pretrained-DRKG-embedding"><a href="#Pretrained-DRKG-embedding" class="headerlink" title="Pretrained DRKG embedding"></a>Pretrained DRKG embedding</h4><p>这些 <strong>DRKG</strong> 嵌入是使用 <strong>400</strong> 维度的 <strong>TransE_l2</strong> 模型训练的, 有 <strong>4</strong> 个文件:</p>
+<ul>
+<li><p><strong>DRKG_TransE_l2_entity.npy</strong>, 二进制的 <strong>NumPy</strong> 的数据, 存储<strong>实体嵌入</strong>.</p>
+</li>
+<li><p><strong>DRKG_TransE_l2_relation.npy</strong>, 二进制 <strong>NumPy</strong> 的数据, 存储<strong>关系嵌入</strong>.</p>
+</li>
+<li><p><strong>entities.tsv</strong>, 映射实体名到实体 ID.</p>
+</li>
+<li><p><strong>relations.tsv</strong>, 映射关系名到关系 ID.</p>
+</li>
+</ul>
+<p>可以使用 <strong>np.load</strong> 函数单独<strong>加载实体嵌入</strong>和<strong>关系嵌入</strong>:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+entity_emb <span class="token operator">=</span> np<span class="token punctuation">.</span>load<span class="token punctuation">(</span><span class="token string">'./embed/DRKG_TransE_l2_entity.npy'</span><span class="token punctuation">)</span>
+rel_emb <span class="token operator">=</span> np<span class="token punctuation">.</span>load<span class="token punctuation">(</span><span class="token string">'./embed/DRKG_TransE_l2_relation.npy'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Pretrained-Molecule-Embedding"><a href="#Pretrained-Molecule-Embedding" class="headerlink" title="Pretrained Molecule Embedding"></a>Pretrained Molecule Embedding</h4><p><strong>DRKG</strong> 也提供了 DrugBank 的大多数小分子药物的分子嵌入 (使用预训练的 <strong>GNN</strong>). <a href="https://arxiv.org/abs/1905.12265">Strategies for Pre-training Graph Neural Networks</a> 将监督的分子性质预测与自我监督学习结合, 开发了多种方法用于预训练基于 <strong>GNN</strong> 的分子表示. 下面的 <strong>notebooks</strong> 使用 <a href="https://github.com/awslabs/dgl-lifesci/tree/master/examples/molecule_embeddings">DGL-LifeSci</a> 计算了四种分子嵌入的变体:</p>
+<ul>
+<li><p><strong>mol_contextpred.npy</strong>: <strong>预测分子子图的周围图结构</strong>的<strong>预训练模型</strong>.</p>
+</li>
+<li><p><strong>mol_infomax.npy</strong>：<strong>最大化局部节点表示和全局图谱表示间的交互信息</strong>的预训练模型.</p>
+</li>
+<li><p><strong>mol_edgepred.npy</strong>: <strong>鼓励邻近节点有类似的表示</strong>和<strong>强迫不相干的节点有不同的表示</strong>的预训练模型.</p>
+</li>
+<li><p><strong>mol_masking.npy</strong>: <strong>预测随机遮蔽节点和边的属性</strong>的预训练模型.</p>
+</li>
+</ul>
+<h3 id="Tools-to-analyze-DRKG"><a href="#Tools-to-analyze-DRKG" class="headerlink" title="Tools to analyze DRKG"></a>Tools to analyze DRKG</h3><p>分析 <strong>DRKG</strong> 的深度学习框架, 包括 <a href="https://github.com/dmlc/dgl">DGL</a> (一个<strong>图神经网络的框架</strong>) 和 <a href="https://github.com/awslabs/dgl-ke">DGL-KE</a> (一个<strong>计算知识图谱嵌入</strong>的库).</p>
+<h4 id="Install-PyTorch"><a href="#Install-PyTorch" class="headerlink" title="Install PyTorch"></a>Install PyTorch</h4><p>所有的 <strong>notebooks</strong> 都使用 <strong>PyTorch</strong> 作为深度学习后端. 可以去 <a href="https://pytorch.org/">Pytorch 官网</a> 安装其他版本.</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pip3 <span class="token function">install</span> <span class="token assign-left variable">torch</span><span class="token operator">==</span><span class="token number">1.5</span>.0+cu101 <span class="token assign-left variable">torchvision</span><span class="token operator">==</span><span class="token number">0.6</span>.0+cu101 <span class="token parameter variable">-f</span> https://download.pytorch.org/whl/torch_stable.html<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="Install-DGL"><a href="#Install-DGL" class="headerlink" title="Install DGL"></a>Install DGL</h4><p>使用下面命令安装 <a href="https://www.dgl.ai/">DGL</a> (一个图神经网络框架), 它会安装支持 <strong>CUDA</strong> 的 <strong>DGL</strong>.</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pip3 <span class="token function">install</span> dgl-cu101<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>可以前往 <a href="https://docs.dgl.ai/en/latest/install/index.html">Install DGL</a> 安装 <strong>DGL</strong> 的其他版本.</p>
+<h4 id="Install-DGL-KE"><a href="#Install-DGL-KE" class="headerlink" title="Install DGL-KE"></a>Install DGL-KE</h4><p>如果你想用这些位于 <a href="https://github.com/gnn4dr/DRKG/tree/master/embedding_analysis">embedding_analysis</a> 的 notebooks (<strong>Train_embeddings.ipynb</strong> or <strong>Edge_score_analysis.ipynb</strong>) 训练模型, 你需要安装 <strong>DGL</strong> and <a href="https://github.com/awslabs/dgl-ke">DGL-KE</a>, <strong>DGL-KE</strong> 能够和 <strong>DGL</strong> (版本 <strong>&gt;&#x3D; 0.4.3</strong>, either <strong>CPU</strong> or <strong>GPU</strong>) 一起工作.</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pip3 <span class="token function">install</span> dglke<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="Notebooks-for-analyzing-DRKG"><a href="#Notebooks-for-analyzing-DRKG" class="headerlink" title="Notebooks for analyzing DRKG"></a>Notebooks for analyzing DRKG</h3><h4 id="Basic-Graph-Analysis-of-DRKG"><a href="#Basic-Graph-Analysis-of-DRKG" class="headerlink" title="Basic Graph Analysis of DRKG"></a>Basic Graph Analysis of DRKG</h4><p>为了评估一对<strong>关系类型之间的结构相似性</strong>, 通过<strong>重叠系数</strong>计算两个关系类型的 <strong>Jaccard 相似系数</strong>和<strong>重叠</strong>.</p>
+<ul>
+<li><a href="https://github.com/gnn4dr/DRKG/blob/master/raw_graph_analysis/Jaccard_scores_among_all_edge_types_in_DRKG.ipynb">Jaccard_scores_among_all_edge_types_in_DRKG.ipynb</a></li>
+</ul>
+<h4 id="Knowledge-Graph-Embedding-Based-Analysis-of-DRKG"><a href="#Knowledge-Graph-Embedding-Based-Analysis-of-DRKG" class="headerlink" title="Knowledge Graph Embedding Based Analysis of DRKG"></a>Knowledge Graph Embedding Based Analysis of DRKG</h4><p>通过学习一个利用 $\ell_2$ 距离的 <strong>TransE KGE 模型</strong>分析 <strong>DRKG</strong>. 由于 <strong>DRKG</strong> 结合了<strong>来自不同数据源</strong>的信息, 我们希望<strong>验证</strong>使用<strong>知识图谱嵌入技术</strong>可以<strong>生成有意义的实体和关系嵌入</strong>.</p>
+<p>将数据集分成<strong>训练集</strong> (90%), <strong>验证集</strong> (5%), <strong>测试集</strong> (5%), 使用下面的 <strong>notebook</strong> 训练 <strong>KGE</strong> 模型:</p>
+<ul>
+<li><a href="https://github.com/gnn4dr/DRKG/blob/master/embedding_analysis/Train_embeddings.ipynb">Train_embeddings.ipynb</a></li>
+</ul>
+<p>最终, 得到了 <strong>DRKG</strong> <strong>实体和关系的嵌入</strong>. 可以使用下面的 <strong>notebooks</strong> 进行嵌入分析.</p>
+<ul>
+<li><p><a href="https://github.com/gnn4dr/DRKG/blob/master/embedding_analysis/Relation_similarity_analysis.ipynb">Relation_similarity_analysis.ipynb</a>, 分析<strong>生成的关系嵌入相似性</strong>.</p>
+</li>
+<li><p><a href="https://github.com/gnn4dr/DRKG/blob/master/embedding_analysis/Entity_similarity_analysis.ipynb">Entity_similarity_analysis.ipynb</a>, 分析<strong>生成的实体嵌入相似性</strong>.</p>
+</li>
+<li><p><a href="https://github.com/gnn4dr/DRKG/blob/master/embedding_analysis/Edge_score_analysis.ipynb">Edge_score_analysis.ipynb</a>, 评估学习到的 KGE 模型<strong>能否预测 DRKG 的关系</strong> (edges).</p>
+</li>
+<li><p><a href="https://github.com/gnn4dr/DRKG/blob/master/embedding_analysis/Edge_similarity_based_on_link_recommendation_results.ipynb">Edge_similarity_based_on_link_recommendation_results.ipynb</a>, 评估<strong>不同关系类型之间的预测链接的相似程度</strong>.</p>
+</li>
+</ul>
+<h4 id="Drug-Repurposing-Using-Pretrained-Model-for-COVID-19"><a href="#Drug-Repurposing-Using-Pretrained-Model-for-COVID-19" class="headerlink" title="Drug Repurposing Using Pretrained Model for COVID-19"></a>Drug Repurposing Using Pretrained Model for COVID-19</h4><p>在使用<strong>预训练模型进行 COVID-19 的药物再利用</strong>的例子中, 直接使用 <strong>DRKG</strong> 的预训练模型推荐了<strong>治疗 COVID-19 的 100 个药物</strong>. 对应的 <strong>notebook</strong>:</p>
+<ul>
+<li><a href="https://github.com/gnn4dr/DRKG/blob/master/drug_repurpose/COVID-19_drug_repurposing.ipynb">COVID-19_drug_repurposing.ipynb</a></li>
+</ul>
+<h4 id="DRKG-with-DGL"><a href="#DRKG-with-DGL" class="headerlink" title="DRKG with DGL"></a>DRKG with DGL</h4><p>下面的 <strong>notebook</strong> 提供了利用 <strong>DGL</strong> 从 <strong>DRKG</strong> 中构建异构图的示例, 以及一些异构图的查询示例:</p>
+<ul>
+<li><a href="https://github.com/gnn4dr/DRKG/blob/master/drkg_with_dgl/loading_drkg_in_dgl.ipynb">loading_drkg_in_dgl.ipynb</a></li>
+</ul>
+<h3 id="Additional-Information-for-DrugBank"><a href="#Additional-Information-for-DrugBank" class="headerlink" title="Additional Information for DrugBank"></a>Additional Information for DrugBank</h3><p><a href="https://github.com/gnn4dr/DRKG/tree/master/drugbank_info">drugbank_info</a> 包括来自 <strong>DrugBank 药物</strong>的额外信息, 包含药物的类型, 重量和小分子药物的 <strong>SMILES</strong>.</p>
+<h3 id="Licence"><a href="#Licence" class="headerlink" title="Licence"></a>Licence</h3><blockquote>
+<p>This project is licensed under the <strong>Apache-2.0 License</strong>. However, the DRKG integrates data from many resources and users should consider the licensing of each source (see this <a href="https://github.com/shuix007/COVID-19-KG/blob/master/licenses/Readme.md">table</a>) . Authors apply a license attribute on a per node and per edge basis for sources with defined licenses.</p>
+</blockquote>
+<h3 id="Cite"><a href="#Cite" class="headerlink" title="Cite"></a>Cite</h3><blockquote>
+<p>Please cite the dataset if you use this code and data in your work.</p>
+</blockquote>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">@misc&#123;drkg2020,
+  author = &#123;Ioannidis, Vassilis N. and Song, Xiang and Manchanda, Saurav and Li, Mufei and Pan, Xiaoqin
+            and Zheng, Da and Ning, Xia and Zeng, Xiangxiang and Karypis, George&#125;,
+  title = &#123;DRKG - Drug Repurposing Knowledge Graph for Covid-19&#125;,
+  howpublished = "\url&#123;https://github.com/gnn4dr/DRKG/&#125;",
+  year = &#123;2020&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="DRKG-原论文学习笔记"><a href="#DRKG-原论文学习笔记" class="headerlink" title="DRKG 原论文学习笔记"></a>DRKG 原论文学习笔记</h2><p>论文题目: DRKG - Drug Repurposing Knowledge Graph for Covid-19</p>
+<p><code>Covid-19</code> 大流行的时间表表明<code>迫切需要</code>快速开发针对<code>新疾病</code>的<code>有效治疗方法</code>. <code>药物再利用</code> (Drug Repurposing, DR) 是一种<code>来自现有药物的药物发现策略</code>, 与从头发现药物相比, 该策略<code>显著缩短了时间</code>并<code>降低了成本</code>. 本文详细介绍了创建一个与<code>基因</code>、<code>药物</code>、<code>疾病</code>、<code>生物过程</code>、<code>副作用</code>和<code>症状</code>相关的<code>综合生物知识图谱</code>的工作, 该知识图谱被称为<code>药物再利用知识图谱</code> (<code>Drug Repurposing Knowledge Graph</code>, <code>DRKG</code>). <code>DRKG</code> 包括来自<code>不同数据库</code>的信息, 例如 <code>DrugBank</code>, <code>String</code>, <code>GNBR</code>, 以及从最近出版物中收集的数据, 特别是与 <code>Covid19</code> 相关的数据. <code>DR</code> 可以通过<code>预测基因和化合物之间的新相互作用</code>来解决, 这可以表述为 <code>DRKG</code> 上的<code>链接预测任务</code>. 提供了<code>分析构建的 DRKG</code>, <code>过滤噪声链路和节点</code>的方法. <code>图机器学习模型</code>可以利用 <code>DRKG</code> 进行 <code>DR</code>, 并<code>预测现有药物是否成功抑制与 Covid-19 宿主蛋白相关的某些途径</code>. 使用<code>最先进的知识图嵌入模型</code>, 学习 <code>DRKG</code> 中<code>实体和关系的嵌入</code>. 还进行分析以<code>验证图结构</code>和<code>学习嵌入是否具有高质量</code>. 最后, 利用在 <code>DRKG</code> 上<code>学习到的 KGE</code>, 评估了<code>新冠肺炎的药物再利用</code>. 结果证实, <code>临床试验中使用的几种药物</code>被确定为<code>可能的候选药物</code>. 最后, 通过将 <code>DRKG</code> 的<code>药物再利用结果</code>与<code>组成数据库的结果</code>进行比较, 确认<code>值得构建一个全面的 DRKG</code>.</p>
+<blockquote>
+<p>The methods presented in this paper are implemented in <code>the efficient deep graph learning</code> (DGL) library ( <a href="https://www.dgl.ai/">https://www.dgl.ai/</a> ).</p>
+<p>The <code>DRKG</code>, <code>entity &amp; relation embeddings</code>, and <code>the source code</code> for the analysis presented in this paper is <code>publicly available</code> ( <a href="https://github.com/gnn4dr/DRKG/">https://github.com/gnn4dr/DRKG/</a> ).</p>
+</blockquote>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a><strong>介绍</strong></h3><p><code>2019</code> 年冠状病毒病 (<code>COVID-19</code>) 国际突发公共卫生事件说明了<code>提高</code>发现新疗法的<code>效率</code>和<code>速度</code>的紧迫性. 不幸的是, 从头药物发现是一个<code>漫长</code>而<code>昂贵</code>的过程, 通常需要 <code>10-15</code> 年, 每种 <code>FDA</code> 批准的新药的成本超过 <code>26</code> 亿美元.</p>
+<blockquote>
+<p>An alternate approach that can dramatically reduce the time to discover new treatments is <code>drug repurposing (DR)</code> (or <code>repositioning</code>), <code>which seeks to redevelop existing drugs for use in different diseases</code>.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><code>DR</code> leverages the fact that <code>common molecular pathways contribute to different diseases</code> and hence <code>some drugs may be reused</code>.</p>
+<p>It capitalizes on <code>the existence of detailed information on approved drugs and many abandoned compounds</code> related to their <code>pharmacology</code> (药理学), <code>formulation</code> (制剂), <code>dose</code> (剂量), and <code>potential toxicity</code> (潜在毒性).</p>
+</blockquote>
+<hr>
+<p><code>药物再利用</code>依赖于<code>识别</code>基因和化合物等<code>生物实体之间</code>的<code>新相互作用</code>.</p>
+<blockquote>
+<p><code>Traditional approaches</code> for doing that rely on <code>costly and time-consuming</code> experimental methodologies.</p>
+<p>As a result, <code>several approaches</code> have been developed that aim to <code>leverage the diverse types of information</code> that already exists about the <code>drugs</code>, their <code>targets</code>, and the <code>diseases</code> in order to <code>reduce the cost and speedup drug repurposing</code>.</p>
+<p>Among them, <code>approaches</code> that <code>represent the existing information</code> in a form of <code>a knowledge graph</code> and deploy graph-based machine learning techniques based on <code>graph neural networks</code> and <code>knowledge graph embedding models</code> have gained popularity.</p>
+</blockquote>
+<h4 id="贡献"><a href="#贡献" class="headerlink" title="贡献"></a>贡献</h4><p>在这个项目中, 构建了<code>一个称为 DRKG 的多样化药物再利用知识图谱</code>, 并提供了<code>一套机器学习工具</code>, 用于<code>加快药物再利用</code>.</p>
+<blockquote>
+<p>We <code>collect interactions</code> from the following <code>publicly-available</code> data sources: (i) <code>Drugbank</code>, (ii) <code>Global Network of Biomedical Relationships (GNBR)</code>, (iii) <code>Hetionet</code>, (iv) <code>STRING</code>, (v) <code>IntAct</code>, (vi) <code>DGIdb</code>, and (vii) <code>relations from bibliographic sources</code>.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>We map <code>the biological entities of the different databases</code> to <code>a common ID space</code>, which <code>allows us to link entities across databases</code>, and we <code>filter the initial data to remove noisy links and entities</code>.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>In total, <code>DRKG</code> contains <code>97,055</code> vertices belonging to <code>13</code> types of entities, and <code>5,869,294</code> edges belonging to <code>107</code> types of relations.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>In addition, <code>DRKG</code> contains <code>a number of Covid-19 related proteins and genes</code>, as <code>extracted from recent publications</code>.</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p>To analyze DRKG, we <code>formulate</code> and <code>solve</code> the link prediction task using models that compute <code>knowledge graph embedding (KGE)</code>.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>We <code>perform analysis</code> to validate that <code>the graph structure</code> and <code>the learned embeddings are of high quality</code>.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>Our analysis shows that <strong><code>similar biological entities and relations have similar embeddings</code></strong> that corroborates insights from biology and hence <strong><code>DRKG can be used for developing machine learning models</code></strong>.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>Finally, we <code>used these embeddings to evaluate how well DRKG can be used to identify drugs</code> that can be repurposed for Covid-19. <strong><code>Our results show that among the highest scoring drugs, there are several drugs undergoing clinical trials</code></strong>.</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p>These results illustrate that <code>using the DRKG, one can apply machine learning models to predict new links</code> and <code>facilitate drug repurposing for novel diseases</code>.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>Finally, by comparing <code>the drug repurposing results of DRKG</code> with <code>those of the constituent databases</code>, we confirm he <code>merits to constructing a comprehensive DRKG</code>.</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p>The <code>DRKG</code>, <code>entity &amp; relation embeddings</code>, and <code>the source code</code> for the analysis presented in this paper is publicly made available ( <a href="https://github.com/gnn4dr/DRKG/">https://github.com/gnn4dr/DRKG/</a> ).</p>
+</blockquote>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><h4 id="定义和符号"><a href="#定义和符号" class="headerlink" title="定义和符号"></a>定义和符号</h4><blockquote>
+<p>A graph $G &#x3D; (V, E)$ is composed of <code>two sets</code>—the set of nodes $V$ (also called <code>vertices</code>) and the set of edges $E$ (also called <code>arcs</code>). <code>Each edge</code> connects <code>a pair of nodes</code> indicating that <code>there is a relation between them</code>.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><code>This relation</code> can either be <code>undirected</code>, e.g., <strong><code>capturing symmetric relations between nodes</code></strong>, or <code>directed</code>, <strong><code>capturing asymmetric relations</code></strong>. Depending on <code>the edges’ directionality</code>, a graph can be <code>directed</code> or <code>undirected</code>.</p>
+<p>Graphs can be either <code>homogeneous</code> or <code>heterogeneous</code>. In <code>a homogeneous graph</code>, <code>all the nodes represent instances of the same type</code> and <code>all the edges represent relations of the same type</code>. In contrast, <code>in a heterogeneous graph</code>, <code>the nodes and edges can be of different types</code>.</p>
+<p>Finally, a <code>graph</code> can either be <code>a simple graph</code> or <code>a multigraph</code>. In <code>a simple graph</code> there is <code>only a single directed edge</code> connecting a pair of nodes and <code>it does not have loops</code>. In contrast, <code>in a multigraph</code> there can be <code>multiple (directed) edges</code> between <code>the same pair of nodes</code> and can also <code>contain loops</code>.</p>
+<p><strong><code>These multiple edges</code> are <code>typically of different types</code> and as <code>such most multigraphs are heterogeneous</code>.</strong></p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p><code>A knowledge graph (KG)</code> is a <code>directed heterogeneous multi-graph</code> whose node and relation types have <code>domain-specific semantics</code>.</p>
+<p><code>KGs</code> allow us to <code>encode the knowledge into a form that is human interpretable</code> and amenable to automated <code>analysis</code> and <code>inference</code>.</p>
+<p><code>A node</code> in a knowledge graph represents <code>an entity</code> and <code>an edge</code> represents <code>a relation between two entities</code>.</p>
+<p>The edges are usually in the form of triplets $(h, r, t)$, each of which indicates that a pair of entities $h$ (head) and $t$ (tail) are coupled via a relation $r$.</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p><code>Knowledge graph embeddings</code> are <code>low-dimensional representation of entities and relations</code>.</p>
+<p><code>These embeddings</code> carry <code>the information of the entities and relations</code> in the knowledge graph and are widely used in tasks, such as <strong><code>knowledge graph completion</code></strong> and <strong><code>recommendation</code></strong>.</p>
+<p>Throughput the paper, we denote <code>the embedding vector of head entity, tail entity and relation</code> with $h$, $t$ and $r$, respectively; <code>all embeddings have the same dimension size</code> of $d$.</p>
+</blockquote>
+<h4 id="知识图谱嵌入-KGE-模型"><a href="#知识图谱嵌入-KGE-模型" class="headerlink" title="知识图谱嵌入 (KGE) 模型"></a>知识图谱嵌入 (KGE) 模型</h4><blockquote>
+<p><code>The knowledge graph embeddings</code> are computed so that <code>they satisfy certain properties</code>; i.e., they follow <code>a given KGE model</code>. A KGE model <code>defines a score function</code> that <code>measures the distance of two entities relative to its relation type</code> in the low-dimensional embedding space.</p>
+<p><code>This score function</code> is <code>defined on the triplets</code> and <code>during training it optimizes a loss function</code> that <code>maximizes the scores on triplets that exist in the knowledge graph (positive triplets)</code> and <code>minimizes the scores on triplets that do not exist (negative triplets)</code>.</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p>use <code>the logistic loss</code> for <code>KGE model training</code> given by</p>
+</blockquote>
+<p>$$<br>min\sum_{h, r, t \in \mathbb{D}^+ \cup \mathbb{D}^-} log(1+exp(-y \times f(h,r,t))) \tag{1}<br>$$</p>
+<blockquote>
+<p>where $\mathbb{D}^+$ and $\mathbb{D}^-$ are <code>the positive and negative sets of triplets</code>, and $y &#x3D; 1$ if the triplet corresponds to a positive example and $−1$ otherwise.</p>
+<p><code>The negative triplets</code> are usually <code>constructed</code> by replacing <code>the entities or relations in positive triplets</code> with <code>entities and relations randomly sampled from the knowledge graph</code>.</p>
+<p>For <code>a review of negative sampling strategies</code> see <a href="#2"><sup>2</sup></a>.</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p><code>Many score functions</code> have been developed to <code>train knowledge graph embeddings</code> and <code>Table I</code> lists <code>the score functions of some of them</code>.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221206180047.png"></p>
+<blockquote>
+<p><code>TransE</code> and <code>TransR</code> are <code>representative translational models</code> that <code>explore the Euclidean distance-based scoring functions</code>, while <code>DistMult</code>, <code>ComplEx</code>, and <code>RESCAL</code> are <code>semantic matching models</code> that <code>exploit similarity-based scoring functions</code>.</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p><code>Obtaining embeddings of entities and relations</code> in the DRKG <code>is beneficial for</code> a number of <code>downstream tasks</code>.</p>
+<p>First, <strong><code>the embeddings may be used to clean the DRKG from noisy triplets</code></strong> that may appear due to erroneous entries in the <code>data sources</code>.</p>
+<p>Second, <strong><code>the embeddings can be used to establish the similarity of different entities and relation types</code></strong> such as <strong>diseases</strong>, <strong>drugs</strong>, <strong>interaction types</strong>, and <strong>obtain clusters of similar entities</strong>.</p>
+<p>Third, <strong><code>the embeddings can be used to predict putative new links between the DRKG’s entities</code></strong>, which can contribute to <code>our overall knowledge about the diseasome</code>.</p>
+<p>For example, <strong><code>embeddings</code></strong> can be used to <strong><code>discover new side-effects of drugs</code></strong> and <strong><code>identify alternate therapuetic uses of existing drugs</code></strong> (see bellow).</p>
+</blockquote>
+<h3 id="药物再利用知识图谱"><a href="#药物再利用知识图谱" class="headerlink" title="药物再利用知识图谱"></a>药物再利用知识图谱</h3><h4 id="药物来源"><a href="#药物来源" class="headerlink" title="药物来源"></a>药物来源</h4><ol>
+<li></li>
+</ol>
+<blockquote>
+<p><strong><code>Drugbank</code></strong>: <strong><code>The DrugBank database</code></strong> is <code>a bioinformatics and cheminformatics knowledge base</code> with <code>rich drug data information</code> as well as <code>comprehensive drug target information</code>.</p>
+<p>used <code>the latest version (version 5.1.5)</code> which contains <strong><code>13563</code></strong> drug entries.</p>
+<p>used <code>Bio2RDF</code> ( <a href="https://github.com/bio2rdf/bio2rdf-scripts">https://github.com/bio2rdf/bio2rdf-scripts</a> ) to <strong><code>extract the triplets corresponding to the relations</code></strong> shown in <strong><code>Table II</code></strong> from Drugbank’s original XML format.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221206185622.png"></p>
+<blockquote>
+<p>Note that <strong><code>the treats relation corresponds to Drugbank’s associated conditions</code></strong>.</p>
+<p><code>since the ATC classification is hierarchical</code>, for each triplet <code>involving a specific ATC code</code>, we also <strong><code>included triplets corresponding to the higher-level ATC codes</code></strong>. For example, if <strong><code>(DB09344, x-atc, Atc::C05BB03)</code></strong> is an original triplet, we added the following triplets: <strong><code>(DB09344, x-atc, Atc::C05BB)</code></strong>, <strong><code>(DB09344, x-atc, Atc::C05B)</code></strong>, <strong><code>(DB09344, x-atc, Atc::C05)</code></strong>, and <strong><code>(DB09344, x-atc, Atc::C)</code></strong>.</p>
+<p><code>excluded entities</code> that participated in <code>less than 2 triplets</code> and <code>triplets</code> connecting to these entities.</p>
+<p>In total, we extracted from Drugbank <code>1419822 triplets</code> and <code>18729 entities</code> whose statistics are shown in <strong><code>Table X</code></strong>.</p>
+</blockquote>
+<hr>
+<ol start="2">
+<li></li>
+</ol>
+<blockquote>
+<p><strong><code>GNBR</code></strong>: <strong><code>Global Network of Biomedical Relationships (GNBR)</code></strong> uses <code>NCBI’s PubTator</code> annotations to identify instances of <code>chemical</code>, <code>gene</code>, and <code>disease</code> names in <code>Medline abstracts</code>, and <strong><code>applies dependency parsing to find dependency paths between pairs of entities in individual sentences</code></strong>.</p>
+<p>These dependency paths are grouped into <code>semantically-related categories</code>, to <strong><code>provide relations (with confidence) between among enitities that appear together in a sentence</code></strong>.</p>
+<p><strong><code>GNBR</code></strong> includes <strong><code>gene-gene</code></strong>, <strong><code>gene-disease</code></strong>, <strong><code>drug-gene</code></strong>, and <strong><code>drug-disease</code></strong> interactions.</p>
+</blockquote>
+<hr>
+<hr>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221206205422.png"></p>
+<blockquote>
+<p>To eliminate the entity pairs co-occurring by chance, we only considered <strong><code>the pairs that co-occur in the same sentence more than a threshold number of times</code></strong> (column <strong><code>’frequency threshold’</code></strong> in Table III).</p>
+<p>Next, to find all relations between the pair of entities, we <strong><code>aggregated the confidence for the pair related by a particular relation, over all the sentences in which that pair of entities co-occurs</code></strong>.</p>
+<p>We again <strong><code>selected only those relations whose confidence is more than a threshold</code></strong> (column <strong><code>’confidence threshold’</code></strong> in <strong><code>Table III</code></strong>), so as to <code>remove noisy relations</code> occurring by chance.</p>
+<p>Further, we also <strong><code>remove all the relations from a gene to itself</code></strong>.</p>
+</blockquote>
+<hr>
+<hr>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221206212428.png"></p>
+<blockquote>
+<p>Our final processed dataset extracted from GNBR contains <strong><code>66722 gene-gene interactions</code></strong>, <strong><code>95400 gene-disease interactions</code></strong>, <strong><code>80803 drug-gene interactions</code></strong>, and <strong><code>77782 drug-disease interactions</code></strong>.</p>
+<p><strong><code>The statistics of the extracted relations</code></strong> are shown in <strong><code>Table IV</code></strong></p>
+</blockquote>
+<hr>
+<hr>
+<ol start="3">
+<li></li>
+</ol>
+<blockquote>
+<p><strong><code>Hetionet</code></strong>: <code>Hetionet is a heterogeneous information network of biomedical knowledge assembled from 29 different databases</code> relating <strong><code>genes</code></strong>, <strong><code>compounds</code></strong>, <strong><code>diseases</code></strong> and other.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221206214334.png"></p>
+<blockquote>
+<p>We extracted <strong><code>2250197 triplets from 24 relation types</code></strong> as shown in <strong><code>Table V</code></strong> and <strong><code>45279 entities belong to 11 entities types</code></strong> as shown in <strong><code>Table X</code></strong>.</p>
+</blockquote>
+<hr>
+<hr>
+<ol start="4">
+<li></li>
+</ol>
+<blockquote>
+<p><strong><code>STRING</code></strong>: <strong><code>STRING is a database of established and predicted protein-protein interactions</code></strong>.</p>
+<p>The interactions include <strong><code>direct (physical)</code></strong> and <strong><code>indirect (functional)</code></strong> associations and are extracted from <code>computational prediction</code>, <code>knowledge transfer</code> between organisms, and interactions aggregated from other databases.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221206220141.png"></p>
+<blockquote>
+<p>We extracted the interactions <code>whose score is greater than or equal to 0.6</code>, resulting in <strong><code>1496708 triplets from 7 relation types</code></strong> as shown in <strong><code>Table VI</code></strong> and <strong><code>18316 gene entities</code></strong>.</p>
+</blockquote>
+<hr>
+<hr>
+<ol start="5">
+<li></li>
+</ol>
+<blockquote>
+<p><strong><code>IntAct</code></strong>: <strong><code>IntAct</code></strong> is an open source database that contains <strong><code>molecular interaction data</code></strong>.</p>
+<p>IntAct provides <strong><code>gene to gene</code></strong> as well as <strong><code>gene to chemical compounds</code></strong> interactions.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221206221302.png"></p>
+<blockquote>
+<p><strong><code>The extracted relations and entities</code></strong> are in <strong><code>Tables VII</code></strong> and X.</p>
+</blockquote>
+<hr>
+<hr>
+<ol start="6">
+<li></li>
+</ol>
+<blockquote>
+<p><strong><code>DGIdb</code></strong>: <strong><code>DGIdb</code></strong> is <code>a drug–gene interaction database</code> that <code>consolidates</code>, <code>organizes</code> and <strong><code>presents</code></strong> drug–gene interactions and gene druggability information from <code>papers</code>, and <code>online databases</code>.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221206222414.png"></p>
+<blockquote>
+<p>We extracted <strong><code>26290 triplets from 13 relation types</code></strong> as shown in <strong><code>Table VIII</code></strong> and <strong><code>2551 gene entities and 6348 compound entities</code></strong>.</p>
+</blockquote>
+<ol start="7">
+<li></li>
+</ol>
+<blockquote>
+<p><strong><code>Data related to Covid-19</code></strong>: <strong><code>To further enrich our data with information related to Covid-19, we included interaction data from three recent publications</code></strong> (shown in <strong><code>Table IX</code></strong>).</p>
+<p>The work by Ge et. al. <code>developed a data-driven drug repurposing framework</code> that <code>utilizes a biological network to discover the potential drug candidates against SARS-CoV-2</code>. From that work, we <strong><code>extracted the biological network describing the interactions among host human proteins, virus proteins and chemical compounds</code></strong>.</p>
+<p>The proteins are indexed by the <strong><code>UniProt ID</code></strong> and the chemical compounds by their <strong><code>InChIKey</code></strong>.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221207203431.png"></p>
+<hr>
+<hr>
+<blockquote>
+<p>In an effort to <strong><code>discover antiviral drugs</code></strong> for Covid-19, Gordon et. al. <strong><code>cloned</code></strong>, <strong><code>tagged</code></strong> and <strong><code>expressed</code></strong> 26 of the 29 viral proteins in human cells and <strong><code>identified the physically associated human proteins</code></strong>.</p>
+<p><strong><code>They identified 67 druggable human proteins targeted by 69 existing FDA-approved drugs, drugs in clinical trials and/or preclinical compounds.</code></strong></p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p>A framework for drug-repurposing is introduced by Zhou et. al., where the task is to repurpose drugs that are effective for <strong><code>certain related coronavirus strains</code></strong> such as <code>IBV</code>, <code>HCoV-229E</code>, <code>HCoV-NL63</code>, <code>SARS</code>, <code>MERS</code> and <code>MHV</code>.</p>
+<p>From that work, we <strong><code>extract relations among the aforementioned diseases and host proteins</code></strong>.</p>
+</blockquote>
+<h4 id="命名约定和规范化"><a href="#命名约定和规范化" class="headerlink" title="命名约定和规范化"></a>命名约定和规范化</h4><blockquote>
+<p>From each dataset, we extracted a list of triplets in the form of <strong><code>(head-entity, relation-type, tail-entity)</code></strong>.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong><code>For representing entities</code></strong>, we use <strong><code>an entity type identifier followed by a unique ID of the specific entity</code></strong>, e.g., <a href="https://www.ncbi.nlm.nih.gov/gene/22947">Gene::229475</a>.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong><code>For representing relations</code></strong>, we use <strong><code>a naming convention that combines the name of the data source, the name of the relation, and the types of head and tail entities</code></strong> that are involved e.g., <strong><code>DGIDB::INHIBITOR::Gene:Compound</code></strong>.</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p><strong><code>Data sources use one of several ID spaces to represent genes, compounds, diseases and others.</code></strong></p>
+<p>For example, <strong><code>the same chemical compound</code></strong> may be represented in the <strong><code>drugbank compound ID space</code></strong> in DrugBank and in the <strong><code>chembl compound ID space</code></strong> in the DGIdb.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>To ensure that information from different sources in <strong><code>integrating correctly</code></strong>, we <strong><code>map biological entities to a common ID space</code></strong> using the following rules:</p>
+<ul>
+<li><p><strong><code>Compound entities</code></strong> are mapped to <strong><code>the drugbank compound ID space</code></strong> and if not possible to <strong><code>the chembl compound ID space</code></strong>. If a compound <code>can not be found</code> to either of the two we use <strong><code>the native ID space</code></strong> and we <strong><code>include the name of the source as part of the entity’s name</code></strong> (e.g., <a href="https://www.brenda-enzymes.org/ligand.php?brenda%20ligand%20id=169533">Compound::brenda:1695336</a>).</p>
+</li>
+<li><p><strong><code>Gene entities</code></strong> are mapped to <strong><code>the Entrez ID space</code></strong>.</p>
+</li>
+<li><p><strong><code>Disease entities</code></strong> are mapped to <strong><code>the MESH ID space</code></strong>.</p>
+</li>
+<li><p><strong><code>The remaining biological entities</code></strong> appear <strong><code>only in a single data source</code></strong> and hence we use <strong><code>the data source’s ID</code></strong>.</p>
+</li>
+</ul>
+<p>These rules are applied to <code>the biological entities per database</code> to <strong><code>map the entities to the common ID space</code></strong>.</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p>Finally, in order to avoid <code>relations</code> for which we do not have enough data to train good embeddings, we <strong><code>exclude relations types that have less than 50 edges</code></strong>.</p>
+</blockquote>
+<h4 id="The-DRKG-–-Putting-everything-together"><a href="#The-DRKG-–-Putting-everything-together" class="headerlink" title="The DRKG – Putting everything together"></a>The DRKG – Putting everything together</h4><blockquote>
+<p>The extracted set of <strong><code>normalized triplets</code></strong> from <code>the previous datasets</code> constitute <code>the Drug Repurposing Knowledge Graph (DRKG)</code> that we created.</p>
+<p>It contains <strong><code>97,055 entities belonging to 13 entity-types</code></strong>. <strong><code>The type-wise distribution of the entities</code></strong> is shown in <strong><code>Table X</code></strong>.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221207124628.png"></p>
+<blockquote>
+<p>DRKG contains <strong><code>a total of 5,869,294 triplets belonging to 107 relation-types</code></strong>.</p>
+<p><strong><code>Table XI</code></strong> shows <strong><code>the number of triplets between different entity-type pairs for DRKG and various data sources</code></strong>.</p>
+<p>The per-relation-type statistics have already been discussed in <strong><code>Section III-A</code></strong>.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221207130112.png"></p>
+<blockquote>
+<p><strong><code>Figure 1</code></strong> depicts the possible interactions between the entity-type pairs in DRKG.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221207125435.png"></p>
+<h3 id="在-DRKG-上使用知识图谱嵌入进行药物再利用"><a href="#在-DRKG-上使用知识图谱嵌入进行药物再利用" class="headerlink" title="在 DRKG 上使用知识图谱嵌入进行药物再利用"></a>在 DRKG 上使用知识图谱嵌入进行药物再利用</h3><blockquote>
+<p><strong><code>Drug repurposing (DR)</code></strong> refers to <strong><code>using existing drugs for new therapeutic indications</code></strong>.</p>
+<p>In this section, we <strong><code>formalize the DR objective as a link prediction task over the DRKG</code></strong> that can be solved by <strong><code>KGE models</code></strong>.</p>
+<p>In <strong><code>the appendix</code></strong> we include <strong><code>several data analysis techniques</code></strong> to <strong><code>verify that the constructed DRKG and the learned KG embeddings are of high quality</code></strong>.</p>
+</blockquote>
+<h4 id="Formulating-drug-repurposing-as-knowledge-graph-completion"><a href="#Formulating-drug-repurposing-as-knowledge-graph-completion" class="headerlink" title="Formulating drug repurposing as knowledge graph completion"></a>Formulating drug repurposing as knowledge graph completion</h4><blockquote>
+<p><strong><code>DR refers to using existing drugs for new therapeutic indications</code></strong>.</p>
+<p>In the context of knowledge graphs, <code>DR</code> can be formulated as to <code>predict new links between drug entities and disease entities of link type treat</code>, or <code>between drug entities and gene entities of link type inhibit or bind where the genes are related to the disease of interest</code> (e.g., <strong><code>involved in related pathways</code></strong>).</p>
+<p>In Section IV, we <strong><code>validate DR on the DRKG for the Covid-19 disease</code></strong>, where we use <strong><code>the direct link formulation of DR</code></strong>.</p>
+<p>By using our comprehensive DRKG, researchers can <strong><code>address drug-repurposing for a variety of diseases</code></strong> such as <code>HIV</code> and <code>SARS</code>, as well as, the novel <code>Covid-19</code>.</p>
+</blockquote>
+<h4 id="Using-knowledge-graph-embeddings-for-link-prediction"><a href="#Using-knowledge-graph-embeddings-for-link-prediction" class="headerlink" title="Using knowledge graph embeddings for link prediction"></a>Using knowledge graph embeddings for link prediction</h4><blockquote>
+<p>Here, we <code>analyze DRKG</code> by <strong>learning a TransE KGE model that utilizes the $\ell_2$ distance</strong>; see also <strong><code>Section II-B</code></strong>.</p>
+<p>By <strong><code>optimizing equation (1)</code></strong> we obtain <strong><code>vector embeddings of dimension</code></strong> $400 \times 1$ for <strong><code>all biological entities and relations</code></strong> participating in the DRKG.</p>
+<p>Consider the triplet $(h, r, t)$ of the DRKG and the associated score as</p>
+</blockquote>
+<p>$$<br>f(h,r,t)&#x3D;\gamma - \parallel h + r - t \parallel_2 \tag{2}<br>$$</p>
+<blockquote>
+<p>where $\gamma$ is <code>a parameter of the TransE model</code> that is set to <strong><code>12.0</code></strong>.</p>
+<p>For each triplet $(h, r, t)$, the closer $f(h, r, t)$ is to $\gamma$, the more confident the model is that the head $h$ and tail $t$ entities are connected under relation $r$.</p>
+</blockquote>
+<h4 id="Drug-repurposing-using-different-relation-types"><a href="#Drug-repurposing-using-different-relation-types" class="headerlink" title="Drug repurposing using different relation types"></a>Drug repurposing using different relation types</h4><blockquote>
+<p>In this section, we <strong><code>evaluate our DRKG in the drug repurposing task for the Covid-19</code></strong> using the trained TransE KGE model in <strong><code>Section B</code></strong>.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>Here we <strong><code>use corona-virus diseases</code></strong>, including <strong><code>SARS</code></strong>, <strong><code>MERS</code></strong> and <strong><code>SARS-COV2</code></strong>, as <strong><code>target diseases representing Covid-19</code></strong>.</p>
+<p>We consider <strong><code>two formulations</code></strong> for the DR task.</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p><strong><code>The first one predicts direct links between the disease entities and the drug entitites</code></strong> in the DRKG, while <strong><code>the second one predicts links among gene entities that are inhibited by drug entities</code></strong> where <strong><code>the genes are associated with the target disease</code></strong>.</p>
+<p>We <strong><code>select FDA-approved drugs in Drugbank as candidates</code></strong>, while <strong><code>we exclude drugs with molecule weight less than 250 daltons</code></strong>, <strong><code>as many of certain drugs are actually supplements</code></strong> and we exclude them for <strong><code>simplicity</code></strong>.</p>
+<p>This amounts to <strong><code>8104 candidate drugs</code></strong>.</p>
+<p>We <strong><code>collect 32 clinical trial drugs for Covid-19 to validate our predictions</code></strong> and <strong><code>the drug names</code></strong> can be found in <strong><code>Table XII</code></strong>.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221207144306.png"></p>
+<blockquote>
+<p>For <strong><code>predicting links among disease and drugs with the relation treatment</code></strong>, we identify <strong><code>the disease entities</code></strong> in our DRKG that are related with <strong><code>the Covid-19 target disease</code></strong>.</p>
+<p>These disease nodes <strong><code>constitute</code></strong> our expanded target set, since in certain cases as <strong><code>Covid-19</code></strong>, we may have <strong><code>multiple disease nodes representing this novel disease</code></strong> or being related to it such as <code>SARS</code> and <code>MERS</code> diseases.</p>
+<p><strong><code>The disease nodes</code></strong> for <strong><code>Covid-19</code></strong> are in <strong><code>Table XIII</code></strong>.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221207150842.png"></p>
+<blockquote>
+<p>For this experiment, we select <strong><code>‘GNBR::T::Compound:Disease’</code></strong> and <strong><code>‘Hetionet::CtD::Compound:Disease’</code></strong> as the target relations since <strong><code>these represent that a certain drug is used for treating a disease</code></strong>.</p>
+<p>Next, we <strong><code>recover the pretrained embeddings</code></strong> that are obtained <strong><code>using the complete DRKG</code></strong> and <strong><code>find the 100 drugs with the highest score using Equation (5)</code></strong>.</p>
+<p>Finally, <strong><code>to assess whether our prediction is in par with the drugs used for treatment</code></strong>, we <strong><code>check the overlap among these 100 predicted drugs and the drugs used in clinical trials</code></strong>.</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p><strong><code>Table XIV</code></strong> lists <strong><code>the clinical trial drugs included in the top-100 predicted drugs</code></strong> along with <strong><code>their corresponding score and ranking</code></strong>.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221207154847.png"></p>
+<blockquote>
+<p>Evidently, using <strong><code>the proposed DRKG</code></strong> and <strong><code>plain vanilla KGE model</code></strong>, <strong>several of the commonly used drugs in clinical trials</strong> are identified.</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p>Finally on <strong><code>Table XV</code></strong> we report <strong><code>the top-10 highest ranked drugs for this experiment irrespective of whether these are used for clinical trials or not</code></strong>.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221207164742.png"></p>
+<hr>
+<hr>
+<blockquote>
+<p>For <strong><code>predicting links among gene and drugs with the inhibit relation</code></strong>, we identify the biological gene entities in our DRKG that are related with <strong><code>the Covid-19 disease</code></strong>.</p>
+<p><strong><code>These gene nodes</code></strong> are involved in <strong><code>the related pathways of Covid-19</code></strong>.</p>
+<p>We obtain <strong><code>442 Covid-19 related genes</code></strong> from the relations extracted from [18], [9].</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p>In this experiment, we select <strong><code>the inhibit related relation</code></strong> which appears in three datasources as <strong><code>’GNBR::N::Compound:Gene’</code></strong>, <strong><code>’DRUGBANK::target::Compound:Gene’</code></strong> and <strong><code>’DGIDB::INHIBITOR::Gene:Compound’</code></strong>.</p>
+<p>We compare <strong><code>the results obtained by the DRKG</code></strong> with <strong><code>the corresponding results</code></strong> if we <strong><code>trained a KGE on a subset of the DRKG that uses only relations</code></strong> from the three databases <strong>GNBR</strong>, <strong>DRUGBANK</strong> and <strong>DGIDB</strong> individually.</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p>For the results, we <strong><code>recover the pretrained embeddings</code></strong> that are obtained <code>using the KGE model</code> and <code>find the 100 drugs with the highest score using Equation (5)</code> and rank them per target gene.</p>
+<p>This way we obtain 442 ranked lists of drugs.</p>
+<p>Finally, <code>to assess whether our prediction is in par with the drugs used for treatment</code>, we check the <code>overlap</code> among <code>these 100 predicted drugs</code> and <code>the drugs used in clinical trials per gene</code>.</p>
+<p>This procedure is <code>repeated three times per relation</code> and we compare <code>the results of using the DRKG against the constituent databases</code> that include an inhibit relation.</p>
+<p><strong><code>Tables XVI-XVIII</code></strong> list <strong><code>the clinical drugs included in the top-100 predicted drugs</code></strong> across all the genes with <strong><code>their corresponding number of hits</code></strong> for DRKG and the constituent databases.</p>
+</blockquote>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221207174016.png"></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221207174056.png"></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20221207174137.png"></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20145857.png"></p>
+<blockquote>
+<p><strong><code>The number of hits shows in how many gene ranked lists the suggested drug appeared in the top-100 ranked drugs.</code></strong> For example if <strong><code>a drug appears in the top-100 ranked drugs for all genes the number of hits is 442</code></strong>. This is <strong><code>the maximum number of possible hits</code></strong>.</p>
+<p>It can be observed, that <strong><code>several of the commonly used drugs in clinical trials appear high on the predicted list</code></strong>.</p>
+<p>Furthermore, <strong><code>the number of hits using the DRKG is significant higher</code></strong> comparing to <code>the constituent databases</code>, which corroborates the <code>merits to constructing a comprehensive DRKG</code>.</p>
+</blockquote>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><blockquote>
+<p>This paper constructed a <code>DRKG</code> from a collection of data sources <code>that can be utilized for general drug repurposing tasks</code>.</p>
+<p>To further facilitate efforts of researchers in <strong><code>repurposing drugs for Covid-19</code></strong> we also include in DRKG <code>proteins and genes related to Covid-19</code>, as extracted from <code>relevant papers</code>.</p>
+<p>We train <code>KGE models on the DRKG</code> and obtain <code>embeddings for entities and relation types</code>.</p>
+<p>We also validate that the DRKG structure and the learned embeddings are of high quality.</p>
+<p>Finally, we evaluate the DRKG in the drug repurposing task for Covid-19.</p>
+<p>It is observed that <strong><code>several of the widely used drugs in clinical trials are identified by our method</code></strong>.</p>
+</blockquote>
+<hr>
+<hr>
+<blockquote>
+<p><strong><code>Our future research efforts</code></strong> will focus on <strong><code>including more biological entities in the DRKG</code></strong>, <strong><code>enhancing the entities with attributes</code></strong> such as <strong><code>chemical sequence for compounds</code></strong> and <strong><code>developing deep graph learning models</code></strong> that are dedicated for <strong><code>drug repurposing</code></strong>.</p>
+</blockquote>
+<h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><p>This section describes <code>data analysis techniques</code> we performed on the DRKG. The goal is to verify that the constructed DRKG and the learned KG embeddings are of high quality. The code is implemented in <code>DGL-KE</code> that is <code>an open-source package</code> to efficiently compute knowledge graph embeddings. It contains several KGE models, including <code>TransE</code>, <code>DistMult</code> and <code>RotatE</code>, and introduces various optimizations that accelerate training on knowledge graphs using multi-processing, multi-GPU, and distributed parallelism. This way DGL-KE facilitates efficient training on knowledge graphs with millions of nodes and billions of edges.</p>
+<h4 id="Graph-structure-analysis"><a href="#Graph-structure-analysis" class="headerlink" title="Graph structure analysis"></a>Graph structure analysis</h4><p>Here the quality of the constructed DRKG is assessed. <code>Different data sources may describe the same triplets and hence the constructed DRKG may have some redundant edges</code>. In this section we verify that triplets from different sources <strong>do not have significant overlapping information</strong>.</p>
+<p>First, we assess what is <strong>the percentage of common triplets among each pair of edge types in the DRKG</strong>. This is important since the same relation-type among the same nodes might be described in two different datasets, and the DRKG may over-represent this relation. If the percentage of common triplets is relatively small then combining these is well justified. Towards this end, we compute the Jaccard similarity coefficient among a pair of relation types $\varepsilon^{r_1}$, $\varepsilon^{r_2}$ that is defined as follows</p>
+<p>$$<br>j_{r_1,r_2}:&#x3D;\frac{|\varepsilon^{r_1}\cap \varepsilon^{r_2}|}{|\varepsilon^{r_1}\cup \varepsilon^{r_2}|} \tag{3}<br>$$</p>
+<p>where $|A|$ denotes <code>the cardinality</code> of the set $A$. The Jaccard score is a measure of similarity among the relation types, if $j_{r_1,r_2}$ is close 1 then $\varepsilon^{r_1}$ and $\varepsilon^{r_2}$ are connecting the node pairs. <code>Table XX</code> reports the 10 most similar edge-pairs based on their Jaccard coefficient. <code>As expected some relation types connect the same nodes since the information from different data sources is related.</code> Nevertheless, <code>the relative small values of the Jaccard coefficient for the most similar edge-type pairs indicates that there is value in including the edge types from all the sources</code>.  For example, enzyme catalysis is typically done through binding interactions with protein substrates directly or indirectly.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20163614.png"></p>
+<p>In our DRKG, the relations <code>“STRING::REACTION::Gene:Gene”</code>, <code>“STRING::CATALYSIS::Gene:Gene”</code> and <code>“STRING::BINDING::Gene:Gene”</code> have high Jaccard similarity values (<code>0.608</code>, <code>0.413</code>, <code>0.307</code>), that supports our understanding of these activities. The three relations “bioarx::DrugHumGen:Compound:Gene”, “Hetionet::CbG::Compound:Gene” and “DRUGBANK::target::Compound:Gene” from different databases correspond to a same relation that compounds bind to their target genes, and in our DRKG, these relations have high pairwise Jaccard similarities. Compounds could affect gene expression after they are metabolized into active substances and moved to certain organs where the genes are usually highly expressed, or compounds and genes compete for same enzymes. In our DRKG, the high Jaccard similarity between “GNBR::E::Compound:Gene” and “GNBR::K::Compound:Gene” corresponds to such a biological process. The relations “Hetionet::AuG::Anatomy:Gene” and “Hetionet::AeG::Anatomy:Gene” both represent that the gene is over-expressed in the Anatomy, except for AuG in post-juvenile adult human samples. In our DRKG, they have high similarity under Jaccard.</p>
+<p><code>The Jaccard similarity</code> may not capture the case that an edge type is contained in another one but the two edge sets have significantly different sizes. Nevertheless, this could happen if two databases describe the same relation, but one has significantly less edges than the other. Next, we examine whether all the edges of a certain type are described by another edge type as well that is $\varepsilon^{r_1} \subset \varepsilon^{r_2}$. To accomplish this, we compute the overlap coeffcient that is defined as</p>
+<p>$$<br>o_{r_1,r_2}:&#x3D;\frac{|\varepsilon^{r_1}\cap \varepsilon^{r_2}|}{min(|\varepsilon^{r_1}|, |\varepsilon^{r_2}|)} \tag{4}<br>$$</p>
+<p>The overlap coefficient is close to <code>1</code> if all the edges in one edge set are also present in the other set. <code>Table XXI</code> reports the 10 most similar edge-type pairs based on their overlap coefficient.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20174043.png"></p>
+<p>We observe that for certain edge-type pairs there <code>exists significant overlap</code>. <strong>Nevertheless, for the pair GNBR::E and GNBR::E+ the total overlap is expected since the first relation signifies that a drug affects the expression of a gene whereas the second indicates that a drug increases the expression of a gene and it is contained in the first one.</strong> The high overlap coefficient between “Hetionet::AuG::Anatomy:Gene” and “Hetionet::AeG::Anatomy:Gene” is also expected, because AuG is a special case of AeG. Similarly, “STRING::CATALYSIS::Gene:Gene” and “STRING::BINDING::Gene:Gene” can be considered as special cases of “STRING::REACTION::Gene:Gene”.</p>
+<h4 id="Knowledge-graph-embedding-analysis"><a href="#Knowledge-graph-embedding-analysis" class="headerlink" title="Knowledge graph embedding analysis"></a>Knowledge graph embedding analysis</h4><p>We can <code>use the embeddings of the knowledge graph to analyze how relations and entities are clustered and investigate whether certain similarities in the embedding space are consistent with their biological meanings</code>, e.g., “GNBR::E:Compound:Gene” and “GNBR::E+:Compound:Gene” can be similar as they both represent the expression relationship between a Compound and a Gene, but “GNBR::E+” represents the positive expression. Further, we can generate the confidence of existing edges by calculating the prediction scores using the embeddings. From the perspective of the knowledge graph embedding algorithm, e.g., <strong>TransE, if the score between two entities $h$ and $t$ under relation $r$ is far away from $0$, then the model cannot correctly score an edge on which it trained on. This means that the edge does not fit the underlying model and is often an indication that the corresponding edge may be incorrect.</strong></p>
+<p>Here, we analyze DRKG by <strong>learning a TransE KGE model that utilizes the $\ell_2$ distance</strong> (Section II-B). For the analysis in this section, we split the edge triplets in training, validation and test sets as follows <code>90%</code>, <code>5%</code>, and <code>5%</code> and train the KGE model. Finally, we obtain the entity and relation embeddings for the DRKG. Next, we apply the following methodologies to <code>validate the quality of the learned embeddings</code>.</p>
+<p><code>1)</code> Entity embedding similarity: We use <code>t-SNE</code> to map entity embeddings to a 2D space. <code>Figure 2</code> illustrates <code>how the entity embeddings are placed in the 2D space</code>. Different colors denote different entity types. <code>We observe that entities from the same type are grouped together as we expected</code>.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20190657.png"></p>
+<p><code>Table XXII</code> shows the average pair-wise cosine similarity of certain entity type within the same category and cross different categories. <code>It can be seen that entities are more similar to each other within the same category that entities from different categories</code>.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20192022.png"></p>
+<p><code>Figure 3</code> shows <code>the detailed distribution</code> of pairwise cosine similarity between different entities based on their embeddings. In the figure, <code>the counts are normalized that the area under the histogram is sum to 1</code>. <strong>It can be seen that most of the entities have low cosine similarity according to their embeddings</strong>. They are distinguishable in the current embedding space.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20193107.png"></p>
+<p><code>2)</code> Relation type embedding similarity: We use <code>t-SNE</code> to map relation embeddings to a 2D space and plot it in <code>Figure 4</code>. <code>It can be seen that relations are widely spread across the 2D space and relations from the same dataset do not cluster which is expected as most of relations have different meanings even from the same data source.</code></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20194110.png"></p>
+<p>Only a small part of relations from GNBR dataset are clustered together. There are two clustered red dots (relations from GNBR) in the Figure. <code>Table XXIII</code> shows all relation-type pairs with the Cosine similarity larger than 0.9. It can be seen that “GNBR::E::Compound:Gene”, “GNBR::K::Compound:Gene”, “GNBR::E+::Compound:Gene”, “GNBR::N::Compound:Gene” and “GNBR::E-::Compound:Gene” are highly similar to each other.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20195533.png"></p>
+<p>Some of these pairs also appear in the most similar edge-type pairs analysis on the Jaccard similarity and overlap similarity. Drugs can affect (E) gene expression (either increase (E+) or decrease (E-)) through their pharmacokinetics (K). <code>Drugs can also inhibit genes to affect gene expressions and thus the high cosine similarity between “GNBR::N:: Compound:Gene” and the above relations are justified.</code> “GNBR::L::Gene:Disease”, “GNBR::G::Gene:Disease”, “GNBR::J::Gene:Disease”, “GNBR::Md::Gene:Disease”, “GNBR::Te::Gene:Disease” and “GNBR::X::Gene:Disease” are highly similar to each other. <code>The similarity between these relations could be due to that the genes are involved in the pathogenesis of the disease and therefore they can be treated as the targets or they have therapeutic effect for the disease.</code> From the table, we can see that “bioarx::DrugHumGen:Compound:Gene” and “DRUGBANK::target::Compound:Gene” are also similar to each other, while they have similar meaning of treatment.</p>
+<p><code>Figure 5 shows the detailed distribution of pair-wise cosine similarity among different relation types based on their embeddings.</code> The counts are normalized that the area under the histogram is sum to 1. <code>It can be seen that most of the relation embeddings have small cosine similarity.</code> Only 0.53% of relation pairs have similarity larger than 0.9 with the maximun of 0.986 (between GNBR::E::Compound:Gene and GNBR::K::Compound:Gene).</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20201807.png"></p>
+<p><code>3) Edge prediction analysis</code>: Towards validating each triplet of the DRKG we evaluate how well it fits the scoring function of KGE model. In order to avoid the possible bias of over-fitting the triplets in the training set, <strong>we split the whole DRKG into 10 equal folds and train 10 KGE models by picking each fold as the test set and the rest other nine folds are the training set</strong>. Following this, the score for each triplet is calculated while this triplet was in the test set. Consider the triplet $(h, r, t)$ of the DRKG and the associated score as</p>
+<p>$$<br>score &#x3D; \gamma - ||\mathbf{h}+\mathbf{r}-\mathbf{t}||_{2} \tag{5}<br>$$</p>
+<p>where $\gamma$ is a constant we used in training of the TransE model that is set to <code>12.0</code>. For each triplet $(h, r, t)$, the closer its score is to $0$, the more confident it was that the head $h$ and tail $t$ entities are connected under relation $r$. The distribution of the edge scores is depicted in <code>Figure 6</code>.</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20205159.png"></p>
+<p>The counts are normalized that the area under the histogram is sum to <code>1</code>. From the figure, we can see that around <code>57.28%</code> of edges are scored as <code>|score| &lt; 1</code> and <code>94.24%</code> of edges are scored as <code>|score| &lt; 2</code>. <strong>The average of |score| is 0.987</strong>. We also randomly shuffle $t$ in $(h, r, t)$ for all triplets to construct the negative triplets $(h, r, t^{‘})$ and calculate the $|score^{‘}|$ using the same formula. The average $|score^{‘}|$ is 2.545.</p>
+<p><code>4) Link type recommendation similarity</code>: Finally, <strong>we also evaluate how similar are the predicted links as given by the KGE model among different relation types</strong>. This task examines the similarity across relation types for the link prediction task. For a set of nodes, <code>we measure the overlap of predicted neighbors under different relation types as given by the TransE model.</code></p>
+<p><strong>For seed node we find the top 10 neighbors under relation $r_j$ with the highest link prediction score.</strong> Next, we repeat the same prediction for relation $r_{j^{‘}}$ and calculate the Jaccard similarity coefficient among the predicted sets of top 10 neighbors for $r_j$ and $r_{j^{‘}}$. <code>We repeat this process for 100 random selected seed nodes and report the average similarity score for all edge-type pairs.</code> The most similar edge types in this context are <code>the ones relating Genes</code>. <strong>This may be attributed to the fact that the genes are the most represented entitites in the DRKG.</strong></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-01-10%20212612.png"></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第四十一篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2022/11/30/00041-drkg-yuan-lun-wen-xue-xi-bi-ji/">https://luyf-lemon-love.space/2022/11/30/00041-drkg-yuan-lun-wen-xue-xi-bi-ji/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                                    <span class="chip bg-color">知识图谱</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E8%A1%A5%E5%85%A8/">
+                                    <span class="chip bg-color">知识图谱补全</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/12/05/00042-tiobe-index-ji-shi/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/8895607487.png" class="responsive-img" alt="00042-TIOBE Index 纪实">
+                        
+                        <span class="card-title">00042-TIOBE Index 纪实</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-12-05
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C/" class="post-category">
+                                    C++
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/11/30/00040-drug-repurposing-for-covid-19-via-disease/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/8151266243..png" class="responsive-img" alt="00040-Drug Repurposing for Covid-19 via Disease">
+                        
+                        <span class="card-title">00040-Drug Repurposing for Covid-19 via Disease</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-30
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Paper/" class="post-category">
+                                    Paper
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                        <span class="chip bg-color">知识图谱</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E8%A1%A5%E5%85%A8/">
+                        <span class="chip bg-color">知识图谱补全</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

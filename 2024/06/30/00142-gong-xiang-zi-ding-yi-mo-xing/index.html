@@ -1,0 +1,1419 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00142 共享自定义模型, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言本文介绍了GPU推理。
+Hugging Face Github 主页: https://github.com/huggingface
+The 🤗 Transformers library is designed to be easil">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00142 共享自定义模型 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/005-119971407.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00142 共享自定义模型</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大语言模型</span>
+                            </a>
+                        
+                            <a href="/tags/huggingface/">
+                                <span class="chip bg-color">huggingface</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                大语言模型
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-06-30
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文介绍了GPU推理。</p>
+<p>Hugging Face Github 主页: <a href="https://github.com/huggingface">https://github.com/huggingface</a></p>
+<p>The 🤗 Transformers library is designed to be easily extensible. <strong>Every model is fully coded in a given subfolder of the repository with no abstraction, so you can easily copy a modeling file and tweak it to your needs.</strong></p>
+<p>If you are writing a brand new model, it might be easier to start from scratch. <strong>In this tutorial, we will show you how to write a custom model and its configuration so it can be used inside Transformers, and how you can share it with the community (with the code it relies on) so that anyone can use it, even if it’s not present in the 🤗 Transformers library.</strong> We’ll see how to build upon transformers and extend the framework with your hooks and custom code.</p>
+<p>We will illustrate all of this on a ResNet model, by wrapping the ResNet class of the <a href="https://github.com/rwightman/pytorch-image-models">timm library</a> into a [<code>PreTrainedModel</code>].</p>
+<p>操作系统：Windows 11 家庭中文版</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://huggingface.co/docs/transformers/main/en/custom_models">Building custom models</a></li>
+</ol>
+<h2 id="Writing-a-custom-configuration"><a href="#Writing-a-custom-configuration" class="headerlink" title="Writing a custom configuration"></a>Writing a custom configuration</h2><p>Before we dive into the model, let’s first write its configuration. <strong>The configuration of a model is an object that will contain all the necessary information to build the model.</strong> As we will see in the next section, the model can only take a <code>config</code> to be initialized, so we really need that object to be as complete as possible.</p>
+<p><strong>Models in the <code>transformers</code> library itself generally follow the convention that they accept a <code>config</code> object in their <code>__init__</code> method, and then pass the whole <code>config</code> to sub-layers in the model, rather than breaking the config object into multiple arguments that are all passed individually to sub-layers.</strong> Writing your model in this style results in simpler code with a clear “source of truth” for any hyperparameters, and also makes it easier to reuse code from other models in <code>transformers</code>.</p>
+<p>In our example, we will take a couple of arguments of the ResNet class that we might want to tweak. Different configurations will then give us the different types of ResNets that are possible. We then just store those arguments, after checking the validity of a few of them.</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> PretrainedConfig
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> List
+
+
+<span class="token keyword">class</span> <span class="token class-name">ResnetConfig</span><span class="token punctuation">(</span>PretrainedConfig<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    model_type <span class="token operator">=</span> <span class="token string">"resnet"</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>
+        self<span class="token punctuation">,</span>
+        block_type<span class="token operator">=</span><span class="token string">"bottleneck"</span><span class="token punctuation">,</span>
+        layers<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        num_classes<span class="token punctuation">:</span> <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">,</span>
+        input_channels<span class="token punctuation">:</span> <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span>
+        cardinality<span class="token punctuation">:</span> <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        base_width<span class="token punctuation">:</span> <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">64</span><span class="token punctuation">,</span>
+        stem_width<span class="token punctuation">:</span> <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">64</span><span class="token punctuation">,</span>
+        stem_type<span class="token punctuation">:</span> <span class="token builtin">str</span> <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">,</span>
+        avg_down<span class="token punctuation">:</span> <span class="token builtin">bool</span> <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">,</span>
+        <span class="token operator">**</span>kwargs<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> block_type <span class="token keyword">not</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">"basic"</span><span class="token punctuation">,</span> <span class="token string">"bottleneck"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> ValueError<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"`block_type` must be 'basic' or bottleneck', got </span><span class="token interpolation"><span class="token punctuation">&#123;</span>block_type<span class="token punctuation">&#125;</span></span><span class="token string">."</span></span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> stem_type <span class="token keyword">not</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">""</span><span class="token punctuation">,</span> <span class="token string">"deep"</span><span class="token punctuation">,</span> <span class="token string">"deep-tiered"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> ValueError<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"`stem_type` must be '', 'deep' or 'deep-tiered', got </span><span class="token interpolation"><span class="token punctuation">&#123;</span>stem_type<span class="token punctuation">&#125;</span></span><span class="token string">."</span></span><span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>block_type <span class="token operator">=</span> block_type
+        self<span class="token punctuation">.</span>layers <span class="token operator">=</span> layers
+        self<span class="token punctuation">.</span>num_classes <span class="token operator">=</span> num_classes
+        self<span class="token punctuation">.</span>input_channels <span class="token operator">=</span> input_channels
+        self<span class="token punctuation">.</span>cardinality <span class="token operator">=</span> cardinality
+        self<span class="token punctuation">.</span>base_width <span class="token operator">=</span> base_width
+        self<span class="token punctuation">.</span>stem_width <span class="token operator">=</span> stem_width
+        self<span class="token punctuation">.</span>stem_type <span class="token operator">=</span> stem_type
+        self<span class="token punctuation">.</span>avg_down <span class="token operator">=</span> avg_down
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>The three important things to remember when writing you own configuration are the following:</p>
+<ul>
+<li><strong>you have to inherit from <code>PretrainedConfig</code>,</strong></li>
+<li><strong>the <code>__init__</code> of your <code>PretrainedConfig</code> must accept any kwargs,</strong></li>
+<li><strong>those <code>kwargs</code> need to be passed to the superclass <code>__init__</code>.</strong></li>
+</ul>
+<p><strong>The inheritance is to make sure you get all the functionality from the 🤗 Transformers library, while the two other constraints come from the fact a <code>PretrainedConfig</code> has more fields than the ones you are setting. When reloading a config with the <code>from_pretrained</code> method, those fields need to be accepted by your config and then sent to the superclass.</strong></p>
+<p><strong>Defining a <code>model_type</code> for your configuration (here <code>model_type=&quot;resnet&quot;</code>) is not mandatory, unless you want to register your model with the auto classes (see last section).</strong></p>
+<p><strong>With this done, you can easily create and save your configuration like you would do with any other model config of the library.</strong> Here is how we can create a resnet50d config and save it:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">resnet50d_config <span class="token operator">=</span> ResnetConfig<span class="token punctuation">(</span>block_type<span class="token operator">=</span><span class="token string">"bottleneck"</span><span class="token punctuation">,</span> stem_width<span class="token operator">=</span><span class="token number">32</span><span class="token punctuation">,</span> stem_type<span class="token operator">=</span><span class="token string">"deep"</span><span class="token punctuation">,</span> avg_down<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+resnet50d_config<span class="token punctuation">.</span>save_pretrained<span class="token punctuation">(</span><span class="token string">"custom-resnet"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>This will save a file named <code>config.json</code> inside the folder <code>custom-resnet</code>.</strong> You can then reload your config with the <code>from_pretrained</code> method:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">resnet50d_config <span class="token operator">=</span> ResnetConfig<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"custom-resnet"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>You can also use any other method of the [<code>PretrainedConfig</code>] class, like [<code>~PretrainedConfig.push_to_hub</code>] to directly upload your config to the Hub.</p>
+<h2 id="Writing-a-custom-model"><a href="#Writing-a-custom-model" class="headerlink" title="Writing a custom model"></a>Writing a custom model</h2><p>Now that we have our ResNet configuration, we can go on writing the model. We will actually write two: <strong>one that extracts the hidden features from a batch of images (like [<code>BertModel</code>])</strong> and <strong>one that is suitable for image classification (like [<code>BertForSequenceClassification</code>])</strong>.</p>
+<p>As we mentioned before, we’ll only write a loose wrapper of the model to keep it simple for this example. <strong>The only thing we need to do before writing this class is a map between the block types and actual block classes. Then the model is defined from the configuration by passing everything to the <code>ResNet</code> class:</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> PreTrainedModel
+<span class="token keyword">from</span> timm<span class="token punctuation">.</span>models<span class="token punctuation">.</span>resnet <span class="token keyword">import</span> BasicBlock<span class="token punctuation">,</span> Bottleneck<span class="token punctuation">,</span> ResNet
+<span class="token keyword">from</span> <span class="token punctuation">.</span>configuration_resnet <span class="token keyword">import</span> ResnetConfig
+
+
+BLOCK_MAPPING <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"basic"</span><span class="token punctuation">:</span> BasicBlock<span class="token punctuation">,</span> <span class="token string">"bottleneck"</span><span class="token punctuation">:</span> Bottleneck<span class="token punctuation">&#125;</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">ResnetModel</span><span class="token punctuation">(</span>PreTrainedModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    config_class <span class="token operator">=</span> ResnetConfig
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> config<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>config<span class="token punctuation">)</span>
+        block_layer <span class="token operator">=</span> BLOCK_MAPPING<span class="token punctuation">[</span>config<span class="token punctuation">.</span>block_type<span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>model <span class="token operator">=</span> ResNet<span class="token punctuation">(</span>
+            block_layer<span class="token punctuation">,</span>
+            config<span class="token punctuation">.</span>layers<span class="token punctuation">,</span>
+            num_classes<span class="token operator">=</span>config<span class="token punctuation">.</span>num_classes<span class="token punctuation">,</span>
+            in_chans<span class="token operator">=</span>config<span class="token punctuation">.</span>input_channels<span class="token punctuation">,</span>
+            cardinality<span class="token operator">=</span>config<span class="token punctuation">.</span>cardinality<span class="token punctuation">,</span>
+            base_width<span class="token operator">=</span>config<span class="token punctuation">.</span>base_width<span class="token punctuation">,</span>
+            stem_width<span class="token operator">=</span>config<span class="token punctuation">.</span>stem_width<span class="token punctuation">,</span>
+            stem_type<span class="token operator">=</span>config<span class="token punctuation">.</span>stem_type<span class="token punctuation">,</span>
+            avg_down<span class="token operator">=</span>config<span class="token punctuation">.</span>avg_down<span class="token punctuation">,</span>
+        <span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> tensor<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>model<span class="token punctuation">.</span>forward_features<span class="token punctuation">(</span>tensor<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>For the model that will classify images, we just change the forward method:</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch
+
+
+<span class="token keyword">class</span> <span class="token class-name">ResnetModelForImageClassification</span><span class="token punctuation">(</span>PreTrainedModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    config_class <span class="token operator">=</span> ResnetConfig
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> config<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>config<span class="token punctuation">)</span>
+        block_layer <span class="token operator">=</span> BLOCK_MAPPING<span class="token punctuation">[</span>config<span class="token punctuation">.</span>block_type<span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>model <span class="token operator">=</span> ResNet<span class="token punctuation">(</span>
+            block_layer<span class="token punctuation">,</span>
+            config<span class="token punctuation">.</span>layers<span class="token punctuation">,</span>
+            num_classes<span class="token operator">=</span>config<span class="token punctuation">.</span>num_classes<span class="token punctuation">,</span>
+            in_chans<span class="token operator">=</span>config<span class="token punctuation">.</span>input_channels<span class="token punctuation">,</span>
+            cardinality<span class="token operator">=</span>config<span class="token punctuation">.</span>cardinality<span class="token punctuation">,</span>
+            base_width<span class="token operator">=</span>config<span class="token punctuation">.</span>base_width<span class="token punctuation">,</span>
+            stem_width<span class="token operator">=</span>config<span class="token punctuation">.</span>stem_width<span class="token punctuation">,</span>
+            stem_type<span class="token operator">=</span>config<span class="token punctuation">.</span>stem_type<span class="token punctuation">,</span>
+            avg_down<span class="token operator">=</span>config<span class="token punctuation">.</span>avg_down<span class="token punctuation">,</span>
+        <span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> tensor<span class="token punctuation">,</span> labels<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        logits <span class="token operator">=</span> self<span class="token punctuation">.</span>model<span class="token punctuation">(</span>tensor<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> labels <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+            loss <span class="token operator">=</span> torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>cross_entropy<span class="token punctuation">(</span>logits<span class="token punctuation">,</span> labels<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token punctuation">&#123;</span><span class="token string">"loss"</span><span class="token punctuation">:</span> loss<span class="token punctuation">,</span> <span class="token string">"logits"</span><span class="token punctuation">:</span> logits<span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">&#123;</span><span class="token string">"logits"</span><span class="token punctuation">:</span> logits<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>In both cases, notice how we inherit from <code>PreTrainedModel</code> and call the superclass initialization with the <code>config</code> (a bit like when you write a regular <code>torch.nn.Module</code>). <strong>The line that sets the <code>config_class</code> is not mandatory, unless you want to register your model with the auto classes (see last section).</strong></p>
+<p><strong>If your model is very similar to a model inside the library, you can re-use the same configuration as this model.</strong></p>
+<p><strong>You can have your model return anything you want, but returning a dictionary like we did for <code>ResnetModelForImageClassification</code>, with the loss included when labels are passed, will make your model directly usable inside the [<code>Trainer</code>] class.</strong> Using another output format is fine as long as you are planning on using your own training loop or another library for training.</p>
+<p>Now that we have our model class, let’s create one:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">resnet50d <span class="token operator">=</span> ResnetModelForImageClassification<span class="token punctuation">(</span>resnet50d_config<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>Again, you can use any of the methods of [<code>PreTrainedModel</code>], like [<code>~PreTrainedModel.save_pretrained</code>] or [<code>~PreTrainedModel.push_to_hub</code>]. We will use the second in the next section, and see how to push the model weights with the code of our model. But first, let’s load some pretrained weights inside our model.</p>
+<p>In your own use case, you will probably be training your custom model on your own data. To go fast for this tutorial, we will use the pretrained version of the resnet50d. Since our model is just a wrapper around it, it’s going to be easy to transfer those weights:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> timm
+
+pretrained_model <span class="token operator">=</span> timm<span class="token punctuation">.</span>create_model<span class="token punctuation">(</span><span class="token string">"resnet50d"</span><span class="token punctuation">,</span> pretrained<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+resnet50d<span class="token punctuation">.</span>model<span class="token punctuation">.</span>load_state_dict<span class="token punctuation">(</span>pretrained_model<span class="token punctuation">.</span>state_dict<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Now let’s see how to make sure that when we do [<code>~PreTrainedModel.save_pretrained</code>] or [<code>~PreTrainedModel.push_to_hub</code>], the code of the model is saved.</p>
+<h2 id="Registering-a-model-with-custom-code-to-the-auto-classes"><a href="#Registering-a-model-with-custom-code-to-the-auto-classes" class="headerlink" title="Registering a model with custom code to the auto classes"></a>Registering a model with custom code to the auto classes</h2><p><strong>If you are writing a library that extends 🤗 Transformers, you may want to extend the auto classes to include your own model.</strong> This is different from pushing the code to the Hub in the sense that users will need to import your library to get the custom models (contrarily to automatically downloading the model code from the Hub).</p>
+<p><strong>As long as your config has a <code>model_type</code> attribute that is different from existing model types, and that your model classes have the right <code>config_class</code> attributes, you can just add them to the auto classes like this:</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoConfig<span class="token punctuation">,</span> AutoModel<span class="token punctuation">,</span> AutoModelForImageClassification
+
+AutoConfig<span class="token punctuation">.</span>register<span class="token punctuation">(</span><span class="token string">"resnet"</span><span class="token punctuation">,</span> ResnetConfig<span class="token punctuation">)</span>
+AutoModel<span class="token punctuation">.</span>register<span class="token punctuation">(</span>ResnetConfig<span class="token punctuation">,</span> ResnetModel<span class="token punctuation">)</span>
+AutoModelForImageClassification<span class="token punctuation">.</span>register<span class="token punctuation">(</span>ResnetConfig<span class="token punctuation">,</span> ResnetModelForImageClassification<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Note that the first argument used when registering your custom config to [<code>AutoConfig</code>] needs to match the <code>model_type</code> of your custom config, and the first argument used when registering your custom models to any auto model class needs to match the <code>config_class</code> of those models.</strong></p>
+<h2 id="Sending-the-code-to-the-Hub"><a href="#Sending-the-code-to-the-Hub" class="headerlink" title="Sending the code to the Hub"></a>Sending the code to the Hub</h2><p>This API is experimental and may have some slight breaking changes in the next releases.</p>
+<p>First, make sure your model is fully defined in a <code>.py</code> file. It can rely on relative imports to some other files as long as all the files are in the same directory (we don’t support submodules for this feature yet). For our example, we’ll define a <code>modeling_resnet.py</code> file and a <code>configuration_resnet.py</code> file in a folder of the current working directory named <code>resnet_model</code>. <strong>The configuration file contains the code for <code>ResnetConfig</code> and the modeling file contains the code of <code>ResnetModel</code> and <code>ResnetModelForImageClassification</code>.</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">.
+└── resnet_model
+    ├── __init__.py
+    ├── configuration_resnet.py
+    └── modeling_resnet.py<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>The <code>__init__.py</code> can be empty, it’s just there so that Python detects <code>resnet_model</code> can be use as a module.</p>
+<p><strong>If copying a modeling files from the library, you will need to replace all the relative imports at the top of the file to import from the <code>transformers</code> package.</strong></p>
+<p>Note that you can re-use (or subclass) an existing configuration&#x2F;model.</p>
+<p><strong>To share your model with the community, follow those steps: first import the ResNet model and config from the newly created files:</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> resnet_model<span class="token punctuation">.</span>configuration_resnet <span class="token keyword">import</span> ResnetConfig
+<span class="token keyword">from</span> resnet_model<span class="token punctuation">.</span>modeling_resnet <span class="token keyword">import</span> ResnetModel<span class="token punctuation">,</span> ResnetModelForImageClassification<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>Then you have to tell the library you want to copy the code files of those objects when using the <code>save_pretrained</code> method and properly register them with a given Auto class (especially for models), just run:</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">ResnetConfig<span class="token punctuation">.</span>register_for_auto_class<span class="token punctuation">(</span><span class="token punctuation">)</span>
+ResnetModel<span class="token punctuation">.</span>register_for_auto_class<span class="token punctuation">(</span><span class="token string">"AutoModel"</span><span class="token punctuation">)</span>
+ResnetModelForImageClassification<span class="token punctuation">.</span>register_for_auto_class<span class="token punctuation">(</span><span class="token string">"AutoModelForImageClassification"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Note that there is no need to specify an auto class for the configuration (there is only one auto class for them, [<code>AutoConfig</code>]) but it’s different for models. Your custom model could be suitable for many different tasks, so you have to specify which one of the auto classes is the correct one for your model.</strong></p>
+<p>Use <code>register_for_auto_class()</code> if you want the code files to be copied. If you instead prefer to use code on the Hub from another repo, you don’t need to call it. In cases where there’s more than one auto class, you can modify the <code>config.json</code> directly using the following structure:</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token property">"auto_map"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>     
+	<span class="token property">"AutoConfig"</span><span class="token operator">:</span> <span class="token string">"&lt;your-repo-name>--&lt;config-name>"</span><span class="token punctuation">,</span>     
+	<span class="token property">"AutoModel"</span><span class="token operator">:</span> <span class="token string">"&lt;your-repo-name>--&lt;config-name>"</span><span class="token punctuation">,</span>
+	<span class="token property">"AutoModelFor&lt;Task>"</span><span class="token operator">:</span> <span class="token string">"&lt;your-repo-name>--&lt;config-name>"</span><span class="token punctuation">,</span>    
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Next, let’s create the config and models as we did before:</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">resnet50d_config <span class="token operator">=</span> ResnetConfig<span class="token punctuation">(</span>block_type<span class="token operator">=</span><span class="token string">"bottleneck"</span><span class="token punctuation">,</span> stem_width<span class="token operator">=</span><span class="token number">32</span><span class="token punctuation">,</span> stem_type<span class="token operator">=</span><span class="token string">"deep"</span><span class="token punctuation">,</span> avg_down<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+resnet50d <span class="token operator">=</span> ResnetModelForImageClassification<span class="token punctuation">(</span>resnet50d_config<span class="token punctuation">)</span>
+
+pretrained_model <span class="token operator">=</span> timm<span class="token punctuation">.</span>create_model<span class="token punctuation">(</span><span class="token string">"resnet50d"</span><span class="token punctuation">,</span> pretrained<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+resnet50d<span class="token punctuation">.</span>model<span class="token punctuation">.</span>load_state_dict<span class="token punctuation">(</span>pretrained_model<span class="token punctuation">.</span>state_dict<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Now to send the model to the Hub, make sure you are logged in. Either run in your terminal:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">huggingface-cli login<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>or from a notebook:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> huggingface_hub <span class="token keyword">import</span> notebook_login
+
+notebook_login<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>You can then push to your own namespace (or an organization you are a member of) like this:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">resnet50d<span class="token punctuation">.</span>push_to_hub<span class="token punctuation">(</span><span class="token string">"custom-resnet50d"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>On top of the modeling weights and the configuration in json format, this also copied the modeling and configuration <code>.py</code> files in the folder <code>custom-resnet50d</code> and uploaded the result to the Hub. You can check the result in this <a href="https://huggingface.co/sgugger/custom-resnet50d">model repo</a>.</strong></p>
+<p>See the <a href="model_sharing">sharing tutorial</a> for more information on the push to Hub method.</p>
+<h2 id="Using-a-model-with-custom-code"><a href="#Using-a-model-with-custom-code" class="headerlink" title="Using a model with custom code"></a>Using a model with custom code</h2><p>You can use any configuration, model or tokenizer with custom code files in its repository with the auto-classes and the <code>from_pretrained</code> method. All files and code uploaded to the Hub are scanned for malware (refer to the <a href="https://huggingface.co/docs/hub/security#malware-scanning">Hub security</a> documentation for more information), but you should still review the model code and author to avoid executing malicious code on your machine. <strong>Set <code>trust_remote_code=True</code> to use a model with custom code:</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoModelForImageClassification
+
+model <span class="token operator">=</span> AutoModelForImageClassification<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"sgugger/custom-resnet50d"</span><span class="token punctuation">,</span> trust_remote_code<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>It is also strongly encouraged to pass a commit hash as a <code>revision</code> to make sure the author of the models did not update the code with some malicious new lines (unless you fully trust the authors of the models).</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">commit_hash <span class="token operator">=</span> <span class="token string">"ed94a7c6247d8aedce4647f00f20de6875b5b292"</span>
+model <span class="token operator">=</span> AutoModelForImageClassification<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span>
+    <span class="token string">"sgugger/custom-resnet50d"</span><span class="token punctuation">,</span> trust_remote_code<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> revision<span class="token operator">=</span>commit_hash
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Note that when browsing the commit history of the model repo on the Hub, there is a button to easily copy the commit hash of any commit.</strong></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百四十二篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2024/06/30/00142-gong-xiang-zi-ding-yi-mo-xing/">https://luyf-lemon-love.space/2024/06/30/00142-gong-xiang-zi-ding-yi-mo-xing/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大语言模型</span>
+                                </a>
+                            
+                                <a href="/tags/huggingface/">
+                                    <span class="chip bg-color">huggingface</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/06/30/00143-wen-ben-sheng-cheng-ce-lue/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/006-119971407.jpg" class="responsive-img" alt="00143 文本生成策略">
+                        
+                        <span class="card-title">00143 文本生成策略</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-06-30
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/06/29/00141-gpu-tui-li/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/004-119971407.jpg" class="responsive-img" alt="00141 GPU 推理">
+                        
+                        <span class="card-title">00141 GPU 推理</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

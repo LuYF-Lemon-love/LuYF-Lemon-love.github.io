@@ -1,0 +1,1484 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00241 NLP Course - Creating your own dataset, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言有时，构建一个自然语言处理（NLP）应用程序所需的数据集并不存在，因此你需要自己创建它。在本节中，我们将向你展示如何创建一个GitHub问题的语料库，这些问题通常用于跟踪GitHub仓库中的错误或特性。这个语料库可以用于多种目的，包括：">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00241 NLP Course - Creating your own dataset | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/042-%E7%BE%8E%E5%A5%B3%E9%BB%84%E7%8E%89%E7%91%B6%E7%8E%BB%E7%92%83%E6%9D%AF.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00241 NLP Course - Creating your own dataset</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大语言模型</span>
+                            </a>
+                        
+                            <a href="/tags/huggingface/">
+                                <span class="chip bg-color">huggingface</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                大语言模型
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-12-08
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>有时，构建一个自然语言处理（NLP）应用程序所需的数据集并不存在，因此你需要自己创建它。在本节中，我们将向你展示如何创建一个<a href="https://github.com/features/issues/">GitHub问题</a>的语料库，这些问题通常用于跟踪GitHub仓库中的错误或特性。这个语料库可以用于多种目的，包括：</p>
+<ul>
+<li>探索关闭开放问题或拉取请求所需的时间</li>
+<li>训练一个多标签分类器，根据问题的描述给问题打上元数据标签（例如，“错误”，“增强”或“问题”）</li>
+<li>创建一个语义搜索引擎，以找到与用户查询相匹配的问题</li>
+</ul>
+<p>在这里，我们将重点创建语料库，在下一节中我们将处理语义搜索应用程序。为了保持元数据的一致性，我们将使用一个流行的开源项目：🤗 Datasets！的GitHub问题。让我们来看看如何获取数据并探索这些问题中包含的信息。</p>
+<p>src link: <a href="https://huggingface.co/learn/nlp-course/chapter5/5">https://huggingface.co/learn/nlp-course/chapter5/5</a></p>
+<p>Operating System: Ubuntu 22.04.4 LTS</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://huggingface.co/learn/nlp-course/chapter5/5">NLP Course - Creating your own dataset</a></li>
+</ol>
+<h2 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h2><p>您可以通过导航到仓库的“<a href="https://github.com/huggingface/datasets/issues">问题</a>”标签来找到🤗 Datasets中的所有问题。如下图所示，在撰写本文时，有331个待解决的问题和668个已解决的问题。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20241209215943.png"></p>
+<p>如果您点击这些问题中的一个，您会发现它包含一个标题、一个描述以及一组用于描述该问题的标签。下面截图展示了一个例子。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20241209220311.png"></p>
+<p>要下载仓库中的所有问题，我们将使用<a href="https://docs.github.com/en/rest">GitHub REST API</a>来轮询<a href="https://docs.github.com/en/rest/reference/issues#list-repository-issues">问题端点</a>。这个端点返回一个JSON对象列表，每个对象包含大量字段，包括标题和描述，以及关于问题状态等元数据。</p>
+<p>下载问题的一种便捷方式是通过requests库，这是在Python中发起HTTP请求的标准方法。您可以通过运行以下命令来安装这个库：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">!pip install requests<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>一旦安装了库，您可以通过调用requests.get()函数向问题端点发起GET请求。例如，您可以运行以下命令来获取第一页上的第一个问题：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests
+
+url <span class="token operator">=</span> <span class="token string">"https://api.github.com/repos/huggingface/datasets/issues?page=1&amp;per_page=1"</span>
+response <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>响应对象包含了关于请求的大量有用信息，其中包括HTTP状态码：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">response<span class="token punctuation">.</span>status_code<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">200</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>其中200状态码表示请求成功（您可以在 <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">这里</a> 找到可能的HTTP状态码列表）。然而，我们真正感兴趣的是有效载荷（payload），它可以以字节、字符串或JSON等不同格式访问。由于我们知道我们的问题是JSON格式的，让我们以下面的方式检查有效载荷：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">response<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">[</span><span class="token punctuation">&#123;</span><span class="token string">'url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/repos/huggingface/datasets/issues/2792'</span><span class="token punctuation">,</span>
+  <span class="token string">'repository_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/repos/huggingface/datasets'</span><span class="token punctuation">,</span>
+  <span class="token string">'labels_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/repos/huggingface/datasets/issues/2792/labels&#123;/name&#125;'</span><span class="token punctuation">,</span>
+  <span class="token string">'comments_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/repos/huggingface/datasets/issues/2792/comments'</span><span class="token punctuation">,</span>
+  <span class="token string">'events_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/repos/huggingface/datasets/issues/2792/events'</span><span class="token punctuation">,</span>
+  <span class="token string">'html_url'</span><span class="token punctuation">:</span> <span class="token string">'https://github.com/huggingface/datasets/pull/2792'</span><span class="token punctuation">,</span>
+  <span class="token string">'id'</span><span class="token punctuation">:</span> <span class="token number">968650274</span><span class="token punctuation">,</span>
+  <span class="token string">'node_id'</span><span class="token punctuation">:</span> <span class="token string">'MDExOlB1bGxSZXF1ZXN0NzEwNzUyMjc0'</span><span class="token punctuation">,</span>
+  <span class="token string">'number'</span><span class="token punctuation">:</span> <span class="token number">2792</span><span class="token punctuation">,</span>
+  <span class="token string">'title'</span><span class="token punctuation">:</span> <span class="token string">'Update GooAQ'</span><span class="token punctuation">,</span>
+  <span class="token string">'user'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'login'</span><span class="token punctuation">:</span> <span class="token string">'bhavitvyamalik'</span><span class="token punctuation">,</span>
+   <span class="token string">'id'</span><span class="token punctuation">:</span> <span class="token number">19718818</span><span class="token punctuation">,</span>
+   <span class="token string">'node_id'</span><span class="token punctuation">:</span> <span class="token string">'MDQ6VXNlcjE5NzE4ODE4'</span><span class="token punctuation">,</span>
+   <span class="token string">'avatar_url'</span><span class="token punctuation">:</span> <span class="token string">'https://avatars.githubusercontent.com/u/19718818?v=4'</span><span class="token punctuation">,</span>
+   <span class="token string">'gravatar_id'</span><span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+   <span class="token string">'url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik'</span><span class="token punctuation">,</span>
+   <span class="token string">'html_url'</span><span class="token punctuation">:</span> <span class="token string">'https://github.com/bhavitvyamalik'</span><span class="token punctuation">,</span>
+   <span class="token string">'followers_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/followers'</span><span class="token punctuation">,</span>
+   <span class="token string">'following_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/following&#123;/other_user&#125;'</span><span class="token punctuation">,</span>
+   <span class="token string">'gists_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/gists&#123;/gist_id&#125;'</span><span class="token punctuation">,</span>
+   <span class="token string">'starred_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/starred&#123;/owner&#125;&#123;/repo&#125;'</span><span class="token punctuation">,</span>
+   <span class="token string">'subscriptions_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/subscriptions'</span><span class="token punctuation">,</span>
+   <span class="token string">'organizations_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/orgs'</span><span class="token punctuation">,</span>
+   <span class="token string">'repos_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/repos'</span><span class="token punctuation">,</span>
+   <span class="token string">'events_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/events&#123;/privacy&#125;'</span><span class="token punctuation">,</span>
+   <span class="token string">'received_events_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/received_events'</span><span class="token punctuation">,</span>
+   <span class="token string">'type'</span><span class="token punctuation">:</span> <span class="token string">'User'</span><span class="token punctuation">,</span>
+   <span class="token string">'site_admin'</span><span class="token punctuation">:</span> <span class="token boolean">False</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token string">'labels'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">'state'</span><span class="token punctuation">:</span> <span class="token string">'open'</span><span class="token punctuation">,</span>
+  <span class="token string">'locked'</span><span class="token punctuation">:</span> <span class="token boolean">False</span><span class="token punctuation">,</span>
+  <span class="token string">'assignee'</span><span class="token punctuation">:</span> <span class="token boolean">None</span><span class="token punctuation">,</span>
+  <span class="token string">'assignees'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">'milestone'</span><span class="token punctuation">:</span> <span class="token boolean">None</span><span class="token punctuation">,</span>
+  <span class="token string">'comments'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token string">'created_at'</span><span class="token punctuation">:</span> <span class="token string">'2021-08-12T11:40:18Z'</span><span class="token punctuation">,</span>
+  <span class="token string">'updated_at'</span><span class="token punctuation">:</span> <span class="token string">'2021-08-12T12:31:17Z'</span><span class="token punctuation">,</span>
+  <span class="token string">'closed_at'</span><span class="token punctuation">:</span> <span class="token boolean">None</span><span class="token punctuation">,</span>
+  <span class="token string">'author_association'</span><span class="token punctuation">:</span> <span class="token string">'CONTRIBUTOR'</span><span class="token punctuation">,</span>
+  <span class="token string">'active_lock_reason'</span><span class="token punctuation">:</span> <span class="token boolean">None</span><span class="token punctuation">,</span>
+  <span class="token string">'pull_request'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/repos/huggingface/datasets/pulls/2792'</span><span class="token punctuation">,</span>
+   <span class="token string">'html_url'</span><span class="token punctuation">:</span> <span class="token string">'https://github.com/huggingface/datasets/pull/2792'</span><span class="token punctuation">,</span>
+   <span class="token string">'diff_url'</span><span class="token punctuation">:</span> <span class="token string">'https://github.com/huggingface/datasets/pull/2792.diff'</span><span class="token punctuation">,</span>
+   <span class="token string">'patch_url'</span><span class="token punctuation">:</span> <span class="token string">'https://github.com/huggingface/datasets/pull/2792.patch'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token string">'body'</span><span class="token punctuation">:</span> <span class="token string">'[GooAQ](https://github.com/allenai/gooaq) dataset was recently updated after splits were added for the same. This PR contains new updated GooAQ with train/val/test splits and updated README as well.'</span><span class="token punctuation">,</span>
+  <span class="token string">'performed_via_github_app'</span><span class="token punctuation">:</span> <span class="token boolean">None</span><span class="token punctuation">&#125;</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>哇，这里有大量的信息！我们可以看到像标题（title）、正文（body）和编号（number）这样的有用字段来描述问题，以及关于打开问题的GitHub用户的信息。</p>
+<blockquote>
+<p>✏️ 尝试一下！点击上面JSON有效载荷中的几个URL，感受一下每个GitHub问题链接了哪些类型的信息。</p>
+</blockquote>
+<p>正如GitHub<a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting">文档</a>所描述的，未经身份验证的请求每小时限制为60次。尽管您可以通过增加per_page查询参数来减少您发起的请求数量，但如果任何仓库的问题超过几千个，您仍然会达到速率限制。因此，您应该按照GitHub的<a href="https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token">说明</a>创建一个个人访问令牌，这样您就可以将速率限制提高到每小时5000次请求。一旦您有了令牌，您可以将它作为请求头的一部分包含进去：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">GITHUB_TOKEN <span class="token operator">=</span> xxx  <span class="token comment"># Copy your GitHub token here</span>
+headers <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"Authorization"</span><span class="token punctuation">:</span> <span class="token string-interpolation"><span class="token string">f"token </span><span class="token interpolation"><span class="token punctuation">&#123;</span>GITHUB_TOKEN<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>⚠️ 不要与他人分享粘贴了GITHUB_TOKEN的笔记本。我们建议您在执行完最后一个单元格后删除它，以避免意外泄露这些信息。更好的做法是将令牌存储在一个.env文件中，并使用<a href="https://github.com/theskumar/python-dotenv">python-dotenv</a>库自动将其作为环境变量加载。</p>
+</blockquote>
+<p>现在我们有了访问令牌，让我们创建一个函数，它可以从一个GitHub仓库中下载所有问题：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> time
+<span class="token keyword">import</span> math
+<span class="token keyword">from</span> pathlib <span class="token keyword">import</span> Path
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">from</span> tqdm<span class="token punctuation">.</span>notebook <span class="token keyword">import</span> tqdm
+
+
+<span class="token keyword">def</span> <span class="token function">fetch_issues</span><span class="token punctuation">(</span>
+    owner<span class="token operator">=</span><span class="token string">"huggingface"</span><span class="token punctuation">,</span>
+    repo<span class="token operator">=</span><span class="token string">"datasets"</span><span class="token punctuation">,</span>
+    num_issues<span class="token operator">=</span><span class="token number">10_000</span><span class="token punctuation">,</span>
+    rate_limit<span class="token operator">=</span><span class="token number">5_000</span><span class="token punctuation">,</span>
+    issues_path<span class="token operator">=</span>Path<span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> issues_path<span class="token punctuation">.</span>is_dir<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        issues_path<span class="token punctuation">.</span>mkdir<span class="token punctuation">(</span>exist_ok<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+    batch <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    all_issues <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    per_page <span class="token operator">=</span> <span class="token number">100</span>  <span class="token comment"># Number of issues to return per page</span>
+    num_pages <span class="token operator">=</span> math<span class="token punctuation">.</span>ceil<span class="token punctuation">(</span>num_issues <span class="token operator">/</span> per_page<span class="token punctuation">)</span>
+    base_url <span class="token operator">=</span> <span class="token string">"https://api.github.com/repos"</span>
+
+    <span class="token keyword">for</span> page <span class="token keyword">in</span> tqdm<span class="token punctuation">(</span><span class="token builtin">range</span><span class="token punctuation">(</span>num_pages<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># Query with state=all to get both open and closed issues</span>
+        query <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"issues?page=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>page<span class="token punctuation">&#125;</span></span><span class="token string">&amp;per_page=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>per_page<span class="token punctuation">&#125;</span></span><span class="token string">&amp;state=all"</span></span>
+        issues <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>base_url<span class="token punctuation">&#125;</span></span><span class="token string">/</span><span class="token interpolation"><span class="token punctuation">&#123;</span>owner<span class="token punctuation">&#125;</span></span><span class="token string">/</span><span class="token interpolation"><span class="token punctuation">&#123;</span>repo<span class="token punctuation">&#125;</span></span><span class="token string">/</span><span class="token interpolation"><span class="token punctuation">&#123;</span>query<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">,</span> headers<span class="token operator">=</span>headers<span class="token punctuation">)</span>
+        batch<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>issues<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>batch<span class="token punctuation">)</span> <span class="token operator">></span> rate_limit <span class="token keyword">and</span> <span class="token builtin">len</span><span class="token punctuation">(</span>all_issues<span class="token punctuation">)</span> <span class="token operator">&lt;</span> num_issues<span class="token punctuation">:</span>
+            all_issues<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>batch<span class="token punctuation">)</span>
+            batch <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>  <span class="token comment"># Flush batch for next time period</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Reached GitHub rate limit. Sleeping for one hour ..."</span></span><span class="token punctuation">)</span>
+            time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">60</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+
+    all_issues<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>batch<span class="token punctuation">)</span>
+    df <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">.</span>from_records<span class="token punctuation">(</span>all_issues<span class="token punctuation">)</span>
+    df<span class="token punctuation">.</span>to_json<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>issues_path<span class="token punctuation">&#125;</span></span><span class="token string">/</span><span class="token interpolation"><span class="token punctuation">&#123;</span>repo<span class="token punctuation">&#125;</span></span><span class="token string">-issues.jsonl"</span></span><span class="token punctuation">,</span> orient<span class="token operator">=</span><span class="token string">"records"</span><span class="token punctuation">,</span> lines<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>
+        <span class="token string-interpolation"><span class="token string">f"Downloaded all the issues for </span><span class="token interpolation"><span class="token punctuation">&#123;</span>repo<span class="token punctuation">&#125;</span></span><span class="token string">! Dataset stored at </span><span class="token interpolation"><span class="token punctuation">&#123;</span>issues_path<span class="token punctuation">&#125;</span></span><span class="token string">/</span><span class="token interpolation"><span class="token punctuation">&#123;</span>repo<span class="token punctuation">&#125;</span></span><span class="token string">-issues.jsonl"</span></span>
+    <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>现在当我们调用fetch_issues()时，它将分批下载所有问题，以避免超过GitHub每小时请求次数的限制；结果将存储在一个名为repository_name-issues.jsonl的文件中，其中每一行都是一个代表问题的JSON对象。让我们使用这个函数从🤗 Datasets中抓取所有问题：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Depending on your internet connection, this can take several minutes to run...</span>
+fetch_issues<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>一旦问题被下载，我们可以使用第二部分中学到的新技能在本地加载它们：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">issues_dataset <span class="token operator">=</span> load_dataset<span class="token punctuation">(</span><span class="token string">"json"</span><span class="token punctuation">,</span> data_files<span class="token operator">=</span><span class="token string">"datasets-issues.jsonl"</span><span class="token punctuation">,</span> split<span class="token operator">=</span><span class="token string">"train"</span><span class="token punctuation">)</span>
+issues_dataset<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">Dataset<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    features<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'url'</span><span class="token punctuation">,</span> <span class="token string">'repository_url'</span><span class="token punctuation">,</span> <span class="token string">'labels_url'</span><span class="token punctuation">,</span> <span class="token string">'comments_url'</span><span class="token punctuation">,</span> <span class="token string">'events_url'</span><span class="token punctuation">,</span> <span class="token string">'html_url'</span><span class="token punctuation">,</span> <span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token string">'node_id'</span><span class="token punctuation">,</span> <span class="token string">'number'</span><span class="token punctuation">,</span> <span class="token string">'title'</span><span class="token punctuation">,</span> <span class="token string">'user'</span><span class="token punctuation">,</span> <span class="token string">'labels'</span><span class="token punctuation">,</span> <span class="token string">'state'</span><span class="token punctuation">,</span> <span class="token string">'locked'</span><span class="token punctuation">,</span> <span class="token string">'assignee'</span><span class="token punctuation">,</span> <span class="token string">'assignees'</span><span class="token punctuation">,</span> <span class="token string">'milestone'</span><span class="token punctuation">,</span> <span class="token string">'comments'</span><span class="token punctuation">,</span> <span class="token string">'created_at'</span><span class="token punctuation">,</span> <span class="token string">'updated_at'</span><span class="token punctuation">,</span> <span class="token string">'closed_at'</span><span class="token punctuation">,</span> <span class="token string">'author_association'</span><span class="token punctuation">,</span> <span class="token string">'active_lock_reason'</span><span class="token punctuation">,</span> <span class="token string">'pull_request'</span><span class="token punctuation">,</span> <span class="token string">'body'</span><span class="token punctuation">,</span> <span class="token string">'timeline_url'</span><span class="token punctuation">,</span> <span class="token string">'performed_via_github_app'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    num_rows<span class="token punctuation">:</span> <span class="token number">3019</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>太棒了，我们从头开始创建了我们的第一个数据集！但是为什么会有几千个问题，而🤗 Datasets仓库的<a href="https://github.com/huggingface/datasets/issues">问题标签页</a>总共只显示大约1,000个问题呢？正如GitHub<a href="https://docs.github.com/en/rest/reference/issues#list-issues-assigned-to-the-authenticated-user">文档</a>所描述的，那是因为我们还下载了所有的拉取请求（pull requests）：</p>
+<blockquote>
+<p>“GitHub’s REST API v3 considers every pull request an issue, but not every issue is a pull request. For this reason, “Issues” endpoints may return both issues and pull requests in the response. You can identify pull requests by the pull_request key. Be aware that the id of a pull request returned from “Issues” endpoints will be an issue id.”</p>
+</blockquote>
+<p>由于问题和拉取请求的内容相当不同，让我们进行一些轻微的预处理，以便能够区分它们。</p>
+<h2 id="清理数据"><a href="#清理数据" class="headerlink" title="清理数据"></a>清理数据</h2><p>GitHub文档中的上述片段告诉我们，可以使用pull_request列来区分问题和拉取请求。让我们看看一个随机样本，看看区别在哪里。就像我们在第3部分所做的那样，我们将使用Dataset.shuffle()和Dataset.select()来创建一个随机样本，然后将html_url和pull_request列进行打包，这样我们就可以比较各种URL了：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">sample <span class="token operator">=</span> issues_dataset<span class="token punctuation">.</span>shuffle<span class="token punctuation">(</span>seed<span class="token operator">=</span><span class="token number">666</span><span class="token punctuation">)</span><span class="token punctuation">.</span>select<span class="token punctuation">(</span><span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Print out the URL and pull request entries</span>
+<span class="token keyword">for</span> url<span class="token punctuation">,</span> pr <span class="token keyword">in</span> <span class="token builtin">zip</span><span class="token punctuation">(</span>sample<span class="token punctuation">[</span><span class="token string">"html_url"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> sample<span class="token punctuation">[</span><span class="token string">"pull_request"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f">> URL: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>url<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f">> Pull request: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>pr<span class="token punctuation">&#125;</span></span><span class="token string">\n"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span> URL<span class="token punctuation">:</span> https<span class="token punctuation">:</span><span class="token operator">//</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>huggingface<span class="token operator">/</span>datasets<span class="token operator">/</span>pull<span class="token operator">/</span><span class="token number">850</span>
+<span class="token operator">>></span> Pull request<span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/repos/huggingface/datasets/pulls/850'</span><span class="token punctuation">,</span> <span class="token string">'html_url'</span><span class="token punctuation">:</span> <span class="token string">'https://github.com/huggingface/datasets/pull/850'</span><span class="token punctuation">,</span> <span class="token string">'diff_url'</span><span class="token punctuation">:</span> <span class="token string">'https://github.com/huggingface/datasets/pull/850.diff'</span><span class="token punctuation">,</span> <span class="token string">'patch_url'</span><span class="token punctuation">:</span> <span class="token string">'https://github.com/huggingface/datasets/pull/850.patch'</span><span class="token punctuation">&#125;</span>
+
+<span class="token operator">>></span> URL<span class="token punctuation">:</span> https<span class="token punctuation">:</span><span class="token operator">//</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>huggingface<span class="token operator">/</span>datasets<span class="token operator">/</span>issues<span class="token operator">/</span><span class="token number">2773</span>
+<span class="token operator">>></span> Pull request<span class="token punctuation">:</span> <span class="token boolean">None</span>
+
+<span class="token operator">>></span> URL<span class="token punctuation">:</span> https<span class="token punctuation">:</span><span class="token operator">//</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>huggingface<span class="token operator">/</span>datasets<span class="token operator">/</span>pull<span class="token operator">/</span><span class="token number">783</span>
+<span class="token operator">>></span> Pull request<span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/repos/huggingface/datasets/pulls/783'</span><span class="token punctuation">,</span> <span class="token string">'html_url'</span><span class="token punctuation">:</span> <span class="token string">'https://github.com/huggingface/datasets/pull/783'</span><span class="token punctuation">,</span> <span class="token string">'diff_url'</span><span class="token punctuation">:</span> <span class="token string">'https://github.com/huggingface/datasets/pull/783.diff'</span><span class="token punctuation">,</span> <span class="token string">'patch_url'</span><span class="token punctuation">:</span> <span class="token string">'https://github.com/huggingface/datasets/pull/783.patch'</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在这里我们可以看到，每个拉取请求都与各种URL相关联，而普通问题则有None条目。我们可以使用这种区别来创建一个新的is_pull_request列，该列检查pull_request字段是否为None：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">issues_dataset <span class="token operator">=</span> issues_dataset<span class="token punctuation">.</span><span class="token builtin">map</span><span class="token punctuation">(</span>
+    <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">"is_pull_request"</span><span class="token punctuation">:</span> <span class="token boolean">False</span> <span class="token keyword">if</span> x<span class="token punctuation">[</span><span class="token string">"pull_request"</span><span class="token punctuation">]</span> <span class="token keyword">is</span> <span class="token boolean">None</span> <span class="token keyword">else</span> <span class="token boolean">True</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>✏️ 尝试一下！计算🤗 Datasets中关闭问题所需的平均时间。您可能会发现Dataset.filter()函数很有用，可以用来过滤掉拉取请求和未解决的问题。您可以使用Dataset.set_format()函数将数据集转换为DataFrame，这样您可以更容易地操作created_at和closed_at时间戳。为了获得额外积分，计算关闭拉取请求所需的平均时间。</p>
+</blockquote>
+<p>虽然我们可以通过删除或重命名一些列来进一步清理数据集，但在这个阶段，通常一个好做法是保持数据集尽可能“原始”，这样它可以更容易地在多个应用中使用。</p>
+<p>在我们将数据集推送到 Hugging Face Hub 之前，让我们先处理数据集中缺失的一件事：与每个问题和拉取请求相关联的评论。接下来我们将使用 GitHub REST API 添加它们！</p>
+<h2 id="增强数据集"><a href="#增强数据集" class="headerlink" title="增强数据集"></a>增强数据集</h2><p>如以下屏幕截图所示，与问题或拉取请求相关联的评论提供了丰富的信息来源，特别是如果我们想构建一个搜索引擎来回答用户关于库的查询。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20241211230051.png"></p>
+<p>GitHub REST API 提供了一个<a href="https://docs.github.com/en/rest/reference/issues#list-issue-comments">评论端点</a>（Comments endpoint），用于返回与一个特定问题编号相关联的所有评论。让我们测试一下这个端点，看看它会返回什么内容。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">issue_number <span class="token operator">=</span> <span class="token number">2792</span>
+url <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"https://api.github.com/repos/huggingface/datasets/issues/</span><span class="token interpolation"><span class="token punctuation">&#123;</span>issue_number<span class="token punctuation">&#125;</span></span><span class="token string">/comments"</span></span>
+response <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>headers<span class="token punctuation">)</span>
+response<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">[</span><span class="token punctuation">&#123;</span><span class="token string">'url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/repos/huggingface/datasets/issues/comments/897594128'</span><span class="token punctuation">,</span>
+  <span class="token string">'html_url'</span><span class="token punctuation">:</span> <span class="token string">'https://github.com/huggingface/datasets/pull/2792#issuecomment-897594128'</span><span class="token punctuation">,</span>
+  <span class="token string">'issue_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/repos/huggingface/datasets/issues/2792'</span><span class="token punctuation">,</span>
+  <span class="token string">'id'</span><span class="token punctuation">:</span> <span class="token number">897594128</span><span class="token punctuation">,</span>
+  <span class="token string">'node_id'</span><span class="token punctuation">:</span> <span class="token string">'IC_kwDODunzps41gDMQ'</span><span class="token punctuation">,</span>
+  <span class="token string">'user'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'login'</span><span class="token punctuation">:</span> <span class="token string">'bhavitvyamalik'</span><span class="token punctuation">,</span>
+   <span class="token string">'id'</span><span class="token punctuation">:</span> <span class="token number">19718818</span><span class="token punctuation">,</span>
+   <span class="token string">'node_id'</span><span class="token punctuation">:</span> <span class="token string">'MDQ6VXNlcjE5NzE4ODE4'</span><span class="token punctuation">,</span>
+   <span class="token string">'avatar_url'</span><span class="token punctuation">:</span> <span class="token string">'https://avatars.githubusercontent.com/u/19718818?v=4'</span><span class="token punctuation">,</span>
+   <span class="token string">'gravatar_id'</span><span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+   <span class="token string">'url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik'</span><span class="token punctuation">,</span>
+   <span class="token string">'html_url'</span><span class="token punctuation">:</span> <span class="token string">'https://github.com/bhavitvyamalik'</span><span class="token punctuation">,</span>
+   <span class="token string">'followers_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/followers'</span><span class="token punctuation">,</span>
+   <span class="token string">'following_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/following&#123;/other_user&#125;'</span><span class="token punctuation">,</span>
+   <span class="token string">'gists_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/gists&#123;/gist_id&#125;'</span><span class="token punctuation">,</span>
+   <span class="token string">'starred_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/starred&#123;/owner&#125;&#123;/repo&#125;'</span><span class="token punctuation">,</span>
+   <span class="token string">'subscriptions_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/subscriptions'</span><span class="token punctuation">,</span>
+   <span class="token string">'organizations_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/orgs'</span><span class="token punctuation">,</span>
+   <span class="token string">'repos_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/repos'</span><span class="token punctuation">,</span>
+   <span class="token string">'events_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/events&#123;/privacy&#125;'</span><span class="token punctuation">,</span>
+   <span class="token string">'received_events_url'</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com/users/bhavitvyamalik/received_events'</span><span class="token punctuation">,</span>
+   <span class="token string">'type'</span><span class="token punctuation">:</span> <span class="token string">'User'</span><span class="token punctuation">,</span>
+   <span class="token string">'site_admin'</span><span class="token punctuation">:</span> <span class="token boolean">False</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token string">'created_at'</span><span class="token punctuation">:</span> <span class="token string">'2021-08-12T12:21:52Z'</span><span class="token punctuation">,</span>
+  <span class="token string">'updated_at'</span><span class="token punctuation">:</span> <span class="token string">'2021-08-12T12:31:17Z'</span><span class="token punctuation">,</span>
+  <span class="token string">'author_association'</span><span class="token punctuation">:</span> <span class="token string">'CONTRIBUTOR'</span><span class="token punctuation">,</span>
+  <span class="token string">'body'</span><span class="token punctuation">:</span> <span class="token string">"@albertvillanova my tests are failing here:\r\n```\r\ndataset_name = 'gooaq'\r\n\r\n    def test_load_dataset(self, dataset_name):\r\n        configs = self.dataset_tester.load_all_configs(dataset_name, is_local=True)[:1]\r\n>       self.dataset_tester.check_load_dataset(dataset_name, configs, is_local=True, use_local_dummy_data=True)\r\n\r\ntests/test_dataset_common.py:234: \r\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \r\ntests/test_dataset_common.py:187: in check_load_dataset\r\n    self.parent.assertTrue(len(dataset[split]) > 0)\r\nE   AssertionError: False is not true\r\n```\r\nWhen I try loading dataset on local machine it works fine. Any suggestions on how can I avoid this error?"</span><span class="token punctuation">,</span>
+  <span class="token string">'performed_via_github_app'</span><span class="token punctuation">:</span> <span class="token boolean">None</span><span class="token punctuation">&#125;</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以看到评论存储在 body 字段中，所以让我们编写一个简单的函数，通过提取 response.json() 中每个元素的正文内容，返回与一个问题相关联的所有评论。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">get_comments</span><span class="token punctuation">(</span>issue_number<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    url <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"https://api.github.com/repos/huggingface/datasets/issues/</span><span class="token interpolation"><span class="token punctuation">&#123;</span>issue_number<span class="token punctuation">&#125;</span></span><span class="token string">/comments"</span></span>
+    response <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>headers<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span>r<span class="token punctuation">[</span><span class="token string">"body"</span><span class="token punctuation">]</span> <span class="token keyword">for</span> r <span class="token keyword">in</span> response<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+
+<span class="token comment"># Test our function works as expected</span>
+get_comments<span class="token punctuation">(</span><span class="token number">2792</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">[</span><span class="token string">"@albertvillanova my tests are failing here:\r\n```\r\ndataset_name = 'gooaq'\r\n\r\n    def test_load_dataset(self, dataset_name):\r\n        configs = self.dataset_tester.load_all_configs(dataset_name, is_local=True)[:1]\r\n>       self.dataset_tester.check_load_dataset(dataset_name, configs, is_local=True, use_local_dummy_data=True)\r\n\r\ntests/test_dataset_common.py:234: \r\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \r\ntests/test_dataset_common.py:187: in check_load_dataset\r\n    self.parent.assertTrue(len(dataset[split]) > 0)\r\nE   AssertionError: False is not true\r\n```\r\nWhen I try loading dataset on local machine it works fine. Any suggestions on how can I avoid this error?"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这看起来不错，所以让我们使用 Dataset.map() 方法在我们的数据集中为每个问题添加一个新的 comments 列。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Depending on your internet connection, this can take a few minutes...</span>
+issues_with_comments_dataset <span class="token operator">=</span> issues_dataset<span class="token punctuation">.</span><span class="token builtin">map</span><span class="token punctuation">(</span>
+    <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">"comments"</span><span class="token punctuation">:</span> get_comments<span class="token punctuation">(</span>x<span class="token punctuation">[</span><span class="token string">"number"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>最后一步是将我们的数据集推送到 Hub。让我们来看看如何做到这一点。</p>
+<h2 id="将数据集上传到-Hugging-Face-Hub"><a href="#将数据集上传到-Hugging-Face-Hub" class="headerlink" title="将数据集上传到 Hugging Face Hub"></a>将数据集上传到 Hugging Face Hub</h2><p>现在我们有了增强后的数据集，是时候将其推送到 Hub 了，这样我们就可以与社区共享了！上传数据集非常简单：就像来自 🤗 Transformers 的模型和分词器一样，我们可以使用 push_to_hub() 方法来推送一个数据集。要做到这一点，我们需要一个认证令牌，可以通过首先使用 notebook_login() 函数登录 Hugging Face Hub 来获得：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> huggingface_hub <span class="token keyword">import</span> notebook_login
+
+notebook_login<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>这将创建一个窗口小部件，你可以输入你的用户名和密码，并且一个 API 令牌将被保存在 ~&#x2F;.huggingface&#x2F;token。如果你在终端中运行代码，你也可以通过 CLI 登录：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">huggingface-cli login<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>一旦我们完成了这个步骤，我们可以通过运行以下命令来上传我们的数据集：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">issues_with_comments_dataset<span class="token punctuation">.</span>push_to_hub<span class="token punctuation">(</span><span class="token string">"github-issues"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>从这里，任何人都可以通过简单地使用存储库 ID 作为路径参数提供给 load_dataset() 函数来下载数据集：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">remote_dataset <span class="token operator">=</span> load_dataset<span class="token punctuation">(</span><span class="token string">"lewtun/github-issues"</span><span class="token punctuation">,</span> split<span class="token operator">=</span><span class="token string">"train"</span><span class="token punctuation">)</span>
+remote_dataset<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">Dataset<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    features<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'url'</span><span class="token punctuation">,</span> <span class="token string">'repository_url'</span><span class="token punctuation">,</span> <span class="token string">'labels_url'</span><span class="token punctuation">,</span> <span class="token string">'comments_url'</span><span class="token punctuation">,</span> <span class="token string">'events_url'</span><span class="token punctuation">,</span> <span class="token string">'html_url'</span><span class="token punctuation">,</span> <span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token string">'node_id'</span><span class="token punctuation">,</span> <span class="token string">'number'</span><span class="token punctuation">,</span> <span class="token string">'title'</span><span class="token punctuation">,</span> <span class="token string">'user'</span><span class="token punctuation">,</span> <span class="token string">'labels'</span><span class="token punctuation">,</span> <span class="token string">'state'</span><span class="token punctuation">,</span> <span class="token string">'locked'</span><span class="token punctuation">,</span> <span class="token string">'assignee'</span><span class="token punctuation">,</span> <span class="token string">'assignees'</span><span class="token punctuation">,</span> <span class="token string">'milestone'</span><span class="token punctuation">,</span> <span class="token string">'comments'</span><span class="token punctuation">,</span> <span class="token string">'created_at'</span><span class="token punctuation">,</span> <span class="token string">'updated_at'</span><span class="token punctuation">,</span> <span class="token string">'closed_at'</span><span class="token punctuation">,</span> <span class="token string">'author_association'</span><span class="token punctuation">,</span> <span class="token string">'active_lock_reason'</span><span class="token punctuation">,</span> <span class="token string">'pull_request'</span><span class="token punctuation">,</span> <span class="token string">'body'</span><span class="token punctuation">,</span> <span class="token string">'performed_via_github_app'</span><span class="token punctuation">,</span> <span class="token string">'is_pull_request'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    num_rows<span class="token punctuation">:</span> <span class="token number">2855</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>太棒了，我们已经将我们的数据集推送到 Hub，其他人现在可以使用它了！还有一件重要的事情要做：添加一个数据集卡片，解释语料库是如何创建的，并为社区提供其他有用的信息。</p>
+<blockquote>
+<p>💡 你也可以使用 huggingface-cli 和一些 Git 技巧直接从终端将数据集上传到 Hugging Face Hub。有关如何做到这一点的详细信息，请参阅 🤗 <a href="https://huggingface.co/docs/datasets/share#share-a-dataset-using-the-cli">Datasets 指南</a>。</p>
+</blockquote>
+<h2 id="创建一个数据集卡片"><a href="#创建一个数据集卡片" class="headerlink" title="创建一个数据集卡片"></a>创建一个数据集卡片</h2><p>文档齐全的数据集对其他人（包括未来的你！）更有可能有用，因为它们提供了上下文，使用户能够决定数据集是否与他们的任务相关，并评估使用数据集可能存在的任何潜在偏见或风险。</p>
+<p>在 Hugging Face Hub 上，这些信息存储在每个数据集仓库的 README.md 文件中。在创建这个文件之前，你应该采取两个主要步骤：</p>
+<ol>
+<li>使用 <a href="https://huggingface.co/datasets/tagging/">datasets-tagging 应用程序</a>以 YAML 格式创建元数据标签。这些标签用于 Hugging Face Hub 上的各种搜索功能，确保社区成员可以轻松找到你的数据集。由于我们在这里创建了一个自定义数据集，你需要克隆 datasets-tagging 仓库并在本地运行应用程序。这是界面的样子：</li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space/images/20241211235607.png"></p>
+<ol start="2">
+<li>阅读 🤗 Datasets 关于创建信息丰富的<a href="https://github.com/huggingface/datasets/blob/master/templates/README_guide.md">数据集卡片的指南</a>，并使用它作为模板。</li>
+</ol>
+<p>你可以在Hub上直接创建README.md文件，你可以在lewtun&#x2F;github-issues数据集仓库中找到一个模板数据集卡片。下面是填写好的数据集卡片的截图。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20241212212433.png"></p>
+<blockquote>
+<p>✏️ 尝试一下！使用数据集标记应用程序和<a href="https://github.com/huggingface/datasets/blob/master/templates/README_guide.md">🤗 Datasets指南</a>来完成你的GitHub问题数据集的README.md文件。</p>
+</blockquote>
+<p>这就是了！我们在本节中看到，创建一个好的数据集可能相当复杂，但幸运的是，上传它并与社区分享却不是。在下一节中，我们将使用我们的新数据集创建一个语义搜索引擎，利用🤗 Datasets将问题与最相关的问题和评论相匹配。</p>
+<blockquote>
+<p>✏️ 尝试一下！按照我们在本节中采取的步骤，为你的最喜欢的开源库创建一个GitHub问题数据集（当然，选择除了🤗 Datasets之外的东西！）。为了获得额外分数，微调一个多标签分类器来预测标签字段中存在的标签。</p>
+</blockquote>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百四十一篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2024/12/08/00241-nlp-course-creating-your-own-dataset/">https://luyf-lemon-love.space/2024/12/08/00241-nlp-course-creating-your-own-dataset/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大语言模型</span>
+                                </a>
+                            
+                                <a href="/tags/huggingface/">
+                                    <span class="chip bg-color">huggingface</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/12/08/00242-vllm-xue-xi-bi-ji/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/043-%E5%AE%8C%E7%BE%8E%E4%B8%96%E7%95%8C%E4%BA%91%E7%BE%B2.jpg" class="responsive-img" alt="00242 vLLM 学习笔记">
+                        
+                        <span class="card-title">00242 vLLM 学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-12-08
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/12/08/00240-nlp-course-big-data-datasets-to-the-rescue/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/041-%E6%B0%94%E8%B4%A8%E9%AB%98%E6%B8%85%E7%BE%8E%E5%A5%B3%E7%99%BD%E8%89%B2%E8%A3%99%E5%AD%90%E9%BB%84%E7%8E%89%E7%91%B6.jpg" class="responsive-img" alt="00240 NLP Course - Big data? 🤗 Datasets to the rescue!">
+                        
+                        <span class="card-title">00240 NLP Course - Big data? 🤗 Datasets to the rescue!</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

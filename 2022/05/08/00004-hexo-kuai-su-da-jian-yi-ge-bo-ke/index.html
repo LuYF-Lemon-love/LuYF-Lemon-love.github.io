@@ -1,0 +1,3214 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00004-Hexo快速搭建一个博客, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言个人博客对于每个程序员都相当重要。
+这里选择 Hexo 作为搭建博客的框架。
+
+A fast, simple &amp;amp; powerful blog framework
+
+Hexo 是一款基于 Node.js 的静态博客框架，依赖少易于">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00004-Hexo快速搭建一个博客 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/20220513124600.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00004-Hexo快速搭建一个博客</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Git/">
+                                <span class="chip bg-color">Git</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%BD%BB%E9%87%8F%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+                                <span class="chip bg-color">轻量应用服务器</span>
+                            </a>
+                        
+                            <a href="/tags/Hexo/">
+                                <span class="chip bg-color">Hexo</span>
+                            </a>
+                        
+                            <a href="/tags/Butterfly/">
+                                <span class="chip bg-color">Butterfly</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%8D%9A%E5%AE%A2/" class="post-category">
+                                博客
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-05-08
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>个人博客对于每个程序员都相当重要。</p>
+<p>这里选择 <a href="https://hexo.io/" title="Hexo">Hexo</a> 作为搭建博客的框架。</p>
+<blockquote>
+<p>A fast, simple &amp; powerful blog framework</p>
+</blockquote>
+<p>Hexo 是一款基于 <a href="https://nodejs.org/">Node.js</a> 的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在 <a href="https://github.com/">GitHub</a> 上，是搭建博客的首选框架。</p>
+<p>操作系统：Ubuntu 20.04.4 LTS</p>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ol>
+<li><p><a href="https://hexo.io/">Hexo</a></p>
+</li>
+<li><p><a href="https://butterfly.js.org/">Butterfly</a></p>
+</li>
+<li><p><a href="https://volantis.js.org/">Volantis</a></p>
+</li>
+<li><p><a href="https://vercel.com/">Vercel</a></p>
+</li>
+<li><p><a href="https://cnhuazhu.top/">花猪大佬的博客</a></p>
+</li>
+<li><p><a href="https://akilar.top/">Akilarの糖果屋</a></p>
+</li>
+<li><p><a href="https://zykj.js.org/">卓越科技</a></p>
+</li>
+<li><p><a href="https://www.antmoe.com/">DreamyTZK</a></p>
+</li>
+<li><p><a href="https://weilining.github.io/">Ln’s Blog</a></p>
+</li>
+<li><p><a href="https://uuuuu.cf/">John Doe</a></p>
+</li>
+<li><p><a href="https://surpsec.cn/">天泽岁月</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/niuguobao/article/details/124065225?spm=1001.2014.3001.5506">腾讯云服务器登录宝塔面板</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/oXiaoLingTong/article/details/123473069?spm=1001.2014.3001.5506">Hexo部署至云服务器的宝塔面板</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_27862223/article/details/108506349?spm=1001.2014.3001.5506">JsDelivr CDN缓存刷新工具-缓存清除-缓存更新</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_41793001/article/details/102925602?spm=1001.2014.3001.5506">Hexo自动为站内链接加上nofollow插件</a></p>
+</li>
+<li><p><a href="https://shichen.blog.csdn.net/article/details/99649555?spm=1001.2014.3001.5506">为你的个人博客添加访客地图</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/q906270629/article/details/106145109?spm=1001.2014.3001.5506">使用免费的CDN平台jsDelivr搭建个人cdn资源网盘</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_40323256/article/details/104091775?spm=1001.2014.3001.5506">Gitee(码云)、Github同时配置ssh key</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_43768946/article/details/90411154?spm=1001.2014.3001.5506">Git使用出现git@github.com: Permission denied (publickey). 处理</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/Zero_Wong/article/details/123882159?spm=1001.2014.3001.5506">github：master提交项目到远程仓库出现“There isn’t anything to compare.”</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/chuyouyinghe/article/details/122203309?spm=1001.2014.3001.5506">关于Support for password authentication was removed on August 13, 2021报错的解决方案</a></p>
+</li>
+<li><p><a href="https://valine.js.org/quickstart.html">Valine 文档</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/9b4d5903dfc8">Hexo博客如何加入B站视频&#x2F;How to add bilibili shared video in Hexo</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/427786395">Hexo 个人博客快速部署到Gitee&amp;Coding详细教程</a></p>
+</li>
+<li><p><a href="https://cloud.tencent.com/document/product/1207">腾讯云轻量应用服务器文档</a></p>
+</li>
+<li><p><a href="https://luotianyi.vc/6295.html">jsDelivr域名遭到DNS污染</a></p>
+</li>
+<li><p><a href="https://xiao7.blog.csdn.net/article/details/109357897?spm=1001.2014.3001.5506">github设置某个分支为默认主支</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_35393869/article/details/83444272?spm=1001.2014.3001.5506">.styl格式的CSS样式文件是什么文件</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/sinat_37781304/article/details/82729029?spm=1001.2014.3001.5506">hexo史上最全搭建教程</a></p>
+</li>
+<li><p><a href="https://cloud.tencent.com/document/product/302/3450">腾讯云CNAME 记录</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/f4a65dccddcd?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation">域名解析之绑定github</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/c982b10efe48">域名解析到GitHub上</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/lijing742180/article/details/85549978?spm=1001.2101.3001.6650.7&utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-7-85549978-blog-53142450.pc_relevant_antiscanv3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-7-85549978-blog-53142450.pc_relevant_antiscanv3&utm_relevant_index=14">GitHub Pages 绑定个人域名</a></p>
+</li>
+<li><p><a href="https://cloud.tencent.com/document/product/302/38661">DNS 解析 DNSPod 各记录类型说明及规则</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/u011759205/article/details/104990219">全网独家-hexo-seo优化之关键词和简介的优化</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/zengfanwei1990/article/details/112343332?spm=1001.2014.3001.5506">怎么样让自己的博客被谷歌和百度快速收录？</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/111773896">如何让百度收录 GitHub Pages 个人博客</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/6b0963512507">Hexo + Github Page 搭建技术博客教程系列(四) 之 设置 SEO 优化百度、谷歌收录</a></p>
+</li>
+<li><p><a href="https://hui-wang.info/2016/10/23/Hexo%E6%8F%92%E4%BB%B6%E4%B9%8B%E7%99%BE%E5%BA%A6%E4%B8%BB%E5%8A%A8%E6%8F%90%E4%BA%A4%E9%93%BE%E6%8E%A5/">Hexo插件之百度主动提交链接</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_35977139/article/details/108768439">Valine评论失效 由于LeanCloud国际版通用域名失效</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_38157825/article/details/112783238">在 Hexo 中使用 artitalk 新增说说功能</a></p>
+</li>
+</ol>
+<h3 id="环境版本"><a href="#环境版本" class="headerlink" title="环境版本"></a>环境版本</h3><pre class="line-numbers language-none"><code class="language-none">git         2.25.1
+node        v18.2.0
+npm         8.9.0
+
+cnpm -v
+cnpm@7.1.1 (&#x2F;usr&#x2F;local&#x2F;lib&#x2F;node_modules&#x2F;cnpm&#x2F;lib&#x2F;parse_argv.js)
+npm@6.14.17 (&#x2F;usr&#x2F;local&#x2F;lib&#x2F;node_modules&#x2F;cnpm&#x2F;node_modules&#x2F;npm&#x2F;lib&#x2F;npm.js)
+node@18.2.0 (&#x2F;usr&#x2F;bin&#x2F;node)
+npminstall@5.8.1 (&#x2F;usr&#x2F;local&#x2F;lib&#x2F;node_modules&#x2F;cnpm&#x2F;node_modules&#x2F;npminstall&#x2F;lib&#x2F;index.js)
+prefix&#x3D;&#x2F;usr&#x2F;local 
+linux x64 5.13.0-41-generic 
+registry&#x3D;https:&#x2F;&#x2F;registry.npmmirror.com
+
+hexo -v
+INFO  Validating config
+INFO  
+  &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+                                                                     
+      #####  #    # ##### ##### ###### #####  ###### #      #   #    
+      #    # #    #   #     #   #      #    # #      #       # #     
+      #####  #    #   #     #   #####  #    # #####  #        #     
+      #    # #    #   #     #   #      #####  #      #        #      
+      #    # #    #   #     #   #      #   #  #      #        #    
+      #####   ####    #     #   ###### #    # #      ######   #  
+
+                            4.2.0
+  &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+hexo: 6.1.0
+hexo-cli: 4.3.0
+os: linux 5.13.0-41-generic Ubuntu 20.04.4 LTS (Focal Fossa)
+node: 18.2.0
+v8: 10.1.124.8-node.13
+uv: 1.43.0
+zlib: 1.2.11
+brotli: 1.0.9
+ares: 1.18.1
+modules: 108
+nghttp2: 1.47.0
+napi: 8
+llhttp: 6.0.6
+openssl: 3.0.3+quic
+cldr: 41.0
+icu: 71.1
+tz: 2022a
+unicode: 14.0
+ngtcp2: 0.1.0-DEV
+nghttp3: 0.1.0-DEV
+
+# 轻量应用服务器信息
+
+实例规格                 CPU: 2核 内存: 2GB
+系统盘                   40GB SSD云硬盘
+带宽                    4Mbps
+镜像名称                 宝塔Linux面板
+镜像类型                 应用镜像
+操作系统                 CentOS 7.9 64bit
+预装应用软件              宝塔Linux面板 7.8.0 腾讯云专享版<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="搭建博客"><a href="#搭建博客" class="headerlink" title="搭建博客"></a>搭建博客</h3><h4 id="安装-Git"><a href="#安装-Git" class="headerlink" title="安装 Git"></a>安装 Git</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># ubuntu</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">git</span>
+
+<span class="token function">git</span> <span class="token parameter variable">--version</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="安装-nodejs"><a href="#安装-nodejs" class="headerlink" title="安装 nodejs"></a>安装 nodejs</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装最新版本的 nodejs</span>
+<span class="token comment"># 去官网查看最新的版本号，这篇博文创作时，版本为：16.15.0 LTS，18.1.0 Current</span>
+<span class="token comment"># 所以最新版本的源为 https://deb.nodesource.com/setup_18.x</span>
+<span class="token function">curl</span> <span class="token parameter variable">-sL</span> https://deb.nodesource.com/setup_18.x <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token parameter variable">-E</span> <span class="token function">bash</span> -
+
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> nodejs
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">npm</span>
+
+<span class="token function">node</span> <span class="token parameter variable">-v</span>
+<span class="token function">npm</span> <span class="token parameter variable">-v</span>
+
+<span class="token comment"># 将 npm 改为淘宝镜像</span>
+<span class="token function">npm</span> config list
+<span class="token function">npm</span> config <span class="token builtin class-name">set</span> registry https://registry.npm.taobao.org
+<span class="token function">npm</span> config get registry
+<span class="token function">sudo</span> <span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> cnpm <span class="token parameter variable">--registry</span><span class="token operator">=</span>https://registry.npm.taobao.org
+cnpm <span class="token parameter variable">-v</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="安装-hexo"><a href="#安装-hexo" class="headerlink" title="安装 hexo"></a>安装 hexo</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> cnpm <span class="token function">install</span> <span class="token parameter variable">-g</span> hexo-cli
+
+hexo <span class="token parameter variable">-v</span>
+
+<span class="token comment"># 创建 blog 目录</span>
+<span class="token function">mkdir</span> blog
+<span class="token builtin class-name">cd</span> blog
+
+hexo init
+<span class="token function">npm</span> <span class="token function">install</span>
+
+<span class="token comment"># 启动本地博客服务</span>
+hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过 <a href="http://localhost:4000/">http://localhost:4000/</a> 访问你的博客</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 关闭本地化服务</span>
+Ctrl + C
+
+<span class="token comment"># 以后的 hexo s, hexo clean, hexo g, hexo d 等命令都是在博客目录下运行</span>
+
+<span class="token comment"># 尝试写第一篇文章，会在 source/_posts 目录下，生成一个 .md 文件，该文件即是你的博文</span>
+hexo new <span class="token string">"第一篇博客文章"</span> <span class="token comment"># new 可以简写为 n</span>
+hexo clean <span class="token comment"># 可以缩写为 hexo cl</span>
+hexo g
+
+<span class="token comment"># 每次修改完博客都要运行 hexo cl, hexo g</span>
+hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="部署到-Github"><a href="#部署到-Github" class="headerlink" title="部署到 Github"></a>部署到 Github</h4><p>在 Github 上创建一个名字为 你的用户名.github.io （ 如 LuYF-Lemon-love.github.io ）的 Public 仓库，用户名一定要和你的用户名相同。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在 blog 目录下安装 git 部署的插件</span>
+cnpm <span class="token function">install</span> <span class="token parameter variable">--save</span> hexo-deployer-git
+
+<span class="token comment"># yourname 是你的 Github 的用户名，youremail 是你注册 Github 的邮箱</span>
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> user.name <span class="token string">"yourname"</span>
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> user.email <span class="token string">"youremail"</span>
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> core.autocrlf <span class="token boolean">false</span>
+
+<span class="token comment"># 例子</span>
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> user.email <span class="token string">"3555028709@qq.com"</span>
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> user.name <span class="token string">"LuYF-Lemon-love"</span>
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> core.autocrlf <span class="token boolean">false</span>
+
+<span class="token comment"># 检查</span>
+<span class="token function">git</span> config user.name
+<span class="token function">git</span> config user.email
+
+<span class="token comment"># 创建 SSH，一路回车</span>
+ssh-keygen <span class="token parameter variable">-t</span> rsa <span class="token parameter variable">-C</span> <span class="token string">"youremail"</span>
+
+<span class="token comment"># 例子</span>
+ssh-keygen <span class="token parameter variable">-t</span> rsa <span class="token parameter variable">-C</span> <span class="token string">"3555028709@qq.com"</span>
+
+<span class="token comment"># 在当前用户的 home 目录下生成了 .ssh 目录，里面包含 id_rsa，id_rsa.pub，known_hosts 三个文件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>SSH，是一个密钥，id_rsa 是这台电脑的私人密钥，不能给别人看，id_rsa.pub 是公共密钥，可以随便给别人看。把这个公钥放到 Github 上，这样当你链接到 Github 自己的用户时，它就会根据公钥匹配你的私钥匙，当匹配成功时，就可以通过 git 上传文件到 Github上了。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> ~/.ssh/id_rsa.pub
+
+<span class="token comment"># 复制 cat 输出的文本</span>
+
+<span class="token comment"># 第一步：点击 Github 的 Setting</span>
+<span class="token comment"># 第二步：点击 SSH and GPG Keys</span>
+<span class="token comment"># 第三步：点击 New SSH key</span>
+<span class="token comment"># 第四步：把上面复制的内容粘贴 Key 中，Title 随便填</span>
+<span class="token comment"># 第五步：点击 Add SSH key，输入 Github 密码进行验证</span>
+
+<span class="token comment"># 验证</span>
+<span class="token function">ssh</span> <span class="token parameter variable">-T</span> git@github.com
+
+<span class="token comment"># 进入 blog 目录</span>
+<span class="token function">vim</span> _config.yml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>将 _config.yml 文件中的最底部的 # Deployment 模块修改为下面内容</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Deployment</span>
+<span class="token comment">## Docs: https://hexo.io/docs/one-command-deployment</span>
+<span class="token key atrule">deploy</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> git
+  <span class="token key atrule">repo</span><span class="token punctuation">:</span> git@github.com<span class="token punctuation">:</span>用户名/用户名.github.io.git
+  <span class="token key atrule">branch</span><span class="token punctuation">:</span> master
+
+<span class="token comment"># 例子</span>
+<span class="token comment"># Deployment</span>
+<span class="token comment">## Docs: https://hexo.io/docs/one-command-deployment</span>
+<span class="token key atrule">deploy</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> git
+  <span class="token key atrule">repo</span><span class="token punctuation">:</span> git@github.com<span class="token punctuation">:</span>LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love/LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love.github.io.git
+  <span class="token key atrule">branch</span><span class="token punctuation">:</span> master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>部署到 Github 上</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo cl
+hexo generate <span class="token comment"># 可以缩写为 hexo g</span>
+hexo deploy <span class="token comment"># 可以缩写为 hexo d</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>现在 Github 中默认分支改为 main，因此我们需要到上面创建的仓库主页的 Setting 中的 Branches 中修改默认分支为 master，然后回到仓库主页，点击 branch，删除掉 main 分支。 </p>
+<p>之后可以在 <a href="https://yourname.github.io/">https://yourname.github.io</a> 访问你的博客，用户名的大小写没有影响，如：<a href="https://luyf-lemon-love.github.io/">https://luyf-lemon-love.github.io/</a></p>
+<h4 id="删除博客"><a href="#删除博客" class="headerlink" title="删除博客"></a>删除博客</h4><p>直接在 source&#x2F;_posts 目录下删除你想要删除的博客即可。</p>
+<p>然后重新生成部署</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo cl
+hexo g
+hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="基本设置"><a href="#基本设置" class="headerlink" title="基本设置"></a>基本设置</h4><p>_config.yml 文件是 hexo 的配置文件，官方配置文件的链接：<a href="https://hexo.io/zh-cn/docs/configuration">https://hexo.io/zh-cn/docs/configuration</a></p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">title</th>
+<th align="center">subtitle</th>
+<th align="center">description</th>
+<th align="center">keywords</th>
+<th align="center">author</th>
+<th align="center">language</th>
+<th align="center">url</th>
+<th align="center">theme</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">描述</td>
+<td align="center">网站标题</td>
+<td align="center">网站副标题</td>
+<td align="center">网站描述</td>
+<td align="center">网站关键词（多个关键词如：LuYF-Lemon-love, Blog, 博客）</td>
+<td align="center">您的名字</td>
+<td align="center">zh-CN代表简体中文</td>
+<td align="center">网址:你的首页网址</td>
+<td align="center">主题名称，false 禁用主题</td>
+</tr>
+</tbody></table>
+<p>每一篇博文的 .md 文件开头 tags 可以设置多个标签</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">tags:
+<span class="token list punctuation">-</span> Github
+<span class="token list punctuation">-</span> Git<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h4><p>hexo 有很多种主题，链接：<a href="https://hexo.io/themes/">https://hexo.io/themes/</a></p>
+<p>进入到 blog 目录，下载主题，git clone 主题地址.git themes&#x2F;目录， 这里以 yilia 主题为例：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone https://github.com/litten/hexo-theme-yilia.git themes/yilia<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>修改 blog 目录下的 _config.yml 文件，找到 # Extensions 模块下的theme 标签（默认为 landscape），修改为 yilia</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">theme</span><span class="token punctuation">:</span> yilia<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>然后运行下面命令</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo cl
+hexo g
+hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>添加目录</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在 blog 目录下运行</span>
+<span class="token function">npm</span> i hexo-generator-json-content <span class="token parameter variable">--save</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>在 _config.yml 文件中添加</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">jsonContent</span><span class="token punctuation">:</span>
+  <span class="token key atrule">meta</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">pages</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">posts</span><span class="token punctuation">:</span>
+    <span class="token key atrule">title</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">date</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">text</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token key atrule">raw</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token key atrule">content</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token key atrule">slug</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token key atrule">updated</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token key atrule">comments</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token key atrule">link</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token key atrule">permalink</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token key atrule">excerpt</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token key atrule">categories</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token key atrule">tags</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Butterfly-官方文档精要"><a href="#Butterfly-官方文档精要" class="headerlink" title="Butterfly 官方文档精要"></a>Butterfly 官方文档精要</h3><h4 id="Front-matter"><a href="#Front-matter" class="headerlink" title="Front-matter"></a>Front-matter</h4><p>Front-matter 是 Markdown 文件最上方以 — 分隔的区域，用于指定个别档案的变数</p>
+<ul>
+<li>Page Front-matter 用于<strong>页面</strong>配置</li>
+<li>Post Front-matter 用于<strong>文章页</strong>配置</li>
+</ul>
+<h5 id="Page-Front-matter"><a href="#Page-Front-matter" class="headerlink" title="Page Front-matter"></a>Page Front-matter</h5><table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">title</th>
+<th align="center">date</th>
+<th align="center">type</th>
+<th align="center">updated</th>
+<th align="center">description</th>
+<th align="center">top_img</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">解释</td>
+<td align="center">[必]页面标题</td>
+<td align="center">[必]页面创建日期</td>
+<td align="center">[必]标签、分类和友情链接三个页面需要配置</td>
+<td align="center">页面更新日期</td>
+<td align="center">页面描述</td>
+<td align="center">页面顶部图片</td>
+</tr>
+</tbody></table>
+<h5 id="Post-Front-matter"><a href="#Post-Front-matter" class="headerlink" title="Post Front-matter"></a>Post Front-matter</h5><table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">title</th>
+<th align="center">date</th>
+<th align="center">updated</th>
+<th align="center">tags</th>
+<th align="center">categories</th>
+<th align="center">description</th>
+<th align="center">top_img</th>
+<th align="center">cover</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">解释</td>
+<td align="center">[必]文章标题</td>
+<td align="center">[必]文章创建日期</td>
+<td align="center">文章更新日期</td>
+<td align="center">文章标签</td>
+<td align="center">文章分类</td>
+<td align="center">文章描述</td>
+<td align="center">文章顶部图片</td>
+<td align="center">缩略图</td>
+</tr>
+</tbody></table>
+<h4 id="图库"><a href="#图库" class="headerlink" title="图库"></a>图库</h4><p>在 blog 目录下运行下面命令</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo n page Gallery<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>然后打开 blog&#x2F;source&#x2F;Gallery&#x2F;index.md 文件，写入下面内容</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token front-matter-block"><span class="token punctuation">---</span>
+<span class="token front-matter yaml language-yaml"><span class="token key atrule">title</span><span class="token punctuation">:</span> Gallery
+<span class="token key atrule">date</span><span class="token punctuation">:</span> <span class="token datetime number">2022-05-14 21:29:55</span>
+<span class="token key atrule">type</span><span class="token punctuation">:</span> <span class="token string">"Gallery"</span>
+<span class="token key atrule">top_img</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//cdn.jsdelivr.net/gh/LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love/PicBed@main/blogs/pictures/20220511161548.png</span>
+<span class="token punctuation">---</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gallery-group-main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+&#123;% galleryGroup '壁纸' '收藏的一些壁纸' '/Gallery/wallpaper' https://i.loli.net/2019/11/10/T7Mu8Aod3egmC4Q.png %&#125;
+&#123;% galleryGroup 'OH MY GIRL' '关于OH MY GIRL的图片' '/Gallery/ohmygirl' https://i.loli.net/2019/12/25/hOqbQ3BIwa6KWpo.jpg %&#125;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在 blog 目录下运行下面命令</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo n page ohmygirl
+
+<span class="token function">mv</span> ./source/ohmygirl/ ./source/Gallery/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>然后打开 blog&#x2F;source&#x2F;Gallery&#x2F;ohmygirl&#x2F;index.md 文件，写入下面内容</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token front-matter-block"><span class="token punctuation">---</span>
+<span class="token front-matter yaml language-yaml"><span class="token key atrule">title</span><span class="token punctuation">:</span> Ohmygirl
+<span class="token key atrule">date</span><span class="token punctuation">:</span> <span class="token datetime number">2022-05-14 21:55:30</span></span>
+<span class="token punctuation">---</span></span>
+
+&#123;% gallery %&#125;
+![](https://i.loli.net/2019/12/25/Fze9jchtnyJXMHN.jpg)
+![](https://i.loli.net/2019/12/25/ryLVePaqkYm4TEK.jpg)
+![](https://i.loli.net/2019/12/25/gEy5Zc1Ai6VuO4N.jpg)
+![](https://i.loli.net/2019/12/25/d6QHbytlSYO4FBG.jpg)
+![](https://i.loli.net/2019/12/25/6nepIJ1xTgufatZ.jpg)
+![](https://i.loli.net/2019/12/25/E7Jvr4eIPwUNmzq.jpg)
+![](https://i.loli.net/2019/12/25/mh19anwBSWIkGlH.jpg)
+![](https://i.loli.net/2019/12/25/2tu9JC8ewpBFagv.jpg)
+&#123;% endgallery %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="复制相关设置"><a href="#复制相关设置" class="headerlink" title="复制相关设置"></a>复制相关设置</h4><p>在 _config.butterfly.yml 文件中设置</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># copy settings</span>
+<span class="token comment"># copyright: Add the copyright information after copied content (複製的內容後面加上版權信息)</span>
+<span class="token key atrule">copy</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">copyright</span><span class="token punctuation">:</span>
+    <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">limit_count</span><span class="token punctuation">:</span> <span class="token number">50</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="页脚设置"><a href="#页脚设置" class="headerlink" title="页脚设置"></a>页脚设置</h4><p>在 _config.butterfly.yml 文件设置</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Footer Settings</span>
+<span class="token comment"># --------------------------------------</span>
+<span class="token key atrule">footer</span><span class="token punctuation">:</span>
+  <span class="token key atrule">owner</span><span class="token punctuation">:</span>
+    <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">since</span><span class="token punctuation">:</span> <span class="token number">2022</span>
+  <span class="token key atrule">custom_text</span><span class="token punctuation">:</span> 感谢光临小破站，欢迎您提出宝贵的意见！
+  <span class="token key atrule">copyright</span><span class="token punctuation">:</span> <span class="token boolean important">true</span> <span class="token comment"># Copyright of theme and framework</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="主页标签彩色"><a href="#主页标签彩色" class="headerlink" title="主页标签彩色"></a>主页标签彩色</h4><p>在 _config.butterfly.yml 文件设置</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">card_tags</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">limit</span><span class="token punctuation">:</span> <span class="token number">40</span> <span class="token comment"># if set 0 will show all</span>
+  <span class="token key atrule">color</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">sort_order</span><span class="token punctuation">:</span> <span class="token comment"># Don't modify the setting unless you know how it works</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="中英文之间添加空格"><a href="#中英文之间添加空格" class="headerlink" title="中英文之间添加空格"></a>中英文之间添加空格</h4><p>在 _config.butterfly.yml 文件设置</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># https://github.com/vinta/pangu.js</span>
+<span class="token comment"># Insert a space between Chinese character and English character (中英文之间添加空格)</span>
+<span class="token key atrule">pangu</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">field</span><span class="token punctuation">:</span> post <span class="token comment"># site/post</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="访问人数-busuanzi-UV-和-PV"><a href="#访问人数-busuanzi-UV-和-PV" class="headerlink" title="访问人数 busuanzi (UV 和 PV)"></a>访问人数 busuanzi (UV 和 PV)</h4><p>在 _config.butterfly.yml 文件中，设置</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># busuanzi count for PV / UV in site</span>
+<span class="token comment"># 訪問人數</span>
+<span class="token key atrule">busuanzi</span><span class="token punctuation">:</span>
+  <span class="token key atrule">site_uv</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">site_pv</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">page_pv</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="运行时间"><a href="#运行时间" class="headerlink" title="运行时间"></a>运行时间</h4><p>在 _config.butterfly.yml 文件中，设置</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">runtimeshow</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">publish_date</span><span class="token punctuation">:</span> 5/6/2022 00<span class="token punctuation">:</span><span class="token datetime number">00:00</span>  
+  <span class="token comment">##网页开通时间</span>
+  <span class="token comment">#格式: 月/日/年 时间</span>
+  <span class="token comment">#也可以写成 年/月/日 时间</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="访客地图（进阶）"><a href="#访客地图（进阶）" class="headerlink" title="访客地图（进阶）"></a>访客地图（进阶）</h4><ol>
+<li>获取访客地图的 html 代码</li>
+</ol>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>clstr_globe<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>//clustrmaps.com/globe.js?d=tZmOqhEgNYZZabN7nRUd-2bAEXcDNOKlXd4dKdcaF6Y<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>在 blog&#x2F;source&#x2F;_data 目录下创建一个 widget.yml 文件，写入下面代码</li>
+</ol>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">bottom</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">class_name</span><span class="token punctuation">:</span> user<span class="token punctuation">-</span>map
+      <span class="token key atrule">id_name</span><span class="token punctuation">:</span> user<span class="token punctuation">-</span>map
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> 访客地图
+      <span class="token key atrule">icon</span><span class="token punctuation">:</span> fas fa<span class="token punctuation">-</span>heartbeat
+      <span class="token key atrule">order</span><span class="token punctuation">:</span>
+      <span class="token key atrule">html</span><span class="token punctuation">:</span> <span class="token string">'&lt;script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=tZmOqhEgNYZZabN7nRUd-2bAEXcDNOKlXd4dKdcaF6Y">&lt;/script>'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="标签外挂"><a href="#标签外挂" class="headerlink" title="标签外挂"></a>标签外挂</h4><h5 id="用法-1"><a href="#用法-1" class="headerlink" title="用法 1"></a>用法 1</h5><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% note <span class="token url">[<span class="token content">class</span>] [<span class="token variable">no-icon</span>]</span> [style] %&#125;
+Any content (support inline tags too.io).
+&#123;% endnote %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="center">名称</th>
+<th align="center">class</th>
+<th align="center">no-icon</th>
+<th align="center">style</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">用法</td>
+<td align="center">【可选】标识，不同的标识有不同的配色（ default &#x2F; primary &#x2F; success &#x2F; info &#x2F; warning &#x2F; danger ）</td>
+<td align="center">【可选】不显示 icon</td>
+<td align="center">【可选】可以覆盖配置中的 style（simple&#x2F;modern&#x2F;flat&#x2F;disabled）</td>
+</tr>
+</tbody></table>
+<p><strong>simple</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% note simple %&#125;
+默认 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note default simple %&#125;
+default 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note primary simple %&#125;
+primary 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note success simple %&#125;
+success 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note info simple %&#125;
+info 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note warning simple %&#125;
+warning 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note danger simple %&#125;
+danger 提示块标籤
+&#123;% endnote %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>modern</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% note modern %&#125;
+默认 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note default modern %&#125;
+default 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note primary modern %&#125;
+primary 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note success modern %&#125;
+success 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note info modern %&#125;
+info 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note warning modern %&#125;
+warning 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note danger modern %&#125;
+danger 提示块标籤
+&#123;% endnote %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>flat</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% note flat %&#125;
+默认 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note default flat %&#125;
+default 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note primary flat %&#125;
+primary 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note success flat %&#125;
+success 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note info flat %&#125;
+info 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note warning flat %&#125;
+warning 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note danger flat %&#125;
+danger 提示块标籤
+&#123;% endnote %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>disabled</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% note disabled %&#125;
+默认 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note default disabled %&#125;
+default 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note primary disabled %&#125;
+primary 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note success disabled %&#125;
+success 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note info disabled %&#125;
+info 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note warning disabled %&#125;
+warning 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note danger disabled %&#125;
+danger 提示块标籤
+&#123;% endnote %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>no-icon</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% note no-icon %&#125;
+默认 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note default no-icon %&#125;
+default 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note primary no-icon %&#125;
+primary 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note success no-icon %&#125;
+success 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note info no-icon %&#125;
+info 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note warning no-icon %&#125;
+warning 提示块标籤
+&#123;% endnote %&#125;
+
+&#123;% note danger no-icon %&#125;
+danger 提示块标籤
+&#123;% endnote %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="用法-2（自定义-icon"><a href="#用法-2（自定义-icon" class="headerlink" title="用法 2（自定义 icon)"></a>用法 2（自定义 icon)</h5><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% note <span class="token url">[<span class="token content">color</span>] [<span class="token variable">icon</span>]</span> [style] %&#125;
+Any content (support inline tags too.io).
+&#123;% endnote %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="center">名称</th>
+<th align="center">color</th>
+<th align="center">icon</th>
+<th align="center">style</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">用法</td>
+<td align="center">【可选】顔色 (default &#x2F; blue &#x2F; pink &#x2F; red &#x2F; purple &#x2F; orange &#x2F; green)</td>
+<td align="center">【可选】可配置自定义 icon (只支持 fontawesome 图标, 也可以配置 no-icon )</td>
+<td align="center">【可选】可以覆盖配置中的 style（simple&#x2F;modern&#x2F;flat&#x2F;disabled）</td>
+</tr>
+</tbody></table>
+<p><strong>simple</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% note 'fab fa-cc-visa' simple %&#125;
+你是刷 Visa 还是 UnionPay
+&#123;% endnote %&#125;
+&#123;% note blue 'fas fa-bullhorn' simple %&#125;
+2021年快到了....
+&#123;% endnote %&#125;
+&#123;% note pink 'fas fa-car-crash' simple %&#125;
+小心开车 安全至上
+&#123;% endnote %&#125;
+&#123;% note red 'fas fa-fan' simple%&#125;
+这是三片呢？还是四片？
+&#123;% endnote %&#125;
+&#123;% note orange 'fas fa-battery-half' simple %&#125;
+你是刷 Visa 还是 UnionPay
+&#123;% endnote %&#125;
+&#123;% note purple 'far fa-hand-scissors' simple %&#125;
+剪刀石头布
+&#123;% endnote %&#125;
+&#123;% note green 'fab fa-internet-explorer' simple %&#125;
+前端最讨厌的浏览器
+&#123;% endnote %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>modern</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% note 'fab fa-cc-visa' modern %&#125;
+你是刷 Visa 还是 UnionPay
+&#123;% endnote %&#125;
+&#123;% note blue 'fas fa-bullhorn' modern %&#125;
+2021年快到了....
+&#123;% endnote %&#125;
+&#123;% note pink 'fas fa-car-crash' modern %&#125;
+小心开车 安全至上
+&#123;% endnote %&#125;
+&#123;% note red 'fas fa-fan' modern%&#125;
+这是三片呢？还是四片？
+&#123;% endnote %&#125;
+&#123;% note orange 'fas fa-battery-half' modern %&#125;
+你是刷 Visa 还是 UnionPay
+&#123;% endnote %&#125;
+&#123;% note purple 'far fa-hand-scissors' modern %&#125;
+剪刀石头布
+&#123;% endnote %&#125;
+&#123;% note green 'fab fa-internet-explorer' modern %&#125;
+前端最讨厌的浏览器
+&#123;% endnote %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>flat</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% note 'fab fa-cc-visa' flat %&#125;
+你是刷 Visa 还是 UnionPay
+&#123;% endnote %&#125;
+&#123;% note blue 'fas fa-bullhorn' flat %&#125;
+2021年快到了....
+&#123;% endnote %&#125;
+&#123;% note pink 'fas fa-car-crash' flat %&#125;
+小心开车 安全至上
+&#123;% endnote %&#125;
+&#123;% note red 'fas fa-fan' flat%&#125;
+这是三片呢？还是四片？
+&#123;% endnote %&#125;
+&#123;% note orange 'fas fa-battery-half' flat %&#125;
+你是刷 Visa 还是 UnionPay
+&#123;% endnote %&#125;
+&#123;% note purple 'far fa-hand-scissors' flat %&#125;
+剪刀石头布
+&#123;% endnote %&#125;
+&#123;% note green 'fab fa-internet-explorer' flat %&#125;
+前端最讨厌的浏览器
+&#123;% endnote %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>disabled</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% note 'fab fa-cc-visa' disabled %&#125;
+你是刷 Visa 还是 UnionPay
+&#123;% endnote %&#125;
+&#123;% note blue 'fas fa-bullhorn' disabled %&#125;
+2021年快到了....
+&#123;% endnote %&#125;
+&#123;% note pink 'fas fa-car-crash' disabled %&#125;
+小心开车 安全至上
+&#123;% endnote %&#125;
+&#123;% note red 'fas fa-fan' disabled %&#125;
+这是三片呢？还是四片？
+&#123;% endnote %&#125;
+&#123;% note orange 'fas fa-battery-half' disabled %&#125;
+你是刷 Visa 还是 UnionPay
+&#123;% endnote %&#125;
+&#123;% note purple 'far fa-hand-scissors' disabled %&#125;
+剪刀石头布
+&#123;% endnote %&#125;
+&#123;% note green 'fab fa-internet-explorer' disabled %&#125;
+前端最讨厌的浏览器
+&#123;% endnote %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>no-icon</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% note no-icon %&#125;
+你是刷 Visa 还是 UnionPay
+&#123;% endnote %&#125;
+&#123;% note blue no-icon %&#125;
+2021年快到了....
+&#123;% endnote %&#125;
+&#123;% note pink no-icon %&#125;
+小心开车 安全至上
+&#123;% endnote %&#125;
+&#123;% note red no-icon %&#125;
+这是三片呢？还是四片？
+&#123;% endnote %&#125;
+&#123;% note orange no-icon %&#125;
+你是刷 Visa 还是 UnionPay
+&#123;% endnote %&#125;
+&#123;% note purple no-icon %&#125;
+剪刀石头布
+&#123;% endnote %&#125;
+&#123;% note green no-icon %&#125;
+前端最讨厌的浏览器
+&#123;% endnote %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Gallery-相册图库"><a href="#Gallery-相册图库" class="headerlink" title="Gallery 相册图库"></a>Gallery 相册图库</h4><p><strong>语法</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gallery-group-main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+&#123;% galleryGroup name description link img-url %&#125;
+&#123;% galleryGroup name description link img-url %&#125;
+&#123;% galleryGroup name description link img-url %&#125;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gallery-group-main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+&#123;% galleryGroup '壁纸' '收藏的一些壁纸' '/Gallery/wallpaper' https://i.loli.net/2019/11/10/T7Mu8Aod3egmC4Q.png %&#125;
+&#123;% galleryGroup '漫威' '关于漫威的图片' '/Gallery/marvel' https://i.loli.net/2019/12/25/8t97aVlp4hgyBGu.jpg %&#125;
+&#123;% galleryGroup 'OH MY GIRL' '关于OH MY GIRL的图片' '/Gallery/ohmygirl' https://i.loli.net/2019/12/25/hOqbQ3BIwa6KWpo.jpg %&#125;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Gallery-相册"><a href="#Gallery-相册" class="headerlink" title="Gallery 相册"></a>Gallery 相册</h4><p><strong>语法</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% gallery %&#125;
+markdown 图片格式
+&#123;% endgallery %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% gallery %&#125;
+![](https://i.loli.net/2019/12/25/Fze9jchtnyJXMHN.jpg)
+![](https://i.loli.net/2019/12/25/ryLVePaqkYm4TEK.jpg)
+![](https://i.loli.net/2019/12/25/gEy5Zc1Ai6VuO4N.jpg)
+![](https://i.loli.net/2019/12/25/d6QHbytlSYO4FBG.jpg)
+![](https://i.loli.net/2019/12/25/6nepIJ1xTgufatZ.jpg)
+![](https://i.loli.net/2019/12/25/E7Jvr4eIPwUNmzq.jpg)
+![](https://i.loli.net/2019/12/25/mh19anwBSWIkGlH.jpg)
+![](https://i.loli.net/2019/12/25/2tu9JC8ewpBFagv.jpg)
+&#123;% endgallery %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="tag-hide"><a href="#tag-hide" class="headerlink" title="tag-hide"></a>tag-hide</h4><p><strong>inline</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">inline 在文本里面添加按钮隐藏内容，只限文字( content不能包含英文逗号，可用<span class="token entity named-entity" title="&sbquo;">&amp;sbquo;</span>)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% hideInline content,display,bg,color %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>content: 文本内容</li>
+<li>display: 按钮显示的文字（可选）</li>
+<li>bg: 按钮的背景颜色（可选）</li>
+<li>color: 按钮文字的颜色（可选）</li>
+</ul>
+<p><strong>Demo</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">哪个英文字母最酷？ &#123;% hideInline 因为西装裤(C装酷),查看答案,#FF7242,#fff %&#125;
+
+门里站着一个人? &#123;% hideInline 闪 %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>block</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">block 独立的 block 隐藏内容，可以隐藏很多内容，包括图片，代码块等等
+
+( display 不能包含英文逗号，可用<span class="token entity named-entity" title="&sbquo;">&amp;sbquo;</span>)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% hideBlock display,bg,color %&#125;
+content
+&#123;% endhideBlock %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>content: 文本内容</li>
+<li>display: 按钮显示的文字（可选）</li>
+<li>bg: 按钮的背景颜色（可选）</li>
+<li>color: 按钮文字的颜色（可选）</li>
+</ul>
+<p><strong>Demo</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% hideBlock display,bg,color %&#125;
+content
+&#123;% endhideBlock %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Toggle</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如果你需要展示的内容太多，可以把它隐藏在收缩框里，需要时再把它展开。
+
+( display 不能包含英文逗号，可用<span class="token entity named-entity" title="&sbquo;">&amp;sbquo;</span>)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% hideToggle display,bg,color %&#125;
+content
+&#123;% endhideToggle %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>content: 文本内容</li>
+<li>display: 按钮显示的文字（可选）</li>
+<li>bg: 按钮的背景颜色（可选）</li>
+<li>color: 按钮文字的颜色（可选）</li>
+</ul>
+<p><strong>Demo</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% hideToggle Butterfly安装方法 %&#125;
+在你的博客根目录里
+
+git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/Butterfly
+
+如果想要安装比较新的dev分支，可以
+
+git clone -b dev https://github.com/jerryc127/hexo-theme-butterfly.git themes/Butterfly
+
+&#123;% endhideToggle %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="mermaid"><a href="#mermaid" class="headerlink" title="mermaid"></a>mermaid</h4><p>使用 mermaid 标签可以绘制 Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图）。</p>
+<p><a href="https://mermaid-js.github.io/mermaid/">mermaid 文档</a></p>
+<p>配置 _config.butterfly.yml 文件</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># mermaid</span>
+<span class="token comment"># see https://github.com/mermaid-js/mermaid</span>
+<span class="token key atrule">mermaid</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token comment"># built-in themes: default/forest/dark/neutral</span>
+  <span class="token key atrule">theme</span><span class="token punctuation">:</span>
+    <span class="token key atrule">light</span><span class="token punctuation">:</span> default
+    <span class="token key atrule">dark</span><span class="token punctuation">:</span> dark<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>写法</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% mermaid %&#125;
+内容
+&#123;% endmermaid %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% mermaid %&#125;
+pie
+    title Key elements in Product X
+    "Calcium" : 42.96
+    "Potassium" : 50.05
+    "Magnesium" : 10.01
+    "Iron" :  5
+&#123;% endmermaid %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h4><p><strong>使用方法</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% tabs Unique name, [index] %&#125;
+<span class="token comment">&lt;!-- tab [Tab caption] [@icon] --></span>
+Any content (support inline tags too).
+<span class="token comment">&lt;!-- endtab --></span>
+&#123;% endtabs %&#125;
+
+Unique name   : Unique name of tabs block tag without comma.
+                Will be used in #id's as prefix for each tab with their index numbers.
+                If there are whitespaces in name, for generate #id all whitespaces will replaced by dashes.
+                Only for current url of post/page must be unique!
+[index]       : Index number of active tab.
+                If not specified, first tab (1) will be selected.
+                If index is -1, no tab will be selected. It's will be something like spoiler.
+                Optional parameter.
+[Tab caption] : Caption of current tab.
+                If not caption specified, unique name with tab index suffix will be used as caption of tab.
+                If not caption specified, but specified icon, caption will empty.
+                Optional parameter.
+[@icon]       : FontAwesome icon name (full-name, look like 'fas fa-font')
+                Can be specified with or without space; e.g. 'Tab caption @icon' similar to 'Tab caption@icon'.
+                Optional parameter.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Demo 1 - 预设选择第一个【默认】</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% tabs test1 %&#125;
+<span class="token comment">&lt;!-- tab --></span>
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">This is Tab 1.</span><span class="token punctuation">**</span></span>
+<span class="token comment">&lt;!-- endtab --></span>
+
+<span class="token comment">&lt;!-- tab --></span>
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">This is Tab 2.</span><span class="token punctuation">**</span></span>
+<span class="token comment">&lt;!-- endtab --></span>
+
+<span class="token comment">&lt;!-- tab --></span>
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">This is Tab 3.</span><span class="token punctuation">**</span></span>
+<span class="token comment">&lt;!-- endtab --></span>
+&#123;% endtabs %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Demo 2 - 预设选择 tabs</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% tabs test2, 3 %&#125;
+<span class="token comment">&lt;!-- tab --></span>
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">This is Tab 1.</span><span class="token punctuation">**</span></span>
+<span class="token comment">&lt;!-- endtab --></span>
+
+<span class="token comment">&lt;!-- tab --></span>
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">This is Tab 2.</span><span class="token punctuation">**</span></span>
+<span class="token comment">&lt;!-- endtab --></span>
+
+<span class="token comment">&lt;!-- tab --></span>
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">This is Tab 3.</span><span class="token punctuation">**</span></span>
+<span class="token comment">&lt;!-- endtab --></span>
+&#123;% endtabs %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Demo 3 - 没有预设值</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% tabs test3, -1 %&#125;
+<span class="token comment">&lt;!-- tab --></span>
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">This is Tab 1.</span><span class="token punctuation">**</span></span>
+<span class="token comment">&lt;!-- endtab --></span>
+
+<span class="token comment">&lt;!-- tab --></span>
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">This is Tab 2.</span><span class="token punctuation">**</span></span>
+<span class="token comment">&lt;!-- endtab --></span>
+
+<span class="token comment">&lt;!-- tab --></span>
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">This is Tab 3.</span><span class="token punctuation">**</span></span>
+<span class="token comment">&lt;!-- endtab --></span>
+&#123;% endtabs %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Demo 4 - 自定义Tab名 + 只有icon + icon和Tab名</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% tabs test4 %&#125;
+<span class="token comment">&lt;!-- tab 第一个Tab --></span>
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">tab名字为第一个Tab</span><span class="token punctuation">**</span></span>
+<span class="token comment">&lt;!-- endtab --></span>
+
+<span class="token comment">&lt;!-- tab @fab fa-apple-pay --></span>
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">只有图标 没有Tab名字</span><span class="token punctuation">**</span></span>
+<span class="token comment">&lt;!-- endtab --></span>
+
+<span class="token comment">&lt;!-- tab 炸弹@fas fa-bomb --></span>
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">名字+icon</span><span class="token punctuation">**</span></span>
+<span class="token comment">&lt;!-- endtab --></span>
+&#123;% endtabs %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="inlineImg"><a href="#inlineImg" class="headerlink" title="inlineImg"></a>inlineImg</h4><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% inlineImg <span class="token url">[<span class="token content">src</span>] [<span class="token variable">height</span>]</span> %&#125;
+
+[src]      :    图片链接
+[height]   ：   图片高度限制【可选】<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Demon</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">你看我长得漂亮不
+
+![](https://i.loli.net/2021/03/19/2P6ivUGsdaEXSFI.png)
+
+我觉得很漂亮 &#123;% inlineImg https://i.loli.net/2021/03/19/5M4jUB3ynq7ePgw.png 150px %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h4 id="label"><a href="#label" class="headerlink" title="label"></a>label</h4><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% label text color %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>text: 文字</li>
+<li>color: 【可选】背景颜色，默认为 default default&#x2F;blue&#x2F;pink&#x2F;red&#x2F;purple&#x2F;orange&#x2F;green</li>
+</ul>
+<p><strong>Demo</strong></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">臣亮言：&#123;% label 先帝 %&#125;创业未半，而&#123;% label 中道崩殂 blue %&#125;。今天下三分，&#123;% label 益州疲敝 pink %&#125;，此诚&#123;% label 危急存亡之秋 red %&#125;也！然侍衞之臣，不懈于内；&#123;% label 忠志之士 purple %&#125;，忘身于外者，盖追先帝之殊遇，欲报之于陛下也。诚宜开张圣听，以光先帝遗德，恢弘志士之气；不宜妄自菲薄，引喻失义，以塞忠谏之路也。
+宫中、府中，俱为一体；陟罚臧否，不宜异同。若有&#123;% label 作奸 orange %&#125;、&#123;% label 犯科 green %&#125;，及为忠善者，宜付有司，论其刑赏，以昭陛下平明之治；不宜偏私，使内外异法也。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="timeline"><a href="#timeline" class="headerlink" title="timeline"></a>timeline</h4><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% timeline title,color %&#125;
+<span class="token comment">&lt;!-- timeline title --></span>
+xxxxx
+<span class="token comment">&lt;!-- endtimeline --></span>
+<span class="token comment">&lt;!-- timeline title --></span>
+xxxxx
+<span class="token comment">&lt;!-- endtimeline --></span>
+&#123;% endtimeline %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>title: 标题&#x2F;时间线</li>
+<li>color: timeline 颜色 default(留空) &#x2F; blue &#x2F; pink &#x2F; red &#x2F; purple &#x2F; orange &#x2F; green</li>
+</ul>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% timeline 2022 %&#125;
+<span class="token comment">&lt;!-- timeline 01-02 --></span>
+这是测试页面
+<span class="token comment">&lt;!-- endtimeline --></span>
+&#123;% endtimeline %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% timeline 2022,blue %&#125;
+<span class="token comment">&lt;!-- timeline 01-02 --></span>
+这是测试页面
+<span class="token comment">&lt;!-- endtimeline --></span>
+&#123;% endtimeline %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% timeline 2022,green %&#125;
+<span class="token comment">&lt;!-- timeline 01-02 --></span>
+这是测试页面
+<span class="token comment">&lt;!-- endtimeline --></span>
+&#123;% endtimeline %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="flink"><a href="#flink" class="headerlink" title="flink"></a>flink</h4><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% flink %&#125;
+xxxxxx
+&#123;% endflink %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">&#123;% flink %&#125;
+<span class="token list punctuation">-</span> class_name: 友情链接
+  class_desc: 那些人，那些事
+  link_list:
+    <span class="token list punctuation">-</span> name: JerryC
+      link: https://jerryc.me/
+      avatar: https://jerryc.me/img/avatar.png
+      descr: 今日事,今日毕
+    <span class="token list punctuation">-</span> name: Hexo
+      link: https://hexo.io/zh-tw/
+      avatar: https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg
+      descr: 快速、简单且强大的网誌框架
+
+<span class="token list punctuation">-</span> class_name: 网站
+  class_desc: 值得推荐的网站
+  link_list:
+    <span class="token list punctuation">-</span> name: Youtube
+      link: https://www.youtube.com/
+      avatar: https://i.loli.net/2020/05/14/9ZkGg8v3azHJfM1.png
+      descr: 视频网站
+    <span class="token list punctuation">-</span> name: Weibo
+      link: https://www.weibo.com/
+      avatar: https://i.loli.net/2020/05/14/TLJBum386vcnI1P.png
+      descr: 中国最大社交分享平台
+    <span class="token list punctuation">-</span> name: Twitter
+      link: https://twitter.com/
+      avatar: https://i.loli.net/2020/05/14/5VyHPQqR6LWF39a.png
+      descr: 社交分享平台
+&#123;% endflink %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="打字特效"><a href="#打字特效" class="headerlink" title="打字特效"></a>打字特效</h4><p>修改 _config.butterfly.yml 文件</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Typewriter Effect (打字效果)</span>
+<span class="token comment"># https://github.com/disjukr/activate-power-mode</span>
+<span class="token key atrule">activate_power_mode</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">colorful</span><span class="token punctuation">:</span> <span class="token boolean important">true</span> <span class="token comment"># open particle animation (冒光特效)</span>
+  <span class="token key atrule">shake</span><span class="token punctuation">:</span> <span class="token boolean important">false</span> <span class="token comment">#  open shake (抖動特效)</span>
+  <span class="token key atrule">mobile</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="背景特效"><a href="#背景特效" class="headerlink" title="背景特效"></a>背景特效</h4><p>修改 _config.butterfly.yml 文件</p>
+<p><strong>静止条带</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># canvas_ribbon (靜止彩帶背景)</span>
+<span class="token comment"># See: https://github.com/hustcc/ribbon.js</span>
+<span class="token key atrule">canvas_ribbon</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">size</span><span class="token punctuation">:</span> <span class="token number">150</span>
+  <span class="token key atrule">alpha</span><span class="token punctuation">:</span> <span class="token number">0.6</span>
+  <span class="token key atrule">zIndex</span><span class="token punctuation">:</span> <span class="token number">-1</span>
+  <span class="token key atrule">click_to_change</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">mobile</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>动态条带</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Fluttering Ribbon (動態彩帶)</span>
+<span class="token key atrule">canvas_fluttering_ribbon</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">mobile</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>canvas-nest</strong></p>
+<p>注：建议去掉之前加的动态线条效果</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># canvas_nest</span>
+<span class="token comment"># https://github.com/hustcc/canvas-nest.js</span>
+<span class="token key atrule">canvas_nest</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">color</span><span class="token punctuation">:</span> <span class="token string">'0,0,255'</span> <span class="token comment">#color of lines, default: '0,0,0'; RGB values: (R,G,B).(note: use ',' to separate.)</span>
+  <span class="token key atrule">opacity</span><span class="token punctuation">:</span> <span class="token number">0.7</span> <span class="token comment"># the opacity of line (0~1), default: 0.5.</span>
+  <span class="token key atrule">zIndex</span><span class="token punctuation">:</span> <span class="token number">-1</span> <span class="token comment"># z-index property of the background, default: -1.</span>
+  <span class="token key atrule">count</span><span class="token punctuation">:</span> <span class="token number">99</span> <span class="token comment"># the number of lines, default: 99.</span>
+  <span class="token key atrule">mobile</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="鼠标点击效果"><a href="#鼠标点击效果" class="headerlink" title="鼠标点击效果"></a>鼠标点击效果</h4><p>修改 _config.butterfly.yml 文件</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Mouse click effects: fireworks (鼠標點擊效果: 煙火特效)</span>
+<span class="token key atrule">fireworks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">zIndex</span><span class="token punctuation">:</span> <span class="token number">9999</span> <span class="token comment"># -1 or 9999</span>
+  <span class="token key atrule">mobile</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+
+<span class="token comment"># Mouse click effects: Heart symbol (鼠標點擊效果: 愛心)</span>
+<span class="token key atrule">click_heart</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">mobile</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+
+<span class="token comment"># Mouse click effects: words (鼠標點擊效果: 文字)</span>
+<span class="token key atrule">ClickShowText</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">text</span><span class="token punctuation">:</span>
+    <span class="token comment"># - I</span>
+    <span class="token comment"># - LOVE</span>
+    <span class="token comment"># - YOU</span>
+  <span class="token key atrule">fontSize</span><span class="token punctuation">:</span> 15px
+  <span class="token key atrule">random</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">mobile</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="页面美化"><a href="#页面美化" class="headerlink" title="页面美化"></a>页面美化</h4><p>会改变ol、ul、h1-h5的样式</p>
+<p>修改 _config.butterfly.yml 文件</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Beautify (美化頁面顯示)</span>
+<span class="token key atrule">beautify</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">field</span><span class="token punctuation">:</span> site <span class="token comment"># site/post</span>
+  <span class="token key atrule">title-prefix-icon</span><span class="token punctuation">:</span> <span class="token string">'\f0c1'</span> <span class="token comment"># '\f863'</span>
+  <span class="token key atrule">title-prefix-icon-color</span><span class="token punctuation">:</span> <span class="token string">'#F47466'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Snackbar-弹窗"><a href="#Snackbar-弹窗" class="headerlink" title="Snackbar 弹窗"></a>Snackbar 弹窗</h4><p>修改 _config.butterfly.yml 文件</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Snackbar (Toast Notification 彈窗)</span>
+<span class="token comment"># https://github.com/polonel/SnackBar</span>
+<span class="token comment"># position 彈窗位置</span>
+<span class="token comment"># 可選 top-left / top-center / top-right / bottom-left / bottom-center / bottom-right</span>
+<span class="token key atrule">snackbar</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">position</span><span class="token punctuation">:</span> bottom<span class="token punctuation">-</span>left
+  <span class="token key atrule">bg_light</span><span class="token punctuation">:</span> <span class="token string">'#49b1f5'</span> <span class="token comment"># The background color of Toast Notification in light mode</span>
+  <span class="token key atrule">bg_dark</span><span class="token punctuation">:</span> <span class="token string">'#1f1f1f'</span> <span class="token comment"># The background color of Toast Notification in dark mode</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Instantpage"><a href="#Instantpage" class="headerlink" title="Instantpage"></a>Instantpage</h4><p>当鼠标悬停到链接上超过 65 毫秒时，Instantpage 会对该链接进行预加载，可以提升访问速度。</p>
+<p>修改 _config.butterfly.yml 文件</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># https://instant.page/</span>
+<span class="token comment"># prefetch (預加載)</span>
+<span class="token key atrule">instantpage</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="全局-Aplayer-播放"><a href="#全局-Aplayer-播放" class="headerlink" title="全局 Aplayer 播放"></a>全局 Aplayer 播放</h4><p>参考文档：</p>
+<ul>
+<li><a href="https://butterfly.js.org/posts/4073eda/#%E9%9F%B3%E6%A8%82">https://butterfly.js.org/posts/4073eda/#%E9%9F%B3%E6%A8%82</a></li>
+<li><a href="https://butterfly.js.org/posts/507c070f/">https://butterfly.js.org/posts/507c070f/</a></li>
+</ul>
+<ol>
+<li>进入 blog 目录进行<strong>插件安装</strong></li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">--save</span> hexo-tag-aplayer<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>关闭 asset_inject</li>
+</ol>
+<p>在 _config.yml 文件中添加</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">aplayer</span><span class="token punctuation">:</span>
+  <span class="token key atrule">meting</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">asset_inject</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="3">
+<li>开启主题的 aplayerInject</li>
+</ol>
+<p>在 _config.butterfly.yml 文件中设置</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Inject the css and script (aplayer/meting)</span>
+<span class="token key atrule">aplayerInject</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">per_page</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="4">
+<li>插入 Aplayer html</li>
+</ol>
+<p>分享歌单的链接的最后一串数字是 id 号，如</p>
+<pre class="line-numbers language-none"><code class="language-none">https:&#x2F;&#x2F;y.qq.com&#x2F;n&#x2F;ryqq&#x2F;playlist&#x2F;8476474722<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">data-id</th>
+<th align="center">data-server</th>
+<th align="center">data-type</th>
+<th align="center">data-fixed</th>
+<th align="center">data-autoplay</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">解释</td>
+<td align="center">song id &#x2F; playlist id &#x2F; album id &#x2F; search keyword</td>
+<td align="center">music platform: netease, tencent, kugou, xiami, baidu</td>
+<td align="center">song, playlist, album, search, artist</td>
+<td align="center">enable fixed mode</td>
+<td align="center">audio autoplay</td>
+</tr>
+</tbody></table>
+<p>在 _config.butterfly.yml 文件的 inject 的 bottom 导入</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">-</span> &lt;div class="aplayer no<span class="token punctuation">-</span>destroy" data<span class="token punctuation">-</span>id="8476474722" data<span class="token punctuation">-</span>server="tencent" data<span class="token punctuation">-</span>type="playlist" data<span class="token punctuation">-</span>fixed="true" data<span class="token punctuation">-</span>autoplay="true"<span class="token punctuation">></span> &lt;/div<span class="token punctuation">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>注：歌单中不要有 vip 音乐，如果你想切换页面时，音乐不会中断。请把主题配置文件的 pjax 设为 true。如果使用 Pjax，则在 class 里需添加 no-destroy，这样防止切换页面时 Aplayer 被销毁</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Pjax</span>
+<span class="token comment"># It may contain bugs and unstable, give feedback when you find the bugs.</span>
+<span class="token comment"># https://github.com/MoOx/pjax</span>
+<span class="token key atrule">pjax</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">exclude</span><span class="token punctuation">:</span>
+    <span class="token comment"># - xxxx</span>
+    <span class="token comment"># - xxxx</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="5">
+<li>创建页面</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo n page <span class="token string">"music"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="6">
+<li>MeingJS 支持（3.0 新功能）</li>
+</ol>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token comment">&lt;!-- 简单示例 (id, server, type)  --></span>
+&#123;% meting "60198" "netease" "playlist" %&#125;
+
+<span class="token comment">&lt;!-- 进阶示例 --></span>
+&#123;% meting "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td><strong>必须值</strong></td>
+<td>歌曲 id &#x2F; 播放列表 id &#x2F; 相册 id &#x2F; 搜索关键字</td>
+</tr>
+<tr>
+<td>server</td>
+<td><strong>必须值</strong></td>
+<td>音乐平台: <code>netease</code>, <code>tencent</code>, <code>kugou</code>, <code>xiami</code>, <code>baidu</code></td>
+</tr>
+<tr>
+<td>type</td>
+<td><strong>必须值</strong></td>
+<td><code>song</code>, <code>playlist</code>, <code>album</code>, <code>search</code>, <code>artist</code></td>
+</tr>
+<tr>
+<td>fixed</td>
+<td><code>false</code></td>
+<td>开启固定模式</td>
+</tr>
+<tr>
+<td>mini</td>
+<td><code>false</code></td>
+<td>开启迷你模式</td>
+</tr>
+<tr>
+<td>loop</td>
+<td><code>all</code></td>
+<td>列表循环模式：<code>all</code>, <code>one</code>,<code>none</code></td>
+</tr>
+<tr>
+<td>order</td>
+<td><code>list</code></td>
+<td>列表播放模式： <code>list</code>, <code>random</code></td>
+</tr>
+<tr>
+<td>volume</td>
+<td>0.7</td>
+<td>播放器音量</td>
+</tr>
+<tr>
+<td>lrctype</td>
+<td>0</td>
+<td>歌词格式类型</td>
+</tr>
+<tr>
+<td>listfolded</td>
+<td><code>false</code></td>
+<td>指定音乐播放列表是否折叠</td>
+</tr>
+<tr>
+<td>storagename</td>
+<td><code>metingjs</code></td>
+<td>LocalStorage 中存储播放器设定的键名</td>
+</tr>
+<tr>
+<td>autoplay</td>
+<td><code>true</code></td>
+<td>自动播放，移动端浏览器暂时不支持此功能</td>
+</tr>
+<tr>
+<td>mutex</td>
+<td><code>true</code></td>
+<td>该选项开启时，如果同页面有其他 aplayer 播放，该播放器会暂停</td>
+</tr>
+<tr>
+<td>listmaxheight</td>
+<td><code>340px</code></td>
+<td>播放列表的最大长度</td>
+</tr>
+<tr>
+<td>preload</td>
+<td><code>auto</code></td>
+<td>音乐文件预载入模式，可选项： <code>none</code>, <code>metadata</code>, <code>auto</code></td>
+</tr>
+<tr>
+<td>theme</td>
+<td><code>#ad7a86</code></td>
+<td>播放器风格色彩设置</td>
+</tr>
+</tbody></table>
+<ol start="7">
+<li>修改 blog&#x2F;source&#x2F;music&#x2F;index.md 内容为</li>
+</ol>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token front-matter-block"><span class="token punctuation">---</span>
+<span class="token front-matter yaml language-yaml"><span class="token key atrule">title</span><span class="token punctuation">:</span> Music
+<span class="token key atrule">date</span><span class="token punctuation">:</span> <span class="token datetime number">2022-05-16 11:50:58</span>
+<span class="token key atrule">type</span><span class="token punctuation">:</span> <span class="token string">"music"</span>
+<span class="token key atrule">top_img</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//cdn.jsdelivr.net/gh/LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love/PicBed@main/blogs/pictures/20220513171354.png</span>
+<span class="token punctuation">---</span></span>
+
+&#123;% meting "8476474722" "tencent" "playlist" "theme:#3F51B5" "mutex:true" "preload:auto" %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="说说"><a href="#说说" class="headerlink" title="说说"></a>说说</h4><p>安装插件 <code>hexo-butterfly-artitalk</code>，具体配置查看 <a href="https://github.com/jerryc127/butterfly-plugins/tree/main/hexo-butterfly-artitalk">插件文档</a>。</p>
+<ol>
+<li>在 blog 目录下安装插件</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> hexo-butterfly-artitalk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li><p>配置数据库</p>
+<p>参考<a href="https://artitalk.js.org/doc.html#%F0%9F%8C%88-leancloud-%E7%9A%84%E7%9B%B8%E5%85%B3%E5%87%86%E5%A4%87">官方配置教程</a></p>
+<p>建议使用国际版的</p>
+<p>因为国际版的 LeanCloud 不需要配置 serverurl，所以推荐使用国际版，速度没有区别，如果使用国内版的 LeanCloud 别忘了填写 serverurl 即可。</p>
+</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">1. 前往 [LeanCloud国际版](https:&#x2F;&#x2F;leancloud.app&#x2F;) ，注册账号。
+2. 注册完成之后根据 LeanCloud 的提示绑定手机号和邮箱。
+3. 绑定完成之后点击创建应用，应用名称随意，接着在结构化数据中创建 class，命名为 shuoshuo。
+4. 在你新建的应用中，内建账号 &gt; 用户管理 &gt; 添加用户。点击添加用户，输入想用的用户名及密码。
+5. 回到结构化数据中，点击 class 下的 shuoshuo。找到权限，在 Class 访问权限中将 add_fields 以及 create 权限设置为指定用户，输入你刚才输入的用户名会自动匹配。为了安全起见，将 delete 和 update 也设置为跟它们一样的权限。
+6. 然后新建一个名为 atComment 的 class，权限什么的使用默认的即可。
+7. 点击 class 下的 _User 添加列，列名称为 img，默认值填上你这个账号想要用的发布说说的头像 url，这一项不进行配置，说说头像会显示为默认头像 —— Artitalk 的 logo。
+8. 在最菜单栏中找到设置-&gt; 应用 keys，记下来 AppID 和 AppKey ，一会会用。
+9. 最后将 _User 中的权限全部调为指定用户，或者数据创建者，为了保证不被篡改用户数据以达到强制发布说说。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="3">
+<li>在 _config.butterfly.yml 文件中添加</li>
+</ol>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Artitalk</span>
+<span class="token comment"># see https://artitalk.js.org/</span>
+<span class="token key atrule">artitalk</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">appId</span><span class="token punctuation">:</span> <span class="token comment">#LeanCloud 创建的应用中的 AppID</span>
+  <span class="token key atrule">appKey</span><span class="token punctuation">:</span> <span class="token comment">#LeanCloud 创建的应用中的 AppKEY</span>
+  <span class="token key atrule">path</span><span class="token punctuation">:</span>
+  <span class="token key atrule">js</span><span class="token punctuation">:</span>
+  <span class="token key atrule">option</span><span class="token punctuation">:</span>
+    <span class="token key atrule">pageSize</span><span class="token punctuation">:</span> <span class="token number">10</span>
+  <span class="token key atrule">front_matter</span><span class="token punctuation">:</span>
+    <span class="token key atrule">title</span><span class="token punctuation">:</span> ShuoShuo
+    <span class="token key atrule">top_img</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//cos.luyf<span class="token punctuation">-</span>lemon<span class="token punctuation">-</span>love.space/images/mttargon<span class="token punctuation">-</span>caverns<span class="token punctuation">-</span>of<span class="token punctuation">-</span>stone..jpg<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">appId</td>
+<td align="center">(必选) LeanCloud 创建的应用中的 AppID</td>
+</tr>
+<tr>
+<td align="center">appKey</td>
+<td align="center">(必选) LeanCloud 创建的应用中的 AppKEY</td>
+</tr>
+<tr>
+<td align="center">path</td>
+<td align="center">(可选) Artitalk 的路径名称 (默认为 artitalk，生成的页面为 artitalk&#x2F;index.html)</td>
+</tr>
+<tr>
+<td align="center">js</td>
+<td align="center">(可选) 更换 Artitalk 的 js CDN (默认为 <code>https://cdn.jsdelivr.net/npm/artitalk</code>)</td>
+</tr>
+<tr>
+<td align="center">option</td>
+<td align="center">(可选) Artitalk 需要的额外配置</td>
+</tr>
+<tr>
+<td align="center">front_matter</td>
+<td align="center">(可选) Artitalk 页面的 front_matter 配置</td>
+</tr>
+</tbody></table>
+<ol start="4">
+<li>在 _config.butterfly.yml 文件中的 menu 处添加</li>
+</ol>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">ShuoShuo</span><span class="token punctuation">:</span> /artitalk/ <span class="token punctuation">|</span><span class="token punctuation">|</span> fas fa<span class="token punctuation">-</span>comment<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="5">
+<li>因为 Artitalk 对 Pjax 的支持不友善，如果使用 Valine 评论的话，请把说说页面添加到主题配置文件中的 Pjax 的 exclude 去，不然会引起 Artitalk 和 Valine 都加载出错。修改 _config.butterfly.yml 文件</li>
+</ol>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">pjax</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">exclude</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> /artitalk/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="6">
+<li>成功页面</li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220516145612.png"></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220516145910.png"></p>
+<h4 id="hexo-filter-nofollow"><a href="#hexo-filter-nofollow" class="headerlink" title="hexo-filter-nofollow"></a>hexo-filter-nofollow</h4><p>自动向所有外部链接添加 nofollow 属性。</p>
+<p>hexo-filter-nofollow添加到所有外部链接，以确保安全，隐私和SEO。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> i hexo-filter-nofollow <span class="token parameter variable">--save</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在 _config.yml 文件中配置</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">nofollow</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">field</span><span class="token punctuation">:</span> site
+  <span class="token key atrule">exclude</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token string">'exclude1.com'</span>
+    <span class="token punctuation">-</span> <span class="token string">'exclude2.com'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="jsdelivr-刷新缓存"><a href="#jsdelivr-刷新缓存" class="headerlink" title="jsdelivr 刷新缓存"></a>jsdelivr 刷新缓存</h4><pre class="line-numbers language-none"><code class="language-none">https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;...<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>换成</p>
+<pre class="line-numbers language-none"><code class="language-none">https:&#x2F;&#x2F;purge.jsdelivr.net&#x2F;...<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="图片懒加载"><a href="#图片懒加载" class="headerlink" title="图片懒加载"></a>图片懒加载</h4><p>注：图片的懒加载可能导致图片加载不出来。</p>
+<p>配置 _config.butterfly.yml 文件</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Lazyload (圖片懶加載)</span>
+<span class="token comment"># https://github.com/verlok/vanilla-lazyload</span>
+<span class="token key atrule">lazyload</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">field</span><span class="token punctuation">:</span> site <span class="token comment"># site/post</span>
+  <span class="token key atrule">placeholder</span><span class="token punctuation">:</span>
+  <span class="token key atrule">blur</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Github-和-Gitee-分流"><a href="#Github-和-Gitee-分流" class="headerlink" title="Github 和 Gitee 分流"></a>Github 和 Gitee 分流</h3><h4 id="设置-Gitee-的-SSH-公钥"><a href="#设置-Gitee-的-SSH-公钥" class="headerlink" title="设置 Gitee 的 SSH 公钥"></a>设置 Gitee 的 SSH 公钥</h4><ol>
+<li><p>首先登录 <a href="https://gitee.com/">Gitee</a></p>
+</li>
+<li><p>进入设置页面</p>
+</li>
+<li><p>点击 SSH 公钥</p>
+</li>
+<li><p>将 Github 的 id_rsa.pub 粘贴到公钥区域，标题随便填，点击确定</p>
+</li>
+</ol>
+<p>验证</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ssh</span> <span class="token parameter variable">-T</span> git@github.com
+<span class="token function">ssh</span> <span class="token parameter variable">-T</span> git@gitee.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="部署到-Gitee"><a href="#部署到-Gitee" class="headerlink" title="部署到 Gitee"></a>部署到 Gitee</h4><ol>
+<li><p>创建仓库 LuYF-Lemon-love，路径是 用户名（如：LuYF-Lemon-love）</p>
+</li>
+<li><p>修改 _config.yml 文件 Deployment 部分为</p>
+</li>
+</ol>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Deployment</span>
+<span class="token comment">## Docs: https://hexo.io/docs/one-command-deployment</span>
+<span class="token key atrule">deploy</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> git
+  <span class="token key atrule">repo</span><span class="token punctuation">:</span> 
+    <span class="token key atrule">github</span><span class="token punctuation">:</span> git@github.com<span class="token punctuation">:</span>LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love/LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love.github.io.git
+    <span class="token key atrule">gitee</span><span class="token punctuation">:</span> git@gitee.com<span class="token punctuation">:</span>LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love/LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love.git
+  <span class="token key atrule">branch</span><span class="token punctuation">:</span> master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="3">
+<li>部署到 Github 和 Gitee 上</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo cl
+hexo g
+hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="4">
+<li><p>点击 LuYF-Lemon-love.gitee.io 仓库主页的管理按钮</p>
+</li>
+<li><p>点击开源，点击保存</p>
+</li>
+<li><p>进入到仓库中，选择服务下拉框中的Gitee Pages选项，进入后点击部署，勾选 强制使用 HTTPS。</p>
+</li>
+</ol>
+<p>注：审核时需要身份证，并且需要至少一天时间。每次重新部署代码到gitee时，都需要点击下方的更新按钮重启page服务。</p>
+<ol start="7">
+<li>登录： <a href="https://luyf-lemon-love.gitee.io/">https://luyf-lemon-love.gitee.io</a> 访问</li>
+</ol>
+<h3 id="Github-和-Coding-分流"><a href="#Github-和-Coding-分流" class="headerlink" title="Github 和 Coding 分流"></a>Github 和 Coding 分流</h3><ol>
+<li><p>登录<a href="https://coding.net/">Coding</a></p>
+</li>
+<li><p>创建项目 LuYF-Lemon-love</p>
+</li>
+<li><p>点击 代码仓库，创建名为 LuYF-Lemon-love 的公有仓库</p>
+</li>
+<li><p>复制 ssh 链接地址，<code>git@e.coding.net:luyanfeng-nlp/luyf-lemon-love/LuYF-Lemon-love.git</code></p>
+</li>
+<li><p>点击快速初始化仓库</p>
+</li>
+<li><p>配置 _config.yml 文件</p>
+</li>
+</ol>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Deployment</span>
+<span class="token comment">## Docs: https://hexo.io/docs/one-command-deployment</span>
+<span class="token key atrule">deploy</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> git
+  <span class="token key atrule">repo</span><span class="token punctuation">:</span> 
+    <span class="token key atrule">github</span><span class="token punctuation">:</span> git@github.com<span class="token punctuation">:</span>LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love/LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love.github.io.git
+    <span class="token key atrule">gitee</span><span class="token punctuation">:</span> git@gitee.com<span class="token punctuation">:</span>LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love/LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love.git
+    <span class="token key atrule">coding</span><span class="token punctuation">:</span> git@e.coding.net<span class="token punctuation">:</span>luyanfeng<span class="token punctuation">-</span>nlp/luyf<span class="token punctuation">-</span>lemon<span class="token punctuation">-</span>love/LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love.git
+  <span class="token key atrule">branch</span><span class="token punctuation">:</span> master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="7">
+<li>点击个人账号设置，点击 SSH 公钥，添加 Github 的公钥</li>
+</ol>
+<p>验证</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ssh</span> <span class="token parameter variable">-T</span> git@e.coding.net<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="8">
+<li>部署</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo cl
+hexo g
+hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>注：coding 已经于 2021 年 12 月 30 日起关闭网站托管服务。</p>
+<h3 id="腾讯云部署"><a href="#腾讯云部署" class="headerlink" title="腾讯云部署"></a>腾讯云部署</h3><h4 id="轻量云服务器配置"><a href="#轻量云服务器配置" class="headerlink" title="轻量云服务器配置"></a>轻量云服务器配置</h4><ol>
+<li><p>登录<a href="https://cloud.tencent.com/">腾讯云官网</a></p>
+</li>
+<li><p>选择轻量应用服务器，购买时可以看看有没有合适的活动,操作系统选择宝塔Linux面板 7.8.0 腾讯云专享版</p>
+</li>
+</ol>
+<p>轻量应用服务器（TencentCloud Lighthouse）是新一代开箱即用、面向轻量应用场景的云服务器产品，助力中小企业和开发者便捷高效的在云端构建网站、Web应用、小程序&#x2F;小游戏、APP、电商应用、云盘&#x2F;图床和各类开发测试环境，相比普通云服务器更加简单易用且更贴近应用，以套餐形式整体售卖基础云资源并提供高带宽流量包，将热门开源软件融合打包实现一键构建应用，提供极简上云体验。</p>
+<ol start="3">
+<li><p>登录 轻量应用服务器控制台 后，选择实例卡片右上角的更多 &gt; 重置密码。</p>
+</li>
+<li><p>使用密码登录。</p>
+</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ssh</span> <span class="token operator">&lt;</span>username<span class="token operator">></span>@<span class="token operator">&lt;</span>IP address or domain name<span class="token operator">></span>
+
+<span class="token comment">#例子</span>
+<span class="token function">ssh</span> root@43.142.31.247<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="5">
+<li>创建密钥</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">1. 登录轻量应用服务器控制台，并单击左侧导航栏中的 密钥。
+2. 在密钥列表页面，单击创建密钥。
+3. 在弹出的“创建SSH密钥”窗口中，设置密钥的所属地域，选择密钥的创建方式，单击确定。
+
+注：创建完成后将自动下载私钥，腾讯云不会保管您的私钥信息，请在10分钟内下载和获取私钥。密钥仅有一次下载机会，请您妥善保管。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="6">
+<li>密钥绑定&#x2F;解绑实例</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">1. 登录 轻量应用服务器控制台。
+2. 在左侧导航栏中，单击密钥列表。
+3. 在密钥列表页面，选择需要绑定&#x2F;解绑实例的 SSH 密钥，单击绑定&#x2F;解绑实例。
+4. 在弹出的绑定&#x2F;解绑实例窗口中，勾选需绑定&#x2F;解绑的 Linux 实例，单击确定。
+5. 为提高轻量应用服务器实例的安全性，Linux 实例绑定密钥后，会默认会禁止通过密码登录 root 用户。如您仍需保留密码登录方式，可参考 修改 SSH 进行修改。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="7">
+<li>使用密钥登录</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">chmod</span> <span class="token number">400</span> <span class="token operator">&lt;</span>已下载的与实例关联的私钥的绝对路径<span class="token operator">></span>
+
+<span class="token function">ssh</span> <span class="token parameter variable">-i</span> <span class="token operator">&lt;</span>已下载的与实例关联的私钥文件的路径<span class="token operator">></span> <span class="token operator">&lt;</span>username<span class="token operator">></span>@<span class="token operator">&lt;</span>IP address or domain name<span class="token operator">></span>
+
+<span class="token comment">#例子</span>
+<span class="token function">chmod</span> <span class="token number">400</span> <span class="token function">ssh</span> 
+<span class="token function">ssh</span> <span class="token parameter variable">-i</span> <span class="token function">ssh</span> root@43.142.31.247<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="Hexo部署至轻量应用服务器的宝塔面板"><a href="#Hexo部署至轻量应用服务器的宝塔面板" class="headerlink" title="Hexo部署至轻量应用服务器的宝塔面板"></a>Hexo部署至轻量应用服务器的宝塔面板</h4><ol>
+<li>登录服务器后输入下面命令，记住宝塔面板地址，用户名和密码（面板地址访问需要控制面板的防火墙处开放8888端口）</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> /etc/init.d/bt default<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li><p>登录宝塔面板，傻瓜式配置完成。注：选择 lnmp，不要选择 lamp</p>
+</li>
+<li><p>登录 轻量应用服务器，运行下面命令</p>
+</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">su</span> root
+
+yum <span class="token function">install</span> <span class="token function">git</span>
+
+adduser <span class="token function">git</span>
+<span class="token function">chmod</span> <span class="token number">740</span> /etc/sudoers
+
+<span class="token function">vim</span> /etc/sudoers<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>按i键进入编辑模式，找到root ALL&#x3D;(ALL) ALL，在其下方加入：</p>
+<pre class="line-numbers language-vim" data-language="vim"><code class="language-vim">git     ALL<span class="token operator">=</span><span class="token punctuation">(</span>ALL<span class="token punctuation">)</span>       ALL<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">chmod</span> <span class="token number">400</span> /etc/sudoers
+<span class="token function">sudo</span> <span class="token function">passwd</span> <span class="token function">git</span>
+<span class="token function">su</span> <span class="token function">git</span>
+<span class="token function">mkdir</span> ~/.ssh
+<span class="token function">vim</span> ~/.ssh/authorized_keys<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>进入编辑模式，把之前 Github 的id_rsa.pub文件中的公钥粘贴进去，按esc后，输入:wq保存。(注意!!! 最后一行要加回车)</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">chmod</span> <span class="token number">600</span> /home/git/.ssh/authorized_keys
+<span class="token function">chmod</span> <span class="token number">700</span> /home/git/.ssh
+
+<span class="token comment"># 本地测试</span>
+<span class="token function">ssh</span> <span class="token parameter variable">-v</span> git@服务器ip地址或域名
+
+<span class="token comment">#例子</span>
+<span class="token function">ssh</span> <span class="token parameter variable">-v</span> git@43.142.31.247
+
+<span class="token function">sudo</span> <span class="token function">su</span> root
+
+<span class="token function">mkdir</span> /www/wwwroot/repo
+<span class="token function">chown</span> <span class="token parameter variable">-R</span> git:git /www/wwwroot/repo
+<span class="token function">chmod</span> <span class="token parameter variable">-R</span> <span class="token number">755</span> /www/wwwroot/repo
+
+<span class="token function">mkdir</span> /www/wwwroot/hexo
+<span class="token function">chown</span> <span class="token parameter variable">-R</span> git:git /www/wwwroot/hexo
+<span class="token function">chmod</span> <span class="token parameter variable">-R</span> <span class="token number">755</span> /www/wwwroot/hexo
+
+<span class="token builtin class-name">cd</span> /www/wwwroot/repo/
+<span class="token function">git</span> init <span class="token parameter variable">--bare</span> hexo.git
+<span class="token function">vim</span> /www/wwwroot/repo/hexo.git/hooks/post-receive<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>按i进入编辑模式，添加下面的代码，按esc输入:wq 保存</p>
+<pre class="line-numbers language-vim" data-language="vim"><code class="language-vim">#<span class="token operator">!</span><span class="token operator">/</span><span class="token builtin">bin</span><span class="token operator">/</span>bash
+git <span class="token operator">-</span><span class="token operator">-</span>work<span class="token operator">-</span>tree<span class="token operator">=</span><span class="token operator">/</span>www<span class="token operator">/</span>wwwroot<span class="token operator">/</span>hexo <span class="token operator">-</span><span class="token operator">-</span>git<span class="token operator">-</span><span class="token builtin">dir</span><span class="token operator">=</span><span class="token operator">/</span>www<span class="token operator">/</span>wwwroot<span class="token operator">/</span>repo<span class="token operator">/</span>hexo<span class="token operator">.</span>git checkout <span class="token operator">-</span><span class="token keyword">f</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">chown</span> <span class="token parameter variable">-R</span> git:git /www/wwwroot/repo/hexo.git/hooks/post-receive
+<span class="token function">chmod</span> +x /www/wwwroot/repo/hexo.git/hooks/post-receive<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ol start="4">
+<li>宝塔面板配置</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">1. 登录宝塔面板
+
+2. 点击网站，然后添加一个 PHP 项目的站点
+
+3. 域名填写：本服务器的IP 地址或者 域名，根目录：&#x2F;www&#x2F;wwwroot&#x2F;hexo，其他的默认，点击提交<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="5">
+<li>配置博客的 _config.yml 文件</li>
+</ol>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">deploy</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> git
+  <span class="token key atrule">repo</span><span class="token punctuation">:</span> git@服务器ip或域名<span class="token punctuation">:</span>/www/wwwroot/repo/hexo.git
+  <span class="token key atrule">branch</span><span class="token punctuation">:</span> master
+
+<span class="token comment">#例子</span>
+<span class="token comment"># Deployment</span>
+<span class="token comment">## Docs: https://hexo.io/docs/one-command-deployment</span>
+<span class="token key atrule">deploy</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> git
+  <span class="token key atrule">repo</span><span class="token punctuation">:</span> 
+    <span class="token key atrule">github</span><span class="token punctuation">:</span> git@github.com<span class="token punctuation">:</span>LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love/LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love.github.io.git
+    <span class="token key atrule">gitee</span><span class="token punctuation">:</span> git@gitee.com<span class="token punctuation">:</span>LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love/LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love.git
+    <span class="token key atrule">coding</span><span class="token punctuation">:</span> git@e.coding.net<span class="token punctuation">:</span>luyanfeng<span class="token punctuation">-</span>nlp/luyf<span class="token punctuation">-</span>lemon<span class="token punctuation">-</span>love/LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love.git
+    <span class="token key atrule">baota</span><span class="token punctuation">:</span> git@43.142.31.247<span class="token punctuation">:</span>/www/wwwroot/repo/hexo.git
+  <span class="token key atrule">branch</span><span class="token punctuation">:</span> master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo cl
+hexo g
+hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="6">
+<li>如果报错，请删除&#x2F;www&#x2F;wwwroot&#x2F;hexo下的所有文件. 包括.user.ini(需要通过宝塔面板的文件页面删除)</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 注意通过宝塔面板的文件页面删除 .user.ini文件</span>
+<span class="token function">rm</span> /www/wwwroot/hexo/*
+
+<span class="token function">chown</span> <span class="token parameter variable">-R</span> git:git /www/wwwroot/repo
+<span class="token function">chmod</span> <span class="token parameter variable">-R</span> <span class="token number">755</span> /www/wwwroot/repo
+
+<span class="token function">chown</span> <span class="token parameter variable">-R</span> git:git /www/wwwroot/hexo
+<span class="token function">chmod</span> <span class="token parameter variable">-R</span> <span class="token number">755</span> /www/wwwroot/hexo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Bilibili-页面"><a href="#Bilibili-页面" class="headerlink" title="Bilibili 页面"></a>Bilibili 页面</h3><h4 id="获取-Bilibili-图标"><a href="#获取-Bilibili-图标" class="headerlink" title="获取 Bilibili 图标"></a>获取 Bilibili 图标</h4><ol>
+<li><p>注册登录 <a href="https://www.iconfont.cn/">iconfont</a></p>
+</li>
+<li><p>添加图标到购物车</p>
+</li>
+<li><p>点击购物车，将图标添加进项目，如果没有项目点击下面的按钮，新建一个项目</p>
+</li>
+<li><p>点击 Font class 和 View the Online Link</p>
+</li>
+<li><p>将显示的链接补全成 css，然后添加到 _config.butterfly.yml 文件的 inject 的 head 处</p>
+</li>
+<li><p>可以在 _config.butterfly.yml 文件的 menu 处引用，引用的格式为 <code>iconfont icon名字</code>，如 iconfont icon-bilibili</p>
+</li>
+</ol>
+<h4 id="新建-Bilibili-主页"><a href="#新建-Bilibili-主页" class="headerlink" title="新建 Bilibili 主页"></a>新建 Bilibili 主页</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo n page <span class="token string">"bilibili"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>修改 blog&#x2F;source&#x2F;bilibili&#x2F;index.md 文件为：</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token front-matter-block"><span class="token punctuation">---</span>
+<span class="token front-matter yaml language-yaml"><span class="token key atrule">title</span><span class="token punctuation">:</span> Bilibili
+<span class="token key atrule">date</span><span class="token punctuation">:</span> <span class="token datetime number">2022-05-18 18:22:09</span>
+<span class="token key atrule">type</span><span class="token punctuation">:</span> <span class="token string">"bilibili"</span>
+<span class="token key atrule">top_img</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//cdn.jsdelivr.net/gh/LuYF<span class="token punctuation">-</span>Lemon<span class="token punctuation">-</span>love/PicBed@main/blogs/pictures/20220513171931.png</span>
+<span class="token punctuation">---</span></span>
+
+<span class="token title important"><span class="token punctuation">###</span> 斗破苍穹</span>
+
+&#123;% raw %&#125;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span> <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span> <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span> <span class="token property">padding-bottom</span><span class="token punctuation">:</span> 75%<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iframe</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>//player.bilibili.com/player.html?aid=209733780&amp;bvid=BV17a411r7AV&amp;cid=462112443&amp;page=1<span class="token punctuation">"</span></span> <span class="token attr-name">scrolling</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>no<span class="token punctuation">"</span></span> <span class="token attr-name">border</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span> <span class="token attr-name">frameborder</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>no<span class="token punctuation">"</span></span> <span class="token attr-name">framespacing</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span> <span class="token attr-name">allowfullscreen</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span> <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span> <span class="token property">height</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span> <span class="token property">Left</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span> <span class="token property">top</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span> <span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>iframe</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+&#123;% endraw %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注：注意上面视频的 style，否则 Bilibili 窗口非常小。</p>
+<h3 id="腾讯云域名绑定到-Github-上"><a href="#腾讯云域名绑定到-Github-上" class="headerlink" title="腾讯云域名绑定到 Github 上"></a>腾讯云域名绑定到 Github 上</h3><ol>
+<li><p>登录<a href="https://cloud.tencent.com/">腾讯云官网</a>，找到 <strong><a href="https://dnspod.cloud.tencent.com/">域名注册</a></strong> 并进入，选择你想要的域名并购买，注意第一次需要用身份证创建信息模板，并进行实名认证，虽然腾讯官网说需要 3-5 日，但实际上只需要 15 分钟左右，效率还是很高的。</p>
+</li>
+<li><p>然后进入<a href="https://console.cloud.tencent.com/cns">腾讯云 DNS 解析控制台</a>，点击你的域名的解析按钮，点击添加记录按钮，如图</p>
+</li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220521205001.png"></p>
+<pre class="line-numbers language-none"><code class="language-none">主机记录：填写子域名。例如，添加 www.123.com 的解析，您在 “主机记录” 处选择 “www” 即可。如果只是想添加 123.com 的解析，您在 “主机记录” 处选择 “@” 即可。“@” 的 CNAME 会影响到 MX 记录的正常解析，添加时请您慎重考虑。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<tr>
+<th>记录类型</th>
+<th>使用目的</th>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/3449">A 记录</a></td>
+<td>将域名指向一个 IP 地址（外网地址）。</td>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/3450">CNAME 记录</a></td>
+<td>将域名指向另一个域名，再由另一个域名提供 IP 地址（外网地址）。</td>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/3451">MX 记录</a></td>
+<td>设置邮箱，让邮箱能收到邮件。</td>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/3452">NS 记录</a></td>
+<td>将子域名交给其他 DNS 服务商解析。</td>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/3453">AAAA 记录</a></td>
+<td>将域名指向一个 IPv6 地址。</td>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/12647">SRV 记录</a></td>
+<td>用来标识某台服务器使用了某个服务，常见于微软系统的目录管理。</td>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/12648">TXT 记录</a></td>
+<td>对域名进行标识和说明，绝大多数的 TXT 记录是用来做 SPF 记录（反垃圾邮件）。</td>
+</tr>
+</tr>
+<tr>
+<td><a href="https://cloud.tencent.com/document/product/302/12649">隐、显性 URL 记录</a></td>
+<td>将一个域名指向另外一个已经存在的站点。</td>
+</tr>
+</table>
+
+<ol start="3">
+<li>为了使访客用不用 www 都可以访问博客，我们添加两条记录，注意：我们选择 CNAME 记录类型，记录值填写 <strong>你的 Github 用户名.github.io</strong>，如图</li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220521205412.png"></p>
+<ol start="4">
+<li>进入你的 Github 博客所在仓库的设置页面，点击 Pages，在 Custom domain 处修改域名为你之前买的域名，并勾选 Enforce HTTPS，然后点击 Save。如图</li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220521210424.png"></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220521210459.png"></p>
+<ol start="5">
+<li>在 blog&#x2F;source 目录下新建一个 CNAME 文件，填入你的域名。</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">luyf-lemon-love.space<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="6">
+<li>然后一键三连，过不了多久，再打开你的浏览器，输入你自己的域名，就可以看到搭建的网站啦！</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo clean
+hexo g
+hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Git-分支进行多终端工作-更换电脑"><a href="#Git-分支进行多终端工作-更换电脑" class="headerlink" title="Git 分支进行多终端工作 | 更换电脑"></a>Git 分支进行多终端工作 | 更换电脑</h3><p>默认情况下 hexo d上传部署到github的其实是hexo编译后的文件，是用来生成网页的，不包含源文件。</p>
+<p>可以利用 Git 分支实现快速的切换工作环境（不同的电脑撰写博客）和备份源文件。</p>
+<h4 id="Git-分支进行多终端工作"><a href="#Git-分支进行多终端工作" class="headerlink" title="Git 分支进行多终端工作"></a>Git 分支进行多终端工作</h4><ol>
+<li>在 LuYF-Lemon-love.github.io 仓库的主页新建一个 hexo 分支。</li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220521221948.png"></p>
+<ol start="2">
+<li>在 LuYF-Lemon-love.github.io 仓库的设置页面 &gt; Branches &gt; Default branch 处修改默认分支为 hexo 。</li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220521222202.png"></p>
+<ol start="3">
+<li>在本地任意目录下运行下面命令，将你的仓库克隆到本地</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone git@github.com:LuYF-Lemon-love/LuYF-Lemon-love.github.io.git<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="4">
+<li><p>进入到 LuYF-Lemon-love.github.io 目录里面，把除了 .git 目录以外，其他所有文件都删掉。</p>
+</li>
+<li><p>将之前的 blog 目录里面的文件都复制到 LuYF-Lemon-love.github.io 目录中，由于 Git 不能嵌套上传，你应该把各个主题目录里面的 .git 目录删掉（由于之前用过 yilia 主题，因此我需要删掉 butterfly 和 yilia 两个主题目录里的 .git 文件）。由于之前进阶版看板娘的克隆过一个 live2d-widget 目录，因此您应该删掉 LuYF-Lemon-love.github.io&#x2F;themes&#x2F;butterfly&#x2F;source&#x2F;live2d-widget 目录里面的 .git 目录。</p>
+</li>
+<li><p>然后在 LuYF-Lemon-love.github.io 目录下运行下面的命令将博客的源文件上传到 Github 上。</p>
+</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span>
+<span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"add branch"</span>
+<span class="token function">git</span> push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="更换电脑"><a href="#更换电脑" class="headerlink" title="更换电脑"></a>更换电脑</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装 git </span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">git</span>
+
+<span class="token comment"># 设置 git</span>
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> user.name <span class="token string">"yourgithubname"</span>
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> user.email <span class="token string">"yourgithubemail"</span>
+
+<span class="token comment"># 设置 ssh key</span>
+ssh-keygen <span class="token parameter variable">-t</span> rsa <span class="token parameter variable">-C</span> <span class="token string">"youremail"</span>
+<span class="token comment">#生成后填到 github上，由于我还有 gitee，coding 和 轻量应用服务器，因此我需要为上面四个平台都填上 ssh 的公钥，并验证每一个平台的公钥是否上传成功</span>
+<span class="token comment">#验证 github</span>
+<span class="token function">ssh</span> <span class="token parameter variable">-T</span> git@github.com
+
+<span class="token comment"># 安装 nodejs</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nodejs
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">npm</span>
+
+<span class="token comment"># 安装 hexo，不需要运行 hexo init</span>
+<span class="token function">sudo</span> <span class="token function">npm</span> <span class="token function">install</span> hexo-cli <span class="token parameter variable">-g</span>
+
+<span class="token comment"># 克隆 </span>
+<span class="token function">git</span> clone git@github.com:LuYF-Lemon-love/LuYF-Lemon-love.github.io.git
+
+<span class="token builtin class-name">cd</span> LuYF-Lemon-love.github.io/
+<span class="token function">npm</span> <span class="token function">install</span>
+<span class="token function">npm</span> <span class="token function">install</span> hexo-deployer-git <span class="token parameter variable">--save</span>
+
+<span class="token comment"># 撰写博客</span>
+
+<span class="token comment"># 部署</span>
+hexo cl
+hexo g
+hexo d
+
+<span class="token comment"># 上传源文件</span>
+<span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span>
+<span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"新电脑测试"</span>
+<span class="token function">git</span> push
+
+<span class="token comment"># 每次编写的时候获取新版本</span>
+<span class="token comment"># git pull 命令用于从远程获取代码并合并本地的版本</span>
+<span class="token function">git</span> pull<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="百度收录博客"><a href="#百度收录博客" class="headerlink" title="百度收录博客"></a>百度收录博客</h3><p>由于 Github 拒绝百度爬虫的访问，因此百度不会收录 Github Pages 上的博客的。</p>
+<p>但是部署在 Vercel 上的博客，百度时可以抓取的。因此，我们是可以利用 Vercel 让百度收录我们的博客。</p>
+<p>由于之前已经我们已经介绍了在 Vervel 部署博客的方法，所以这里就不重复了。</p>
+<h4 id="向百度添加站点"><a href="#向百度添加站点" class="headerlink" title="向百度添加站点"></a>向百度添加站点</h4><ol>
+<li><p>登录 <a href="https://ziyuan.baidu.com/site/index">百度站长</a>。</p>
+</li>
+<li><p>点击添加网站，安装步骤添加网站。</p>
+</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">1. 输入网站，协议头选择 https:&#x2F;&#x2F;，域名填写 Vercel 的域名如：lu-yf-lemon-love-github-io.vercel.app
+
+2. 站点属性：信息技术
+
+3. 验证网站有三种，我们选择 **文件验证**<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>文件验证：按照指引下载 验证文件如：baidu_verify_code-BpOQH6T9DQ.html，将验证文件放入到博客根目录的 source 目录下，如 LuYF-Lemon-love.github.io&#x2F;source。</p>
+<p>然后在 _config.yml 文件中设置以下内容</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">skip_render</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> baidu_verify_code<span class="token punctuation">-</span>BpOQH6T9DQ.html<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>然后重新部署</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo cl
+hexo g
+hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>访问 <a href="https://lu-yf-lemon-love-github-io.vercel.app/baidu_verify_code-BpOQH6T9DQ.html">https://lu-yf-lemon-love-github-io.vercel.app/baidu_verify_code-BpOQH6T9DQ.html</a> 看是否能访问，如果能够，点击验证按钮完成验证。</p>
+<h4 id="向百度推送网站资源"><a href="#向百度推送网站资源" class="headerlink" title="向百度推送网站资源"></a>向百度推送网站资源</h4><ol>
+<li><p>登录 <a href="https://ziyuan.baidu.com/linksubmit/index">百度普通收录</a></p>
+</li>
+<li><p>可以发现普通收录方式有：API提交、sitemap、手动提交，我们选择 sitemap 方式，点击 sitemap。</p>
+</li>
+<li><p>安装插件</p>
+</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> hexo-generator-sitemap <span class="token parameter variable">--save</span> 
+<span class="token function">npm</span> <span class="token function">install</span> hexo-generator-baidu-sitemap <span class="token parameter variable">--save</span>
+
+hexo cl
+hexo g<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="4">
+<li><p>运行上面命令后，会发现在 LuYF-Lemon-love.github.io&#x2F;public 目录下有了 baidusitemap.xml 和 sitemap.xml</p>
+</li>
+<li><p>在 _config.yml 文件设置以下内容</p>
+</li>
+</ol>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># URL</span>
+<span class="token comment">## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'</span>
+<span class="token key atrule">url</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//lu<span class="token punctuation">-</span>yf<span class="token punctuation">-</span>lemon<span class="token punctuation">-</span>love<span class="token punctuation">-</span>github<span class="token punctuation">-</span>io.vercel.app/
+<span class="token comment"># 通用站点地图</span>
+<span class="token key atrule">sitemap</span><span class="token punctuation">:</span>
+  <span class="token key atrule">path</span><span class="token punctuation">:</span> sitemap.xml
+<span class="token comment"># 百度站点地图</span>
+<span class="token key atrule">baidusitemap</span><span class="token punctuation">:</span>
+  <span class="token key atrule">path</span><span class="token punctuation">:</span> baidusitemap.xml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="6">
+<li>在百度的普通收录页面的 sitemap 处填写下面内容（每天只能填一条），完成后点击提交。</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">https:&#x2F;&#x2F;lu-yf-lemon-love-github-io.vercel.app&#x2F;baidusitemap.xml
+https:&#x2F;&#x2F;lu-yf-lemon-love-github-io.vercel.app&#x2F;sitemap.xml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ol start="7">
+<li>第二天和第三天的结果</li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220523141148.png"></p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220524141249.png"></p>
+<ol start="8">
+<li>百度收录很慢，一般至少要半个月，你可以半个月后到百度搜索引擎中输入 site:&lt;域名&gt;（site:lu-yf-lemon-love-github-io.vercel.app)看看又没有收录。</li>
+</ol>
+<h4 id="向百度推送网站资源-2"><a href="#向百度推送网站资源-2" class="headerlink" title="向百度推送网站资源 2"></a>向百度推送网站资源 2</h4><ol>
+<li>登录 <a href="https://ziyuan.baidu.com/linksubmit/index">百度普通收录</a>，获取到 token。</li>
+</ol>
+<p><img src="https://cos.luyf-lemon-love.space/images/20220523144002.png"></p>
+<ol start="2">
+<li>安装插件</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> hexo-baidu-url-submit <span class="token parameter variable">--save</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="3">
+<li>在 _config.yml 文件中增添下面设置</li>
+</ol>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">baidu_url_submit</span><span class="token punctuation">:</span>
+  <span class="token key atrule">count</span><span class="token punctuation">:</span> <span class="token number">5</span> <span class="token comment">## 提交最新的一个链接</span>
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> lu<span class="token punctuation">-</span>yf<span class="token punctuation">-</span>lemon<span class="token punctuation">-</span>love<span class="token punctuation">-</span>github<span class="token punctuation">-</span>io.vercel.app <span class="token comment">## 在百度站长平台中注册的域名</span>
+  <span class="token key atrule">token</span><span class="token punctuation">:</span> your_token <span class="token comment">## 请注意这是您的秘钥， 所以请不要把博客源代码发布在公众仓库里!</span>
+  <span class="token key atrule">path</span><span class="token punctuation">:</span> baidu_urls.txt <span class="token comment">## 文本文档的地址， 新链接会保存在此文本文档里</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="4">
+<li>修改 _config.yml 的设置</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># URL</span>
+<span class="token comment">## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'</span>
+url: https://lu-yf-lemon-love-github-io.vercel.app
+
+<span class="token comment"># Deployment</span>
+<span class="token comment">## Docs: https://hexo.io/docs/one-command-deployment</span>
+deploy:
+  - type: <span class="token function">git</span>
+    repo: 
+      github: git@github.com:LuYF-Lemon-love/LuYF-Lemon-love.github.io.git
+      gitee: git@gitee.com:LuYF-Lemon-love/LuYF-Lemon-love.git
+      coding: git@e.coding.net:luyanfeng-nlp/luyf-lemon-love/LuYF-Lemon-love.git
+      baota: git@43.142.31.247:/www/wwwroot/repo/hexo.git
+    branch: master
+  - type: baidu_url_submitter <span class="token comment">## 这是新加的</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="5">
+<li>重新部署</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo cl
+hexo g
+hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>第四篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2022/05/08/00004-hexo-kuai-su-da-jian-yi-ge-bo-ke/">https://luyf-lemon-love.space/2022/05/08/00004-hexo-kuai-su-da-jian-yi-ge-bo-ke/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Git/">
+                                    <span class="chip bg-color">Git</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%BD%BB%E9%87%8F%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+                                    <span class="chip bg-color">轻量应用服务器</span>
+                                </a>
+                            
+                                <a href="/tags/Hexo/">
+                                    <span class="chip bg-color">Hexo</span>
+                                </a>
+                            
+                                <a href="/tags/Butterfly/">
+                                    <span class="chip bg-color">Butterfly</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/05/10/00005-github-picgo-da-jian-markdown-tu-chuang/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511161649.png" class="responsive-img" alt="00005-Github+PicGo搭建Markdown图床">
+                        
+                        <span class="card-title">00005-Github+PicGo搭建Markdown图床</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-05-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/" class="post-category">
+                                    实用技巧
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Git/">
+                        <span class="chip bg-color">Git</span>
+                    </a>
+                    
+                    <a href="/tags/VSCode/">
+                        <span class="chip bg-color">VSCode</span>
+                    </a>
+                    
+                    <a href="/tags/Markdown/">
+                        <span class="chip bg-color">Markdown</span>
+                    </a>
+                    
+                    <a href="/tags/PicGo/">
+                        <span class="chip bg-color">PicGo</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/05/08/00003-linux-ming-ling/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/20220513124700.png" class="responsive-img" alt="00003-Linux命令">
+                        
+                        <span class="card-title">00003-Linux命令</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    计算机基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

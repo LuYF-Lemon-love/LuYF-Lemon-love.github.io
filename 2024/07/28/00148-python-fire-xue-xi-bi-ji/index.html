@@ -1,0 +1,1743 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="00148 Python Fire 学习笔记, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言本文介绍了Python Fire。
+Python Fire: https://github.com/google/python-fire
+Python Fire是一个库，用于从绝对任何Python对象自动生成命令行界面（CLI）。
+
+P">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>00148 Python Fire 学习笔记 | LuYF-Lemon-love の Blog</title>
+    <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <span class="logo-span">LuYF-Lemon-love の Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <div class="logo-name">LuYF-Lemon-love の Blog</div>
+        <div class="logo-desc">
+            
+            天之道，损有余而补不足，人之道则不然，损不足以奉有余。
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/LuYF-Lemon-love/paper-is-all-you-need" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/033-119929478.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00148 Python Fire 学习笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python/">
+                                <span class="chip bg-color">Python</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-07-28
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文介绍了Python Fire。</p>
+<p>Python Fire: <a href="https://github.com/google/python-fire">https://github.com/google/python-fire</a></p>
+<p>Python Fire是一个库，用于从绝对任何Python对象自动生成命令行界面（CLI）。</p>
+<ul>
+<li>Python Fire是在Python中创建CLI的一种简单方法。</li>
+<li>Python Fire是开发和调试Python代码的有用工具。</li>
+<li>Python Fire有助于探索现有代码或将其他人的代码转换为CLI。</li>
+<li>Python Fire使Bash和Python之间的转换更容易。</li>
+<li>Python Fire通过使用已经导入和创建的模块和变量设置REPL，使使用Python REPL变得更加容易。</li>
+</ul>
+<p>要使用pip安装Python Fire，请运行：<code>pip install fire</code></p>
+<p>操作系统：Windows 11 家庭中文版</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://github.com/google/python-fire/blob/master/docs/guide.md">The Python Fire Guide</a></li>
+</ol>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>您可以在任何Python对象上调用Fire：函数、类、模块、对象、字典、列表、元组等。它们都有效！</p>
+<p>这是在函数上调用Fire的示例。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+
+<span class="token keyword">def</span> <span class="token function">hello</span><span class="token punctuation">(</span>name<span class="token operator">=</span><span class="token string">"World"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">return</span> <span class="token string">"Hello %s!"</span> <span class="token operator">%</span> name
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span>hello<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后，从命令行，您可以运行：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python hello.py  <span class="token comment"># Hello World!</span>
+python hello.py <span class="token parameter variable">--name</span><span class="token operator">=</span>David  <span class="token comment"># Hello David!</span>
+python hello.py <span class="token parameter variable">--help</span>  <span class="token comment"># Shows usage information.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>这是一个在类上调用Fire的例子。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+
+<span class="token keyword">class</span> <span class="token class-name">Calculator</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token triple-quoted-string string">"""A simple calculator class."""</span>
+
+  <span class="token keyword">def</span> <span class="token function">double</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> number<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token number">2</span> <span class="token operator">*</span> number
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span>Calculator<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后，从命令行，您可以运行：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python calculator.py double <span class="token number">10</span>  <span class="token comment"># 20</span>
+python calculator.py double <span class="token parameter variable">--number</span><span class="token operator">=</span><span class="token number">15</span>  <span class="token comment"># 30</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><h3 id="fire-Fire"><a href="#fire-Fire" class="headerlink" title="fire.Fire()"></a><code>fire.Fire()</code></h3><p>使用Fire最简单的方法是获取任何Python程序，然后在程序末尾简单地调用fire.Fire()，这会将程序的全部内容公开到命令行。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+
+<span class="token keyword">def</span> <span class="token function">hello</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">return</span> <span class="token string">'Hello &#123;name&#125;!'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>name<span class="token operator">=</span>name<span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>以下是我们如何从命令行运行我们的程序：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py hello World
+Hello World<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="fire-Fire-1"><a href="#fire-Fire-1" class="headerlink" title="fire.Fire(&lt;fn&gt;)"></a><code>fire.Fire(&lt;fn&gt;)</code></h3><p>让我们稍微修改一下我们的程序，只向命令行公开hello函数。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+
+<span class="token keyword">def</span> <span class="token function">hello</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">return</span> <span class="token string">'Hello &#123;name&#125;!'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>name<span class="token operator">=</span>name<span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span>hello<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>以下是我们如何从命令行运行它：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py World
+Hello World<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>请注意，我们不再需要指定运行hello函数，因为我们调用了fire.Fire(hello)。</p>
+<h3 id="Using-a-main"><a href="#Using-a-main" class="headerlink" title="Using a main"></a>Using a main</h3><p>我们也可以像这样编写这个程序：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+
+<span class="token keyword">def</span> <span class="token function">hello</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">return</span> <span class="token string">'Hello &#123;name&#125;!'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>name<span class="token operator">=</span>name<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span>hello<span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  main<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>或者如果我们使用<a href="https://setuptools.readthedocs.io/en/latest/pkg_resources.html#entry-points">入口点</a>，那么简单地说：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+
+<span class="token keyword">def</span> <span class="token function">hello</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">return</span> <span class="token string">'Hello &#123;name&#125;!'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>name<span class="token operator">=</span>name<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span>hello<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Fire-Without-Code-Changes"><a href="#Fire-Without-Code-Changes" class="headerlink" title="Fire Without Code Changes"></a>Fire Without Code Changes</h3><p>如果您有一个文件example.py甚至不导入fire：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">hello</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">return</span> <span class="token string">'Hello &#123;name&#125;!'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>name<span class="token operator">=</span>name<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>然后你可以像这样将它与Fire一起使用：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python <span class="token parameter variable">-m</span> fire example hello <span class="token parameter variable">--name</span><span class="token operator">=</span>World
+Hello World<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>您还可以指定example.py的文件路径，而不是它的模块路径，如下所示：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python <span class="token parameter variable">-m</span> fire example.py hello <span class="token parameter variable">--name</span><span class="token operator">=</span>World
+Hello World<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="公开多个命令"><a href="#公开多个命令" class="headerlink" title="公开多个命令"></a>公开多个命令</h2><p>在前面的示例中，我们将单个函数公开给命令行。现在我们将看看将多个函数公开给命令行的方法。</p>
+<h3 id="fire-Fire-2"><a href="#fire-Fire-2" class="headerlink" title="fire.Fire()"></a><code>fire.Fire()</code></h3><p>公开多个命令的最简单方法是编写多个函数，然后调用Fire。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+
+<span class="token keyword">def</span> <span class="token function">add</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">return</span> x <span class="token operator">+</span> y
+
+<span class="token keyword">def</span> <span class="token function">multiply</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">return</span> x <span class="token operator">*</span> y
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以这样使用它：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py <span class="token function">add</span> <span class="token number">10</span> <span class="token number">20</span>
+<span class="token number">30</span>
+$ python example.py multiply <span class="token number">10</span> <span class="token number">20</span>
+<span class="token number">200</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>您会注意到Fire正确地将10和20解析为数字，而不是字符串。</p>
+<h3 id="fire-Fire-3"><a href="#fire-Fire-3" class="headerlink" title="fire.Fire(&lt;dict&gt;)"></a><code>fire.Fire(&lt;dict&gt;)</code></h3><p>在版本1中，我们将程序的所有功能公开给命令行。通过使用dict，我们可以有选择地将函数公开给命令行。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+
+<span class="token keyword">def</span> <span class="token function">add</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">return</span> x <span class="token operator">+</span> y
+
+<span class="token keyword">def</span> <span class="token function">multiply</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">return</span> x <span class="token operator">*</span> y
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+      <span class="token string">'add'</span><span class="token punctuation">:</span> add<span class="token punctuation">,</span>
+      <span class="token string">'multiply'</span><span class="token punctuation">:</span> multiply<span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以像以前一样使用它：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py <span class="token function">add</span> <span class="token number">10</span> <span class="token number">20</span>
+<span class="token number">30</span>
+$ python example.py multiply <span class="token number">10</span> <span class="token number">20</span>
+<span class="token number">200</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="fire-Fire-4"><a href="#fire-Fire-4" class="headerlink" title="fire.Fire(&lt;object&gt;)"></a><code>fire.Fire(&lt;object&gt;)</code></h3><p>Fire也适用于对象，就像在这个变体中一样。这是公开多个命令的好方法。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+
+<span class="token keyword">class</span> <span class="token class-name">Calculator</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+  <span class="token keyword">def</span> <span class="token function">add</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> x <span class="token operator">+</span> y
+
+  <span class="token keyword">def</span> <span class="token function">multiply</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> x <span class="token operator">*</span> y
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  calculator <span class="token operator">=</span> Calculator<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span>calculator<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以像以前一样使用它：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py <span class="token function">add</span> <span class="token number">10</span> <span class="token number">20</span>
+<span class="token number">30</span>
+$ python example.py multiply <span class="token number">10</span> <span class="token number">20</span>
+<span class="token number">200</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="fire-Fire-5"><a href="#fire-Fire-5" class="headerlink" title="fire.Fire(&lt;class&gt;)"></a><code>fire.Fire(&lt;class&gt;)</code></h3><p>Fire也适用于类。这是公开多个命令的另一种好方法。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+
+<span class="token keyword">class</span> <span class="token class-name">Calculator</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+  <span class="token keyword">def</span> <span class="token function">add</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> x <span class="token operator">+</span> y
+
+  <span class="token keyword">def</span> <span class="token function">multiply</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> x <span class="token operator">*</span> y
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span>Calculator<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以像以前一样使用它：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py <span class="token function">add</span> <span class="token number">10</span> <span class="token number">20</span>
+<span class="token number">30</span>
+$ python example.py multiply <span class="token number">10</span> <span class="token number">20</span>
+<span class="token number">200</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>为什么您更喜欢类而不是对象？一个原因是您也可以传递构造类的参数，就像这个破碎的计算器示例一样。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+
+<span class="token keyword">class</span> <span class="token class-name">BrokenCalculator</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> offset<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+      self<span class="token punctuation">.</span>_offset <span class="token operator">=</span> offset
+
+  <span class="token keyword">def</span> <span class="token function">add</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> x <span class="token operator">+</span> y <span class="token operator">+</span> self<span class="token punctuation">.</span>_offset
+
+  <span class="token keyword">def</span> <span class="token function">multiply</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> x <span class="token operator">*</span> y <span class="token operator">+</span> self<span class="token punctuation">.</span>_offset
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span>BrokenCalculator<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>当您使用损坏的计算器时，您会得到错误的答案：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py <span class="token function">add</span> <span class="token number">10</span> <span class="token number">20</span>
+<span class="token number">31</span>
+$ python example.py multiply <span class="token number">10</span> <span class="token number">20</span>
+<span class="token number">201</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>但你总是可以修复它：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py <span class="token function">add</span> <span class="token number">10</span> <span class="token number">20</span> <span class="token parameter variable">--offset</span><span class="token operator">=</span><span class="token number">0</span>
+<span class="token number">30</span>
+$ python example.py multiply <span class="token number">10</span> <span class="token number">20</span> <span class="token parameter variable">--offset</span><span class="token operator">=</span><span class="token number">0</span>
+<span class="token number">200</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>普通函数的调用既可以使用位置参数，也可以使用命名参数（–标记语法），与此不同，__init__函数的参数必须使用–标记语法传递。</p>
+<h2 id="分组命令"><a href="#分组命令" class="headerlink" title="分组命令"></a>分组命令</h2><p>下面是一个示例，说明如何使用分组命令创建命令行界面。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">IngestionStage</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+  <span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token string">'Ingesting! Nom nom nom...'</span>
+
+<span class="token keyword">class</span> <span class="token class-name">DigestionStage</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+  <span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> volume<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token string">' '</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'Burp!'</span><span class="token punctuation">]</span> <span class="token operator">*</span> volume<span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> <span class="token function">status</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token string">'Satiated.'</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Pipeline</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>ingestion <span class="token operator">=</span> IngestionStage<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>digestion <span class="token operator">=</span> DigestionStage<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    ingestion_output <span class="token operator">=</span> self<span class="token punctuation">.</span>ingestion<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    digestion_output <span class="token operator">=</span> self<span class="token punctuation">.</span>digestion<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span>ingestion_output<span class="token punctuation">,</span> digestion_output<span class="token punctuation">]</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span>Pipeline<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这是命令行的外观：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py run
+Ingesting<span class="token operator">!</span> Nom nom nom<span class="token punctuation">..</span>.
+Burp<span class="token operator">!</span>
+$ python example.py ingestion run
+Ingesting<span class="token operator">!</span> Nom nom nom<span class="token punctuation">..</span>.
+$ python example.py digestion run
+Burp<span class="token operator">!</span>
+$ python example.py digestion status
+Satiated.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果你感到脾气暴躁或喜欢冒险，你可以用任意复杂的方式嵌套你的命令。</p>
+<h2 id="访问属性"><a href="#访问属性" class="headerlink" title="访问属性"></a>访问属性</h2><p>在我们目前看到的示例中，我们对python example.py的调用都运行了示例程序中的一些函数。在此示例中，我们只需访问一个属性。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> airports <span class="token keyword">import</span> airports
+
+<span class="token keyword">import</span> fire
+
+<span class="token keyword">class</span> <span class="token class-name">Airport</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> code<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>code <span class="token operator">=</span> code
+    self<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token builtin">dict</span><span class="token punctuation">(</span>airports<span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span>self<span class="token punctuation">.</span>code<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>city <span class="token operator">=</span> self<span class="token punctuation">.</span>name<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token keyword">if</span> self<span class="token punctuation">.</span>name <span class="token keyword">else</span> <span class="token boolean">None</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span>Airport<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>现在我们可以使用这个程序来了解机场代码！</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py <span class="token parameter variable">--code</span><span class="token operator">=</span>JFK code
+JFK
+$ python example.py <span class="token parameter variable">--code</span><span class="token operator">=</span>SJC name
+San Jose-Sunnyvale-Santa Clara, CA - Norman Y. Mineta San Jose International <span class="token punctuation">(</span>SJC<span class="token punctuation">)</span>
+$ python example.py <span class="token parameter variable">--code</span><span class="token operator">=</span>ALB city
+Albany-Schenectady-Troy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>顺便说一下，你可以在<a href="https://github.com/trendct-data/airports.py">这里</a>找到这个机场模块。</p>
+<h2 id="链接函数调用"><a href="#链接函数调用" class="headerlink" title="链接函数调用"></a>链接函数调用</h2><p>当您运行Fire CLI时，您可以对Fire调用的结果执行与传入的原始对象相同的操作。</p>
+<p>例如，我们可以像这样使用前面示例中的Airport CLI：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py <span class="token parameter variable">--code</span><span class="token operator">=</span>ALB city upper
+ALBANY-SCHENECTADY-TROY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>这是有效的，因为<code>upper</code>是所有字符串的方法。</p>
+<p>所以，如果你想把你的函数设置得很好，你所要做的就是有一个类，它的方法返回self。这里有一个例子。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+
+<span class="token keyword">class</span> <span class="token class-name">BinaryCanvas</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token triple-quoted-string string">"""A canvas with which to make binary art, one bit at a time."""</span>
+
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> size<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>pixels <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> size <span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">]</span>
+    self<span class="token punctuation">.</span>_size <span class="token operator">=</span> size
+    self<span class="token punctuation">.</span>_row <span class="token operator">=</span> <span class="token number">0</span>  <span class="token comment"># The row of the cursor.</span>
+    self<span class="token punctuation">.</span>_col <span class="token operator">=</span> <span class="token number">0</span>  <span class="token comment"># The column of the cursor.</span>
+
+  <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token string">'\n'</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>pixel<span class="token punctuation">)</span> <span class="token keyword">for</span> pixel <span class="token keyword">in</span> row<span class="token punctuation">)</span> <span class="token keyword">for</span> row <span class="token keyword">in</span> self<span class="token punctuation">.</span>pixels<span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> <span class="token function">show</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> self
+
+  <span class="token keyword">def</span> <span class="token function">move</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> row<span class="token punctuation">,</span> col<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>_row <span class="token operator">=</span> row <span class="token operator">%</span> self<span class="token punctuation">.</span>_size
+    self<span class="token punctuation">.</span>_col <span class="token operator">=</span> col <span class="token operator">%</span> self<span class="token punctuation">.</span>_size
+    <span class="token keyword">return</span> self
+
+  <span class="token keyword">def</span> <span class="token function">on</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> self<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> <span class="token function">off</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> self<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> <span class="token function">set</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>pixels<span class="token punctuation">[</span>self<span class="token punctuation">.</span>_row<span class="token punctuation">]</span><span class="token punctuation">[</span>self<span class="token punctuation">.</span>_col<span class="token punctuation">]</span> <span class="token operator">=</span> value
+    <span class="token keyword">return</span> self
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span>BinaryCanvas<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>现在我们可以画东西了：）。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py move <span class="token number">3</span> <span class="token number">3</span> on move <span class="token number">3</span> <span class="token number">6</span> on move <span class="token number">6</span> <span class="token number">3</span> on move <span class="token number">6</span> <span class="token number">6</span> on move <span class="token number">7</span> <span class="token number">4</span> on move <span class="token number">7</span> <span class="token number">5</span> on
+<span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span>
+<span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span>
+<span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span>
+<span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">1</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">1</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span>
+<span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span>
+<span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span>
+<span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">1</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">1</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span>
+<span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">1</span> <span class="token number">1</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span>
+<span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span>
+<span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>它应该是一个笑脸。</p>
+<h2 id="自定义序列化"><a href="#自定义序列化" class="headerlink" title="自定义序列化"></a>自定义序列化</h2><p>您会注意到在BinaryCanvas示例中，带有笑脸的画布被打印到屏幕上。您可以通过定义组件的__str__方法来确定如何序列化组件。</p>
+<p>如果最终组件上存在自定义__str__方法，则序列化并打印对象。如果没有自定义__str__方法，则显示对象的帮助屏幕。</p>
+<h2 id="我们能做一个比Hello-World更简单的例子吗？"><a href="#我们能做一个比Hello-World更简单的例子吗？" class="headerlink" title="我们能做一个比Hello World更简单的例子吗？"></a>我们能做一个比Hello World更简单的例子吗？</h2><p>是的，这个程序甚至比我们最初的Hello World示例更简单。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+english <span class="token operator">=</span> <span class="token string">'Hello World'</span>
+spanish <span class="token operator">=</span> <span class="token string">'Hola Mundo'</span>
+fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>你可以这样使用它：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py english
+Hello World
+$ python example.py spanish
+Hola Mundo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="调用函数"><a href="#调用函数" class="headerlink" title="调用函数"></a>调用函数</h2><p>构造函数的参数使用标志语法–name&#x3D;value按名称传递。</p>
+<p>例如，考虑这个简单的类：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+
+<span class="token keyword">class</span> <span class="token class-name">Building</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">,</span> stories<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>name <span class="token operator">=</span> name
+    self<span class="token punctuation">.</span>stories <span class="token operator">=</span> stories
+
+  <span class="token keyword">def</span> <span class="token function">climb_stairs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> stairs_per_story<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> story <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>stories<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      <span class="token keyword">for</span> stair <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> stairs_per_story<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">yield</span> stair
+      <span class="token keyword">yield</span> <span class="token string">'Phew!'</span>
+    <span class="token keyword">yield</span> <span class="token string">'Done!'</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span>Building<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以实例化如下：python example.py –name&#x3D;”Sherrerd Hall”</p>
+<p>其他函数的参数可以使用标志语法按位置或按名称传递。</p>
+<p>要实例化一个Build，然后运行climb_stairs函数，以下命令都是有效的：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py <span class="token parameter variable">--name</span><span class="token operator">=</span><span class="token string">"Sherrerd Hall"</span> <span class="token parameter variable">--stories</span><span class="token operator">=</span><span class="token number">3</span> climb_stairs <span class="token number">10</span>
+$ python example.py <span class="token parameter variable">--name</span><span class="token operator">=</span><span class="token string">"Sherrerd Hall"</span> climb_stairs <span class="token parameter variable">--stairs_per_story</span><span class="token operator">=</span><span class="token number">10</span>
+$ python example.py <span class="token parameter variable">--name</span><span class="token operator">=</span><span class="token string">"Sherrerd Hall"</span> climb_stairs --stairs-per-story <span class="token number">10</span>
+$ python example.py climb-stairs --stairs-per-story <span class="token number">10</span> <span class="token parameter variable">--name</span><span class="token operator">=</span><span class="token string">"Sherrerd Hall"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>您会注意到连字符和下划线（-和_）在成员名称和标志名称中是可以互换的。</p>
+<p>您还会注意到构造函数的参数可以在函数的参数之后或在函数之前。</p>
+<p>您还会注意到标志名称与其值之间的等号是可选的。</p>
+<h3 id="Functions-with-varargs-and-kwargs"><a href="#Functions-with-varargs-and-kwargs" class="headerlink" title="Functions with *varargs and **kwargs"></a>Functions with <code>*varargs</code> and <code>**kwargs</code></h3><p>Fire支持采用<code>*varargs</code>或<code>**kwargs</code>的函数。这是一个例子：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+
+<span class="token keyword">def</span> <span class="token function">order_by_length</span><span class="token punctuation">(</span><span class="token operator">*</span>items<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token triple-quoted-string string">"""Orders items by length, breaking ties alphabetically."""</span>
+  sorted_items <span class="token operator">=</span> <span class="token builtin">sorted</span><span class="token punctuation">(</span>items<span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token keyword">lambda</span> item<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">str</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token keyword">return</span> <span class="token string">' '</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>sorted_items<span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+  fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span>order_by_length<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>要使用它，我们运行：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py dog <span class="token function">cat</span> elephant
+<span class="token function">cat</span> dog elephant<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>您可以使用分隔符来表示您已完成向函数提供参数。分隔符之后的所有参数都将用于处理函数的结果，而不是传递给函数本身。默认分隔符是连字符-。</p>
+<p>这是我们使用分隔符的示例。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py dog <span class="token function">cat</span> elephant - upper
+CAT DOG ELEPHANT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>如果没有分隔符，upper将被视为另一个参数。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py dog <span class="token function">cat</span> elephant upper
+<span class="token function">cat</span> dog upper elephant<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>您可以使用<code>--separator</code>标志更改分隔符。标志始终通过隔离的–与Fire命令分开。这是我们更改分隔符的示例。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py dog <span class="token function">cat</span> elephant X upper -- <span class="token parameter variable">--separator</span><span class="token operator">=</span>X
+CAT DOG ELEPHANT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>当函数接受<code>*varargs</code>、<code>**kwargs</code>或您不想指定的默认值时，分隔符会很有用。如果要传递<code>-</code>作为参数，请记住更改分隔符也很重要。</p>
+<h2 id="参数解析"><a href="#参数解析" class="headerlink" title="参数解析"></a>参数解析</h2><p>参数的类型由它们的值决定，而不是由使用它们的函数签名决定。您可以从命令行传递任何Python文字：数字、字符串、元组、列表、字典（仅在某些Python版本中支持集合）。您还可以任意嵌套集合，只要它们只包含文字。</p>
+<p>为了演示这一点，我们将制作一个小示例程序，告诉我们我们给它的任何参数的类型：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> fire
+fire<span class="token punctuation">.</span>Fire<span class="token punctuation">(</span><span class="token keyword">lambda</span> obj<span class="token punctuation">:</span> <span class="token builtin">type</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">.</span>__name__<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>我们将这样使用它：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py <span class="token number">10</span>
+int
+$ python example.py <span class="token number">10.0</span>
+float
+$ python example.py hello
+str
+$ python example.py <span class="token string">'(1,2)'</span>
+tuple
+$ python example.py <span class="token punctuation">[</span><span class="token number">1,2</span><span class="token punctuation">]</span>
+list
+$ python example.py True
+bool
+$ python example.py <span class="token punctuation">&#123;</span>name:David<span class="token punctuation">&#125;</span>
+dict<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>您会注意到在最后一个示例中，裸词会自动替换为字符串。</p>
+<p>小心你的引号！如果你想传递字符串“10”，而不是int 10，你需要转义或引用你的引号。否则Bash会吃掉你的引号并将一个未引用的10传递给你的Python程序，Fire会将其解释为一个数字。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py <span class="token number">10</span>
+int
+$ python example.py <span class="token string">"10"</span>
+int
+$ python example.py <span class="token string">'"10"'</span>
+str
+$ python example.py <span class="token string">"'10'"</span>
+str
+$ python example.py <span class="token punctuation">\</span>"10<span class="token punctuation">\</span>"
+str<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>小心你的引用！请记住，Bash首先处理您的参数，然后Fire解析结果。如果您想将字典{“name”: “David Bieber”}传递给您的程序，您可以尝试这样做：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py <span class="token string">'&#123;"name": "David Bieber"&#125;'</span>  <span class="token comment"># Good! Do this.</span>
+dict
+$ python example.py <span class="token punctuation">&#123;</span><span class="token string">"name"</span><span class="token builtin class-name">:</span><span class="token string">'"David Bieber"'</span><span class="token punctuation">&#125;</span>  <span class="token comment"># Okay.</span>
+dict
+$ python example.py <span class="token punctuation">&#123;</span><span class="token string">"name"</span><span class="token builtin class-name">:</span><span class="token string">"David Bieber"</span><span class="token punctuation">&#125;</span>  <span class="token comment"># Wrong. This is parsed as a string.</span>
+str
+$ python example.py <span class="token punctuation">&#123;</span><span class="token string">"name"</span><span class="token builtin class-name">:</span> <span class="token string">"David Bieber"</span><span class="token punctuation">&#125;</span>  <span class="token comment"># Wrong. This isn't even treated as a single argument.</span>
+<span class="token operator">&lt;</span>error<span class="token operator">></span>
+$ python example.py <span class="token string">'&#123;"name": "Justin Bieber"&#125;'</span>  <span class="token comment"># Wrong. This is not the Bieber you're looking for. (The syntax is fine though :))</span>
+dict<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="布尔参数"><a href="#布尔参数" class="headerlink" title="布尔参数"></a>布尔参数</h3><p>True和False被解析为布尔值。</p>
+<p>您还可以通过标志语法–name和–noname指定布尔值，它们分别将名称设置为True和False。</p>
+<p>继续前面的示例，我们可以运行以下任何操作：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ python example.py <span class="token parameter variable">--obj</span><span class="token operator">=</span>True
+bool
+$ python example.py <span class="token parameter variable">--obj</span><span class="token operator">=</span>False
+bool
+$ python example.py <span class="token parameter variable">--obj</span>
+bool
+$ python example.py <span class="token parameter variable">--noobj</span>
+bool<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>小心布尔标志！如果除另一个标志之外的标记紧跟在应该是布尔值的标志之后，该标志将采用标记的值，而不是布尔值。您可以解决这个问题：通过在最后一个标志之后放置分隔符，通过显式声明布尔标志的值（如–obj&#x3D;True），或者通过确保在任何布尔标志参数之后都有另一个标志。</p>
+<h2 id="使用Fire标志"><a href="#使用Fire标志" class="headerlink" title="使用Fire标志"></a>使用Fire标志</h2><p>Fire CLI都带有一些标志。这些标志应该用一个隔离的参数与Fire命令分开。如果至少有一个隔离的参数，那么最后一个隔离的参数之后的参数被视为标志，而最后一个隔离的参数之前的所有参数都被视为Fire命令的一部分。</p>
+<p>一个有用的标志是–interactive标志。使用任何CLI上的–interactive标志输入Python REPL，其中包含调用Fire的上下文中使用的所有模块和变量，这些模块和变量已经可供您使用。其他有用的变量，例如Fire命令的结果也将可用。像这样使用此功能：python example.py – –interactive。</p>
+<p>您可以将help标志添加到任何命令中以查看帮助和使用信息。Fire会将您的文档字符串合并到它生成的帮助和使用信息中。即使您省略了隔离的<code>--</code>将标志与Fire命令分开，Fire也会尝试提供帮助，但可能并不总是能够，因为help是一个有效的参数名称。像这样使用此功能：python example.py – –help或python example.py –help（甚至python example.py -h）。</p>
+<p>完整的可用标志集如下所示，在参考部分。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><h3 id="Flags"><a href="#Flags" class="headerlink" title="Flags"></a>Flags</h3><table>
+<thead>
+<tr>
+<th align="left">Using a CLI</th>
+<th align="left">Command</th>
+<th align="left">Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Help</td>
+<td align="left"><code>command -- --help</code></td>
+<td align="left">Show help and usage information for the command.</td>
+</tr>
+<tr>
+<td align="left">REPL</td>
+<td align="left"><code>command -- --interactive</code></td>
+<td align="left">Enter interactive mode.</td>
+</tr>
+<tr>
+<td align="left">Separator</td>
+<td align="left"><code>command -- --separator=X</code></td>
+<td align="left">This sets the separator to <code>X</code>. The default separator is <code>-</code>.</td>
+</tr>
+<tr>
+<td align="left">Completion</td>
+<td align="left"><code>command -- --completion [shell]</code></td>
+<td align="left">Generate a completion script for the CLI.</td>
+</tr>
+<tr>
+<td align="left">Trace</td>
+<td align="left"><code>command -- --trace</code></td>
+<td align="left">Gets a Fire trace for the command.</td>
+</tr>
+<tr>
+<td align="left">Verbose</td>
+<td align="left"><code>command -- --verbose</code></td>
+<td align="left">Include private members in the output.</td>
+</tr>
+</tbody></table>
+<p><em>Note that flags are separated from the Fire command by an isolated <code>--</code> arg.<br>Help is an exception; the isolated <code>--</code> is optional for getting help.</em></p>
+<h3 id="Arguments-for-Calling-fire-Fire"><a href="#Arguments-for-Calling-fire-Fire" class="headerlink" title="Arguments for Calling fire.Fire()"></a>Arguments for Calling <code>fire.Fire()</code></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Usage</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>component</td>
+<td><code>fire.Fire(component)</code></td>
+<td>If omitted, defaults to a dict of all locals and globals.</td>
+</tr>
+<tr>
+<td>command</td>
+<td><code>fire.Fire(command=&#39;hello --name=5&#39;)</code></td>
+<td>Either a string or a list of arguments. If a string is provided, it is split to determine the arguments. If a list or tuple is provided, they are the arguments. If <code>command</code> is omitted, then <code>sys.argv[1:]</code> (the arguments from the command line) are used by default.</td>
+</tr>
+<tr>
+<td>name</td>
+<td><code>fire.Fire(name=&#39;tool&#39;)</code></td>
+<td>The name of the CLI, ideally the name users will enter to run the CLI. This name will be used in the CLI’s help screens. If the argument is omitted, it will be inferred automatically.</td>
+</tr>
+<tr>
+<td>serialize</td>
+<td><code>fire.Fire(serialize=custom_serializer)</code></td>
+<td>If omitted, simple types are serialized via their builtin str method, and any objects that define a custom <code>__str__</code> method are serialized with that. If specified, all objects are serialized to text via the provided method.</td>
+</tr>
+</tbody></table>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百四十八篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2024/07/28/00148-python-fire-xue-xi-bi-ji/">https://luyf-lemon-love.space/2024/07/28/00148-python-fire-xue-xi-bi-ji/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python/">
+                                    <span class="chip bg-color">Python</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/07/31/00149-fully-sharded-data-parallel-fsdp-xue-xi-bi-ji/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/035-119929348.jpg" class="responsive-img" alt="00149 Fully Sharded Data Parallel(FSDP) 学习笔记">
+                        
+                        <span class="card-title">00149 Fully Sharded Data Parallel(FSDP) 学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-07-31
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/PyTorch/">
+                        <span class="chip bg-color">PyTorch</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/07/28/00147-yu-chu-li-shu-ju/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/032-119936465.jpg" class="responsive-img" alt="00147 预处理数据">
+                        
+                        <span class="card-title">00147 预处理数据</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-28
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">LuYF-Lemon-love</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "7";
+                        var startHour = "4";
+                        var startMinute = "53";
+                        var startSecond = "32";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/LuYF-Lemon-love" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luyanfeng_nlp@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
