@@ -556,7 +556,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-31
+                    2025-01-01
                 </div>
                 
 
@@ -805,7 +805,62 @@ offsets <span class="token operator">=</span> inputs_with_offsets<span class="to
  <span class="token punctuation">&#123;</span><span class="token string">'entity'</span><span class="token punctuation">:</span> <span class="token string">'I-LOC'</span><span class="token punctuation">,</span> <span class="token string">'score'</span><span class="token punctuation">:</span> <span class="token number">0.99321055</span><span class="token punctuation">,</span> <span class="token string">'index'</span><span class="token punctuation">:</span> <span class="token number">16</span><span class="token punctuation">,</span> <span class="token string">'word'</span><span class="token punctuation">:</span> <span class="token string">'Brooklyn'</span><span class="token punctuation">,</span> <span class="token string">'start'</span><span class="token punctuation">:</span> <span class="token number">49</span><span class="token punctuation">,</span> <span class="token string">'end'</span><span class="token punctuation">:</span> <span class="token number">57</span><span class="token punctuation">&#125;</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>这与我们从第一条管道得到的结果相同！</p>
-<h3 id="分组实体"><a href="#分组实体" class="headerlink" title="分组实体"></a>分组实体</h3><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百五十二篇博文写完，开心！！！！</p>
+<h3 id="分组实体"><a href="#分组实体" class="headerlink" title="分组实体"></a>分组实体</h3><p>使用偏移量来确定每个实体的起始和结束键是方便的，但这一信息并非绝对必要。然而，当我们想要将实体分组时，偏移量可以为我们节省大量复杂的代码。例如，如果我们想要将标记 Hu, ##gging 和 Face 分组在一起，我们可以制定特殊规则，规定前两个标记应该连接在一起同时去掉 ##，而 Face 应该添加空格，因为它不以 ## 开头——但这只适用于这种特定类型的标记器。对于 SentencePiece 或 Byte-Pair-Encoding 标记器（将在本章后面讨论），我们必须编写另一套规则。</p>
+<p>有了偏移量，所有这些自定义代码都不再需要：我们只需取原始文本中从第一个标记开始到最后一个标记结束的跨度。所以，在标记 Hu, ##gging 和 Face 的情况下，我们应该从第 33 个字符（Hu 的开始）开始，在第 45 个字符（Face 的结束）之前结束：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">example<span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">:</span><span class="token number">45</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">Hugging Face<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>为了编写在分组实体时对预测进行后处理的代码，我们将把连续且标记为 I-XXX 的实体分组在一起，除了第一个，它可以标记为 B-XXX 或 I-XXX（所以，当我们遇到 O、新的实体类型或告诉我们同一类型实体开始的 B-XXX 时，我们停止分组实体）：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+results <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+inputs_with_offsets <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>example<span class="token punctuation">,</span> return_offsets_mapping<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+tokens <span class="token operator">=</span> inputs_with_offsets<span class="token punctuation">.</span>tokens<span class="token punctuation">(</span><span class="token punctuation">)</span>
+offsets <span class="token operator">=</span> inputs_with_offsets<span class="token punctuation">[</span><span class="token string">"offset_mapping"</span><span class="token punctuation">]</span>
+
+idx <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">while</span> idx <span class="token operator">&lt;</span> <span class="token builtin">len</span><span class="token punctuation">(</span>predictions<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pred <span class="token operator">=</span> predictions<span class="token punctuation">[</span>idx<span class="token punctuation">]</span>
+    label <span class="token operator">=</span> model<span class="token punctuation">.</span>config<span class="token punctuation">.</span>id2label<span class="token punctuation">[</span>pred<span class="token punctuation">]</span>
+    <span class="token keyword">if</span> label <span class="token operator">!=</span> <span class="token string">"O"</span><span class="token punctuation">:</span>
+        <span class="token comment"># Remove the B- or I-</span>
+        label <span class="token operator">=</span> label<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+        start<span class="token punctuation">,</span> _ <span class="token operator">=</span> offsets<span class="token punctuation">[</span>idx<span class="token punctuation">]</span>
+
+        <span class="token comment"># Grab all the tokens labeled with I-label</span>
+        all_scores <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>
+            idx <span class="token operator">&lt;</span> <span class="token builtin">len</span><span class="token punctuation">(</span>predictions<span class="token punctuation">)</span>
+            <span class="token keyword">and</span> model<span class="token punctuation">.</span>config<span class="token punctuation">.</span>id2label<span class="token punctuation">[</span>predictions<span class="token punctuation">[</span>idx<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string-interpolation"><span class="token string">f"I-</span><span class="token interpolation"><span class="token punctuation">&#123;</span>label<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span>
+        <span class="token punctuation">)</span><span class="token punctuation">:</span>
+            all_scores<span class="token punctuation">.</span>append<span class="token punctuation">(</span>probabilities<span class="token punctuation">[</span>idx<span class="token punctuation">]</span><span class="token punctuation">[</span>pred<span class="token punctuation">]</span><span class="token punctuation">)</span>
+            _<span class="token punctuation">,</span> end <span class="token operator">=</span> offsets<span class="token punctuation">[</span>idx<span class="token punctuation">]</span>
+            idx <span class="token operator">+=</span> <span class="token number">1</span>
+
+        <span class="token comment"># The score is the mean of all the scores of the tokens in that grouped entity</span>
+        score <span class="token operator">=</span> np<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>all_scores<span class="token punctuation">)</span><span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        word <span class="token operator">=</span> example<span class="token punctuation">[</span>start<span class="token punctuation">:</span>end<span class="token punctuation">]</span>
+        results<span class="token punctuation">.</span>append<span class="token punctuation">(</span>
+            <span class="token punctuation">&#123;</span>
+                <span class="token string">"entity_group"</span><span class="token punctuation">:</span> label<span class="token punctuation">,</span>
+                <span class="token string">"score"</span><span class="token punctuation">:</span> score<span class="token punctuation">,</span>
+                <span class="token string">"word"</span><span class="token punctuation">:</span> word<span class="token punctuation">,</span>
+                <span class="token string">"start"</span><span class="token punctuation">:</span> start<span class="token punctuation">,</span>
+                <span class="token string">"end"</span><span class="token punctuation">:</span> end<span class="token punctuation">,</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">)</span>
+    idx <span class="token operator">+=</span> <span class="token number">1</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>results<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们得到了与第二个管道相同的结果！</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">[</span><span class="token punctuation">&#123;</span><span class="token string">'entity_group'</span><span class="token punctuation">:</span> <span class="token string">'PER'</span><span class="token punctuation">,</span> <span class="token string">'score'</span><span class="token punctuation">:</span> <span class="token number">0.9981694</span><span class="token punctuation">,</span> <span class="token string">'word'</span><span class="token punctuation">:</span> <span class="token string">'Sylvain'</span><span class="token punctuation">,</span> <span class="token string">'start'</span><span class="token punctuation">:</span> <span class="token number">11</span><span class="token punctuation">,</span> <span class="token string">'end'</span><span class="token punctuation">:</span> <span class="token number">18</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ <span class="token punctuation">&#123;</span><span class="token string">'entity_group'</span><span class="token punctuation">:</span> <span class="token string">'ORG'</span><span class="token punctuation">,</span> <span class="token string">'score'</span><span class="token punctuation">:</span> <span class="token number">0.97960204</span><span class="token punctuation">,</span> <span class="token string">'word'</span><span class="token punctuation">:</span> <span class="token string">'Hugging Face'</span><span class="token punctuation">,</span> <span class="token string">'start'</span><span class="token punctuation">:</span> <span class="token number">33</span><span class="token punctuation">,</span> <span class="token string">'end'</span><span class="token punctuation">:</span> <span class="token number">45</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ <span class="token punctuation">&#123;</span><span class="token string">'entity_group'</span><span class="token punctuation">:</span> <span class="token string">'LOC'</span><span class="token punctuation">,</span> <span class="token string">'score'</span><span class="token punctuation">:</span> <span class="token number">0.99321055</span><span class="token punctuation">,</span> <span class="token string">'word'</span><span class="token punctuation">:</span> <span class="token string">'Brooklyn'</span><span class="token punctuation">,</span> <span class="token string">'start'</span><span class="token punctuation">:</span> <span class="token number">49</span><span class="token punctuation">,</span> <span class="token string">'end'</span><span class="token punctuation">:</span> <span class="token number">57</span><span class="token punctuation">&#125;</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>偏移量极其有用的另一个任务是问答。在下一节中，我们将深入探讨这个管道，同时也能让我们一瞥 🤗 Transformers 库中标记器的最后一个特性：在将输入截断到给定长度时处理溢出的标记。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百五十二篇博文写完，开心！！！！</p>
 <p>今天，也是充满希望的一天。</p>
 
                 
