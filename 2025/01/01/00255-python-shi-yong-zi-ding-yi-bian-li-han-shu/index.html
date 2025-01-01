@@ -608,6 +608,32 @@ remove_empty_folders<span class="token punctuation">(</span>path_to_clean<span c
 <li>在生产环境中使用之前，请在一个安全的环境（如虚拟环境或测试目录）中测试此脚本，以确保它按预期工作。</li>
 <li>使用<code>remove_root=True</code>时，如果传入的根目录最终为空，它也会被删除。如果你想保留根目录，即使它是空的，可以将<code>remove_root</code>参数设置为<code>False</code>。</li>
 </ul>
+<h2 id="os-listdir"><a href="#os-listdir" class="headerlink" title="os.listdir"></a>os.listdir</h2><p><code>os.listdir</code> 是 Python 标准库 <code>os</code> 模块中的一个函数，用于列出指定路径下的所有文件和目录名。这个函数返回一个列表，包含了指定路径下的所有条目（文件和子目录）的名字。</p>
+<p>以下是 <code>os.listdir</code> 的基本用法：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token comment"># 列出当前目录下的所有文件和目录</span>
+entries <span class="token operator">=</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>entries<span class="token punctuation">)</span>
+<span class="token comment"># 列出指定目录下的所有文件和目录</span>
+entries <span class="token operator">=</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span><span class="token string">'/path/to/directory'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>entries<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里有一些重要的点需要注意：</p>
+<ul>
+<li><code>&#39;.&#39;</code> 代表当前目录。</li>
+<li><code>&#39;/&#39;</code> 在 Unix-like 系统中是路径分隔符，而在 Windows 中是 <code>&#39;\\&#39;</code>。</li>
+<li>如果指定的路径不存在，<code>os.listdir</code> 会抛出一个 <code>FileNotFoundError</code>。</li>
+<li>这个函数不会列出隐藏文件（在 Unix-like 系统中以 <code>.</code> 开头的文件），除非你明确指定列出它们。</li>
+<li><code>os.listdir</code> 不会递归地列出子目录中的内容，它只列出直接位于指定路径下的文件和目录。</li>
+</ul>
+<p>如果你需要更详细的信息，比如文件属性或大小，你可能需要结合使用 <code>os.stat</code> 或其他相关函数。例如：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token comment"># 列出当前目录下所有文件和目录的详细信息</span>
+<span class="token keyword">for</span> entry <span class="token keyword">in</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    stat_info <span class="token operator">=</span> os<span class="token punctuation">.</span>stat<span class="token punctuation">(</span>entry<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>entry<span class="token punctuation">&#125;</span></span><span class="token string">: Size = </span><span class="token interpolation"><span class="token punctuation">&#123;</span>stat_info<span class="token punctuation">.</span>st_size<span class="token punctuation">&#125;</span></span><span class="token string">, Last modified = </span><span class="token interpolation"><span class="token punctuation">&#123;</span>stat_info<span class="token punctuation">.</span>st_mtime<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里，<code>os.stat</code> 用于获取文件的状态信息，<code>st_size</code> 是文件大小，<code>st_mtime</code> 是最后一次修改时间。</p>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百五十五篇博文写完，开心！！！！</p>
 <p>今天，也是充满希望的一天。</p>
 
