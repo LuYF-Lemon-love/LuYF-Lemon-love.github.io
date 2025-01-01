@@ -634,6 +634,35 @@ entries <span class="token operator">=</span> os<span class="token punctuation">
     <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>entry<span class="token punctuation">&#125;</span></span><span class="token string">: Size = </span><span class="token interpolation"><span class="token punctuation">&#123;</span>stat_info<span class="token punctuation">.</span>st_size<span class="token punctuation">&#125;</span></span><span class="token string">, Last modified = </span><span class="token interpolation"><span class="token punctuation">&#123;</span>stat_info<span class="token punctuation">.</span>st_mtime<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>这里，<code>os.stat</code> 用于获取文件的状态信息，<code>st_size</code> 是文件大小，<code>st_mtime</code> 是最后一次修改时间。</p>
+<h2 id="复制文件"><a href="#复制文件" class="headerlink" title="复制文件"></a>复制文件</h2><p>在Python中，可以使用<code>shutil</code>模块来复制文件。以下是使用<code>shutil</code>模块复制文件的几个常用函数：</p>
+<ol>
+<li><code>shutil.copy(src, dst)</code>: 复制文件<code>src</code>到<code>dst</code>。<code>dst</code>可以是一个目录，也可以是一个文件名。</li>
+<li><code>shutil.copy2(src, dst)</code>: 与<code>copy()</code>类似，但是<code>copy2()</code>还会尝试保留文件的元数据，比如最后访问时间和修改时间。</li>
+</ol>
+<p>以下是如何使用这些函数的示例：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> shutil
+<span class="token comment"># 使用 shutil.copy() 复制文件</span>
+shutil<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token string">'source.txt'</span><span class="token punctuation">,</span> <span class="token string">'destination.txt'</span><span class="token punctuation">)</span>  <span class="token comment"># 将复制source.txt到destination.txt</span>
+<span class="token comment"># 使用 shutil.copy2() 复制文件，并尝试保留元数据</span>
+shutil<span class="token punctuation">.</span>copy2<span class="token punctuation">(</span><span class="token string">'source.txt'</span><span class="token punctuation">,</span> <span class="token string">'destination.txt'</span><span class="token punctuation">)</span>  <span class="token comment"># 将复制source.txt到destination.txt，并保留元数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果要复制整个目录及其内容，可以使用<code>shutil.copytree(src, dst, symlinks=False, ignore=None)</code>函数。</p>
+<p>在使用这些函数时，需要注意的是：</p>
+<ul>
+<li>如果目标文件或目录已经存在，将会被覆盖。</li>
+<li>使用这些函数时，可能会遇到权限问题或者磁盘空间不足的问题，需要相应的错误处理。</li>
+<li>当复制文件时，如果源文件和目标文件在同一个文件系统上，<code>shutil.copy()</code>可能会使用文件系统的链接功能而不是实际复制文件数据，这种行为在某些情况下可以节省时间和空间。</li>
+</ul>
+<p>记得在处理文件和目录时，要考虑到异常处理，确保代码的健壮性。例如：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> shutil
+<span class="token keyword">import</span> os
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    shutil<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token string">'source.txt'</span><span class="token punctuation">,</span> <span class="token string">'destination.txt'</span><span class="token punctuation">)</span>
+<span class="token keyword">except</span> IOError <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"无法复制文件。错误: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>e<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+<span class="token keyword">except</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"复制文件时发生意外错误。"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百五十五篇博文写完，开心！！！！</p>
 <p>今天，也是充满希望的一天。</p>
 
