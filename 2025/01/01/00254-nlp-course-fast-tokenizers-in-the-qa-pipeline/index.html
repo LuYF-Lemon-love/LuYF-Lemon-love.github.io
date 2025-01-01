@@ -590,7 +590,128 @@ src link: https:">
 <h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
 <li><a href="https://huggingface.co/learn/nlp-course/chapter6/3b">NLP Course - Fast tokenizers in the QA pipeline</a></li>
 </ol>
-<h2 id="使用问答管道"><a href="#使用问答管道" class="headerlink" title="使用问答管道"></a>使用问答管道</h2><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百五十四篇博文写完，开心！！！！</p>
+<h2 id="使用问答管道"><a href="#使用问答管道" class="headerlink" title="使用问答管道"></a>使用问答管道</h2><p>正如我们在第一章中看到的，我们可以使用这种问答流程来获取问题的答案。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> pipeline
+
+question_answerer <span class="token operator">=</span> pipeline<span class="token punctuation">(</span><span class="token string">"question-answering"</span><span class="token punctuation">)</span>
+context <span class="token operator">=</span> <span class="token triple-quoted-string string">"""
+🤗 Transformers is backed by the three most popular deep learning libraries — Jax, PyTorch, and TensorFlow — with a seamless integration
+between them. It's straightforward to train your models with one before loading them for inference with the other.
+"""</span>
+question <span class="token operator">=</span> <span class="token string">"Which deep learning libraries back 🤗 Transformers?"</span>
+question_answerer<span class="token punctuation">(</span>question<span class="token operator">=</span>question<span class="token punctuation">,</span> context<span class="token operator">=</span>context<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">&#123;</span><span class="token string">'score'</span><span class="token punctuation">:</span> <span class="token number">0.97773</span><span class="token punctuation">,</span>
+ <span class="token string">'start'</span><span class="token punctuation">:</span> <span class="token number">78</span><span class="token punctuation">,</span>
+ <span class="token string">'end'</span><span class="token punctuation">:</span> <span class="token number">105</span><span class="token punctuation">,</span>
+ <span class="token string">'answer'</span><span class="token punctuation">:</span> <span class="token string">'Jax, PyTorch and TensorFlow'</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>与其他管道不同，它不能截断和分割超过模型接受的最大长度的文本（因此可能会错过文档末尾的信息），这个管道可以处理非常长的上下文，并且即使答案在末尾也会返回问题的答案。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">long_context <span class="token operator">=</span> <span class="token triple-quoted-string string">"""
+🤗 Transformers: State of the Art NLP
+
+🤗 Transformers provides thousands of pretrained models to perform tasks on texts such as classification, information extraction,
+question answering, summarization, translation, text generation and more in over 100 languages.
+Its aim is to make cutting-edge NLP easier to use for everyone.
+
+🤗 Transformers provides APIs to quickly download and use those pretrained models on a given text, fine-tune them on your own datasets and
+then share them with the community on our model hub. At the same time, each python module defining an architecture is fully standalone and
+can be modified to enable quick research experiments.
+
+Why should I use transformers?
+
+1. Easy-to-use state-of-the-art models:
+  - High performance on NLU and NLG tasks.
+  - Low barrier to entry for educators and practitioners.
+  - Few user-facing abstractions with just three classes to learn.
+  - A unified API for using all our pretrained models.
+  - Lower compute costs, smaller carbon footprint:
+
+2. Researchers can share trained models instead of always retraining.
+  - Practitioners can reduce compute time and production costs.
+  - Dozens of architectures with over 10,000 pretrained models, some in more than 100 languages.
+
+3. Choose the right framework for every part of a model's lifetime:
+  - Train state-of-the-art models in 3 lines of code.
+  - Move a single model between TF2.0/PyTorch frameworks at will.
+  - Seamlessly pick the right framework for training, evaluation and production.
+
+4. Easily customize a model or an example to your needs:
+  - We provide examples for each architecture to reproduce the results published by its original authors.
+  - Model internals are exposed as consistently as possible.
+  - Model files can be used independently of the library for quick experiments.
+
+🤗 Transformers is backed by the three most popular deep learning libraries — Jax, PyTorch and TensorFlow — with a seamless integration
+between them. It's straightforward to train your models with one before loading them for inference with the other.
+"""</span>
+question_answerer<span class="token punctuation">(</span>question<span class="token operator">=</span>question<span class="token punctuation">,</span> context<span class="token operator">=</span>long_context<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">&#123;</span><span class="token string">'score'</span><span class="token punctuation">:</span> <span class="token number">0.97149</span><span class="token punctuation">,</span>
+ <span class="token string">'start'</span><span class="token punctuation">:</span> <span class="token number">1892</span><span class="token punctuation">,</span>
+ <span class="token string">'end'</span><span class="token punctuation">:</span> <span class="token number">1919</span><span class="token punctuation">,</span>
+ <span class="token string">'answer'</span><span class="token punctuation">:</span> <span class="token string">'Jax, PyTorch and TensorFlow'</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>让我们看看它是如何做到这一切的！</p>
+<h2 id="使用模型进行问答"><a href="#使用模型进行问答" class="headerlink" title="使用模型进行问答"></a>使用模型进行问答</h2><p>与任何其他管道一样，我们首先对输入进行分词，然后将其发送到模型中。问答管道默认使用的检查点是 <a href="https://huggingface.co/distilbert-base-cased-distilled-squad">distilbert-base-cased-distilled-squad</a>（名称中的“squad”来自模型微调的数据集；我们将在第7章中更详细地讨论SQuAD数据集）。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoTokenizer<span class="token punctuation">,</span> AutoModelForQuestionAnswering
+
+model_checkpoint <span class="token operator">=</span> <span class="token string">"distilbert-base-cased-distilled-squad"</span>
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span>model_checkpoint<span class="token punctuation">)</span>
+model <span class="token operator">=</span> AutoModelForQuestionAnswering<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span>model_checkpoint<span class="token punctuation">)</span>
+
+inputs <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>question<span class="token punctuation">,</span> context<span class="token punctuation">,</span> return_tensors<span class="token operator">=</span><span class="token string">"pt"</span><span class="token punctuation">)</span>
+outputs <span class="token operator">=</span> model<span class="token punctuation">(</span><span class="token operator">**</span>inputs<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>请注意，我们将问题和上下文作为一对进行分词，首先是问题。</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20250101225749.png"></p>
+<p>问答模型的工作方式与我们至今为止看到的模型略有不同。以上图为例，该模型经过训练能够预测答案开始（此处为21）和结束（此处为24）的标记的索引。这就是为什么这些模型不返回一个张量，而是返回两个张量：一个对应于答案开始标记的logits，另一个对应于答案结束标记的logits。在这种情况下，我们只有一个包含66个标记的输入，因此我们得到：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">start_logits <span class="token operator">=</span> outputs<span class="token punctuation">.</span>start_logits
+end_logits <span class="token operator">=</span> outputs<span class="token punctuation">.</span>end_logits
+<span class="token keyword">print</span><span class="token punctuation">(</span>start_logits<span class="token punctuation">.</span>shape<span class="token punctuation">,</span> end_logits<span class="token punctuation">.</span>shape<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">torch<span class="token punctuation">.</span>Size<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">66</span><span class="token punctuation">]</span><span class="token punctuation">)</span> torch<span class="token punctuation">.</span>Size<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">66</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>为了将那些logits转换为概率，我们将应用一个softmax函数——但在那之前，我们需要确保我们屏蔽了不属于上下文的索引。我们的输入是[CLS]问题[SEP]上下文[SEP]，所以我们需要屏蔽问题中的标记以及[SEP]标记。然而，我们将保留[CLS]标记，因为有些模型用它来表示答案不在上下文中。</p>
+<p>由于我们随后将应用softmax，我们只需要将想要屏蔽的logits替换为一个大的负数。在这里，我们使用-10000：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch
+
+sequence_ids <span class="token operator">=</span> inputs<span class="token punctuation">.</span>sequence_ids<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment"># Mask everything apart from the tokens of the context</span>
+mask <span class="token operator">=</span> <span class="token punctuation">[</span>i <span class="token operator">!=</span> <span class="token number">1</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> sequence_ids<span class="token punctuation">]</span>
+<span class="token comment"># Unmask the [CLS] token</span>
+mask<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">False</span>
+mask <span class="token operator">=</span> torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span>mask<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">]</span>
+
+start_logits<span class="token punctuation">[</span>mask<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">10000</span>
+end_logits<span class="token punctuation">[</span>mask<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">10000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>现在我们已经正确地屏蔽了我们不想预测的位置对应的logits，我们可以应用softmax了：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">start_probabilities <span class="token operator">=</span> torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>functional<span class="token punctuation">.</span>softmax<span class="token punctuation">(</span>start_logits<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+end_probabilities <span class="token operator">=</span> torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>functional<span class="token punctuation">.</span>softmax<span class="token punctuation">(</span>end_logits<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>在这一点上，我们可以取开始和结束概率的argmax——但我们可能会得到一个开始索引大于结束索引的结果，所以我们需要采取更多的预防措施。我们将计算每个可能的start_index和end_index的概率，其中start_index &lt;&#x3D; end_index，然后取概率最高的(start_index, end_index)元组。</p>
+<p>假设事件“The answer starts at start_index”（答案从start_index开始）和“The answer ends at end_index”（答案在end_index结束）是独立的，那么答案从start_index开始并在end_index结束的概率是：</p>
+<p>$$<br>\mathrm{start_probabilities}[\mathrm{start_index}] \times \mathrm{end_probabilities}[\mathrm{end_index}]<br>$$</p>
+<p>因此，为了计算所有得分，我们只需要计算所有产品的start_probabilities[start_index]×end_probabilities[end_index]，其中start_index &lt;&#x3D; end_index。</p>
+<p>首先，让我们计算所有可能的产品：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">scores <span class="token operator">=</span> start_probabilities<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">]</span> <span class="token operator">*</span> end_probabilities<span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>然后，我们将通过将它们设置为0来屏蔽start_index &gt; end_index的值（其他概率都是正数）。torch.triu()函数返回作为参数传递的2D张量的上三角部分，因此它将为我们执行这种屏蔽：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">scores <span class="token operator">=</span> torch<span class="token punctuation">.</span>triu<span class="token punctuation">(</span>scores<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>现在我们只需要得到最大值的索引。由于PyTorch将在扁平化的张量中返回索引，我们需要使用地板除法&#x2F;&#x2F;和模数%运算来得到start_index和end_index：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">max_index <span class="token operator">=</span> scores<span class="token punctuation">.</span>argmax<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>
+start_index <span class="token operator">=</span> max_index <span class="token operator">//</span> scores<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+end_index <span class="token operator">=</span> max_index <span class="token operator">%</span> scores<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>scores<span class="token punctuation">[</span>start_index<span class="token punctuation">,</span> end_index<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们还没有完全完成，但至少我们已经有了答案的正确分数（你可以通过将其与前一部分的第一个结果进行比较来检查）：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token number">0.97773</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>✏️ 尝试一下！计算五个最可能的答案的开始和结束索引。</p>
+</blockquote>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百五十四篇博文写完，开心！！！！</p>
 <p>今天，也是充满希望的一天。</p>
 
                 
@@ -954,6 +1075,13 @@ src link: https:">
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
 
 
 
