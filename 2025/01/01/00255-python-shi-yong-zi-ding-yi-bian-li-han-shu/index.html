@@ -4,8 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="分类: C++, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
-    <meta name="description" content="天之道，损有余而补不足，人之道则不然，损不足以奉有余。">
+    <meta name="keywords" content="00255 Python 实用自定义便利函数, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言Python 实用自定义便利函数。
+Operating System: Ubuntu 22.04.4 LTS
+参考文档递归删除空文件夹在Python中，可以使用os模块来递归删除空文件夹。以下是一个示例函数，它会检查每个文件夹，如果文件">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +19,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>分类: C++ | LuYF-Lemon-love の Blog</title>
+    <title>00255 Python 实用自定义便利函数 | LuYF-Lemon-love の Blog</title>
     <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
     
     <style>
@@ -470,366 +472,507 @@
 
 </header>
 
-    <div class="bg-cover pd-header about-cover">
-    <div class="container">
-    <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                LuYF-Lemon-love の Blog
-                
-            </div>
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
 
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="/libs/typed/typed.js"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: [ 
-                            
-                                "菩提本无树，明镜亦非台。本来无一物，何处惹尘埃。",
-                            
-                                "世界上只有一种真正的英雄主义，那就是在认清生活的真相后依然热爱生活。",
-                            
-                                "牢骚太甚者，其后必多抑塞。盖无故而怨天，则天必不许，无故而尤人，则人必不服，感应之理然也。",
-                            
-                        ],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/056-%E5%8F%AF%E7%88%B1%E7%B2%89%E8%89%B2%E8%BF%9E%E5%B8%BD%E8%A1%AB%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">00255 Python 实用自定义便利函数</h1>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 
-<script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
-</script>
-<script>
-    
-      // 每天切换 banner 图.  Switch banner image every day.
-      var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    
-    $('.bg-cover.about-cover').css('background-image', 'url(' + bannerUrl + ')');
-
-</script>
 
 
-    </div>
-</div>
-
-<main class="content">
+<main class="post-container content">
 
     
-
-<div id="category-cloud" class="container chip-container">
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
     <div class="card">
-        <div class="card-content">
-            <div class="tag-title center-align">
-                <i class="fas fa-bookmark"></i>&nbsp;&nbsp;文章分类
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python/">
+                                <span class="chip bg-color">Python</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                    </div>
+                    
+                </div>
             </div>
-            <div class="tag-chips">
+
+            <div class="post-info">
                 
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-01-01
+                </div>
                 
+
                 
-                <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" title="计算机基础: 28">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F9EBEA;">计算机基础
-                        <span class="tag-length">28</span>
-                    </span>
-                </a>
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-01-01
+                </div>
                 
+
                 
-                <a href="/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/" title="实用技巧: 9">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F5EEF8;">实用技巧
-                        <span class="tag-length">9</span>
-                    </span>
-                </a>
+
                 
-                
-                <a href="/categories/C-C-%E5%92%8CPython%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/" title="C/C++和Python混合编程: 6">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #D5F5E3;">C/C++和Python混合编程
-                        <span class="tag-length">6</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E7%A1%AC%E4%BB%B6/" title="硬件: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #E8F8F5;">硬件
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E5%8D%9A%E5%AE%A2/" title="博客: 4">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #FEF9E7;">博客
-                        <span class="tag-length">4</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/C/" title="C++: 14">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            style="background-color: #F8F9F9;">C++
-                        <span class="tag-length">14</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E6%9D%82%E9%A1%B9/" title="杂项: 19">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #82E0AA;">杂项
-                        <span class="tag-length">19</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/Python/" title="Python: 42">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #D7BDE2;">Python
-                        <span class="tag-length">42</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/Paper/" title="Paper: 16">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #A3E4D7;">Paper
-                        <span class="tag-length">16</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" title="大语言模型: 85">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #85C1E9;">大语言模型
-                        <span class="tag-length">85</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/PyTorch/" title="PyTorch: 9">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F8C471;">PyTorch
-                        <span class="tag-length">9</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E5%8A%A8%E6%80%81%E5%A3%81%E7%BA%B8/" title="动态壁纸: 4">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F9E79F;">动态壁纸
-                        <span class="tag-length">4</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E5%B9%B2%E9%A5%AD/" title="干饭: 9">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #D7BDE2;">干饭
-                        <span class="tag-length">9</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/Linux/" title="Linux: 5">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #E8F8F5;">Linux
-                        <span class="tag-length">5</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E7%AE%97%E6%B3%95/" title="算法: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F9EBEA;">算法
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/Verilog/" title="Verilog: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #82E0AA;">Verilog
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E5%88%B7%E9%A2%98/" title="刷题: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #FFF;">刷题
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
+
                 
             </div>
         </div>
-    </div>
-</div>
+        <hr class="clearfix">
 
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Python 实用自定义便利函数。</p>
+<p>Operating System: Ubuntu 22.04.4 LTS</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><h2 id="递归删除空文件夹"><a href="#递归删除空文件夹" class="headerlink" title="递归删除空文件夹"></a>递归删除空文件夹</h2><p>在Python中，可以使用<code>os</code>模块来递归删除空文件夹。以下是一个示例函数，它会检查每个文件夹，如果文件夹为空，则删除它；如果文件夹中有内容，函数将递归地检查每个子文件夹。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token keyword">def</span> <span class="token function">remove_empty_folders</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> remove_root<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>isdir<span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span>
+    <span class="token comment"># 列出目录中的所有文件和文件夹</span>
+    files <span class="token operator">=</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>path<span class="token punctuation">)</span>
+    <span class="token comment"># 递归删除空文件夹</span>
+    <span class="token keyword">for</span> <span class="token builtin">file</span> <span class="token keyword">in</span> files<span class="token punctuation">:</span>
+        full_path <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>path<span class="token punctuation">,</span> <span class="token builtin">file</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>isdir<span class="token punctuation">(</span>full_path<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            remove_empty_folders<span class="token punctuation">(</span>full_path<span class="token punctuation">)</span>
+    <span class="token comment"># 列出剩余的文件和文件夹</span>
+    files <span class="token operator">=</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>path<span class="token punctuation">)</span>
+    <span class="token comment"># 如果文件夹为空，则删除它</span>
+    <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>files<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">and</span> remove_root<span class="token punctuation">:</span>
+        os<span class="token punctuation">.</span>rmdir<span class="token punctuation">(</span>path<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Removed empty folder: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>path<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+<span class="token comment"># 使用示例</span>
+path_to_clean <span class="token operator">=</span> <span class="token string">'/path/to/your/folder'</span>  <span class="token comment"># 替换为你的路径</span>
+remove_empty_folders<span class="token punctuation">(</span>path_to_clean<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>请确保将<code>path_to_clean</code>变量的值替换为你想要清理的文件夹路径。</p>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>运行此脚本之前，请确保你有足够的权限来删除指定路径中的文件夹。</li>
+<li>在生产环境中使用之前，请在一个安全的环境（如虚拟环境或测试目录）中测试此脚本，以确保它按预期工作。</li>
+<li>使用<code>remove_root=True</code>时，如果传入的根目录最终为空，它也会被删除。如果你想保留根目录，即使它是空的，可以将<code>remove_root</code>参数设置为<code>False</code>。</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百五十五篇博文写完，开心！！！！</p>
+<p>今天，也是充满希望的一天。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">LuYF-Lemon-love</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://luyf-lemon-love.space/2025/01/01/00255-python-shi-yong-zi-ding-yi-bian-li-han-shu/">https://luyf-lemon-love.space/2025/01/01/00255-python-shi-yong-zi-ding-yi-bian-li-han-shu/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">LuYF-Lemon-love</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python/">
+                                    <span class="chip bg-color">Python</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
 
     
 
-    <article id="articles" class="container articles">
-        <div class="row tags-posts">
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/06/19/00014-c-yu-yan-duo-xian-cheng/">
-                        <div class="card-image tag-image">
-                            
-                            <img src="https://cos.luyf-lemon-love.space/images/20220604154620.png" class="responsive-img" alt="00014-C语言多线程">
-                            
-                            <span class="card-title">00014-C语言多线程</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                前言线程是轻量级的进程（LWP: light weight process），在 Linux 环境下线程的本质是进程。进程是资源分配的最小单位，线程是操作系统调度执行的最小单位。
-进程
+</div>
 
-进程有自己独立的地址空间，多个线程共用同一个地址空间
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-19
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/C/" class="post-category">
-                                    C++
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/C/">
-                            <span class="chip bg-color">C++</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
-                            <span class="chip bg-color">多线程</span>
-                        </a>
-                        
-                    </div>
-                    
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/06/01/00013-c-11-xin-te-xing-chu-tan/">
-                        <div class="card-image tag-image">
-                            
-                            <img src="https://cos.luyf-lemon-love.space/images/20220513124745.png" class="responsive-img" alt="00013-C++11新特性初探">
-                            
-                            <span class="card-title">00013-C++11新特性初探</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                前言C++11 标准是 ISO&#x2F;IEC 14882：2011 - Information technology – Programming languages – C++ 的简称。此标准为 C++98 发布后 13 年来第一次重大
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-01
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/C/" class="post-category">
-                                    C++
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/C/">
-                            <span class="chip bg-color">C++</span>
-                        </a>
-                        
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">谢谢小主！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162303.png" class="reward-img" alt="支付宝打赏二维码">
                     </div>
-                    
+                    <div id="wechat">
+                        <img src="https://cos.luyf-lemon-love.space/images/20220511162220.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
                 </div>
             </div>
-            
-        </div>
-    </article>
-</main>
-
-
-<div class="container paging">
-    <div class="row">
-        <div class="col s6 m4 l4">
-            
-            <a href="/categories/C/"
-               class="left btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-left"></i>
-            </a>
-            
-        </div>
-        <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">2 / 2</div>
-        </div>
-        <div class="col s6 m4 l4">
-            
-            <a class="right btn-floating btn-large disabled">
-                <i class="fas fa-angle-right"></i>
-            </a>
-            
         </div>
     </div>
 </div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2025/01/01/00255-python-shi-yong-zi-ding-yi-bian-li-han-shu/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/056-%E5%8F%AF%E7%88%B1%E7%B2%89%E8%89%B2%E8%BF%9E%E5%B8%BD%E8%A1%AB%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9.jpg" class="responsive-img" alt="00255 Python 实用自定义便利函数">
+                        
+                        <span class="card-title">00255 Python 实用自定义便利函数</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/01/01/00254-nlp-course-fast-tokenizers-in-the-qa-pipeline/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/055-%E8%8B%B1%E9%9B%84%E8%81%94%E7%9B%9FLOL-%E5%8F%8C%E5%9F%8E%E4%B9%8B%E6%88%982%E4%B8%8D%E6%9C%BD%E9%87%91%E5%85%8B%E4%B8%9D.jpg" class="responsive-img" alt="00254 NLP Course - Fast tokenizers in the QA pipeline">
+                        
+                        <span class="card-title">00254 NLP Course - Fast tokenizers in the QA pipeline</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
 
 
 
