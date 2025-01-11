@@ -557,7 +557,7 @@ src link: https:">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-01-01
+                    2025-01-11
                 </div>
                 
 
@@ -691,7 +691,7 @@ end_probabilities <span class="token operator">=</span> torch<span class="token 
 
 <p>在这一点上，我们可以取开始和结束概率的argmax——但我们可能会得到一个开始索引大于结束索引的结果，所以我们需要采取更多的预防措施。我们将计算每个可能的start_index和end_index的概率，其中start_index &lt;&#x3D; end_index，然后取概率最高的(start_index, end_index)元组。</p>
 <p>假设事件“The answer starts at start_index”（答案从start_index开始）和“The answer ends at end_index”（答案在end_index结束）是独立的，那么答案从start_index开始并在end_index结束的概率是：</p>
-<p>$$<br>\mathrm{start_probabilities}[\mathrm{start_index}] \times \mathrm{end_probabilities}[\mathrm{end_index}]<br>$$</p>
+<p>$\mathrm{start_probabilities}[\mathrm{start_index}] \times \mathrm{end_probabilities}[\mathrm{end_index}]$</p>
 <p>因此，为了计算所有得分，我们只需要计算所有产品的start_probabilities[start_index]×end_probabilities[end_index]，其中start_index &lt;&#x3D; end_index。</p>
 <p>首先，让我们计算所有可能的产品：</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">scores <span class="token operator">=</span> start_probabilities<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">]</span> <span class="token operator">*</span> end_probabilities<span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -711,6 +711,202 @@ end_index <span class="token operator">=</span> max_index <span class="token ope
 <blockquote>
 <p>✏️ 尝试一下！计算五个最可能的答案的开始和结束索引。</p>
 </blockquote>
+<p>我们有了答案在令牌中的开始索引（start_index）和结束索引（end_index），现在只需要将这些索引转换成上下文中的字符索引。这时偏移量就会非常有用。我们可以获取这些偏移量，并像在令牌分类任务中那样使用它们：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">inputs_with_offsets <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>question<span class="token punctuation">,</span> context<span class="token punctuation">,</span> return_offsets_mapping<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+offsets <span class="token operator">=</span> inputs_with_offsets<span class="token punctuation">[</span><span class="token string">"offset_mapping"</span><span class="token punctuation">]</span>
+
+start_char<span class="token punctuation">,</span> _ <span class="token operator">=</span> offsets<span class="token punctuation">[</span>start_index<span class="token punctuation">]</span>
+_<span class="token punctuation">,</span> end_char <span class="token operator">=</span> offsets<span class="token punctuation">[</span>end_index<span class="token punctuation">]</span>
+answer <span class="token operator">=</span> context<span class="token punctuation">[</span>start_char<span class="token punctuation">:</span>end_char<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>现在我们只需要格式化所有内容以获得我们的结果：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">result <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">"answer"</span><span class="token punctuation">:</span> answer<span class="token punctuation">,</span>
+    <span class="token string">"start"</span><span class="token punctuation">:</span> start_char<span class="token punctuation">,</span>
+    <span class="token string">"end"</span><span class="token punctuation">:</span> end_char<span class="token punctuation">,</span>
+    <span class="token string">"score"</span><span class="token punctuation">:</span> scores<span class="token punctuation">[</span>start_index<span class="token punctuation">,</span> end_index<span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">&#123;</span><span class="token string">'answer'</span><span class="token punctuation">:</span> <span class="token string">'Jax, PyTorch and TensorFlow'</span><span class="token punctuation">,</span>
+ <span class="token string">'start'</span><span class="token punctuation">:</span> <span class="token number">78</span><span class="token punctuation">,</span>
+ <span class="token string">'end'</span><span class="token punctuation">:</span> <span class="token number">105</span><span class="token punctuation">,</span>
+ <span class="token string">'score'</span><span class="token punctuation">:</span> <span class="token number">0.97773</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>太好了！这与我们的第一个示例相同！</p>
+<blockquote>
+<p>试一试！使用你之前计算的最佳得分来展示最可能的五个答案。为了检查你的结果，回到第一个pipeline，并在调用时传入 top_k&#x3D;5。</p>
+</blockquote>
+<h2 id="处理长上下文"><a href="#处理长上下文" class="headerlink" title="处理长上下文"></a>处理长上下文</h2><p>如果我们尝试对之前用作例子的长上下文和问题进行分词，我们会得到超过问题回答流程中使用的最大长度（384个令牌）的令牌数量：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">inputs <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>question<span class="token punctuation">,</span> long_context<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>inputs<span class="token punctuation">[</span><span class="token string">"input_ids"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token number">461</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>因此，我们需要将输入截断到这个最大长度。我们可以用几种方法来做这件事，但我们不想截断问题，只想截断上下文。由于上下文是第二个句子，我们将使用“only_second”截断策略。然后出现的问题是，问题的答案可能不在截断的上下文中。例如，我们挑选了一个问题，其答案位于上下文的末尾，当我们截断它时，这个答案就不存在了：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">inputs <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>question<span class="token punctuation">,</span> long_context<span class="token punctuation">,</span> max_length<span class="token operator">=</span><span class="token number">384</span><span class="token punctuation">,</span> truncation<span class="token operator">=</span><span class="token string">"only_second"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>inputs<span class="token punctuation">[</span><span class="token string">"input_ids"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">"""
+[CLS] Which deep learning libraries back [UNK] Transformers? [SEP] [UNK] Transformers : State of the Art NLP
+
+[UNK] Transformers provides thousands of pretrained models to perform tasks on texts such as classification, information extraction,
+question answering, summarization, translation, text generation and more in over 100 languages.
+Its aim is to make cutting-edge NLP easier to use for everyone.
+
+[UNK] Transformers provides APIs to quickly download and use those pretrained models on a given text, fine-tune them on your own datasets and
+then share them with the community on our model hub. At the same time, each python module defining an architecture is fully standalone and
+can be modified to enable quick research experiments.
+
+Why should I use transformers?
+
+1. Easy-to-use state-of-the-art models:
+  - High performance on NLU and NLG tasks.
+  - Low barrier to entry for educators and practitioners.
+  - Few user-facing abstractions with just three classes to learn.
+  - A unified API for using all our pretrained models.
+  - Lower compute costs, smaller carbon footprint:
+
+2. Researchers can share trained models instead of always retraining.
+  - Practitioners can reduce compute time and production costs.
+  - Dozens of architectures with over 10,000 pretrained models, some in more than 100 languages.
+
+3. Choose the right framework for every part of a model's lifetime:
+  - Train state-of-the-art models in 3 lines of code.
+  - Move a single model between TF2.0/PyTorch frameworks at will.
+  - Seamlessly pick the right framework for training, evaluation and production.
+
+4. Easily customize a model or an example to your needs:
+  - We provide examples for each architecture to reproduce the results published by its original authors.
+  - Model internal [SEP]
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这意味着模型将难以选择正确的答案。为了解决这个问题，问题回答流程允许我们将上下文分成更小的块，并指定最大长度。为了确保我们不恰好在上文错误的地方分割，使找到答案成为可能，它还在块之间包含一些重叠。</p>
+<p>我们可以通过添加 return_overflowing_tokens&#x3D;True 来让分词器（快速或慢速）为我们执行此操作，并且我们可以使用 stride 参数指定我们想要的重叠。这里有一个例子，使用了较短的句子：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">sentence <span class="token operator">=</span> <span class="token string">"This sentence is not too long but we are going to split it anyway."</span>
+inputs <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>
+    sentence<span class="token punctuation">,</span> truncation<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> return_overflowing_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> max_length<span class="token operator">=</span><span class="token number">6</span><span class="token punctuation">,</span> stride<span class="token operator">=</span><span class="token number">2</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> ids <span class="token keyword">in</span> inputs<span class="token punctuation">[</span><span class="token string">"input_ids"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>ids<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token string">'[CLS] This sentence is not [SEP]'</span>
+<span class="token string">'[CLS] is not too long [SEP]'</span>
+<span class="token string">'[CLS] too long but we [SEP]'</span>
+<span class="token string">'[CLS] but we are going [SEP]'</span>
+<span class="token string">'[CLS] are going to split [SEP]'</span>
+<span class="token string">'[CLS] to split it anyway [SEP]'</span>
+<span class="token string">'[CLS] it anyway. [SEP]'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>正如我们所看到的，句子已经被分成块，以便 inputs[“input_ids”] 中的每个条目最多有 6 个令牌（我们需要添加填充，使最后一个条目与其他条目的大小相同），并且每个条目之间有 2 个令牌的重叠。</p>
+<p>让我们更仔细地看看分词的结果：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">print</span><span class="token punctuation">(</span>inputs<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">dict_keys<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'input_ids'</span><span class="token punctuation">,</span> <span class="token string">'attention_mask'</span><span class="token punctuation">,</span> <span class="token string">'overflow_to_sample_mapping'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>正如预期的那样，我们得到了输入 ID 和一个注意力掩码。最后一个键，overflow_to_sample_mapping，是一个映射，告诉我们每个结果对应于哪个句子——在这里，我们有 7 个结果，都来自于我们传递给分词器的（唯一的）句子：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">print</span><span class="token punctuation">(</span>inputs<span class="token punctuation">[</span><span class="token string">"overflow_to_sample_mapping"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这在当我们一起对几个句子进行分词时更有用。例如，像这样：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">sentences <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string">"This sentence is not too long but we are going to split it anyway."</span><span class="token punctuation">,</span>
+    <span class="token string">"This sentence is shorter but will still get split."</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+inputs <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>
+    sentences<span class="token punctuation">,</span> truncation<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> return_overflowing_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> max_length<span class="token operator">=</span><span class="token number">6</span><span class="token punctuation">,</span> stride<span class="token operator">=</span><span class="token number">2</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>inputs<span class="token punctuation">[</span><span class="token string">"overflow_to_sample_mapping"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>得到我们：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这意味着第一个句子像之前一样被分成 7 个块，接下来的 4 个块来自第二个句子。</p>
+<p>现在让我们回到我们的长上下文。正如我们之前提到的，默认情况下，问题回答流程使用最大长度 384，以及步长 128，这与模型的微调方式相对应（你可以在调用流程时通过传递 max_seq_len 和 stride 参数来调整这些参数）。因此，我们在分词时将使用这些参数。我们还会添加填充（以使样本具有相同的长度，这样我们就可以构建张量），并请求偏移量：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">inputs <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>
+    question<span class="token punctuation">,</span>
+    long_context<span class="token punctuation">,</span>
+    stride<span class="token operator">=</span><span class="token number">128</span><span class="token punctuation">,</span>
+    max_length<span class="token operator">=</span><span class="token number">384</span><span class="token punctuation">,</span>
+    padding<span class="token operator">=</span><span class="token string">"longest"</span><span class="token punctuation">,</span>
+    truncation<span class="token operator">=</span><span class="token string">"only_second"</span><span class="token punctuation">,</span>
+    return_overflowing_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+    return_offsets_mapping<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这些输入将包含模型期望的输入 ID 和注意力掩码，以及我们刚才讨论的偏移量和 overflow_to_sample_mapping。由于这两个参数不是模型使用的参数，我们将它们从输入中删除（并且我们不存储映射，因为在这里没有用处），然后将其转换为张量：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">_ <span class="token operator">=</span> inputs<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token string">"overflow_to_sample_mapping"</span><span class="token punctuation">)</span>
+offsets <span class="token operator">=</span> inputs<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token string">"offset_mapping"</span><span class="token punctuation">)</span>
+
+inputs <span class="token operator">=</span> inputs<span class="token punctuation">.</span>convert_to_tensors<span class="token punctuation">(</span><span class="token string">"pt"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>inputs<span class="token punctuation">[</span><span class="token string">"input_ids"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>shape<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">torch<span class="token punctuation">.</span>Size<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">384</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>我们的长上下文被分成了两部分，这意味着在通过模型处理后，我们将得到两套开始和结束的 logits：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">outputs <span class="token operator">=</span> model<span class="token punctuation">(</span><span class="token operator">**</span>inputs<span class="token punctuation">)</span>
+
+start_logits <span class="token operator">=</span> outputs<span class="token punctuation">.</span>start_logits
+end_logits <span class="token operator">=</span> outputs<span class="token punctuation">.</span>end_logits
+<span class="token keyword">print</span><span class="token punctuation">(</span>start_logits<span class="token punctuation">.</span>shape<span class="token punctuation">,</span> end_logits<span class="token punctuation">.</span>shape<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">torch<span class="token punctuation">.</span>Size<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">384</span><span class="token punctuation">]</span><span class="token punctuation">)</span> torch<span class="token punctuation">.</span>Size<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">384</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>像之前一样，我们在对 tokens 取 softmax 之前，首先屏蔽掉不属于上下文的 tokens。我们还屏蔽了所有的填充 tokens（由注意力掩码标记）：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">sequence_ids <span class="token operator">=</span> inputs<span class="token punctuation">.</span>sequence_ids<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment"># Mask everything apart from the tokens of the context</span>
+mask <span class="token operator">=</span> <span class="token punctuation">[</span>i <span class="token operator">!=</span> <span class="token number">1</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> sequence_ids<span class="token punctuation">]</span>
+<span class="token comment"># Unmask the [CLS] token</span>
+mask<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">False</span>
+<span class="token comment"># Mask all the [PAD] tokens</span>
+mask <span class="token operator">=</span> torch<span class="token punctuation">.</span>logical_or<span class="token punctuation">(</span>torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span>mask<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>inputs<span class="token punctuation">[</span><span class="token string">"attention_mask"</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+start_logits<span class="token punctuation">[</span>mask<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">10000</span>
+end_logits<span class="token punctuation">[</span>mask<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">10000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后我们可以使用 softmax 将我们的 logits 转换为概率：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">start_probabilities <span class="token operator">=</span> torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>functional<span class="token punctuation">.</span>softmax<span class="token punctuation">(</span>start_logits<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+end_probabilities <span class="token operator">=</span> torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>functional<span class="token punctuation">.</span>softmax<span class="token punctuation">(</span>end_logits<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>下一步与我们对小上下文所做的类似，但我们需要对这两个块中的每一个都重复这个过程。我们为所有可能的答案跨度分配一个分数，然后选择分数最高的跨度：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">candidates <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> start_probs<span class="token punctuation">,</span> end_probs <span class="token keyword">in</span> <span class="token builtin">zip</span><span class="token punctuation">(</span>start_probabilities<span class="token punctuation">,</span> end_probabilities<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    scores <span class="token operator">=</span> start_probs<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">]</span> <span class="token operator">*</span> end_probs<span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span>
+    idx <span class="token operator">=</span> torch<span class="token punctuation">.</span>triu<span class="token punctuation">(</span>scores<span class="token punctuation">)</span><span class="token punctuation">.</span>argmax<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    start_idx <span class="token operator">=</span> idx <span class="token operator">//</span> scores<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+    end_idx <span class="token operator">=</span> idx <span class="token operator">%</span> scores<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+    score <span class="token operator">=</span> scores<span class="token punctuation">[</span>start_idx<span class="token punctuation">,</span> end_idx<span class="token punctuation">]</span><span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    candidates<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span>start_idx<span class="token punctuation">,</span> end_idx<span class="token punctuation">,</span> score<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>candidates<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">0.33867</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">173</span><span class="token punctuation">,</span> <span class="token number">184</span><span class="token punctuation">,</span> <span class="token number">0.97149</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这两个候选答案对应于模型能够在每个块中找到的最佳答案。模型更有信心确信正确答案在第二部分（这是一个好兆头！）。现在我们只需要将这两个 token 跨度映射到上下文中的字符跨度（我们只需要映射第二个跨度就能得到答案，但看看模型在第一块中选择了什么也是很有趣的）。</p>
+<blockquote>
+<p>✏️ 试一试！调整上面的代码，以返回五个最可能的答案的分数和跨度（总共，不是每个块的）。</p>
+</blockquote>
+<p>我们之前获取的偏移量实际上是一个偏移量列表，每个文本块都有一个列表：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">for</span> candidate<span class="token punctuation">,</span> offset <span class="token keyword">in</span> <span class="token builtin">zip</span><span class="token punctuation">(</span>candidates<span class="token punctuation">,</span> offsets<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    start_token<span class="token punctuation">,</span> end_token<span class="token punctuation">,</span> score <span class="token operator">=</span> candidate
+    start_char<span class="token punctuation">,</span> _ <span class="token operator">=</span> offset<span class="token punctuation">[</span>start_token<span class="token punctuation">]</span>
+    _<span class="token punctuation">,</span> end_char <span class="token operator">=</span> offset<span class="token punctuation">[</span>end_token<span class="token punctuation">]</span>
+    answer <span class="token operator">=</span> long_context<span class="token punctuation">[</span>start_char<span class="token punctuation">:</span>end_char<span class="token punctuation">]</span>
+    result <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"answer"</span><span class="token punctuation">:</span> answer<span class="token punctuation">,</span> <span class="token string">"start"</span><span class="token punctuation">:</span> start_char<span class="token punctuation">,</span> <span class="token string">"end"</span><span class="token punctuation">:</span> end_char<span class="token punctuation">,</span> <span class="token string">"score"</span><span class="token punctuation">:</span> score<span class="token punctuation">&#125;</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">&#123;</span><span class="token string">'answer'</span><span class="token punctuation">:</span> <span class="token string">'\n🤗 Transformers: State of the Art NLP'</span><span class="token punctuation">,</span> <span class="token string">'start'</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">'end'</span><span class="token punctuation">:</span> <span class="token number">37</span><span class="token punctuation">,</span> <span class="token string">'score'</span><span class="token punctuation">:</span> <span class="token number">0.33867</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#123;</span><span class="token string">'answer'</span><span class="token punctuation">:</span> <span class="token string">'Jax, PyTorch and TensorFlow'</span><span class="token punctuation">,</span> <span class="token string">'start'</span><span class="token punctuation">:</span> <span class="token number">1892</span><span class="token punctuation">,</span> <span class="token string">'end'</span><span class="token punctuation">:</span> <span class="token number">1919</span><span class="token punctuation">,</span> <span class="token string">'score'</span><span class="token punctuation">:</span> <span class="token number">0.97149</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>如果我们忽略第一个结果，我们会得到与这个长上下文的流程相同的结果——太好了！</p>
+<blockquote>
+<p>✏️ 试一试！使用你之前计算的最佳得分来展示整个上下文中最可能的五个答案（不是每个块）。为了检查你的结果，回到第一个pipeline，并在调用时传入 top_k&#x3D;5。</p>
+</blockquote>
+<p>这结束了我们对分词器功能的深入探讨。在下一章中，当我们展示如何在一系列常见的 NLP 任务中对模型进行微调时，我们将会再次实践所有这些内容。</p>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百五十四篇博文写完，开心！！！！</p>
 <p>今天，也是充满希望的一天。</p>
 
