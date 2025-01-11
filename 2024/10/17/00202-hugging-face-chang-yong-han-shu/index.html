@@ -558,7 +558,7 @@ transformersHfArgumentParserapi link: https://huggingfa">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-28
+                    2025-01-11
                 </div>
                 
 
@@ -622,6 +622,30 @@ model_args<span class="token punctuation">,</span> data_args <span class="token 
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python script.py <span class="token parameter variable">--model_name_or_path</span> bert-base-uncased <span class="token parameter variable">--train_file</span> path/to/train/file <span class="token parameter variable">--eval_file</span> path/to/eval/file<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><code>HfArgumentParser</code> 会解析这些参数，并将它们适当地填充到 <code>model_args</code> 和 <code>data_args</code> 实例中。</p>
+<h3 id="attention-mask"><a href="#attention-mask" class="headerlink" title="attention_mask"></a>attention_mask</h3><p>在处理自然语言处理任务时，<code>tokenized_inputs[&#39;attention_mask&#39;]</code> 通常用于指示模型在处理序列时应该关注哪些token。在Transformer模型中，<code>attention_mask</code> 是一个重要的概念，它能够告诉模型哪些位置是padding token，以便在计算注意力权重时忽略这些位置。</p>
+<p>在您提供的代码片段中：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tokenized_inputs<span class="token punctuation">[</span><span class="token string">'attention_mask'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>indices<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这里发生了以下几件事情：</p>
+<ol>
+<li><code>tokenized_inputs</code> 是一个字典，其中包含了模型输入的各种组件，比如<code>input_ids</code>、<code>attention_mask</code>等。</li>
+<li><code>attention_mask</code> 是一个与 <code>input_ids</code> 长度相同的二维数组，通常由1和0组成。其中，1表示该位置的token是有效的，需要模型关注；0表示该位置的token是padding，应该被模型忽略。</li>
+<li><code>indices</code> 是一个包含索引的列表，表示 <code>tokenized_inputs</code> 中需要被修改的位置。</li>
+<li><code>i</code> 是索引 <code>indices</code> 的迭代变量。</li>
+<li><code>tokenized_inputs[&#39;attention_mask&#39;][indices[i]] = 0</code> 这行代码将 <code>attention_mask</code> 中对应于 <code>indices[i]</code> 位置的值设置为0。这意味着在模型处理输入序列时，该位置的token将被忽略。</li>
+</ol>
+<p>例如，假设我们有以下序列和对应的 <code>attention_mask</code>：</p>
+<pre class="line-numbers language-none"><code class="language-none">tokens:     [CLS] The cat sat on the mat [SEP]
+attention_mask:  [1, 1, 1, 1, 1, 1, 1, 1, 1]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>如果我们想忽略“on the”这部分，我们可以设置对应的索引，然后更新 <code>attention_mask</code>：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">indices <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span>  <span class="token comment"># 假设“on”和“the”在tokens中的索引分别是5和6</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>indices<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    tokenized_inputs<span class="token punctuation">[</span><span class="token string">'attention_mask'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>indices<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token comment"># 更新后的attention_mask</span>
+attention_mask<span class="token punctuation">:</span>  <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这样，在模型处理输入时，就会忽略掉“on”和“the”这两个token。</p>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百零二篇博文写完，开心！！！！</p>
 <p>今天，也是充满希望的一天。</p>
 
