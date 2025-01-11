@@ -4,8 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="00163 如何使用WSL在Windows上安装Linux, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
-    <meta name="description" content="前言开发人员可以在Windows机器上同时访问Windows和Linux的强大功能。Windows Linux子系统（WSL）允许开发人员安装Linux发行版（如Ubuntu、OpenSUSE、Kali、Debian、ArchLinux等）">
+    <meta name="keywords" content="00264 处理文本数据, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言本指南展示了处理文本数据集的特定方法。学习如何：
+
+使用 map() 对数据集进行分词。
+为 NLI 数据集将数据集标签与标签 ID 对齐。
+
+有关如何处理任何类型数据集的指南，请查看通用处理指南。
+src link: https://">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +23,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>00163 如何使用WSL在Windows上安装Linux | LuYF-Lemon-love の Blog</title>
+    <title>00264 处理文本数据 | LuYF-Lemon-love の Blog</title>
     <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
     
     <style>
@@ -487,12 +493,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/045-119867946.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/064-%E5%8E%9F%E7%A5%9E%E8%83%A1%E6%A1%83%E5%8F%AF%E7%88%B1%E6%89%8B%E5%8A%BF.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">00163 如何使用WSL在Windows上安装Linux</h1>
+                    <h1 class="description center-align post-title">00264 处理文本数据</h1>
                 </div>
             </div>
         </div>
@@ -516,12 +522,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
                             </a>
                         
-                            <a href="/tags/Windows/">
-                                <span class="chip bg-color">Windows</span>
+                            <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大语言模型</span>
+                            </a>
+                        
+                            <a href="/tags/huggingface/">
+                                <span class="chip bg-color">huggingface</span>
                             </a>
                         
                     </div>
@@ -532,8 +542,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
-                                计算机基础
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                大语言模型
                             </a>
                         
                     </div>
@@ -545,14 +555,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-08-27
+                    2025-01-11
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-28
+                    2025-01-11
                 </div>
                 
 
@@ -579,52 +589,49 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>开发人员可以在Windows机器上同时访问Windows和Linux的强大功能。Windows Linux子系统（WSL）允许开发人员安装Linux发行版（如Ubuntu、OpenSUSE、Kali、Debian、ArchLinux等），并直接在Windows上使用Linux应用程序、实用程序和Bash命令行工具，无需修改，无需传统虚拟机或双启动设置的开销。</p>
-<p>操作系统：Windows 11 家庭中文版</p>
-<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
-<li><a href="https://learn.microsoft.com/en-us/windows/wsl/install">How to install Linux on Windows with WSL</a></li>
-<li><a href="https://learn.microsoft.com/en-us/windows/wsl/setup/environment#set-up-your-linux-username-and-password">Set up your Linux username and password</a></li>
-<li><a href="https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-git">Get started using Git on Windows Subsystem for Linux</a></li>
-<li><a href="https://learn.microsoft.com/en-us/windows/wsl/tutorials/gpu-compute">Get started with GPU acceleration for ML in WSL</a></li>
-</ol>
-<h2 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h2><p>您必须运行Windows 10 2004及更高版本（Build 19041及更高版本）或Windows 11才能使用以下命令。如果您使用的是早期版本，请参阅手动安装页面。</p>
-<h2 id="安装WSL命令"><a href="#安装WSL命令" class="headerlink" title="安装WSL命令"></a>安装WSL命令</h2><p>您现在可以使用单个命令安装运行WSL所需的所有内容。通过右键单击并选择“<strong>以管理员身份运行</strong>”，在管理员模式下打开PowerShell或Windows命令提示符，输入wsl–install命令，然后重新启动计算机。</p>
-<pre class="line-numbers language-PowerShell" data-language="PowerShell"><code class="language-PowerShell">wsl --install<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>此命令将启用运行WSL和安装Linux的Ubuntu发行版所需的功能。（可以更改此默认发行版）。</p>
-<h2 id="更改已安装的默认Linux分发"><a href="#更改已安装的默认Linux分发" class="headerlink" title="更改已安装的默认Linux分发"></a>更改已安装的默认Linux分发</h2><p>默认情况下，安装的Linux发行版将是Ubuntu。这可以使用<code>-d</code>标志进行更改。</p>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本指南展示了处理文本数据集的特定方法。学习如何：</p>
 <ul>
-<li>要更改已安装的发行版，请输入：<code>wsl --install -d &lt;Distribution Name&gt;</code>。将<code>&lt;Distribution Name&gt;</code>替换为您要安装的发行版的名称。</li>
-<li>要查看可通过在线商店下载的可用Linux发行版列表，请输入：<code>wsl --list --online</code>或<code>wsl -l -o</code>。</li>
-<li>要在初始安装后安装其他Linux发行版，您还可以使用命令：<code>wsl --install -d &lt;Distribution Name&gt;</code>。</li>
+<li>使用 map() 对数据集进行分词。</li>
+<li>为 NLI 数据集将数据集标签与标签 ID 对齐。</li>
 </ul>
-<h2 id="检查您正在运行的WSL版本"><a href="#检查您正在运行的WSL版本" class="headerlink" title="检查您正在运行的WSL版本"></a>检查您正在运行的WSL版本</h2><p>您可以列出已安装的Linux发行版，并通过在PowerShell或Windows命令提示符中输入命令：<code>wsl -l -v</code>来检查每个发行版设置的WSL版本。</p>
-<p>要在安装新的Linux发行版时将默认版本设置为WSL 1或WSL 2，请使用命令：<code>wsl --set-default-version &lt;Version#&gt;</code>，将<code>&lt;Version#&gt;</code>替换为1或2。</p>
-<p>要设置与wsl命令一起使用的默认Linux发行版，请输入：<code>wsl -s &lt;DistributionName&gt;</code>或<code>wsl --set-default &lt;DistributionName&gt;</code>，将<code>&lt;DistributionName&gt;</code>替换为您要使用的Linux发行版的名称。例如，在PowerShell&#x2F;CMD中，输入：<code>wsl -s Debian</code>以将默认发行版设置为Debian。现在从Powershell运行<code>wsl npm init</code>将在Debian中运行<code>npm init</code>命令。</p>
-<p>要在PowerShell或Windows命令提示符中运行特定的wsl发行版而不更改默认发行版，请使用命令：<code>wsl -d &lt;DistributionName&gt;</code>，将<code>&lt;DistributionName&gt;</code>替换为您要使用的发行版的名称。</p>
-<h2 id="将版本从WSL-1升级到WSL-2"><a href="#将版本从WSL-1升级到WSL-2" class="headerlink" title="将版本从WSL 1升级到WSL 2"></a>将版本从WSL 1升级到WSL 2</h2><p>使用<code>wsl --install</code>命令安装的新Linux安装将默认设置为WSL 2。</p>
-<p><code>wsl --set-version</code>命令可用于从WSL 2降级到WSL 1或将以前安装的Linux发行版从WSL 1更新到WSL 2。</p>
-<p>要查看您的Linux分发是设置为WSL 1还是WSL 2，请使用命令：<code>wsl -l -v</code>。</p>
-<p>要更改版本，请使用命令：<code>wsl --set-version &lt;distro name&gt; 2</code>将<code>&lt;distro name&gt;</code>替换为要更新的Linux发行版的名称。例如，<code>wsl --set-version Ubuntu-20.04 2</code>将设置您的Ubuntu 20.04发行版使用WSL 2。</p>
-<h2 id="设置Linux用户名和密码"><a href="#设置Linux用户名和密码" class="headerlink" title="设置Linux用户名和密码"></a>设置Linux用户名和密码</h2><p>使用WSL安装Linux发行版的过程完成后，使用开始菜单打开发行版（默认为Ubuntu）。系统会要求您为Linux发行版创建用户名和密码。</p>
-<p>更多详细的信息，可以参考<a href="https://learn.microsoft.com/en-us/windows/wsl/setup/environment#set-up-your-linux-username-and-password">这里</a>。</p>
-<h2 id="更新和升级包"><a href="#更新和升级包" class="headerlink" title="更新和升级包"></a>更新和升级包</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> update <span class="token operator">&amp;&amp;</span> <span class="token function">sudo</span> <span class="token function">apt</span> upgrade<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>有关如何处理任何类型数据集的指南，请查看<a href="https://huggingface.co/docs/datasets/process">通用处理指南</a>。</p>
+<p>src link: <a href="https://huggingface.co/docs/datasets/nlp_process">https://huggingface.co/docs/datasets/nlp_process</a></p>
+<p>Operating System: Ubuntu 22.04.4 LTS</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://huggingface.co/docs/datasets/nlp_process">Process text data</a></li>
+</ol>
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><p><code>map()</code> 函数支持一次性处理一批示例，这可以加快分词速度。</p>
+<p>从 🤗 Transformers 加载一个分词器：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoTokenizer
 
-<h2 id="文件存储"><a href="#文件存储" class="headerlink" title="文件存储"></a>文件存储</h2><p><img src="https://cos.luyf-lemon-love.space/images/20240827231947.png"></p>
-<h2 id="开始将Visual-Studio-Code与Windows子系统一起使用Linux"><a href="#开始将Visual-Studio-Code与Windows子系统一起使用Linux" class="headerlink" title="开始将Visual Studio Code与Windows子系统一起使用Linux"></a>开始将Visual Studio Code与Windows子系统一起使用Linux</h2><p>简而言之，就是使用<a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack">Remote Development</a>插件像连接远程服务器一样，将Visual Studio Code与WSL一起使用。</p>
-<p>更多详细的信息，可以参考<a href="https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-vscode">这里</a>。</p>
-<h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><p>Git已经与大多数Linux发行版的Windows子系统一起安装，但是，您可能希望更新到最新版本。您还需要设置git配置文件。</p>
-<p>对于Ubuntu&#x2F;Debian中最新的稳定Git版本，输入命令：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">git</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<span class="token operator">>></span><span class="token operator">></span> tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"bert-base-cased"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>要设置您的Git配置文件，请为您正在使用的发行版打开一个命令行并使用此命令设置您的姓名（将“Your Name”替换为您的首选用户名）：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> config <span class="token parameter variable">--global</span> user.name <span class="token string">"Your Name"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在 <code>map()</code> 函数中将 <code>batched</code> 参数设置为 <code>True</code>，以将分词器应用于批量示例：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> dataset <span class="token operator">=</span> dataset<span class="token punctuation">.</span><span class="token builtin">map</span><span class="token punctuation">(</span><span class="token keyword">lambda</span> examples<span class="token punctuation">:</span> tokenizer<span class="token punctuation">(</span>examples<span class="token punctuation">[</span><span class="token string">"text"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> batched<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> dataset<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#123;</span><span class="token string">'text'</span><span class="token punctuation">:</span> <span class="token string">'the rock is destined to be the 21st century\'s new " conan " and that he\'s going to make a splash even greater than arnold schwarzenegger , jean-claud van damme or steven segal .'</span><span class="token punctuation">,</span> 
+ <span class="token string">'label'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+ <span class="token string">'input_ids'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">101</span><span class="token punctuation">,</span> <span class="token number">1996</span><span class="token punctuation">,</span> <span class="token number">2600</span><span class="token punctuation">,</span> <span class="token number">2003</span><span class="token punctuation">,</span> <span class="token number">16036</span><span class="token punctuation">,</span> <span class="token number">2000</span><span class="token punctuation">,</span> <span class="token number">2022</span><span class="token punctuation">,</span> <span class="token number">1996</span><span class="token punctuation">,</span> <span class="token number">7398</span><span class="token punctuation">,</span> <span class="token number">2301</span><span class="token punctuation">,</span> <span class="token number">1005</span><span class="token punctuation">,</span> <span class="token number">1055</span><span class="token punctuation">,</span> <span class="token number">2047</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">,</span> <span class="token number">16608</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">,</span> <span class="token number">1998</span><span class="token punctuation">,</span> <span class="token number">2008</span><span class="token punctuation">,</span> <span class="token number">2002</span><span class="token punctuation">,</span> <span class="token number">1005</span><span class="token punctuation">,</span> <span class="token number">1055</span><span class="token punctuation">,</span> <span class="token number">2183</span><span class="token punctuation">,</span> <span class="token number">2000</span><span class="token punctuation">,</span> <span class="token number">2191</span><span class="token punctuation">,</span> <span class="token number">1037</span><span class="token punctuation">,</span> <span class="token number">17624</span><span class="token punctuation">,</span> <span class="token number">2130</span><span class="token punctuation">,</span> <span class="token number">3618</span><span class="token punctuation">,</span> <span class="token number">2084</span><span class="token punctuation">,</span> <span class="token number">7779</span><span class="token punctuation">,</span> <span class="token number">29058</span><span class="token punctuation">,</span> <span class="token number">8625</span><span class="token punctuation">,</span> <span class="token number">13327</span><span class="token punctuation">,</span> <span class="token number">1010</span><span class="token punctuation">,</span> <span class="token number">3744</span><span class="token punctuation">,</span> <span class="token number">1011</span><span class="token punctuation">,</span> <span class="token number">18856</span><span class="token punctuation">,</span> <span class="token number">19513</span><span class="token punctuation">,</span> <span class="token number">3158</span><span class="token punctuation">,</span> <span class="token number">5477</span><span class="token punctuation">,</span> <span class="token number">4168</span><span class="token punctuation">,</span> <span class="token number">2030</span><span class="token punctuation">,</span> <span class="token number">7112</span><span class="token punctuation">,</span> <span class="token number">16562</span><span class="token punctuation">,</span> <span class="token number">2140</span><span class="token punctuation">,</span> <span class="token number">1012</span><span class="token punctuation">,</span> <span class="token number">102</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+ <span class="token string">'token_type_ids'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+ <span class="token string">'attention_mask'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>使用此命令设置您的电子邮件（将“<a href="mailto:&#121;&#x6f;&#x75;&#x72;&#101;&#x6d;&#x61;&#x69;&#108;&#64;&#x64;&#111;&#109;&#x61;&#105;&#x6e;&#46;&#x63;&#x6f;&#109;">&#121;&#x6f;&#x75;&#x72;&#101;&#x6d;&#x61;&#x69;&#108;&#64;&#x64;&#111;&#109;&#x61;&#105;&#x6e;&#46;&#x63;&#x6f;&#109;</a>”替换为您喜欢的电子邮件）：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> config <span class="token parameter variable">--global</span> user.email <span class="token string">"youremail@domain.com"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><code>map()</code> 函数将返回的值转换为 PyArrow 支持的格式。但是，将张量显式返回为 NumPy 数组更快，因为这是 PyArrow 本机支持的格式。在分词文本时，设置 <code>return_tensors=&quot;np&quot;</code>：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> dataset <span class="token operator">=</span> dataset<span class="token punctuation">.</span><span class="token builtin">map</span><span class="token punctuation">(</span><span class="token keyword">lambda</span> examples<span class="token punctuation">:</span> tokenizer<span class="token punctuation">(</span>examples<span class="token punctuation">[</span><span class="token string">"text"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> return_tensors<span class="token operator">=</span><span class="token string">"np"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> batched<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>更多详细的信息，可以参考<a href="https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-git">这里</a>。</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百六十三篇博文写完，开心！！！！</p>
+<h2 id="Align"><a href="#Align" class="headerlink" title="Align"></a>Align</h2><p><code>align_labels_with_mapping()</code> 函数将数据集标签 ID 与标签名称对齐。并非所有 🤗 Transformers 模型都遵循原始数据集规定的标签映射，特别是对于 NLI 数据集。例如，<a href="https://huggingface.co/datasets/glue">MNLI</a> 数据集使用以下标签映射：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> label2id <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"entailment"</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">"neutral"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"contradiction"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>为了将数据集标签映射与模型使用的映射对齐，创建一个标签名称和ID的字典来进行对齐。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> label2id <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"contradiction"</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">"neutral"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"entailment"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>将标签映射的字典传递给 <a href="https://huggingface.co/docs/datasets/v3.2.0/en/package_reference/main_classes#datasets.Dataset.align_labels_with_mapping">align_labels_with_mapping()</a> 函数，以及要对齐的列。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> datasets <span class="token keyword">import</span> load_dataset
+
+<span class="token operator">>></span><span class="token operator">></span> mnli <span class="token operator">=</span> load_dataset<span class="token punctuation">(</span><span class="token string">"glue"</span><span class="token punctuation">,</span> <span class="token string">"mnli"</span><span class="token punctuation">,</span> split<span class="token operator">=</span><span class="token string">"train"</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> mnli_aligned <span class="token operator">=</span> mnli<span class="token punctuation">.</span>align_labels_with_mapping<span class="token punctuation">(</span>label2id<span class="token punctuation">,</span> <span class="token string">"label"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>你还可以使用这个函数来分配自定义的标签到ID的映射。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百六十四篇博文写完，开心！！！！</p>
 <p>今天，也是充满希望的一天。</p>
 
                 
@@ -652,7 +659,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luyf-lemon-love.space/2024/08/27/00163-ru-he-shi-yong-wsl-zai-windows-shang-an-zhuang-linux/">https://luyf-lemon-love.space/2024/08/27/00163-ru-he-shi-yong-wsl-zai-windows-shang-an-zhuang-linux/</a>
+                    <a href="https://luyf-lemon-love.space/2025/01/11/00264-chu-li-wen-ben-shu-ju/">https://luyf-lemon-love.space/2025/01/11/00264-chu-li-wen-ben-shu-ju/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -690,12 +697,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
                                 </a>
                             
-                                <a href="/tags/Windows/">
-                                    <span class="chip bg-color">Windows</span>
+                                <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大语言模型</span>
+                                </a>
+                            
+                                <a href="/tags/huggingface/">
+                                    <span class="chip bg-color">huggingface</span>
                                 </a>
                             
                         </div>
@@ -774,16 +785,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2024/08/29/00164-python-concurrent-bao-xue-xi-bi-ji/">
+                <a href="/2025/01/11/00264-chu-li-wen-ben-shu-ju/">
                     <div class="card-image">
                         
-                        <img src="https://cos.luyf-lemon-love.space/images/046-119867946.jpg" class="responsive-img" alt="00164 Python concurrent 包 学习笔记">
+                        <img src="https://cos.luyf-lemon-love.space/images/064-%E5%8E%9F%E7%A5%9E%E8%83%A1%E6%A1%83%E5%8F%AF%E7%88%B1%E6%89%8B%E5%8A%BF.jpg" class="responsive-img" alt="00264 处理文本数据">
                         
-                        <span class="card-title">00164 Python concurrent 包 学习笔记</span>
+                        <span class="card-title">00264 处理文本数据</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -793,38 +805,35 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-08-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-11
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Python/" class="post-category">
-                                    Python
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Python/">
-                        <span class="chip bg-color">Python</span>
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
                     </a>
                     
-                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
-                        <span class="chip bg-color">多线程</span>
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
                     </a>
                     
-                    <a href="/tags/%E5%A4%9A%E8%BF%9B%E7%A8%8B/">
-                        <span class="chip bg-color">多进程</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%85%A8%E5%B1%80%E8%A7%A3%E9%87%8A%E5%99%A8%E9%94%81%EF%BC%88GIL%EF%BC%89/">
-                        <span class="chip bg-color">全局解释器锁（GIL）</span>
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
                     </a>
                     
                 </div>
@@ -838,12 +847,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/08/08/00162-da-gui-mo-transformer-mo-xing-8-bi-te-ju-zhen-cheng-jian-jie/">
+                <a href="/2025/01/11/00263-nlp-course-normalization-and-pre-tokenization/">
                     <div class="card-image">
                         
-                        <img src="https://cos.luyf-lemon-love.space/images/044-119867946.jpg" class="responsive-img" alt="00162 大规模 Transformer 模型 8 比特矩阵乘简介">
+                        <img src="https://cos.luyf-lemon-love.space/images/064-%E5%94%AF%E7%BE%8E%E5%8F%A4%E9%A3%8E%E5%A5%B3%E5%AD%A9%E9%95%BF%E5%8F%91%E8%92%99%E7%9C%BC.jpg" class="responsive-img" alt="00263 NLP Course - Normalization and pre-tokenization">
                         
-                        <span class="card-title">00162 大规模 Transformer 模型 8 比特矩阵乘简介</span>
+                        <span class="card-title">00263 NLP Course - Normalization and pre-tokenization</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -854,7 +863,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-11
                             </span>
                         <span class="publish-author">
                             
