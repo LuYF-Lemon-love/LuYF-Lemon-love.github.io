@@ -554,7 +554,7 @@ Operating System: Ubuntu 22.04.4 LTS
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-28
+                    2025-01-12
                 </div>
                 
 
@@ -626,6 +626,63 @@ result <span class="token operator">=</span> torch<span class="token punctuation
 
 <p>如果 <code>dim</code> 参数未指定，<code>input</code> 张量首先会被展平，然后根据 <code>repeats</code> 张量中的值进行重复。</p>
 <p>这个函数在进行数据预处理和创建批量数据时非常有用，尤其是在需要根据不同的样本长度进行重复操作时。</p>
+<h3 id="torch-bitwise-or"><a href="#torch-bitwise-or" class="headerlink" title="torch.bitwise_or"></a>torch.bitwise_or</h3><p><code>torch.bitwise_or</code> 是PyTorch库中的一个函数，用于执行元素级的按位或（bitwise OR）操作。按位或操作比较两个整数值的每一位，如果至少有一个位是1，则结果的对应位为1，否则为0。</p>
+<p>以下是 <code>torch.bitwise_or</code> 的基本用法：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch
+<span class="token comment"># 创建两个张量</span>
+tensor1 <span class="token operator">=</span> torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>torch<span class="token punctuation">.</span>int32<span class="token punctuation">)</span>
+tensor2 <span class="token operator">=</span> torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>torch<span class="token punctuation">.</span>int32<span class="token punctuation">)</span>
+<span class="token comment"># 执行按位或操作</span>
+result <span class="token operator">=</span> torch<span class="token punctuation">.</span>bitwise_or<span class="token punctuation">(</span>tensor1<span class="token punctuation">,</span> tensor2<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在上面的例子中，<code>tensor1</code> 和 <code>tensor2</code> 中的每个元素都进行了按位或操作，结果如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">tensor([5, 7, 7], dtype&#x3D;torch.int32)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>按位操作的二进制表示如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">tensor1: [0001, 0010, 0011]
+tensor2: [0100, 0101, 0110]
+result:  [0101, 0111, 0111]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><code>torch.bitwise_or</code> 函数要求输入的两个张量要么具有相同的形状，要么其中一个可以是标量（即只有一个元素的张量），在这种情况下，标量值将与另一个张量的每个元素进行按位或操作。此外，输入张量必须具有整数类型。</p>
+<h3 id="torch-argwhere"><a href="#torch-argwhere" class="headerlink" title="torch.argwhere"></a>torch.argwhere</h3><p><code>torch.argwhere</code> 是PyTorch库中的一个函数，它用于返回输入张量（Tensor）中非零元素的索引。</p>
+<p>具体来说，<code>torch.argwhere</code> 函数会返回一个二维张量，其中的行对应于非零元素的索引。如果输入张量是一个多维张量，那么返回的二维张量的每一行都是一个索引元组，指示原始张量中非零元素的位置。</p>
+<p>以下是<code>torch.argwhere</code>的一些关键点：</p>
+<ul>
+<li>输入张量可以是一维、二维或更高维的张量。</li>
+<li>该函数仅返回非零元素的索引。</li>
+<li>返回的张量的形状是 <code>(num_nonzero, input.dim())</code>，其中 <code>num_nonzero</code> 是非零元素的数量，<code>input.dim()</code> 是输入张量的维度。</li>
+</ul>
+<p>使用示例：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch
+<span class="token comment"># 创建一个张量</span>
+a <span class="token operator">=</span> torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token comment"># 使用torch.argwhere找到非零元素的索引</span>
+indices <span class="token operator">=</span> torch<span class="token punctuation">.</span>argwhere<span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>indices<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>输出将会是：</p>
+<pre class="line-numbers language-none"><code class="language-none">tensor([[0, 1],
+        [1, 0],
+        [1, 2]])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>在这个例子中，<code>a</code> 是一个2x3的矩阵，<code>torch.argwhere(a)</code> 返回了一个包含非零元素索引的二维张量。例如，第一个非零元素 <code>1</code> 在原始张量中的位置是 <code>[0, 1]</code>，第二个非零元素 <code>2</code> 的位置是 <code>[1, 0]</code>，以此类推。</p>
+<p><code>torch.argwhere</code> 在处理稀疏数据或者在需要找到特定条件元素的索引时非常有用。</p>
+<h3 id="torch-logical-or"><a href="#torch-logical-or" class="headerlink" title="torch.logical_or"></a>torch.logical_or</h3><p><code>torch.logical_or</code> 是 PyTorch 库中的一个函数，用于执行元素级的逻辑或运算。给定两个相同形状的张量（tensor），<code>torch.logical_or</code> 会返回一个新的张量，其中每个位置的元素是两个输入张量对应元素逻辑或的结果。</p>
+<p>以下是 <code>torch.logical_or</code> 的基本用法：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch
+<span class="token comment"># 创建两个布尔类型的张量</span>
+tensor1 <span class="token operator">=</span> torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token boolean">True</span><span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>torch<span class="token punctuation">.</span><span class="token builtin">bool</span><span class="token punctuation">)</span>
+tensor2 <span class="token operator">=</span> torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token boolean">False</span><span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>torch<span class="token punctuation">.</span><span class="token builtin">bool</span><span class="token punctuation">)</span>
+<span class="token comment"># 使用 torch.logical_or 进行逻辑或运算</span>
+result <span class="token operator">=</span> torch<span class="token punctuation">.</span>logical_or<span class="token punctuation">(</span>tensor1<span class="token punctuation">,</span> tensor2<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面的代码会输出：</p>
+<pre class="line-numbers language-none"><code class="language-none">tensor([ True, False, True, True])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在这个例子中，<code>tensor1</code> 和 <code>tensor2</code> 在每个位置上进行逻辑或运算，只有当两个元素都是 <code>False</code> 时，结果才是 <code>False</code>，否则是 <code>True</code>。</p>
+<p>需要注意的是，输入张量必须是布尔类型的张量，如果不是，你需要先将它们转换为布尔类型。如果输入张量有不同的形状，<code>torch.logical_or</code> 无法直接应用，你需要先对张量进行广播或其他操作以使它们的形状兼容。</p>
 <h2 id="Module-函数"><a href="#Module-函数" class="headerlink" title="Module 函数"></a>Module 函数</h2><h3 id="register-buffer"><a href="#register-buffer" class="headerlink" title="register_buffer"></a>register_buffer</h3><p>api link: <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.register_buffer">https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.register_buffer</a></p>
 <p>在PyTorch中，<code>register_buffer</code>是一个在模型中注册一个缓冲区（buffer）的方法，这个缓冲区在模型保存和加载时会被包含进去，但它不是一个模型参数，也就是说不会被优化器更新。</p>
 <p>缓冲区通常用于存储一些不经常变化的数据，比如批量归一化的均值和方差，或者是在训练RNN时保存隐藏状态等。</p>
