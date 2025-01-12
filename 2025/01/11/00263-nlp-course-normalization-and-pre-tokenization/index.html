@@ -556,7 +556,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-01-11
+                    2025-01-12
                 </div>
                 
 
@@ -591,7 +591,87 @@
 <h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
 <li><a href="https://huggingface.co/learn/nlp-course/chapter6/4">NLP Course - Normalization and pre-tokenization</a></li>
 </ol>
-<h2 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h2><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百六十三篇博文写完，开心！！！！</p>
+<h2 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h2><p>在规范化步骤中，会进行一些基本的清理工作，包括移除多余的空格、转换成小写字母以及去除音标。如果你对<a href="http://www.unicode.org/reports/tr15/">Unicode规范化</a>（例如NFC或NFKC）有所了解，那么你可能会知道这是分词器可能会应用的一个过程。</p>
+<p>🤗 Transformers 分词器的 <code>backend_tokenizer</code> 属性提供了对底层 🤗 Tokenizers 库分词器的访问。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoTokenizer
+
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"bert-base-uncased"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">type</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">.</span>backend_tokenizer<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'tokenizers.Tokenizer'</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>分词器对象的 <code>normalizer</code> 属性有一个 <code>normalize_str()</code> 方法，我们可以使用它来查看规范化是如何执行的。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">print</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">.</span>backend_tokenizer<span class="token punctuation">.</span>normalizer<span class="token punctuation">.</span>normalize_str<span class="token punctuation">(</span><span class="token string">"Héllò hôw are ü?"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token string">'hello how are u?'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在这个例子中，由于我们选择了 <code>bert-base-uncased</code> 检查点，所应用的规范化包括转换为小写和去除音标。</p>
+<blockquote>
+<p>✏️ 尝试一下！从bert-base-cased检查点加载一个分词器，并将相同的示例传递给它。你能看到分词器的cased和uncased版本之间有哪些主要区别？</p>
+</blockquote>
+<h2 id="预分词"><a href="#预分词" class="headerlink" title="预分词"></a>预分词</h2><p>正如我们将在接下来的章节中看到的，仅凭原始文本是无法训练分词器的。相反，我们首先需要将文本分割成小的实体，比如单词。这就是预分词步骤的作用所在。正如我们在第2章中看到的，基于单词的分词器可以简单地将原始文本在空白字符和标点符号处分割成单词。这些单词将是分词器在训练期间可以学习的子令牌的边界。</p>
+<p>为了了解快速分词器如何执行预分词，我们可以使用分词器对象的预分词器属性中的pre_tokenize_str()方法：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tokenizer<span class="token punctuation">.</span>backend_tokenizer<span class="token punctuation">.</span>pre_tokenizer<span class="token punctuation">.</span>pre_tokenize_str<span class="token punctuation">(</span><span class="token string">"Hello, how are  you?"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'Hello'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'how'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'are'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">14</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'you'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">,</span> <span class="token number">19</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'?'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">19</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>请注意，分词器已经在跟踪偏移量，这就是它如何为我们提供上一节中使用的偏移量映射。在这里，分词器忽略了两个空格，并用一个空格替换它们，但偏移量在are和you之间跳跃，以说明这一点。</p>
+<p>由于我们使用的是BERT分词器，预分词涉及在空白字符和标点符号上分割。其他分词器在这一步可能有不同的规则。例如，如果我们使用GPT-2分词器：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"gpt2"</span><span class="token punctuation">)</span>
+tokenizer<span class="token punctuation">.</span>backend_tokenizer<span class="token punctuation">.</span>pre_tokenizer<span class="token punctuation">.</span>pre_tokenize_str<span class="token punctuation">(</span><span class="token string">"Hello, how are  you?"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>它也会在空白字符和标点符号上分割，但它会保留空格并将它们替换为Ġ符号，这样如果我们解码令牌，它就能够恢复原始的空格：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'Hello'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'Ġhow'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'Ġare'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">14</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'Ġ'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">14</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'Ġyou'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">,</span> <span class="token number">19</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+ <span class="token punctuation">(</span><span class="token string">'?'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">19</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>此外，请注意，与BERT分词器不同，这个分词器不会忽略双空格。</p>
+<p>作为最后一个例子，让我们来看看基于SentencePiece算法的T5分词器：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"t5-small"</span><span class="token punctuation">)</span>
+tokenizer<span class="token punctuation">.</span>backend_tokenizer<span class="token punctuation">.</span>pre_tokenizer<span class="token punctuation">.</span>pre_tokenize_str<span class="token punctuation">(</span><span class="token string">"Hello, how are  you?"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'▁Hello,'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'▁how'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'▁are'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">14</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'▁you?'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>像GPT-2分词器一样，这个分词器也保留了空格，并将其替换为特定的令牌(_)，但T5分词器只在空白字符上分割，而不是在标点符号上。此外，请注意，它默认在句子开头（在Hello之前）添加了一个空格，并忽略了are和you之间的双空格。</p>
+<p>现在我们已经了解了不同分词器处理文本的一些方法，我们可以开始探索底层的算法本身了。我们将从广泛适用的SentencePiece的快速概览开始；然后，在接下来的三个部分中，我们将探讨用于子词分词的三个主要算法是如何工作的。</p>
+<h2 id="SentencePiece"><a href="#SentencePiece" class="headerlink" title="SentencePiece"></a>SentencePiece</h2><p><a href="https://github.com/google/sentencepiece">SentencePiece</a>是一种用于文本预处理阶段的分词算法，你可以将它与我们在接下来的三个部分中将要看到的任何模型一起使用。它将文本视为一系列的Unicode字符，并将空格替换为特殊字符▁。与Unigram算法（见第7节）结合使用时，它甚至不需要预分词步骤，这对于不使用空格的语言（如中文或日文）非常有用。</p>
+<p>SentencePiece的另一个主要特点是可逆分词：由于对空格没有特殊处理，解码令牌只需将它们连接起来，并将_s替换为空格——这就得到了归一化文本。正如我们之前所看到的，BERT分词器会移除重复的空格，因此其分词是不可逆的。</p>
+<h2 id="算法概览"><a href="#算法概览" class="headerlink" title="算法概览"></a>算法概览</h2><p>在接下来的部分中，我们将深入探讨三种主要的子词分词算法：BPE（被GPT-2和其他模型使用）、WordPiece（例如被BERT使用）和Unigram（被T5和其他模型使用）。在我们开始之前，这里有一个关于它们各自如何工作的快速概览。如果你还没有完全理解，不要犹豫，在阅读接下来的每个部分后回到这个表格。</p>
+<table>
+<thead>
+<tr>
+<th align="center">Model</th>
+<th align="center">BPE</th>
+<th align="center">WordPiece</th>
+<th align="center">Unigram</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Training</td>
+<td align="center">Starts from a small vocabulary and learns rules to merge tokens</td>
+<td align="center">Starts from a small vocabulary and learns rules to merge tokens</td>
+<td align="center">Starts from a large vocabulary and learns rules to remove tokens</td>
+</tr>
+<tr>
+<td align="center">Training step</td>
+<td align="center">Merges the tokens corresponding to the most common pair</td>
+<td align="center">Merges the tokens corresponding to the pair with the best score based on the frequency of the pair, privileging pairs where each individual token is less frequent</td>
+<td align="center">Removes all the tokens in the vocabulary that will minimize the loss computed on the whole corpus</td>
+</tr>
+<tr>
+<td align="center">Learns</td>
+<td align="center">Merge rules and a vocabulary</td>
+<td align="center">Just a vocabulary</td>
+<td align="center">A vocabulary with a score for each token</td>
+</tr>
+<tr>
+<td align="center">Encoding</td>
+<td align="center">Splits a word into characters and applies the merges learned during training</td>
+<td align="center">Finds the longest subword starting from the beginning that is in the vocabulary, then does the same for the rest of the word</td>
+<td align="center">Finds the most likely split into tokens, using the scores learned during training</td>
+</tr>
+</tbody></table>
+<p>现在让我们深入探讨BPE！</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百六十三篇博文写完，开心！！！！</p>
 <p>今天，也是充满希望的一天。</p>
 
                 
