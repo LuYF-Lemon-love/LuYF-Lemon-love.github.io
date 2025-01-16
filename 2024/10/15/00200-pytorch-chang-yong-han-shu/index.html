@@ -554,7 +554,7 @@ Operating System: Ubuntu 22.04.4 LTS
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-01-12
+                    2025-01-16
                 </div>
                 
 
@@ -683,6 +683,31 @@ result <span class="token operator">=</span> torch<span class="token punctuation
 
 <p>在这个例子中，<code>tensor1</code> 和 <code>tensor2</code> 在每个位置上进行逻辑或运算，只有当两个元素都是 <code>False</code> 时，结果才是 <code>False</code>，否则是 <code>True</code>。</p>
 <p>需要注意的是，输入张量必须是布尔类型的张量，如果不是，你需要先将它们转换为布尔类型。如果输入张量有不同的形状，<code>torch.logical_or</code> 无法直接应用，你需要先对张量进行广播或其他操作以使它们的形状兼容。</p>
+<h3 id="reshape"><a href="#reshape" class="headerlink" title="reshape"></a>reshape</h3><p>在Python中的NumPy库，<code>reshape</code>方法是一个非常有用的功能，它允许我们改变数组的形状而不改变其数据。具体来说，<code>reshape</code>方法可以重新组织一个数组，使其具有不同的行数和列数，但保持相同数量的元素。</p>
+<p>reshape方法的基本用法：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">numpy_array<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span>shape<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><code>numpy_array</code>：需要重塑的NumPy数组。</li>
+<li><code>shape</code>：一个整数或者整数元组，用来指定新的形状。</li>
+</ul>
+<p>例如，如果你有一个一维数组有8个元素，你可以将其重塑为一个2行4列的二维数组：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+array <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+reshaped_array <span class="token operator">=</span> array<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>reshape(-1)的用法：</p>
+<p>当使用<code>reshape(-1)</code>时，<code>-1</code>是一个特殊的参数，告诉NumPy自动计算需要的大小以匹配数组中的元素数量。这在当你想要将一个数组转换为一维数组，但又不想手动计算它应该有多少元素时非常有用。</p>
+<p>例如，将上述的2行4列的二维数组转换为一维数组：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">one_dimensional_array <span class="token operator">=</span> reshaped_array<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这里的<code>-1</code>告诉NumPy，让它自己决定正确的维度大小，以保持元素的总数不变。</p>
+<p>注意事项：</p>
+<ul>
+<li>使用<code>reshape</code>方法时，数组的总元素数量必须与新的形状兼容。例如，一个有8个元素的数组不能被重塑为有5个元素的形状。</li>
+<li><code>reshape</code>返回的是数据的视图，而不是数据的副本，这意味着原始数组和重塑后的数组共享相同的数据缓冲区。修改任何一个数组都会影响到另一个。</li>
+</ul>
+<p>通过使用<code>reshape</code>方法和<code>reshape(-1)</code>，可以灵活地操作数组的形状，以适应不同的数据处理需求。</p>
 <h2 id="Module-函数"><a href="#Module-函数" class="headerlink" title="Module 函数"></a>Module 函数</h2><h3 id="register-buffer"><a href="#register-buffer" class="headerlink" title="register_buffer"></a>register_buffer</h3><p>api link: <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.register_buffer">https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.register_buffer</a></p>
 <p>在PyTorch中，<code>register_buffer</code>是一个在模型中注册一个缓冲区（buffer）的方法，这个缓冲区在模型保存和加载时会被包含进去，但它不是一个模型参数，也就是说不会被优化器更新。</p>
 <p>缓冲区通常用于存储一些不经常变化的数据，比如批量归一化的均值和方差，或者是在训练RNN时保存隐藏状态等。</p>
