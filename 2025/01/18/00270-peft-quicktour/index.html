@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="00163 如何使用WSL在Windows上安装Linux, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
-    <meta name="description" content="前言开发人员可以在Windows机器上同时访问Windows和Linux的强大功能。Windows Linux子系统（WSL）允许开发人员安装Linux发行版（如Ubuntu、OpenSUSE、Kali、Debian、ArchLinux等）">
+    <meta name="keywords" content="00270 PEFT - Quicktour, NLP LLM DeepLearning LuYF-Lemon-love 自然语言处理 深度学习 大语言模型">
+    <meta name="description" content="前言PEFT（参数高效微调）是一个库，它能够高效地将大型预训练模型适配到各种下游应用，而无需微调模型的所有参数，因为这样做成本过高。PEFT方法仅微调少量（额外）的模型参数，显著降低计算和存储成本，同时还能达到与完全微调模型相当的性能。这使">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>00163 如何使用WSL在Windows上安装Linux | LuYF-Lemon-love の Blog</title>
+    <title>00270 PEFT - Quicktour | LuYF-Lemon-love の Blog</title>
     <link rel="icon" type="image/jpeg" href="https://cos.luyf-lemon-love.space/images/苏苏1.jpeg">
     
     <style>
@@ -487,12 +487,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/045-119867946.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cos.luyf-lemon-love.space/images/070-%E5%88%9D%E9%9F%B3%E6%9C%AA%E6%9D%A5%E6%B6%82%E9%B8%A6%E5%A2%99.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">00163 如何使用WSL在Windows上安装Linux</h1>
+                    <h1 class="description center-align post-title">00270 PEFT - Quicktour</h1>
                 </div>
             </div>
         </div>
@@ -516,12 +516,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
                             </a>
                         
-                            <a href="/tags/Windows/">
-                                <span class="chip bg-color">Windows</span>
+                            <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大语言模型</span>
+                            </a>
+                        
+                            <a href="/tags/huggingface/">
+                                <span class="chip bg-color">huggingface</span>
                             </a>
                         
                     </div>
@@ -532,8 +536,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="post-category">
-                                计算机基础
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                大语言模型
                             </a>
                         
                     </div>
@@ -545,14 +549,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-08-27
+                    2025-01-18
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-28
+                    2025-01-18
                 </div>
                 
 
@@ -579,52 +583,122 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>开发人员可以在Windows机器上同时访问Windows和Linux的强大功能。Windows Linux子系统（WSL）允许开发人员安装Linux发行版（如Ubuntu、OpenSUSE、Kali、Debian、ArchLinux等），并直接在Windows上使用Linux应用程序、实用程序和Bash命令行工具，无需修改，无需传统虚拟机或双启动设置的开销。</p>
-<p>操作系统：Windows 11 家庭中文版</p>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>PEFT（参数高效微调）是一个库，它能够高效地将大型预训练模型适配到各种下游应用，而无需微调模型的所有参数，因为这样做成本过高。PEFT方法仅微调少量（额外）的模型参数，显著降低计算和存储成本，同时还能达到与完全微调模型相当的性能。这使得在消费级硬件上训练和存储大型语言模型（LLMs）变得更加可行。</p>
+<p>PEFT与Transformers、Diffusers和Accelerate库集成，提供了一种更快、更简单的方法来加载、训练和使用大型模型进行推理。</p>
+<p>PEFT为微调大型预训练模型提供了参数高效的方法。传统的范式是为每个下游任务微调模型的所有参数，但由于当今模型中参数的数量极其庞大，这种方法变得极其昂贵且不切实际。相反，更有效的方法是训练较少的提示参数，或使用重新参数化方法，如低秩适应（LoRA），以减少可训练参数的数量。</p>
+<p>这个快速教程将向您展示PEFT的主要特性，以及您如何能够在消费级设备上通常无法访问的大型模型上进行训练或运行推理。</p>
+<p>huggingface: <a href="https://huggingface.co/PEFT">https://huggingface.co/PEFT</a></p>
+<p>github huggingface&#x2F;peft: <a href="https://github.com/huggingface/peft">https://github.com/huggingface/peft</a></p>
+<p>src link: <a href="https://huggingface.co/docs/peft/quicktour">https://huggingface.co/docs/peft/quicktour</a></p>
+<p>Operating System: Ubuntu 22.04.4 LTS</p>
 <h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
-<li><a href="https://learn.microsoft.com/en-us/windows/wsl/install">How to install Linux on Windows with WSL</a></li>
-<li><a href="https://learn.microsoft.com/en-us/windows/wsl/setup/environment#set-up-your-linux-username-and-password">Set up your Linux username and password</a></li>
-<li><a href="https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-git">Get started using Git on Windows Subsystem for Linux</a></li>
-<li><a href="https://learn.microsoft.com/en-us/windows/wsl/tutorials/gpu-compute">Get started with GPU acceleration for ML in WSL</a></li>
+<li><a href="https://huggingface.co/docs/peft/index">PEFT - Docs</a></li>
+<li><a href="https://huggingface.co/docs/peft/quicktour">PEFT - Quicktour</a></li>
 </ol>
-<h2 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h2><p>您必须运行Windows 10 2004及更高版本（Build 19041及更高版本）或Windows 11才能使用以下命令。如果您使用的是早期版本，请参阅手动安装页面。</p>
-<h2 id="安装WSL命令"><a href="#安装WSL命令" class="headerlink" title="安装WSL命令"></a>安装WSL命令</h2><p>您现在可以使用单个命令安装运行WSL所需的所有内容。通过右键单击并选择“<strong>以管理员身份运行</strong>”，在管理员模式下打开PowerShell或Windows命令提示符，输入wsl–install命令，然后重新启动计算机。</p>
-<pre class="line-numbers language-PowerShell" data-language="PowerShell"><code class="language-PowerShell">wsl --install<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>此命令将启用运行WSL和安装Linux的Ubuntu发行版所需的功能。（可以更改此默认发行版）。</p>
-<h2 id="更改已安装的默认Linux分发"><a href="#更改已安装的默认Linux分发" class="headerlink" title="更改已安装的默认Linux分发"></a>更改已安装的默认Linux分发</h2><p>默认情况下，安装的Linux发行版将是Ubuntu。这可以使用<code>-d</code>标志进行更改。</p>
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>每个PEFT方法都由一个<a href="https://huggingface.co/docs/peft/v0.14.0/en/package_reference/config#peft.PeftConfig">PeftConfig</a>类定义，该类存储构建<a href="https://huggingface.co/docs/peft/v0.14.0/en/package_reference/peft_model#peft.PeftModel">PeftModel</a>的所有重要参数。例如，要使用LoRA进行训练，请加载并创建一个<a href="https://huggingface.co/docs/peft/v0.14.0/en/package_reference/lora#peft.LoraConfig">LoraConfig</a>类，并指定以下参数：</p>
 <ul>
-<li>要更改已安装的发行版，请输入：<code>wsl --install -d &lt;Distribution Name&gt;</code>。将<code>&lt;Distribution Name&gt;</code>替换为您要安装的发行版的名称。</li>
-<li>要查看可通过在线商店下载的可用Linux发行版列表，请输入：<code>wsl --list --online</code>或<code>wsl -l -o</code>。</li>
-<li>要在初始安装后安装其他Linux发行版，您还可以使用命令：<code>wsl --install -d &lt;Distribution Name&gt;</code>。</li>
+<li>task_type: 要训练的任务类型（在这种情况下是序列到序列的语言建模）</li>
+<li>inference_mode: 您是否正在使用模型进行推理</li>
+<li>r: 低秩矩阵的维度</li>
+<li>lora_alpha: 低秩矩阵的缩放因子</li>
+<li>lora_dropout: LoRA层的丢弃概率</li>
 </ul>
-<h2 id="检查您正在运行的WSL版本"><a href="#检查您正在运行的WSL版本" class="headerlink" title="检查您正在运行的WSL版本"></a>检查您正在运行的WSL版本</h2><p>您可以列出已安装的Linux发行版，并通过在PowerShell或Windows命令提示符中输入命令：<code>wsl -l -v</code>来检查每个发行版设置的WSL版本。</p>
-<p>要在安装新的Linux发行版时将默认版本设置为WSL 1或WSL 2，请使用命令：<code>wsl --set-default-version &lt;Version#&gt;</code>，将<code>&lt;Version#&gt;</code>替换为1或2。</p>
-<p>要设置与wsl命令一起使用的默认Linux发行版，请输入：<code>wsl -s &lt;DistributionName&gt;</code>或<code>wsl --set-default &lt;DistributionName&gt;</code>，将<code>&lt;DistributionName&gt;</code>替换为您要使用的Linux发行版的名称。例如，在PowerShell&#x2F;CMD中，输入：<code>wsl -s Debian</code>以将默认发行版设置为Debian。现在从Powershell运行<code>wsl npm init</code>将在Debian中运行<code>npm init</code>命令。</p>
-<p>要在PowerShell或Windows命令提示符中运行特定的wsl发行版而不更改默认发行版，请使用命令：<code>wsl -d &lt;DistributionName&gt;</code>，将<code>&lt;DistributionName&gt;</code>替换为您要使用的发行版的名称。</p>
-<h2 id="将版本从WSL-1升级到WSL-2"><a href="#将版本从WSL-1升级到WSL-2" class="headerlink" title="将版本从WSL 1升级到WSL 2"></a>将版本从WSL 1升级到WSL 2</h2><p>使用<code>wsl --install</code>命令安装的新Linux安装将默认设置为WSL 2。</p>
-<p><code>wsl --set-version</code>命令可用于从WSL 2降级到WSL 1或将以前安装的Linux发行版从WSL 1更新到WSL 2。</p>
-<p>要查看您的Linux分发是设置为WSL 1还是WSL 2，请使用命令：<code>wsl -l -v</code>。</p>
-<p>要更改版本，请使用命令：<code>wsl --set-version &lt;distro name&gt; 2</code>将<code>&lt;distro name&gt;</code>替换为要更新的Linux发行版的名称。例如，<code>wsl --set-version Ubuntu-20.04 2</code>将设置您的Ubuntu 20.04发行版使用WSL 2。</p>
-<h2 id="设置Linux用户名和密码"><a href="#设置Linux用户名和密码" class="headerlink" title="设置Linux用户名和密码"></a>设置Linux用户名和密码</h2><p>使用WSL安装Linux发行版的过程完成后，使用开始菜单打开发行版（默认为Ubuntu）。系统会要求您为Linux发行版创建用户名和密码。</p>
-<p>更多详细的信息，可以参考<a href="https://learn.microsoft.com/en-us/windows/wsl/setup/environment#set-up-your-linux-username-and-password">这里</a>。</p>
-<h2 id="更新和升级包"><a href="#更新和升级包" class="headerlink" title="更新和升级包"></a>更新和升级包</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> update <span class="token operator">&amp;&amp;</span> <span class="token function">sudo</span> <span class="token function">apt</span> upgrade<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> peft <span class="token keyword">import</span> LoraConfig<span class="token punctuation">,</span> TaskType
 
-<h2 id="文件存储"><a href="#文件存储" class="headerlink" title="文件存储"></a>文件存储</h2><p><img src="https://cos.luyf-lemon-love.space/images/20240827231947.png"></p>
-<h2 id="开始将Visual-Studio-Code与Windows子系统一起使用Linux"><a href="#开始将Visual-Studio-Code与Windows子系统一起使用Linux" class="headerlink" title="开始将Visual Studio Code与Windows子系统一起使用Linux"></a>开始将Visual Studio Code与Windows子系统一起使用Linux</h2><p>简而言之，就是使用<a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack">Remote Development</a>插件像连接远程服务器一样，将Visual Studio Code与WSL一起使用。</p>
-<p>更多详细的信息，可以参考<a href="https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-vscode">这里</a>。</p>
-<h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><p>Git已经与大多数Linux发行版的Windows子系统一起安装，但是，您可能希望更新到最新版本。您还需要设置git配置文件。</p>
-<p>对于Ubuntu&#x2F;Debian中最新的稳定Git版本，输入命令：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">git</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+peft_config <span class="token operator">=</span> LoraConfig<span class="token punctuation">(</span>task_type<span class="token operator">=</span>TaskType<span class="token punctuation">.</span>SEQ_2_SEQ_LM<span class="token punctuation">,</span> inference_mode<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> r<span class="token operator">=</span><span class="token number">8</span><span class="token punctuation">,</span> lora_alpha<span class="token operator">=</span><span class="token number">32</span><span class="token punctuation">,</span> lora_dropout<span class="token operator">=</span><span class="token number">0.1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>要设置您的Git配置文件，请为您正在使用的发行版打开一个命令行并使用此命令设置您的姓名（将“Your Name”替换为您的首选用户名）：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> config <span class="token parameter variable">--global</span> user.name <span class="token string">"Your Name"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>有关您可以调整的其他参数的更多详细信息，例如目标模块或偏置类型，请参阅<a href="https://huggingface.co/docs/peft/v0.14.0/en/package_reference/lora#peft.LoraConfig">LoraConfig</a>参考文档。</p>
+</blockquote>
+<p>一旦设置好<a href="https://huggingface.co/docs/peft/v0.14.0/en/package_reference/lora#peft.LoraConfig">LoraConfig</a>，就可以使用<a href="https://huggingface.co/docs/peft/v0.14.0/en/package_reference/peft_model#peft.get_peft_model">get_peft_model()</a>函数创建一个<a href="https://huggingface.co/docs/peft/v0.14.0/en/package_reference/peft_model#peft.PeftModel">PeftModel</a>。它需要一个基础模型（您可以从Transformers库中加载）和包含如何配置模型以使用LoRA进行训练的参数的LoraConfig。</p>
+<p>加载您想要微调的基础模型。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoModelForSeq2SeqLM
 
-<p>使用此命令设置您的电子邮件（将“<a href="mailto:&#121;&#x6f;&#x75;&#x72;&#101;&#109;&#x61;&#x69;&#x6c;&#64;&#100;&#111;&#x6d;&#x61;&#105;&#110;&#46;&#x63;&#x6f;&#x6d;">&#121;&#x6f;&#x75;&#x72;&#101;&#109;&#x61;&#x69;&#x6c;&#64;&#100;&#111;&#x6d;&#x61;&#105;&#110;&#46;&#x63;&#x6f;&#x6d;</a>”替换为您喜欢的电子邮件）：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> config <span class="token parameter variable">--global</span> user.email <span class="token string">"youremail@domain.com"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+model <span class="token operator">=</span> AutoModelForSeq2SeqLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"bigscience/mt0-large"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>更多详细的信息，可以参考<a href="https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-git">这里</a>。</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一百六十三篇博文写完，开心！！！！</p>
+<p>使用get_peft_model()函数将基础模型和peft_config封装起来，以创建一个PeftModel。为了了解模型中可训练参数的数量，可以使用print_trainable_parameters方法。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> peft <span class="token keyword">import</span> get_peft_model
+
+model <span class="token operator">=</span> get_peft_model<span class="token punctuation">(</span>model<span class="token punctuation">,</span> peft_config<span class="token punctuation">)</span>
+model<span class="token punctuation">.</span>print_trainable_parameters<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token string">"output: trainable params: 2359296 || all params: 1231940608 || trainable%: 0.19151053100118282"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在bigscience&#x2F;mt0-large的120亿参数中，您只需要训练其中的0.19%！</p>
+<p>就是这样🎉！现在您可以使用Transformers Trainer、Accelerate或任何自定义的PyTorch训练循环来训练模型了。</p>
+<p>例如，要使用Trainer类进行训练，请使用一些训练超参数设置一个TrainingArguments类。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">training_args <span class="token operator">=</span> TrainingArguments<span class="token punctuation">(</span>
+    output_dir<span class="token operator">=</span><span class="token string">"your-name/bigscience/mt0-large-lora"</span><span class="token punctuation">,</span>
+    learning_rate<span class="token operator">=</span><span class="token number">1e-3</span><span class="token punctuation">,</span>
+    per_device_train_batch_size<span class="token operator">=</span><span class="token number">32</span><span class="token punctuation">,</span>
+    per_device_eval_batch_size<span class="token operator">=</span><span class="token number">32</span><span class="token punctuation">,</span>
+    num_train_epochs<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span>
+    weight_decay<span class="token operator">=</span><span class="token number">0.01</span><span class="token punctuation">,</span>
+    eval_strategy<span class="token operator">=</span><span class="token string">"epoch"</span><span class="token punctuation">,</span>
+    save_strategy<span class="token operator">=</span><span class="token string">"epoch"</span><span class="token punctuation">,</span>
+    load_best_model_at_end<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>要将模型、训练参数、数据集、分词器以及任何其他必要的组件传递给Trainer，并调用train方法开始训练。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>
+    model<span class="token operator">=</span>model<span class="token punctuation">,</span>
+    args<span class="token operator">=</span>training_args<span class="token punctuation">,</span>
+    train_dataset<span class="token operator">=</span>tokenized_datasets<span class="token punctuation">[</span><span class="token string">"train"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    eval_dataset<span class="token operator">=</span>tokenized_datasets<span class="token punctuation">[</span><span class="token string">"test"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    tokenizer<span class="token operator">=</span>tokenizer<span class="token punctuation">,</span>
+    data_collator<span class="token operator">=</span>data_collator<span class="token punctuation">,</span>
+    compute_metrics<span class="token operator">=</span>compute_metrics<span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+trainer<span class="token punctuation">.</span>train<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="保存模型"><a href="#保存模型" class="headerlink" title="保存模型"></a>保存模型</h3><p>训练完成后，您可以使用save_pretrained函数将模型保存到目录中。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">model<span class="token punctuation">.</span>save_pretrained<span class="token punctuation">(</span><span class="token string">"output_dir"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>您还可以使用push_to_hub函数将模型保存到Hub（确保您首先已登录到您的Hugging Face账户）。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> huggingface_hub <span class="token keyword">import</span> notebook_login
+
+notebook_login<span class="token punctuation">(</span><span class="token punctuation">)</span>
+model<span class="token punctuation">.</span>push_to_hub<span class="token punctuation">(</span><span class="token string">"your-name/bigscience/mt0-large-lora"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这两种方法都只保存训练过的额外PEFT权重，这意味着在存储、传输和加载方面都非常高效。例如，这个使用LoRA训练的facebook&#x2F;opt-350m模型只包含两个文件：adapter_config.json和adapter_model.safetensors。adapter_model.safetensors文件只有6.3MB！</p>
+<p><img src="https://cos.luyf-lemon-love.space/images/20250118152829.png"></p>
+<p>存储在Hub上的opt-350m模型的适配器权重只有大约6MB，与模型权重的完整大小（可能约为700MB）相比，体积小得多。</p>
+<h2 id="推理"><a href="#推理" class="headerlink" title="推理"></a>推理</h2><blockquote>
+<p>查看<a href="https://huggingface.co/docs/peft/package_reference/auto_class">AutoPeftModel</a> API参考，以获取可用AutoPeftModel类的完整列表。</p>
+</blockquote>
+<p>使用AutoPeftModel类和from_pretrained方法，可以轻松加载任何PEFT训练的模型进行推理：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> peft <span class="token keyword">import</span> AutoPeftModelForCausalLM
+<span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoTokenizer
+<span class="token keyword">import</span> torch
+
+model <span class="token operator">=</span> AutoPeftModelForCausalLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"ybelkada/opt-350m-lora"</span><span class="token punctuation">)</span>
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"facebook/opt-350m"</span><span class="token punctuation">)</span>
+
+model <span class="token operator">=</span> model<span class="token punctuation">.</span>to<span class="token punctuation">(</span><span class="token string">"cuda"</span><span class="token punctuation">)</span>
+model<span class="token punctuation">.</span><span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+inputs <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span><span class="token string">"Preheat the oven to 350 degrees and place the cookie dough"</span><span class="token punctuation">,</span> return_tensors<span class="token operator">=</span><span class="token string">"pt"</span><span class="token punctuation">)</span>
+
+outputs <span class="token operator">=</span> model<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>input_ids<span class="token operator">=</span>inputs<span class="token punctuation">[</span><span class="token string">"input_ids"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span><span class="token string">"cuda"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> max_new_tokens<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">.</span>batch_decode<span class="token punctuation">(</span>outputs<span class="token punctuation">.</span>detach<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token string">"Preheat the oven to 350 degrees and place the cookie dough in the center of the oven. In a large bowl, combine the flour, baking powder, baking soda, salt, and cinnamon. In a separate bowl, combine the egg yolks, sugar, and vanilla."</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>对于没有明确支持AutoPeftModelFor类的其他任务（如自动语音识别），您仍然可以使用基础AutoPeftModel类来加载该任务的模型。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> peft <span class="token keyword">import</span> AutoPeftModel
+
+model <span class="token operator">=</span> AutoPeftModel<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"smangrul/openai-whisper-large-v2-LORA-colab"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="下一步"><a href="#下一步" class="headerlink" title="下一步"></a>下一步</h2><p>现在您已经了解了如何使用PEFT方法之一来训练模型，我们鼓励您尝试其他方法，如提示调整。这些步骤与快速教程中展示的步骤非常相似：</p>
+<ol>
+<li><p>为PEFT方法准备一个PeftConfig。</p>
+</li>
+<li><p>使用get_peft_model()方法从配置和基础模型创建一个PeftModel。</p>
+</li>
+<li><p>然后您可以根据自己的喜好进行训练！要加载PEFT模型进行推理，您可以使用AutoPeftModel类。</p>
+</li>
+</ol>
+<p>如果您对使用其他PEFT方法针对特定任务（如语义分割、多语言自动语音识别、DreamBooth、令牌分类等）训练模型感兴趣，也可以随时查看任务指南。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第二百七十篇博文写完，开心！！！！</p>
 <p>今天，也是充满希望的一天。</p>
 
                 
@@ -652,7 +726,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luyf-lemon-love.space/2024/08/27/00163-ru-he-shi-yong-wsl-zai-windows-shang-an-zhuang-linux/">https://luyf-lemon-love.space/2024/08/27/00163-ru-he-shi-yong-wsl-zai-windows-shang-an-zhuang-linux/</a>
+                    <a href="https://luyf-lemon-love.space/2025/01/18/00270-peft-quicktour/">https://luyf-lemon-love.space/2025/01/18/00270-peft-quicktour/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -690,12 +764,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
                                 </a>
                             
-                                <a href="/tags/Windows/">
-                                    <span class="chip bg-color">Windows</span>
+                                <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大语言模型</span>
+                                </a>
+                            
+                                <a href="/tags/huggingface/">
+                                    <span class="chip bg-color">huggingface</span>
                                 </a>
                             
                         </div>
@@ -774,16 +852,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2024/08/29/00164-python-concurrent-bao-xue-xi-bi-ji/">
+                <a href="/2025/01/18/00270-peft-quicktour/">
                     <div class="card-image">
                         
-                        <img src="https://cos.luyf-lemon-love.space/images/046-119867946.jpg" class="responsive-img" alt="00164 Python concurrent 包 学习笔记">
+                        <img src="https://cos.luyf-lemon-love.space/images/070-%E5%88%9D%E9%9F%B3%E6%9C%AA%E6%9D%A5%E6%B6%82%E9%B8%A6%E5%A2%99.jpg" class="responsive-img" alt="00270 PEFT - Quicktour">
                         
-                        <span class="card-title">00164 Python concurrent 包 学习笔记</span>
+                        <span class="card-title">00270 PEFT - Quicktour</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -793,9 +872,66 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-08-29
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
+                                    大语言模型
+                                </a>
+                            
+                            
                         </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/huggingface/">
+                        <span class="chip bg-color">huggingface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/01/16/00269-python-methodtype-fang-fa/">
+                    <div class="card-image">
+                        
+                        <img src="https://cos.luyf-lemon-love.space/images/069-%E7%BA%A2%E7%9C%BC%E7%9D%9B%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9.jpg" class="responsive-img" alt="00269 Python MethodType 方法">
+                        
+                        <span class="card-title">00269 Python MethodType 方法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -813,74 +949,6 @@
                     
                     <a href="/tags/Python/">
                         <span class="chip bg-color">Python</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
-                        <span class="chip bg-color">多线程</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%A4%9A%E8%BF%9B%E7%A8%8B/">
-                        <span class="chip bg-color">多进程</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%85%A8%E5%B1%80%E8%A7%A3%E9%87%8A%E5%99%A8%E9%94%81%EF%BC%88GIL%EF%BC%89/">
-                        <span class="chip bg-color">全局解释器锁（GIL）</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2024/08/08/00162-da-gui-mo-transformer-mo-xing-8-bi-te-ju-zhen-cheng-jian-jie/">
-                    <div class="card-image">
-                        
-                        <img src="https://cos.luyf-lemon-love.space/images/044-119867946.jpg" class="responsive-img" alt="00162 大规模 Transformer 模型 8 比特矩阵乘简介">
-                        
-                        <span class="card-title">00162 大规模 Transformer 模型 8 比特矩阵乘简介</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-08
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="post-category">
-                                    大语言模型
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-                        <span class="chip bg-color">深度学习</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
-                        <span class="chip bg-color">大语言模型</span>
-                    </a>
-                    
-                    <a href="/tags/huggingface/">
-                        <span class="chip bg-color">huggingface</span>
                     </a>
                     
                 </div>
