@@ -554,7 +554,7 @@ Operating System: Ubuntu 22.04.4 LTS
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-01-16
+                    2025-01-21
                 </div>
                 
 
@@ -683,6 +683,40 @@ result <span class="token operator">=</span> torch<span class="token punctuation
 
 <p>在这个例子中，<code>tensor1</code> 和 <code>tensor2</code> 在每个位置上进行逻辑或运算，只有当两个元素都是 <code>False</code> 时，结果才是 <code>False</code>，否则是 <code>True</code>。</p>
 <p>需要注意的是，输入张量必须是布尔类型的张量，如果不是，你需要先将它们转换为布尔类型。如果输入张量有不同的形状，<code>torch.logical_or</code> 无法直接应用，你需要先对张量进行广播或其他操作以使它们的形状兼容。</p>
+<h3 id="torch-distributions-multivariate-normal-MultivariateNormal"><a href="#torch-distributions-multivariate-normal-MultivariateNormal" class="headerlink" title="torch.distributions.multivariate_normal.MultivariateNormal"></a>torch.distributions.multivariate_normal.MultivariateNormal</h3><p><code>torch.distributions.multivariate_normal.MultivariateNormal</code> 是 PyTorch 库中的一个类，用于表示多维正态分布（也称为高斯分布）。这个类可以用于生成具有特定均值和协方差矩阵的多维正态分布的随机样本，以及计算这些样本的概率密度函数（PDF）。</p>
+<p>以下是 <code>MultivariateNormal</code> 类的一些基本属性和用法：</p>
+<h3 id="基本属性："><a href="#基本属性：" class="headerlink" title="基本属性："></a>基本属性：</h3><ul>
+<li><code>loc</code>：分布的均值，是一个向量。</li>
+<li><code>covariance_matrix</code>：分布的协方差矩阵。</li>
+<li><code>scale_tril</code>：与协方差矩阵相关的一个下三角矩阵，可以用来更高效地计算。</li>
+</ul>
+<h3 id="构造函数："><a href="#构造函数：" class="headerlink" title="构造函数："></a>构造函数：</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python">torch<span class="token punctuation">.</span>distributions<span class="token punctuation">.</span>multivariate_normal<span class="token punctuation">.</span>MultivariateNormal<span class="token punctuation">(</span>loc<span class="token punctuation">,</span> covariance_matrix<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> scale_tril<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> validate_args<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><ul>
+<li><code>loc</code> (<code>Tensor</code>): 分布的均值，形状为 <code>[B1, ..., Bb, N]</code>，其中 <code>N</code> 是随机变量的数量。</li>
+<li><code>covariance_matrix</code> (<code>Tensor</code>): 协方差矩阵，形状为 <code>[B1, ..., Bb, N, N]</code>。与 <code>scale_tril</code> 互斥。</li>
+<li><code>scale_tril</code> (<code>Tensor</code>): 下三角矩阵，形状为 <code>[B1, ..., Bb, N, N]</code>，与 <code>covariance_matrix</code> 互斥。</li>
+<li><code>validate_args</code> (<code>bool</code>): 如果为 <code>True</code>，则会在操作前验证输入。</li>
+</ul>
+<h3 id="方法："><a href="#方法：" class="headerlink" title="方法："></a>方法：</h3><ul>
+<li><code>sample()</code>：从分布中抽取样本。</li>
+<li><code>log_prob(value)</code>：计算给定值的对数概率密度。</li>
+<li><code>entropy()</code>：计算分布的熵。</li>
+</ul>
+<h3 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch
+<span class="token keyword">from</span> torch<span class="token punctuation">.</span>distributions <span class="token keyword">import</span> MultivariateNormal
+<span class="token comment"># 均值向量</span>
+mean <span class="token operator">=</span> torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token comment"># 协方差矩阵</span>
+cov <span class="token operator">=</span> torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token comment"># 创建多维正态分布</span>
+dist <span class="token operator">=</span> MultivariateNormal<span class="token punctuation">(</span>mean<span class="token punctuation">,</span> cov<span class="token punctuation">)</span>
+<span class="token comment"># 从分布中抽取样本</span>
+sample <span class="token operator">=</span> dist<span class="token punctuation">.</span>sample<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment"># 计算样本的对数概率密度</span>
+log_prob <span class="token operator">=</span> dist<span class="token punctuation">.</span>log_prob<span class="token punctuation">(</span>sample<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这个类在机器学习、贝叶斯推理、概率图模型等领域中非常有用，特别是在需要处理多个相关随机变量的场景下。</p>
 <h3 id="reshape"><a href="#reshape" class="headerlink" title="reshape"></a>reshape</h3><p>在Python中的NumPy库，<code>reshape</code>方法是一个非常有用的功能，它允许我们改变数组的形状而不改变其数据。具体来说，<code>reshape</code>方法可以重新组织一个数组，使其具有不同的行数和列数，但保持相同数量的元素。</p>
 <p>reshape方法的基本用法：</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">numpy_array<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span>shape<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
