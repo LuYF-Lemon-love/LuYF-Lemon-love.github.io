@@ -558,7 +558,7 @@ Hugging Face Github 主页: https://github.com/huggingface
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-01-24
+                    2025-01-27
                 </div>
                 
 
@@ -675,11 +675,10 @@ Hugging Face Github 主页: https://github.com/huggingface
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     remove_columns<span class="token operator">=</span>eli5<span class="token punctuation">[</span><span class="token string">"train"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>column_names<span class="token punctuation">,</span>
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>This dataset contains the token sequences, but some of these are longer than the maximum input length for the model.</p>
-<p>You can now use a second preprocessing function to</p>
+<p>这个数据集包含了标记序列，但其中一些序列的长度超过了模型的 最大输入长度。现在，你可以使用第二个预处理函数来</p>
 <ul>
-<li><strong>concatenate all the sequences</strong></li>
-<li><strong>split the concatenated sequences into shorter chunks defined by <code>block_size</code></strong>, which should be both shorter than <strong>the maximum input length</strong> and <strong>short enough for your GPU RAM</strong>.</li>
+<li><strong>连接所有序列</strong></li>
+<li><strong>将连接后的序列按照<code>block_size</code>分割成更短的片段</strong>，这个片段的长度应该既小于<strong>最大输入长度</strong>，又<strong>足够小以适应你的GPU内存</strong>。</li>
 </ul>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> block_size <span class="token operator">=</span> <span class="token number">128</span>
 
@@ -700,26 +699,25 @@ Hugging Face Github 主页: https://github.com/huggingface
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     result<span class="token punctuation">[</span><span class="token string">"labels"</span><span class="token punctuation">]</span> <span class="token operator">=</span> result<span class="token punctuation">[</span><span class="token string">"input_ids"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     <span class="token keyword">return</span> result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>Apply the <code>group_texts</code> function over the entire dataset:</p>
+<p>在整个数据集上应用<code>group_texts</code>函数：</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> lm_dataset <span class="token operator">=</span> tokenized_eli5<span class="token punctuation">.</span><span class="token builtin">map</span><span class="token punctuation">(</span>group_texts<span class="token punctuation">,</span> batched<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> num_proc<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>Now create a batch of examples using [<code>DataCollatorForLanguageModeling</code>]. It’s more efficient to <em>dynamically pad</em> the<br>sentences to the longest length in a batch during collation, instead of padding the whole dataset to the maximum length.</p>
-<p>Use the end-of-sequence token as the padding token and set <code>mlm=False</code>. <strong>This will use the inputs as labels shifted to the right by one element:</strong></p>
+<p>现在使用[<code>DataCollatorForLanguageModeling</code>]创建一个示例批次。在整理过程中，将句子动态填充到批次中最长长度，而不是将整个数据集填充到最大长度，这样做效率更高。使用序列结束标记作为填充标记，并将<code>mlm</code>设置为<code>False</code>。<strong>这将使用输入作为标签，向右移动一个元素：</strong></p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> transformers <span class="token keyword">import</span> DataCollatorForLanguageModeling
 
 <span class="token operator">>></span><span class="token operator">></span> tokenizer<span class="token punctuation">.</span>pad_token <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>eos_token
 <span class="token operator">>></span><span class="token operator">></span> data_collator <span class="token operator">=</span> DataCollatorForLanguageModeling<span class="token punctuation">(</span>tokenizer<span class="token operator">=</span>tokenizer<span class="token punctuation">,</span> mlm<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="Train"><a href="#Train" class="headerlink" title="Train"></a>Train</h2><p>You’re ready to start training your model now! Load DistilGPT2 with [<code>AutoModelForCausalLM</code>]:</p>
+<h2 id="Train"><a href="#Train" class="headerlink" title="Train"></a>Train</h2><p>现在你准备好开始训练你的模型了！使用[<code>AutoModelForCausalLM</code>]加载DistilGPT2：</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoModelForCausalLM<span class="token punctuation">,</span> TrainingArguments<span class="token punctuation">,</span> Trainer
 
 <span class="token operator">>></span><span class="token operator">></span> model <span class="token operator">=</span> AutoModelForCausalLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"distilbert/distilgpt2"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>At this point, only three steps remain:</p>
+<p>在这一点上，只剩下三个步骤：</p>
 <ol>
-<li>Define your training hyperparameters in [<code>TrainingArguments</code>]. <strong>The only required parameter is <code>output_dir</code> which specifies where to save your model.</strong> You’ll push this model to the Hub by setting <code>push_to_hub=True</code> (you need to be signed in to Hugging Face to upload your model).</li>
-<li>Pass <strong>the training arguments</strong> to [<code>Trainer</code>] along with <strong>the model</strong>, <strong>datasets</strong>, and <strong>data collator</strong>.</li>
-<li>Call [<code>~Trainer.train</code>] to finetune your model.</li>
+<li>在[<code>TrainingArguments</code>]中定义你的训练超参数。<strong>唯一需要的参数是<code>output_dir</code>，它指定了保存你的模型的路径。</strong> 通过设置<code>push_to_hub=True</code>，你可以将这个模型推送到Hub（你需要登录Hugging Face来上传你的模型）。</li>
+<li>将<strong>训练参数</strong>传递给[<code>Trainer</code>]，同时传递<strong>模型</strong>，<strong>数据集</strong>和<strong>数据整理器</strong>。</li>
+<li>调用[<code>~Trainer.train</code>]来微调你的模型。</li>
 </ol>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> training_args <span class="token operator">=</span> TrainingArguments<span class="token punctuation">(</span>
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     output_dir<span class="token operator">=</span><span class="token string">"my_awesome_eli5_clm-model"</span><span class="token punctuation">,</span>
@@ -739,40 +737,40 @@ Hugging Face Github 主页: https://github.com/huggingface
 
 <span class="token operator">>></span><span class="token operator">></span> trainer<span class="token punctuation">.</span>train<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>Once training is completed, use the [<code>~transformers.Trainer.evaluate</code>] method to evaluate your model and get its perplexity:</p>
+<p>一旦训练完成，使用[<code>~transformers.Trainer.evaluate</code>]方法来评估你的模型并获取其困惑度（perplexity）：</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">import</span> math
 
 <span class="token operator">>></span><span class="token operator">></span> eval_results <span class="token operator">=</span> trainer<span class="token punctuation">.</span>evaluate<span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Perplexity: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>math<span class="token punctuation">.</span>exp<span class="token punctuation">(</span>eval_results<span class="token punctuation">[</span><span class="token string">'eval_loss'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token format-spec">.2f</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
 Perplexity<span class="token punctuation">:</span> <span class="token number">49.61</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>Then share your model to the Hub with the [<code>~transformers.Trainer.push_to_hub</code>] method so everyone can use your model:</p>
+<p>然后，使用[<code>~transformers.Trainer.push_to_hub</code>]方法将你的模型分享到Hub，以便每个人都可以使用你的模型：</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> trainer<span class="token punctuation">.</span>push_to_hub<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>For a more in-depth example of how to finetune a model for causal language modeling, take a look at the corresponding <a href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/language_modeling.ipynb">PyTorch notebook</a> or <a href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/language_modeling-tf.ipynb">TensorFlow notebook</a>.</p>
-<h2 id="Inference"><a href="#Inference" class="headerlink" title="Inference"></a>Inference</h2><p>Come up with a prompt you’d like to generate text from:</p>
+<p>想要更深入地了解如何为因果语言建模微调模型，可以查看相应的<a href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/language_modeling.ipynb">PyTorch笔记本</a>或<a href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/language_modeling-tf.ipynb">TensorFlow笔记本</a>。</p>
+<h2 id="Inference"><a href="#Inference" class="headerlink" title="Inference"></a>Inference</h2><p>请创建一个你想要生成文本的提示。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> prompt <span class="token operator">=</span> <span class="token string">"Somatic hypermutation allows the immune system to"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>The simplest way to try out your finetuned model for inference is to use it in a [<code>pipeline</code>]. Instantiate a <code>pipeline</code> for text generation with your model, and pass your text to it:</p>
+<p>尝试你微调后的模型进行推理的最简单方法是使用它在一个[<code>pipeline</code>]中。用你的模型实例化一个文本生成的<code>pipeline</code>，并将你的文本传递给它：</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> transformers <span class="token keyword">import</span> pipeline
 
 <span class="token operator">>></span><span class="token operator">></span> generator <span class="token operator">=</span> pipeline<span class="token punctuation">(</span><span class="token string">"text-generation"</span><span class="token punctuation">,</span> model<span class="token operator">=</span><span class="token string">"username/my_awesome_eli5_clm-model"</span><span class="token punctuation">)</span>
 <span class="token operator">>></span><span class="token operator">></span> generator<span class="token punctuation">(</span>prompt<span class="token punctuation">)</span>
 <span class="token punctuation">[</span><span class="token punctuation">&#123;</span><span class="token string">'generated_text'</span><span class="token punctuation">:</span> <span class="token string">"Somatic hypermutation allows the immune system to be able to effectively reverse the damage caused by an infection.\n\n\nThe damage caused by an infection is caused by the immune system's ability to perform its own self-correcting tasks."</span><span class="token punctuation">&#125;</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>Tokenize the text and return the <code>input_ids</code> as PyTorch tensors:</p>
+<p>对文本进行标记化，并返回作为PyTorch张量的<code>input_ids</code>：</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoTokenizer
 
 <span class="token operator">>></span><span class="token operator">></span> tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"username/my_awesome_eli5_clm-model"</span><span class="token punctuation">)</span>
 <span class="token operator">>></span><span class="token operator">></span> inputs <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>prompt<span class="token punctuation">,</span> return_tensors<span class="token operator">=</span><span class="token string">"pt"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>input_ids<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>Use the [<code>~transformers.generation_utils.GenerationMixin.generate</code>] method to generate text.<br><strong>For more details about the different text generation strategies and parameters for controlling generation, check out the <a href="../generation_strategies">Text generation strategies</a> page.</strong></p>
+<p>使用[<code>~transformers.generation_utils.GenerationMixin.generate</code>]方法来生成文本。<br><strong>有关不同文本生成策略和控制生成的参数的更多详细信息，请查看文本生成策略页面。</strong></p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoModelForCausalLM
 
 <span class="token operator">>></span><span class="token operator">></span> model <span class="token operator">=</span> AutoModelForCausalLM<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"username/my_awesome_eli5_clm-model"</span><span class="token punctuation">)</span>
 <span class="token operator">>></span><span class="token operator">></span> outputs <span class="token operator">=</span> model<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>inputs<span class="token punctuation">,</span> max_new_tokens<span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">,</span> do_sample<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> top_k<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span> top_p<span class="token operator">=</span><span class="token number">0.95</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>Decode the generated token ids back into text:</p>
+<p>将生成的标记ID解码回文本：</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> tokenizer<span class="token punctuation">.</span>batch_decode<span class="token punctuation">(</span>outputs<span class="token punctuation">,</span> skip_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
 <span class="token punctuation">[</span><span class="token string">"Somatic hypermutation allows the immune system to react to drugs with the ability to adapt to a different environmental situation. In other words, a system of 'hypermutation' can help the immune system to adapt to a different environmental situation or in some cases even a single life. In contrast, researchers at the University of Massachusetts-Boston have found that 'hypermutation' is much stronger in mice than in humans but can be found in humans, and that it's not completely unknown to the immune system. A study on how the immune system"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
