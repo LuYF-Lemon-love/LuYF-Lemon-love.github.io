@@ -489,7 +489,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-28
+                    2025-02-05
                 </div>
                 
 
@@ -634,6 +634,9 @@ trainer <span class="token operator">=</span> SFTTrainer<span class="token punct
 trainer<span class="token punctuation">.</span>train<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>确保您有一个<code>pad_token_id</code>，它与<code>eos_token_id</code>不同，这样可以避免模型在生成过程中不正确地预测EOS（句子结束）标记。</p>
+<blockquote>
+<p>关于DataCollatorForCompletionOnly损失的计算方法可以查看该<a href="https://github.com/huggingface/trl/issues/2390">issues</a>.</p>
+</blockquote>
 <h3 id="Using-token-ids-directly-for-response-template"><a href="#Using-token-ids-directly-for-response-template" class="headerlink" title="Using token_ids directly for response_template"></a>Using token_ids directly for response_template</h3><p>一些分词器，如Llama 2（meta-llama&#x2F;Llama-2-XXb-hf），根据是否有上下文，会以不同的方式对序列进行分词。例如：</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> AutoTokenizer
 tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">"meta-llama/Llama-2-7b-hf"</span><span class="token punctuation">)</span>
