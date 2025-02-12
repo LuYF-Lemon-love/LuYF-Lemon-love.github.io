@@ -466,6 +466,10 @@ vLLM速度很快：
                                 <span class="chip bg-color">大语言模型</span>
                             </a>
                         
+                            <a href="/tags/vllm/">
+                                <span class="chip bg-color">vllm</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -494,7 +498,7 @@ vLLM速度很快：
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-28
+                    2025-02-12
                 </div>
                 
 
@@ -588,6 +592,366 @@ outputs <span class="token operator">=</span> llm<span class="token punctuation"
     prompt <span class="token operator">=</span> output<span class="token punctuation">.</span>prompt
     generated_text <span class="token operator">=</span> output<span class="token punctuation">.</span>outputs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>text
     <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Prompt: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>prompt<span class="token conversion-option punctuation">!r</span><span class="token punctuation">&#125;</span></span><span class="token string">, Generated text: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>generated_text<span class="token conversion-option punctuation">!r</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Chat"><a href="#Chat" class="headerlink" title="Chat"></a>Chat</h2><blockquote>
+<p>link: <a href="https://docs.vllm.ai/en/latest/getting_started/examples/chat.html">https://docs.vllm.ai/en/latest/getting_started/examples/chat.html</a></p>
+</blockquote>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># SPDX-License-Identifier: Apache-2.0</span>
+
+<span class="token keyword">from</span> vllm <span class="token keyword">import</span> LLM<span class="token punctuation">,</span> SamplingParams
+
+llm <span class="token operator">=</span> LLM<span class="token punctuation">(</span>model<span class="token operator">=</span><span class="token string">"meta-llama/Meta-Llama-3-8B-Instruct"</span><span class="token punctuation">)</span>
+sampling_params <span class="token operator">=</span> SamplingParams<span class="token punctuation">(</span>temperature<span class="token operator">=</span><span class="token number">0.5</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">print_outputs</span><span class="token punctuation">(</span>outputs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> output <span class="token keyword">in</span> outputs<span class="token punctuation">:</span>
+        prompt <span class="token operator">=</span> output<span class="token punctuation">.</span>prompt
+        generated_text <span class="token operator">=</span> output<span class="token punctuation">.</span>outputs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>text
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Prompt: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>prompt<span class="token conversion-option punctuation">!r</span><span class="token punctuation">&#125;</span></span><span class="token string">, Generated text: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>generated_text<span class="token conversion-option punctuation">!r</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"-"</span> <span class="token operator">*</span> <span class="token number">80</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"="</span> <span class="token operator">*</span> <span class="token number">80</span><span class="token punctuation">)</span>
+
+<span class="token comment"># In this script, we demonstrate how to pass input to the chat method:</span>
+
+conversation <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"system"</span><span class="token punctuation">,</span>
+        <span class="token string">"content"</span><span class="token punctuation">:</span> <span class="token string">"You are a helpful assistant"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"user"</span><span class="token punctuation">,</span>
+        <span class="token string">"content"</span><span class="token punctuation">:</span> <span class="token string">"Hello"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"assistant"</span><span class="token punctuation">,</span>
+        <span class="token string">"content"</span><span class="token punctuation">:</span> <span class="token string">"Hello! How can I assist you today?"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"user"</span><span class="token punctuation">,</span>
+        <span class="token string">"content"</span><span class="token punctuation">:</span> <span class="token string">"Write an essay about the importance of higher education."</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+outputs <span class="token operator">=</span> llm<span class="token punctuation">.</span>chat<span class="token punctuation">(</span>conversation<span class="token punctuation">,</span>
+                   sampling_params<span class="token operator">=</span>sampling_params<span class="token punctuation">,</span>
+                   use_tqdm<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+print_outputs<span class="token punctuation">(</span>outputs<span class="token punctuation">)</span>
+
+<span class="token comment"># You can run batch inference with llm.chat API</span>
+conversation <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"system"</span><span class="token punctuation">,</span>
+        <span class="token string">"content"</span><span class="token punctuation">:</span> <span class="token string">"You are a helpful assistant"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"user"</span><span class="token punctuation">,</span>
+        <span class="token string">"content"</span><span class="token punctuation">:</span> <span class="token string">"Hello"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"assistant"</span><span class="token punctuation">,</span>
+        <span class="token string">"content"</span><span class="token punctuation">:</span> <span class="token string">"Hello! How can I assist you today?"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"user"</span><span class="token punctuation">,</span>
+        <span class="token string">"content"</span><span class="token punctuation">:</span> <span class="token string">"Write an essay about the importance of higher education."</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+conversations <span class="token operator">=</span> <span class="token punctuation">[</span>conversation <span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+<span class="token comment"># We turn on tqdm progress bar to verify it's indeed running batch inference</span>
+outputs <span class="token operator">=</span> llm<span class="token punctuation">.</span>chat<span class="token punctuation">(</span>messages<span class="token operator">=</span>conversations<span class="token punctuation">,</span>
+                   sampling_params<span class="token operator">=</span>sampling_params<span class="token punctuation">,</span>
+                   use_tqdm<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+print_outputs<span class="token punctuation">(</span>outputs<span class="token punctuation">)</span>
+
+<span class="token comment"># A chat template can be optionally supplied.</span>
+<span class="token comment"># If not, the model will use its default chat template.</span>
+
+<span class="token comment"># with open('template_falcon_180b.jinja', "r") as f:</span>
+<span class="token comment">#     chat_template = f.read()</span>
+
+<span class="token comment"># outputs = llm.chat(</span>
+<span class="token comment">#     conversations,</span>
+<span class="token comment">#     sampling_params=sampling_params,</span>
+<span class="token comment">#     use_tqdm=False,</span>
+<span class="token comment">#     chat_template=chat_template,</span>
+<span class="token comment"># )</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Reasoning-Outputs"><a href="#Reasoning-Outputs" class="headerlink" title="Reasoning Outputs"></a>Reasoning Outputs</h2><blockquote>
+<p>link: <a href="https://docs.vllm.ai/en/latest/features/reasoning_outputs.html">https://docs.vllm.ai/en/latest/features/reasoning_outputs.html</a></p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B <span class="token punctuation">\</span>
+    --enable-reasoning --reasoning-parser deepseek_r1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> openai <span class="token keyword">import</span> OpenAI
+
+<span class="token comment"># Modify OpenAI's API key and API base to use vLLM's API server.</span>
+openai_api_key <span class="token operator">=</span> <span class="token string">"EMPTY"</span>
+openai_api_base <span class="token operator">=</span> <span class="token string">"http://localhost:8000/v1"</span>
+
+client <span class="token operator">=</span> OpenAI<span class="token punctuation">(</span>
+    api_key<span class="token operator">=</span>openai_api_key<span class="token punctuation">,</span>
+    base_url<span class="token operator">=</span>openai_api_base<span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+models <span class="token operator">=</span> client<span class="token punctuation">.</span>models<span class="token punctuation">.</span><span class="token builtin">list</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+model <span class="token operator">=</span> models<span class="token punctuation">.</span>data<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token builtin">id</span>
+
+<span class="token comment"># Round 1</span>
+messages <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span><span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"user"</span><span class="token punctuation">,</span> <span class="token string">"content"</span><span class="token punctuation">:</span> <span class="token string">"9.11 and 9.8, which is greater?"</span><span class="token punctuation">&#125;</span><span class="token punctuation">]</span>
+response <span class="token operator">=</span> client<span class="token punctuation">.</span>chat<span class="token punctuation">.</span>completions<span class="token punctuation">.</span>create<span class="token punctuation">(</span>model<span class="token operator">=</span>model<span class="token punctuation">,</span> messages<span class="token operator">=</span>messages<span class="token punctuation">)</span>
+
+reasoning_content <span class="token operator">=</span> response<span class="token punctuation">.</span>choices<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>message<span class="token punctuation">.</span>reasoning_content
+content <span class="token operator">=</span> response<span class="token punctuation">.</span>choices<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>message<span class="token punctuation">.</span>content
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"reasoning_content:"</span><span class="token punctuation">,</span> reasoning_content<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"content:"</span><span class="token punctuation">,</span> content<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Basic-With-Model-Default-Sampling"><a href="#Basic-With-Model-Default-Sampling" class="headerlink" title="Basic With Model Default Sampling"></a>Basic With Model Default Sampling</h2><blockquote>
+<p>link: <a href="https://docs.vllm.ai/en/latest/getting_started/examples/basic_with_model_default_sampling.html">https://docs.vllm.ai/en/latest/getting_started/examples/basic_with_model_default_sampling.html</a></p>
+</blockquote>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># SPDX-License-Identifier: Apache-2.0</span>
+
+<span class="token keyword">from</span> vllm <span class="token keyword">import</span> LLM
+
+<span class="token comment"># Sample prompts.</span>
+prompts <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string">"Hello, my name is"</span><span class="token punctuation">,</span>
+    <span class="token string">"The president of the United States is"</span><span class="token punctuation">,</span>
+    <span class="token string">"The capital of France is"</span><span class="token punctuation">,</span>
+    <span class="token string">"The future of AI is"</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+
+<span class="token comment"># Create an LLM with built-in default generation config.</span>
+<span class="token comment"># The generation config is set to None by default to keep</span>
+<span class="token comment"># the behavior consistent with the previous version.</span>
+<span class="token comment"># If you want to use the default generation config from the model,</span>
+<span class="token comment"># you should set the generation_config to "auto".</span>
+llm <span class="token operator">=</span> LLM<span class="token punctuation">(</span>model<span class="token operator">=</span><span class="token string">"Qwen/Qwen2.5-0.5B-Instruct"</span><span class="token punctuation">,</span> generation_config<span class="token operator">=</span><span class="token string">"auto"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Load the default sampling parameters from the model.</span>
+sampling_params <span class="token operator">=</span> llm<span class="token punctuation">.</span>get_default_sampling_params<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment"># Modify the sampling parameters if needed.</span>
+sampling_params<span class="token punctuation">.</span>temperature <span class="token operator">=</span> <span class="token number">0.5</span>
+
+<span class="token comment"># Generate texts from the prompts. The output is a list of RequestOutput objects</span>
+<span class="token comment"># that contain the prompt, generated text, and other information.</span>
+outputs <span class="token operator">=</span> llm<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>prompts<span class="token punctuation">,</span> sampling_params<span class="token punctuation">)</span>
+<span class="token comment"># Print the outputs.</span>
+<span class="token keyword">for</span> output <span class="token keyword">in</span> outputs<span class="token punctuation">:</span>
+    prompt <span class="token operator">=</span> output<span class="token punctuation">.</span>prompt
+    generated_text <span class="token operator">=</span> output<span class="token punctuation">.</span>outputs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>text
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Prompt: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>prompt<span class="token conversion-option punctuation">!r</span><span class="token punctuation">&#125;</span></span><span class="token string">, Generated text: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>generated_text<span class="token conversion-option punctuation">!r</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="CPU-Offload"><a href="#CPU-Offload" class="headerlink" title="CPU Offload"></a>CPU Offload</h2><blockquote>
+<p>link: <a href="https://docs.vllm.ai/en/latest/getting_started/examples/cpu_offload.html">https://docs.vllm.ai/en/latest/getting_started/examples/cpu_offload.html</a></p>
+</blockquote>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># SPDX-License-Identifier: Apache-2.0</span>
+
+<span class="token keyword">from</span> vllm <span class="token keyword">import</span> LLM<span class="token punctuation">,</span> SamplingParams
+
+<span class="token comment"># Sample prompts.</span>
+prompts <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string">"Hello, my name is"</span><span class="token punctuation">,</span>
+    <span class="token string">"The president of the United States is"</span><span class="token punctuation">,</span>
+    <span class="token string">"The capital of France is"</span><span class="token punctuation">,</span>
+    <span class="token string">"The future of AI is"</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+<span class="token comment"># Create a sampling params object.</span>
+sampling_params <span class="token operator">=</span> SamplingParams<span class="token punctuation">(</span>temperature<span class="token operator">=</span><span class="token number">0.8</span><span class="token punctuation">,</span> top_p<span class="token operator">=</span><span class="token number">0.95</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Create an LLM.</span>
+llm <span class="token operator">=</span> LLM<span class="token punctuation">(</span>model<span class="token operator">=</span><span class="token string">"meta-llama/Llama-2-13b-chat-hf"</span><span class="token punctuation">,</span> cpu_offload_gb<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token comment"># Generate texts from the prompts. The output is a list of RequestOutput objects</span>
+<span class="token comment"># that contain the prompt, generated text, and other information.</span>
+outputs <span class="token operator">=</span> llm<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>prompts<span class="token punctuation">,</span> sampling_params<span class="token punctuation">)</span>
+<span class="token comment"># Print the outputs.</span>
+<span class="token keyword">for</span> output <span class="token keyword">in</span> outputs<span class="token punctuation">:</span>
+    prompt <span class="token operator">=</span> output<span class="token punctuation">.</span>prompt
+    generated_text <span class="token operator">=</span> output<span class="token punctuation">.</span>outputs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>text
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Prompt: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>prompt<span class="token conversion-option punctuation">!r</span><span class="token punctuation">&#125;</span></span><span class="token string">, Generated text: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>generated_text<span class="token conversion-option punctuation">!r</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="LoRA-Adapters"><a href="#LoRA-Adapters" class="headerlink" title="LoRA Adapters"></a>LoRA Adapters</h2><blockquote>
+<p>link: <a href="https://docs.vllm.ai/en/stable/features/lora.html">https://docs.vllm.ai/en/stable/features/lora.html</a></p>
+</blockquote>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> huggingface_hub <span class="token keyword">import</span> snapshot_download
+
+sql_lora_path <span class="token operator">=</span> snapshot_download<span class="token punctuation">(</span>repo_id<span class="token operator">=</span><span class="token string">"yard1/llama-2-7b-sql-lora-test"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">from</span> vllm <span class="token keyword">import</span> LLM<span class="token punctuation">,</span> SamplingParams
+<span class="token keyword">from</span> vllm<span class="token punctuation">.</span>lora<span class="token punctuation">.</span>request <span class="token keyword">import</span> LoRARequest
+
+llm <span class="token operator">=</span> LLM<span class="token punctuation">(</span>model<span class="token operator">=</span><span class="token string">"meta-llama/Llama-2-7b-hf"</span><span class="token punctuation">,</span> enable_lora<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+sampling_params <span class="token operator">=</span> SamplingParams<span class="token punctuation">(</span>
+    temperature<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>
+    max_tokens<span class="token operator">=</span><span class="token number">256</span><span class="token punctuation">,</span>
+    stop<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"[/assistant]"</span><span class="token punctuation">]</span>
+<span class="token punctuation">)</span>
+
+prompts <span class="token operator">=</span> <span class="token punctuation">[</span>
+     <span class="token string">"[user] Write a SQL query to answer the question based on the table schema.\n\n context: CREATE TABLE table_name_74 (icao VARCHAR, airport VARCHAR)\n\n question: Name the ICAO for lilongwe international airport [/user] [assistant]"</span><span class="token punctuation">,</span>
+     <span class="token string">"[user] Write a SQL query to answer the question based on the table schema.\n\n context: CREATE TABLE table_name_11 (nationality VARCHAR, elector VARCHAR)\n\n question: When Anchero Pantaleone was the elector what is under nationality? [/user] [assistant]"</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+
+outputs <span class="token operator">=</span> llm<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>
+    prompts<span class="token punctuation">,</span>
+    sampling_params<span class="token punctuation">,</span>
+    lora_request<span class="token operator">=</span>LoRARequest<span class="token punctuation">(</span><span class="token string">"sql_adapter"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> sql_lora_path<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="GGUF-Inference"><a href="#GGUF-Inference" class="headerlink" title="GGUF Inference"></a>GGUF Inference</h2><blockquote>
+<p>link: <a href="https://docs.vllm.ai/en/latest/getting_started/examples/gguf_inference.html">https://docs.vllm.ai/en/latest/getting_started/examples/gguf_inference.html</a></p>
+</blockquote>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># SPDX-License-Identifier: Apache-2.0</span>
+
+<span class="token keyword">from</span> huggingface_hub <span class="token keyword">import</span> hf_hub_download
+
+<span class="token keyword">from</span> vllm <span class="token keyword">import</span> LLM<span class="token punctuation">,</span> SamplingParams
+
+
+<span class="token keyword">def</span> <span class="token function">run_gguf_inference</span><span class="token punctuation">(</span>model_path<span class="token punctuation">,</span> tokenizer<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># Sample prompts.</span>
+    prompts <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token string">"How many helicopters can a human eat in one sitting?"</span><span class="token punctuation">,</span>
+        <span class="token string">"What's the future of AI?"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span>
+    prompts <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token punctuation">&#123;</span><span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"user"</span><span class="token punctuation">,</span> <span class="token string">"content"</span><span class="token punctuation">:</span> prompt<span class="token punctuation">&#125;</span><span class="token punctuation">]</span> <span class="token keyword">for</span> prompt <span class="token keyword">in</span> prompts<span class="token punctuation">]</span>
+    <span class="token comment"># Create a sampling params object.</span>
+    sampling_params <span class="token operator">=</span> SamplingParams<span class="token punctuation">(</span>temperature<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> max_tokens<span class="token operator">=</span><span class="token number">128</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># Create an LLM.</span>
+    llm <span class="token operator">=</span> LLM<span class="token punctuation">(</span>model<span class="token operator">=</span>model_path<span class="token punctuation">,</span> tokenizer<span class="token operator">=</span>tokenizer<span class="token punctuation">)</span>
+
+    outputs <span class="token operator">=</span> llm<span class="token punctuation">.</span>chat<span class="token punctuation">(</span>prompts<span class="token punctuation">,</span> sampling_params<span class="token punctuation">)</span>
+    <span class="token comment"># Print the outputs.</span>
+    <span class="token keyword">for</span> output <span class="token keyword">in</span> outputs<span class="token punctuation">:</span>
+        prompt <span class="token operator">=</span> output<span class="token punctuation">.</span>prompt
+        generated_text <span class="token operator">=</span> output<span class="token punctuation">.</span>outputs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>text
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Prompt: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>prompt<span class="token conversion-option punctuation">!r</span><span class="token punctuation">&#125;</span></span><span class="token string">, Generated text: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>generated_text<span class="token conversion-option punctuation">!r</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    repo_id <span class="token operator">=</span> <span class="token string">"bartowski/Phi-3-medium-4k-instruct-GGUF"</span>
+    filename <span class="token operator">=</span> <span class="token string">"Phi-3-medium-4k-instruct-IQ2_M.gguf"</span>
+    tokenizer <span class="token operator">=</span> <span class="token string">"microsoft/Phi-3-medium-4k-instruct"</span>
+    model <span class="token operator">=</span> hf_hub_download<span class="token punctuation">(</span>repo_id<span class="token punctuation">,</span> filename<span class="token operator">=</span>filename<span class="token punctuation">)</span>
+    run_gguf_inference<span class="token punctuation">(</span>model<span class="token punctuation">,</span> tokenizer<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Distributed"><a href="#Distributed" class="headerlink" title="Distributed"></a>Distributed</h2><blockquote>
+<p>link: <a href="https://docs.vllm.ai/en/latest/getting_started/examples/distributed.html">https://docs.vllm.ai/en/latest/getting_started/examples/distributed.html</a></p>
+</blockquote>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># SPDX-License-Identifier: Apache-2.0</span>
+<span class="token triple-quoted-string string">"""
+This example shows how to use Ray Data for running offline batch inference
+distributively on a multi-nodes cluster.
+
+Learn more about Ray Data in https://docs.ray.io/en/latest/data/data.html
+"""</span>
+
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> Any<span class="token punctuation">,</span> Dict<span class="token punctuation">,</span> List
+
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> ray
+<span class="token keyword">from</span> packaging<span class="token punctuation">.</span>version <span class="token keyword">import</span> Version
+<span class="token keyword">from</span> ray<span class="token punctuation">.</span>util<span class="token punctuation">.</span>scheduling_strategies <span class="token keyword">import</span> PlacementGroupSchedulingStrategy
+
+<span class="token keyword">from</span> vllm <span class="token keyword">import</span> LLM<span class="token punctuation">,</span> SamplingParams
+
+<span class="token keyword">assert</span> Version<span class="token punctuation">(</span>ray<span class="token punctuation">.</span>__version__<span class="token punctuation">)</span> <span class="token operator">>=</span> Version<span class="token punctuation">(</span>
+    <span class="token string">"2.22.0"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"Ray version must be at least 2.22.0"</span>
+
+<span class="token comment"># Create a sampling params object.</span>
+sampling_params <span class="token operator">=</span> SamplingParams<span class="token punctuation">(</span>temperature<span class="token operator">=</span><span class="token number">0.8</span><span class="token punctuation">,</span> top_p<span class="token operator">=</span><span class="token number">0.95</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Set tensor parallelism per instance.</span>
+tensor_parallel_size <span class="token operator">=</span> <span class="token number">1</span>
+
+<span class="token comment"># Set number of instances. Each instance will use tensor_parallel_size GPUs.</span>
+num_instances <span class="token operator">=</span> <span class="token number">1</span>
+
+
+<span class="token comment"># Create a class to do batch inference.</span>
+<span class="token keyword">class</span> <span class="token class-name">LLMPredictor</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># Create an LLM.</span>
+        self<span class="token punctuation">.</span>llm <span class="token operator">=</span> LLM<span class="token punctuation">(</span>model<span class="token operator">=</span><span class="token string">"meta-llama/Llama-2-7b-chat-hf"</span><span class="token punctuation">,</span>
+                       tensor_parallel_size<span class="token operator">=</span>tensor_parallel_size<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__call__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> batch<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>ndarray<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> <span class="token builtin">list</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token comment"># Generate texts from the prompts.</span>
+        <span class="token comment"># The output is a list of RequestOutput objects that contain the prompt,</span>
+        <span class="token comment"># generated text, and other information.</span>
+        outputs <span class="token operator">=</span> self<span class="token punctuation">.</span>llm<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>batch<span class="token punctuation">[</span><span class="token string">"text"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> sampling_params<span class="token punctuation">)</span>
+        prompt<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        generated_text<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> output <span class="token keyword">in</span> outputs<span class="token punctuation">:</span>
+            prompt<span class="token punctuation">.</span>append<span class="token punctuation">(</span>output<span class="token punctuation">.</span>prompt<span class="token punctuation">)</span>
+            generated_text<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">[</span>o<span class="token punctuation">.</span>text <span class="token keyword">for</span> o <span class="token keyword">in</span> output<span class="token punctuation">.</span>outputs<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+            <span class="token string">"prompt"</span><span class="token punctuation">:</span> prompt<span class="token punctuation">,</span>
+            <span class="token string">"generated_text"</span><span class="token punctuation">:</span> generated_text<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span>
+
+
+<span class="token comment"># Read one text file from S3. Ray Data supports reading multiple files</span>
+<span class="token comment"># from cloud storage (such as JSONL, Parquet, CSV, binary format).</span>
+ds <span class="token operator">=</span> ray<span class="token punctuation">.</span>data<span class="token punctuation">.</span>read_text<span class="token punctuation">(</span><span class="token string">"s3://anonymous@air-example-data/prompts.txt"</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># For tensor_parallel_size > 1, we need to create placement groups for vLLM</span>
+<span class="token comment"># to use. Every actor has to have its own placement group.</span>
+<span class="token keyword">def</span> <span class="token function">scheduling_strategy_fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># One bundle per tensor parallel worker</span>
+    pg <span class="token operator">=</span> ray<span class="token punctuation">.</span>util<span class="token punctuation">.</span>placement_group<span class="token punctuation">(</span>
+        <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>
+            <span class="token string">"GPU"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+            <span class="token string">"CPU"</span><span class="token punctuation">:</span> <span class="token number">1</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">]</span> <span class="token operator">*</span> tensor_parallel_size<span class="token punctuation">,</span>
+        strategy<span class="token operator">=</span><span class="token string">"STRICT_PACK"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token builtin">dict</span><span class="token punctuation">(</span>scheduling_strategy<span class="token operator">=</span>PlacementGroupSchedulingStrategy<span class="token punctuation">(</span>
+        pg<span class="token punctuation">,</span> placement_group_capture_child_tasks<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+resources_kwarg<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token keyword">if</span> tensor_parallel_size <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+    <span class="token comment"># For tensor_parallel_size == 1, we simply set num_gpus=1.</span>
+    resources_kwarg<span class="token punctuation">[</span><span class="token string">"num_gpus"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token comment"># Otherwise, we have to set num_gpus=0 and provide</span>
+    <span class="token comment"># a function that will create a placement group for</span>
+    <span class="token comment"># each instance.</span>
+    resources_kwarg<span class="token punctuation">[</span><span class="token string">"num_gpus"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
+    resources_kwarg<span class="token punctuation">[</span><span class="token string">"ray_remote_args_fn"</span><span class="token punctuation">]</span> <span class="token operator">=</span> scheduling_strategy_fn
+
+<span class="token comment"># Apply batch inference for all input data.</span>
+ds <span class="token operator">=</span> ds<span class="token punctuation">.</span>map_batches<span class="token punctuation">(</span>
+    LLMPredictor<span class="token punctuation">,</span>
+    <span class="token comment"># Set the concurrency to the number of LLM instances.</span>
+    concurrency<span class="token operator">=</span>num_instances<span class="token punctuation">,</span>
+    <span class="token comment"># Specify the batch size for inference.</span>
+    batch_size<span class="token operator">=</span><span class="token number">32</span><span class="token punctuation">,</span>
+    <span class="token operator">**</span>resources_kwarg<span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># Peek first 10 results.</span>
+<span class="token comment"># NOTE: This is for local testing and debugging. For production use case,</span>
+<span class="token comment"># one should write full result out as shown below.</span>
+outputs <span class="token operator">=</span> ds<span class="token punctuation">.</span>take<span class="token punctuation">(</span>limit<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> output <span class="token keyword">in</span> outputs<span class="token punctuation">:</span>
+    prompt <span class="token operator">=</span> output<span class="token punctuation">[</span><span class="token string">"prompt"</span><span class="token punctuation">]</span>
+    generated_text <span class="token operator">=</span> output<span class="token punctuation">[</span><span class="token string">"generated_text"</span><span class="token punctuation">]</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Prompt: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>prompt<span class="token conversion-option punctuation">!r</span><span class="token punctuation">&#125;</span></span><span class="token string">, Generated text: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>generated_text<span class="token conversion-option punctuation">!r</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+<span class="token comment"># Write inference output data out as Parquet files to S3.</span>
+<span class="token comment"># Multiple files would be written to the output destination,</span>
+<span class="token comment"># and each task would write one or more files separately.</span>
+<span class="token comment">#</span>
+<span class="token comment"># ds.write_parquet("s3://&lt;your-output-bucket>")</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="OpenAI-Compatible-Server"><a href="#OpenAI-Compatible-Server" class="headerlink" title="OpenAI-Compatible Server"></a>OpenAI-Compatible Server</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">"""
 $ pip install vllm
@@ -747,6 +1111,10 @@ chat_completion <span class="token operator">=</span> client<span class="token p
                             
                                 <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
                                     <span class="chip bg-color">大语言模型</span>
+                                </a>
+                            
+                                <a href="/tags/vllm/">
+                                    <span class="chip bg-color">vllm</span>
                                 </a>
                             
                         </div>
